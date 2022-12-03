@@ -81,7 +81,7 @@
             <div class="row align-items-center justify-content-lg-between">
               <div class="col-lg-6">
                 <div class="copyright text-center text-lg-left text-muted">
-                  &copy; 2019 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Power By WebTech</a>
+                  &copy; 2022 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Power By WebTech</a>
                 </div>
               </div>
             </div>
@@ -101,7 +101,7 @@
         });
     </script>
 
-   <script>
+   {{-- <script>
     $(document).ready(function () {
         $.noConflict();
         var table = $('#table_id').DataTable({
@@ -114,7 +114,7 @@
             }
         });
     });
-    </script>
+    </script> --}}
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
