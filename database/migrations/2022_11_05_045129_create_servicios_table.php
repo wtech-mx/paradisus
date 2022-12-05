@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->text('descripcion');
-            $table->float('precio');
-            $table->string('duracion');
-            $table->string('categoria');
-            $table->boolean('act_descuento');
-            $table->float('descuento');
+            $table->text('descripcion')->nullable();
+            $table->float('precio')->nullable();
+            $table->string('duracion')->nullable();
+            $table->string('categoria')->nullable();
+            $table->boolean('act_descuento')->nullable();
+            $table->float('descuento')->nullable();
             $table->string('color');
             $table->timestamps();
         });

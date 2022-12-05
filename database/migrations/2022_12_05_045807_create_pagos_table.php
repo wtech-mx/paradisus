@@ -20,10 +20,10 @@ return new class extends Migration
                 ->references('id')->on('notas')
                 ->inDelete('set null');
 
-            $table->date('fecha');
-            $table->float('pago');
-            $table->float('restante');
-            $table->string('forma_pago');
+            $table->date('fecha')->nullable();
+            $table->float('pago')->nullable();
+            $table->float('restante')->nullable();
+            $table->string('forma_pago')->nullable();
             $table->timestamps();
         });
     }

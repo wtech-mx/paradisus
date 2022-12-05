@@ -40,13 +40,7 @@
                                     <input id="categoria" name="categoria" type="text" class="form-control" placeholder="Categoria">@error('categoria') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
-                            <div class="col-1">
-                                <div class="form-group">
-                                    <label for="descuento"></label>
-                                    <input id="act_descuento" name="act_descuento" type="number" class="form-control" placeholder="Descuento">@error('descuento') <span class="error text-danger">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="descuento"></label>
                                     <input id="descuento" name="descuento" type="number" class="form-control" placeholder="Descuento">@error('descuento') <span class="error text-danger">{{ $message }}</span> @enderror
@@ -59,6 +53,10 @@
                                 </div>
                             </div>
                         </div>
+                            <div class="form-group" style="display: none">
+                                <label for="descuento"></label>
+                                <input id="act_descuento" name="act_descuento" type="number" class="form-control" placeholder="Descuento">@error('descuento') <span class="error text-danger">{{ $message }}</span> @enderror
+                            </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn close-btn" data-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>

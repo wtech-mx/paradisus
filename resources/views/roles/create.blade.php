@@ -66,7 +66,7 @@
                                 </div>
 
                             <br/>
-                            @include('roles.modal_update')
+                            {{-- @include('roles.modal_update') --}}
                             @endforeach
                         </div>
                     </div>

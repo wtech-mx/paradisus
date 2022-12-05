@@ -30,8 +30,8 @@ return new class extends Migration
                 ->references('id')->on('servicios')
                 ->inDelete('set null');
 
-            $table->date('fecha');
-            $table->text('nota');
+            $table->date('fecha')->nullable();
+            $table->text('nota')->nullable();
             $table->timestamps();
         });
     }

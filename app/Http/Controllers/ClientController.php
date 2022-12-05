@@ -30,17 +30,6 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $client = new Client();
-        return view('client.create', compact('client'));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -48,40 +37,22 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Client::$rules);
+        $this->validate($request, [
+            'name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'phone' => 'required'
+        ]);
 
-        $client = Client::create($request->all());
+        $input = $request->all();
+
+        $servicio = Client::create($input);
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('clients.index')
             ->with('success', 'Client created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $client = Client::find($id);
-
-        return view('client.show', compact('client'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $client = Client::find($id);
-
-        return view('client.edit', compact('client'));
-    }
 
     /**
      * Update the specified resource in storage.

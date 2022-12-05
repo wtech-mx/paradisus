@@ -39,19 +39,24 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('permisos', PermisosController::class);
     Route::resource('users', UserController::class);
-    Route::resource('clients', ClientController::class);
 
-    // =============== M O D U L O S  N O T A S ===============================
-    Route::get('/notas', [App\Http\Controllers\NotasController::class, 'index'])->name('notas.index');
-    Route::post('/notas/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
-    Route::patch('/notas/update', [App\Http\Controllers\NotasController::class, 'update'])->name('notas.update');
-    Route::delete('/notas/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
+    // =============== M O D U L O S  C L I E N T S ===============================
+    Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
+    Route::post('/clients/create', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
+    Route::patch('/clients/update', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
+    Route::delete('/clients/delete/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
 
     // =============== M O D U L O S  S E R V I C I O S ===============================
     Route::get('/servicios', [App\Http\Controllers\ServiciosController::class, 'index'])->name('servicio.index');
     Route::post('/servicios/create', [App\Http\Controllers\ServiciosController::class, 'store'])->name('servicio.store');
     Route::patch('/servicios/update/{id}', [App\Http\Controllers\ServiciosController::class, 'update'])->name('servicio.update');
     Route::delete('/servicios/delete/{id}', [App\Http\Controllers\ServiciosController::class, 'destroy'])->name('servicio.destroy');
+
+    // =============== M O D U L O S  N O T A S ===============================
+    Route::get('/notas', [App\Http\Controllers\NotasController::class, 'index'])->name('notas.index');
+    Route::post('/notas/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
+    Route::patch('/notas/update/{id}', [App\Http\Controllers\NotasController::class, 'update'])->name('notas.update');
+    Route::delete('/notas/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
 });
 
 //Route Hooks - Do not delete//

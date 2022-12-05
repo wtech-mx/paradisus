@@ -18,4 +18,17 @@ class Notas extends Model
         'fecha',
         'nota',
     ];
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+    public function Client()
+    {
+        return $this->belongsTo(Client::class, 'id_client');
+    }
+    public function Servicios()
+    {
+        return $this->belongsTo(Servicios::class, 'id_servicio');
+    }
 }

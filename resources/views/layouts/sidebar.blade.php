@@ -28,6 +28,11 @@
                     <span class="nav-link-text">Clientes</span>
                 </a>
 
+                <a class="nav-link {{ (Request::is('notas*') ? 'active' : '') }}" href="{{ route('notas.index') }}">
+                    <i class="ni ni-book-bookmark" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+                    <span class="nav-link-text">Notas</span>
+                </a>
+
               {{-- <a class="nav-link {{ (Request::is('especialists*') ? 'active' : '') }}" href="/especialists">
                 <i class="fa fa-user-md" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
                 <span class="nav-link-text">Especialistas</span>

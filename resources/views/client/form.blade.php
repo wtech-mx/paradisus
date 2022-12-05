@@ -48,6 +48,6 @@
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-5">
-           <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Submit</button>
+           <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
         </div>
 
