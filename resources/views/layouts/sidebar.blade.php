@@ -46,6 +46,10 @@
                   </li>
 
                   <li class="nav-item">
+                    <a href="{{ route('servicio.index') }}" class="nav-link {{ (Request::is('servicio*') ? 'show' : '') }}">Servicio</a>
+                  </li>
+
+                  <li class="nav-item">
                     <a href="{{ route('roles.index') }}" class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}">Role</a>
                   </li>
 
