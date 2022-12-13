@@ -18,4 +18,10 @@ class Pagos extends Model
         'pago',
         'forma_pago',
     ];
+
+    public function Notas()
+    {
+        return $this->belongsTo(Notas::class, 'id_nota');
+    }
+
 }

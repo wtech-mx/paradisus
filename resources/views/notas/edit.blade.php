@@ -16,7 +16,8 @@
                     <a data-toggle="tab" href="#pagoedit{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Pago</a>
                 </li>
                 <li class="nav-item">
-                   <strong><label style="color: #543325;margin-left: 20px;">Precio Servicio: {{ $notas->Servicios->precio }}</label></strong>
+                   <strong><label style="color: #543325;margin-left: 20px;">Precio Servicio: {{ $notas->Servicios->precio }}</label></strong> <br>
+
                 </li>
                 <li class="nav-item">
                     <strong><label style="color: #543325;margin-left: 20px;">Sesiones Servicio: {{ $notas->Servicios->num_sesiones }}</label></strong>
@@ -76,20 +77,38 @@
                                 <div class="col-3" style="background-color: #bb546c; color: #fff;">Num sesion</div>
                                 <div class="col-3" style="background-color: #bb546c; color: #fff;">Forma pago</div>
 
+
+                                <p style="display: none">{{ $resultado = 0; }}</p>
                                 @foreach ($pago as $item)
                                     @if ($item->id_nota == $notas->id)
+                                    <p style="display: none">{{ $resultado += $item->pago; }}</p>
                                     <div class="col-3 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
-                                            value="{{$item->fecha}}" disabled></div>
+                                            value="{{$item->fecha}}" disabled>
+                                    </div>
+
                                     <div class="col-3 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
                                             value="{{$item->pago}}" disabled></div>
                                     <div class="col-3 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
-                                        value="{{$item->num_sesion}}" disabled></div>
+                                        value="{{$item->num_sesion}}" disabled>
+                                    </div>
+
                                     <div class="col-3 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
-                                        value="{{$item->forma_pago}}" disabled></div>
+                                        value="{{$item->forma_pago}}" disabled>
+                                    </div>
                                     @endif
                                 @endforeach
+
                             </div>
                                 <div id="formulario" class="mt-4">
+                                    <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
+                                    @php
+                                        $servicio = $notas->Servicios->precio;
+                                        $resuletado_suma =$resultado;
+                                        $saldo_pendeinte = $servicio - $resuletado_suma;
+                                    @endphp
+                                    <h3><strong>Restante:</strong>  ${{ $saldo_pendeinte }} .00  MXN</h3>
+
+
                                     <label for="Material">Pago</label>
                                     <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
                                     <div class="clonars">
