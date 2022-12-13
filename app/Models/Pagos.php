@@ -16,7 +16,6 @@ class Pagos extends Model
         'id_nota',
         'fecha',
         'pago',
-        'restante',
         'forma_pago',
     ];
 }

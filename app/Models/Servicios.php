@@ -9,7 +9,7 @@ class Servicios extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    
+
     protected $table = 'servicios';
 
     protected $fillable = [
@@ -20,6 +20,7 @@ class Servicios extends Model
         'categoria',
         'act_descuento',
         'descuento',
+        'num_sesiones',
         'color',
     ];
 }

@@ -22,53 +22,57 @@
 
                         </div>
                     </div>
-
-                    <div class="card-body">
-                        @include('client.create')
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover table_id">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-
-										<th>Nombre</th>
-										<th>Apellido</th>
-										<th>Edad</th>
-										<th>Telefono</th>
-										<th>Email</th>
-
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($clients as $client)
-                                    @include('client.show')
-                                    @include('client.edit')
+                    @can('client-list')
+                        <div class="card-body">
+                            @include('client.create')
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table_id">
+                                    <thead class="thead">
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <th>No</th>
 
-											<td>{{ $client->name }}</td>
-											<td>{{ $client->last_name }}</td>
-											<td>{{ $client->age }}</td>
-											<td>{{ $client->phone }}</td>
-											<td>{{ $client->email }}</td>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Edad</th>
+                                            <th>Telefono</th>
+                                            <th>Email</th>
 
-                                            <td>
-
-                                                    <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
-                                                    <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$client->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
-                                                <form action="{{ route('clients.destroy',$client->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
-                                                </form>
-                                            </td>
+                                            <th>Acciones</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($clients as $client)
+                                        @include('client.show')
+                                        @include('client.edit')
+                                            <tr>
+                                                <td>{{ ++$i }}</td>
+
+                                                <td>{{ $client->name }}</td>
+                                                <td>{{ $client->last_name }}</td>
+                                                <td>{{ $client->age }}</td>
+                                                <td>{{ $client->phone }}</td>
+                                                <td>{{ $client->email }}</td>
+
+                                                <td>
+                                                        <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                    @can('client-edit')
+                                                        <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$client->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                    @endcan
+                                                    @can('client-delete')
+                                                        <form action="{{ route('clients.destroy',$client->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                        </form>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
                 {!! $clients->links() !!}
             </div>

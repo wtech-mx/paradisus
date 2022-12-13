@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('categoria')->nullable();
             $table->boolean('act_descuento')->nullable();
             $table->float('descuento')->nullable();
+            $table->float('num_sesiones')->nullable();
             $table->string('color');
             $table->timestamps();
         });

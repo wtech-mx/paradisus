@@ -140,7 +140,7 @@
   <!-- Demo JS - remove this in your project -->
   <script src="{{ asset('assets/js/demo.min.js') }}"></script>
 
-
+  @yield('script')
 
 </body>
 

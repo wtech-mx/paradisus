@@ -31,6 +31,7 @@ return new class extends Migration
                 ->inDelete('set null');
 
             $table->date('fecha')->nullable();
+            $table->float('restante')->nullable();
             $table->text('nota')->nullable();
             $table->timestamps();
         });

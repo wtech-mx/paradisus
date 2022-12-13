@@ -22,7 +22,8 @@ return new class extends Migration
 
             $table->date('fecha')->nullable();
             $table->float('pago')->nullable();
-            $table->float('restante')->nullable();
+
+            $table->float('num_sesion')->nullable();
             $table->string('forma_pago')->nullable();
             $table->timestamps();
         });

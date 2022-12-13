@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/roles/create', [App\Http\Controllers\RoleController::class, 'create'])->name('roles.create');
     Route::post('/roles/create', [App\Http\Controllers\RoleController::class, 'store'])->name('roles.store');
     Route::get('/roles/edit/{id}', [App\Http\Controllers\RoleController::class, 'edit'])->name('roles.edit');
-    Route::patch('/roles/update', [App\Http\Controllers\RoleController::class, 'update'])->name('update.roles');
+    Route::patch('/roles/update/{id}', [App\Http\Controllers\RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/delete/{id}', [App\Http\Controllers\RoleController::class, 'destroy'])->name('destroy.roles');
 
     Route::resource('permisos', PermisosController::class);

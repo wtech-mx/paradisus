@@ -17,6 +17,7 @@ class Notas extends Model
         'id_servicio',
         'fecha',
         'nota',
+        'restante',
     ];
 
     public function User()
@@ -30,5 +31,9 @@ class Notas extends Model
     public function Servicios()
     {
         return $this->belongsTo(Servicios::class, 'id_servicio');
+    }
+    public function Pagos()
+    {
+        return $this->hasMany('App\Models\Pagos', 'id_nota', 'id');
     }
 }

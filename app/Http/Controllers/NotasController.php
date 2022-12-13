@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Notas;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Pagos;
 use App\Models\Servicios;
 use Session;
 
@@ -22,8 +23,9 @@ class NotasController extends Controller
         $user = User::get();
         $client = Client::get();
         $servicio = Servicios::get();
+        $pago = Pagos::get();
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio'))
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago'))
             ->with('i', (request()->input('page', 1) - 1) * $nota->perPage());
     }
 
@@ -41,9 +43,34 @@ class NotasController extends Controller
             'id_servicio' => 'required'
         ]);
 
-        $input = $request->all();
+        $nota = new Notas;
+        $nota->id_user = auth()->id();
+        $nota->id_client = $request->get('id_client');
+        $nota->id_servicio = $request->get('id_servicio');
+        $nota->fecha = $request->get('fecha');
+        $nota->nota = $request->get('nota');
+        $nota->restante = $request->get('restante');
+        $nota->save();
 
-        $nota = Notas::create($input);
+        $fecha_pago = $request->get('fecha_pago');
+        $pago = $request->get('pago');
+        $num_sesion = $request->get('num_sesion');
+        $forma_pago = $request->get('forma_pago');
+
+        for ($count = 0; $count < count($fecha_pago); $count++) {
+            $data = array(
+                'id_nota' => $nota->id,
+                'fecha' => $fecha_pago[$count],
+                'pago' => $pago[$count],
+                'num_sesion' => $num_sesion[$count],
+                'forma_pago' => $forma_pago[$count],
+            );
+            $insert_data[] = $data;
+        }
+
+        Pagos::insert($insert_data);
+        // $restante = $nota->Servicios->precio - $data->pago;
+        // dd($restante);
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('notas.index')
@@ -79,9 +106,32 @@ class NotasController extends Controller
             'id_servicio' => 'required'
         ]);
 
-        $input = $request->all();
         $nota = Notas::find($id);
-        $nota->update($input);
+        $nota->id_user = auth()->id();
+        $nota->id_client = $request->get('id_client');
+        $nota->id_servicio = $request->get('id_servicio');
+        $nota->fecha = $request->get('fecha');
+        $nota->nota = $request->get('nota');
+        $nota->restante = $request->get('restante');
+        $nota->update();
+
+        $fecha_pago = $request->get('fecha_pago');
+        $pago = $request->get('pago');
+        $num_sesion = $request->get('num_sesion');
+        $forma_pago = $request->get('forma_pago');
+
+        for ($count = 0; $count < count($fecha_pago); $count++) {
+            $data = array(
+                'id_nota' => $nota->id,
+                'fecha' => $fecha_pago[$count],
+                'pago' => $pago[$count],
+                'num_sesion' => $num_sesion[$count],
+                'forma_pago' => $forma_pago[$count],
+            );
+            $insert_data[] = $data;
+        }
+
+        Pagos::insert($insert_data);
 
         return redirect()->route('notas.index')
         ->with('edit','nota Has Been updated successfully');

@@ -21,16 +21,22 @@
                             <textarea class="form-control" name="descripcion" id="descripcion" cols="10" rows="2" placeholder="Descripción">{{$servicios->descripcion}}</textarea>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="precio"></label>
                                     <input id="precio" name="precio" type="number" class="form-control" placeholder="Precio" value="{{$servicios->precio}}">
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="duracion"></label>
                                     <input id="duracion" name="duracion" type="text" class="form-control" placeholder="duracion" value="{{$servicios->duracion}}">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="num_sesiones"></label>
+                                    <input id="num_sesiones" name="num_sesiones" type="number" class="form-control" placeholder="num sesiones" value="{{$servicios->num_sesiones}}">
                                 </div>
                             </div>
                         </div>

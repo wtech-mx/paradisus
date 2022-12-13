@@ -20,16 +20,22 @@
                             <textarea class="form-control" name="descripcion" id="descripcion" cols="10" rows="2" placeholder="Descripción"></textarea>@error('descripcion') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="precio"></label>
                                     <input id="precio" name="precio" type="number" class="form-control" placeholder="Precio">@error('precio') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="duracion"></label>
                                     <input id="duracion" name="duracion" type="text" class="form-control" placeholder="duracion">@error('duracion') <span class="error text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="num_sesiones"></label>
+                                    <input id="num_sesiones" name="num_sesiones" type="number" class="form-control" placeholder="num sesiones">@error('num_sesiones') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

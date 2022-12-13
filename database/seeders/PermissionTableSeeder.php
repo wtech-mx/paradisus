@@ -22,7 +22,20 @@ class PermissionTableSeeder extends Seeder
            'client-list',
            'client-create',
            'client-edit',
-           'client-delete'
+           'client-delete',
+           'notas-list',
+           'notas-create',
+           'notas-edit',
+           'notas-delete',
+           'usuarios-list',
+           'usuarios-create',
+           'usuarios-edit',
+           'usuarios-delete',
+           'servicios-list',
+           'servicios-create',
+           'servicios-edit',
+           'servicios-delete',
+           'configuracion'
         ];
 
         foreach ($permissions as $permission) {
