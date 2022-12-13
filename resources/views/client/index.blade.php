@@ -56,7 +56,7 @@
                                                 <td>
                                                         <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
                                                     @can('client-edit')
-                                                        <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$client->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                        <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editClientModal{{$client->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
                                                     @endcan
                                                     @can('client-delete')
                                                         <form action="{{ route('clients.destroy',$client->id) }}" method="POST">

@@ -52,6 +52,7 @@
                                 <div class="form-group">
                                     <label for="birth_date">birth_date</label>
                                     <input disabled id="birth_date" name="birth_date" type="date" class="form-control" placeholder="birth_date" value="{{$client->birth_date}}">
+                                </div>
                             </div>
                         </div>
 
