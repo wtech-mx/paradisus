@@ -95,8 +95,10 @@
                             <div class="col-3" style="background-color: #212529; color: #fff;">Num sesion</div>
                             <div class="col-3" style="background-color: #212529; color: #fff;">Forma pago</div>
 
+                            <p style="display: none">{{ $resultado = 0; }}</p>
                             @foreach ($pago as $item)
                                 @if ($item->id_nota == $notas->id)
+                                <p style="display: none">{{ $resultado += $item->pago; }}</p>
                                 <div class="col-3"><input name="fecha_pago[]" type="date" class="form-control" id="fecha_pago[]"
                                         value="{{$item->fecha}}" disabled></div>
                                 <div class="col-3"><input name="pago[]" type="number" class="form-control" id="pago[]"
@@ -107,6 +109,18 @@
                                     value="{{$item->forma_pago}}" disabled></div>
                                 @endif
                             @endforeach
+
+                            <div class="col-12 mt-4">
+                                <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
+                            </div>
+                            @php
+                                $servicio = $notas->Servicios->precio;
+                                $resuletado_suma =$resultado;
+                                $saldo_pendeinte = $servicio - $resuletado_suma;
+                            @endphp
+                            <div class="col-12">
+                                <h3><strong>Restante:</strong>  ${{ $saldo_pendeinte }} .00  MXN</h3>
+                            </div>
                         </div>
                     </div>
 

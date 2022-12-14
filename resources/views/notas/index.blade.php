@@ -38,35 +38,67 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach ($nota as $notas)
-                                        @include('notas.show')
-                                        @include('notas.edit')
-                                            <tr>
-                                                <td>{{ ++$i }}</td>
+                                    @if (Auth::user()->hasRole('cosmetologa'))
+                                        <tbody>
+                                            @foreach ($nota_usuario as $notas)
+                                            @include('notas.show')
+                                            @include('notas.edit')
+                                                <tr>
+                                                    <td>{{ ++$i }}</td>
 
-                                                <td>{{ $notas->User->name }}</td>
-                                                <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
-                                                <td>{{ $notas->Servicios->nombre }}</td>
-                                                <td>{{ $notas->fecha }}</td>
+                                                    <td>{{ $notas->User->name }}</td>
+                                                    <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
+                                                    <td>{{ $notas->Servicios->nombre }}</td>
+                                                    <td>{{ $notas->fecha }}</td>
 
-                                                <td>
+                                                    <td>
 
-                                                        <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
-                                                        @can('notas-edit')
-                                                            <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
-                                                        @endcan
-                                                        @can('notas-delete')
-                                                            <form action="{{ route('notas.destroy',$notas->id) }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
-                                                            </form>
-                                                        @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
+                                                            <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                            @can('notas-edit')
+                                                                <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                            @endcan
+                                                            @can('notas-delete')
+                                                                <form action="{{ route('notas.destroy',$notas->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                                </form>
+                                                            @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    @else
+                                        <tbody>
+                                            @foreach ($nota as $notas)
+                                            @include('notas.show')
+                                            @include('notas.edit')
+                                                <tr>
+                                                    <td>{{ ++$i }}</td>
+
+                                                    <td>{{ $notas->User->name }}</td>
+                                                    <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
+                                                    <td>{{ $notas->Servicios->nombre }}</td>
+                                                    <td>{{ $notas->fecha }}</td>
+
+                                                    <td>
+
+                                                            <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                            @can('notas-edit')
+                                                                <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                            @endcan
+                                                            @can('notas-delete')
+                                                                <form action="{{ route('notas.destroy',$notas->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                                </form>
+                                                            @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    @endif
                                 </table>
                             </div>
                         </div>

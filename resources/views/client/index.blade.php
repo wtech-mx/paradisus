@@ -15,11 +15,11 @@
                             <span id="card_title">
                                 {{ __('Client') }}
                             </span>
-
-                            <div class="btn btn-sm" data-toggle="modal" data-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                Nuevo Cliente
-                            </div>
-
+                            @can('client-create')
+                                <div class="btn btn-sm" data-toggle="modal" data-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    Nuevo Cliente
+                                </div>
+                            @endcan
                         </div>
                     </div>
                     @can('client-list')

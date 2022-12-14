@@ -25,7 +25,9 @@ class NotasController extends Controller
         $servicio = Servicios::get();
         $pago = Pagos::get();
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago'))
+        $nota_usuario = Notas::where('id_user', '=', auth()->id())->get();
+
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_usuario'))
             ->with('i', (request()->input('page', 1) - 1) * $nota->perPage());
     }
 
@@ -44,7 +46,7 @@ class NotasController extends Controller
         ]);
 
         $nota = new Notas;
-        $nota->id_user = auth()->id();
+        $nota->id_user = $request->get('id_user');
         $nota->id_client = $request->get('id_client');
         $nota->id_servicio = $request->get('id_servicio');
         $nota->fecha = $request->get('fecha');
@@ -107,7 +109,7 @@ class NotasController extends Controller
         ]);
 
         $nota = Notas::find($id);
-        $nota->id_user = auth()->id();
+        $nota->id_user = $request->get('id_user');
         $nota->id_client = $request->get('id_client');
         $nota->id_servicio = $request->get('id_servicio');
         $nota->fecha = $request->get('fecha');
@@ -144,6 +146,12 @@ class NotasController extends Controller
      */
     public function destroy($id)
     {
+//         $pago = Pagos::where('id_nota', '=', $id)->delete();
+// dd($pago);
+        // for(){
+
+        // }
+
         $nota = Notas::find($id)->delete();
 
         Session::flash('delete', 'Se ha eliminado sus datos con exito');

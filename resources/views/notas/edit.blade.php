@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label for="nombre">Usuario</label>
                                 <select class="form-control input-edit-car" id="id_user" name="id_user"
-                                    value="{{ old('id_user') }}" required>
+                                    value="{{ old('id_user') }}" disabled>
                                     <option value="{{ $notas->id_user }}">{{ $notas->User->name }}</option>
                                     @foreach ($user as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="descripcion">Cliente</label>
                                 <select class="form-control input-edit-car" id="id_client" name="id_client"
-                                    value="{{ old('id_client') }}" required>
+                                    value="{{ old('id_client') }}" disabled>
                                     <option value="{{ $notas->id_client }}">{{ $notas->Client->name }} {{ $notas->Client->last_name }}</option>
                                     @foreach ($client as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <label for="precio">Servicio</label>
                                 <select class="form-control input-edit-car" id="id_servicio" name="id_servicio"
-                                    value="{{ old('id_servicio') }}" required>
+                                    value="{{ old('id_servicio') }}" disabled>
                                     <option value="{{ $notas->id_servicio }}">{{ $notas->Servicios->nombre }}</option>
                                     @foreach ($servicio as $item)
                                         <option value="{{ $item->id }}">{{ $item->nombre }}</option>
@@ -61,11 +61,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="fecha">Fecha y Hora</label>
-                                <input id="fecha" name="fecha" type="datetime-local" class="form-control" placeholder="fecha" value="{{$notas->fecha}}">
+                                <input id="fecha" name="fecha" type="datetime-local" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="nota">Nota</label>
-                                <textarea name="nota" id="nota" cols="10" rows="3" class="form-control">{{$notas->nota}}</textarea>
+                                <textarea name="nota" id="nota" cols="10" rows="3" class="form-control" disabled>{{$notas->nota}}</textarea>
                             </div>
                         </div>
 
@@ -75,7 +75,7 @@
                                 <div class="col-3" style="background-color: #bb546c; color: #fff;">Fecha</div>
                                 <div class="col-3" style="background-color: #bb546c; color: #fff;">Pago</div>
                                 <div class="col-3" style="background-color: #bb546c; color: #fff;">Num sesion</div>
-                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Forma pago</div>
+                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Metodo de pago</div>
 
 
                                 <p style="display: none">{{ $resultado = 0; }}</p>
