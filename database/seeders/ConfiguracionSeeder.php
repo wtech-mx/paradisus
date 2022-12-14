@@ -16,15 +16,15 @@ class ConfiguracionSeeder extends Seeder
     public function run()
     {
         $configuracion = Configuracion::create([
-            'nombre_sistema' => 'Sistema WebTech',
-            'color_principal' => '#46cda0',
-            'logo' => '62c7b5166ea00W-TECHBL6.png',
-            'favicon' => '62c7b5166f3b7LogosinF.png',
-            'color_iconos_sidebar' => '#5bb9e1',
-            'color_iconos_cards' => '#e61986',
-            'color_boton_add' => '#e6e02d',
-            'color_boton_save' => '#3fd73c',
-            'color_boton_close' => '#e60f0f',
+            'nombre_sistema' => 'Paradisus',
+            'color_principal' => '#d9819c',
+            'logo' => '63891f2fbd91b277248048_670190130923536_7018383830884135385_n__1_-removebg-preview.png',
+            'favicon' => '63891f2fbe1e5277248048_670190130923536_7018383830884135385_n__1_-removebg-preview.png',
+            'color_iconos_sidebar' => '#ca87a6',
+            'color_iconos_cards' => '#f7eaed',
+            'color_boton_add' => '#543325',
+            'color_boton_save' => '#bb546c',
+            'color_boton_close' => '#ddbba2',
         ]);
     }
 }
