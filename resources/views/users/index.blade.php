@@ -24,10 +24,11 @@
                     <thead class="thead-light">
                         <tr>
                         <th>No</th>
-                        <th>Name</th>
-                        <th>Email</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Puesto</th>
                         <th>Roles</th>
-                        <th width="280px">Action</th>
+                        <th width="280px">Acciones</th>
                         </tr>
                     </thead>
 
@@ -36,6 +37,7 @@
                             <td>{{ ++$i }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->puesto }}</td>
                             <td>
                             @if(!empty($user->getRoleNames()))
                                 @foreach($user->getRoleNames() as $v)
