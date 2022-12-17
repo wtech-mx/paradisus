@@ -53,10 +53,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/servicios/delete/{id}', [App\Http\Controllers\ServiciosController::class, 'destroy'])->name('servicio.destroy');
 
     // =============== M O D U L O S  N O T A S ===============================
-    Route::get('/notas', [App\Http\Controllers\NotasController::class, 'index'])->name('notas.index');
-    Route::post('/notas/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
-    Route::patch('/notas/update/{id}', [App\Http\Controllers\NotasController::class, 'update'])->name('notas.update');
-    Route::delete('/notas/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
+    Route::get('/notas/servicios', [App\Http\Controllers\NotasController::class, 'index'])->name('notas.index');
+    Route::post('/notas/servicios/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
+    Route::patch('/notas/servicios/update/{id}', [App\Http\Controllers\NotasController::class, 'update'])->name('notas.update');
+    Route::delete('/notas/servicios/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
+
+    // =============== M O D U L O S  N O T A S  P E D I D O S ===============================
+    Route::get('/notas/pedidos', [App\Http\Controllers\NotasPedidoController::class, 'index'])->name('notas_pedidos.index');
+    Route::post('/notas/pedidos/create', [App\Http\Controllers\NotasPedidoController::class, 'store'])->name('notas_pedidos.store');
+    Route::patch('/notas/pedidos/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update'])->name('notas_pedidos.update');
+    Route::delete('/notas/pedidos/delete/{id}', [App\Http\Controllers\NotasPedidoController::class, 'destroy'])->name('notas_pedidos.destroy');
 });
 
 //Route Hooks - Do not delete//
