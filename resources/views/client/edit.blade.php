@@ -8,7 +8,7 @@
                      <span aria-hidden="true close-btn">×</span>
                 </button>
             </div>
-            <form method="POST" action="{{ route('servicio.update', $client->id) }}" enctype="multipart/form-data" role="form">
+            <form method="POST" action="{{ route('clients.update', $client->id) }}" enctype="multipart/form-data" role="form">
                 @csrf
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="modal-body">
@@ -53,10 +53,15 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <label for="birth_date">birth_date</label>
+                                <label for="birth_date">Cumpleaños</label>
                                 <input id="birth_date" name="birth_date" type="date" class="form-control" placeholder="birth_date" value="{{$client->birth_date}}">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-btn" data-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
+                        <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Actualizar</button>
                     </div>
                 </div>
             </form>

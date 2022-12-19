@@ -25,9 +25,10 @@ class NotasController extends Controller
         $servicio = Servicios::get();
         $pago = Pagos::get();
 
+        $folio = Notas::orderBy('id', 'desc')->first();
         $nota_usuario = Notas::where('id_user', '=', auth()->id())->get();
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_usuario'))
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_usuario', 'folio'))
             ->with('i', (request()->input('page', 1) - 1) * $nota->perPage());
     }
 
@@ -45,14 +46,21 @@ class NotasController extends Controller
             'id_servicio' => 'required'
         ]);
 
-        $nota = new Notas;
-        $nota->id_user = $request->get('id_user');
-        $nota->id_client = $request->get('id_client');
-        $nota->id_servicio = $request->get('id_servicio');
-        $nota->fecha = $request->get('fecha');
-        $nota->nota = $request->get('nota');
-        $nota->restante = $request->get('restante');
-        $nota->save();
+        $id_user = $request->get('id_user');
+
+        for ($count = 0; $count < count($id_user); $count++) {
+            $data = array(
+                'id_user' => $id_user[$count],
+                'id_client' => $request->get('id_client'),
+                'id_servicio' => $request->get('id_servicio'),
+                'fecha' => $request->get('fecha'),
+                'nota' => $request->get('nota'),
+                'restante' => $request->get('restante'),
+            );
+            $insert_data2[] = $data;
+        }
+
+        Notas::insert($insert_data2);
 
         $fecha_pago = $request->get('fecha_pago');
         $pago = $request->get('pago');
@@ -61,7 +69,7 @@ class NotasController extends Controller
 
         for ($count = 0; $count < count($fecha_pago); $count++) {
             $data = array(
-                'id_nota' => $nota->id,
+                'id_nota' => $insert_data2->id,
                 'fecha' => $fecha_pago[$count],
                 'pago' => $pago[$count],
                 'num_sesion' => $num_sesion[$count],
@@ -157,5 +165,16 @@ class NotasController extends Controller
         Session::flash('delete', 'Se ha eliminado sus datos con exito');
         return redirect()->route('notas.index')
             ->with('success', 'nota deleted successfully');
+    }
+
+    public function usuario($id)
+    {
+        $notas_pedidos = Notas::where('id', '=', $id)
+        ->first();
+
+        $pago = Pagos::where('id_nota', '=', $id)
+        ->get();
+
+        return view('notas.nota_user', compact('notas_pedidos', 'pago'));
     }
 }

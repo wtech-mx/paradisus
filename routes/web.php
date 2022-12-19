@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O S  C L I E N T S ===============================
     Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
     Route::post('/clients/create', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
-    Route::patch('/clients/update', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
+    Route::patch('/clients/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
     Route::delete('/clients/delete/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
 
     // =============== M O D U L O S  S E R V I C I O S ===============================
@@ -64,6 +64,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('/notas/pedidos/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update'])->name('notas_pedidos.update');
     Route::delete('/notas/pedidos/delete/{id}', [App\Http\Controllers\NotasPedidoController::class, 'destroy'])->name('notas_pedidos.destroy');
 });
+
+Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
 
 //Route Hooks - Do not delete//
 Route::view('/especialists', 'livewire.especialists.index')->middleware('auth');

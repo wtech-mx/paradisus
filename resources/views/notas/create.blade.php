@@ -22,10 +22,9 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active show" id="home">
                             <div class="form-group">
-                                <label for="nombre">Usuario</label>
-                                <select class="form-control " id="id_user" name="id_user"
-                                    value="{{ old('submarca') }}" required>
-                                    <option>Seleccionar usuario</option>
+                                <label for="nombre">Seleccione Usuario</label>
+                                <select class="select2-multiple form-control" id="id_user[]" name="id_user[]" multiple="multiple" id="select2Multiple"
+                                    value="{{ old('submarca') }}" multiple="" data-live-search="true" required>
                                     @foreach ($user as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
