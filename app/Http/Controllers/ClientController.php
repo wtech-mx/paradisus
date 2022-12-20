@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Mediconesystems\LivewireDatatables\Column;
-use Mediconesystems\LivewireDatatables\NumberColumn;
-use Mediconesystems\LivewireDatatables\DateColumn;
-use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ClientImport;
 use Session;
 
 /**
@@ -85,5 +83,13 @@ class ClientController extends Controller
         Session::flash('delete', 'Se ha eliminado sus datos con exito');
         return redirect()->route('clients.index')
             ->with('success', 'Client deleted successfully');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $file = $request->file('file');
+        Excel::import(new Client, $file);
+
+        return back()->with('message', 'Importanción de usuarios completada');
     }
 }

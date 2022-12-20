@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('/clients/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
     Route::delete('/clients/delete/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
 
+    Route::post('/import-list-excel', [App\Http\Controllers\ClientController::class, 'importExcel'])->name('users.import.excel');
+
     // =============== M O D U L O S  S E R V I C I O S ===============================
     Route::get('/servicios', [App\Http\Controllers\ServiciosController::class, 'index'])->name('servicio.index');
     Route::post('/servicios/create', [App\Http\Controllers\ServiciosController::class, 'store'])->name('servicio.store');
