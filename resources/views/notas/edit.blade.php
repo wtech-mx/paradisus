@@ -113,37 +113,47 @@
                                     <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
                                     <div class="clonars">
                                         <div class="row">
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="fecha">Fecha</label>
                                                     <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control">
                                                 </div>
                                             </div>
 
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="pago">Pago</label>
                                                     <input  id="pago[]" name="pago[]" type="number" class="form-control">
                                                 </div>
                                             </div>
 
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="num_sesion">Num sesion</label>
                                                     <input  id="num_sesion[]" name="num_sesion[]" type="number" class="form-control">
                                                 </div>
                                             </div>
 
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="num_sesion">Metodo de pago</label>
-                                                    <select id="forma_pago[]" name="forma_pago[]" class="form-control">
+                                                    <select id="forma_pago[]" name="forma_pago[]" class="form-control col-md-6" style="position: absolute;">
                                                         <option value="Efectivo">Efectivo</option>
                                                         <option value="Transferencia">Transferencia</option>
                                                         <option value="Mercado Pago">Mercado Pago</option>
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="note">Nota</label>
+                                                    <textarea class="form-control" id="note[]" name="note[]" rows="2"></textarea>
+                                                </div>
+                                            </div>
+
+
+
                                         </div>
                                     </div>
                                 </div>

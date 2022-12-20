@@ -17,6 +17,7 @@ class Pagos extends Model
         'fecha',
         'pago',
         'forma_pago',
+        'nota',
     ];
 
     public function Notas()

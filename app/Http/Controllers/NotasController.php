@@ -54,11 +54,16 @@ class NotasController extends Controller
         $nota->nota = $request->get('nota');
         $nota->restante = $request->get('restante');
         $nota->save();
+        dd($nota->save());
+
 
         $fecha_pago = $request->get('fecha_pago');
         $pago = $request->get('pago');
         $num_sesion = $request->get('num_sesion');
         $forma_pago = $request->get('forma_pago');
+
+        $note = $request->get('nota');
+        dd($note);
 
         for ($count = 0; $count < count($fecha_pago); $count++) {
             $data = array(
@@ -67,6 +72,7 @@ class NotasController extends Controller
                 'pago' => $pago[$count],
                 'num_sesion' => $num_sesion[$count],
                 'forma_pago' => $forma_pago[$count],
+                'nota' => $note[$count],
             );
             $insert_data[] = $data;
         }

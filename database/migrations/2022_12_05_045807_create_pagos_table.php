@@ -25,6 +25,7 @@ return new class extends Migration
 
             $table->float('num_sesion')->nullable();
             $table->string('forma_pago')->nullable();
+            $table->string('nota')->nullable();
             $table->timestamps();
         });
     }

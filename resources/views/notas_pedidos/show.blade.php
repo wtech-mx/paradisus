@@ -36,9 +36,9 @@
                             <select disabled class="form-control input-edit-car" id="id_client" name="id_client"
                                 value="{{ old('id_client') }}" required>
                                 <option value="{{ $notas->id_client }}">{{ $notas->Client->name }} {{ $notas->Client->last_name }}</option>
-                                @foreach ($client as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                                @endforeach
+                                    @foreach ($client as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                    @endforeach
                             </select>
                         </div>
                         <div class="form-group">
