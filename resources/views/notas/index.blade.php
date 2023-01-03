@@ -46,7 +46,6 @@
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
 
-                                                    <td>{{ $notas->User->name }}</td>
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
                                                     <td>{{ $notas->Servicios->nombre }}</td>
                                                     <td>{{ $notas->fecha }}</td>
@@ -73,9 +72,8 @@
                                             @include('notas.show')
                                             @include('notas.edit')
                                                 <tr>
-                                                    <td>{{ ++$i }}</td>
+                                                    <td>{{ $notas->id }}</td>
 
-                                                    <td>{{ $notas->User->name }}</td>
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
                                                     <td>{{ $notas->Servicios->nombre }}</td>
                                                     <td>{{ $notas->fecha }}</td>

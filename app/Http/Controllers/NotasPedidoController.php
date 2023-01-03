@@ -8,6 +8,7 @@ use App\Models\Pedido;
 use App\Models\User;
 use Session;
 use Illuminate\Http\Request;
+use Product;
 
 class NotasPedidoController extends Controller
 {
@@ -22,8 +23,10 @@ class NotasPedidoController extends Controller
         $pedido = Pedido::paginate();
         $user = User::get();
         $client = Client::get();
+        $products = Product::get();
+        // dd($products);
 
-        return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido'))
+        return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido', 'products'))
             ->with('i', (request()->input('page', 1) - 1) * $nota_pedido->perPage());
     }
 

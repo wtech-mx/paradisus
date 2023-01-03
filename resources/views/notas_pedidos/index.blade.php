@@ -106,6 +106,10 @@ $('.clonar').click(function() {
   $clone.appendTo('#formulario');
 });
 
+    // Select 2
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
 
 // ============= Sumar inputs =============
 // function sumar (valor) {

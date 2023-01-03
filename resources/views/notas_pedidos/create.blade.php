@@ -23,7 +23,7 @@
                         <div class="tab-pane fade in active show" id="home">
                             <div class="form-group">
                                 <label for="nombre">Usuario</label>
-                                <select class="form-control input-edit-car" id="id_user" name="id_user"
+                                <select class="form-control" id="id_user" name="id_user"
                                     value="{{ old('id_user') }}" required>
                                     @foreach ($user as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Cliente</label>
-                                <select class="form-control input-edit-car" id="id_client" name="id_client"
+                                <select class="form-control js-example-basic-single" id="id_client" name="id_client"
                                     value="{{ old('id_client') }}" required>
                                     @foreach ($client as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
@@ -66,14 +66,15 @@
                                                 <input  id="cantidad[]" name="cantidad[]" type="number" class="form-control">
                                             </div>
                                         </div>
-
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label for="pago">Concepto</label>
-                                                <input  id="concepto[]" name="concepto[]" type="text" class="form-control">
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="descripcion">concepto</label>
+                                            <select class="form-control js-example-basic-single" id="concepto[]" name="concepto[]"
+                                                value="{{ old('concepto') }}" required>
+                                                @foreach ($products as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->price }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label for="num_sesion">Importe</label>

@@ -15,11 +15,6 @@ return new class extends Migration
     {
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')
-                ->references('id')->on('users')
-                ->inDelete('set null');
-
             $table->unsignedBigInteger('id_client');
             $table->foreign('id_client')
                 ->references('id')->on('clients')

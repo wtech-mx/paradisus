@@ -38,6 +38,11 @@
                     <span class="nav-link-text">Notas Pedidos</span>
                 </a>
 
+                <a class="nav-link {{ (Request::is('caja*') ? 'active' : '') }}" href="{{ route('caja.index') }}">
+                    <i class="ni ni-money-coins" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+                    <span class="nav-link-text">Caja</span>
+                </a>
+
               {{-- <a class="nav-link {{ (Request::is('especialists*') ? 'active' : '') }}" href="/especialists">
                 <i class="fa fa-user-md" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
                 <span class="nav-link-text">Especialistas</span>

@@ -40,31 +40,35 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('permisos', PermisosController::class);
     Route::resource('users', UserController::class);
 
-    // =============== M O D U L O S  C L I E N T S ===============================
+    // =============== M O D U L O   C L I E N T S ===============================
     Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
     Route::post('/clients/create', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
     Route::patch('/clients/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
     Route::delete('/clients/delete/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
 
-    Route::post('/import-list-excel', [App\Http\Controllers\ClientController::class, 'importExcel'])->name('users.import.excel');
-
-    // =============== M O D U L O S  S E R V I C I O S ===============================
+    // =============== M O D U L O   S E R V I C I O S ===============================
     Route::get('/servicios', [App\Http\Controllers\ServiciosController::class, 'index'])->name('servicio.index');
     Route::post('/servicios/create', [App\Http\Controllers\ServiciosController::class, 'store'])->name('servicio.store');
     Route::patch('/servicios/update/{id}', [App\Http\Controllers\ServiciosController::class, 'update'])->name('servicio.update');
     Route::delete('/servicios/delete/{id}', [App\Http\Controllers\ServiciosController::class, 'destroy'])->name('servicio.destroy');
 
-    // =============== M O D U L O S  N O T A S ===============================
+    // =============== M O D U L O   N O T A S ===============================
     Route::get('/notas/servicios', [App\Http\Controllers\NotasController::class, 'index'])->name('notas.index');
     Route::post('/notas/servicios/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
     Route::patch('/notas/servicios/update/{id}', [App\Http\Controllers\NotasController::class, 'update'])->name('notas.update');
     Route::delete('/notas/servicios/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
 
-    // =============== M O D U L O S  N O T A S  P E D I D O S ===============================
+    // =============== M O D U L O   N O T A S  P E D I D O S ===============================
     Route::get('/notas/pedidos', [App\Http\Controllers\NotasPedidoController::class, 'index'])->name('notas_pedidos.index');
     Route::post('/notas/pedidos/create', [App\Http\Controllers\NotasPedidoController::class, 'store'])->name('notas_pedidos.store');
     Route::patch('/notas/pedidos/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update'])->name('notas_pedidos.update');
     Route::delete('/notas/pedidos/delete/{id}', [App\Http\Controllers\NotasPedidoController::class, 'destroy'])->name('notas_pedidos.destroy');
+
+    // =============== M O D U L O   C A J A ===============================
+    Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
+    Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
+    Route::patch('/caja/update/{id}', [App\Http\Controllers\CajaController::class, 'update'])->name('caja.update');
+    Route::delete('/caja/delete/{id}', [App\Http\Controllers\CajaController::class, 'destroy'])->name('caja.destroy');
 });
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');

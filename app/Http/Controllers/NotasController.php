@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Notas;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\NotasCosmes;
 use App\Models\Pagos;
 use App\Models\Servicios;
 use Session;
@@ -26,9 +27,9 @@ class NotasController extends Controller
         $pago = Pagos::get();
 
         $folio = Notas::orderBy('id', 'desc')->first();
-        $nota_usuario = Notas::where('id_user', '=', auth()->id())->get();
+        $nota_cosme = NotasCosmes::get();
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_usuario', 'folio'))
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio'))
             ->with('i', (request()->input('page', 1) - 1) * $nota->perPage());
     }
 
@@ -46,24 +47,33 @@ class NotasController extends Controller
             'id_servicio' => 'required'
         ]);
 
+        $fechaActual = date('Y-m-d H:i:s');
         $nota = new Notas;
-        $nota->id_user = $request->get('id_user');
         $nota->id_client = $request->get('id_client');
         $nota->id_servicio = $request->get('id_servicio');
-        $nota->fecha = $request->get('fecha');
+        $nota->fecha = $fechaActual;
         $nota->nota = $request->get('nota');
         $nota->restante = $request->get('restante');
         $nota->save();
-        dd($nota->save());
 
+        $id_user = $request->get('id_user');
+
+        for ($count = 0; $count < count($id_user); $count++) {
+            $data = array(
+                'id_nota' => $nota->id,
+                'id_user' => $id_user[$count],
+            );
+            $insert_data2[] = $data;
+        }
+
+        NotasCosmes::insert($insert_data2);
 
         $fecha_pago = $request->get('fecha_pago');
         $pago = $request->get('pago');
         $num_sesion = $request->get('num_sesion');
         $forma_pago = $request->get('forma_pago');
 
-        $note = $request->get('nota');
-        dd($note);
+        $note = $request->get('nota2');
 
         for ($count = 0; $count < count($fecha_pago); $count++) {
             $data = array(

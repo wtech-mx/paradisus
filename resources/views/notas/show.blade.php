@@ -24,16 +24,14 @@
             </ul>
 
             <div class="modal-body">
-                <div class="tab-content">
+                <div class="tab-content"></div>
 
                     <div class="tab-pane fade in active show" id="servicio{{$notas->id}}">
                         <div class="form-group">
-                            <label for="nombre">Usuario</label>
-                            <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
-                                value="{{ old('id_user') }}" required>
-                                <option value="{{ $notas->id_user }}">{{ $notas->User->name }}</option>
-                                @foreach ($user as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <label for="nombre">Cosmetologas</label>
+                            <select disabled id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple">
+                                @foreach($nota_cosme as $item)
+                                <option value="{{$item->id }}" {{is_array($notas->id) && in_array($item->id_notas, $notas->id) ? 'selected' : '' }}> {{$item->User->name}}</option>
                                 @endforeach
                             </select>
                         </div>

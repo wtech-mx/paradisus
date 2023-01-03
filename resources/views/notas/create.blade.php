@@ -22,9 +22,9 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active show" id="home">
                             <div class="form-group">
-                                <label for="nombre">Seleccione Usuario</label>
-                                <select class="select2-multiple form-control" id="id_user[]" name="id_user[]"  id="select2Multiple"
-                                    value="{{ old('submarca') }}" data-live-search="true" required>
+                                <label for="nombre">Seleccione Cosmetologa</label>
+                                <select class="select2-multiple form-control " id="id_user[]" name="id_user[]" multiple="multiple" id="select2Multiple"
+                                    value="{{ old('submarca') }}" multiple="" data-live-search="true" required>
                                     @foreach ($user as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -49,10 +49,10 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="fecha">Fecha y hora</label>
                                 <input id="fecha" name="fecha" type="datetime-local" class="form-control">@error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="descuento">Nota</label>
                                 <textarea name="nota" id="nota" cols="10" rows="3" class="form-control"></textarea>
@@ -117,7 +117,7 @@
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label for="nota">Nota</label>
-                                                <textarea class="form-control" id="nota[]" name="nota[]" rows="2"></textarea>
+                                                <textarea class="form-control" id="nota2[]" name="nota2[]" rows="2"></textarea>
                                             </div>
                                         </div>
 

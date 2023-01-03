@@ -30,12 +30,10 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active show" id="servicioedit{{$notas->id}}">
                             <div class="form-group">
-                                <label for="nombre">Usuario</label>
-                                <select class="form-control input-edit-car" id="id_user" name="id_user"
-                                    value="{{ old('id_user') }}" disabled>
-                                    <option value="{{ $notas->id_user }}">{{ $notas->User->name }}</option>
-                                    @foreach ($user as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <label for="nombre">Cosmetologas</label>
+                                <select disabled id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple">
+                                    @foreach($nota_cosme as $item)
+                                    <option value="{{$item->id }}" {{is_array($notas->id) && in_array($item->id_notas, $notas->id) ? 'selected' : '' }}> {{$item->User->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -113,7 +111,7 @@
                                     <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
                                     <div class="clonars">
                                         <div class="row">
-                                            <div class="col-2">
+                                            <div class="col-3">
                                                 <div class="form-group">
                                                     <label for="fecha">Fecha</label>
                                                     <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control">
@@ -151,9 +149,6 @@
                                                     <textarea class="form-control" id="note[]" name="note[]" rows="2"></textarea>
                                                 </div>
                                             </div>
-
-
-
                                         </div>
                                     </div>
                                 </div>
