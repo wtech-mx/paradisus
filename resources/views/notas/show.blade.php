@@ -100,7 +100,7 @@
                         <div id="formulario" class="mt-4">
                             <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
 
-                            <h3><strong>Restante:</strong>  ${{$notas->id}} .00  MXN</h3>
+                            <h3><strong>Restante:</strong>  ${{$notas->restante}} .00  MXN</h3>
                         </div>
                     </div>
 

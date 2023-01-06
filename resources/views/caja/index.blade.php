@@ -37,10 +37,10 @@
             <div class="col-sm-6">
                 <div class="card bg-default">
                     <div class="card-body">
-                        <figure class="highcharts-figure">
-                            <div id="container"></div>
-                        </figure>
-                        @include('caja.grafica')
+                        <div class="chart">
+                            <!-- Chart wrapper -->
+                            <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         <div class="row">
                             {{-- =============== I N G R E S O S =============================== --}}
                             <div class="col-6">
-                                <div style="width: 18rem;">
+                                <div style="width: 13rem;">
                                     <div class="card card-stats">
                                         <div class="card-body">
                                             <div class="row">
@@ -80,7 +80,7 @@
                             </div>
                             {{-- =============== E G R E S O S =============================== --}}
                             <div class="col-6">
-                                <div style="width: 18rem;">
+                                <div style="width: 13rem;">
                                     <div class="card card-stats">
                                         <div class="card-body">
                                             <div class="row">

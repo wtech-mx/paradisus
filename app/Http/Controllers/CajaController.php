@@ -18,7 +18,7 @@ class CajaController extends Controller
         $caja = Caja::get();
         $pago = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Efectivo')->get();
         $pago_pedidos = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Efectivo')->get();
-        $caja_dia = CajaDia::get();
+        $caja_dia = CajaDia::where('fecha', '=', $fechaActual)->get();
 
         return view('caja.index', compact('caja', 'pago', 'caja_dia', 'pago_pedidos'));
     }

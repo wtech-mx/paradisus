@@ -23,10 +23,10 @@ class NotasPedidoController extends Controller
         $pedido = Pedido::paginate();
         $user = User::get();
         $client = Client::get();
-        $products = Product::get();
+        //$products = Product::get();
         // dd($products);
 
-        return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido', 'products'))
+        return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido'))
             ->with('i', (request()->input('page', 1) - 1) * $nota_pedido->perPage());
     }
 

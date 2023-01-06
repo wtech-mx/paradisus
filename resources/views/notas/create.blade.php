@@ -82,7 +82,7 @@
 
                                 <div class="clonars">
                                     <div class="row">
-                                        <div class="col-2">
+                                        <div class="col-3">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha</label>
                                                 <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control">
@@ -103,10 +103,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-3">
+                                        <div class="col-2">
                                             <div class="form-group">
-                                                <label for="num_sesion">Metodo de pago</label>
-                                                <select id="forma_pago[]" name="forma_pago[]" class="form-control col-md-6" style="position: absolute;">
+                                                <label for="num_sesion">Metodo Pago</label>
+                                                <select id="forma_pago[]" name="forma_pago[]" class="form-control">
                                                     <option value="Efectivo">Efectivo</option>
                                                     <option value="Transferencia">Transferencia</option>
                                                     <option value="Mercado Pago">Mercado Pago</option>
