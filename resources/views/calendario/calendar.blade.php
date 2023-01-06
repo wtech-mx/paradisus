@@ -122,7 +122,6 @@
                   $('#title').val(info.event.title);
                   $('#txtTelefono').val(info.event.extendedProps.telefono);
                   $('#color').val(info.event.backgroundColor);
-                  $('#color').val(info.event.extendedProps.color);
                   $('#descripcion').val(info.event.extendedProps.descripcion);
                   $('#estatus').val(info.event.extendedProps.estatus);
                   $('#check').val(info.event.extendedProps.check);
@@ -275,7 +274,6 @@
                     check:$('#check').val(),
                     image:$('#image').val(),
                     color:$('#color').val(),
-                    color:$('#color').val(),
                     start:$('#txtFecha').val()+" "+$('#txtHora').val(),
                     end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
                     '_token':$("meta[name='csrf-token']").attr("content"),
@@ -317,7 +315,6 @@
                   $('#txtTelefono').val("");
                   $('#txtHora').val("");
                   $('#txtHorafin').val("");
-                  $('#color').val("");
                   $('#color').val("");
                   $('#descripcion').val("");
                   $('#estatus').val("");

@@ -36,10 +36,10 @@
                       <input type="hidden" class="form-control" name="image" id="image">
                       <input class="form-control" type="hidden" name="estatus" id="estatus" >
 
-                      {{-- <div class="form-group col-12 mb-3">
+                      <div class="form-group col-12 mb-3">
                           <label for="">T&iacute;tulo</label>
                           <input class="form-control" type="text" name="title" id="title">
-                      </div> --}}
+                      </div>
 
                       <div class="form-group col-6 mb-3">
                          <label for="">Selecionar Paciente</label>

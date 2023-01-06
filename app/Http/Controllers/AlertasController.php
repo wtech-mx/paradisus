@@ -61,13 +61,15 @@ class AlertasController extends Controller
         $datosEvento->resource_id = $request->resource_id;
         $datosEvento->descripcion = $request->descripcion;
         $datosEvento->check = $request->check;
-        $datosEvento->color = $datosEvento->Servicios->color;
+        $color = '#ccc';
+        $datosEvento->color = $color
 
         if ( $datosEvento->end == $datosEvento->start){
             $now = date($datosEvento->end);
             $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now))); // $now + 3 hours
             $datosEvento->end = $new_time;
         }
+
 
         $datosEvento->save();
     }
@@ -115,9 +117,9 @@ class AlertasController extends Controller
         // }
     }
 
-    public function destroy_calendar($id)
-    {
-        Alertas::destroy($id);
-        return response()->json($id);
-    }
+//     public function destroy_calendar($id)
+//     {
+//         Alertas::destroy($id);
+//         return response()->json($id);
+//     }
 }
