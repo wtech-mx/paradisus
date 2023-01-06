@@ -20,7 +20,7 @@ class NotasController extends Controller
      */
     public function index()
     {
-        $nota = Notas::paginate();
+        $nota = Notas::get();
         $user = User::get();
         $client = Client::get();
         $servicio = Servicios::get();
@@ -29,8 +29,7 @@ class NotasController extends Controller
         $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio'))
-            ->with('i', (request()->input('page', 1) - 1) * $nota->perPage());
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio'));
     }
 
     /**
@@ -53,7 +52,6 @@ class NotasController extends Controller
         $nota->id_servicio = $request->get('id_servicio');
         $nota->fecha = $fechaActual;
         $nota->nota = $request->get('nota');
-        $nota->restante = $request->get('restante');
         $nota->save();
 
         $id_user = $request->get('id_user');
@@ -87,9 +85,14 @@ class NotasController extends Controller
             $insert_data[] = $data;
         }
 
-        Pagos::insert($insert_data);
-        // $restante = $nota->Servicios->precio - $data->pago;
-        // dd($restante);
+       Pagos::insert($insert_data);
+
+        $pago = Pagos::orderBy('id', 'desc')->first();
+        $restante = $nota->Servicios->precio - $pago->pago;
+        //  dd($pago->pago);
+        $nota_pago = Notas::find($nota->id);
+        $nota_pago->restante = $restante;
+        $nota_pago->update();
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('notas.index')
@@ -119,20 +122,14 @@ class NotasController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'id_user' => 'required',
-            'id_client' => 'required',
-            'id_servicio' => 'required'
-        ]);
 
         $nota = Notas::find($id);
-        $nota->id_user = $request->get('id_user');
-        $nota->id_client = $request->get('id_client');
-        $nota->id_servicio = $request->get('id_servicio');
-        $nota->fecha = $request->get('fecha');
-        $nota->nota = $request->get('nota');
-        $nota->restante = $request->get('restante');
-        $nota->update();
+        // $nota->id_user = $request->get('id_user');
+        // $nota->id_client = $request->get('id_client');
+        // $nota->id_servicio = $request->get('id_servicio');
+        // $nota->fecha = $request->get('fecha');
+        // $nota->nota = $request->get('nota');
+        // $nota->update();
 
         $fecha_pago = $request->get('fecha_pago');
         $pago = $request->get('pago');
@@ -151,6 +148,13 @@ class NotasController extends Controller
         }
 
         Pagos::insert($insert_data);
+
+        $pago = Pagos::orderBy('id', 'desc')->first();
+        $restante = $nota->restante - $pago->pago;
+
+        $nota_pago = Notas::find($nota->id);
+        $nota_pago->restante = $restante;
+        $nota_pago->update();
 
         return redirect()->route('notas.index')
         ->with('edit','nota Has Been updated successfully');

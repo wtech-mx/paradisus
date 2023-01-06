@@ -12,9 +12,13 @@
             @php
                 $total_ingreso = 0;
                 foreach ($pago as $item){
-                    $total_ingreso = $total_ingreso + $item->pago;
+                    $pago_total = $total_ingreso + $item->pago;
+                }
+                foreach ($pago_pedidos as $item){
+                    $pedidos_total = $total_ingreso + $item->total;
                 }
 
+                $total_ingreso = $pago_total + $pedidos_total;
                 $total_egresos = 0;
                 foreach ($caja_dia as $item){
                     $total_egresos = $total_egresos + $item->egresos;

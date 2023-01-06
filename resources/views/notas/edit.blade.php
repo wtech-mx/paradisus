@@ -28,12 +28,15 @@
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="modal-body">
                     <div class="tab-content">
+
                         <div class="tab-pane fade in active show" id="servicioedit{{$notas->id}}">
                             <div class="form-group">
                                 <label for="nombre">Cosmetologas</label>
                                 <select disabled id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple">
                                     @foreach($nota_cosme as $item)
-                                    <option value="{{$item->id }}" {{is_array($notas->id) && in_array($item->id_notas, $notas->id) ? 'selected' : '' }}> {{$item->User->name}}</option>
+                                        @if ($item->id_nota == $notas->id)
+                                            <option value="{{$item->id }}">{{$item->User->name}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -99,12 +102,7 @@
                             </div>
                                 <div id="formulario" class="mt-4">
                                     <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
-                                    @php
-                                        $servicio = $notas->Servicios->precio;
-                                        $resuletado_suma =$resultado;
-                                        $saldo_pendeinte = $servicio - $resuletado_suma;
-                                    @endphp
-                                    <h3><strong>Restante:</strong>  ${{ $saldo_pendeinte }} .00  MXN</h3>
+                                    <h3><strong>Restante:</strong>  ${{$notas->restante}} .00  MXN</h3>
 
 
                                     <label for="Material">Pago</label>
@@ -134,8 +132,8 @@
 
                                             <div class="col-2">
                                                 <div class="form-group">
-                                                    <label for="num_sesion">Metodo de pago</label>
-                                                    <select id="forma_pago[]" name="forma_pago[]" class="form-control col-md-6" style="position: absolute;">
+                                                    <label for="num_sesion">Metodo Pago</label>
+                                                    <select id="forma_pago[]" name="forma_pago[]" class="form-control" >
                                                         <option value="Efectivo">Efectivo</option>
                                                         <option value="Transferencia">Transferencia</option>
                                                         <option value="Mercado Pago">Mercado Pago</option>

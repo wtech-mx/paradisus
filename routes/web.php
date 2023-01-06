@@ -69,6 +69,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
     Route::patch('/caja/update/{id}', [App\Http\Controllers\CajaController::class, 'update'])->name('caja.update');
     Route::delete('/caja/delete/{id}', [App\Http\Controllers\CajaController::class, 'destroy'])->name('caja.destroy');
+
+    // =============== M O D U L O   C A L E N D A R I O ===============================
+    Route::get('calendar', [AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
+    Route::post('calendar', [AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');
+    Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
+    Route::patch('calendar/destroy/{id}', [AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
+    Route::patch('calendar/update/{id}', [AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
 });
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');

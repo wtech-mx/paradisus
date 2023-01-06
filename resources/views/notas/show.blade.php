@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="showDataModalLabel">Ver notas</h5>
+                <h5 class="modal-title" id="showDataModalLabel">Ver nota</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true close-btn">×</span>
                 </button>
@@ -24,14 +24,16 @@
             </ul>
 
             <div class="modal-body">
-                <div class="tab-content"></div>
+                <div class="tab-content">
 
                     <div class="tab-pane fade in active show" id="servicio{{$notas->id}}">
                         <div class="form-group">
                             <label for="nombre">Cosmetologas</label>
                             <select disabled id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple">
                                 @foreach($nota_cosme as $item)
-                                <option value="{{$item->id }}" {{is_array($notas->id) && in_array($item->id_notas, $notas->id) ? 'selected' : '' }}> {{$item->User->name}}</option>
+                                    @if ($item->id_nota == $notas->id)
+                                        <option value="{{$item->id }}">{{$item->User->name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -66,59 +68,39 @@
                     </div>
 
                     <div class="tab-pane fade" id="pago{{$notas->id}}" >
-                        <div class="row" style="display: none">
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="nombre">Precio Servicio</label>
-                                    <input type="number" class="form-control" value="{{ $notas->Servicios->precio }}">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="nombre">Sesiones Restantes</label>
-                                    <input type="number" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="nombre">Debe</label>
-                                    <input type="number" class="form-control" value="{{ $notas->Servicios->precio }}">
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row mt-4">
-                            <div class="col-3" style="background-color: #212529; color: #fff;">Fecha</div>
-                            <div class="col-3" style="background-color: #212529; color: #fff;">Pago</div>
-                            <div class="col-3" style="background-color: #212529; color: #fff;">Num sesion</div>
-                            <div class="col-3" style="background-color: #212529; color: #fff;">Forma pago</div>
+                        <div class="row text-center">
+                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Fecha</div>
+                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Pago</div>
+                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Num sesion</div>
+                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Metodo de pago</div>
+
 
                             <p style="display: none">{{ $resultado = 0; }}</p>
                             @foreach ($pago as $item)
                                 @if ($item->id_nota == $notas->id)
                                 <p style="display: none">{{ $resultado += $item->pago; }}</p>
-                                <div class="col-3"><input name="fecha_pago[]" type="date" class="form-control" id="fecha_pago[]"
-                                        value="{{$item->fecha}}" disabled></div>
-                                <div class="col-3"><input name="pago[]" type="number" class="form-control" id="pago[]"
+                                <div class="col-3 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
+                                        value="{{$item->fecha}}" disabled>
+                                </div>
+
+                                <div class="col-3 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
                                         value="{{$item->pago}}" disabled></div>
-                                <div class="col-3"><input name="num_sesion[]" type="number" class="form-control" id="num_sesion[]"
-                                    value="{{$item->num_sesion}}" disabled></div>
-                                <div class="col-3"><input name="forma_pago[]" type="text" class="form-control" id="forma_pago[]"
-                                    value="{{$item->forma_pago}}" disabled></div>
+                                <div class="col-3 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
+                                    value="{{$item->num_sesion}}" disabled>
+                                </div>
+
+                                <div class="col-3 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
+                                    value="{{$item->forma_pago}}" disabled>
+                                </div>
                                 @endif
                             @endforeach
 
-                            <div class="col-12 mt-4">
-                                <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
-                            </div>
-                            @php
-                                $servicio = $notas->Servicios->precio;
-                                $resuletado_suma =$resultado;
-                                $saldo_pendeinte = $servicio - $resuletado_suma;
-                            @endphp
-                            <div class="col-12">
-                                <h3><strong>Restante:</strong>  ${{ $saldo_pendeinte }} .00  MXN</h3>
-                            </div>
+                        </div>
+                        <div id="formulario" class="mt-4">
+                            <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
+
+                            <h3><strong>Restante:</strong>  ${{$notas->id}} .00  MXN</h3>
                         </div>
                     </div>
 

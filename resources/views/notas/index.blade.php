@@ -34,7 +34,7 @@
                                             <th>Usuario</th>
                                             <th>Cliente</th>
                                             <th>Servicio</th>
-                                            <th>Fecha</th>
+                                            <th>Estatus</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -45,7 +45,13 @@
                                             @include('notas.edit')
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
-
+                                                    <td>
+                                                        @foreach($nota_cosme as $item)
+                                                            @if ($item->id_nota == $notas->id)
+                                                                {{$item->User->name}}
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
                                                     <td>{{ $notas->Servicios->nombre }}</td>
                                                     <td>{{ $notas->fecha }}</td>
@@ -73,16 +79,26 @@
                                             @include('notas.edit')
                                                 <tr>
                                                     <td>{{ $notas->id }}</td>
-
+                                                    <td>
+                                                        @foreach($nota_cosme as $item)
+                                                            @if ($item->id_nota == $notas->id)
+                                                               <b> {{$item->User->name}}</b><br>
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
                                                     <td>{{ $notas->Servicios->nombre }}</td>
-                                                    <td>{{ $notas->fecha }}</td>
+                                                    @if ($notas->restante == 0)
+                                                    <td> <label class="badge badge-success" style="font-size: 13px;">Pagado</label> </td>
+                                                    @else
+                                                    <td> <label class="badge badge-danger" style="font-size: 15px;">${{ $notas->restante }}</label> </td>
+                                                    @endif
 
                                                     <td>
                                                         <a type="button" class="btn btn-sm" target="_blank"
                                                         href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20de%20servicio:%20%22{{ $notas->Servicios->nombre }}%22%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
                                                         style="background: #00BB2D; color: #ffff">
-                                                        <i class="fa fa-fw fa-whatsapp"></i> WhatsApp</a>
+                                                        <i class="ni ni-chat-round"></i> Whats</a>
                                                             <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
                                                             @can('notas-edit')
                                                                 <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
@@ -104,7 +120,7 @@
                         </div>
                     @endcan
                 </div>
-                {!! $nota->links() !!}
+
             </div>
         </div>
     </div>

@@ -94,5 +94,7 @@
 @endsection
 
 @section('content')
-
+    {{--calednarioi--}}
+    @include('calendario.calendar')
+    {{--calednarioi--}}
 @endsection
