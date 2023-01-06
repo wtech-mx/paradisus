@@ -4,6 +4,11 @@
     Caja
 @endsection
 
+@section('script')
+<script src="{{ asset('assets/js/highcharts.js') }}"></script>
+<script src="{{ asset('assets/js/highcharts-3d.js') }}"></script>
+@endsection
+
 @section('content')
 
 
@@ -11,9 +16,11 @@
         <div class="row">
             @php
                 $total_ingreso = 0;
+                $pago_total = 0;
                 foreach ($pago as $item){
                     $pago_total = $total_ingreso + $item->pago;
                 }
+                $pedidos_total = 0;
                 foreach ($pago_pedidos as $item){
                     $pedidos_total = $total_ingreso + $item->total;
                 }
@@ -138,6 +145,7 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>Fecha</th>
+                                            <th>Tipo</th>
                                             <th>Num Nota</th>
                                             <th>Monto</th>
                                         </tr>
@@ -146,9 +154,17 @@
                                         @foreach ($pago as $item)
                                             <tr>
                                                 <td>{{ $item->fecha }}</td>
+                                                <td> <label class="badge" style="color: #7500e3;background-color: #7500e36c;">Nota Servicio</label> </td>
                                                 <td>{{ $item->id_nota }}</td>
                                                 <td>${{ $item->pago }}</td>
-
+                                            </tr>
+                                        @endforeach
+                                        @foreach ($pago_pedidos as $item)
+                                            <tr>
+                                                <td>{{ $item->fecha }}</td>
+                                                <td> <label class="badge" style="color: #004fe3;background-color: #0062e36c;">Nota Pedido</label> </td>
+                                                <td>{{ $item->id }}</td>
+                                                <td>${{ $item->total }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
