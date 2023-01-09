@@ -4,6 +4,10 @@
     Configuracion
 @endsection
 
+@section('page_actuality')
+Configuracion
+@endsection
+
 @section('content')
 
 <div class="container-fluid mt-3">
@@ -12,6 +16,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header">
+                @include('layouts.simple_alert')
               <h3 class="mb-3">Configuracion Sistema</h3>
             </div>
 

@@ -12,7 +12,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h3 class="mb-3">Users Management</h3>
+              <h3 class="mb-3">Usuarios</h3>
               @can('usuarios-create')
                 <a class="btn" href="{{ route('users.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">Crear usuario</a>
               @endcan
