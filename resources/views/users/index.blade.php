@@ -11,16 +11,22 @@
         <div class="col">
           <div class="card">
             <!-- Card header -->
+
+
             <div class="card-header">
-              <h3 class="mb-3">Usuarios</h3>
-              @can('usuarios-create')
-                <a class="btn" href="{{ route('users.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">Crear usuario</a>
-              @endcan
+                <div class="d-flex justify-content-between">
+                    <h3 class="mb-3">Usuarios</h3>
+
+                    @can('usuarios-create')
+                    <a class="btn" href="{{ route('users.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">Crear usuario</a>
+                    @endcan
+
+                </div>
             </div>
 
             @can('usuarios-create')
-                <div class="table-responsive py-4" style="">
-                <table class="table table-flush table_id" id="datatable-basic" >
+            <div class="table-responsive">
+                <table class="table table-flush" id="datatable-search">
                     <thead class="thead-light">
                         <tr>
                         <th>No</th>
@@ -46,27 +52,19 @@
                             @endif
                             </td>
 
-                            <td class="text-right">
-                            <div class="dropdown ">
-                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                <a class="dropdown-item" href="{{ route('users.show',$user->id) }}">
-                                    Ver
-                                </a>
+                            <td>
+
+                                <a class="btn btn-sm btn-primary " href="{{ route('users.show',$user->id) }}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> </a>
                                 @can('usuarios-edit')
-                                    <a class="dropdown-item" href="{{ route('users.edit',$user->id) }}">
-                                        Editar
-                                    </a>
+                                <a class="btn btn-sm btn-success" href="{{ route('users.edit',$user->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                 @endcan
+
                                 @can('usuarios-delete')
-                                    {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
+                                    {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                     {!! Form::close() !!}
                                 @endcan
-                                </div>
-                            </div>
+
                             </td>
 
                         </tr>
@@ -81,6 +79,15 @@
       </div>
 </div>
 
-{!! $data->render() !!}
+@endsection
+
+@section('datatable')
+
+<script>
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      searchable: true,
+      fixedHeight: true
+    });
+</script>
 
 @endsection

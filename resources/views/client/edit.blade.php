@@ -1,11 +1,11 @@
 <!-- Modal -->
-<div class="modal fade" id="editClientModal{{$client->id}}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="editDataModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal fade" id="editClientModal{{$client->id}}" tabindex="-1" role="dialog" aria-labelledby="editClientModal{{$client->id}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editDataModalLabel">Editar Cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
             <form method="POST" action="{{ route('clients.update', $client->id) }}" enctype="multipart/form-data" role="form">

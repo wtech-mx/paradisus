@@ -9,35 +9,40 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
+
                     <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        @if(Session::has('message'))
+                        <p>{{ Session::get('message') }}</p>
+                        @endif
 
-                            <span id="card_title">
-                                {{ __('Client') }}
-                            </span>
+                        <div class="d-flex justify-content-between">
+
+
+                            <h3 class="mb-3">Clientes</h3>
+
                             @can('client-create')
-                                <div class="btn btn-sm" data-toggle="modal" data-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    Nuevo Cliente
-                                </div>
+                                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    <i class="fa fa-plus"></i>
+                                    Crear cliente
+                                </a>
                             @endcan
-                            <form action="{{ route('users.import.excel') }}" method="post" enctype="multipart/form-data">
-                                @csrf
 
-                                @if(Session::has('message'))
-                                <p>{{ Session::get('message') }}</p>
-                                @endif
+                            <form action="" method="post" enctype="multipart/form-data">
+                                @csrf
 
                                 <input type="file" name="file">
 
                                 <button>Importar Usuarios</button>
                             </form>
+
                         </div>
                     </div>
+
                     @can('client-list')
                         <div class="card-body">
                             @include('client.create')
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover table_id">
+                                <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
@@ -65,15 +70,15 @@
                                                 <td>{{ $client->email }}</td>
 
                                                 <td>
-                                                        <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                    <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
                                                     @can('client-edit')
-                                                        <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editClientModal{{$client->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                        <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
                                                     @endcan
                                                     @can('client-delete')
-                                                        <form action="{{ route('clients.destroy',$client->id) }}" method="POST">
+                                                        <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display: contents">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
                                                         </form>
                                                     @endcan
                                                 </td>
@@ -85,8 +90,18 @@
                         </div>
                     @endcan
                 </div>
-                {!! $clients->links() !!}
             </div>
         </div>
     </div>
+@endsection
+
+@section('datatable')
+
+<script>
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      searchable: true,
+      fixedHeight: true
+    });
+</script>
+
 @endsection

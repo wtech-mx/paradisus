@@ -10,23 +10,27 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        @if(Session::has('message'))
+                        <p>{{ Session::get('message') }}</p>
+                        @endif
 
-                            <span id="card_title">
-                                Notas Pedidos
-                            </span>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="mb-3">Notas Pedidos</h3>
+
                             @can('notas-create')
-                                <div class="btn btn-sm" data-toggle="modal" data-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    Nueva Nota
-                                </div>
+                                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    <i class="fa fa-plus"></i>
+                                    Crear cliente
+                                </a>
                             @endcan
                         </div>
                     </div>
+
                     @can('notas-list')
                         <div class="card-body">
                             @include('notas_pedidos.create')
                             <div class="table-responsive">
-                                <table class="table table-flush table_id" id="datatable-basic">
+                                <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
@@ -60,16 +64,17 @@
                                                     <td>{{ $notas->fecha }}</td>
 
                                                     <td>
-
-                                                            <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                            <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
                                                             @can('notas-edit')
-                                                                <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                                <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
+
                                                             @endcan
+
                                                             @can('notas-delete')
-                                                                <form action="{{ route('notas.destroy',$notas->id) }}" method="POST">
+                                                                <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
                                                                 </form>
                                                             @endcan
                                                     </td>
@@ -81,12 +86,26 @@
                         </div>
                     @endcan
                 </div>
-                {!! $nota_pedido->links() !!}
+
             </div>
         </div>
     </div>
 @endsection
-@section('script')
+
+@section('datatable')
+
+<script>
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      searchable: true,
+      fixedHeight: true
+    });
+</script>
+
+@endsection
+
+
+@section('js_custom')
+
 <script type="text/javascript">
 // ============= Agregar mas inputs dinamicamente =============
 $('.clonar').click(function() {

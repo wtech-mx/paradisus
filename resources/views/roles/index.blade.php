@@ -15,16 +15,21 @@ Roles
         <div class="col">
           <div class="card">
             <!-- Card header -->
-            <div class="card-header">
-              <h3 class="mb-3">Roles y Permisos</h3>
 
-                @can('role-create')
-                     <a class="btn" href="{{ route('roles.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">Crear </a>
-                @endcan
+
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <h3 class="mb-3">Roles y Permisos</h3>
+
+                    @can('role-create')
+                    <a class="btn" href="{{ route('roles.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">Crear </a>
+                    @endcan
+
+                </div>
             </div>
 
-            <div class="table-responsive py-4" style="">
-              <table class="table table-flush table_id" id="datatable-basic" >
+            <div class="table-responsive">
+                <table class="table table-flush" id="datatable-search">
                   <thead class="thead-light">
                       <tr>
                        <th>No</th>
@@ -38,24 +43,20 @@ Roles
                         <td>{{ ++$i }}</td>
                         <td>{{ $role->name }}</td>
 
-                        <td class="text-right">
-                          <div class="dropdown ">
-                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fas fa-ellipsis-v"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                              <a class="dropdown-item" href="{{ route('roles.show',$role->id) }}">
-                                  Show
-                              </a>
-                              <a class="dropdown-item" href="{{ route('roles.edit',$role->id) }}">
-                                Edit
-                              </a>
+
+
+                        <td>
+
+                            <a class="btn btn-sm btn-primary " href="{{ route('roles.show',$role->id) }}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> </a>
+
+                            <a class="btn btn-sm btn-success" href="{{ route('roles.edit',$role->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+
+
                             {!! Form::open(['method' => 'DELETE','route' => ['permisos.destroy', $role->id],'style'=>'display:inline']) !!}
-                                {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
 
-                            </div>
-                          </div>
+
                         </td>
 
                       </tr>
@@ -69,5 +70,15 @@ Roles
       </div>
 </div>
 
+@endsection
+
+@section('datatable')
+
+<script>
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      searchable: true,
+      fixedHeight: true
+    });
+</script>
 
 @endsection
