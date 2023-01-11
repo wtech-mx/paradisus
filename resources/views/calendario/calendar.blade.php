@@ -6,7 +6,8 @@
 
 @section('fullcalendar')
 
-    <script src='{{ asset('assets/js/plugins/fullcalendar.min.js') }}'></script>
+    <link href='{{ asset('lib/main.css') }}' rel='stylesheet' />
+    <script src='{{ asset('lib/main.js') }}'></script>
 
         @php
         $Y = date('Y') ;
@@ -16,19 +17,21 @@
        @endphp
 
     <script>
+          document.addEventListener('DOMContentLoaded', function() {
 
-        //   document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
 
-            // var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
 
-            // var calendar = new FullCalendar.Calendar(calendarEl, {
-                var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
 
                 height: 'auto',
                 timeZone: 'local',
                 {{--now: '{{$Fecha}}',--}}
+                contentHeight: 'auto',
+                selectable: true,
+                editable: true,
                 initialDate: '{{$Fecha}}',
-                initialView: 'timeGridWeek',
+                initialView: 'dayGridMonth',
                 editable: true,
                 dayMaxEvents: 3,
                 aspectRatio: 1.8,
@@ -36,7 +39,7 @@
                 scrollTime:  "09:00:00",
                 slotMinTime: "08:00:00",
                 slotMaxTime: "22:00:00",
-                hiddenDays: [ 0 ],
+                hiddenDays: [ -1 ],
 
               headerToolbar: {
                 left: 'today prev,next',
@@ -123,6 +126,7 @@
                   $('#title').val(info.event.title);
                   $('#txtTelefono').val(info.event.extendedProps.telefono);
                   $('#color').val(info.event.backgroundColor);
+                  $('#id_color').val(info.event.extendedProps.id_color);
                   $('#descripcion').val(info.event.extendedProps.descripcion);
                   $('#estatus').val(info.event.extendedProps.estatus);
                   $('#check').val(info.event.extendedProps.check);
@@ -140,7 +144,7 @@
                     let titleArg = arg.event.title;
                     let imageArg = arg.event.extendedProps.image;
                     let checkArg = arg.event.extendedProps.check;
-                    let color = arg.event.extendedProps.color;
+                    let id_color = arg.event.extendedProps.id_color;
 
                     minutos3=(arg.event.start.getMinutes());
                     hora3=(arg.event.start.getHours());
@@ -189,6 +193,50 @@
                         modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
                         let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
                         let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-address-book" aria-hidden="true"></i></div>';
+                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
+                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
+                        contenedorEventWrap.classList = "position-relative";
+                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
+                        arrayOfDomNodes = [contenedorEventWrap ]
+                        return { domNodes: arrayOfDomNodes }
+                    }
+                    if (checkArg == 5){
+                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
+                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-calendar" aria-hidden="true"></i></div>';
+                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
+                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
+                        contenedorEventWrap.classList = "position-relative";
+                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
+                        arrayOfDomNodes = [contenedorEventWrap ]
+                        return { domNodes: arrayOfDomNodes }
+                    }
+                    if (checkArg == 6){
+                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
+                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-clock" aria-hidden="true"></i></div>';
+                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
+                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
+                        contenedorEventWrap.classList = "position-relative";
+                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
+                        arrayOfDomNodes = [contenedorEventWrap ]
+                        return { domNodes: arrayOfDomNodes }
+                    }
+                    if (checkArg == 7){
+                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
+                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-user-plus" aria-hidden="true"></i></div>';
+                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
+                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
+                        contenedorEventWrap.classList = "position-relative";
+                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
+                        arrayOfDomNodes = [contenedorEventWrap ]
+                        return { domNodes: arrayOfDomNodes }
+                    }
+                    if (checkArg == 8){
+                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
+                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-ban" aria-hidden="true"></i></div>';
                         let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
                         let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
                         contenedorEventWrap.classList = "position-relative";
@@ -254,6 +302,7 @@
                     check:$('#check').val(),
                     image:$('#image').val()+imageDefault,
                     color:$('#color').val(),
+                    id_color:$('#id_color').val(),
                     start:$('#txtFecha').val()+" "+$('#txtHora').val(),
                     end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
                     '_token':$("meta[name='csrf-token']").attr("content"),
@@ -275,6 +324,7 @@
                     check:$('#check').val(),
                     image:$('#image').val(),
                     color:$('#color').val(),
+                    id_color:$('#id_color').val(),
                     start:$('#txtFecha').val()+" "+$('#txtHora').val(),
                     end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
                     '_token':$("meta[name='csrf-token']").attr("content"),
@@ -286,7 +336,7 @@
 
             function EnviarInformacionWhatsapp(accion,ObjEvento){
                 // console.log(ObjEvento['telefono']);
-                var pagina='https://api.whatsapp.com/send?phone=+52'+ObjEvento['telefono']+'&text=Buen%20día%20✨%20Le%20escribimos%20de%20Paradisus%20SPA%20para%20confirmar%20la%20cita%20'+ObjEvento['fecha']+'%20%20a%20las%20'+ObjEvento['hora']+'%20Le%20agradecemos%20nos%20confirme%20su%20asistencia%20de%20lo%20contrario%20se%20cederá%20el%20lugar%20a%20otro%20cliente.%20Quedamos%20al%20pendiente%20de%20su%20pronta%20respuesta.%20Gracias!';
+                var pagina='https://api.whatsapp.com/send?phone=+52'+ObjEvento['telefono']+'&text=Buen%20día%20✨🦷%20Le%20escribimos%20del%20consultorio%20dental%20BeDental%20para%20confirmar%20la%20cita%20'+ObjEvento['fecha']+'%20%20a%20las%20'+ObjEvento['hora']+'%20Le%20agradecemos%20nos%20confirme%20su%20asistencia%20a%20más%20tardar%20hoy%20antes%20de%202:00%20pm%20de%20lo%20contrario%20se%20cederá%20el%20lugar%20a%20otro%20paciente%20que%20requiera.%20Quedamos%20al%20pendiente%20de%20su%20pronta%20respuesta.%20Gracias!';
                 window.open(pagina, '_blank');
             }
 
@@ -317,6 +367,7 @@
                   $('#txtHora').val("");
                   $('#txtHorafin').val("");
                   $('#color').val("");
+                  $('#id_color').val("");
                   $('#descripcion').val("");
                   $('#estatus').val("");
                   $('#check').val("");
@@ -328,6 +379,9 @@
 
     @endsection
 
+@section('content')
+
+
 
     @section('content')
 
@@ -337,11 +391,11 @@
 
       <div class="col-xl-9">
         <div class="card card-calendar">
-          <div class="card-body p-3">
-            <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
+            <div class="card-body p-3">
+              <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
+            </div>
           </div>
         </div>
-      </div>
 
       <div class="col-xl-3">
         <div class="row">
@@ -457,4 +511,5 @@
 
 
     @include('calendario.modal')
+
 @endsection

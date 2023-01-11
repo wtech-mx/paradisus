@@ -93,8 +93,9 @@
           </div>
 @endsection
 
+
 @section('content')
     {{--calednarioi--}}
-    @include('calendario.calendar')
+    @include('calendario.calendar');
     {{--calednarioi--}}
 @endsection

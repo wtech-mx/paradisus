@@ -1,18 +1,18 @@
 <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="edit-event-label" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered modal-secondary" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Agendar cita</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span class="text-dark" aria-hidden="true">&times;</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
               </div>
 
               <div class="modal-body" style="padding: 0rem 1rem 0rem 1rem;">
 
-                  <div class="form-row">
+                  <div class="form row">
 
                        <div class="form-group col-12">
                         <input class="form-control" type="hidden" name="txtID" id="txtID">
@@ -22,6 +22,7 @@
                           <label for="">Fecha</label>
                         <input class="form-control" type="date" name="txtFecha" id="txtFecha" >
                       </div>
+
 
                       <div class="form-group col-4">
                           <label for="">Hora Inicio</label>
@@ -102,7 +103,7 @@
 
               <div class="modal-footer">
                   <button class="btn  btn-sm text-white" id="btnWhats" style="background-color: #128C7E">
-                      <input type="text" name="txtTelefono" id="txtTelefono" disabled style="background: transparent;color: #fff;border: 1px solid transparent;display: inherit;left: 40px;position: relative;">
+                      <input type="text" name="txtTelefono" id="txtTelefono" disabled style="font-size: 0px;background: transparent;color: #fff;border: 1px solid transparent;display: inherit;left: 40px;position: relative;">
                       <input type="hidden" name="txtTelefono" id="txtTelefono">
                       <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
                   </button>
