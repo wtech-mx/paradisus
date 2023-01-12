@@ -1,26 +1,29 @@
 <!-- Modal -->
-    <div class="modal fade" id="showDataModal{{$notas->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+ <div class="modal fade" id="showDataModal{{$notas->id}}" tabindex="-1" role="dialog" aria-labelledby="createDataModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showDataModalLabel">Ver notas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item active">
-                  <a data-toggle="tab" href="#servicio{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Nota</a>
+
+            <ul class="nav nav-pills mb-3" id="pills-tab{{$notas->id}}" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-home-tab{{$notas->id}}" data-bs-toggle="pill" data-bs-target="#pills-home{{$notas->id}}" type="button" role="tab" aria-controls="pills-home{{$notas->id}}" aria-selected="true">Nota</button>
+
                 </li>
-                <li class="nav-item">
-                    <a data-toggle="tab" href="#pago{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Pedido</a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab{{$notas->id}}" data-bs-toggle="pill" data-bs-target="#pills-profile{{$notas->id}}" type="button" role="tab" aria-controls="pills-profile{{$notas->id}}" aria-selected="false">Pedido</button>
                 </li>
             </ul>
 
             <div class="modal-body">
-                <div class="tab-content">
+                <div class="tab-content" id="pills-tabContent{{$notas->id}}">
 
-                    <div class="tab-pane fade in active show" id="servicio{{$notas->id}}">
+                    <div class="tab-pane fade show active" id="pills-home-tab{{$notas->id}}" role="tabpanel" aria-labelledby="pills-home-tab{{$notas->id}}">
+
                         <div class="form-group">
                             <label for="nombre">Usuario</label>
                             <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
@@ -55,7 +58,8 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="pago{{$notas->id}}" >
+                    <div class="tab-pane fade" id="pills-profile-tab{{$notas->id}}" role="tabpanel" aria-labelledby="pills-profile-tab{{$notas->id}}">
+
                         <div class="row mt-4">
                             <div class="col-4" style="background-color: #212529; color: #fff;">Cantidad</div>
                             <div class="col-4" style="background-color: #212529; color: #fff;">Concepto</div>

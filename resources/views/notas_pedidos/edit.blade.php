@@ -1,27 +1,33 @@
 <!-- Modal -->
-    <div class="modal fade" id="editDataModal{{$notas->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="editDataModal{{$notas->id}}" tabindex="-1" role="dialog" aria-labelledby="createDataModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editDataModalLabel">Editar Servicio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item active">
-                  <a data-toggle="tab" href="#servicioedit{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Nota</a>
+
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-home-{{$notas->id}}" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Nota</button>
                 </li>
-                <li class="nav-item">
-                    <a data-toggle="tab" href="#pagoedit{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Pedido</a>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-{{$notas->id}}" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pedido</button>
                 </li>
-            </ul>
+              </ul>
+
+
             <form method="POST" action="{{ route('notas_pedidos.update', $notas->id) }}" enctype="multipart/form-data" role="form">
                 @csrf
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="modal-body">
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active show" id="servicioedit{{$notas->id}}">
+                    <div class="tab-content" id="pills-tabContent">
+
+                        <div class="tab-pane fade show active" id="pills-home-{{$notas->id}}" role="tabpanel" aria-labelledby="pills-home-tab">
+
                             <div class="form-group">
                                 <label for="nombre">Usuario</label>
                                 <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
@@ -32,6 +38,7 @@
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="descripcion">Cliente</label>
                                 <select disabled class="form-control input-edit-car" id="id_client" name="id_client"
@@ -42,14 +49,17 @@
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="fecha">Fecha</label>
                                 <input disabled id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" required>
                             </div>
+
                             <div class="form-group">
                                 <label for="nota">Total</label>
                                 <input disabled id="total" name="total" type="number" class="form-control" placeholder="total" value="{{$notas->total}}" required>
                             </div>
+
                             <div class="form-group">
                                 <label for="num_sesion">Metodo de pago</label>
                                 <select disabled id="metodo_pago" name="metodo_pago" class="form-control" required>
@@ -58,9 +68,10 @@
                                     <option value="Mercado Pago">Mercado Pago</option>
                                 </select>
                             </div>
+
                         </div>
 
-                        <div class="tab-pane fade" id="pagoedit{{$notas->id}}" >
+                        <div class="tab-pane fade " id="pills-profile-{{$notas->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
 
                             <div class="row text-center">
                                 <div class="row mt-4">
@@ -81,7 +92,8 @@
                                     @endforeach
                                 </div>
                             </div>
-                                <div id="formulario" class="mt-4">
+
+                            <div id="formulario" class="mt-4">
 
                                     <label for="Material">Pedido</label>
                                     <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
@@ -109,11 +121,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                            </div>
+
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn close-btn" data-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
+                            <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
                             <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Actualizar</button>
                         </div>
                 </div>
