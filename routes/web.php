@@ -76,6 +76,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('calendar/show', [App\Http\Controllers\AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
     Route::patch('calendar/destroy/{id}', [App\Http\Controllers\AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
     Route::patch('calendar/update/{id}', [App\Http\Controllers\AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
+
+    // =============== M O D U L O   R E P O R T E S ===============================
+    Route::get('/reporte', [App\Http\Controllers\ReporteController::class, 'index'])->name('reporte.index');
+    Route::post('/reporte/create', [App\Http\Controllers\ReporteController::class, 'store'])->name('reporte.store');
+    Route::patch('/reporte/update/{id}', [App\Http\Controllers\ReporteController::class, 'update'])->name('reporte.update');
+    Route::delete('/reporte/delete/{id}', [App\Http\Controllers\ReporteController::class, 'destroy'])->name('reporte.destroy');
 });
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');

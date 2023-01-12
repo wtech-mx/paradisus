@@ -89,25 +89,25 @@
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
                                                     <td>{{ $notas->Servicios->nombre }}</td>
                                                     @if ($notas->restante == 0)
-                                                    <td> <label class="badge badge-success" style="font-size: 13px;">Pagado</label> </td>
+                                                    <td> <label class="badge badge-success" >Pagado</label> </td>
                                                     @else
-                                                    <td> <label class="badge badge-danger" style="font-size: 15px;">${{ $notas->restante }}</label> </td>
+                                                    <td> <label class="badge badge-danger" style="font-size: 14px;">${{ $notas->restante }}</label> </td>
                                                     @endif
 
                                                     <td>
                                                         <a type="button" class="btn btn-sm" target="_blank"
                                                         href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20de%20servicio:%20%22{{ $notas->Servicios->nombre }}%22%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
                                                         style="background: #00BB2D; color: #ffff">
-                                                        <i class="ni ni-chat-round"></i> Whats</a>
-                                                            <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                        <i class="ni ni-chat-round"></i></a>
+                                                            <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></div>
                                                             @can('notas-edit')
-                                                                <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                                <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i></div>
                                                             @endcan
                                                             @can('notas-delete')
                                                                 <form action="{{ route('notas.destroy',$notas->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
                                                                 </form>
                                                             @endcan
                                                     </td>
