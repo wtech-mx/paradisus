@@ -1,26 +1,29 @@
 <!-- Modal -->
-<div class="modal fade" id="createDataModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="createDataModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="createDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createDataModalLabel">Crear Nota</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item active">
-                  <a data-toggle="tab" href="#home" style="color: #bb546c;margin-left: 20px;">Servicio</a>
+
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Servicio</button>
+
                 </li>
-                <li class="nav-item">
-                    <a data-toggle="tab" href="#menu1" style="color: #bb546c;margin-left: 20px;">Pago</a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pago</button>
                 </li>
               </ul>
+
             <form method="POST" action="{{ route('notas.store') }}" enctype="multipart/form-data" role="form">
                 @csrf
                 <div class="modal-body">
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active show" id="home">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="form-group">
                                 <label for="nombre">Seleccione Cosmetologa</label>
                                 <select class="select2-multiple form-control " id="id_user[]" name="id_user[]" multiple="multiple" id="select2Multiple"
@@ -59,7 +62,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="menu1" >
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="row" style="display: none">
                                 <div class="col-6">
                                     <div class="form-group">
@@ -145,7 +148,7 @@
 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn close-btn" data-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
                     <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
                 </div>
             </form>

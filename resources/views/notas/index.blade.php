@@ -16,9 +16,10 @@
                                 Notas
                             </span>
                             @can('notas-create')
-                                <div class="btn btn-sm" data-toggle="modal" data-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    <i class="fa fa-plus"></i>
                                     Nueva Nota
-                                </div>
+                                </a>
                             @endcan
                         </div>
                     </div>
