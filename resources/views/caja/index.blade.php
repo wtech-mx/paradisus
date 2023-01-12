@@ -38,19 +38,15 @@
                 <div class="card">
 
                     <div class="card-header pb-0 p-3">
-                      <h6 class="mb-0">Traffic channels</h6>
+                      <h6 class="mb-0">Ventas</h6>
                       <div class="d-flex align-items-center">
                         <span class="badge badge-md badge-dot me-4">
-                          <i class="bg-primary"></i>
-                          <span class="text-dark text-xs">Organic search</span>
+                          <i class="bg" style="background: #D4BA7A"></i>
+                          <span class="text-dark text-xs">Productos</span>
                         </span>
                         <span class="badge badge-md badge-dot me-4">
-                          <i class="bg-dark"></i>
-                          <span class="text-dark text-xs">Referral</span>
-                        </span>
-                        <span class="badge badge-md badge-dot me-4">
-                          <i class="bg-info"></i>
-                          <span class="text-dark text-xs">Social media</span>
+                          <i class="bg" style="background: #99696a"></i>
+                          <span class="text-dark text-xs">Servicios</span>
                         </span>
                       </div>
                     </div>
@@ -212,7 +208,7 @@
                                Egresos
                             </span>
                             @can('client-create')
-                            <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModa" style="background: {{$configuracion->color_boton_add}}; color: #ffff"><i class="fa fa-close"></i>  Cerrar caja</a>
+                            <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModa" style="background: {{$configuracion->color_boton_add}}; color: #ffff">Cerrar caja</a>
                         @endcan
                         </div>
                     </div>
@@ -274,39 +270,27 @@
       data: {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
-            label: "Organic Search",
+            label: "Productos",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 2,
-            pointBackgroundColor: "#5e72e4",
-            borderColor: "#5e72e4",
+            pointBackgroundColor: "#D4BA7A",
+            borderColor: "#D4BA7A",
             borderWidth: 3,
             backgroundColor: gradientStroke1,
             data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
             maxBarThickness: 6
           },
           {
-            label: "Referral",
+            label: "Servicios",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 2,
-            pointBackgroundColor: "#3A416F",
-            borderColor: "#3A416F",
+            pointBackgroundColor: "#99696a",
+            borderColor: "#99696a",
             borderWidth: 3,
             backgroundColor: gradientStroke2,
             data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6
-          },
-          {
-            label: "Direct",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 2,
-            pointBackgroundColor: "#17c1e8",
-            borderColor: "#17c1e8",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            data: [40, 80, 70, 90, 30, 90, 140, 130, 200],
             maxBarThickness: 6
           },
         ],

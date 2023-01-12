@@ -15,67 +15,67 @@
     <div class="container-fluid">
         <div class="row">
             {{-- =============== C A R D   G R A F I C A =============================== --}}
-            <div class="col-sm-6 mb-5">
-                <div class="card bg-default">
-                    <div class="card-body">
-                        <canvas id="myChart"></canvas>
+            <div class="col-sm-6 mb-3">
+                <div class="card">
+
+                    <div class="card-header pb-0 p-3">
+                      <h6 class="mb-0">Ventas</h6>
+                      <div class="d-flex align-items-center">
+                        <span class="badge badge-md badge-dot me-4">
+                          <i class="bg" style="background: #D4BA7A"></i>
+                          <span class="text-dark text-xs">Productos</span>
+                        </span>
+                        <span class="badge badge-md badge-dot me-4">
+                          <i class="bg" style="background: #99696a"></i>
+                          <span class="text-dark text-xs">Servicios</span>
+                        </span>
+                      </div>
                     </div>
-                </div>
+
+                    <div class="card-body p-3">
+                      <div class="chart">
+                        <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+                      </div>
+                    </div>
+                  </div>
             </div>
 
            {{-- =============== C A R D   P R O G R E S S =============================== --}}
-            <div class="col-sm-6 mb-5">
+            <div class="col-sm-6 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Total') }}
+                                Estadistica por mes
                             </span>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="progress-wrapper">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <div class="progress-label">
-                                            <span>Faciales</span>
-                                        </div>
+                        <div class="card-body">
+                            @foreach($servicios_individual as $serv)
+                                @if ($serv->mes ==  $fechaActual)
+                                    <div class="row mb-3">
+                                            <div class="progress-wrapper">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                        <div class="progress-label">
+                                                            <span>{{$serv->Servicios->nombre}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <div class="progress-percentage">
+                                                            <span>#{{$serv->filas}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{$serv->filas}}%; background-color: {{$serv->Servicios->color}};"></div>
+                                                </div>
+                                            </div>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="progress-percentage">
-                                            <span>60%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress">
-                                  <div class="progress-bar bg-default" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                </div>
-                              </div>
+                                @endif
+                             @endforeach
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="progress-wrapper">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <div class="progress-label">
-                                            <span>Corporales</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="progress-percentage">
-                                            <span>30%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress">
-                                  <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -167,7 +167,50 @@
 
     </div>
 @endsection
-@section('javascript')
-{!! $chart1->renderChartJsLibrary() !!}
-{!! $chart1->renderJs() !!}
+@section('js_custom')
+
+<script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
+
+<script>
+        const dato = {!! json_encode($pedidos_total) !!};
+        const cData = JSON.parse(dato)
+        console.log(cData);
+
+        const ctx = document.getElementById('chart-line').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: cData.total,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+</script>
 @endsection

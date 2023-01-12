@@ -7,6 +7,7 @@ use App\Models\Caja;
 use App\Models\Pagos;
 use DB;
 use App\Models\Client;
+use App\Models\Notas;
 use App\Models\NotasPedidos;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
@@ -20,22 +21,36 @@ class ReporteController extends Controller
      */
     public function index()
     {
+        $fechaActual = date('m');
+
         $caja = Caja::get();
         $clientes = Client::get();
         $pago = Pagos::get();
         $pago_pedidos = NotasPedidos::get();
 
-        $chart_options = [
-            'chart_title' => 'Users by months',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Client',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'chart_type' => 'bar',
-        ];
-        $chart1 = new LaravelChart($chart_options);
+        $servicios_individual = Notas::
+        select(DB::raw('count(*) as filas'), DB::raw("DATE_FORMAT(fecha,'%c') as mes"), 'id_servicio')
+        ->groupBy('mes')
+        ->groupBy('id_servicio')
+        ->get();
 
-        return view('reportes.index', compact('caja', 'pago', 'pago_pedidos', 'clientes', 'chart1'));
+        $pedidos_total = DB::table('notas_pedidos')
+        ->select(DB::raw('SUM(total) as total'), DB::raw("DATE_FORMAT(fecha,'%c') as months"))
+        ->groupBy('months')
+        ->get();
+
+        // $data = [];
+        // foreach($pedidos_total as $ped){
+        //     $data['label'][] = $ped->months;
+        //     $data['data'][] = $ped->total;
+        // }
+        // $data[] = json_encode($data);
+
+        $servicios_total = DB::table('pagos')
+        ->select(DB::raw("DATE_FORMAT(fecha,'%c') as mes"), DB::raw('SUM(pago) as pago'))
+        ->groupBy('mes')
+        ->get();
+        return view('reportes.index', compact('fechaActual' ,'caja', 'pago', 'pago_pedidos', 'clientes', 'pedidos_total', 'servicios_individual', 'servicios_total'));
     }
 
     /**
