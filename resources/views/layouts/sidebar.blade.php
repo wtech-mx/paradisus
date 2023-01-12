@@ -29,6 +29,15 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link {{ (Request::is('notas/servicios*') ? 'active' : '') }}" href="{{ route('notas.index') }}">
+                <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
+                    <i class="ni ni-book-bookmark text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+                </div>
+                <span class="nav-link-text ms-1">Notas Servicios</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link {{ (Request::is('notas/pedidos*') ? 'active' : '') }}" href="{{ route('notas_pedidos.index') }}" target="">
             <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
              <i class="fa fa-user-md text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
@@ -47,10 +56,32 @@
         </li>
 
         <li class="nav-item mt-3">
-          <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Roles y Permisos</h6>
+          <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administrativo</h6>
         </li>
 
         <li class="nav-item">
+        <a data-bs-toggle="collapse" href="#pagesExamples1" class="nav-link {{ (Request::is('servicio*') ? 'active' : '') }}{{ (Request::is('reporte*') ? 'active' : '') }}" aria-controls="pagesExamples1" role="button" aria-expanded="false">
+            <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                <i class="ni ni-collection text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Administrativo</span>
+        </a>
+        <div class="collapse mb-3" id="pagesExamples1">
+        <ul class="nav ms-4">
+            <li class="nav-item ">
+            <a class="nav-link {{ (Request::is('servicio*') ? 'show' : '') }}" href="{{ route('servicio.index') }}">
+                <span class="sidenav-mini-icon"> P </span>
+                <span class="sidenav-normal">Servicio</span>
+            </a>
+
+            <a class="nav-link {{ (Request::is('reporte*') ? 'show' : '') }}" href="{{ route('reporte.index') }}">
+                <span class="sidenav-mini-icon"> P </span>
+                <span class="sidenav-normal">Reporte</span>
+            </a>
+            </li>
+        </ul>
+        </div>
+
           <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link {{ (Request::is('users*') ? 'active' : '') }}{{ (Request::is('roles*') ? 'active' : '') }}" aria-controls="pagesExamples" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
               <i class="ni ni-settings text-primary text-sm opacity-10"></i>
@@ -96,16 +127,6 @@
             </ul>
           </div>
         </li>
-
-
-        <li class="nav-item">
-            <a class="nav-link {{ (Request::is('servicios*') ? 'active' : '') }}" href="{{ route('servicio.index') }}" target="">
-              <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-               <i class="fa fa-book text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
-              </div>
-              <span class="nav-link-text ms-1">Servicios</span>
-            </a>
-          </li>
 
       </ul>
 

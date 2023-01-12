@@ -27,13 +27,13 @@
                                 </a>
                             @endcan
 
-                            <form action="" method="post" enctype="multipart/form-data">
+                            {{-- <form action="" method="post" enctype="multipart/form-data">
                                 @csrf
 
                                 <input type="file" name="file">
 
                                 <button>Importar Usuarios</button>
-                            </form>
+                            </form> --}}
 
                         </div>
                     </div>
