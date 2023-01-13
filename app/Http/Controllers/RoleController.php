@@ -140,3 +140,5 @@ class RoleController extends Controller
                         ->with('delete','Role Eliminado');
     }
 }
+
+

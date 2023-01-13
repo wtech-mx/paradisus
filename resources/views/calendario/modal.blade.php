@@ -102,23 +102,31 @@
               </div>
 
               <div class="modal-footer">
-                  <button class="btn  btn-sm text-white" id="btnWhats" style="background-color: #128C7E">
-                      <input type="text" name="txtTelefono" id="txtTelefono" disabled style="font-size: 0px;background: transparent;color: #fff;border: 1px solid transparent;display: inherit;left: 40px;position: relative;">
-                      <input type="hidden" name="txtTelefono" id="txtTelefono">
-                      <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
-                  </button>
+                @can('calendario-whats')
+                    <button class="btn  btn-sm text-white" id="btnWhats" style="background-color: #128C7E">
+                        <input type="text" name="txtTelefono" id="txtTelefono" disabled style="font-size: 0px;background: transparent;color: #fff;border: 1px solid transparent;display: inherit;left: 40px;position: relative;">
+                        <input type="hidden" name="txtTelefono" id="txtTelefono">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
+                    </button>
+                @endcan
 
+                @can('calendario-create')
                   <button class="btn btn-success btn-sm text-white" id="btnAgregar">
                       <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar
                   </button>
+                @endcan
 
+                @can('calendario-edit')
                   <button class="btn btn-warning btn-sm text-dark" id="btnModificar">
                       <i class="fa fa-retweet" aria-hidden="true"></i> Modificar
                   </button>
+                @endcan
 
+                @can('calendario-delete')
                   <button class="btn btn-danger btn-sm text-white" id="btnBorrar">
                       <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                   </button>
+                @endcan
               </div>
 
             </div>

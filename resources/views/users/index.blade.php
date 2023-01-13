@@ -40,7 +40,7 @@
 
                     @foreach ($data as $key => $user)
                         <tr>
-                            <td>{{ ++$i }}</td>
+                            <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->puesto }}</td>
@@ -86,7 +86,7 @@
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
       searchable: true,
-      fixedHeight: true
+      fixedHeight: false
     });
 </script>
 

@@ -58,7 +58,7 @@
                                         @include('client.show')
                                         @include('client.edit')
                                             <tr>
-                                                <td>{{ ++$i }}</td>
+                                                <td>{{ $client->id }}</td>
 
                                                 <td>{{ $client->name }} <br>{{ $client->last_name }}</td>
                                                 <td>{{ $client->age }}</td>

@@ -44,7 +44,7 @@
                 @include('servicios.show')
                 @include('servicios.edit')
                     <tr>
-                        <td>{{ ++$i }}</td>
+                        <td>{{ $servicios->id }}</td>
 
                         <td>{{ $servicios->nombre }}</td>
                         <td>{{ $servicios->precio }}</td>
@@ -85,7 +85,7 @@
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
       searchable: true,
-      fixedHeight: true
+      fixedHeight: false
     });
 </script>
 
