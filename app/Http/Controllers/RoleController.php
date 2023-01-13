@@ -65,7 +65,7 @@ class RoleController extends Controller
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+                        ->with('success','Role Creado');
     }
     /**
      * Display the specified resource.
@@ -122,7 +122,7 @@ class RoleController extends Controller
 
         Session::flash('edit', 'Se ha editado sus datos con exito');
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+                        ->with('edit','Role Actualizado');
     }
     /**
      * Remove the specified resource from storage.
@@ -137,6 +137,6 @@ class RoleController extends Controller
 
         Session::flash('delete', 'Se ha eliminado sus datos con exito');
         return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+                        ->with('delete','Role Eliminado');
     }
 }

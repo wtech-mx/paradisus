@@ -17,7 +17,7 @@
                         <div class="d-flex justify-content-between">
                             <h3 class="mb-3">Notas Pedidos</h3>
 
-                            @can('notas-create')
+                            @can('notas-pedido-create')
                                 <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
                                     Crear
                                 </a>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
 
-                    @can('notas-list')
+                    @can('notas-pedido-list')
                         <div class="card-body">
                             @include('notas_pedidos.create')
                             <div class="table-responsive">
@@ -64,11 +64,11 @@
 
                                                     <td>
                                                             <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
-                                                            @can('notas-edit')
+                                                            @can('notas-pedido-edit')
                                                                 <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
                                                             @endcan
 
-                                                            @can('notas-delete')
+                                                            @can('notas-pedido-delete')
                                                                 <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents">
                                                                     @csrf
                                                                     @method('DELETE')

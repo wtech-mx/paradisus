@@ -3,10 +3,10 @@
       <div class="modal-content">
 
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h5 class="modal-title" id="exampleModalLabel">Crear permiso</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                <span aria-hidden="true">X</span>
+            </button>
         </div>
 
         {!! Form::open(array('route' => 'permisos.store','method'=>'POST')) !!}
@@ -19,8 +19,8 @@
             </div>
 
             <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Close</button>
-            <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Save changes</button>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
+                <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
             </div>
 
         {!! Form::close() !!}
