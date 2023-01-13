@@ -48,7 +48,7 @@ class ClientController extends Controller
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('clients.index')
-            ->with('success', 'Client created successfully.');
+            ->with('success', 'Cliente Creado.');
     }
 
 
@@ -68,7 +68,7 @@ class ClientController extends Controller
 
         Session::flash('edit', 'Se ha editado sus datos con exito');
         return redirect()->route('clients.index')
-            ->with('success', 'Client updated successfully');
+            ->with('edit', 'Cliente Actualizado');
     }
 
     /**
@@ -82,7 +82,7 @@ class ClientController extends Controller
 
         Session::flash('delete', 'Se ha eliminado sus datos con exito');
         return redirect()->route('clients.index')
-            ->with('success', 'Client deleted successfully');
+            ->with('delete', 'Cliente Eliminado');
     }
 
     public function importExcel(Request $request)

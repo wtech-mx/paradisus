@@ -22,8 +22,7 @@
 
                             @can('client-create')
                                 <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    <i class="fa fa-plus"></i>
-                                    Crear cliente
+                                    Crear
                                 </a>
                             @endcan
 
@@ -46,9 +45,7 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
-
                                             <th>Nombre</th>
-                                            <th>Apellido</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
                                             <th>Email</th>
@@ -63,8 +60,7 @@
                                             <tr>
                                                 <td>{{ ++$i }}</td>
 
-                                                <td>{{ $client->name }}</td>
-                                                <td>{{ $client->last_name }}</td>
+                                                <td>{{ $client->name }} <br>{{ $client->last_name }}</td>
                                                 <td>{{ $client->age }}</td>
                                                 <td>{{ $client->phone }}</td>
                                                 <td>{{ $client->email }}</td>
@@ -100,7 +96,7 @@
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
       searchable: true,
-      fixedHeight: true
+      fixedHeight: false
     });
 </script>
 

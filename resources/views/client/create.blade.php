@@ -55,7 +55,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="birth_date"></label>
-                                    <input id="birth_date" name="birth_date" type="date" class="form-control" placeholder="birth_date">@error('birth_date') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    <input id="birth_date" name="birth_date" type="date" class="form-control" value="23-11-2018">@error('birth_date') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

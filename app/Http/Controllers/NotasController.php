@@ -96,7 +96,7 @@ class NotasController extends Controller
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('notas.index')
-                        ->with('success','User created successfully');
+                        ->with('success','Nota Servicio Creado.');
     }
 
     /**
@@ -135,6 +135,7 @@ class NotasController extends Controller
         $pago = $request->get('pago');
         $num_sesion = $request->get('num_sesion');
         $forma_pago = $request->get('forma_pago');
+        $note = $request->get('nota2');
 
         for ($count = 0; $count < count($fecha_pago); $count++) {
             $data = array(
@@ -143,6 +144,7 @@ class NotasController extends Controller
                 'pago' => $pago[$count],
                 'num_sesion' => $num_sesion[$count],
                 'forma_pago' => $forma_pago[$count],
+                'nota' => $note[$count],
             );
             $insert_data[] = $data;
         }
@@ -157,7 +159,7 @@ class NotasController extends Controller
         $nota_pago->update();
 
         return redirect()->route('notas.index')
-        ->with('edit','nota Has Been updated successfully');
+        ->with('edit','Nota Servicio Actualizado.');
     }
 
     /**
@@ -177,7 +179,7 @@ class NotasController extends Controller
 
         Session::flash('delete', 'Se ha eliminado sus datos con exito');
         return redirect()->route('notas.index')
-            ->with('success', 'nota deleted successfully');
+            ->with('delete', 'Nota Servicio Eliminado.');
     }
 
     public function usuario($id)

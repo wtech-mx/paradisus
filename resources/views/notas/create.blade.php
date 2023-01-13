@@ -9,13 +9,17 @@
                 </button>
             </div>
 
-              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Servicio</button>
+                    <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
+                        <i class="ni ni-folder-17 text-sm me-2"></i> Servicio
+                    </a>
 
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pago</button>
+                    <a class="nav-link mb-0 px-0 py-1" id="pills-profile-tab" data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">
+                        <i class="ni ni-credit-card text-sm me-2"></i> Pago
+                    </a>
                 </li>
               </ul>
 
@@ -26,8 +30,8 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="form-group">
                                 <label for="nombre">Seleccione Cosmetologa</label>
-                                <select class="select2-multiple form-control " id="id_user[]" name="id_user[]" multiple="multiple" id="select2Multiple"
-                                    value="{{ old('submarca') }}" multiple="" data-live-search="true" required>
+                                <select class="js-example-basic-multiple form-control " id="id_user[]" name="id_user[]" multiple="multiple"
+                                    value="{{ old('submarca') }}"required>
                                     @foreach ($user as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -78,69 +82,46 @@
                                 </div>
                             </div>
 
-                            <div id="formulario">
-                                <label for="Material">Pago</label>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="fecha">Fecha</label>
+                                        <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control" value="{{$fechaActual}}">
+                                    </div>
+                                </div>
 
-                                <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="pago">Pago</label>
+                                        <input  id="pago[]" name="pago[]" type="number" class="form-control" required>
+                                    </div>
+                                </div>
 
-                                <div class="clonars">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label for="fecha">Fecha</label>
-                                                <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control">
-                                            </div>
-                                        </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="num_sesion">Num sesion</label>
+                                        <input  id="num_sesion[]" name="num_sesion[]" type="number" class="form-control" required>
+                                    </div>
+                                </div>
 
-                                        <div class="col-2">
-                                            <div class="form-group">
-                                                <label for="pago">Pago</label>
-                                                <input  id="pago[]" name="pago[]" type="number" class="form-control">
-                                            </div>
-                                        </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="num_sesion">Metodo Pago</label>
+                                        <select id="forma_pago[]" name="forma_pago[]" class="form-control">
+                                            <option value="Efectivo">Efectivo</option>
+                                            <option value="Transferencia">Transferencia</option>
+                                            <option value="Mercado Pago">Mercado Pago</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                        <div class="col-2">
-                                            <div class="form-group">
-                                                <label for="num_sesion">Num sesion</label>
-                                                <input  id="num_sesion[]" name="num_sesion[]" type="number" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-2">
-                                            <div class="form-group">
-                                                <label for="num_sesion">Metodo Pago</label>
-                                                <select id="forma_pago[]" name="forma_pago[]" class="form-control">
-                                                    <option value="Efectivo">Efectivo</option>
-                                                    <option value="Transferencia">Transferencia</option>
-                                                    <option value="Mercado Pago">Mercado Pago</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label for="nota">Nota</label>
-                                                <textarea class="form-control" id="nota2[]" name="nota2[]" rows="2"></textarea>
-                                            </div>
-                                        </div>
-
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="nota">Nota</label>
+                                        <textarea class="form-control" id="nota2[]" name="nota2[]" rows="2"></textarea>
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- <table class="table table-bordered" id="tabla_script">
-                                <thead class="table-dark">
-                                    <tr class="text-center">
-                                        <th>Fecha de pago</th>
-                                        <th>Pago</th>
-                                        <th>Num sesión</th>
-                                        <th>Método de pago</th>
-                                    </tr>
-                                </thead>
-                            </table>
-
-                            <a href="javascript:;" id="agregar" class="btn" style="background-color:#001d3d;color:  #41CC2E!important; border: 2px solid #41CC2E!important;">Agregar
-                                servicio</a> --}}
                         </div>
                     </div>
                 </div>

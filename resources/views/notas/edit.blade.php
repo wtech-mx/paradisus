@@ -3,24 +3,31 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editDataModalLabel">Editar Servicio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+                <h5 class="modal-title" id="editDataModalLabel">Editar Nota</h5>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                       <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Precio Servicio: {{ $notas->Servicios->precio }}</label></strong> <br>
+
+                    </li>
+                    <li class="nav-item">
+                        <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Sesiones Servicio: {{ $notas->Servicios->num_sesiones }}</label></strong>
+                    </li>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item active">
-                  <a data-toggle="tab" href="#servicioedit{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Servicio</a>
-                </li>
-                <li class="nav-item">
-                    <a data-toggle="tab" href="#pagoedit{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Pago</a>
-                </li>
-                <li class="nav-item">
-                   <strong><label style="color: #543325;margin-left: 20px;">Precio Servicio: {{ $notas->Servicios->precio }}</label></strong> <br>
+            <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#servicioedit{{$notas->id}}" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
+                        <i class="ni ni-folder-17 text-sm me-2"></i> Servicio
+                    </a>
 
                 </li>
-                <li class="nav-item">
-                    <strong><label style="color: #543325;margin-left: 20px;">Sesiones Servicio: {{ $notas->Servicios->num_sesiones }}</label></strong>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1" id="pills-profile-tab" data-bs-toggle="tab" href="#pagoedit{{$notas->id}}" role="tab" aria-controls="pills-profile" aria-selected="true">
+                        <i class="ni ni-credit-card text-sm me-2"></i> Pago
+                    </a>
                 </li>
             </ul>
             <form method="POST" action="{{ route('notas.update', $notas->id) }}" enctype="multipart/form-data" role="form">
@@ -61,8 +68,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="fecha">Fecha y Hora</label>
-                                <input id="fecha" name="fecha" type="datetime-local" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" disabled>
+                                <label for="fecha">Fecha</label>
+                                <input id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="nota">Nota</label>
@@ -74,86 +81,87 @@
 
                             <div class="row text-center">
                                 <div class="col-3" style="background-color: #bb546c; color: #fff;">Fecha</div>
-                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Pago</div>
-                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Num sesion</div>
-                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Metodo de pago</div>
+                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
+                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Sesión</div>
+                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo Pago</div>
+                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Nota</div>
 
 
                                 <p style="display: none">{{ $resultado = 0; }}</p>
                                 @foreach ($pago as $item)
                                     @if ($item->id_nota == $notas->id)
-                                    <p style="display: none">{{ $resultado += $item->pago; }}</p>
-                                    <div class="col-3 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
-                                            value="{{$item->fecha}}" disabled>
-                                    </div>
+                                        <p style="display: none">{{ $resultado += $item->pago; }}</p>
+                                        <div class="col-3 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
+                                                value="{{$item->fecha}}" disabled>
+                                        </div>
 
-                                    <div class="col-3 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
-                                            value="{{$item->pago}}" disabled></div>
-                                    <div class="col-3 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
-                                        value="{{$item->num_sesion}}" disabled>
-                                    </div>
+                                        <div class="col-2 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
+                                                value="{{$item->pago}}" disabled></div>
 
-                                    <div class="col-3 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
-                                        value="{{$item->forma_pago}}" disabled>
-                                    </div>
+                                        <div class="col-2 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
+                                            value="{{$item->num_sesion}}" disabled>
+                                        </div>
+
+                                        <div class="col-2 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
+                                            value="{{$item->forma_pago}}" disabled>
+                                        </div>
+
+                                        <div class="col-3 mb-2"><input name="nota[]" type="text" class="form-control text-center" id="nota[]"
+                                            value="{{$item->nota}}" disabled>
+                                        </div>
                                     @endif
                                 @endforeach
 
                             </div>
-                                <div id="formulario" class="mt-4">
-                                    <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
-                                    <h3><strong>Restante:</strong>  ${{$notas->restante}} .00  MXN</h3>
+                            <div class="mt-4">
+                                <h5><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h5>
+                                <h5><strong>Restante:</strong>  ${{$notas->restante}} .00  MXN</h5>
 
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="fecha">Fecha</label>
+                                            <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control" value="{{$fechaActual}}">
+                                        </div>
+                                    </div>
 
-                                    <label for="Material">Pago</label>
-                                    <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
-                                    <div class="clonars">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="fecha">Fecha</label>
-                                                    <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control">
-                                                </div>
-                                            </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="pago">Pago</label>
+                                            <input  id="pago[]" name="pago[]" type="number" class="form-control" required>
+                                        </div>
+                                    </div>
 
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="pago">Pago</label>
-                                                    <input  id="pago[]" name="pago[]" type="number" class="form-control">
-                                                </div>
-                                            </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="num_sesion">Num sesion</label>
+                                            <input  id="num_sesion[]" name="num_sesion[]" type="number" class="form-control" required>
+                                        </div>
+                                    </div>
 
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="num_sesion">Num sesion</label>
-                                                    <input  id="num_sesion[]" name="num_sesion[]" type="number" class="form-control">
-                                                </div>
-                                            </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="num_sesion">Metodo Pago</label>
+                                            <select id="forma_pago[]" name="forma_pago[]" class="form-control" >
+                                                <option value="Efectivo">Efectivo</option>
+                                                <option value="Transferencia">Transferencia</option>
+                                                <option value="Mercado Pago">Mercado Pago</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="num_sesion">Metodo Pago</label>
-                                                    <select id="forma_pago[]" name="forma_pago[]" class="form-control" >
-                                                        <option value="Efectivo">Efectivo</option>
-                                                        <option value="Transferencia">Transferencia</option>
-                                                        <option value="Mercado Pago">Mercado Pago</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="note">Nota</label>
-                                                    <textarea class="form-control" id="note[]" name="note[]" rows="2"></textarea>
-                                                </div>
-                                            </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="note">Nota</label>
+                                            <textarea class="form-control" id="nota2[]" name="nota2[]" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn close-btn" data-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
+                            <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
                             <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Actualizar</button>
                         </div>
                 </div>

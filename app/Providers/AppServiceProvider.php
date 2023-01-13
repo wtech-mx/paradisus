@@ -27,7 +27,9 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
             $configuracion = Configuracion::first();
 
-            $view->with(['configuracion' => $configuracion]);
+            $fechaActual = date('Y-m-d');
+
+            $view->with(['configuracion' => $configuracion, 'fechaActual' => $fechaActual]);
         });
     }
 }

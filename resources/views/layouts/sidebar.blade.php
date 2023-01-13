@@ -13,9 +13,9 @@
         <li class="nav-item">
           <a class="nav-link {{ (Request::is('dashboard*') ? 'active' : '') }}" href="{{ route('dashboard') }}" target="">
             <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-             <i class="ni ni-shop text-primary text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+             <i class="ni ni-calendar-grid-58 text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
-            <span class="nav-link-text ms-1">Dashboards</span>
+            <span class="nav-link-text ms-1">Inicio</span>
           </a>
         </li>
 
@@ -40,7 +40,7 @@
         <li class="nav-item">
           <a class="nav-link {{ (Request::is('notas/pedidos*') ? 'active' : '') }}" href="{{ route('notas_pedidos.index') }}" target="">
             <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-             <i class="fa fa-user-md text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+             <i class="ni ni-basket text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Notas Pedidos</span>
           </a>
@@ -49,7 +49,7 @@
         <li class="nav-item">
           <a class="nav-link {{ (Request::is('caja*') ? 'active' : '') }}" href="{{ route('caja.index') }}" target="">
             <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-             <i class="fa fa-user-md text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+             <i class="ni ni-money-coins text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Caja</span>
           </a>
@@ -62,7 +62,7 @@
         <li class="nav-item">
         <a data-bs-toggle="collapse" href="#pagesExamples1" class="nav-link {{ (Request::is('servicio*') ? 'active' : '') }}{{ (Request::is('reporte*') ? 'active' : '') }}" aria-controls="pagesExamples1" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                <i class="ni ni-collection text-primary text-sm opacity-10"></i>
+                <i class="ni ni-collection text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Administrativo</span>
         </a>
@@ -84,7 +84,7 @@
 
           <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link {{ (Request::is('users*') ? 'active' : '') }}{{ (Request::is('roles*') ? 'active' : '') }}" aria-controls="pagesExamples" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-              <i class="ni ni-settings text-primary text-sm opacity-10"></i>
+              <i class="ni ni-settings text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Roles y Permisos</span>
           </a>
@@ -112,16 +112,26 @@
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#sistem" class="nav-link {{ (Request::is('users*') ? 'active' : '') }}{{ (Request::is('roles*') ? 'active' : '') }}" aria-controls="sistem" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-              <i class="ni ni-settings-gear-65  text-primary text-sm opacity-10"></i>
+              <i class="ni ni-settings-gear-65 text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Configuraciones</span>
           </a>
           <div class="collapse " id="sistem">
             <ul class="nav ms-4">
               <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('configuracion*') ? 'show' : '') }}" href="#">
+                  <span class="sidenav-mini-icon">U</span>
+                  <span class="sidenav-normal">Horarios</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="collapse " id="sistem">
+            <ul class="nav ms-4">
+              <li class="nav-item ">
                 <a class="nav-link {{ (Request::is('configuracion*') ? 'show' : '') }}" href="{{ route('index.configuracion') }}">
                   <span class="sidenav-mini-icon">U</span>
-                  <span class="sidenav-normal">Configuraciones</span>
+                  <span class="sidenav-normal">Pagina</span>
                 </a>
               </li>
             </ul>

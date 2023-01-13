@@ -16,8 +16,7 @@
 
                             @can('notas-create')
                                 <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    <i class="fa fa-plus"></i>
-                                    Nueva Nota
+                                    Crear
                                 </a>
                             @endcan
                         </div>
@@ -44,7 +43,7 @@
                                             @include('notas.show')
                                             @include('notas.edit')
                                                 <tr>
-                                                    <td>{{ ++$i }}</td>
+                                                    <td>{{ $notas->id }}</td>
                                                     <td>
                                                         @foreach($nota_cosme as $item)
                                                             @if ($item->id_nota == $notas->id)
@@ -98,16 +97,16 @@
                                                         <a type="button" class="btn btn-sm" target="_blank"
                                                         href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20de%20servicio:%20%22{{ $notas->Servicios->nombre }}%22%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
                                                         style="background: #00BB2D; color: #ffff">
-                                                        <i class="ni ni-chat-round"></i> Whats</a>
-                                                            <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                        <i class="ni ni-chat-round"></i></a>
+                                                            <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button>
                                                             @can('notas-edit')
-                                                                <div class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i> Editar</div>
+                                                                <div class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i></div>
                                                             @endcan
                                                             @can('notas-delete')
                                                                 <form action="{{ route('notas.destroy',$notas->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
                                                                 </form>
                                                             @endcan
                                                     </td>
@@ -131,39 +130,17 @@
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
       searchable: true,
-      fixedHeight: true
+      fixedHeight: false
     });
 </script>
 
 @endsection
 
-@section('script')
-<script type="text/javascript">
-$('.clonar').click(function() {
-  // Clona el .input-group
-  var $clone = $('#formulario .clonars').last().clone();
-
-  // Borra los valores de los inputs clonados
-  $clone.find(':input').each(function () {
-    if ($(this).is('select')) {
-      this.selectedIndex = 0;
-    } else {
-      this.value = '';
-    }
-  });
-
-  // Agrega lo clonado al final del #formulario
-  $clone.appendTo('#formulario');
-});
-
-$(document).ready(function() {
-            // Select2 Multiple
-            $('.select2-multiple').select2({
-                placeholder: "Select",
-                allowClear: true
-            });
-
+@section('js_custom')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
         });
-</script>
+    </script>
 @endsection
 

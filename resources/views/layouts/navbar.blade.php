@@ -18,7 +18,7 @@
               <i class="ni ni-box-2"></i>
             </a>
           </li>
-          <li class="breadcrumb-item text-sm text-white"><a class="opacity-5 text-white" href="{{ route('dashboard') }}">Dashboard</a></li>
+          <li class="breadcrumb-item text-sm text-white"><a class="opacity-5 text-white" href="{{ route('dashboard') }}">Inicio</a></li>
           <li class="breadcrumb-item text-sm text-white active" aria-current="page">@yield('page_actuality')</li>
         </ol>
       </nav>
@@ -33,7 +33,7 @@
               </button>
 
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Action</a></li>
+                {{-- <li><a class="dropdown-item" href="#">Action</a></li> --}}
 
                 <li class="">
 
@@ -57,7 +57,7 @@
           </div> --}}
         </div>
 
-        <ul class="navbar-nav  justify-content-end">
+        {{-- <ul class="navbar-nav  justify-content-end">
 
           <li class="nav-item d-xl-none px-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
@@ -68,13 +68,6 @@
               </div>
             </a>
           </li>
-
-
-          {{-- <li class="nav-item px-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white p-0">
-              <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-            </a>
-          </li> --}}
 
           <li class="nav-item dropdown px-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -149,7 +142,7 @@
               </li>
             </ul>
           </li>
-        </ul>
+        </ul> --}}
       </div>
     </div>
   </nav>

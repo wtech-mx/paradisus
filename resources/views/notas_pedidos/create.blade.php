@@ -8,16 +8,20 @@
                     <span aria-hidden="true">X</span>
                 </button>
             </div>
-
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Nota</button>
+                    <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
+                        <i class="ni ni-folder-17 text-sm me-2"></i> Nota
+                    </a>
 
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pedido</button>
+                    <a class="nav-link mb-0 px-0 py-1" id="pills-profile-tab" data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">
+                        <i class="fa fa-solid fa-receipt"></i> Pedido
+
+                    </a>
                 </li>
-              </ul>
+            </ul>
 
             <form method="POST" action="{{ route('notas_pedidos.store') }}" enctype="multipart/form-data" role="form">
                 @csrf
@@ -60,11 +64,10 @@
                         </div>
 
 
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">.
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div id="formulario" class="mt-4">
 
-                                <label for="Material">Pedido</label>
-                                <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
+                                <button type="button" class="clonar btn btn-secondary btn-sm">Agregar</button>
                                 <div class="clonars">
                                     <div class="row">
                                         <div class="col-3">

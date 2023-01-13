@@ -19,8 +19,7 @@
 
                             @can('notas-create')
                                 <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    <i class="fa fa-plus"></i>
-                                    Crear cliente
+                                    Crear
                                 </a>
                             @endcan
                         </div>
@@ -35,7 +34,7 @@
                                         <tr>
                                             <th>No</th>
 
-                                            <th>Usuario</th>
+                                            <th>Cosme</th>
                                             <th>Cliente</th>
                                             <th>Total</th>
                                             <th>Metodo Pago</th>
@@ -48,7 +47,7 @@
                                             @include('notas_pedidos.show')
                                             @include('notas_pedidos.edit')
                                                 <tr>
-                                                    <td>{{ ++$i }}</td>
+                                                    <td>{{ $notas->id }}</td>
 
                                                     <td>{{ $notas->User->name }}</td>
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
@@ -96,7 +95,7 @@
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
       searchable: true,
-      fixedHeight: true
+      fixedHeight: false
     });
 </script>
 
@@ -123,27 +122,10 @@ $('.clonar').click(function() {
   // Agrega lo clonado al final del #formulario
   $clone.appendTo('#formulario');
 });
-
-    // Select 2
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
-
-// ============= Sumar inputs =============
-// function sumar (valor) {
-//     var total = 0;
-//     valor = parseInt(valor); // Convertir el valor a un entero (número).
-//     total = document.getElementById('spTotal').innerHTML;
-
-//     // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
-//     total = (total == null || total == undefined || total == "") ? 0 : total;
-
-//     /* Esta es la suma. */
-//     total = (parseInt(total) + parseInt(valor));
-
-//     // Colocar el resultado de la suma en el control "span".
-//     document.getElementById('spTotal').innerHTML = total;
-// }
+// Select 2
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
 
 </script>
 

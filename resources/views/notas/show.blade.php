@@ -3,24 +3,32 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="showDataModalLabel">Ver nota</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+                <h5 class="modal-title" id="showDataModalLabel">Ver Nota</h5>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                       <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Precio Servicio: {{ $notas->Servicios->precio }}</label></strong> <br>
+
+                    </li>
+                    <li class="nav-item">
+                        <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Sesiones Servicio: {{ $notas->Servicios->num_sesiones }}</label></strong>
+                    </li>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item active">
-                  <a data-toggle="tab" href="#servicio{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Servicio</a>
+            <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#servicio{{$notas->id}}" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
+                        <i class="ni ni-folder-17 text-sm me-2"></i> Servicio
+                    </a>
+
                 </li>
-                <li class="nav-item">
-                    <a data-toggle="tab" href="#pago{{$notas->id}}" style="color: #bb546c;margin-left: 20px;">Pago</a>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1" id="pills-profile-tab" data-bs-toggle="tab" href="#pago{{$notas->id}}" role="tab" aria-controls="pills-profile" aria-selected="true">
+                        <i class="ni ni-credit-card text-sm me-2"></i> Pago
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <strong><label style="color: #543325;margin-left: 20px;">Precio Servicio: {{ $notas->Servicios->precio }}</label></strong>
-                 </li>
-                 <li class="nav-item">
-                     <strong><label style="color: #543325;margin-left: 20px;">Sesiones Servicio: {{ $notas->Servicios->num_sesiones }}</label></strong>
-                 </li>
             </ul>
 
             <div class="modal-body">
@@ -59,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label for="fecha">Fecha y Hora</label>
-                            <input disabled id="fecha" name="fecha" type="datetime-local" class="form-control" placeholder="fecha" value="{{$notas->fecha}}">
+                            <input disabled id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}">
                         </div>
                         <div class="form-group">
                             <label for="nota">Nota</label>
@@ -71,9 +79,10 @@
 
                         <div class="row text-center">
                             <div class="col-3" style="background-color: #bb546c; color: #fff;">Fecha</div>
-                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Pago</div>
-                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Num sesion</div>
-                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Metodo de pago</div>
+                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
+                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Sesión</div>
+                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo Pago</div>
+                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Nota</div>
 
 
                             <p style="display: none">{{ $resultado = 0; }}</p>
@@ -84,23 +93,28 @@
                                         value="{{$item->fecha}}" disabled>
                                 </div>
 
-                                <div class="col-3 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
+                                <div class="col-2 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
                                         value="{{$item->pago}}" disabled></div>
-                                <div class="col-3 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
+
+                                <div class="col-2 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
                                     value="{{$item->num_sesion}}" disabled>
                                 </div>
 
-                                <div class="col-3 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
+                                <div class="col-2 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
                                     value="{{$item->forma_pago}}" disabled>
+                                </div>
+
+                                <div class="col-3 mb-2"><input name="nota[]" type="text" class="form-control text-center" id="nota[]"
+                                    value="{{$item->nota}}" disabled>
                                 </div>
                                 @endif
                             @endforeach
 
                         </div>
                         <div id="formulario" class="mt-4">
-                            <h3><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h3>
+                            <h5><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h5>
 
-                            <h3><strong>Restante:</strong>  ${{$notas->restante}} .00  MXN</h3>
+                            <h5><strong>Restante:</strong>  ${{$notas->restante}} .00  MXN</h5>
                         </div>
                     </div>
 

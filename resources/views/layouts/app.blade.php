@@ -32,11 +32,6 @@
             display: inline-block;
             color: black;
         }
-
-        input::-webkit-datetime-edit, input::-webkit-inner-spin-button, input::-webkit-clear-button {
-            display: none;
-        }
-
     </style>
   @livewireStyles
 </head>
@@ -55,7 +50,7 @@
     <div class="container-fluid py-4">
 
         {{-- @include('layouts.header') --}}
-
+        @include('layouts.simple_alert')
         @yield('content')
 
 
