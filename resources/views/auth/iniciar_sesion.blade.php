@@ -31,11 +31,11 @@
           <div class="col-lg-4 col-md-7">
             <div class="card border-0 mb-0">
               <div class="card-header bg-transparent">
-                <h5 class="text-dark text-center mt-2 mb-3">Welcome!</h5>
+                <h5 class="text-dark text-center mt-2 mb-3">Hola!</h5>
               </div>
               <div class="card-body px-lg-5 pt-0">
                 <div class="text-center text-muted mb-4">
-                  <small></small>
+                  <small>Ingresa tu Correo o tu Telefono</small>
                 </div>
 
                 {{-- <form method="POST" action="{{ route('login') }}"> --}}
@@ -43,38 +43,19 @@
                   @csrf
 
                   <div class="mb-3">
-                    <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <input id="email" type="email" placeholder="Correo" class="form-control" name="email" value=""  >
+                  </div>
+
+                  <div class="mb-3 text-center">
+                    ó
                   </div>
 
                   <div class="mb-3">
-                    <input id="password" type="password" placeholder="*****" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                  </div>
-
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" id=" customCheckLogin" type="checkbox" name="remember" id="remember"{{ old('remember') ? 'checked' : '' }}>
-                    <label class="form-check-label" for="rememberMe">{{ __('Remember Me') }}</label>
+                    <input id="tel" type="number" placeholder="Telefono" class="form-control" name="tel"  >
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-100 my-4 mb-2"> {{ __('Login') }}</button>
-                  </div>
-
-                  <div class="text-center">
-                      @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="btn bg-gradient-dark w-100 mt-2 mb-4">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                      @endif
+                    <button type="submit" class="btn btn-primary w-100 my-4 mb-2"> Ingresar</button>
                   </div>
 
                 </form>
