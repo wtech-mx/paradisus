@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reportes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('notas_pedidos', function (Blueprint $table) {
+            $table->string('foto', 900)->nullable()->after('total');
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reportes');
+        Schema::table('pedido', function (Blueprint $table) {
+            //
+        });
     }
 };

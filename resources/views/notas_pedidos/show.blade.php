@@ -56,6 +56,10 @@
                             <label for="nota">Metodo Pago</label>
                             <input disabled id="metodo_pago" name="metodo_pago" type="number" class="form-control" placeholder="total" value="{{$notas->metodo_pago}}">
                         </div>
+
+                        <div class="form-group">
+                            <img src="{{asset('foto_producto/'.$notas->foto)}}" class="img-firma">
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-profile-tab{{$notas->id}}" role="tabpanel" aria-labelledby="pills-profile-tab{{$notas->id}}">

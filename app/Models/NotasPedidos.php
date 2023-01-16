@@ -18,6 +18,7 @@ class NotasPedidos extends Model
         'metodo_pago',
         'fecha',
         'total',
+        'foto',
     ];
 
     public function User()

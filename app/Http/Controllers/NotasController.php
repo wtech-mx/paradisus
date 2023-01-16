@@ -66,26 +66,23 @@ class NotasController extends Controller
 
         NotasCosmes::insert($insert_data2);
 
-        $fecha_pago = $request->get('fecha_pago');
-        $pago = $request->get('pago');
-        $num_sesion = $request->get('num_sesion');
-        $forma_pago = $request->get('forma_pago');
+        $pago = new Pagos;
+        $pago->id_nota = $nota->id;
+        $pago->fecha = $request->get('fecha_pago');
+        $pago->pago = $request->get('pago');
+        $pago->num_sesion = $request->get('num_sesion');
+        $pago->forma_pago = $request->get('forma_pago');
+        $pago->nota = $request->get('nota2');
 
-        $note = $request->get('nota2');
-
-        for ($count = 0; $count < count($fecha_pago); $count++) {
-            $data = array(
-                'id_nota' => $nota->id,
-                'fecha' => $fecha_pago[$count],
-                'pago' => $pago[$count],
-                'num_sesion' => $num_sesion[$count],
-                'forma_pago' => $forma_pago[$count],
-                'nota' => $note[$count],
-            );
-            $insert_data[] = $data;
+        if ($request->hasFile("foto")) {
+            $file = $request->file('foto');
+            $path = public_path() . '/foto_servicios';
+            $fileName = uniqid() . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $pago->foto = $fileName;
         }
 
-       Pagos::insert($insert_data);
+        $pago->save();
 
         $pago = Pagos::orderBy('id', 'desc')->first();
         $restante = $nota->Servicios->precio - $pago->pago;
@@ -131,25 +128,23 @@ class NotasController extends Controller
         // $nota->nota = $request->get('nota');
         // $nota->update();
 
-        $fecha_pago = $request->get('fecha_pago');
-        $pago = $request->get('pago');
-        $num_sesion = $request->get('num_sesion');
-        $forma_pago = $request->get('forma_pago');
-        $note = $request->get('nota2');
+        $pago = new Pagos;
+        $pago->id_nota = $nota->id;
+        $pago->fecha = $request->get('fecha_pago');
+        $pago->pago = $request->get('pago');
+        $pago->num_sesion = $request->get('num_sesion');
+        $pago->forma_pago = $request->get('forma_pago');
+        $pago->nota = $request->get('nota2');
 
-        for ($count = 0; $count < count($fecha_pago); $count++) {
-            $data = array(
-                'id_nota' => $nota->id,
-                'fecha' => $fecha_pago[$count],
-                'pago' => $pago[$count],
-                'num_sesion' => $num_sesion[$count],
-                'forma_pago' => $forma_pago[$count],
-                'nota' => $note[$count],
-            );
-            $insert_data[] = $data;
+        if ($request->hasFile("foto")) {
+            $file = $request->file('foto');
+            $path = public_path() . '/foto_servicios';
+            $fileName = uniqid() . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $pago->foto = $fileName;
         }
 
-        Pagos::insert($insert_data);
+        $pago->save();
 
         $pago = Pagos::orderBy('id', 'desc')->first();
         $restante = $nota->restante - $pago->pago;

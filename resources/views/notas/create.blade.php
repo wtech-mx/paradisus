@@ -85,28 +85,28 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="fecha">Fecha</label>
-                                        <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control" value="{{$fechaActual}}">
+                                        <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
                                     </div>
                                 </div>
 
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="pago">Pago</label>
-                                        <input  id="pago[]" name="pago[]" type="number" class="form-control" required>
+                                        <input  id="pago" name="pago" type="number" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="num_sesion">Num sesion</label>
-                                        <input  id="num_sesion[]" name="num_sesion[]" type="number" class="form-control" required>
+                                        <input  id="num_sesion" name="num_sesion" type="number" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="num_sesion">Metodo Pago</label>
-                                        <select id="forma_pago[]" name="forma_pago[]" class="form-control">
+                                        <select id="forma_pago" name="forma_pago" class="form-control">
                                             <option value="Efectivo">Efectivo</option>
                                             <option value="Transferencia">Transferencia</option>
                                             <option value="Mercado Pago">Mercado Pago</option>
@@ -117,7 +117,14 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="nota">Nota</label>
-                                        <textarea class="form-control" id="nota2[]" name="nota2[]" rows="2"></textarea>
+                                        <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="nota">Foto</label>
+                                        <input type="file" id="foto" class="form-control" name="foto">
                                     </div>
                                 </div>
                             </div>

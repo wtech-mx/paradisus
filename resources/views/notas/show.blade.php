@@ -83,6 +83,7 @@
                             <div class="col-2" style="background-color: #bb546c; color: #fff;">Sesión</div>
                             <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo Pago</div>
                             <div class="col-3" style="background-color: #bb546c; color: #fff;">Nota</div>
+                            <div class="col-12" style="background-color: #bb546c; color: #fff;">Foto</div>
 
 
                             <p style="display: none">{{ $resultado = 0; }}</p>
@@ -106,6 +107,10 @@
 
                                 <div class="col-3 mb-2"><input name="nota[]" type="text" class="form-control text-center" id="nota[]"
                                     value="{{$item->nota}}" disabled>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <img src="{{asset('foto_servicios/'.$item->foto)}}" class="img-firma">
                                 </div>
                                 @endif
                             @endforeach

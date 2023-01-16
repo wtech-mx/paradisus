@@ -48,6 +48,15 @@ class NotasPedidoController extends Controller
         $nota->id_client = $request->get('id_client');
         $nota->metodo_pago = $request->get('metodo_pago');
         $nota->fecha = $request->get('fecha');
+
+        if ($request->hasFile("foto")) {
+            $file = $request->file('foto');
+            $path = public_path() . '/foto_producto';
+            $fileName = uniqid() . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $nota->foto = $fileName;
+        }
+        
         $nota->save();
 
         $concepto = $request->get('concepto');

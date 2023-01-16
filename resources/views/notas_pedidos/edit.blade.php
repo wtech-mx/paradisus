@@ -69,6 +69,10 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <img src="{{asset('foto_producto/'.$notas->foto)}}" class="img-firma">
+                            </div>
+
                         </div>
 
                         <div class="tab-pane fade " id="pills-profile-{{$notas->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">

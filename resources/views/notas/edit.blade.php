@@ -85,29 +85,34 @@
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Sesión</div>
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo Pago</div>
                                 <div class="col-3" style="background-color: #bb546c; color: #fff;">Nota</div>
+                                <div class="col-12" style="background-color: #bb546c; color: #fff;">Foto</div>
 
 
                                 <p style="display: none">{{ $resultado = 0; }}</p>
                                 @foreach ($pago as $item)
                                     @if ($item->id_nota == $notas->id)
                                         <p style="display: none">{{ $resultado += $item->pago; }}</p>
-                                        <div class="col-3 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
+                                        <div class="col-3 mb-2"><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
                                                 value="{{$item->fecha}}" disabled>
                                         </div>
 
-                                        <div class="col-2 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
+                                        <div class="col-2 mb-2"><input name="pago" type="number" class="form-control text-center" id="pago"
                                                 value="{{$item->pago}}" disabled></div>
 
-                                        <div class="col-2 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
+                                        <div class="col-2 mb-2"><input name="num_sesion" type="number" class="form-control text-center" id="num_sesion"
                                             value="{{$item->num_sesion}}" disabled>
                                         </div>
 
-                                        <div class="col-2 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
+                                        <div class="col-2 mb-2"><input name="forma_pago" type="text" class="form-control text-center" id="forma_pago"
                                             value="{{$item->forma_pago}}" disabled>
                                         </div>
 
-                                        <div class="col-3 mb-2"><input name="nota[]" type="text" class="form-control text-center" id="nota[]"
+                                        <div class="col-3 mb-2"><input name="nota" type="text" class="form-control text-center" id="nota"
                                             value="{{$item->nota}}" disabled>
+                                        </div>
+
+                                        <div class="col-12 mb-2">
+                                            <img src="{{asset('foto_servicios/'.$item->foto)}}" class="img-firma">
                                         </div>
                                     @endif
                                 @endforeach
@@ -121,28 +126,28 @@
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="fecha">Fecha</label>
-                                            <input  id="fecha_pago[]" name="fecha_pago[]" type="date" class="form-control" value="{{$fechaActual}}">
+                                            <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
                                         </div>
                                     </div>
 
                                     <div class="col-2">
                                         <div class="form-group">
                                             <label for="pago">Pago</label>
-                                            <input  id="pago[]" name="pago[]" type="number" class="form-control" required>
+                                            <input  id="pago" name="pago" type="number" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="col-2">
                                         <div class="form-group">
                                             <label for="num_sesion">Num sesion</label>
-                                            <input  id="num_sesion[]" name="num_sesion[]" type="number" class="form-control" required>
+                                            <input  id="num_sesion" name="num_sesion" type="number" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="col-2">
                                         <div class="form-group">
                                             <label for="num_sesion">Metodo Pago</label>
-                                            <select id="forma_pago[]" name="forma_pago[]" class="form-control" >
+                                            <select id="forma_pago" name="forma_pago" class="form-control">
                                                 <option value="Efectivo">Efectivo</option>
                                                 <option value="Transferencia">Transferencia</option>
                                                 <option value="Mercado Pago">Mercado Pago</option>
@@ -152,8 +157,15 @@
 
                                     <div class="col-3">
                                         <div class="form-group">
-                                            <label for="note">Nota</label>
-                                            <textarea class="form-control" id="nota2[]" name="nota2[]" rows="2"></textarea>
+                                            <label for="nota">Nota</label>
+                                            <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="nota">Foto</label>
+                                            <input type="file" id="foto" class="form-control" name="foto">
                                         </div>
                                     </div>
                                 </div>

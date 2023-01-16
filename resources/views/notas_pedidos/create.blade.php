@@ -61,6 +61,11 @@
                                     <option value="Mercado Pago">Mercado Pago</option>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="nota">Foto</label>
+                                <input type="file" id="foto" class="form-control" name="foto">
+                            </div>
                         </div>
 
 
