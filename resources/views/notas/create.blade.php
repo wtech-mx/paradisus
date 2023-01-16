@@ -30,8 +30,7 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="form-group">
                                 <label for="nombre">Seleccione Cosmetologa</label>
-                                <select class="js-example-basic-multiple form-control " id="id_user[]" name="id_user[]" multiple="multiple"
-                                    value="{{ old('submarca') }}"required>
+                                <select class="form-control " id="id_user[]" name="id_user[]" multiple value="{{ old('submarca') }}" required>
                                     @foreach ($user as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach

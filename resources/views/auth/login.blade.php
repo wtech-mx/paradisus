@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png')}}">
-  <link rel="icon" type="image/png" href="https://wtech.com.mx/romeroip/favicon/62d6504cbf0b1ei2.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{asset('logo/'.$configuracion->logo) }}">
+  <link rel="icon" type="image/png" href="{{asset('logo/'.$configuracion->logo) }}">
   <title>
     Paradisus
   </title>
@@ -24,17 +24,17 @@
 <body class="">
 
   <main class="main-content main-content-bg mt-0">
-    <div class="page-header min-vh-100" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-basic.jpg');">
+    <div class="page-header min-vh-100" style="background-image: url('{{asset('img/paradisus.png') }}');">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-4 col-md-7">
             <div class="card border-0 mb-0">
               <div class="card-header bg-transparent">
-                <h5 class="text-dark text-center mt-2 mb-3">Welcome!</h5>
+                <h3 class="text-dark text-center mt-2">¡Bienvenido!</h3>
               </div>
               <div class="card-body px-lg-5 pt-0">
-                <div class="text-center text-muted mb-4">
+                <div class="text-center text-muted ">
                   <small></small>
                 </div>
 
@@ -61,17 +61,17 @@
 
                   <div class="form-check form-switch">
                     <input class="form-check-input" id=" customCheckLogin" type="checkbox" name="remember" id="remember"{{ old('remember') ? 'checked' : '' }}>
-                    <label class="form-check-label" for="rememberMe">{{ __('Remember Me') }}</label>
+                    <label class="form-check-label" for="rememberMe">Recuérdame</label>
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-100 my-4 mb-2"> {{ __('Login') }}</button>
+                    <button type="submit" class="btn w-100 my-4 mb-2" style="background: {{$configuracion->color_boton_save}}; color: #ffff"> Iniciar sesión</button>
                   </div>
 
                   <div class="text-center">
                       @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="btn bg-gradient-dark w-100 mt-2 mb-4">
-                            {{ __('Forgot Your Password?') }}
+                        <a href="{{ route('password.request') }}" class="btn bg-gradient-dark w-100 mt-2 mb-4" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                            ¿Olvidaste tu contraseña?
                         </a>
                       @endif
                   </div>

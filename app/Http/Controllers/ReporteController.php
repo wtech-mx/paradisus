@@ -8,6 +8,7 @@ use App\Models\Pagos;
 use DB;
 use App\Models\Client;
 use App\Models\Notas;
+use App\Models\NotasCosmes;
 use App\Models\NotasPedidos;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
@@ -21,101 +22,56 @@ class ReporteController extends Controller
      */
     public function index()
     {
-        $fechaActual = date('m');
+        $añoActual = date('Y');
 
         $caja = Caja::get();
-        $clientes = Client::get();
         $pago = Pagos::get();
         $pago_pedidos = NotasPedidos::get();
 
-        $servicios_individual = Notas::
-        select(DB::raw('count(*) as filas'), DB::raw("DATE_FORMAT(fecha,'%c') as mes"), 'id_servicio')
-        ->groupBy('mes')
-        ->groupBy('id_servicio')
-        ->get();
+        $pedidos_total = NotasPedidos::
+        where(DB::raw("DATE_FORMAT(fecha,'%Y')"), '=', $añoActual)
+        ->select(DB::raw('count(*) as filas'))
+        ->first();
 
-        $pedidos_total = DB::table('notas_pedidos')
-        ->select(DB::raw('SUM(total) as total'), DB::raw("DATE_FORMAT(fecha,'%c') as months"))
-        ->groupBy('months')
-        ->get();
+        $servicios_total = Notas::
+        where(DB::raw("DATE_FORMAT(fecha,'%Y')"), '=', $añoActual)
+        ->select(DB::raw('count(*) as filas'))
+        ->first();
 
-        // $data = [];
-        // foreach($pedidos_total as $ped){
-        //     $data['label'][] = $ped->months;
-        //     $data['data'][] = $ped->total;
-        // }
-        // $data[] = json_encode($data);
+        $clientes_total = Client::
+        where(DB::raw("DATE_FORMAT(created_at,'%Y')"), '=', $añoActual)
+        ->select(DB::raw('count(*) as filas'))
+        ->first();
 
-        $servicios_total = DB::table('pagos')
-        ->select(DB::raw("DATE_FORMAT(fecha,'%c') as mes"), DB::raw('SUM(pago) as pago'))
-        ->groupBy('mes')
-        ->get();
-        return view('reportes.index', compact('fechaActual' ,'caja', 'pago', 'pago_pedidos', 'clientes', 'pedidos_total', 'servicios_individual', 'servicios_total'));
+        return view('reportes.index', compact('añoActual' ,'caja', 'pago', 'pago_pedidos', 'pedidos_total', 'servicios_total', 'clientes_total'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function imprimir_serv(){
+        $mesActual = date('m');
+        $today =  date('d-m-Y');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $servicios = Pagos::where(DB::raw("DATE_FORMAT(fecha,'%m')"), '=', $mesActual)->get();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Reporte  $reporte
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reporte $reporte)
-    {
-        //
-    }
+        //         $servicios_cosmes =  Pagos::
+        //         join('notas_cosmes', 'pagos.id_nota', '=', 'notas_cosmes.id_nota')
+        //         ->where(DB::raw("DATE_FORMAT(fecha,'%m')"), '=', $mesActual)
+        //         ->select('id_user', 'pagos.* as pag')
+        //         ->groupBy('id_user')
+        //         ->get();
+        // dd( $servicios_cosmes );
+        $pdf = \PDF::loadView('reportes.pdf', compact('today', 'servicios'));
+        // return $pdf->stream();
+        return $pdf->download('Reporte Servicios '.$today.'.pdf');
+   }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reporte  $reporte
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reporte $reporte)
-    {
-        //
-    }
+   public function imprimir_prod(){
+        $mesActual = date('m');
+        $today =  date('d-m-Y');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reporte  $reporte
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reporte $reporte)
-    {
-        //
-    }
+        $productos = NotasPedidos::where(DB::raw("DATE_FORMAT(fecha,'%m')"), '=', $mesActual)->get();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Reporte  $reporte
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Reporte $reporte)
-    {
-        //
+        $pdf = \PDF::loadView('reportes.pdf_productos', compact('today', 'productos'));
+        //return $pdf->stream();
+         return $pdf->download('Reporte Productos '.$today.'.pdf');
     }
 }

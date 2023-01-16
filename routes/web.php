@@ -67,8 +67,7 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O   C A J A ===============================
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
-    Route::patch('/caja/update/{id}', [App\Http\Controllers\CajaController::class, 'update'])->name('caja.update');
-    Route::delete('/caja/delete/{id}', [App\Http\Controllers\CajaController::class, 'destroy'])->name('caja.destroy');
+    Route::get('/reporte/imprimir/caja', [App\Http\Controllers\CajaController::class, 'imprimir_caja'])->name('caja.print_caja');
 
     // =============== M O D U L O   C A L E N D A R I O ===============================
     Route::get('calendar', [App\Http\Controllers\AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
@@ -79,9 +78,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     // =============== M O D U L O   R E P O R T E S ===============================
     Route::get('/reporte', [App\Http\Controllers\ReporteController::class, 'index'])->name('reporte.index');
-    Route::post('/reporte/create', [App\Http\Controllers\ReporteController::class, 'store'])->name('reporte.store');
-    Route::patch('/reporte/update/{id}', [App\Http\Controllers\ReporteController::class, 'update'])->name('reporte.update');
-    Route::delete('/reporte/delete/{id}', [App\Http\Controllers\ReporteController::class, 'destroy'])->name('reporte.destroy');
+    Route::get('/reporte/imprimir/serv', [App\Http\Controllers\ReporteController::class, 'imprimir_serv'])->name('reporte.print_serv');
+    Route::get('/reporte/imprimir/prod', [App\Http\Controllers\ReporteController::class, 'imprimir_prod'])->name('reporte.print_prod');
 });
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');

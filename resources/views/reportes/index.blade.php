@@ -4,18 +4,14 @@
     Reporte
 @endsection
 
-@section('script')
-<script src="{{ asset('assets/js/highcharts.js') }}"></script>
-<script src="{{ asset('assets/js/highcharts-3d.js') }}"></script>
-@endsection
-
 @section('content')
 
+@include('layouts.header')
 
     <div class="container-fluid">
         <div class="row">
             {{-- =============== C A R D   G R A F I C A =============================== --}}
-            <div class="col-sm-6 mb-3">
+            {{-- <div class="col-sm-6 mb-3">
                 <div class="card">
 
                     <div class="card-header pb-0 p-3">
@@ -33,15 +29,15 @@
                     </div>
 
                     <div class="card-body p-3">
-                      <div class="chart">
-                        <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
-                      </div>
+                        <figure class="highcharts-figure">
+                            <div id="container"></div>
+                        </figure>
                     </div>
                   </div>
-            </div>
+            </div> --}}
 
            {{-- =============== C A R D   P R O G R E S S =============================== --}}
-            <div class="col-sm-6 mb-3">
+            {{-- <div class="col-sm-6 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -53,7 +49,8 @@
                     </div>
                         <div class="card-body">
                             @foreach($servicios_individual as $serv)
-                                @if ($serv->mes ==  $fechaActual)
+                                @if ($serv->mes ==  $MesActual)
+
                                     <div class="row mb-3">
                                             <div class="progress-wrapper">
                                                 <div class="row">
@@ -77,7 +74,7 @@
                              @endforeach
                         </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- =============== C A R D   S E R V I C I O S =============================== --}}
             <div class="col-sm-6 mb-5">
@@ -89,7 +86,7 @@
                                Servicios
                             </span>
                             @can('client-create')
-                                <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff"><i class="fa fa-cash"></i> Exportar</a>
+                                <a type="button" class="btn btn-sm bg-gradient-success" href="{{ route('reporte.print_serv') }}"><i class="fa fa-cash"></i> Exportar</a>
                             @endcan
                         </div>
                     </div>
@@ -131,7 +128,7 @@
                                Productos
                             </span>
                             @can('client-create')
-                                <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff"><i class="fa fa-cash"></i> Exportar</a>
+                                <a type="button" class="btn btn-sm bg-gradient-secondary" href="{{ route('reporte.print_prod') }}"><i class="fa fa-cash"></i> Exportar</a>
                             @endcan
                         </div>
                     </div>
@@ -164,53 +161,5 @@
             </div>
 
         </div>
-
     </div>
-@endsection
-@section('js_custom')
-
-<script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
-
-<script>
-        const dato = {!! json_encode($pedidos_total) !!};
-        const cData = JSON.parse(dato)
-        console.log(cData);
-
-        const ctx = document.getElementById('chart-line').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: cData.total,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-</script>
 @endsection

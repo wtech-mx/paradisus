@@ -4,63 +4,20 @@
     Caja
 @endsection
 
-@section('script')
-<script src="{{ asset('assets/js/highcharts.js') }}"></script>
-<script src="{{ asset('assets/js/highcharts-3d.js') }}"></script>
-@endsection
-
 @section('content')
 
 
     <div class="container-fluid">
         <div class="row">
             @php
-                $total_ingreso = 0;
-                $pago_total = 0;
-                foreach ($pago as $item){
-                    $pago_total = $total_ingreso + $item->pago;
-                }
-                $pedidos_total = 0;
-                foreach ($pago_pedidos as $item){
-                    $pedidos_total = $total_ingreso + $item->total;
-                }
+                $total_ing = 0;
+                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total;
 
-                $total_ingreso = $pago_total + $pedidos_total;
                 $total_egresos = 0;
-                foreach ($caja_dia as $item){
-                    $total_egresos = $total_egresos + $item->egresos;
-                }
-
-                $total = $total_ingreso - $total_egresos;
+                    $total_egresos = $total_ing - $caja_dia_suma->total;
             @endphp
-            {{-- =============== C A R D   G R A F I C A =============================== --}}
-            <div class="col-sm-6">
-                <div class="card">
-
-                    <div class="card-header pb-0 p-3">
-                      <h6 class="mb-0">Ventas</h6>
-                      <div class="d-flex align-items-center">
-                        <span class="badge badge-md badge-dot me-4">
-                          <i class="bg" style="background: #D4BA7A"></i>
-                          <span class="text-dark text-xs">Productos</span>
-                        </span>
-                        <span class="badge badge-md badge-dot me-4">
-                          <i class="bg" style="background: #99696a"></i>
-                          <span class="text-dark text-xs">Servicios</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    <div class="card-body p-3">
-                      <div class="chart">
-                        <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-
-           {{-- =============== C A R D   T O T A L E S =============================== --}}
-            <div class="col-sm-6">
+                {{-- =============== C A R D   T O T A L E S =============================== --}}
+            <div class="col-sm-7 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -75,79 +32,128 @@
                             {{-- =============== I N G R E S O S =============================== --}}
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="card  mb-4">
-                                  <div class="card-body p-3">
+                                    <div class="card-body p-3">
                                     <div class="row">
-                                      <div class="col-8">
+                                        <div class="col-8">
                                         <div class="numbers">
-                                          <p class="text-sm mb-0 text-uppercase font-weight-bold">Ingresos</p>
-                                          <h5 class="font-weight-bolder">
-                                            ${{ $total_ingreso }}
-                                          </h5>
+                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Ingresos</p>
+                                            <h5 class="font-weight-bolder">
+                                                ${{ $total_ing }}
+                                            </h5>
                                         </div>
-                                      </div>
-                                      <div class="col-4 text-end">
+                                        </div>
+                                        <div class="col-4 text-end">
                                         <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle" style="background: {{$configuracion->color_iconos_sidebar}}; color: #ffff">
-                                          <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                                         </div>
-                                      </div>
+                                        </div>
                                     </div>
-                                  </div>
+                                    </div>
                                 </div>
-                              </div>
+                            </div>
 
                             {{-- =============== E G R E S O S =============================== --}}
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="card  mb-4">
-                                  <div class="card-body p-3">
+                                    <div class="card-body p-3">
                                     <div class="row">
-                                      <div class="col-8">
+                                        <div class="col-8">
                                         <div class="numbers">
-                                          <p class="text-sm mb-0 text-uppercase font-weight-bold">Egresos</p>
-                                          <h5 class="font-weight-bolder">
-                                            ${{ $total_egresos }}
-                                          </h5>
+                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Egresos</p>
+                                            <h5 class="font-weight-bolder">
+                                                ${{ $caja_dia_suma->total }}
+                                            </h5>
                                         </div>
-                                      </div>
-                                      <div class="col-4 text-end">
+                                        </div>
+                                        <div class="col-4 text-end">
                                         <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"  style="background: {{$configuracion->color_principal}}; color: #ffff">
-                                          <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                                         </div>
-                                      </div>
+                                        </div>
                                     </div>
-                                  </div>
+                                    </div>
                                 </div>
-                              </div>
+                            </div>
                             {{-- =============== T O T A L =============================== --}}
 
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="card  mb-4">
-                                  <div class="card-body p-3">
+                                    <div class="card-body p-3">
                                     <div class="row">
-                                      <div class="col-8">
+                                        <div class="col-8">
                                         <div class="numbers">
-                                          <p class="text-sm mb-0 text-uppercase font-weight-bold">Total</p>
-                                          <h5 class="font-weight-bolder">
-                                            ${{ $total }}
-                                          </h5>
+                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Total</p>
+                                            <h5 class="font-weight-bolder">
+                                            ${{ $total_egresos }}
+                                            </h5>
                                         </div>
-                                      </div>
-                                      <div class="col-4 text-end">
+                                        </div>
+                                        <div class="col-4 text-end">
                                         <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"  style="background: {{$configuracion->color_principal}}; color: #ffff">
-                                          <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                                         </div>
-                                      </div>
+                                        </div>
                                     </div>
-                                  </div>
+                                    </div>
                                 </div>
-                              </div>
+                            </div>
 
                         </div>
                     </div>
                 </div>
             </div>
 
+            {{-- =============== C A R D   G R A F I C A =============================== --}}
+            {{-- <div class="col-sm-5 mb-3">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <figure class="highcharts-figure">
+                            <div id="container2"></div>
+                        </figure>
+                    </div>
+                  </div>
+            </div> --}}
+            <div class="col-sm-5 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                Estadistica servicios
+                            </span>
+                        </div>
+                    </div>
+                        <div class="card-body">
+                            @foreach($servicios_individual as $serv)
+
+                                    <div class="row mb-3">
+                                            <div class="progress-wrapper">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                        <div class="progress-label">
+                                                            <span>{{$serv->Servicios->nombre}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <div class="progress-percentage">
+                                                            <span>#{{$serv->filas}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{$serv->filas}}%; background-color: {{$serv->Servicios->color}};"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                             @endforeach
+                        </div>
+                </div>
+            </div>
+
+
+
             {{-- =============== C A R D   I N G R E S O S =============================== --}}
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -164,7 +170,7 @@
                         <div class="card-body">
                             @include('caja.create')
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover table_id">
+                                <table class="table table-striped table-hover table_id text-center">
                                     <thead class="thead">
                                         <tr>
                                             <th>Fecha</th>
@@ -199,7 +205,7 @@
             </div>
 
             {{-- =============== C A R D   E G R E S O S =============================== --}}
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -208,14 +214,14 @@
                                Egresos
                             </span>
                             @can('client-create')
-                            <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModa" style="background: {{$configuracion->color_boton_add}}; color: #ffff">Cerrar caja</a>
+                            <a type="button" class="btn btn-sm btn-primary" href="{{ route('caja.print_caja') }}" style="background: {{$configuracion->color_principal}}; color: #ffff">Reporte</a>
                         @endcan
                         </div>
                     </div>
                     @can('client-list')
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover table_id">
+                                <table class="table table-striped table-hover table_id text-center">
                                     <thead class="thead">
                                         <tr>
                                             <th>Fecha</th>
@@ -246,100 +252,66 @@
 
 @section('js_custom')
 
-<script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
+<script src="{{ asset('assets/js/highcharts.js') }}"></script>
+<script src="{{ asset('assets/js/highcharts-3d.js') }}"></script>
 
-<script>
-    var ctx1 = document.getElementById("chart-line").getContext("2d");
+<script type="text/javascript">
+    var noTer = '{{$caja_dia_suma->total}}';
+    var Ter = '{{$total_ing}}';
+    var Fecha = '{{$fechaActual}}';
 
-
-    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-    var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-    // Line chart
-    new Chart(ctx1, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-            label: "Productos",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 2,
-            pointBackgroundColor: "#D4BA7A",
-            borderColor: "#D4BA7A",
-            borderWidth: 3,
-            backgroundColor: gradientStroke1,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-            maxBarThickness: 6
-          },
-          {
-            label: "Servicios",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 2,
-            pointBackgroundColor: "#99696a",
-            borderColor: "#99696a",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
+    Highcharts.chart('container2', {
+        chart: {
+            type: 'column',
         },
-        interaction: {
-          intersect: false,
-          mode: 'index',
+        title: {
+            text: 'Grafica del Dia'
         },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#9ca2b7'
+        accessibility: {
+            announceNewData: {
+                enabled: true
             }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: true,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              color: '#9ca2b7',
-              padding: 10
-            }
-          },
         },
-      },
+        xAxis: {
+        type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Capital'
+            }
+
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '${point.y:.0f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>${point.y:.0f}</b>'
+        },
+        series: [{
+            name: Fecha,
+            colorByPoint: true,
+            data: [
+                {
+                    name: "Ingresos",
+                    y: + Ter,
+                    drilldown: "Ingresos"
+                },
+                {
+                    name: "Egresos",
+                    y: + noTer,
+                    drilldown: "Egresos"
+                },
+            ]
+        }]
     });
-
-  </script>
+</script>
 
 @endsection
