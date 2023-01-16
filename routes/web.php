@@ -30,9 +30,7 @@ Route::get('iniciar_sesion', function () {
     return view('auth.iniciar_sesion');
 });
 
-Route::get('nota_usuario', function () {
-    return view('clientes.notas.show');
-});
+Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
 
 // =============== M O D U L O   login custom ===============================
 
@@ -101,7 +99,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte/imprimir/prod', [App\Http\Controllers\ReporteController::class, 'imprimir_prod'])->name('reporte.print_prod');
 });
 
-Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
 
 //Route Hooks - Do not delete//
 Route::view('/especialists', 'livewire.especialists.index')->middleware('auth');
