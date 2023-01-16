@@ -103,6 +103,11 @@
 
 
 @section('js_custom')
+<script>
+    function abrir(url,largo,altura) {
+    open(url,'','top=100,left=100,width='+largo+',height='+altura+'') ;
+    }
+</script>
 
 <script type="text/javascript">
 // ============= Agregar mas inputs dinamicamente =============

@@ -9,25 +9,28 @@
                 </button>
             </div>
 
-              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="pills-home-{{$notas->id}}" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Nota</button>
-                </li>
+                    <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#notaedit{{$notas->id}}" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
+                        <i class="ni ni-folder-17 text-sm me-2"></i> Nota
+                    </a>
 
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-{{$notas->id}}" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pedido</button>
                 </li>
-              </ul>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1" id="pills-profile-tab" data-bs-toggle="tab" href="#pedidoedit{{$notas->id}}" role="tab" aria-controls="pills-profile" aria-selected="true">
+                        <i class="ni ni-credit-card text-sm me-2"></i> Pedido
+                    </a>
+                </li>
+            </ul>
 
 
             <form method="POST" action="{{ route('notas_pedidos.update', $notas->id) }}" enctype="multipart/form-data" role="form">
                 @csrf
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="modal-body">
-                    <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-content">
 
-                        <div class="tab-pane fade show active" id="pills-home-{{$notas->id}}" role="tabpanel" aria-labelledby="pills-home-tab">
-
+                        <div class="tab-pane fade in active show" id="notaedit{{$notas->id}}">
                             <div class="form-group">
                                 <label for="nombre">Usuario</label>
                                 <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
@@ -69,13 +72,19 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <img src="{{asset('foto_producto/'.$notas->foto)}}" class="img-firma">
-                            </div>
+                            @if ($notas->foto == NULL)
+                                <a href=""></a>
+                            @else
+                                <div class="form-group">
+                                    <a href="javascript:abrir('{{asset('foto_producto/'.$notas->foto)}}','500','500')">
+                                        <img src="{{asset('foto_producto/'.$notas->foto)}}" style="width: 50%">
+                                    </a>
+                                </div>
+                            @endif
 
                         </div>
 
-                        <div class="tab-pane fade " id="pills-profile-{{$notas->id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="tab-pane fade" id="pedidoedit{{$notas->id}}" >
 
                             <div class="row text-center">
                                 <div class="row mt-4">

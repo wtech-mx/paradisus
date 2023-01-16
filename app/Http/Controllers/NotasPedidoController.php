@@ -19,15 +19,14 @@ class NotasPedidoController extends Controller
      */
     public function index()
     {
-        $nota_pedido = NotasPedidos::paginate();
-        $pedido = Pedido::paginate();
+        $nota_pedido = NotasPedidos::get();
+        $pedido = Pedido::get();
         $user = User::get();
         $client = Client::get();
         //$products = Product::get();
         // dd($products);
 
-        return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido'))
-            ->with('i', (request()->input('page', 1) - 1) * $nota_pedido->perPage());
+        return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido'));
     }
 
     /**
@@ -56,7 +55,7 @@ class NotasPedidoController extends Controller
             $file->move($path, $fileName);
             $nota->foto = $fileName;
         }
-        
+
         $nota->save();
 
         $concepto = $request->get('concepto');

@@ -78,19 +78,19 @@
                     <div class="tab-pane fade" id="pago{{$notas->id}}" >
 
                         <div class="row text-center">
-                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Fecha</div>
+                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
                             <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
                             <div class="col-2" style="background-color: #bb546c; color: #fff;">Sesión</div>
                             <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo Pago</div>
                             <div class="col-3" style="background-color: #bb546c; color: #fff;">Nota</div>
-                            <div class="col-12" style="background-color: #bb546c; color: #fff;">Foto</div>
+                            <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
 
 
                             <p style="display: none">{{ $resultado = 0; }}</p>
                             @foreach ($pago as $item)
                                 @if ($item->id_nota == $notas->id)
                                 <p style="display: none">{{ $resultado += $item->pago; }}</p>
-                                <div class="col-3 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
+                                <div class="col-2 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
                                         value="{{$item->fecha}}" disabled>
                                 </div>
 
@@ -109,9 +109,14 @@
                                     value="{{$item->nota}}" disabled>
                                 </div>
 
-                                <div class="col-12 mb-2">
-                                    <img src="{{asset('foto_servicios/'.$item->foto)}}" class="img-firma">
-                                </div>
+                                @if ($item->foto == NULL)
+                                    <a href=""></a>
+                                @else
+                                    <div class="col-1 mb-2">
+                                        <a href="javascript:abrir('{{asset('foto_servicios/'.$item->foto)}}','500','500')">Foto</a>
+                                    </div>
+                                @endif
+
                                 @endif
                             @endforeach
 
