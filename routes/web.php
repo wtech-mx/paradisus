@@ -31,7 +31,7 @@ Route::get('iniciar_sesion', function () {
 });
 
 Route::get('nota_usuario', function () {
-    return view('clientes.dashboard');
+    return view('clientes.notas.show');
 });
 
 // =============== M O D U L O   login custom ===============================
