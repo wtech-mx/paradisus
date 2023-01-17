@@ -42,6 +42,38 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
+                                    @if (Auth::user()->hasRole('cosmetologa'))
+                                    <tbody>
+                                        @foreach ($nota_pedido_cosme as $notas)
+                                        @include('notas_pedidos.show')
+                                        @include('notas_pedidos.edit')
+                                            <tr>
+                                                <td>{{ $notas->id }}</td>
+
+                                                <td>{{ $notas->User->name }}</td>
+                                                <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
+                                                <td>${{ $notas->total }} mxn</td>
+                                                @if ($notas->metodo_pago == "Mercado Pago")
+                                                <td> <label class="badge" style="color: #009ee3;background-color: #009ee340;">{{ $notas->metodo_pago }}</label> </td>
+                                                @elseif ($notas->metodo_pago == "Transferencia")
+                                                <td> <label class="badge" style="color: #072146;background-color: #0721463b;">{{ $notas->metodo_pago }}</label> </td>
+                                                @else
+                                                <td> <label class="badge" style="color: #746AB0;background-color: #746ab061;">{{ $notas->metodo_pago }}</label> </td>
+                                                @endif
+
+                                                <td>{{ $notas->fecha }}</td>
+
+                                                <td>
+                                                        <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
+                                                        @can('notas-pedido-edit')
+                                                            <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
+                                                        @endcan
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    @else
                                         <tbody>
                                             @foreach ($nota_pedido as $notas)
                                             @include('notas_pedidos.show')
@@ -79,6 +111,7 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                    @endif
                                 </table>
                             </div>
                         </div>

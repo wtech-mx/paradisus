@@ -55,7 +55,7 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->puesto = $request->get('puesto');
-        $user->password = Hash::make('password');
+        $user->password = Hash::make($request->get('password'));
         $user->assignRole($request->input('roles'));
         $user->save();
 
@@ -121,6 +121,8 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+
         $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
@@ -130,6 +132,7 @@ class UserController extends Controller
         }else{
             // $user = Arr::except($user,array('password'));
         }
+        $user->assignRole($request->input('roles'));
         $user->update();
 
         $horario = Horario::find($user->id);
@@ -143,9 +146,6 @@ class UserController extends Controller
         $horario->domingo = $request->get('domingo');
         $horario->update();
 
-
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-        $user->assignRole($request->input('roles'));
 
         Session::flash('edit', 'Se ha editado sus datos con exito');
         return redirect()->route('users.index')

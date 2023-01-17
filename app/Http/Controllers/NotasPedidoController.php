@@ -19,9 +19,11 @@ class NotasPedidoController extends Controller
      */
     public function index()
     {
+        $cosme = auth()->user();
         $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
         $pedido = Pedido::get();
         $client = Client::orderBy('name','ASC')->get();
+        $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
         //$products = Product::get();
         // dd($products);
         $fechaActual = date('N');
@@ -55,7 +57,7 @@ class NotasPedidoController extends Controller
             ->get();
         }
 
-        return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido'));
+        return view('notas_pedidos.index', compact('pedido', 'cosme','user', 'client', 'nota_pedido', 'nota_pedido_cosme'));
     }
 
     /**

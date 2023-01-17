@@ -31,6 +31,10 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                             <div class="form-group">
+
+                                @if (Auth::user()->hasRole('cosmetologa'))
+                                <input type="text" id="id_user" class="form-control" name="id_user" value="{{ $cosme->id }}" style="display: none">
+                                @else
                                 <label for="nombre">Usuario</label>
                                 <select class="form-control" id="id_user" name="id_user"
                                     value="{{ old('id_user') }}" required>
@@ -38,6 +42,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
+                                @endif
                             </div>
 
                             <div class="form-group">
