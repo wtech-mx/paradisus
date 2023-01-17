@@ -12,7 +12,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h3 class="mb-3">Edit New User</h3>
+              <h3 class="mb-3">Editar Usuario</h3>
                <a class="btn" href="{{ route('users.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff"> Back</a>
                     @if (count($errors) > 0)
                       <div class="alert alert-danger">
@@ -64,6 +64,96 @@
                         <div class="form-group">
                             <label class="form-control-label">Role:</label>
                             {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Dias Laborales:</label>
+
+                            @if ($horario->lunes == 1)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="lunes" id="customRadio1" value="{{$horario->lunes}}" checked>
+                                    <label class="custom-control-label" for="customRadio1">Lunes</label>
+                                </div>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="lunes" id="customRadio1" value="1">
+                                    <label class="custom-control-label" for="customRadio1">Lunes</label>
+                                </div>
+                            @endif
+
+                            @if ($horario->martes == 1)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="martes" id="customRadio2" value="{{$horario->martes}}" checked>
+                                    <label class="custom-control-label" for="customRadio1">Martes</label>
+                                </div>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="martes" id="customRadio2" value="1">
+                                    <label class="custom-control-label" for="customRadio1">Martes</label>
+                                </div>
+                            @endif
+
+                            @if ($horario->miercoles == 1)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="miercoles" id="customRadio3" value="{{$horario->miercoles}}" checked>
+                                    <label class="custom-control-label" for="customRadio1">Miercoles</label>
+                                </div>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="miercoles" id="customRadio3" value="1">
+                                    <label class="custom-control-label" for="customRadio1">Miercoles</label>
+                                </div>
+                            @endif
+
+                            @if ($horario->jueves == 1)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="jueves" id="customRadio4" value="{{$horario->jueves}}" checked>
+                                    <label class="custom-control-label" for="customRadio1">Jueves</label>
+                                </div>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="jueves" id="customRadio4" value="1">
+                                    <label class="custom-control-label" for="customRadio1">Jueves</label>
+                                </div>
+                            @endif
+
+                            @if ($horario->viernes == 1)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="viernes" id="customRadio5" value="{{$horario->viernes}}" checked>
+                                    <label class="custom-control-label" for="customRadio1">Viernes</label>
+                                </div>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="viernes" id="customRadio5" value="1">
+                                    <label class="custom-control-label" for="customRadio1">Viernes</label>
+                                </div>
+                            @endif
+
+                            @if ($horario->sabado == 1)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sabado" id="customRadio6" value="{{$horario->sabado}}" checked>
+                                    <label class="custom-control-label" for="customRadio1">Sabado</label>
+                                </div>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sabado" id="customRadio6" value="1">
+                                    <label class="custom-control-label" for="customRadio1">Sabado</label>
+                                </div>
+                            @endif
+
+                            @if ($horario->domingo == 1)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="domingo" id="customRadio7" value="{{$horario->domingo}}" checked>
+                                    <label class="custom-control-label" for="customRadio1">Domingo</label>
+                                </div>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="domingo" id="customRadio7" value="1">
+                                    <label class="custom-control-label" for="customRadio1">Domingo</label>
+                                </div>
+                            @endif
+
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">

@@ -49,13 +49,24 @@
                             <label for="example-text-input" class="form-control-label">Cosmetologa</label>
                             <div class="input-group mb-4">
                             <span class="input-group-text"><i class="ni ni-single-02"></i></span>
-                            <input class="form-control" type="text" value="{{  $ultimoElemento }}">
+                            <input class="form-control" type="text" value="{{  $ultimoElemento }}" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Restante</label>
+                            <div class="input-group mb-4">
+                            <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                            <input class="form-control" type="text" value="${{ $notas_pedidos->restante }}" disabled>
                             </div>
                         </div>
                     </div>
                 </div>
 
                     @foreach ($pago as $item)
+                    <hr style="background-color: #D9819C; height: 2px;">
                         <div class="row">
 
                             <div class="col-md-6">
@@ -73,7 +84,7 @@
                                 <label for="example-text-input" class="form-control-label">Num. sesión</label>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    <input class="form-control" type="text" value="{{ $item->num_sesion }}">
+                                    <input class="form-control" type="text" value="{{ $item->num_sesion }}" disabled>
                                 </div>
                                 </div>
                             </div>
@@ -83,7 +94,7 @@
                                 <label for="example-text-input" class="form-control-label">Pago</label>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
-                                    <input class="form-control" type="text" value="${{ $item->pago }}">
+                                    <input class="form-control" type="text" value="${{ $item->pago }}" disabled>
                                 </div>
                                 </div>
                             </div>
@@ -93,19 +104,18 @@
                                 <label for="example-text-input" class="form-control-label">Met. Pago</label>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
-                                    <input class="form-control" type="text" value="{{ $item->forma_pago }}">
+                                    <input class="form-control" type="text" value="{{ $item->forma_pago }}" disabled>
                                 </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
 
-
-                  <div class="card-header bg-transparent">
-                    <h5 class="text-dark text-center mt-2 mb-3">Ubicación <br>
-                    </h5>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60214.95713782746!2d-99.24951146734244!3d19.39360992523693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ffd944963ec3%3A0xb529339c57f86ca6!2sPARADISUS%20SPA!5e0!3m2!1ses-419!2smx!4v1673892200177!5m2!1ses-419!2smx" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                  </div>
+                    <div class="card-header bg-transparent">
+                        <h5 class="text-dark text-center mt-2 mb-3">Ubicación <br>
+                        </h5>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60214.95713782746!2d-99.24951146734244!3d19.39360992523693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ffd944963ec3%3A0xb529339c57f86ca6!2sPARADISUS%20SPA!5e0!3m2!1ses-419!2smx!4v1673892200177!5m2!1ses-419!2smx" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
 
               </div>
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Horario;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -82,10 +83,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $horario = Horario::where('id_user', '=', $id)->first();
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit',compact('user','roles','userRole', 'horario'));
     }
 
     /**
@@ -104,17 +106,32 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        $input = $request->all();
-        if(!empty($input['password'])){
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));
-        }
-
         $user = User::find($id);
-        $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $user->name = $request->get('name');
+        $user->last_name = $request->get('last_name');
+        $user->email = $request->get('email');
+        $user->photo = $request->get('photo');
+        $user->puesto = $request->get('puesto');
+        if(!empty($user['password'])){
+            $user['password'] = Hash::make($user['password']);
+        }else{
+            $user = Arr::except($user,array('password'));
+        }
+        $user->update();
 
+        $horario = Horario::find($user->id);
+        $horario->id_user = $user->id;
+        $horario->lunes = $request->get('lunes');
+        $horario->martes = $request->get('martes');
+        $horario->miercoles = $request->get('miercoles');
+        $horario->jueves = $request->get('jueves');
+        $horario->viernes = $request->get('viernes');
+        $horario->sabado = $request->get('sabado');
+        $horario->domingo = $request->get('domingo');
+        $horario->update();
+
+
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->input('roles'));
 
         Session::flash('edit', 'Se ha editado sus datos con exito');

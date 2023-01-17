@@ -54,7 +54,7 @@
 
                             <td>
 
-                                <a class="btn btn-sm btn-primary " href="{{ route('users.show',$user->id) }}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> </a>
+                                {{-- <a class="btn btn-sm btn-primary " href="{{ route('users.show',$user->id) }}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> </a> --}}
                                 @can('usuarios-edit')
                                 <a class="btn btn-sm btn-success" href="{{ route('users.edit',$user->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                 @endcan

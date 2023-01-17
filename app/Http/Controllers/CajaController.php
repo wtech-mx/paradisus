@@ -26,6 +26,7 @@ class CajaController extends Controller
         ->groupBy('id_servicio')
         ->get();
 
+
         $pago = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Efectivo')->get();
         $pago_suma = Pagos::where('fecha', '=', $fechaActual)
         ->where('forma_pago', '=', 'Efectivo')
@@ -100,7 +101,7 @@ class CajaController extends Controller
         ->first();
 
         $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma'));
-        return $pdf->stream();
-        // return $pdf->download('Reporte Caja '.$today.'.pdf');
+        //return $pdf->stream();
+        return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
 }

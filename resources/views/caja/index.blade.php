@@ -14,10 +14,10 @@
                 $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total;
 
                 $total_egresos = 0;
-                    $total_egresos = $total_ing - $caja_dia_suma->total;
+                $total_egresos = $total_ing - $caja_dia_suma->total;
             @endphp
                 {{-- =============== C A R D   T O T A L E S =============================== --}}
-            <div class="col-sm-7 mb-3">
+            <div class="col-sm-12 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <div class="row">
                             {{-- =============== I N G R E S O S =============================== --}}
-                            <div class="col-lg-6 col-md-6 col-12">
+                            <div class="col-lg-4 col-md-4 col-12">
                                 <div class="card  mb-4">
                                     <div class="card-body p-3">
                                     <div class="row">
@@ -53,7 +53,7 @@
                             </div>
 
                             {{-- =============== E G R E S O S =============================== --}}
-                            <div class="col-lg-6 col-md-6 col-12">
+                            <div class="col-lg-4 col-md-4 col-12">
                                 <div class="card  mb-4">
                                     <div class="card-body p-3">
                                     <div class="row">
@@ -74,9 +74,10 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             {{-- =============== T O T A L =============================== --}}
 
-                            <div class="col-lg-6 col-md-6 col-12">
+                            <div class="col-lg-4 col-md-4 col-12">
                                 <div class="card  mb-4">
                                     <div class="card-body p-3">
                                     <div class="row">
@@ -113,7 +114,7 @@
                     </div>
                   </div>
             </div> --}}
-            <div class="col-sm-5 mb-3">
+            {{-- <div class="col-sm-5 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -148,7 +149,7 @@
                              @endforeach
                         </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 
