@@ -1,15 +1,7 @@
 <nav class="navbar navbar-main navbar-expand-lg  px-0 mx-4 shadow-none border-radius-xl z-index-sticky " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
 
-      <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none px-3" style="margin-right: 30px;">
-          <a href="javascript:;" class="nav-link p-0">
-            <div class="sidenav-toggler-inner">
-              <i class="sidenav-toggler-line bg-white"></i>
-              <i class="sidenav-toggler-line bg-white"></i>
-              <i class="sidenav-toggler-line bg-white"></i>
-            </div>
-          </a>
-        </div>
+
 
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -22,6 +14,17 @@
           <li class="breadcrumb-item text-sm text-white active" aria-current="page">@yield('page_actuality')</li>
         </ol>
       </nav>
+
+
+      <div class="sidenav-toggler sidenav-toggler-inner px-3" style="">
+          <a href="javascript:;" class="nav-link p-0">
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line bg-white"></i>
+              <i class="sidenav-toggler-line bg-white"></i>
+              <i class="sidenav-toggler-line bg-white"></i>
+            </div>
+          </a>
+        </div>
 
 
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">

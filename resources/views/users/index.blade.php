@@ -60,9 +60,9 @@
                                 @endcan
 
                                 @can('usuarios-delete')
-                                    {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                    {!! Form::close() !!}
+                                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display: contents;']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm ',]) !!}
+                                {!! Form::close() !!}
                                 @endcan
 
                             </td>
