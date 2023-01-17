@@ -125,10 +125,10 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->puesto = $request->get('puesto');
-        if(!empty($user['password'])){
-            $user['password'] = Hash::make($user['password']);
+        if(!empty($request->get('password'))){
+            $user->password = Hash::make($request->get('password'));
         }else{
-            $user = Arr::except($user,array('password'));
+            // $user = Arr::except($user,array('password'));
         }
         $user->update();
 
