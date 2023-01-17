@@ -23,8 +23,8 @@ class NotasController extends Controller
         $fechaActual = date('N');
 
         $nota = Notas::orderBy('id','DESC')->get();
-        $client = Client::get();
-        $servicio = Servicios::get();
+        $client = Client::orderBy('name','ASC')->get();
+        $servicio = Servicios::orderBy('nombre','ASC')->get();
         $pago = Pagos::get();
 
         $folio = Notas::orderBy('id', 'desc')->first();

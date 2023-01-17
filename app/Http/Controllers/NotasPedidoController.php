@@ -21,7 +21,7 @@ class NotasPedidoController extends Controller
     {
         $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
         $pedido = Pedido::get();
-        $client = Client::get();
+        $client = Client::orderBy('name','ASC')->get();
         //$products = Product::get();
         // dd($products);
         $fechaActual = date('N');
