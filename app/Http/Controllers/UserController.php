@@ -56,6 +56,7 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->puesto = $request->get('puesto');
         $user->password = Hash::make('password');
+        $user->assignRole($request->input('roles'));
         $user->save();
 
         $horario = new Horario;
@@ -69,8 +70,7 @@ class UserController extends Controller
         $horario->domingo = $request->get('domingo');
         $horario->save();
 
-        $user = User::create($user);
-        $user->assignRole($request->input('roles'));
+
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('users.index')
