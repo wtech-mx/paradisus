@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class NotasPedidos extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     protected $table = 'notas_pedidos';
 

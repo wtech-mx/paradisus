@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="showDataModalLabel">Ver notas</h5>
+                <h5 class="modal-title" id="showDataModalLabel">Ver nota</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
                     <span aria-hidden="true">X</span>
                 </button>
@@ -53,11 +53,11 @@
                         </div>
                         <div class="form-group">
                             <label for="nota">Total</label>
-                            <input disabled id="total" name="total" type="number" class="form-control" placeholder="total" value="{{$notas->total}}">
+                            <input disabled id="total" name="total" type="number" class="form-control" value="{{$notas->total}}">
                         </div>
                         <div class="form-group">
                             <label for="nota">Metodo Pago</label>
-                            <input disabled id="metodo_pago" name="metodo_pago" type="number" class="form-control" placeholder="total" value="{{$notas->metodo_pago}}">
+                            <input disabled id="metodo_pago" name="metodo_pago" type="text" class="form-control" value="{{$notas->metodo_pago}}">
                         </div>
 
                             @if ($notas->foto == NULL)

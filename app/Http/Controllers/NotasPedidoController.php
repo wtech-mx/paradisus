@@ -19,12 +19,41 @@ class NotasPedidoController extends Controller
      */
     public function index()
     {
-        $nota_pedido = NotasPedidos::get();
+        $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
         $pedido = Pedido::get();
-        $user = User::get();
         $client = Client::get();
         //$products = Product::get();
         // dd($products);
+        $fechaActual = date('N');
+        if($fechaActual == '1'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.lunes', '=', 1)
+            ->get();
+        }elseif($fechaActual == '2'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.martes', '=', 1)
+            ->get();
+        }elseif($fechaActual == '3'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.miercoles', '=', 1)
+            ->get();
+        }elseif($fechaActual == '4'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.jueves', '=', 1)
+            ->get();
+        }elseif($fechaActual == '5'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.viernes', '=', 1)
+            ->get();
+        }elseif($fechaActual == '6'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.sabado', '=', 1)
+            ->get();
+        }elseif($fechaActual == '7'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.domingo', '=', 1)
+            ->get();
+        }
 
         return view('notas_pedidos.index', compact('pedido', 'user', 'client', 'nota_pedido'));
     }
@@ -41,12 +70,12 @@ class NotasPedidoController extends Controller
             'id_user' => 'required',
             'id_client' => 'required',
         ]);
-
+        $fechaActual = date('Y-m-d');
         $nota = new NotasPedidos;
         $nota->id_user = $request->get('id_user');
         $nota->id_client = $request->get('id_client');
         $nota->metodo_pago = $request->get('metodo_pago');
-        $nota->fecha = $request->get('fecha');
+        $nota->fecha = $fechaActual;
 
         if ($request->hasFile("foto")) {
             $file = $request->file('foto');
@@ -82,7 +111,7 @@ class NotasPedidoController extends Controller
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('notas_pedidos.index')
-                        ->with('success','User created successfully');
+                        ->with('success','Nota Productos Creado.');
     }
 
     /**
@@ -108,18 +137,13 @@ class NotasPedidoController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'id_user' => 'required',
-            'id_client' => 'required',
-            'id_servicio' => 'required'
-        ]);
 
         $nota = NotasPedidos::find($id);
-        $nota->id_user = $request->get('id_user');
-        $nota->id_client = $request->get('id_client');
-        $nota->metodo_pago = $request->get('metodo_pago');
-        $nota->fecha = $request->get('fecha');
-        $nota->update();
+        // $nota->id_user = $request->get('id_user');
+        // $nota->id_client = $request->get('id_client');
+        // $nota->metodo_pago = $request->get('metodo_pago');
+        // $nota->fecha = $request->get('fecha');
+        // $nota->update();
 
         $concepto = $request->get('concepto');
         $cantidad = $request->get('cantidad');
@@ -128,8 +152,8 @@ class NotasPedidoController extends Controller
         for ($count = 0; $count < count($concepto); $count++) {
             $data = array(
                 'id_nota' => $nota->id,
-                'fecha' => $concepto[$count],
                 'cantidad' => $cantidad[$count],
+                'concepto' => $concepto[$count],
                 'importe' => $importe[$count],
             );
             $insert_data[] = $data;
@@ -137,8 +161,14 @@ class NotasPedidoController extends Controller
 
         Pedido::insert($insert_data);
 
+        $sum = 0;
+        $nota = NotasPedidos::find($nota->id);
+        $sum =array_sum($importe) + $nota->total;
+        $nota->total = $sum;
+        $nota->update();
+
         return redirect()->route('notas_pedidos.index')
-        ->with('edit','nota Has Been updated successfully');
+        ->with('edit','Nota Productos Actualizado.');
     }
 
     /**

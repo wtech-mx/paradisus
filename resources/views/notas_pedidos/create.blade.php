@@ -49,10 +49,10 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="fecha">Fecha</label>
                                 <input id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{ old('fecha') }}" required>
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="num_sesion">Metodo de pago</label>
                                 <select id="metodo_pago" name="metodo_pago" class="form-control" value="{{old('metodo_pago')}}" required>

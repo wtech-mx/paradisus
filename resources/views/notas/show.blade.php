@@ -66,7 +66,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="fecha">Fecha y Hora</label>
+                            <label for="fecha">Fecha</label>
                             <input disabled id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}">
                         </div>
                         <div class="form-group">

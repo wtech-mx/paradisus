@@ -20,14 +20,46 @@ class NotasController extends Controller
      */
     public function index()
     {
-        $nota = Notas::get();
-        $user = User::get();
+        $fechaActual = date('N');
+
+        $nota = Notas::orderBy('id','DESC')->get();
         $client = Client::get();
         $servicio = Servicios::get();
         $pago = Pagos::get();
 
         $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
+
+        if($fechaActual == '1'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.lunes', '=', 1)
+            ->get();
+        }elseif($fechaActual == '2'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.martes', '=', 1)
+            ->get();
+        }elseif($fechaActual == '3'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.miercoles', '=', 1)
+            ->get();
+        }elseif($fechaActual == '4'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.jueves', '=', 1)
+            ->get();
+        }elseif($fechaActual == '5'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.viernes', '=', 1)
+            ->get();
+        }elseif($fechaActual == '6'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.sabado', '=', 1)
+            ->get();
+        }elseif($fechaActual == '7'){
+            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
+            ->where('horario.domingo', '=', 1)
+            ->get();
+        }
+
 
         return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio'));
     }
@@ -46,7 +78,7 @@ class NotasController extends Controller
             'id_servicio' => 'required'
         ]);
 
-        $fechaActual = date('Y-m-d H:i:s');
+        $fechaActual = date('Y-m-d');
         $nota = new Notas;
         $nota->id_client = $request->get('id_client');
         $nota->id_servicio = $request->get('id_servicio');

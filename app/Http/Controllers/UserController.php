@@ -51,10 +51,25 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        $user = new User;
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->puesto = $request->get('puesto');
+        $user->password = Hash::make('password');
+        $user->save();
 
-        $user = User::create($input);
+        $horario = new Horario;
+        $horario->id_user = $user->id;
+        $horario->lunes = $request->get('lunes');
+        $horario->martes = $request->get('martes');
+        $horario->miercoles = $request->get('miercoles');
+        $horario->jueves = $request->get('jueves');
+        $horario->viernes = $request->get('viernes');
+        $horario->sabado = $request->get('sabado');
+        $horario->domingo = $request->get('domingo');
+        $horario->save();
+
+        $user = User::create($user);
         $user->assignRole($request->input('roles'));
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
@@ -108,9 +123,7 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->name = $request->get('name');
-        $user->last_name = $request->get('last_name');
         $user->email = $request->get('email');
-        $user->photo = $request->get('photo');
         $user->puesto = $request->get('puesto');
         if(!empty($user['password'])){
             $user['password'] = Hash::make($user['password']);
