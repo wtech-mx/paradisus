@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/notas/servicios/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
     Route::patch('/notas/servicios/update/{id}', [App\Http\Controllers\NotasController::class, 'update'])->name('notas.update');
     Route::delete('/notas/servicios/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
+    Route::get('/notas/servicios/print/{id}', [App\Http\Controllers\NotasController::class, 'usuario_print'])->name('notas.print');
 
     // =============== M O D U L O   N O T A S  P E D I D O S ===============================
     Route::get('/notas/pedidos', [App\Http\Controllers\NotasPedidoController::class, 'index'])->name('notas_pedidos.index');
@@ -85,6 +86,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
     Route::get('/reporte/imprimir/caja', [App\Http\Controllers\CajaController::class, 'imprimir_caja'])->name('caja.print_caja');
+    Route::get('/reporte/imprimir/corte', [App\Http\Controllers\CajaController::class, 'imprimir_corte'])->name('caja.print_corte');
 
     // =============== M O D U L O   C A L E N D A R I O ===============================
     Route::get('calendar', [App\Http\Controllers\AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');

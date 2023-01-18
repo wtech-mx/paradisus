@@ -196,8 +196,8 @@ class NotasController extends Controller
      */
     public function destroy($id)
     {
-//         $pago = Pagos::where('id_nota', '=', $id)->delete();
-// dd($pago);
+        //         $pago = Pagos::where('id_nota', '=', $id)->delete();
+        // dd($pago);
         // for(){
 
         // }
@@ -222,4 +222,21 @@ class NotasController extends Controller
 
         return view('clientes.notas.show', compact('notas_pedidos', 'pago', 'nota_cosme'));
     }
+
+    public function usuario_print($id){
+        $today =  date('d-m-Y');
+        $notas_pedidos = Notas::where('id', '=', $id)
+        ->first();
+
+        $pago = Pagos::where('id_nota', '=', $id)
+        ->get();
+
+        $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
+        ->get();
+
+        $pdf = \PDF::loadView('notas.recibo_pdf', compact('today', 'notas_pedidos', 'pago', 'nota_cosme'));
+        return $pdf->stream();
+       // return $pdf->download('Reporte Caja '.$today.'.pdf');
+    }
+
 }
