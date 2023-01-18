@@ -152,8 +152,8 @@
             @endforeach
         </tbody>
     </table>
-
-    <h2 style="page-break-before: always; text-align: center;">
+    {{-- <h2 style="page-break-before: always; text-align: center;"> --}}
+    <h2 style="text-align: center;">
         Servicios</h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">

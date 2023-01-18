@@ -8,6 +8,7 @@ use App\Models\CajaDia;
 use App\Models\Notas;
 use App\Models\NotasPedidos;
 use App\Models\Pagos;
+use App\Models\Pedido;
 use Session;
 use DB;
 
@@ -103,5 +104,64 @@ class CajaController extends Controller
         $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma'));
         //return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
+    }
+
+
+    public function imprimir_corte()
+    {
+        $fechaActual = date('Y-m-d');
+        $today =  date('d-m-Y');
+
+        $total_servicios_trans = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Transferencia')->get();
+        $total_servicios_mercado = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
+        $total_servicios_tarjeta = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Tarjeta')->get();
+
+        $total_producto_trans = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Transferencia')->get();
+        $total_producto_mercado = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Mercado Pago')->get();
+        $total_producto_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Tarjeta')->get();
+
+        $servicios_trans = Pagos::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Transferencia')
+        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $productos_trans = NotasPedidos::where('fecha', '=', $fechaActual)
+        ->where('metodo_pago', '=', 'Transferencia')
+        ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_trans = $servicios_trans->total + $productos_trans->total;
+        $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas;
+
+        $servicios_mercado = Pagos::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Mercado Pago')
+        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $productos_mercado = NotasPedidos::where('fecha', '=', $fechaActual)
+        ->where('metodo_pago', '=', 'Mercado Pago')
+        ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total;
+        $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas;
+
+        $servicios_tarjeta = Pagos::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Tarjeta')
+        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $productos_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)
+        ->where('metodo_pago', '=', 'Tarjeta')
+        ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total;
+        $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas;
+
+        $pdf = \PDF::loadView('caja.pdf_corte', compact('suma_pago_trans', 'suma_filas_trans', 'suma_pago_mercado', 'suma_filas_mercado', 'suma_pago_tarjeta', 'suma_filas_tarjeta',
+        'today', 'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta'));
+       // return $pdf->stream();
+        return $pdf->download('Corte '.$today.'.pdf');
     }
 }

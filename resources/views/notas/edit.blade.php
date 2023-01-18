@@ -155,6 +155,7 @@
                                                 <option value="Efectivo">Efectivo</option>
                                                 <option value="Transferencia">Transferencia</option>
                                                 <option value="Mercado Pago">Mercado Pago</option>
+                                                <option value="Tarjeta">Tarjeta</option>
                                             </select>
                                         </div>
                                     </div>

@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             {{-- =============== T O T A L =============================== --}}
 
                             <div class="col-lg-4 col-md-4 col-12">
@@ -104,57 +104,8 @@
                 </div>
             </div>
 
-            {{-- =============== C A R D   G R A F I C A =============================== --}}
-            {{-- <div class="col-sm-5 mb-3">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <figure class="highcharts-figure">
-                            <div id="container2"></div>
-                        </figure>
-                    </div>
-                  </div>
-            </div> --}}
-            {{-- <div class="col-sm-5 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-
-                            <span id="card_title">
-                                Estadistica servicios
-                            </span>
-                        </div>
-                    </div>
-                        <div class="card-body">
-                            @foreach($servicios_individual as $serv)
-
-                                    <div class="row mb-3">
-                                            <div class="progress-wrapper">
-                                                <div class="row">
-                                                    <div class="col-10">
-                                                        <div class="progress-label">
-                                                            <span>{{$serv->Servicios->nombre}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <div class="progress-percentage">
-                                                            <span>#{{$serv->filas}}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="progress">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{$serv->filas}}%; background-color: {{$serv->Servicios->color}};"></div>
-                                                </div>
-                                            </div>
-                                    </div>
-                             @endforeach
-                        </div>
-                </div>
-            </div> --}}
-
-
-
             {{-- =============== C A R D   I N G R E S O S =============================== --}}
-            <div class="col-sm-7">
+            <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -206,7 +157,7 @@
             </div>
 
             {{-- =============== C A R D   E G R E S O S =============================== --}}
-            <div class="col-sm-5">
+            <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -215,8 +166,9 @@
                                Egresos
                             </span>
                             @can('client-create')
-                            <a type="button" class="btn btn-sm btn-primary" href="{{ route('caja.print_caja') }}" style="background: {{$configuracion->color_principal}}; color: #ffff">Reporte</a>
-                        @endcan
+                                <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Caja Reporte</a>
+                                <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.print_corte') }}">Corte</a>
+                            @endcan
                         </div>
                     </div>
                     @can('client-list')
