@@ -72,37 +72,37 @@
                             <label class="form-control-label">Dias Laborales:</label>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="lunes" id="customRadio1" value="1">
+                                <input class="form-check-input" type="checkbox" name="lunes" id="customRadio1" value="1">
                                 <label class="custom-control-label" for="customRadio1">Lunes</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="martes" id="customRadio2" value="1">
+                                <input class="form-check-input" type="checkbox" name="martes" id="customRadio2" value="1">
                                 <label class="custom-control-label" for="customRadio1">Martes</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="miercoles" id="customRadio3" value="1">
+                                <input class="form-check-input" type="checkbox" name="miercoles" id="customRadio3" value="1">
                                 <label class="custom-control-label" for="customRadio1">Miercoles</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="jueves" id="customRadio4" value="1">
+                                <input class="form-check-input" type="checkbox" name="jueves" id="customRadio4" value="1">
                                 <label class="custom-control-label" for="customRadio1">Jueves</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="viernes" id="customRadio5" value="1">
+                                <input class="form-check-input" type="checkbox" name="viernes" id="customRadio5" value="1">
                                 <label class="custom-control-label" for="customRadio1">Viernes</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="sabado" id="customRadio6" value="1">
+                                <input class="form-check-input" type="checkbox" name="sabado" id="customRadio6" value="1">
                                 <label class="custom-control-label" for="customRadio1">Sabado</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="domingo" id="customRadio7" value="1">
+                                <input class="form-check-input" type="checkbox" name="domingo" id="customRadio7" value="1">
                                 <label class="custom-control-label" for="customRadio1">Domingo</label>
                             </div>
                         </div>
