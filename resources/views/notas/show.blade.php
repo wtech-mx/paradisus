@@ -105,8 +105,7 @@
                                     value="{{$item->forma_pago}}" disabled>
                                 </div>
 
-                                <div class="col-3 mb-2"><input name="nota[]" type="text" class="form-control text-center" id="nota[]"
-                                    value="{{$item->nota}}" disabled>
+                                <div class="col-3 mb-2"> <textarea class="form-control text-center" name="nota[]" id="nota[]" cols="5" rows="3" disabled>{{$item->nota}}</textarea>
                                 </div>
 
                                 @if ($item->foto == NULL)
