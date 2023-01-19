@@ -72,84 +72,84 @@
 
                             @if ($horario->lunes == 1)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="lunes" id="customRadio1" value="{{$horario->lunes}}" checked>
+                                    <input class="form-check-input" type="checkbox" name="lunes" id="customRadio1" value="{{$horario->lunes}}" checked>
                                     <label class="custom-control-label" for="customRadio1">Lunes</label>
                                 </div>
                             @else
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="lunes" id="customRadio1" value="1">
+                                    <input class="form-check-input" type="checkbox" name="lunes" id="customRadio1" value="1">
                                     <label class="custom-control-label" for="customRadio1">Lunes</label>
                                 </div>
                             @endif
 
                             @if ($horario->martes == 1)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="martes" id="customRadio2" value="{{$horario->martes}}" checked>
+                                    <input class="form-check-input" type="checkbox" name="martes" id="customRadio2" value="{{$horario->martes}}" checked>
                                     <label class="custom-control-label" for="customRadio1">Martes</label>
                                 </div>
                             @else
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="martes" id="customRadio2" value="1">
+                                    <input class="form-check-input" type="checkbox" name="martes" id="customRadio2" value="1">
                                     <label class="custom-control-label" for="customRadio1">Martes</label>
                                 </div>
                             @endif
 
                             @if ($horario->miercoles == 1)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="miercoles" id="customRadio3" value="{{$horario->miercoles}}" checked>
+                                    <input class="form-check-input" type="checkbox" name="miercoles" id="customRadio3" value="{{$horario->miercoles}}" checked>
                                     <label class="custom-control-label" for="customRadio1">Miercoles</label>
                                 </div>
                             @else
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="miercoles" id="customRadio3" value="1">
+                                    <input class="form-check-input" type="checkbox" name="miercoles" id="customRadio3" value="1">
                                     <label class="custom-control-label" for="customRadio1">Miercoles</label>
                                 </div>
                             @endif
 
                             @if ($horario->jueves == 1)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="jueves" id="customRadio4" value="{{$horario->jueves}}" checked>
+                                    <input class="form-check-input" type="checkbox" name="jueves" id="customRadio4" value="{{$horario->jueves}}" checked>
                                     <label class="custom-control-label" for="customRadio1">Jueves</label>
                                 </div>
                             @else
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="jueves" id="customRadio4" value="1">
+                                    <input class="form-check-input" type="checkbox" name="jueves" id="customRadio4" value="1">
                                     <label class="custom-control-label" for="customRadio1">Jueves</label>
                                 </div>
                             @endif
 
                             @if ($horario->viernes == 1)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="viernes" id="customRadio5" value="{{$horario->viernes}}" checked>
+                                    <input class="form-check-input" type="checkbox" name="viernes" id="customRadio5" value="{{$horario->viernes}}" checked>
                                     <label class="custom-control-label" for="customRadio1">Viernes</label>
                                 </div>
                             @else
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="viernes" id="customRadio5" value="1">
+                                    <input class="form-check-input" type="checkbox" name="viernes" id="customRadio5" value="1">
                                     <label class="custom-control-label" for="customRadio1">Viernes</label>
                                 </div>
                             @endif
 
                             @if ($horario->sabado == 1)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sabado" id="customRadio6" value="{{$horario->sabado}}" checked>
+                                    <input class="form-check-input" type="checkbox" name="sabado" id="customRadio6" value="{{$horario->sabado}}" checked>
                                     <label class="custom-control-label" for="customRadio1">Sabado</label>
                                 </div>
                             @else
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sabado" id="customRadio6" value="1">
+                                    <input class="form-check-input" type="checkbox" name="sabado" id="customRadio6" value="1">
                                     <label class="custom-control-label" for="customRadio1">Sabado</label>
                                 </div>
                             @endif
 
                             @if ($horario->domingo == 1)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="domingo" id="customRadio7" value="{{$horario->domingo}}" checked>
+                                    <input class="form-check-input" type="checkbox" name="domingo" id="customRadio7" value="{{$horario->domingo}}" checked>
                                     <label class="custom-control-label" for="customRadio1">Domingo</label>
                                 </div>
                             @else
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="domingo" id="customRadio7" value="1">
+                                    <input class="form-check-input" type="checkbox" name="domingo" id="customRadio7" value="1">
                                     <label class="custom-control-label" for="customRadio1">Domingo</label>
                                 </div>
                             @endif
