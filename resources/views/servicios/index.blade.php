@@ -55,9 +55,9 @@
 
                         <td>
 
-                                <a class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$servicios->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> </a>
+                                <a class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$servicios->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> </a>
                                 @can('servicios-edit')
-                                <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#editDataModal{{$servicios->id}}"><i class="fa fa-fw fa-edit"></i> </a>
+                                <a class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$servicios->id}}"><i class="fa fa-fw fa-edit"></i> </a>
                                 @endcan
 
                                 @can('servicios-delete')

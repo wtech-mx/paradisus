@@ -47,6 +47,39 @@
 
                             <div class="form-group">
                                 <label for="descripcion">Cliente</label>
+                                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    +
+                                </button>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="nombre">Nombre *</label>
+                                                <input  id="name" name="name" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="nombre">Apellido</label>
+                                                <input  id="last_name" name="last_name" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="nombre">Telefono *</label>
+                                                <input  id="phone" name="phone" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="nombre">Correo</label>
+                                                <input  id="email" name="email" type="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <select class="form-control js-example-basic-single" id="id_client" name="id_client"
                                     value="{{ old('id_client') }}" required>
                                     @foreach ($client as $item)

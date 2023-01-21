@@ -79,8 +79,21 @@ class NotasController extends Controller
         ]);
 
         $fechaActual = date('Y-m-d');
+        if($request->get('name') != NULL){
+           $client = new Client;
+           $client->name = $request->get('name');
+           $client->last_name = $request->get('last_name');
+           $client->phone = $request->get('phone');
+           $client->email = $request->get('email');
+           $client->save();
+        }
+
         $nota = new Notas;
-        $nota->id_client = $request->get('id_client');
+        if($request->get('name') != NULL){
+            $nota->id_client = $client->id;
+        }else{
+            $nota->id_client = $request->get('id_client');
+        }
         $nota->id_servicio = $request->get('id_servicio');
         $nota->fecha = $fechaActual;
         $nota->nota = $request->get('nota');

@@ -4,8 +4,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showDataModalLabel">Ver Servicio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
                 <div class="modal-body">

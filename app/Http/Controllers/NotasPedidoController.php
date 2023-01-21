@@ -73,9 +73,23 @@ class NotasPedidoController extends Controller
             'id_client' => 'required',
         ]);
         $fechaActual = date('Y-m-d');
+
+        if($request->get('name') != NULL){
+            $client = new Client;
+            $client->name = $request->get('name');
+            $client->last_name = $request->get('last_name');
+            $client->phone = $request->get('phone');
+            $client->email = $request->get('email');
+            $client->save();
+         }
+
         $nota = new NotasPedidos;
         $nota->id_user = $request->get('id_user');
-        $nota->id_client = $request->get('id_client');
+        if($request->get('name') != NULL){
+            $nota->id_client = $client->id;
+        }else{
+            $nota->id_client = $request->get('id_client');
+        }
         $nota->metodo_pago = $request->get('metodo_pago');
         $nota->fecha = $fechaActual;
 

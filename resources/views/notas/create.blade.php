@@ -38,8 +38,42 @@
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Cliente</label>
+                                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    +
+                                </button>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="nombre">Nombre *</label>
+                                                <input  id="name" name="name" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="nombre">Apellido</label>
+                                                <input  id="last_name" name="last_name" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="nombre">Telefono *</label>
+                                                <input  id="phone" name="phone" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="nombre">Correo</label>
+                                                <input  id="email" name="email" type="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <select class="form-control " id="id_client" name="id_client"
-                                    value="{{ old('submarca') }}" required>
+                                    value="{{ old('submarca') }}">
                                     <option>Seleccionar cliente</option>
                                     @foreach ($client as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
@@ -80,52 +114,59 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="formulario">
+                                {{-- <button type="button" class="clonar btn btn-secondary btn-sm">+</button> --}}
 
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="fecha">Fecha</label>
-                                        <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
-                                    </div>
-                                </div>
+                                <div class="clonars">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="fecha">Fecha</label>
+                                                <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
+                                            </div>
+                                        </div>
 
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="pago">Pago</label>
-                                        <input  id="pago" name="pago" type="number" class="form-control" required>
-                                    </div>
-                                </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="pago">Pago</label>
+                                                <input  id="pago" name="pago" type="number" class="form-control" required>
+                                            </div>
+                                        </div>
 
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="num_sesion">Num sesion</label>
-                                        <input  id="num_sesion" name="num_sesion" type="number" class="form-control" required>
-                                    </div>
-                                </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Num sesion</label>
+                                                <input  id="num_sesion" name="num_sesion" type="number" class="form-control" required>
+                                            </div>
+                                        </div>
 
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="num_sesion">Metodo Pago</label>
-                                        <select id="forma_pago" name="forma_pago" class="form-control">
-                                            <option value="Efectivo">Efectivo</option>
-                                            <option value="Transferencia">Transferencia</option>
-                                            <option value="Mercado Pago">Mercado Pago</option>
-                                            <option value="Tarjeta">Tarjeta</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Metodo Pago</label>
+                                                <select id="forma_pago" name="forma_pago" class="form-control">
+                                                    <option value="Efectivo">Efectivo</option>
+                                                    <option value="Transferencia">Transferencia</option>
+                                                    <option value="Mercado Pago">Mercado Pago</option>
+                                                    <option value="Tarjeta">Tarjeta</option>
+                                                    <option value="Nota">Nota</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="nota">Nota</label>
-                                        <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
-                                    </div>
-                                </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="nota">Nota</label>
+                                                <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
+                                            </div>
+                                        </div>
 
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="nota">Foto</label>
-                                        <input type="file" id="foto" class="form-control" name="foto">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="nota">Foto</label>
+                                                <input type="file" id="foto" class="form-control" name="foto">
+                                            </div>
+                                        </div>
+                                        <hr>
                                     </div>
                                 </div>
                             </div>

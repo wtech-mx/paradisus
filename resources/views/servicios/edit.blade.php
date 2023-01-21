@@ -4,8 +4,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editDataModalLabel">Editar Servicio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true close-btn">×</span>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
             <form method="POST" action="{{ route('servicio.update', $servicios->id) }}" enctype="multipart/form-data" role="form">
@@ -62,12 +63,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn close-btn" data-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
+                            <button type="button" class="btn close-btn" data-bs-dismiss="modal" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
                             <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Actualizar</button>
-                        </div>
-                        <div class="form-group">
-                            <label for="descuento"></label>
-                            <input id="act_descuento" name="act_descuento" type="number" class="form-control" value="{{$servicios->act_descuento}}" style="display: none">
                         </div>
                 </div>
             </form>
