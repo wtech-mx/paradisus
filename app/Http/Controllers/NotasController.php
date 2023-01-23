@@ -22,7 +22,7 @@ class NotasController extends Controller
     public function index()
     {
         $fechaActual = date('N');
-
+        $cosme = auth()->user();
         $nota = Notas::orderBy('id','DESC')->get();
         $client = Client::orderBy('name','ASC')->get();
         $servicio = Servicios::orderBy('nombre','ASC')->get();
@@ -30,6 +30,8 @@ class NotasController extends Controller
 
         $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
+
+        $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
 
         if($fechaActual == '1'){
             $user = User::join('horario', 'users.id', '=', 'horario.id_user')
@@ -62,7 +64,7 @@ class NotasController extends Controller
         }
 
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio'));
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind'));
     }
 
     /**

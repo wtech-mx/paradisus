@@ -39,29 +39,24 @@
                                         </tr>
                                     </thead>
                                     @if (Auth::user()->hasRole('cosmetologa'))
-                                        {{-- <tbody>
-                                            @foreach ($nota_usuario as $notas)
-                                            @include('notas.show')
-                                            @include('notas.edit')
+                                        <tbody>
+                                            @foreach ($nota_cosme_ind as $notas)
+                                            @include('notas.show_cosme')
                                                 <tr>
-                                                    <td>{{ $notas->id }}</td>
+                                                    <td>{{ $notas->id_nota }}</td>
                                                     <td>
-                                                        @foreach($nota_cosme as $item)
-                                                            @if ($item->id_nota == $notas->id)
-                                                                {{$item->User->name}}
-                                                            @endif
-                                                        @endforeach
+                                                        {{$notas->User->name}}
                                                     </td>
-                                                    <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
-                                                    <td>{{ $notas->Servicios->nombre }}</td>
-                                                    <td>{{ $notas->fecha }}</td>
+                                                    <td>{{ $notas->Notas->Client->name }} {{ $notas->Notas->Client->last_name }}</td>
+                                                    <td>{{ $notas->Notas->Servicios->nombre }}</td>
+                                                    <td>{{ $notas->Notas->fecha }}</td>
 
                                                     <td>
-                                                            <div class="btn btn-sm btn-primary " data-toggle="modal" data-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
+                                                            <div class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showCosmeDataModal{{$notas->id_nota}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        </tbody> --}}
+                                        </tbody>
                                     @else
                                         <tbody>
                                             @foreach ($nota as $notas)
