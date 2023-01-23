@@ -72,17 +72,21 @@
                                     </div>
                                 </div>
 
-                                <select class="form-control mibuscador_cliente" id="id_client" name="id_client"
-                                    value="{{ old('submarca') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="precio">Cliente</label>
+                                <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" value="{{ old('submarca') }}">
                                     <option>Seleccionar cliente</option>
                                     @foreach ($client as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="precio">Servicio</label>
-                                <select class="form-control " id="opciones" name="id_servicio" onchange="cambioOpciones();" required>
+                                <select class="form-control servicio " id="opciones" name="id_servicio" onchange="cambioOpciones();" required>
                                     <option>Seleccionar servicio</option>
                                     @foreach ($servicio as $item)
                                         <option value="{{ $item->id }}" rel="{{ $item->precio }}_{{ $item->num_sesiones }}">{{ $item->nombre }}</option>

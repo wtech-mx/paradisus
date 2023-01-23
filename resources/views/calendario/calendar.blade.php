@@ -6,8 +6,9 @@
 
 @section('fullcalendar')
 
-    <link href='{{ asset('lib/main.css') }}' rel='stylesheet' />
-    <script src='{{ asset('lib/main.js') }}'></script>
+    {{-- <link href='{{ asset('lib/main.css') }}' rel='stylesheet' />
+    <script src='{{ asset('lib/main.js') }}'></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         @php
         $Y = date('Y') ;

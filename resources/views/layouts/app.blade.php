@@ -17,15 +17,20 @@
   <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+
+   <!-- Select2  -->
+   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css')}}">
+
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4')}}" rel="stylesheet" />
-    <!-- Select2  -->
-    <link rel="stylesheet" href="{{ asset('css/select2.css') }}" type="text/css">
 
-  <link src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <link src="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css" rel="stylesheet" />
+  {{-- <link src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <link src="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css" rel="stylesheet" /> --}}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+
+
   <style>
         input:before {
             content: attr(data-date);
@@ -66,32 +71,26 @@
     {{-- @include('layouts.modal_config') --}}
   <!-- End Modal lateral Congif -->
 
+
+
   <!--   Core JS Files   -->
+  {{-- <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script> --}}
+
   <script src="{{ asset('assets/js/core/popper.min.js')}}"></script>
+
   <script src="{{ asset('assets/js/core/bootstrap.min.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
+
   <script src="{{ asset('assets/js/plugins/datatables.js')}}"></script>
 
-   <!-- SELECT 2 -->
-   <script src="{{ asset('js/select2.js') }}"></script>
-
+  <script src="{{ asset('assets/js/plugins/fullcalendar.min.js')}}"></script>
   <!-- Kanban scripts -->
+
   <script src="{{ asset('assets/js/plugins/dragula/dragula.min.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/jkanban/jkanban.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-                $('.mibuscador_cliente').select2();
-                $('.mibuscador_servicio').select2();
-        });
-    </script>
-
-  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script> --}}
+  <script src="{{ asset('assets/js/argon-dashboard.min.js')}}"></script>
 
   @yield('js_custom')
 
@@ -101,9 +100,12 @@
 
 
   <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.0.4')}}"></script>
+  {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
+
+  @yield('select2')
+
+
+
   @livewireScripts
 </body>
 
