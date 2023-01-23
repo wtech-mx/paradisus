@@ -18,6 +18,8 @@ class Notas extends Model
         'fecha',
         'nota',
         'restante',
+        'precio',
+        'num',
     ];
 
     public function User()

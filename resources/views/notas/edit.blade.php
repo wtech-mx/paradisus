@@ -57,15 +57,25 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="precio">Servicio</label>
-                                <select class="form-control input-edit-car" id="id_servicio" name="id_servicio"
-                                    value="{{ old('id_servicio') }}" disabled>
-                                    <option value="{{ $notas->id_servicio }}">{{ $notas->Servicios->nombre }}</option>
-                                    @foreach ($servicio as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <label for="precio">Servicio</label>
+                                        <select class="form-control input-edit-car" id="id_servicio" name="id_servicio"
+                                            value="{{ old('id_servicio') }}" disabled>
+                                            <option value="{{ $notas->id_servicio }}">{{ $notas->Servicios->nombre }}</option>
+                                            @foreach ($servicio as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="precio">Num</label>
+                                            <input type="number" id="num" name="num" class="form-control" value="{{ $notas->num }}" disabled>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="fecha">Fecha</label>

@@ -7,6 +7,7 @@ use App\Models\Notas;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\NotasCosmes;
+use App\Models\NotasPaquetes;
 use App\Models\Pagos;
 use App\Models\Servicios;
 use Session;
@@ -97,6 +98,7 @@ class NotasController extends Controller
         $nota->id_servicio = $request->get('id_servicio');
         $nota->fecha = $fechaActual;
         $nota->nota = $request->get('nota');
+        $nota->num = $request->get('num');
         $nota->save();
 
         $id_user = $request->get('id_user');
@@ -110,6 +112,18 @@ class NotasController extends Controller
         }
 
         NotasCosmes::insert($insert_data2);
+
+        // $id_paquete = $request->get('id_paquete');
+
+        // for ($count = 0; $count < count($id_paquete); $count++) {
+        //     $data = array(
+        //         'id_nota' => $nota->id,
+        //         'id_servicio' => $id_paquete[$count],
+        //     );
+        //     $insert_data3[] = $data;
+        // }
+
+        // NotasPaquetes::insert($insert_data3);
 
         $pago = new Pagos;
         $pago->id_nota = $nota->id;
@@ -135,10 +149,11 @@ class NotasController extends Controller
         }else{
             $precio = $nota->Servicios->precio;
         }
-        $restante = $precio - $pago->pago;
+        $total = $precio * $nota->num;
+        $restante = $total - $pago->pago;
         //  dd($pago->pago);
         $nota_pago = Notas::find($nota->id);
-        $nota_pago->precio = $precio;
+        $nota_pago->precio = $total;
         $nota_pago->restante = $restante;
         $nota_pago->update();
 
