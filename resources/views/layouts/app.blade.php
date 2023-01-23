@@ -10,7 +10,7 @@
   <title>
     @yield('template_title') - {{$configuracion->nombre_sistema}}
   </title>
-  <!--     Fonts and icons     -->
+
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
   <link href="{{ asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
@@ -19,8 +19,8 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4')}}" rel="stylesheet" />
-  <!-- Select2  -->
-  <link src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Select2  -->
+    <link rel="stylesheet" href="{{ asset('css/select2.css') }}" type="text/css">
 
   <link src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link src="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css" rel="stylesheet" />
@@ -73,12 +73,20 @@
   <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/datatables.js')}}"></script>
 
+   <!-- SELECT 2 -->
+   <script src="{{ asset('js/select2.js') }}"></script>
+
   <!-- Kanban scripts -->
   <script src="{{ asset('assets/js/plugins/dragula/dragula.min.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/jkanban/jkanban.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+                $('.mibuscador_cliente').select2();
+                $('.mibuscador_servicio').select2();
+        });
+    </script>
 
   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -118,6 +119,16 @@
     </div>
 @endsection
 
+
+
+@section('js_custom')
+    <script>
+        function abrir(url,largo,altura) {
+        open(url,'','top=100,left=100,width='+largo+',height='+altura+'') ;
+        }
+    </script>
+@endsection
+
 @section('datatable')
 
 <script>
@@ -145,17 +156,3 @@
 </script>
 
 @endsection
-
-@section('js_custom')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
-    <script>
-        function abrir(url,largo,altura) {
-        open(url,'','top=100,left=100,width='+largo+',height='+altura+'') ;
-        }
-    </script>
-@endsection
-

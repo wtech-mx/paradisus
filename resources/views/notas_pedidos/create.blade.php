@@ -80,7 +80,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select class="form-control js-example-basic-single" id="id_client" name="id_client"
+                                <select class="form-control" id="id_client" name="id_client"
                                     value="{{ old('id_client') }}" required>
                                     @foreach ($client as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>

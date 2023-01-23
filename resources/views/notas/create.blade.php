@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
 
-                                <select class="form-control " id="id_client" name="id_client"
+                                <select class="form-control mibuscador_cliente" id="id_client" name="id_client"
                                     value="{{ old('submarca') }}">
                                     <option>Seleccionar cliente</option>
                                     @foreach ($client as $item)

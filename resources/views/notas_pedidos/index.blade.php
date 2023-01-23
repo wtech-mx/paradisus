@@ -160,11 +160,6 @@ $('.clonar').click(function() {
   // Agrega lo clonado al final del #formulario
   $clone.appendTo('#formulario');
 });
-// Select 2
-$(document).ready(function() {
-    $('.js-example-basic-single').select2();
-});
-
 </script>
 
 @endsection
