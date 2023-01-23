@@ -130,9 +130,15 @@ class NotasController extends Controller
         $pago->save();
 
         $pago = Pagos::orderBy('id', 'desc')->first();
-        $restante = $nota->Servicios->precio - $pago->pago;
+        if($nota->Servicios->act_descuento == 1){
+            $precio = $nota->Servicios->descuento;
+        }else{
+            $precio = $nota->Servicios->precio;
+        }
+        $restante = $precio - $pago->pago;
         //  dd($pago->pago);
         $nota_pago = Notas::find($nota->id);
+        $nota_pago->precio = $precio;
         $nota_pago->restante = $restante;
         $nota_pago->update();
 

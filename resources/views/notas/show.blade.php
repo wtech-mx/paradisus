@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="showDataModalLabel">Ver Nota</h5>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                       <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Precio Servicio: {{ $notas->Servicios->precio }}</label></strong> <br>
+                       <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Precio Servicio: {{ $notas->precio }}</label></strong> <br>
 
                     </li>
                     <li class="nav-item">

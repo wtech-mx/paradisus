@@ -20,8 +20,9 @@ class ServiciosController extends Controller
     public function index()
     {
         $servicio = Servicios::get();
+        $servicio_promo = Servicios::where('act_descuento', '=', '1')->get();
 
-        return view('servicios.index', compact('servicio'));
+        return view('servicios.index', compact('servicio', 'servicio_promo'));
     }
 
     /**
@@ -46,6 +47,15 @@ class ServiciosController extends Controller
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('servicio.index')
                         ->with('success','User created successfully');
+    }
+
+    public function ChangeServicioStatus(Request $request)
+    {
+        $servicio = Servicios::find($request->id);
+        $servicio->act_descuento = $request->act_descuento;
+        $servicio->save();
+
+        return response()->json(['success' => 'Se cambio el estado exitosamente.']);
     }
 
     /**

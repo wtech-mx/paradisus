@@ -69,6 +69,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('/servicios/update/{id}', [App\Http\Controllers\ServiciosController::class, 'update'])->name('servicio.update');
     Route::delete('/servicios/delete/{id}', [App\Http\Controllers\ServiciosController::class, 'destroy'])->name('servicio.destroy');
 
+    Route::get('changeStatus', [App\Http\Controllers\ServiciosController::class, 'ChangeServicioStatus'])->name('ChangeServicioStatus.servicio');
+
     // =============== M O D U L O   N O T A S ===============================
     Route::get('/notas/servicios', [App\Http\Controllers\NotasController::class, 'index'])->name('notas.index');
     Route::post('/notas/servicios/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
