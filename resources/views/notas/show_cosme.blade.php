@@ -102,39 +102,33 @@
                             @foreach ($pago as $item)
                             @if ($item->id_nota == $notas->id)
                             <p style="display: none">{{ $resultado += $item->pago; }}</p>
-
-                            <div class="col-2 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
+                            <div class="col-2 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
                                     value="{{$item->fecha}}" disabled>
                             </div>
 
-                            <div class="col-2 py-2" ><input name="cosmetologa" type="text" class="form-control text-center" id="cosmetologa"
-                                    value="{{$item->cosmetologa}}" disabled>
-                            </div>
-
-                            <div class="col-2 py-2" >
-                                <input name="pago" type="number" class="form-control text-center" id="pago"
+                            <div class="col-2 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
                                     value="{{$item->pago}}" disabled></div>
 
-                            <div class="col-1 py-2" ><input name="num_sesion" type="number" class="form-control text-center" id="num_sesion"
+                            <div class="col-2 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
                                 value="{{$item->num_sesion}}" disabled>
                             </div>
 
-                            <div class="col-2 py-2" ><input name="forma_pago" type="text" class="form-control text-center" id="forma_pago"
+                            <div class="col-2 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
                                 value="{{$item->forma_pago}}" disabled>
                             </div>
 
-                            <div class="col-2 py-2" ><textarea class="form-control text-center" name="nota[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
-
+                            <div class="col-3 mb-2"> <textarea class="form-control text-center" name="nota[]" id="nota[]" cols="5" rows="3" disabled>{{$item->nota}}</textarea>
                             </div>
 
                             @if ($item->foto == NULL)
                                 <a href=""></a>
                             @else
-                                <div class="col-1 py-2">
+                                <div class="col-1 mb-2">
                                     <a href="javascript:abrir('{{asset('foto_servicios/'.$item->foto)}}','500','500')">Foto</a>
                                 </div>
                             @endif
-                        @endif
+
+                            @endif
                             @endforeach
 
                         </div>

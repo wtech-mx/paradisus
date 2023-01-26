@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="showDataModal{{$notas->id}}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="showDataModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showDataModalLabel">Ver Nota</h5>
@@ -90,44 +90,45 @@
 
                         <div class="row text-center">
                             <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
+                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Cosme</div>
                             <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
-                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Sesión</div>
-                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo Pago</div>
-                            <div class="col-3" style="background-color: #bb546c; color: #fff;">Nota</div>
+                            <div class="col-1" style="background-color: #bb546c; color: #fff;">Sesión</div>
+                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
+                            <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
                             <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
 
 
                             <p style="display: none">{{ $resultado = 0; }}</p>
                             @foreach ($pago as $item)
-                                @if ($item->id_nota == $notas->id)
-                                <p style="display: none">{{ $resultado += $item->pago; }}</p>
-                                <div class="col-2 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
-                                        value="{{$item->fecha}}" disabled>
+                            @if ($item->id_nota == $notas->id)
+                            <p style="display: none">{{ $resultado += $item->pago; }}</p>
+                            <div class="col-2 mb-2"><input name="fecha_pago[]" type="date" class="form-control text-center" id="fecha_pago[]"
+                                    value="{{$item->fecha}}" disabled>
+                            </div>
+
+                            <div class="col-2 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
+                                    value="{{$item->pago}}" disabled></div>
+
+                            <div class="col-2 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
+                                value="{{$item->num_sesion}}" disabled>
+                            </div>
+
+                            <div class="col-2 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
+                                value="{{$item->forma_pago}}" disabled>
+                            </div>
+
+                            <div class="col-3 mb-2"> <textarea class="form-control text-center" name="nota[]" id="nota[]" cols="5" rows="3" disabled>{{$item->nota}}</textarea>
+                            </div>
+
+                            @if ($item->foto == NULL)
+                                <a href=""></a>
+                            @else
+                                <div class="col-1 mb-2">
+                                    <a href="javascript:abrir('{{asset('foto_servicios/'.$item->foto)}}','500','500')">Foto</a>
                                 </div>
+                            @endif
 
-                                <div class="col-2 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
-                                        value="{{$item->pago}}" disabled></div>
-
-                                <div class="col-2 mb-2"><input name="num_sesion[]" type="number" class="form-control text-center" id="num_sesion[]"
-                                    value="{{$item->num_sesion}}" disabled>
-                                </div>
-
-                                <div class="col-2 mb-2"><input name="forma_pago[]" type="text" class="form-control text-center" id="forma_pago[]"
-                                    value="{{$item->forma_pago}}" disabled>
-                                </div>
-
-                                <div class="col-3 mb-2"> <textarea class="form-control text-center" name="nota[]" id="nota[]" cols="5" rows="3" disabled>{{$item->nota}}</textarea>
-                                </div>
-
-                                @if ($item->foto == NULL)
-                                    <a href=""></a>
-                                @else
-                                    <div class="col-1 mb-2">
-                                        <a href="javascript:abrir('{{asset('foto_servicios/'.$item->foto)}}','500','500')">Foto</a>
-                                    </div>
-                                @endif
-
-                                @endif
+                            @endif
                             @endforeach
 
                         </div>
