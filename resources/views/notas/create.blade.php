@@ -136,10 +136,6 @@
                                 <div class="clonars">
                                     <div class="row">
 
-                                        <div class="col-12">
-                                            <h4 class="py-3">Sesion</h4>
-                                        </div>
-
                                         <div class="col-2">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha</label>
