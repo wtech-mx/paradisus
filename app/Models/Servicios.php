@@ -22,5 +22,7 @@ class Servicios extends Model
         'descuento',
         'num_sesiones',
         'color',
+        'num_sesiones2',
+        'duracion2',
     ];
 }
