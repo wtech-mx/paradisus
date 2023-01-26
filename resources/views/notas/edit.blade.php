@@ -119,7 +119,7 @@
                                         </div>
 
                                         <div class="col-3 py-2" ><input name="cosmetologa" type="text" class="form-control text-center" id="cosmetologa"
-                                                value="{{$item->cosmetologa}}" disabled>
+                                                value="{{$item->cosmetologa}}">
                                         </div>
 
                                         <div class="col-2 py-2" >

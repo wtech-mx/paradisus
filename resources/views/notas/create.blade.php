@@ -200,7 +200,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="num_sesion">Num sesion</label>
-                                        <input  id="sesion" name="sesion" type="number" class="form-control" required>
+                                        <input  id="sesion" name="sesion" type="number" class="form-control">
                                     </div>
                                 </div>
                             </div>
