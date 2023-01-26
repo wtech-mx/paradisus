@@ -94,7 +94,7 @@
                                                                 <div class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i></div>
                                                             @endcan
                                                             @can('notas-delete')
-                                                                <form action="{{ route('notas.destroy',$notas->id) }}" method="POST">
+                                                                <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents;">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
@@ -164,6 +164,10 @@
             $(document).ready(function() {
 
                 $(".cliente").select2({
+                    dropdownParent: $("#createDataModal")
+                });
+
+                $(".cosme").select2({
                     dropdownParent: $("#createDataModal")
                 });
 

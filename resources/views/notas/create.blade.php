@@ -114,6 +114,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
                             <div class="row" style="display: none">
                                 <div class="col-6">
                                     <div class="form-group">
@@ -128,15 +129,33 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div id="formulario">
                                 {{-- <button type="button" class="clonar btn btn-secondary btn-sm">+</button> --}}
 
                                 <div class="clonars">
                                     <div class="row">
-                                        <div class="col-3">
+
+                                        <div class="col-12">
+                                            <h4 class="py-3">Sesion</h4>
+                                        </div>
+
+                                        <div class="col-2">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha</label>
                                                 <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="fecha">Cosme</label>
+                                                <select class="form-control cosme"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
+                                                    <option>Seleccionar</option>
+                                                    @foreach ($cosmetologas as $item)
+                                                        <option value="{{ $item->name }} {{ $item->last_name }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
@@ -167,7 +186,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-3">
+                                        <div class="col-2">
                                             <div class="form-group">
                                                 <label for="nota">Nota</label>
                                                 <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>

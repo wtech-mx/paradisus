@@ -27,6 +27,7 @@ class NotasController extends Controller
         $client = Client::orderBy('name','ASC')->get();
         $servicio = Servicios::orderBy('nombre','ASC')->get();
         $pago = Pagos::get();
+        $cosmetologas = User::get();
 
         $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
@@ -64,7 +65,7 @@ class NotasController extends Controller
         }
 
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind'));
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind','cosmetologas'));
     }
 
     /**
@@ -130,6 +131,7 @@ class NotasController extends Controller
         $pago = new Pagos;
         $pago->id_nota = $nota->id;
         $pago->fecha = $request->get('fecha_pago');
+        $pago->cosmetologa = $request->get('cosmetologa');
         $pago->pago = $request->get('pago');
         $pago->num_sesion = $request->get('num_sesion');
         $pago->forma_pago = $request->get('forma_pago');
@@ -189,6 +191,7 @@ class NotasController extends Controller
     {
 
         $nota = Notas::find($id);
+
         // $nota->id_user = $request->get('id_user');
         // $nota->id_client = $request->get('id_client');
         // $nota->id_servicio = $request->get('id_servicio');
@@ -199,6 +202,7 @@ class NotasController extends Controller
         $pago = new Pagos;
         $pago->id_nota = $nota->id;
         $pago->fecha = $request->get('fecha_pago');
+        $pago->cosmetologa = $request->get('cosmetologa');
         $pago->pago = $request->get('pago');
         $pago->num_sesion = $request->get('num_sesion');
         $pago->forma_pago = $request->get('forma_pago');

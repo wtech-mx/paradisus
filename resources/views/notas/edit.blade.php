@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="editDataModal{{$notas->id}}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="editDataModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editDataModalLabel">Editar Nota</h5>
@@ -91,10 +91,11 @@
 
                             <div class="row text-center">
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
+                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Cosme</div>
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
-                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Sesión</div>
-                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo Pago</div>
-                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Nota</div>
+                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Sesión</div>
+                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
+                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
                                 <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
 
 
@@ -102,29 +103,35 @@
                                 @foreach ($pago as $item)
                                     @if ($item->id_nota == $notas->id)
                                         <p style="display: none">{{ $resultado += $item->pago; }}</p>
-                                        <div class="col-2 mb-2"><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
+
+                                        <div class="col-2 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
                                                 value="{{$item->fecha}}" disabled>
                                         </div>
 
-                                        <div class="col-2 mb-2"><input name="pago" type="number" class="form-control text-center" id="pago"
+                                        <div class="col-2 py-2" ><input name="cosmetologa" type="text" class="form-control text-center" id="cosmetologa"
+                                                value="{{$item->cosmetologa}}" disabled>
+                                        </div>
+
+                                        <div class="col-2 py-2" >
+                                            <input name="pago" type="number" class="form-control text-center" id="pago"
                                                 value="{{$item->pago}}" disabled></div>
 
-                                        <div class="col-2 mb-2"><input name="num_sesion" type="number" class="form-control text-center" id="num_sesion"
+                                        <div class="col-1 py-2" ><input name="num_sesion" type="number" class="form-control text-center" id="num_sesion"
                                             value="{{$item->num_sesion}}" disabled>
                                         </div>
 
-                                        <div class="col-2 mb-2"><input name="forma_pago" type="text" class="form-control text-center" id="forma_pago"
+                                        <div class="col-2 py-2" ><input name="forma_pago" type="text" class="form-control text-center" id="forma_pago"
                                             value="{{$item->forma_pago}}" disabled>
                                         </div>
 
-                                        <div class="col-3 mb-2"><textarea class="form-control text-center" name="nota[]" id="nota[]" cols="5" rows="3" disabled>{{$item->nota}}</textarea>
+                                        <div class="col-2 py-2" ><textarea class="form-control text-center" name="nota[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
 
                                         </div>
 
                                         @if ($item->foto == NULL)
                                             <a href=""></a>
                                         @else
-                                            <div class="col-1 mb-2">
+                                            <div class="col-1 py-2">
                                                 <a href="javascript:abrir('{{asset('foto_servicios/'.$item->foto)}}','500','500')">Foto</a>
                                             </div>
                                         @endif
@@ -137,10 +144,22 @@
                                 <h5><strong>Restante:</strong>  ${{$notas->restante}} .00  MXN</h5>
 
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <div class="form-group">
                                             <label for="fecha">Fecha</label>
                                             <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="fecha">Cosme</label>
+                                            <select class="form-control cosme"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
+                                                <option>Seleccionar</option>
+                                                @foreach ($cosmetologas as $item)
+                                                    <option value="{{ $item->name }} {{ $item->last_name }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
 
@@ -170,7 +189,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <div class="form-group">
                                             <label for="nota">Nota</label>
                                             <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>

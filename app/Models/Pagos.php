@@ -15,6 +15,7 @@ class Pagos extends Model
     protected $fillable = [
         'id_nota',
         'fecha',
+        'cosmetologa',
         'pago',
         'forma_pago',
         'nota',
