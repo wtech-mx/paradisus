@@ -106,6 +106,10 @@
                                     value="{{$item->fecha}}" disabled>
                             </div>
 
+                            <div class="col-2 py-2" ><input name="cosmetologa" type="text" class="form-control text-center" id="cosmetologa"
+                                value="{{$item->cosmetologa}}" disabled>
+                            </div>
+
                             <div class="col-2 mb-2"><input name="pago[]" type="number" class="form-control text-center" id="pago[]"
                                     value="{{$item->pago}}" disabled></div>
 
