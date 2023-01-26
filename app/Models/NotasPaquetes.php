@@ -11,8 +11,9 @@ class NotasPaquetes extends Model
     protected $table = 'notas_paquetes';
 
     protected $fillable = [
-        'id_user',
+        'id_nota',
         'id_servicio',
+        'num',
     ];
 
     public function Notas()

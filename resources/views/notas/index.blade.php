@@ -132,22 +132,22 @@
       fixedHeight: false
     });
 
-    $('.clonar').click(function() {
-    // Clona el .input-group
-    var $clone = $('#formulario .clonars').last().clone();
+    $(document).ready(function(){
+    $("#masfilas").click(function(){
+            var tableReg = document.getElementById("mytable");
+            $("#mytable").append("<tr>"+tableReg.rows[0].innerHTML+"</tr>");//1
+            $('.remove-item').off().click(function(e) {
+                $(this).parent('td').parent('tr').remove();//2
+            });
 
-    // Borra los valores de los inputs clonados
-    $clone.find(':input').each(function () {
-        if ($(this).is('select')) {
-        this.selectedIndex = 0;
-        } else {
-        this.value = '';
+        });
+    });
+    function empty(unselect){
+        for (var i=1;i<unselect.children.length; i++)
+        {
+            unselect.children[i].remove();
         }
-    });
-
-    // Agrega lo clonado al final del #formulario
-    $clone.appendTo('#formulario');
-    });
+    }
 </script>
 
 @endsection
@@ -157,20 +157,19 @@
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    $(document).ready(function() {
+            $(document).ready(function() {
 
-        $(".cliente").select2({
-            dropdownParent: $("#createDataModal")
+                $(".cliente").select2({
+                    dropdownParent: $("#createDataModal")
+                });
+
+                $(".servicio").select2({
+                    dropdownParent: $("#createDataModal")
+                });
         });
 
-        $(".servicio").select2({
-            dropdownParent: $("#createDataModal")
-        });
-});
-
-
-</script>
+    </script>
 
 @endsection
