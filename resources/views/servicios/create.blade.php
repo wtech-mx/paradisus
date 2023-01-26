@@ -30,13 +30,13 @@
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="duracion">Duración</label>
+                                    <label for="duracion">Duración 1</label>
                                     <input id="duracion" name="duracion" type="text" class="form-control" placeholder="duracion">@error('duracion') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="num_sesiones">Num. Sesiones</label>
+                                    <label for="num_sesiones">Num. Sesiones 1</label>
                                     <input id="num_sesiones" name="num_sesiones" type="number" class="form-control" placeholder="num sesiones">@error('num_sesiones') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
@@ -61,10 +61,27 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="form-group" style="display: none">
-                                <label for="descuento"></label>
-                                <input id="act_descuento" name="act_descuento" type="number" class="form-control" placeholder="Descuento">@error('descuento') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <div class="row">
+                            {{-- <div class="col-4">
+                                <div class="form-group" >
+                                    <label for="descuento">Act Descuento</label><br>
+                                    <input id="act_descuento" name="act_descuento" type="checkbox" class="toggle-class" value="1">@error('descuento') <span class="error text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div> --}}
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="num_sesiones2">Num. Sesiones 2</label>
+                                    <input id="num_sesiones2" name="num_sesiones2" type="number" class="form-control" placeholder="num sesiones">@error('num_sesiones2') <span class="error text-danger">{{ $message }}</span> @enderror
+                                </div>
                             </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="duracion">Duración 2</label>
+                                    <input id="duracion2" name="duracion2" type="text" class="form-control" placeholder="duracion">@error('duracion2') <span class="error text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
