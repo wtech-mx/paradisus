@@ -34,6 +34,7 @@
                                             <th>Usuario</th>
                                             <th>Cliente</th>
                                             <th>Servicio</th>
+                                            <th>Fecha</th>
                                             <th>Estatus</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -73,6 +74,7 @@
                                                     </td>
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
                                                     <td>{{ $notas->Servicios->nombre }}</td>
+                                                    <td>{{ $notas->fecha }}</td>
                                                     @if ($notas->restante == 0)
                                                     <td> <label class="badge badge-success" style="font-size: 13px;">Pagado</label> </td>
                                                     @else
