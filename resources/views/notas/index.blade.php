@@ -85,7 +85,7 @@
                                                             <a type="button" class="btn btn-sm" target="_blank"
                                                             href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20de%20servicio:%20%22{{ $notas->Servicios->nombre }}%22%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
                                                             style="background: #00BB2D; color: #ffff">
-                                                            <i class="ni ni-chat-round"></i></a>
+                                                            <i class="fa fa-whatsapp"></i></a>
 
                                                             {{-- <a class="btn btn-sm btn-warning"  href="{{route('notas.print', $notas->id)}}"><i class="fa fa-file-pdf"></i></a> --}}
 
