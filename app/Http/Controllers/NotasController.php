@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\NotasCosmes;
 use App\Models\NotasPaquetes;
+use App\Models\NotasSesion;
 use App\Models\Pagos;
 use App\Models\Servicios;
 use Session;
@@ -28,6 +29,7 @@ class NotasController extends Controller
         $servicio = Servicios::orderBy('nombre','ASC')->get();
         $pago = Pagos::get();
         $cosmetologas = User::get();
+        $notas_sesiones = NotasSesion::get();
 
         $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
@@ -64,8 +66,7 @@ class NotasController extends Controller
             ->get();
         }
 
-
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind','cosmetologas'));
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind','cosmetologas', 'notas_sesiones'));
     }
 
     /**
@@ -104,6 +105,12 @@ class NotasController extends Controller
         $nota->num = $request->get('num');
         $nota->save();
 
+        $nota_sesion = new NotasSesion();
+        $nota_sesion->id_nota = $nota->id;
+        $nota_sesion->fecha = $request->get('fecha_sesion');
+        $nota_sesion->sesion = $request->get('sesion');
+        $nota_sesion->save();
+
         $id_user = $request->get('id_user');
 
         for ($count = 0; $count < count($id_user); $count++) {
@@ -133,7 +140,6 @@ class NotasController extends Controller
         $pago->fecha = $request->get('fecha_pago');
         $pago->cosmetologa = $request->get('cosmetologa');
         $pago->pago = $request->get('pago');
-        $pago->num_sesion = $request->get('num_sesion');
         $pago->forma_pago = $request->get('forma_pago');
         $pago->nota = $request->get('nota2');
 
@@ -204,7 +210,6 @@ class NotasController extends Controller
         $pago->fecha = $request->get('fecha_pago');
         $pago->cosmetologa = $request->get('cosmetologa');
         $pago->pago = $request->get('pago');
-        $pago->num_sesion = $request->get('num_sesion');
         $pago->forma_pago = $request->get('forma_pago');
         $pago->nota = $request->get('nota2');
 
@@ -217,6 +222,12 @@ class NotasController extends Controller
         }
 
         $pago->save();
+
+        $nota_sesion = new NotasSesion;
+        $nota_sesion->id_nota = $nota->id;
+        $nota_sesion->fecha = $request->get('fecha_sesion');
+        $nota_sesion->sesion = $request->get('sesion');
+        $nota_sesion->save();
 
         $pago = Pagos::orderBy('id', 'desc')->first();
         $restante = $nota->restante - $pago->pago;
