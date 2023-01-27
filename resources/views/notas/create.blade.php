@@ -28,7 +28,7 @@
 
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-extra" role="tab" aria-controls="pills-extra" aria-selected="true" id="pills-extra-tab">
                         <i class="fa fa-money-bill text-sm me-2"></i> Extras
                     </a>
                 </li>
@@ -221,9 +221,6 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <div id="formulario">
-                                {{-- <button type="button" class="clonar btn btn-secondary btn-sm">+</button> --}}
-                                <div class="clonars">
                                     <div class="row">
 
                                         <div class="col-3">
@@ -280,8 +277,6 @@
                                         </div>
                                         <hr>
                                     </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="tab-pane fade" id="pills-sesion" role="tabpanel" aria-labelledby="pills-sesion-tab">
@@ -303,7 +298,25 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-extra" role="tabpanel" aria-labelledby="pills-extra-tab">
-                            <h3>Extra</h3>
+                            <div id="formulario" class="mt-4">
+                                <button type="button" class="clonar2 btn btn-secondary btn-sm">Agregar</button>
+                                <div class="clonars2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="descripcion">Concepto</label>
+                                                <input  id="concepto" name="concepto" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Precio</label>
+                                                <input  id="precio" name="precio" type="number" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

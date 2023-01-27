@@ -7,6 +7,7 @@ use App\Models\Notas;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\NotasCosmes;
+use App\Models\NotasExtras;
 use App\Models\NotasPaquetes;
 use App\Models\NotasSesion;
 use App\Models\Pagos;
@@ -30,6 +31,7 @@ class NotasController extends Controller
         $pago = Pagos::get();
         $notas_sesiones = NotasSesion::get();
         $notas_paquetes = NotasPaquetes::get();
+        $notas_extras = NotasExtras::get();
 
         $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
@@ -66,7 +68,7 @@ class NotasController extends Controller
             ->get();
         }
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind', 'notas_sesiones', 'notas_paquetes'));
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind', 'notas_sesiones', 'notas_paquetes', 'notas_extras'));
     }
 
     /**
@@ -165,9 +167,23 @@ class NotasController extends Controller
             $pago->save();
         }
 
+        // G U A R D A R  E X T R A S
+        if($request->get('concepto') != NULL){
+            $notas_extra = new NotasExtras;
+            $notas_extra->id_nota = $nota->id;
+            $notas_extra->concepto = $request->get('concepto');
+            $notas_extra->precio = $request->get('precio');
+            $notas_extra->save();
+        }
+
+        $nota_one = Notas::orderBy('id', 'desc')->first();
+        $notas_extra = NotasExtras::where('id_nota', '=', $nota_one->id)->get();
+        $suma_extra = 0;
+        foreach($notas_extra as $item){
+            $suma_extra = $suma_extra + $item->precio;
+        }
         // G U A R D A R  T O T A L  S E R V I C I O
         $pago = Pagos::orderBy('id', 'desc')->first();
-        $nota_one = Notas::orderBy('id', 'desc')->first();
         $nota_reciente = NotasPaquetes::where('id_nota', '=', $nota_one->id)->first();
 
         $total = 0;
@@ -211,8 +227,8 @@ class NotasController extends Controller
         }else{$unitario4 = 0;}
 
         $total = $unitario + $unitario2 + $unitario3 + $unitario4;
-
-        $restante = $total - $pago->pago;
+        $total_extra = $suma_extra + $total;
+        $restante = $total_extra - $pago->pago;
         //  dd($pago->pago);
         $nota_pago = Notas::find($nota->id);
         $nota_pago->precio = $total;
@@ -280,9 +296,71 @@ class NotasController extends Controller
             $nota_sesion->save();
         }
 
-        $pago = Pagos::orderBy('id', 'desc')->first();
-        $restante = $nota->restante - $pago->pago;
+        // G U A R D A R  E X T R A S
+        if($request->get('concepto') != NULL){
+            $notas_extra = new NotasExtras;
+            $notas_extra->id_nota = $nota->id;
+            $notas_extra->concepto = $request->get('concepto');
+            $notas_extra->precio = $request->get('precio');
+            $notas_extra->save();
+        }
 
+        $notas_extra = NotasExtras::where('id_nota', '=', $nota->id)->get();
+        $suma_extra = 0;
+        foreach($notas_extra as $item){
+            $suma_extra = $suma_extra + $item->precio;
+        }
+
+        $suma_pagos = 0;
+        $pago = Pagos::where('id_nota', '=', $nota->id)->get();
+        foreach($pago as $item){
+            $suma_pagos = $suma_pagos + $item->pago;
+        }
+
+        $nota_reciente = NotasPaquetes::where('id_nota', '=', $nota->id)->first();
+        $total = 0;
+        $mult = 0;
+        $descuento = 0;
+        if($nota_reciente->id_servicio != NULL){
+            if($nota_reciente->descuento == 1){
+                $mult = $nota_reciente->Servicios->precio * .10;
+                $descuento = $nota_reciente->Servicios->precio - $mult;
+                $unitario = $descuento * $nota_reciente->num;
+            }else{
+                $unitario = $nota_reciente->Servicios->precio * $nota_reciente->num;
+            }
+        }else{$unitario = 0;}
+        if($nota_reciente->id_servicio2 != NULL){
+            if($nota_reciente->descuento2 == 1){
+                $mult = $nota_reciente->Servicios2->precio * .10;
+                $descuento = $nota_reciente->Servicios2->precio - $mult;
+                $unitario2 = $descuento * $nota_reciente->num2;
+            }else{
+                $unitario2 = $nota_reciente->Servicios2->precio * $nota_reciente->num2;
+            }
+        }else{$unitario2 = 0;}
+        if($nota_reciente->id_servicio3 != NULL){
+            if($nota_reciente->descuento3 == 1){
+                $mult = $nota_reciente->Servicios3->precio * .10;
+                $descuento = $nota_reciente->Servicios3->precio - $mult;
+                $unitario3 = $descuento * $nota_reciente->num3;
+            }else{
+                $unitario3 = $nota_reciente->Servicios3->precio * $nota_reciente->num3;
+            }
+        }else{$unitario3 = 0;}
+        if($nota_reciente->id_servicio4 != NULL){
+            if($nota_reciente->descuento4 == 1){
+                $mult = $nota_reciente->Servicios4->precio * .10;
+                $descuento = $nota_reciente->Servicios4->precio - $mult;
+                $unitario4 = $descuento * $nota_reciente->num4;
+            }else{
+                $unitario4 = $nota_reciente->Servicios4->precio * $nota_reciente->num4;
+            }
+        }else{$unitario4 = 0;}
+
+        $total = $unitario + $unitario2 + $unitario3 + $unitario4 + $suma_extra;
+
+        $restante = $total - $suma_pagos;
         $nota_pago = Notas::find($nota->id);
         $nota_pago->restante = $restante;
         $nota_pago->update();

@@ -155,6 +155,44 @@
 
 
 @section('js_custom')
+    <script type="text/javascript">
+        // ============= Agregar mas inputs dinamicamente =============
+        $('.clonar2').click(function() {
+        // Clona el .input-group
+        var $clone = $('#formulario .clonars2').last().clone();
+
+        // Borra los valores de los inputs clonados
+        $clone.find(':input').each(function () {
+            if ($(this).is('select')) {
+            this.selectedIndex = 0;
+            } else {
+            this.value = '';
+            }
+        });
+
+        // Agrega lo clonado al final del #formulario
+        $clone.appendTo('#formulario');
+        });
+    </script>
+        <script type="text/javascript">
+            // ============= Agregar mas inputs dinamicamente =============
+            $('.clonar3').click(function() {
+            // Clona el .input-group
+            var $clone = $('#formulario3 .clonars3').last().clone();
+
+            // Borra los valores de los inputs clonados
+            $clone.find(':input').each(function () {
+                if ($(this).is('select')) {
+                this.selectedIndex = 0;
+                } else {
+                this.value = '';
+                }
+            });
+
+            // Agrega lo clonado al final del #formulario
+            $clone.appendTo('#formulario3');
+            });
+        </script>
     <script>
         function abrir(url,largo,altura) {
         open(url,'','top=100,left=100,width='+largo+',height='+altura+'') ;
@@ -211,23 +249,6 @@
       searchable: true,
       fixedHeight: false
     });
-
-    $(document).ready(function(){
-    $("#masfilas").click(function(){
-            var tableReg = document.getElementById("mytable");
-            $("#mytable").append("<tr>"+tableReg.rows[0].innerHTML+"</tr>");//1
-            $('.remove-item').off().click(function(e) {
-                $(this).parent('td').parent('tr').remove();//2
-            });
-
-        });
-    });
-    function empty(unselect){
-        for (var i=1;i<unselect.children.length; i++)
-        {
-            unselect.children[i].remove();
-        }
-    }
 </script>
 
 @endsection

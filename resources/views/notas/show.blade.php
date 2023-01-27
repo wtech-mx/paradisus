@@ -28,7 +28,7 @@
 
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#show-extra{{$notas->id}}" role="tab" aria-controls="show-extra" aria-selected="true" id="show-extra-tab">
                         <i class="fa fa-money-bill text-sm me-2"></i> Extras
                     </a>
                 </li>
@@ -301,8 +301,25 @@
                         @endforeach
                     </div>
 
-                    <div class="tab-pane fade" id="pills-extra{{$notas->id}}" role="tabpanel" aria-labelledby="pills-extra-tab">
-                        <h3>Extra</h3>
+                    <div class="tab-pane fade" id="show-extra{{$notas->id}}" role="tabpanel" aria-labelledby="show-extra-tab">
+                        @foreach ($notas_extras as $item)
+                            @if ($item->id_nota == $notas->id)
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="descripcion">Concepto</label>
+                                            <input  id="concepto[]" name="concepto[]" type="text" class="form-control" value="{{$item->concepto}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="num_sesion">Precio</label>
+                                            <input  id="precio[]" name="precio[]" type="number" class="form-control" value="{{$item->precio}}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
