@@ -26,11 +26,19 @@
                     </a>
 
                 </li>
+
                 <li class="nav-item" role="presentation">
                     <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#extra{{$notas->id}}" role="tab" aria-controls="extra" aria-selected="true" id="extra-tab">
                         <i class="fa fa-money-bill text-sm me-2"></i> Extras
                     </a>
                 </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#propina{{$notas->id}}" role="tab" aria-controls="propina" aria-selected="true" id="propina-tab">
+                        <i class="fa fa-money-bill text-sm me-2"></i> Propina
+                    </a>
+                </li>
+
             </ul>
             <form method="POST" action="{{ route('notas.update', $notas->id) }}" enctype="multipart/form-data" role="form">
                 @csrf
@@ -413,6 +421,47 @@
                                             <div class="form-group">
                                                 <label for="num_sesion">Precio</label>
                                                 <input  id="precio" name="precio" type="number" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="propina{{$notas->id}}" role="tabpanel" aria-labelledby="propina-tab">
+                            @foreach ($notas_propinas as $item)
+                                @if ($item->id_nota == $notas->id)
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="descripcion">Concepto</label>
+                                                <input  id="concepto2[]" name="concepto2[]" type="text" class="form-control" value="{{$item->concepto}}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Propina</label>
+                                                <input  id="propina[]" name="propina[]" type="number" class="form-control" value="{{$item->propina}}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+
+                            <div id="formulario3" class="mt-4">
+                                {{-- <button type="button" class="clonar3 btn btn-secondary btn-sm">Agregar</button> --}}
+                                <div class="clonars3">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="descripcion">Concepto</label>
+                                                <input  id="concepto2" name="concepto2" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Precio</label>
+                                                <input  id="propina" name="propina" type="number" class="form-control" >
                                             </div>
                                         </div>
                                     </div>

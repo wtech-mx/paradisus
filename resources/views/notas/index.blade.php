@@ -157,9 +157,9 @@
 @section('js_custom')
     <script type="text/javascript">
         // ============= Agregar mas inputs dinamicamente =============
-        $('.clonar2').click(function() {
+        $('.btn_clonar2').click(function() {
         // Clona el .input-group
-        var $clone = $('#formulario .clonars2').last().clone();
+        var $clone = $('#formulario_2 .clonars2').last().clone();
 
         // Borra los valores de los inputs clonados
         $clone.find(':input').each(function () {
@@ -171,29 +171,27 @@
         });
 
         // Agrega lo clonado al final del #formulario
-        $clone.appendTo('#formulario');
+        $clone.appendTo('#formulario_2');
         });
-    </script>
-        <script type="text/javascript">
-            // ============= Agregar mas inputs dinamicamente =============
-            $('.clonar3').click(function() {
-            // Clona el .input-group
-            var $clone = $('#formulario3 .clonars3').last().clone();
 
-            // Borra los valores de los inputs clonados
-            $clone.find(':input').each(function () {
-                if ($(this).is('select')) {
-                this.selectedIndex = 0;
-                } else {
-                this.value = '';
-                }
-            });
+        $('.btn_clonar3').click(function() {
+        // Clona el .input-group
+        var $clone = $('#formulario_3 .clonars3').last().clone();
 
-            // Agrega lo clonado al final del #formulario
-            $clone.appendTo('#formulario3');
-            });
-        </script>
-    <script>
+        // Borra los valores de los inputs clonados
+        $clone.find(':input').each(function () {
+            if ($(this).is('select')) {
+            this.selectedIndex = 0;
+            } else {
+            this.value = '';
+            }
+        });
+
+        // Agrega lo clonado al final del #formulario
+        $clone.appendTo('#formulario_3');
+        });
+
+
         function abrir(url,largo,altura) {
         open(url,'','top=100,left=100,width='+largo+',height='+altura+'') ;
         }
@@ -240,6 +238,7 @@
             })
         })
     </script>
+
 @endsection
 
 @section('datatable')

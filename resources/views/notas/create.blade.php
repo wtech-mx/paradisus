@@ -16,6 +16,7 @@
                     </a>
 
                 </li>
+
                 <li class="nav-item" role="presentation">
                     <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true" id="pills-profile-tab">
                         <i class="ni ni-credit-card text-sm me-2"></i> Pago
@@ -27,11 +28,19 @@
                     </a>
 
                 </li>
+
                 <li class="nav-item" role="presentation">
                     <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-extra" role="tab" aria-controls="pills-extra" aria-selected="true" id="pills-extra-tab">
                         <i class="fa fa-money-bill text-sm me-2"></i> Extras
                     </a>
                 </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-propina" role="tab" aria-controls="pills-propina" aria-selected="true" id="pills-propina-tab">
+                        <i class="fa fa-coin text-sm me-2"></i> Propina
+                    </a>
+                </li>
+
               </ul>
 
             <form method="POST" action="{{ route('notas.store') }}" enctype="multipart/form-data" role="form">
@@ -298,8 +307,8 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-extra" role="tabpanel" aria-labelledby="pills-extra-tab">
-                            <div id="formulario" class="mt-4">
-                                <button type="button" class="clonar2 btn btn-secondary btn-sm">Agregar</button>
+                            <div id="formulario_2" class="mt-4">
+                                <button type="button" class="btn_clonar2 btn btn-secondary btn-sm">Agregar</button>
                                 <div class="clonars2">
                                     <div class="row">
                                         <div class="col-6">
@@ -312,6 +321,29 @@
                                             <div class="form-group">
                                                 <label for="num_sesion">Precio</label>
                                                 <input  id="precio" name="precio" type="number" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-propina" role="tabpanel" aria-labelledby="pills-propina-tab">
+
+                            <div id="formulario_3" class="mt-4">
+                                <button type="button" class="btn_clonar3 btn btn-secondary btn-sm">Agregar</button>
+                                <div class="clonars3">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="descripcion">Concepto</label>
+                                                <input  id="concepto2" name="concepto2" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="Propina">Propina</label>
+                                                <input  id="propina" name="propina" type="number" class="form-control" >
                                             </div>
                                         </div>
                                     </div>

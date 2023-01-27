@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\NotasCosmes;
 use App\Models\NotasExtras;
+use App\Models\NotasPropinas;
 use App\Models\NotasPaquetes;
 use App\Models\NotasSesion;
 use App\Models\Pagos;
@@ -32,6 +33,7 @@ class NotasController extends Controller
         $notas_sesiones = NotasSesion::get();
         $notas_paquetes = NotasPaquetes::get();
         $notas_extras = NotasExtras::get();
+        $notas_propinas = NotasPropinas::get();
 
         $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
@@ -68,7 +70,7 @@ class NotasController extends Controller
             ->get();
         }
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind', 'notas_sesiones', 'notas_paquetes', 'notas_extras'));
+        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind', 'notas_sesiones', 'notas_paquetes', 'notas_extras','notas_propinas'));
     }
 
     /**
@@ -176,12 +178,31 @@ class NotasController extends Controller
             $notas_extra->save();
         }
 
+
+        // guardar   propinas
+        if($request->get('concepto2') != NULL){
+            $notas_propinas = new NotasPropinas;
+            $notas_propinas->id_nota = $nota->id;
+            $notas_propinas->concepto = $request->get('concepto');
+            $notas_propinas->propina = $request->get('propina');
+            $notas_propinas->save();
+        }
+
         $nota_one = Notas::orderBy('id', 'desc')->first();
         $notas_extra = NotasExtras::where('id_nota', '=', $nota_one->id)->get();
         $suma_extra = 0;
         foreach($notas_extra as $item){
             $suma_extra = $suma_extra + $item->precio;
         }
+
+        $nota_two = Notas::orderBy('id', 'desc')->first();
+        $notas_propina = NotasPropinas::where('id_nota', '=', $nota_two->id)->get();
+        $suma_propina = 0;
+        foreach($notas_propina as $item){
+            $suma_propina = $suma_propina + $item->propina;
+        }
+
+
         // G U A R D A R  T O T A L  S E R V I C I O
         $pago = Pagos::orderBy('id', 'desc')->first();
         $nota_reciente = NotasPaquetes::where('id_nota', '=', $nota_one->id)->first();
@@ -227,8 +248,11 @@ class NotasController extends Controller
         }else{$unitario4 = 0;}
 
         $total = $unitario + $unitario2 + $unitario3 + $unitario4;
+
+
         $total_extra = $suma_extra + $total;
         $restante = $total_extra - $pago->pago;
+
         //  dd($pago->pago);
         $nota_pago = Notas::find($nota->id);
         $nota_pago->precio = $total;
@@ -305,10 +329,25 @@ class NotasController extends Controller
             $notas_extra->save();
         }
 
+        if($request->get('concepto2') != NULL){
+            $notas_propinas = new NotasPropinas;
+            $notas_propinas->id_nota = $nota->id;
+            $notas_propinas->concepto = $request->get('concepto2');
+            $notas_propinas->propina = $request->get('propina');
+            $notas_propinas->save();
+        }
+
         $notas_extra = NotasExtras::where('id_nota', '=', $nota->id)->get();
         $suma_extra = 0;
         foreach($notas_extra as $item){
             $suma_extra = $suma_extra + $item->precio;
+        }
+
+        $nota_two = Notas::orderBy('id', 'desc')->first();
+        $notas_propina = NotasPropinas::where('id_nota', '=', $nota_two->id)->get();
+        $suma_propina = 0;
+        foreach($notas_propina as $item){
+            $suma_propina = $suma_propina + $item->propina;
         }
 
         $suma_pagos = 0;

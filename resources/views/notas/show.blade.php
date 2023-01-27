@@ -32,6 +32,11 @@
                         <i class="fa fa-money-bill text-sm me-2"></i> Extras
                     </a>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#show-propina{{$notas->id}}" role="tab" aria-controls="show-propina" aria-selected="true" id="show-propina-tab">
+                        <i class="fa fa-money-bill text-sm me-2"></i> propinas
+                    </a>
+                </li>
             </ul>
 
             <div class="modal-body">
@@ -321,6 +326,31 @@
                             @endif
                         @endforeach
                     </div>
+
+                    <div class="tab-pane fade" id="show-propina{{$notas->id}}" role="tabpanel" aria-labelledby="show-propina-tab">
+                        @foreach ($notas_propinas as $item)
+                            @if ($item->id_nota == $notas->id)
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="descripcion">Concepto</label>
+                                        <input  id="concepto2[]" name="concepto2[]" type="text" class="form-control" value="{{$item->concepto}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="num_sesion">Propina</label>
+                                        <input  id="propina[]" name="propina[]" type="number" class="form-control" value="{{$item->propina}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                        @endforeach
+
+
+
+                    </div>
+
                 </div>
             </div>
         </div>
