@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('notas_paquetes', function (Blueprint $table) {
-            $table->integer('descuento')->nullable()->after('num');
-            $table->integer('descuento2')->nullable()->after('num2');
-            $table->integer('descuento3')->nullable()->after('num3');
-            $table->integer('descuento4')->nullable()->after('num4');
+            $table->integer('descuento')->nullable();
+            $table->integer('descuento2')->nullable();
+            $table->integer('descuento3')->nullable();
+            $table->integer('descuento4')->nullable();
         });
     }
 
