@@ -26,5 +26,8 @@ class Pagos extends Model
     {
         return $this->belongsTo(Notas::class, 'id_nota');
     }
-
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'cosmetologa');
+    }
 }

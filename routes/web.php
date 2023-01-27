@@ -78,6 +78,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/notas/servicios/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
     Route::get('/notas/servicios/print/{id}', [App\Http\Controllers\NotasController::class, 'usuario_print'])->name('notas.print');
 
+    Route::get('/notas/servicios/changeCosme', [App\Http\Controllers\NotasController::class, 'ChangeCosme'])->name('notas.ChangeCosme');
+
     // =============== M O D U L O   N O T A S  P E D I D O S ===============================
     Route::get('/notas/pedidos', [App\Http\Controllers\NotasPedidoController::class, 'index'])->name('notas_pedidos.index');
     Route::post('/notas/pedidos/create', [App\Http\Controllers\NotasPedidoController::class, 'store'])->name('notas_pedidos.store');

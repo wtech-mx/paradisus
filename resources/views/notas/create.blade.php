@@ -47,11 +47,28 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div class="row">
+                                <div class="col-2">
+                                    <label for="precio">Nuevo cliente</label><br>
+                                    <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Agregar
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="precio">Cliente</label><br>
+                                        <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" value="{{ old('submarca') }}">
+                                            <option>Seleccionar cliente</option>
+                                            @foreach ($client as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
-                                <label for="descripcion">Cliente</label>
-                                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                    +
-                                </button>
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
                                         <div class="row">
@@ -82,24 +99,19 @@
                                         </div>
                                     </div>
                                 </div>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="precio">Cliente</label>
-                                <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" value="{{ old('submarca') }}">
-                                    <option>Seleccionar cliente</option>
-                                    @foreach ($client as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                                    @endforeach
-                                </select>
                             </div>
 
                             <div class="row">
-                                <div class="col-10">
+                                <div class="col-2">
+                                    <label for="precio">Mas Servicios</label><br>
+                                    <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseServicio" aria-expanded="false" aria-controls="collapseExample">
+                                        Agregar
+                                    </button>
+                                </div>
+                                <div class="col-8">
                                     <div class="form-group">
-                                        <label for="precio">Servicio</label>
-                                        <select class="form-control servicio" id="id_servicio" name="id_servicio">
+                                        <label for="precio">Servicio</label><br>
+                                        <select class="form-control servicio" data-toggle="select" id="id_servicio" name="id_servicio">
                                             <option value="">Seleccionar servicio</option>
                                             @foreach ($servicio as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nombre }}</option>
@@ -114,10 +126,70 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="fecha">Fecha y hora</label>
-                                <input id="fecha" name="fecha" type="datetime-local" class="form-control">@error('fecha') <span class="error text-danger">{{ $message }}</span> @enderror
-                            </div> --}}
+
+                            {{-- A G R E G A R  M A S  S E R V I C I O S --}}
+                            <div class="collapse" id="collapseServicio">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <div class="form-group">
+                                                <label for="precio">Servicio 2</label><br>
+                                                <select class="form-control servicio2" data-toggle="select" id="servicio2" name="id_servicio2">
+                                                    <option value="">Seleccionar servicio</option>
+                                                    @foreach ($servicio as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="precio">Num 2</label>
+                                                    <input type="number" id="num2" name="num2" class="form-control" value="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <div class="form-group">
+                                                <label for="precio">Servicio 3</label><br>
+                                                <select class="form-control servicio3" data-toggle="select" id="servicio3" name="id_servicio3">
+                                                    <option value="">Seleccionar servicio</option>
+                                                    @foreach ($servicio as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="precio">Num 3</label>
+                                                    <input type="number" id="num3" name="num3" class="form-control" value="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <div class="form-group">
+                                                <label for="precio">Servicio 4</label><br>
+                                                <select class="form-control servicio4" id="servicio4" name="id_servicio4">
+                                                    <option value="">Seleccionar servicio</option>
+                                                    @foreach ($servicio as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="precio">Num 4</label>
+                                                    <input type="number" id="num4" name="num4" class="form-control" value="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="descuento">Nota</label>
                                 <textarea name="nota" id="nota" cols="10" rows="3" class="form-control"></textarea>
@@ -140,10 +212,10 @@
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label for="fecha">Cosme</label>
-                                                <select class="form-control cosme"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
-                                                    <option>Seleccionar</option>
-                                                    @foreach ($cosmetologas as $item)
-                                                        <option value="{{ $item->name }} {{ $item->last_name }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                <select class="form-control cosme"  data-toggle="select" id="cosmetologa" name="cosmetologa">
+                                                    <option value="">Seleccionar</option>
+                                                    @foreach ($user as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

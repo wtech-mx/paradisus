@@ -73,7 +73,23 @@
                                                         @endforeach
                                                     </td>
                                                     <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
-                                                    <td>{{ $notas->Servicios->nombre }}</td>
+                                                    <td>
+                                                        @foreach($notas_paquetes as $item)
+                                                            @if ($item->id_nota == $notas->id)
+                                                                {{$item->Servicios->nombre}}<br>
+
+                                                                @if($item->id_servicio2 != NULL)
+                                                                    {{$item->Servicios2->nombre}}<br>
+                                                                @endif
+                                                                @if($item->id_servicio3 != NULL)
+                                                                    {{$item->Servicios3->nombre}}<br>
+                                                                @endif
+                                                                @if($item->id_servicio4 != NULL)
+                                                                    {{$item->Servicios4->nombre}}<br>
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
                                                     <td>{{ $notas->fecha }}</td>
                                                     @if ($notas->restante == 0)
                                                     <td> <label class="badge badge-success" style="font-size: 13px;">Pagado</label> </td>
@@ -83,7 +99,7 @@
 
                                                     <td>
                                                             <a type="button" class="btn btn-sm" target="_blank"
-                                                            href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20de%20servicio:%20%22{{ $notas->Servicios->nombre }}%22%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
+                                                            href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
                                                             style="background: #00BB2D; color: #ffff">
                                                             <i class="fa fa-whatsapp"></i></a>
 
@@ -123,6 +139,27 @@
         function abrir(url,largo,altura) {
         open(url,'','top=100,left=100,width='+largo+',height='+altura+'') ;
         }
+
+        $(function() {
+        $('.toggle-class').change(function() {
+                let cosmetologa = $(this).val();
+                console.log(cosmetologa)
+                var id = $(this).data('id');
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '{{ route('notas.ChangeCosme') }}',
+                    data: {
+                        'cosmetologa': cosmetologa,
+                        'id': id
+                    },
+                    success: function(data) {
+                        console.log(data.success)
+                    }
+                });
+            })
+        })
     </script>
 @endsection
 
@@ -172,6 +209,18 @@
                 });
 
                 $(".servicio").select2({
+                    dropdownParent: $("#createDataModal")
+                });
+
+                $(".servicio2").select2({
+                    dropdownParent: $("#createDataModal")
+                });
+
+                $(".servicio3").select2({
+                    dropdownParent: $("#createDataModal")
+                });
+
+                $(".servicio4").select2({
                     dropdownParent: $("#createDataModal")
                 });
         });

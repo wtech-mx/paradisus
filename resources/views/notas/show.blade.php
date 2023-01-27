@@ -4,15 +4,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showDataModalLabel">Ver Nota</h5>
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                       <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Precio Servicio: {{ $notas->precio }}</label></strong> <br>
-
-                    </li>
-                    <li class="nav-item">
-                        <strong><label style="color: #543325;margin-left: 20px; font-size:16px">Sesiones Servicio: {{ $notas->Servicios->num_sesiones }}</label></strong>
-                    </li>
-                </ul>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
                     <span aria-hidden="true">X</span>
@@ -70,10 +61,11 @@
                         <div class="row">
                             <div class="col-10">
                                 <div class="form-group">
+
                                     <label for="precio">Servicio</label>
                                     <select class="form-control input-edit-car" id="id_servicio" name="id_servicio"
                                         value="{{ old('id_servicio') }}" disabled>
-                                        <option value="{{ $notas->id_servicio }}">{{ $notas->Servicios->nombre }}</option>
+                                        <option value="{{ $notas->Paquetes->id_servicio }}">{{ $notas->Paquetes->Servicios->nombre }}</option>
                                         @foreach ($servicio as $item)
                                             <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                                         @endforeach
@@ -83,7 +75,78 @@
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="precio">Num</label>
-                                        <input type="number" id="num" name="num" class="form-control" value="{{ $notas->num }}" disabled>
+                                        <input type="number" id="num" name="num" class="form-control" value="{{ $notas->Paquetes->num }}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <label for="precio">Servicio 2</label><br>
+                                        <select class="form-control " data-toggle="select" id="servicio2" name="id_servicio2" disabled>
+                                            @if ($notas->Paquetes->id_servicio2 == NULL)
+                                                <option value="">Seleccione Servicio</option>
+                                            @else
+                                                <option value="{{ $notas->Paquetes->id_servicio2 }}">{{ $notas->Paquetes->Servicios2->nombre }}</option>
+                                            @endif
+                                            @foreach ($servicio as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="precio">Num 2</label>
+                                            <input type="number" id="num2" name="num2" class="form-control" value="{{ $notas->Paquetes->num2 }}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <label for="precio">Servicio 3</label><br>
+                                        <select class="form-control " data-toggle="select" id="servicio3" name="id_servicio3" disabled>
+                                            @if ($notas->Paquetes->id_servicio3 == NULL)
+                                                <option value="">Seleccione Servicio</option>
+                                            @else
+                                                <option value="{{ $notas->Paquetes->id_servicio3 }}">{{ $notas->Paquetes->Servicios3->nombre }}</option>
+                                            @endif
+                                            @foreach ($servicio as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="precio">Num 3</label>
+                                            <input type="number" id="num3" name="num3" class="form-control" value="{{ $notas->Paquetes->num3 }}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <label for="precio">Servicio 4</label><br>
+                                        <select class="form-control " id="servicio4" name="id_servicio4" disabled>
+                                            @if ($notas->Paquetes->id_servicio4 == NULL)
+                                                <option value="">Seleccione Servicio</option>
+                                            @else
+                                                <option value="{{ $notas->Paquetes->id_servicio4 }}">{{ $notas->Paquetes->Servicios4->nombre }}</option>
+                                            @endif
+                                            @foreach ($servicio as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="precio">Num 4</label>
+                                            <input type="number" id="num4" name="num4" class="form-control" value="{{ $notas->Paquetes->num4 }}" disabled>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +181,7 @@
                             </div>
 
                             <div class="col-3 py-2" ><input name="cosmetologa" type="text" class="form-control text-center" id="cosmetologa"
-                                    value="{{$item->cosmetologa}}" disabled>
+                                    value="{{ $item->User->name }}" disabled>
                             </div>
 
                             <div class="col-2 py-2" >

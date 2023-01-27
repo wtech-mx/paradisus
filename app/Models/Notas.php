@@ -38,4 +38,8 @@ class Notas extends Model
     {
         return $this->hasMany('App\Models\Pagos', 'id_nota', 'id');
     }
+    public function Paquetes()
+    {
+        return $this->hasOne('App\Models\NotasPaquetes', 'id_nota', 'id');
+    }
 }
