@@ -112,7 +112,7 @@
                                         <div class="form-group">
                                             <label for="precio">Servicio 2</label><br>
                                             <select class="form-control " data-toggle="select" id="servicio2" name="id_servicio2" disabled>
-                                                @if ($notas->Paquetes->id_servicio2 == NULL)
+                                                @if ($notas->Paquetes->id_servicio2 == NULL || $notas->Paquetes->id_servicio2 == 0)
                                                     <option value="">Seleccione Servicio</option>
                                                 @else
                                                     <option value="{{ $notas->Paquetes->id_servicio2 }}">{{ $notas->Paquetes->Servicios2->nombre }}</option>
@@ -149,7 +149,7 @@
                                         <div class="form-group">
                                             <label for="precio">Servicio 3</label><br>
                                             <select class="form-control " data-toggle="select" id="servicio3" name="id_servicio3" disabled>
-                                                @if ($notas->Paquetes->id_servicio3 == NULL)
+                                                @if ($notas->Paquetes->id_servicio3 == NULL || $notas->Paquetes->id_servicio3 == 0)
                                                     <option value="">Seleccione Servicio</option>
                                                 @else
                                                     <option value="{{ $notas->Paquetes->id_servicio3 }}">{{ $notas->Paquetes->Servicios3->nombre }}</option>
@@ -186,7 +186,7 @@
                                         <div class="form-group">
                                             <label for="precio">Servicio 4</label><br>
                                             <select class="form-control " id="servicio4" name="id_servicio4" disabled>
-                                                @if ($notas->Paquetes->id_servicio4 == NULL)
+                                                @if ($notas->Paquetes->id_servicio4 == NULL || $notas->Paquetes->id_servicio4 == 0)
                                                     <option value="">Seleccione Servicio</option>
                                                 @else
                                                     <option value="{{ $notas->Paquetes->id_servicio4 }}">{{ $notas->Paquetes->Servicios4->nombre }}</option>
