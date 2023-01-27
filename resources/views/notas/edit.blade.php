@@ -298,7 +298,7 @@
                                     <div class="col-2">
                                         <div class="form-group">
                                             <label for="fecha">Cosme</label>
-                                            <select class="form-control cosme"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
+                                            <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
                                                 <option value="">Selecciona</option>
                                                 @foreach ($user as $cosmes)
                                                     <option value="{{ $cosmes->id }}">{{ $cosmes->name }}</option>
