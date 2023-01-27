@@ -14,12 +14,16 @@ class NotasPaquetes extends Model
         'id_nota',
         'id_servicio',
         'num',
+        'descuento',
         'id_servicio2',
         'num2',
+        'descuento2',
         'id_servicio3',
         'num3',
+        'descuento3',
         'id_servicio4',
         'num4',
+        'descuento4',
     ];
 
     public function Notas()

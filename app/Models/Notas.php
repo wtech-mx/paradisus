@@ -14,12 +14,11 @@ class Notas extends Model
     protected $fillable = [
         'id_user',
         'id_client',
-        'id_servicio',
         'fecha',
         'nota',
         'restante',
         'precio',
-        'num',
+        'cancelado',
     ];
 
     public function User()

@@ -102,13 +102,13 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="precio">Mas Servicios</label><br>
+                                <div class="col-1">
+                                    <label for="precio">Mas</label><br>
                                     <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseServicio" aria-expanded="false" aria-controls="collapseExample">
-                                        Agregar
+                                        +
                                     </button>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-7">
                                     <div class="form-group">
                                         <label for="precio">Servicio</label><br>
                                         <select class="form-control servicio" data-toggle="select" id="id_servicio" name="id_servicio">
@@ -125,13 +125,19 @@
                                             <input type="number" id="num" name="num" class="form-control" value="1">
                                     </div>
                                 </div>
+                                <div class="col-1">
+                                    <div class="form-check">
+                                        <label class="custom-control-label" for="descuento" style="font-size: 15px;">10%</label>
+                                        <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="1">
+                                    </div>
+                                </div>
                             </div>
 
                             {{-- A G R E G A R  M A S  S E R V I C I O S --}}
                             <div class="collapse" id="collapseServicio">
                                 <div class="card card-body">
                                     <div class="row">
-                                        <div class="col-10">
+                                        <div class="col-8">
                                             <div class="form-group">
                                                 <label for="precio">Servicio 2</label><br>
                                                 <select class="form-control servicio2" data-toggle="select" id="servicio2" name="id_servicio2">
@@ -148,9 +154,15 @@
                                                     <input type="number" id="num2" name="num2" class="form-control" value="1">
                                             </div>
                                         </div>
+                                        <div class="col-2">
+                                            <div class="form-check">
+                                                <label class="custom-control-label" for="descuento2" style="font-size: 15px;">10%</label><br>
+                                                <input class="form-check-input" type="checkbox" name="descuento2" id="descuento2" value="1">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-10">
+                                        <div class="col-8">
                                             <div class="form-group">
                                                 <label for="precio">Servicio 3</label><br>
                                                 <select class="form-control servicio3" data-toggle="select" id="servicio3" name="id_servicio3">
@@ -167,9 +179,15 @@
                                                     <input type="number" id="num3" name="num3" class="form-control" value="1">
                                             </div>
                                         </div>
+                                        <div class="col-2">
+                                            <div class="form-check">
+                                                <label class="custom-control-label" for="descuento3" style="font-size: 15px;">10%</label><br>
+                                                <input class="form-check-input" type="checkbox" name="descuento3" id="descuento3" value="1">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-10">
+                                        <div class="col-8">
                                             <div class="form-group">
                                                 <label for="precio">Servicio 4</label><br>
                                                 <select class="form-control servicio4" id="servicio4" name="id_servicio4">
@@ -184,6 +202,12 @@
                                             <div class="form-group">
                                                 <label for="precio">Num 4</label>
                                                     <input type="number" id="num4" name="num4" class="form-control" value="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-check">
+                                                <label class="custom-control-label" for="descuento4" style="font-size: 15px;">10%</label><br>
+                                                <input class="form-check-input" type="checkbox" name="descuento4" id="descuento4" value="1">
                                             </div>
                                         </div>
                                     </div>

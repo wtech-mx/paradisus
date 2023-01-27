@@ -30,7 +30,6 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
-
                                             <th>Usuario</th>
                                             <th>Cliente</th>
                                             <th>Servicio</th>
@@ -49,7 +48,23 @@
                                                         {{$notas->User->name}}
                                                     </td>
                                                     <td>{{ $notas->Notas->Client->name }} {{ $notas->Notas->Client->last_name }}</td>
-                                                    <td>{{ $notas->Notas->Servicios->nombre }}</td>
+                                                    <td>
+                                                        @foreach($notas_paquetes as $item)
+                                                            @if ($item->id_nota == $notas->id)
+                                                                {{$item->Servicios->nombre}}<br>
+
+                                                                @if($item->id_servicio2 != NULL)
+                                                                    {{$item->Servicios2->nombre}}<br>
+                                                                @endif
+                                                                @if($item->id_servicio3 != NULL)
+                                                                    {{$item->Servicios3->nombre}}<br>
+                                                                @endif
+                                                                @if($item->id_servicio4 != NULL)
+                                                                    {{$item->Servicios4->nombre}}<br>
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
                                                     <td>{{ $notas->Notas->fecha }}</td>
 
                                                     <td>
@@ -63,16 +78,21 @@
                                             @foreach ($nota as $notas)
                                             @include('notas.show')
                                             @include('notas.edit')
-                                                <tr>
+                                            @if ($notas->cancelado == 1)
+                                            <tr style="background-color: #e70f0f40;">
+                                            @else
+                                            <tr>
+                                            @endif
+
                                                     <td>{{ $notas->id }}</td>
                                                     <td>
                                                         @foreach($nota_cosme as $item)
                                                             @if ($item->id_nota == $notas->id)
-                                                               <b> {{$item->User->name}}</b><br>
+                                                               <b>  {{$item->User->name}}</b><br>
                                                             @endif
                                                         @endforeach
                                                     </td>
-                                                    <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
+                                                    <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
                                                     <td>
                                                         @foreach($notas_paquetes as $item)
                                                             @if ($item->id_nota == $notas->id)
