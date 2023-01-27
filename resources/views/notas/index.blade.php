@@ -98,13 +98,13 @@
                                                             @if ($item->id_nota == $notas->id)
                                                                 {{$item->Servicios->nombre}}<br>
 
-                                                                @if($item->id_servicio2 != NULL)
+                                                                @if($item->id_servicio2 != NULL || $item->id_servicio2 != 0)
                                                                     {{$item->Servicios2->nombre}}<br>
                                                                 @endif
-                                                                @if($item->id_servicio3 != NULL)
+                                                                @if($item->id_servicio3 != NULL || $item->id_servicio3 != 0)
                                                                     {{$item->Servicios3->nombre}}<br>
                                                                 @endif
-                                                                @if($item->id_servicio4 != NULL)
+                                                                @if($item->id_servicio4 != NULL || $item->id_servicio4 != 0)
                                                                     {{$item->Servicios4->nombre}}<br>
                                                                 @endif
                                                             @endif
