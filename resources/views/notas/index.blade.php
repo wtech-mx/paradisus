@@ -180,6 +180,27 @@
                 });
             })
         })
+
+        $(function() {
+        $('.serv-edit').change(function() {
+                let id_servicio = $(this).val();
+                console.log(id_servicio)
+                var id = $(this).data('id');
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '{{ route('notas.ChangeServicio') }}',
+                    data: {
+                        'id_servicio': id_servicio,
+                        'id': id
+                    },
+                    success: function(data) {
+                        console.log(data.success)
+                    }
+                });
+            })
+        })
     </script>
 @endsection
 

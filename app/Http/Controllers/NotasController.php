@@ -300,6 +300,69 @@ class NotasController extends Controller
         return response()->json(['success' => 'Se cambio el estado exitosamente.']);
     }
 
+    public function ChangeServicio(Request $request)
+    {
+        $notas_paquetes = NotasPaquetes::find($request->id);
+        $notas_paquetes->id_servicio = $request->id_servicio;
+        $notas_paquetes->save();
+
+        // G U A R D A R  T O T A L  S E R V I C I O
+        $pago = Pagos::orderBy('id', 'desc')->first();
+        $nota_one = Notas::orderBy('id', 'desc')->first();
+        $nota_reciente = NotasPaquetes::where('id_nota', '=', $nota_one->id)->first();
+
+        $total = 0;
+        $mult = 0;
+        $descuento = 0;
+        if($request->get('id_servicio') != NULL){
+            if($request->get('descuento') == 1){
+                $mult = $nota_reciente->Servicios->precio * .10;
+                $descuento = $nota_reciente->Servicios->precio - $mult;
+                $unitario = $descuento * $nota_reciente->num;
+            }else{
+                $unitario = $nota_reciente->Servicios->precio * $nota_reciente->num;
+            }
+        }else{$unitario = 0;}
+        if($request->get('id_servicio2') != NULL){
+            if($request->get('descuento2') == 1){
+                $mult = $nota_reciente->Servicios2->precio * .10;
+                $descuento = $nota_reciente->Servicios2->precio - $mult;
+                $unitario2 = $descuento * $nota_reciente->num2;
+            }else{
+                $unitario2 = $nota_reciente->Servicios2->precio * $nota_reciente->num2;
+            }
+        }else{$unitario2 = 0;}
+        if($request->get('id_servicio3') != NULL){
+            if($request->get('descuento3') == 1){
+                $mult = $nota_reciente->Servicios3->precio * .10;
+                $descuento = $nota_reciente->Servicios3->precio - $mult;
+                $unitario3 = $descuento * $nota_reciente->num3;
+            }else{
+                $unitario3 = $nota_reciente->Servicios3->precio * $nota_reciente->num3;
+            }
+        }else{$unitario3 = 0;}
+        if($request->get('id_servicio4') != NULL){
+            if($request->get('descuento4') == 1){
+                $mult = $nota_reciente->Servicios4->precio * .10;
+                $descuento = $nota_reciente->Servicios4->precio - $mult;
+                $unitario4 = $descuento * $nota_reciente->num4;
+            }else{
+                $unitario4 = $nota_reciente->Servicios4->precio * $nota_reciente->num4;
+            }
+        }else{$unitario4 = 0;}
+
+        $total = $unitario + $unitario2 + $unitario3 + $unitario4;
+
+        $restante = $total - $pago->pago;
+        //  dd($pago->pago);
+        $nota_pago = Notas::find($nota->id);
+        $nota_pago->precio = $total;
+        $nota_pago->restante = $restante;
+        $nota_pago->update();
+
+        return response()->json(['success' => 'Se cambio el estado exitosamente.']);
+    }
+
     /**
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
