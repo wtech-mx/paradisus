@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Caja;
 use App\Models\CajaDia;
 use App\Models\Notas;
+use App\Models\NotasPaquetes;
 use App\Models\NotasPedidos;
+use App\Models\NotasPropinas;
 use App\Models\Pagos;
 use App\Models\Pedido;
 use Session;
@@ -20,13 +22,6 @@ class CajaController extends Controller
         $diaActual = date('d');
 
         $caja = Caja::get();
-
-        $servicios_individual = Notas::
-        where('fecha', '=', $fechaActual)
-        ->select(DB::raw('count(*) as filas'), 'id_servicio')
-        ->groupBy('id_servicio')
-        ->get();
-
 
         $pago = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Efectivo')->get();
         $pago_suma = Pagos::where('fecha', '=', $fechaActual)
@@ -45,7 +40,9 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
 
-        return view('caja.index', compact('caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'servicios_individual', 'diaActual'));
+        $notas_paquetes = NotasPaquetes::get();
+
+        return view('caja.index', compact('caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes'));
     }
 
     /**
@@ -101,8 +98,12 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(pago) as total'))
         ->first();
 
-        $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma'));
-        //return $pdf->stream();
+        $notas_paquetes = NotasPaquetes::get();
+
+        $notas_propinas = NotasPropinas::get();
+
+        $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas'));
+        // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
 
@@ -159,8 +160,10 @@ class CajaController extends Controller
         $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total;
         $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas;
 
+        $notas_propinas = NotasPropinas::get();
+
         $pdf = \PDF::loadView('caja.pdf_corte', compact('suma_pago_trans', 'suma_filas_trans', 'suma_pago_mercado', 'suma_filas_mercado', 'suma_pago_tarjeta', 'suma_filas_tarjeta',
-        'today', 'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta'));
+        'today', 'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta', 'notas_propinas'));
        // return $pdf->stream();
         return $pdf->download('Corte '.$today.'.pdf');
     }

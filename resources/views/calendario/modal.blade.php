@@ -37,10 +37,10 @@
                       <input type="hidden" class="form-control" name="image" id="image">
                       <input class="form-control" type="hidden" name="estatus" id="estatus" >
 
-                      <div class="form-group col-12 mb-3">
+                      {{-- <div class="form-group col-12 mb-3">
                           <label for="">T&iacute;tulo</label>
                           <input class="form-control" type="text" name="title" id="title">
-                      </div>
+                      </div> --}}
 
                       <div class="form-group col-6 mb-3">
                          <label for="">Selecionar Paciente</label>
@@ -56,17 +56,17 @@
                          <label for="">Selecionar Cabina</label>
                               <select class="form-control" id="resource_id" name="resource_id" >
                                    <option value="">Seleccione Cabina</option>
-                                   <option value="a">A</option>
-                                   <option value="b">B</option>
-                                   <option value="c">C</option>
-                                   <option value="d">D</option>
-                                   <option value="e">E</option>
+                                   <option value="1">1</option>
+                                   <option value="2">2</option>
+                                   <option value="3">3</option>
+                                   <option value="4">4</option>
+                                   <option value="5">5</option>
                               </select>
                       </div>
 
                       <div class="form-group col-12 mb-3">
                          <label for="">Selecionar Cosmetologa</label>
-                              <select class="form-control" id="id_especialist" name="id_especialist" >
+                              <select class="form-control" id="id_especialist" name="id_especialist" multiple>
                                    <option value="">Seleccione Cosmetologa</option>
                                        @foreach($cosme as $item)
                                           <option value="{{$item->id}}">{{$item->name}}</option>
@@ -79,7 +79,7 @@
 
                       <div class="form-group col-6 mt-3">
                           <label for="">Selecciona el servicio</label>
-                          <select class="form-control" id="color" name="color" >
+                          <select class="form-control" id="id_servicio" name="id_servicio" >
                               <option value="">Selecionar estatus</option>
                               @foreach($servicios as $item)
                                     <option value="{{$item->id}}">{{$item->nombre}}</option>

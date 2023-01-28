@@ -329,23 +329,37 @@
 
                     <div class="tab-pane fade" id="show-propina{{$notas->id}}" role="tabpanel" aria-labelledby="show-propina-tab">
                         @foreach ($notas_propinas as $item)
-                            @if ($item->id_nota == $notas->id)
+                        @if ($item->id_nota == $notas->id)
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="descripcion">Concepto</label>
-                                        <input  id="concepto2[]" name="concepto2[]" type="text" class="form-control" value="{{$item->concepto}}" disabled>
+                                        <label for="nombre">Seleccione Usuario</label>
+                                        <select class="form-control" disabled>
+                                            <option value="{{ $item->id_user }}">{{ $item->User->name }}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="num_sesion">Propina</label>
-                                        <input  id="propina[]" name="propina[]" type="number" class="form-control" value="{{$item->propina}}" disabled>
+                                        <input type="number" class="form-control" value="{{$item->propina}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="num_sesion">Metodo Pago</label>
+                                        <select id="forma_pago_propina" name="forma_pago_propina" class="form-control" disabled>
+                                            <option value="{{ $item->metdodo_pago }}">{{ $item->metdodo_pago }}</option>
+                                            <option value="Efectivo">Efectivo</option>
+                                            <option value="Transferencia">Transferencia</option>
+                                            <option value="Mercado Pago">Mercado Pago</option>
+                                            <option value="Tarjeta">Tarjeta</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            @endif
-                        @endforeach
+                        @endif
+                    @endforeach
 
 
 

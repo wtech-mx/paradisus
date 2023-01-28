@@ -170,7 +170,23 @@
                 <tr>
                     <td>{{ $item->id_nota }}</td>
                     <td>{{ $item->Notas->Client->name }}</td>
-                    <td> <b>{{ $item->Notas->Servicios->nombre }}</b> </td>
+                    <td>
+                        @foreach($notas_paquetes as $paquete)
+                                @if ($paquete->id_nota == $item->id_nota)
+                                    {{$paquete->Servicios->nombre}}<br>
+
+                                    @if($paquete->id_servicio2 != NULL || $paquete->id_servicio2 != 0)
+                                        {{$paquete->Servicios2->nombre}}<br>
+                                    @endif
+                                    @if($paquete->id_servicio3 != NULL || $paquete->id_servicio3 != 0)
+                                        {{$paquete->Servicios3->nombre}}<br>
+                                    @endif
+                                    @if($paquete->id_servicio4 != NULL || $paquete->id_servicio4 != 0)
+                                        {{$paquete->Servicios4->nombre}}<br>
+                                    @endif
+                                @endif
+                        @endforeach
+                    </td>
                     <td>{{ $item->pago }}</td>
                     <td>{{ $item->Notas->nota }}</td>
                 </tr>

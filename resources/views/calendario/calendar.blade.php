@@ -27,7 +27,6 @@
 
                 height: 'auto',
                 timeZone: 'local',
-                {{--now: '{{$Fecha}}',--}}
                 contentHeight: 'auto',
                 selectable: true,
                 editable: true,
@@ -45,10 +44,10 @@
               headerToolbar: {
                 left: 'today prev,next',
                 center: 'title',
-                right: 'resourceTimelineDay,timeGridWeek,dayGridMonth'
+                right: 'timeGridWeek,dayGridMonth'
               },
 
-                 resourceAreaHeaderContent: 'Modulo',
+              resourceAreaHeaderContent: 'Modulo',
                   resourceLabelContent: function(arg) {
                     return 'Unidad ' + arg.resource.id.toUpperCase();
                   },
@@ -62,6 +61,10 @@
                     { id: 'b'},
                   ],
 
+              views: {
+                dayGridMonth: { buttonText: 'MES' },
+                timeGridWeek: { buttonText: 'SEMANA' }
+              },
                 events:"{{ route('calendar.show_calendar') }}",
 
                   dateClick:function (info) {
@@ -127,12 +130,12 @@
                   $('#title').val(info.event.title);
                   $('#txtTelefono').val(info.event.extendedProps.telefono);
                   $('#color').val(info.event.backgroundColor);
-                  $('#id_color').val(info.event.extendedProps.id_color);
+                  $('#id_servicio').val(info.event.extendedProps.id_servicio);
                   $('#descripcion').val(info.event.extendedProps.descripcion);
                   $('#estatus').val(info.event.extendedProps.estatus);
                   $('#check').val(info.event.extendedProps.check);
                   $('#image').val(info.event.extendedProps.image);
-                  $('#exampleModal').modal();
+                  $('#exampleModal').modal('toggle');
 
                   console.log('Fecha', dia)
                 },
@@ -145,7 +148,7 @@
                     let titleArg = arg.event.title;
                     let imageArg = arg.event.extendedProps.image;
                     let checkArg = arg.event.extendedProps.check;
-                    let id_color = arg.event.extendedProps.id_color;
+                    let id_servicio = arg.event.extendedProps.id_servicio;
 
                     minutos3=(arg.event.start.getMinutes());
                     hora3=(arg.event.start.getHours());
@@ -158,9 +161,9 @@
 
                         modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
                         let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-flask" aria-hidden="true"></i></div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-clipboard" aria-hidden="true"></i></div>';
                         let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
-                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
+                        let modulo = '<div class="d-inline" style="margin-left: 7px;">Cab. '+modulocapi+'</div>';
                         contenedorEventWrap.classList = "position-relative";
                         contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
                         arrayOfDomNodes = [contenedorEventWrap ]
@@ -170,9 +173,9 @@
                     if (checkArg == 2){
                         modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
                         let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-check" aria-hidden="true"></i></div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fas fa-user-times"></i></div>';
                         let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
-                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
+                        let modulo = '<div class="d-inline" style="margin-left: 7px;">Cab. '+modulocapi+'</div>';
                         contenedorEventWrap.classList = "position-relative";
                         contenedorEventWrap.innerHTML =  imgEvent+hora+modulo+titleEvent;
                         arrayOfDomNodes = [contenedorEventWrap ]
@@ -182,7 +185,7 @@
                     if (checkArg == 3){
                         modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
                         let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-times" aria-hidden="true"></i></div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fas fa-user-check"></i></div>';
                         let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
                         let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
                         contenedorEventWrap.classList = "position-relative";
@@ -193,7 +196,7 @@
                     if (checkArg == 4){
                         modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
                         let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-address-book" aria-hidden="true"></i></div>';
+                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fas fa-calendar-check"></i></div>';
                         let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
                         let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
                         contenedorEventWrap.classList = "position-relative";
@@ -201,50 +204,7 @@
                         arrayOfDomNodes = [contenedorEventWrap ]
                         return { domNodes: arrayOfDomNodes }
                     }
-                    if (checkArg == 5){
-                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
-                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-calendar" aria-hidden="true"></i></div>';
-                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
-                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
-                        contenedorEventWrap.classList = "position-relative";
-                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
-                        arrayOfDomNodes = [contenedorEventWrap ]
-                        return { domNodes: arrayOfDomNodes }
-                    }
-                    if (checkArg == 6){
-                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
-                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-clock" aria-hidden="true"></i></div>';
-                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
-                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
-                        contenedorEventWrap.classList = "position-relative";
-                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
-                        arrayOfDomNodes = [contenedorEventWrap ]
-                        return { domNodes: arrayOfDomNodes }
-                    }
-                    if (checkArg == 7){
-                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
-                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-user-plus" aria-hidden="true"></i></div>';
-                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
-                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
-                        contenedorEventWrap.classList = "position-relative";
-                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
-                        arrayOfDomNodes = [contenedorEventWrap ]
-                        return { domNodes: arrayOfDomNodes }
-                    }
-                    if (checkArg == 8){
-                        modulocapi = arg.event.extendedProps.resource_id.toUpperCase()
-                        let hora = '<div class="d-inline" style="margin-left: 3px;font-size: 12px;">'+hor+'</div>';
-                        let imgEvent = '<div class="d-inline" style="font-size: 12px;"><i class="fa fa-ban" aria-hidden="true"></i></div>';
-                        let titleEvent =  '<div class="d-block" style="font-size: 11px;">'+arg.event.title+'</div>';
-                        let modulo = '<div class="d-inline" style="margin-left: 7px;">'+modulocapi+'</div>';
-                        contenedorEventWrap.classList = "position-relative";
-                        contenedorEventWrap.innerHTML = imgEvent+hora+modulo+titleEvent;
-                        arrayOfDomNodes = [contenedorEventWrap ]
-                        return { domNodes: arrayOfDomNodes }
-                    }
+
 
                   },
 
@@ -303,7 +263,7 @@
                     check:$('#check').val(),
                     image:$('#image').val()+imageDefault,
                     color:$('#color').val(),
-                    id_color:$('#id_color').val(),
+                    id_servicio:$('#id_servicio').val(),
                     start:$('#txtFecha').val()+" "+$('#txtHora').val(),
                     end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
                     '_token':$("meta[name='csrf-token']").attr("content"),
@@ -325,7 +285,7 @@
                     check:$('#check').val(),
                     image:$('#image').val(),
                     color:$('#color').val(),
-                    id_color:$('#id_color').val(),
+                    id_servicio:$('#id_servicio').val(),
                     start:$('#txtFecha').val()+" "+$('#txtHora').val(),
                     end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
                     '_token':$("meta[name='csrf-token']").attr("content"),
@@ -337,7 +297,7 @@
 
             function EnviarInformacionWhatsapp(accion,ObjEvento){
                 // console.log(ObjEvento['telefono']);
-                var pagina='https://api.whatsapp.com/send?phone=+52'+ObjEvento['telefono']+'&text=Buen%20día%20✨🦷%20Le%20escribimos%20del%20consultorio%20dental%20BeDental%20para%20confirmar%20la%20cita%20'+ObjEvento['fecha']+'%20%20a%20las%20'+ObjEvento['hora']+'%20Le%20agradecemos%20nos%20confirme%20su%20asistencia%20a%20más%20tardar%20hoy%20antes%20de%202:00%20pm%20de%20lo%20contrario%20se%20cederá%20el%20lugar%20a%20otro%20paciente%20que%20requiera.%20Quedamos%20al%20pendiente%20de%20su%20pronta%20respuesta.%20Gracias!';
+                var pagina='https://api.whatsapp.com/send?phone=+52'+ObjEvento['telefono']+'&text=Buen%20día%20✨%20Le%20escribimos%20de%20paradisus%20SPA%20para%20confirmar%20la%20cita%20'+ObjEvento['fecha']+'%20%20a%20las%20'+ObjEvento['hora']+'%20Le%20agradecemos%20nos%20confirme%20su%20asistencia%20a%20más%20tardar%20hoy%20antes%20de%202:00%20pm%20de%20lo%20contrario%20se%20cederá%20el%20lugar%20a%20otro%20cliente.%20Quedamos%20al%20pendiente%20de%20su%20pronta%20respuesta.%20Gracias!';
                 window.open(pagina, '_blank');
             }
 
@@ -368,7 +328,7 @@
                   $('#txtHora').val("");
                   $('#txtHorafin').val("");
                   $('#color').val("");
-                  $('#id_color').val("");
+                  $('#id_servicio').val("");
                   $('#descripcion').val("");
                   $('#estatus').val("");
                   $('#check').val("");

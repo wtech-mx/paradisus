@@ -16,6 +16,7 @@ class Alertas extends Model
     protected $fillable = [
         'id_client',
         'id_especialist',
+        'id_servicio',
         'color',
         'resourceId',
         'title',
@@ -41,7 +42,7 @@ class Alertas extends Model
 
     public function Servicios()
     {
-       return $this->belongsTo(Colores::class,'color');
+       return $this->belongsTo(Servicios::class,'id_servicio');
     }
 
 }

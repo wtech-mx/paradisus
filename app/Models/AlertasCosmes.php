@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NotasPropinas extends Model
+class AlertasCosmes extends Model
 {
     use HasFactory;
-
-    protected $table = 'notas_propinas';
+    protected $table = "alertas_cosmes";
+    protected $primarykey = "id";
     public $timestamps = false;
 
     protected $fillable = [
-        'id_nota',
+        'id_alerta',
         'id_user',
-        'propina',
-        'metdodo_pago',
     ];
 
-    public function Notas()
+    public function Alertas()
     {
-        return $this->belongsTo(Notas::class, 'id_nota');
+        return $this->belongsTo(Alertas::class, 'id_alerta');
     }
+
     public function User()
     {
         return $this->belongsTo(User::class, 'id_user');

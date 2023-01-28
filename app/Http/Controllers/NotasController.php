@@ -179,12 +179,13 @@ class NotasController extends Controller
         }
 
 
-        // guardar   propinas
-        if($request->get('concepto2') != NULL){
+        // G U A R D A R   P R O P I N A S
+        if($request->get('propina') != NULL){
             $notas_propinas = new NotasPropinas;
             $notas_propinas->id_nota = $nota->id;
-            $notas_propinas->concepto = $request->get('concepto');
+            $notas_propinas->id_user = $request->get('id_user_propina');
             $notas_propinas->propina = $request->get('propina');
+            $notas_propinas->metdodo_pago = $request->get('forma_pago_propina');
             $notas_propinas->save();
         }
 
@@ -194,14 +195,6 @@ class NotasController extends Controller
         foreach($notas_extra as $item){
             $suma_extra = $suma_extra + $item->precio;
         }
-
-        $nota_two = Notas::orderBy('id', 'desc')->first();
-        $notas_propina = NotasPropinas::where('id_nota', '=', $nota_two->id)->get();
-        $suma_propina = 0;
-        foreach($notas_propina as $item){
-            $suma_propina = $suma_propina + $item->propina;
-        }
-
 
         // G U A R D A R  T O T A L  S E R V I C I O
         $pago = Pagos::orderBy('id', 'desc')->first();
@@ -329,11 +322,13 @@ class NotasController extends Controller
             $notas_extra->save();
         }
 
-        if($request->get('concepto2') != NULL){
+        // G U A R D A R   P R O P I N A S
+        if($request->get('propina') != NULL){
             $notas_propinas = new NotasPropinas;
             $notas_propinas->id_nota = $nota->id;
-            $notas_propinas->concepto = $request->get('concepto2');
+            $notas_propinas->id_user = $request->get('id_user_propina');
             $notas_propinas->propina = $request->get('propina');
+            $notas_propinas->metdodo_pago = $request->get('forma_pago_propina');
             $notas_propinas->save();
         }
 
@@ -341,13 +336,6 @@ class NotasController extends Controller
         $suma_extra = 0;
         foreach($notas_extra as $item){
             $suma_extra = $suma_extra + $item->precio;
-        }
-
-        $nota_two = Notas::orderBy('id', 'desc')->first();
-        $notas_propina = NotasPropinas::where('id_nota', '=', $nota_two->id)->get();
-        $suma_propina = 0;
-        foreach($notas_propina as $item){
-            $suma_propina = $suma_propina + $item->propina;
         }
 
         $suma_pagos = 0;

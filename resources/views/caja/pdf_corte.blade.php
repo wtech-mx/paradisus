@@ -212,6 +212,29 @@
             @endforeach
         </tbody>
     </table>
+
+    <h2 style="text-align: center;">
+        Propinas</h2>
+    <table class="table text-center">
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>#Nota</th>
+                <th>User</th>
+                <th>Monto</th>
+                <th>Metodo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($notas_propinas as $item)
+                <tr>
+                    <td>{{ $item->id_nota }}</td>
+                    <td>{{ $item->User->name }}</td>
+                    <td>{{ $item->propina }}</td>
+                    <td>{{ $item->metdodo_pago }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
   </div>
 </body>
 </html>

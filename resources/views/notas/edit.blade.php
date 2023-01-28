@@ -242,7 +242,7 @@
 
                             <div class="row text-center">
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
-                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Cosme</div>
+                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Usuario</div>
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
@@ -305,7 +305,7 @@
 
                                     <div class="col-2">
                                         <div class="form-group">
-                                            <label for="fecha">Cosme</label>
+                                            <label for="fecha">Usuario</label>
                                             <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
                                                 <option value="">Selecciona</option>
                                                 @foreach ($user as $cosmes)
@@ -434,14 +434,28 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="descripcion">Concepto</label>
-                                                <input  id="concepto2[]" name="concepto2[]" type="text" class="form-control" value="{{$item->concepto}}" disabled>
+                                                <label for="nombre">Seleccione Usuario</label>
+                                                <select class="form-control" disabled>
+                                                    <option value="{{ $item->id_user }}">{{ $item->User->name }}</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label for="num_sesion">Propina</label>
-                                                <input  id="propina[]" name="propina[]" type="number" class="form-control" value="{{$item->propina}}" disabled>
+                                                <input type="number" class="form-control" value="{{$item->propina}}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Metodo Pago</label>
+                                                <select id="forma_pago_propina" name="forma_pago_propina" class="form-control" disabled>
+                                                    <option value="{{ $item->metdodo_pago }}">{{ $item->metdodo_pago }}</option>
+                                                    <option value="Efectivo">Efectivo</option>
+                                                    <option value="Transferencia">Transferencia</option>
+                                                    <option value="Mercado Pago">Mercado Pago</option>
+                                                    <option value="Tarjeta">Tarjeta</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -449,24 +463,37 @@
                             @endforeach
 
                             <div id="formulario3" class="mt-4">
-                                {{-- <button type="button" class="clonar3 btn btn-secondary btn-sm">Agregar</button> --}}
-                                <div class="clonars3">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="descripcion">Concepto</label>
-                                                <input  id="concepto2" name="concepto2" type="text" class="form-control">
-                                            </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="nombre">Seleccione Usuario</label>
+                                            <select class="form-control " id="id_user_propina" name="id_user_propina" value="{{ old('id_user_propina') }}" required>
+                                                @foreach ($user as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label for="num_sesion">Precio</label>
-                                                <input  id="propina" name="propina" type="number" class="form-control" >
-                                            </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="Propina">Propina</label>
+                                            <input  id="propina" name="propina" type="number" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="num_sesion">Metodo Pago</label>
+                                            <select id="forma_pago_propina" name="forma_pago_propina" class="form-control">
+                                                <option value="Efectivo">Efectivo</option>
+                                                <option value="Transferencia">Transferencia</option>
+                                                <option value="Mercado Pago">Mercado Pago</option>
+                                                <option value="Tarjeta">Tarjeta</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="modal-footer">
