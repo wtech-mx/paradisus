@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             </div>
-
+{{-- 
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Num. sesión</label>
@@ -99,7 +99,7 @@
                                     <input class="form-control" type="text" value="{{ $item->num_sesion }}" disabled>
                                 </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6">
                                 <div class="form-group">
