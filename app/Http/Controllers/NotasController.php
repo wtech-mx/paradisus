@@ -499,7 +499,10 @@ class NotasController extends Controller
         $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
         ->get();
 
-        return view('clientes.notas.show', compact('notas_pedidos', 'pago', 'nota_cosme'));
+        $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
+        ->get();
+
+        return view('clientes.notas.show', compact('notas_pedidos', 'pago', 'nota_cosme', 'notas_paquetes'));
     }
 
     public function usuario_print($id){

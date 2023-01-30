@@ -39,7 +39,19 @@
                         <label for="example-text-input" class="form-control-label">Servicios</label>
                             <div class="input-group mb-4">
                                 <span class="input-group-text"><i class="ni ni-collection"></i></span>
-                                <input class="form-control" type="text" value="{{ $notas_pedidos->Servicios->nombre }}" disabled>
+                                @foreach($notas_paquetes as $item)
+                                        <input class="form-control" type="text" value="{{ $item->Servicios->nombre }}" disabled>
+                                        @if($item->id_servicio2 != NULL || $item->id_servicio2 != 0)
+                                        <input class="form-control" type="text" value="{{ $item->Servicios2->nombre }}" disabled>
+                                        @endif
+                                        @if($item->id_servicio3 != NULL || $item->id_servicio3 != 0)
+                                        <input class="form-control" type="text" value="{{ $item->Servicios3->nombre }}" disabled>
+                                        @endif
+                                        @if($item->id_servicio4 != NULL || $item->id_servicio4 != 0)
+                                        <input class="form-control" type="text" value="{{ $item->Servicios4->nombre }}" disabled>
+                                        @endif
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
