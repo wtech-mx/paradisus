@@ -39,36 +39,7 @@ class NotasController extends Controller
         $nota_cosme = NotasCosmes::get();
 
         $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
-
-        if($fechaActual == '1'){
-            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
-            ->where('horario.lunes', '=', 1)
-            ->get();
-        }elseif($fechaActual == '2'){
-            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
-            ->where('horario.martes', '=', 1)
-            ->get();
-        }elseif($fechaActual == '3'){
-            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
-            ->where('horario.miercoles', '=', 1)
-            ->get();
-        }elseif($fechaActual == '4'){
-            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
-            ->where('horario.jueves', '=', 1)
-            ->get();
-        }elseif($fechaActual == '5'){
-            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
-            ->where('horario.viernes', '=', 1)
-            ->get();
-        }elseif($fechaActual == '6'){
-            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
-            ->where('horario.sabado', '=', 1)
-            ->get();
-        }elseif($fechaActual == '7'){
-            $user = User::join('horario', 'users.id', '=', 'horario.id_user')
-            ->where('horario.domingo', '=', 1)
-            ->get();
-        }
+        $user = User::get();
 
         return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind', 'notas_sesiones', 'notas_paquetes', 'notas_extras','notas_propinas'));
     }
