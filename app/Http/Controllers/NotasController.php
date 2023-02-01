@@ -24,26 +24,24 @@ class NotasController extends Controller
      */
     public function index()
     {
-        $fechaActual = date('N');
-        $cosme = auth()->user();
         $nota = Notas::orderBy('id','DESC')->get();
-        $client = Client::orderBy('name','ASC')->get();
-        $servicio = Servicios::orderBy('nombre','ASC')->get();
-        $pago = Pagos::get();
-        $notas_sesiones = NotasSesion::get();
-        $notas_paquetes = NotasPaquetes::get();
-        $notas_extras = NotasExtras::get();
-        $notas_propinas = NotasPropinas::get();
 
-        $folio = Notas::orderBy('id', 'desc')->first();
         $nota_cosme = NotasCosmes::get();
+        $notas_paquetes = NotasPaquetes::get();
+        // $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
 
-        $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
-        $user = User::get();
 
-        return view('notas.index', compact('nota', 'user', 'client', 'servicio', 'pago', 'nota_cosme', 'folio','nota_cosme_ind', 'notas_sesiones', 'notas_paquetes', 'notas_extras','notas_propinas'));
+        return view('notas.index', compact('nota', 'nota_cosme', 'notas_paquetes'));
     }
 
+    public function create()
+    {
+        $client = Client::orderBy('name','ASC')->get();
+        $servicio = Servicios::orderBy('nombre','ASC')->get();
+        $user = User::get();
+
+        return view('notas.create',compact('client', 'servicio', 'user'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -261,6 +259,23 @@ class NotasController extends Controller
         return view('notas.show', compact('nota'));
     }
 
+    public function edit($id)
+    {
+        $notas = Notas::find($id);
+        $client = Client::orderBy('name','ASC')->get();
+        $servicio = Servicios::orderBy('nombre','ASC')->get();
+
+        $pago = Pagos::where('id_nota', '=', $id)->get();
+        $notas_sesiones = NotasSesion::where('id_nota', '=', $id)->get();
+        $notas_paquetes = NotasPaquetes::get();
+        $notas_extras = NotasExtras::where('id_nota', '=', $id)->get();
+        $notas_propinas = NotasPropinas::where('id_nota', '=', $id)->get();
+
+        $nota_cosme = NotasCosmes::where('id_nota', '=', $id)->get();
+        $user = User::get();
+
+        return view('notas.edit',compact('client', 'servicio', 'user', 'pago', 'nota_cosme', 'notas_sesiones', 'notas_paquetes', 'notas_extras','notas_propinas', 'notas'));
+    }
     /**
      * Update the specified resource in storage.
      *

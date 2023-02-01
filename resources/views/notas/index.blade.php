@@ -16,15 +16,14 @@
                             <h3 class="mb-3">Notas</h3>
 
                             @can('notas-create')
-                                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    Crear
-                                </a>
+                                <a class="btn btn-sm btn-success" href="{{ route('notas.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    <i class="fa fa-fw fa-edit"></i> Crear </a>
                             @endcan
                         </div>
                     </div>
                     @can('notas-list')
                         <div class="card-body">
-                            @include('notas.create')
+                            {{-- @include('notas.create') --}}
                             <div class="table-responsive">
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
@@ -76,8 +75,7 @@
                                     @else
                                         <tbody>
                                             @foreach ($nota as $notas)
-                                            @include('notas.show')
-                                            @include('notas.edit')
+                                            {{-- @include('notas.show') --}}
                                             @if ($notas->cancelado == 1)
                                             <tr style="background-color: #e70f0f40;">
                                             @else
@@ -122,12 +120,9 @@
                                                             href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
                                                             style="background: #00BB2D; color: #ffff">
                                                             <i class="fa fa-whatsapp"></i></a>
-
-                                                            {{-- <a class="btn btn-sm btn-warning"  href="{{route('notas.print', $notas->id)}}"><i class="fa fa-file-pdf"></i></a> --}}
-
-                                                            <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button>
+                                                            {{-- <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button> --}}
                                                             @can('notas-edit')
-                                                                <div class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}"><i class="fa fa-fw fa-edit"></i></div>
+                                                                <a class="btn btn-sm btn-success" href="{{ route('notas.edit',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                             @endcan
                                                             @can('notas-delete')
                                                                 <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents;">
@@ -152,95 +147,6 @@
     </div>
 @endsection
 
-
-
-@section('js_custom')
-    <script type="text/javascript">
-        // ============= Agregar mas inputs dinamicamente =============
-        $('.btn_clonar2').click(function() {
-        // Clona el .input-group
-        var $clone = $('#formulario_2 .clonars2').last().clone();
-
-        // Borra los valores de los inputs clonados
-        $clone.find(':input').each(function () {
-            if ($(this).is('select')) {
-            this.selectedIndex = 0;
-            } else {
-            this.value = '';
-            }
-        });
-
-        // Agrega lo clonado al final del #formulario
-        $clone.appendTo('#formulario_2');
-        });
-
-        $('.btn_clonar3').click(function() {
-        // Clona el .input-group
-        var $clone = $('#formulario_3 .clonars3').last().clone();
-
-        // Borra los valores de los inputs clonados
-        $clone.find(':input').each(function () {
-            if ($(this).is('select')) {
-            this.selectedIndex = 0;
-            } else {
-            this.value = '';
-            }
-        });
-
-        // Agrega lo clonado al final del #formulario
-        $clone.appendTo('#formulario_3');
-        });
-
-
-        function abrir(url,largo,altura) {
-        open(url,'','top=100,left=100,width='+largo+',height='+altura+'') ;
-        }
-
-        $(function() {
-        $('.toggle-class').change(function() {
-                let cosmetologa = $(this).val();
-                console.log(cosmetologa)
-                var id = $(this).data('id');
-
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url: '{{ route('notas.ChangeCosme') }}',
-                    data: {
-                        'cosmetologa': cosmetologa,
-                        'id': id
-                    },
-                    success: function(data) {
-                        console.log(data.success)
-                    }
-                });
-            })
-        })
-
-        $(function() {
-        $('.serv-edit').change(function() {
-                let id_servicio = $(this).val();
-                console.log(id_servicio)
-                var id = $(this).data('id');
-
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url: '{{ route('notas.ChangeServicio') }}',
-                    data: {
-                        'id_servicio': id_servicio,
-                        'id': id
-                    },
-                    success: function(data) {
-                        console.log(data.success)
-                    }
-                });
-            })
-        })
-    </script>
-
-@endsection
-
 @section('datatable')
 
 <script>
@@ -252,40 +158,4 @@
 
 @endsection
 
-@section('select2')
 
-  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
-  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
-
-    <script type="text/javascript">
-
-            $(document).ready(function() {
-
-                $(".cliente").select2({
-                    dropdownParent: $("#createDataModal")
-                });
-
-                $(".cosme").select2({
-                    dropdownParent: $("#createDataModal")
-                });
-
-                $(".servicio").select2({
-                    dropdownParent: $("#createDataModal")
-                });
-
-                $(".servicio2").select2({
-                    dropdownParent: $("#createDataModal")
-                });
-
-                $(".servicio3").select2({
-                    dropdownParent: $("#createDataModal")
-                });
-
-                $(".servicio4").select2({
-                    dropdownParent: $("#createDataModal")
-                });
-        });
-
-    </script>
-
-@endsection
