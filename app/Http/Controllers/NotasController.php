@@ -354,46 +354,10 @@ class NotasController extends Controller
         $total = 0;
         $mult = 0;
         $descuento = 0;
-        if($nota_reciente->id_servicio != NULL){
-            if($nota_reciente->descuento == 1){
-                $mult = $nota_reciente->Servicios->precio * .10;
-                $descuento = $nota_reciente->Servicios->precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario = $nota_reciente->Servicios->precio * $nota_reciente->num;
-            }
-        }else{$unitario = 0;}
-        if($nota_reciente->id_servicio2 != NULL){
-            if($nota_reciente->descuento2 == 1){
-                $mult = $nota_reciente->Servicios2->precio * .10;
-                $descuento = $nota_reciente->Servicios2->precio - $mult;
-                $unitario2 = $descuento * $nota_reciente->num2;
-            }else{
-                $unitario2 = $nota_reciente->Servicios2->precio * $nota_reciente->num2;
-            }
-        }else{$unitario2 = 0;}
-        if($nota_reciente->id_servicio3 != NULL){
-            if($nota_reciente->descuento3 == 1){
-                $mult = $nota_reciente->Servicios3->precio * .10;
-                $descuento = $nota_reciente->Servicios3->precio - $mult;
-                $unitario3 = $descuento * $nota_reciente->num3;
-            }else{
-                $unitario3 = $nota_reciente->Servicios3->precio * $nota_reciente->num3;
-            }
-        }else{$unitario3 = 0;}
-        if($nota_reciente->id_servicio4 != NULL){
-            if($nota_reciente->descuento4 == 1){
-                $mult = $nota_reciente->Servicios4->precio * .10;
-                $descuento = $nota_reciente->Servicios4->precio - $mult;
-                $unitario4 = $descuento * $nota_reciente->num4;
-            }else{
-                $unitario4 = $nota_reciente->Servicios4->precio * $nota_reciente->num4;
-            }
-        }else{$unitario4 = 0;}
 
-        $total = $unitario + $unitario2 + $unitario3 + $unitario4 + $suma_extra;
-
+        $total = $nota->precio + $suma_extra;
         $restante = $total - $suma_pagos;
+
         $nota_pago = Notas::find($nota->id);
         $nota_pago->restante = $restante;
         $nota_pago->update();
