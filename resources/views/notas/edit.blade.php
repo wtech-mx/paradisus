@@ -12,6 +12,14 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 class="mb-3">Editar Nota</h3>
+
+                            <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
+                                Regresar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
 
                             <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -45,8 +53,7 @@
                                 </li>
 
                             </ul>
-                        </div>
-                    </div>
+
                             <form method="POST" action="{{ route('notas.update', $notas->id) }}" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
@@ -494,16 +501,22 @@
                                         </div>
 
                                         <div class="modal-footer">
-                                            <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</a>
-                                            <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Actualizar</button>
+                                            <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
+                                                Cancelar
+                                            </a>
+                                            <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                                Actualizar
+                                            </button>
                                         </div>
                                 </div>
                             </form>
-
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
+
 @endsection
 @section('js_custom')
     <script type="text/javascript">

@@ -12,6 +12,15 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 class="mb-3">Crear Nota</h3>
+
+                            <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
+                                Regresar
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
 
                             <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -46,8 +55,6 @@
                                 </li>
 
                             </ul>
-                        </div>
-                    </div>
 
                         <form method="POST" action="{{ route('notas.store') }}" enctype="multipart/form-data" role="form">
                             @csrf
@@ -371,18 +378,23 @@
                                 </div>
                             </div>
 
-
-
                             <div class="modal-footer">
-                                <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</a>
-                                <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
+                                <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
+                                    Cancelar
+                                </a>
+                                <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                    Guardar
+                                </button>
                             </div>
                         </form>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
 @section('select2')
 
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
@@ -391,26 +403,31 @@
     <script type="text/javascript">
 
             $(document).ready(function() {
+                $('.cliente').select2();
+                $('.servicio').select2();
+                $('.servicio2').select2();
+                $('.servicio3').select2();
+                $('.servicio4').select2();
 
-                $(".cliente").select2({
-                    dropdownParent: $("#createDataModal")
-                });
+                // $(".cliente").select2({
+                //     dropdownParent: $("#createDataModal")
+                // });
 
-                $(".servicio").select2({
-                    dropdownParent: $("#createDataModal")
-                });
+                // $(".servicio").select2({
+                //     dropdownParent: $("#createDataModal")
+                // });
 
-                $(".servicio2").select2({
-                    dropdownParent: $("#createDataModal")
-                });
+                // $(".servicio2").select2({
+                //     dropdownParent: $("#createDataModal")
+                // });
 
-                $(".servicio3").select2({
-                    dropdownParent: $("#createDataModal")
-                });
+                // $(".servicio3").select2({
+                //     dropdownParent: $("#createDataModal")
+                // });
 
-                $(".servicio4").select2({
-                    dropdownParent: $("#createDataModal")
-                });
+                // $(".servicio4").select2({
+                //     dropdownParent: $("#createDataModal")
+                // });
         });
 
     </script>
