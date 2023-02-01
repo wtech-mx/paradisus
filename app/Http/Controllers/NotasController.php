@@ -175,39 +175,59 @@ class NotasController extends Controller
         $mult = 0;
         $descuento = 0;
         if($request->get('id_servicio') != NULL){
+            if($nota_reciente->Servicios->act_descuento == 1){
+                $precio = $nota_reciente->Servicios->descuento;
+            }else{
+                $precio = $nota_reciente->Servicios->precio;
+            }
             if($request->get('descuento') == 1){
-                $mult = $nota_reciente->Servicios->precio * .10;
-                $descuento = $nota_reciente->Servicios->precio - $mult;
+                $mult = $precio * .10;
+                $descuento = $precio - $mult;
                 $unitario = $descuento * $nota_reciente->num;
             }else{
-                $unitario = $nota_reciente->Servicios->precio * $nota_reciente->num;
+                $unitario = $precio * $nota_reciente->num;
             }
         }else{$unitario = 0;}
         if($request->get('id_servicio2') != NULL){
+            if($nota_reciente->Servicios2->act_descuento == 1){
+                $precio2 = $nota_reciente->Servicios2->descuento;
+            }else{
+                $precio2 = $nota_reciente->Servicios2->precio;
+            }
             if($request->get('descuento2') == 1){
-                $mult = $nota_reciente->Servicios2->precio * .10;
-                $descuento = $nota_reciente->Servicios2->precio - $mult;
+                $mult = $precio2 * .10;
+                $descuento = $precio2 - $mult;
                 $unitario2 = $descuento * $nota_reciente->num2;
             }else{
-                $unitario2 = $nota_reciente->Servicios2->precio * $nota_reciente->num2;
+                $unitario2 = $precio2 * $nota_reciente->num2;
             }
         }else{$unitario2 = 0;}
         if($request->get('id_servicio3') != NULL){
+            if($nota_reciente->Servicios3->act_descuento == 1){
+                $precio3 = $nota_reciente->Servicios3->descuento;
+            }else{
+                $precio3 = $nota_reciente->Servicios3->precio3;
+            }
             if($request->get('descuento3') == 1){
-                $mult = $nota_reciente->Servicios3->precio * .10;
-                $descuento = $nota_reciente->Servicios3->precio - $mult;
+                $mult = $precio3 * .10;
+                $descuento = $precio3 - $mult;
                 $unitario3 = $descuento * $nota_reciente->num3;
             }else{
-                $unitario3 = $nota_reciente->Servicios3->precio * $nota_reciente->num3;
+                $unitario3 = $precio3 * $nota_reciente->num3;
             }
         }else{$unitario3 = 0;}
         if($request->get('id_servicio4') != NULL){
+            if($nota_reciente->Servicios4->act_descuento == 1){
+                $precio4 = $nota_reciente->Servicios4->descuento;
+            }else{
+                $precio4 = $nota_reciente->Servicios4->precio3;
+            }
             if($request->get('descuento4') == 1){
-                $mult = $nota_reciente->Servicios4->precio * .10;
-                $descuento = $nota_reciente->Servicios4->precio - $mult;
+                $mult = $precio4 * .10;
+                $descuento = $precio4 - $mult;
                 $unitario4 = $descuento * $nota_reciente->num4;
             }else{
-                $unitario4 = $nota_reciente->Servicios4->precio * $nota_reciente->num4;
+                $unitario4 = $precio4 * $nota_reciente->num4;
             }
         }else{$unitario4 = 0;}
 
