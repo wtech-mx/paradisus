@@ -83,18 +83,22 @@ class NotasController extends Controller
         $nota_paquete->id_servicio = $request->get('id_servicio');
         $nota_paquete->num = $request->get('num');
         $nota_paquete->descuento = $request->get('descuento');
+        $nota_paquete->descuento_5 = $request->get('descuento_5');
 
         $nota_paquete->id_servicio2 = $request->get('id_servicio2');
         $nota_paquete->num2 = $request->get('num2');
         $nota_paquete->descuento2 = $request->get('descuento2');
+        $nota_paquete->descuento2_5 = $request->get('descuento2_5');
 
         $nota_paquete->id_servicio3 = $request->get('id_servicio3');
         $nota_paquete->num3 = $request->get('num3');
         $nota_paquete->descuento3 = $request->get('descuento3');
+        $nota_paquete->descuento3_5 = $request->get('descuento3_5');
 
         $nota_paquete->id_servicio4 = $request->get('id_servicio4');
         $nota_paquete->num4 = $request->get('num4');
         $nota_paquete->descuento4 = $request->get('descuento4');
+        $nota_paquete->descuento4_5 = $request->get('descuento4_5');
         $nota_paquete->save();
 
         // G U A R D A R  S E S I O N
@@ -182,6 +186,10 @@ class NotasController extends Controller
                 $mult = $precio * .10;
                 $descuento = $precio - $mult;
                 $unitario = $descuento * $nota_reciente->num;
+            }elseif($request->get('descuento_5') == 1){
+                $mult = $precio * .05;
+                $descuento = $precio - $mult;
+                $unitario = $descuento * $nota_reciente->num;
             }else{
                 $unitario = $precio * $nota_reciente->num;
             }
@@ -194,6 +202,10 @@ class NotasController extends Controller
             }
             if($request->get('descuento2') == 1){
                 $mult = $precio2 * .10;
+                $descuento = $precio2 - $mult;
+                $unitario2 = $descuento * $nota_reciente->num2;
+            }elseif($request->get('descuento2_5') == 1){
+                $mult = $precio2 * .05;
                 $descuento = $precio2 - $mult;
                 $unitario2 = $descuento * $nota_reciente->num2;
             }else{
@@ -210,6 +222,10 @@ class NotasController extends Controller
                 $mult = $precio3 * .10;
                 $descuento = $precio3 - $mult;
                 $unitario3 = $descuento * $nota_reciente->num3;
+            }elseif($request->get('descuento3_5') == 1){
+                $mult = $precio3 * .05;
+                $descuento = $precio3 - $mult;
+                $unitario3 = $descuento * $nota_reciente->num3;
             }else{
                 $unitario3 = $precio3 * $nota_reciente->num3;
             }
@@ -222,6 +238,10 @@ class NotasController extends Controller
             }
             if($request->get('descuento4') == 1){
                 $mult = $precio4 * .10;
+                $descuento = $precio4 - $mult;
+                $unitario4 = $descuento * $nota_reciente->num4;
+            }elseif($request->get('descuento4_5') == 1){
+                $mult = $precio4 * .05;
                 $descuento = $precio4 - $mult;
                 $unitario4 = $descuento * $nota_reciente->num4;
             }else{
