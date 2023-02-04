@@ -73,16 +73,16 @@
                                         <div class="tab-pane fade in active show" id="servicioedit{{$notas->id}}">
                                             <div class="form-group">
                                                 <label for="nombre">Cosmetologas</label>
-                                                <select disabled id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple">
+                                                <select id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple" disabled>
                                                     @foreach($nota_cosme as $item)
-                                                        <option value="{{$item->id }}">{{$item->User->name}}</option>
+                                                        <option value="{{$item->id }}" selected>{{$item->User->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="descripcion">Cliente</label>
                                                 <select class="form-control input-edit-car" id="id_client" name="id_client"
-                                                    value="{{ old('id_client') }}" disabled>
+                                                    value="{{ old('id_client') }}">
                                                     <option value="{{ $notas->id_client }}">{{ $notas->Client->name }} {{ $notas->Client->last_name }}</option>
                                                     @foreach ($client as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
@@ -298,7 +298,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="nota">Nota</label>
-                                                <textarea name="nota" id="nota" cols="10" rows="3" class="form-control" disabled>{{$notas->nota}}</textarea>
+                                                <textarea name="nota" id="nota" cols="10" rows="3" class="form-control">{{$notas->nota}}</textarea>
                                             </div>
                                         </div>
 

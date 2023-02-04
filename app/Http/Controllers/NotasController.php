@@ -309,6 +309,8 @@ class NotasController extends Controller
 
         $nota = Notas::find($id);
         $nota->cancelado = $request->get('cancelado');
+        $nota->id_client = $request->get('id_client');
+        $nota->nota = $request->get('nota');
         $nota->update();
 
         if($request->get('pago') != NULL){
