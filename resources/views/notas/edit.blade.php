@@ -70,19 +70,26 @@
                                                     <input class="form-check-input" type="checkbox" name="cancelado" id="cancelado" value="1">
                                                 </div>
                                         @endif
+                                        <input class="" type="hidden" name="id_notas_cosmes" id="id_notas_cosmes" value="{{ $notas->NotasCosmes->id }}">
                                         <div class="tab-pane fade in active show" id="servicioedit{{$notas->id}}">
                                             <div class="form-group">
                                                 <label for="nombre">Cosmetologas</label>
-                                                <select id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple" disabled>
-                                                    @foreach($nota_cosme as $item)
-                                                        <option value="{{$item->id }}" selected>{{$item->User->name}}</option>
+                                                <select  id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple">
+                                                    @foreach ($user as $item)
+                                                        @if ($notas->NotasCosmes->id_user == $item->id)
+                                                        <option selected value="{{$item->id }}">{{$item->name}}</option>
+                                                        @endif
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                     @endforeach
+                                                    {{-- @foreach($nota_cosme as $item)
+                                                        <option value="{{$item->id }}">{{$item->User->name}}</option>
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="descripcion">Cliente</label>
                                                 <select class="form-control input-edit-car" id="id_client" name="id_client"
-                                                    value="{{ old('id_client') }}">
+                                                    value="{{ old('id_client') }}" >
                                                     <option value="{{ $notas->id_client }}">{{ $notas->Client->name }} {{ $notas->Client->last_name }}</option>
                                                     @foreach ($client as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
@@ -92,10 +99,9 @@
                                             <div class="row">
                                                 <div class="col-8">
                                                     <div class="form-group">
-
                                                         <label for="precio">Servicio</label>
-                                                        <select class="form-control servedit serv-edit" data-toggle="select" data-id="{{ $notas->Paquetes->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                            data-on="Active" data-off="InActive" disabled>
+                                                        <select class="form-control servedit serv-edit" id="id_servicio" name="id_servicio" data-toggle="select" data-id="{{ $notas->Paquetes->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                            data-on="Active" data-off="InActive" >
                                                             <option value="{{ $notas->Paquetes->id_servicio }}">{{ $notas->Paquetes->Servicios->nombre }}</option>
                                                             @foreach ($servicio as $item)
                                                                 <option value="{{ $item->id }}">{{ $item->nombre }}</option>
@@ -106,19 +112,20 @@
                                                 <div class="col-2">
                                                     <div class="form-group">
                                                         <label for="precio">Num</label>
-                                                            <input type="number" id="num" name="num" class="form-control" value="{{ $notas->Paquetes->num }}" disabled>
+                                                            <input type="number" id="num" name="num" class="form-control" value="{{ $notas->Paquetes->num }}" >
+                                                            <input type="hidden" id="id_notas_paquetes" name="id_notas_paquetes" class="form-control" value="{{ $notas->Paquetes->id }}" >
                                                     </div>
                                                 </div>
                                                 <div class="col-1">
                                                     @if ($notas->Paquetes->descuento == 1)
                                                             <div class="form-check">
                                                                 <label class="custom-control-label" for="descuento" style="font-size: 15px;">10%</label><br>
-                                                                <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="{{$notas->Paquetes->descuento}}" checked disabled>
+                                                                <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="{{$notas->Paquetes->descuento}}" checked >
                                                             </div>
                                                         @else
                                                             <div class="form-check">
                                                                 <label class="custom-control-label" for="descuento" style="font-size: 15px;">10%</label><br>
-                                                                <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="1" disabled>
+                                                                <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="1" >
                                                             </div>
                                                     @endif
                                                 </div>
@@ -126,12 +133,12 @@
                                                     @if ($notas->Paquetes->descuento_5 == 1)
                                                             <div class="form-check">
                                                                 <label class="custom-control-label" for="descuento_5" style="font-size: 15px;">5%</label><br>
-                                                                <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="{{$notas->Paquetes->descuento_5}}" checked disabled>
+                                                                <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="{{$notas->Paquetes->descuento_5}}" checked >
                                                             </div>
                                                         @else
                                                             <div class="form-check">
                                                                 <label class="custom-control-label" for="descuento_5" style="font-size: 15px;">5%</label><br>
-                                                                <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1" disabled>
+                                                                <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1" >
                                                             </div>
                                                     @endif
                                                 </div>
@@ -144,7 +151,7 @@
                                                     <div class="col-8">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 2</label><br>
-                                                            <select class="form-control " data-toggle="select" id="servicio2" name="id_servicio2" disabled>
+                                                            <select class="form-control " data-toggle="select" id="servicio2" name="id_servicio2" >
                                                                 @if ($notas->Paquetes->id_servicio2 == NULL || $notas->Paquetes->id_servicio2 == 0)
                                                                     <option value="">Seleccione Servicio</option>
                                                                 @else
@@ -159,19 +166,19 @@
                                                     <div class="col-2">
                                                         <div class="form-group">
                                                             <label for="precio">Num 2</label>
-                                                                <input type="number" id="num2" name="num2" class="form-control" value="{{ $notas->Paquetes->num2 }}" disabled>
+                                                                <input type="number" id="num2" name="num2" class="form-control" value="{{ $notas->Paquetes->num2 }}" >
                                                         </div>
                                                     </div>
                                                     <div class="col-1">
                                                         @if ($notas->Paquetes->descuento2 == 1)
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento2" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento2" id="descuento2" value="{{$notas->Paquetes->descuento2}}" checked disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento2" id="descuento2" value="{{$notas->Paquetes->descuento2}}" checked >
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento2" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento2" id="descuento2" value="1" disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento2" id="descuento2" value="1" >
                                                                 </div>
                                                         @endif
                                                     </div>
@@ -179,12 +186,12 @@
                                                         @if ($notas->Paquetes->descuento2_5 == 1)
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento2_5" style="font-size: 15px;">5%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento2_5" id="descuento2_5" value="{{$notas->Paquetes->descuento2_5}}" checked disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento2_5" id="descuento2_5" value="{{$notas->Paquetes->descuento2_5}}" checked >
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento2_5" style="font-size: 15px;">5%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento2_5" id="descuento2_5" value="1" disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento2_5" id="descuento2_5" value="1" >
                                                                 </div>
                                                         @endif
                                                     </div>
@@ -194,7 +201,7 @@
                                                     <div class="col-8">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 3</label><br>
-                                                            <select class="form-control " data-toggle="select" id="servicio3" name="id_servicio3" disabled>
+                                                            <select class="form-control " data-toggle="select" id="servicio3" name="id_servicio3" >
                                                                 @if ($notas->Paquetes->id_servicio3 == NULL || $notas->Paquetes->id_servicio3 == 0)
                                                                     <option value="">Seleccione Servicio</option>
                                                                 @else
@@ -209,19 +216,19 @@
                                                     <div class="col-2">
                                                         <div class="form-group">
                                                             <label for="precio">Num 3</label>
-                                                                <input type="number" id="num3" name="num3" class="form-control" value="{{ $notas->Paquetes->num3 }}" disabled>
+                                                                <input type="number" id="num3" name="num3" class="form-control" value="{{ $notas->Paquetes->num3 }}" >
                                                         </div>
                                                     </div>
                                                     <div class="col-1">
                                                         @if ($notas->Paquetes->descuento3 == 1)
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento3" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento3" id="descuento3" value="{{$notas->Paquetes->descuento3}}" checked disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento3" id="descuento3" value="{{$notas->Paquetes->descuento3}}" checked >
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento3" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento3" id="descuento3" value="1" disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento3" id="descuento3" value="1" >
                                                                 </div>
                                                         @endif
                                                     </div>
@@ -229,12 +236,12 @@
                                                         @if ($notas->Paquetes->descuento3_5 == 1)
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento3_5" style="font-size: 15px;">5%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento3_5" id="descuento3_5" value="{{$notas->Paquetes->descuento3_5}}" checked disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento3_5" id="descuento3_5" value="{{$notas->Paquetes->descuento3_5}}" checked >
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento3_5" style="font-size: 15px;">5%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento3_5" id="descuento3_5" value="1" disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento3_5" id="descuento3_5" value="1" >
                                                                 </div>
                                                         @endif
                                                     </div>
@@ -244,7 +251,7 @@
                                                     <div class="col-8">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 4</label><br>
-                                                            <select class="form-control " id="servicio4" name="id_servicio4" disabled>
+                                                            <select class="form-control " id="servicio4" name="id_servicio4" >
                                                                 @if ($notas->Paquetes->id_servicio4 == NULL || $notas->Paquetes->id_servicio4 == 0)
                                                                     <option value="">Seleccione Servicio</option>
                                                                 @else
@@ -259,19 +266,19 @@
                                                     <div class="col-2">
                                                         <div class="form-group">
                                                             <label for="precio">Num 4</label>
-                                                                <input type="number" id="num4" name="num4" class="form-control" value="{{ $notas->Paquetes->num4 }}" disabled>
+                                                                <input type="number" id="num4" name="num4" class="form-control" value="{{ $notas->Paquetes->num4 }}" >
                                                         </div>
                                                     </div>
                                                     <div class="col-1">
                                                         @if ($notas->Paquetes->descuento4 == 1)
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento4" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento4" id="descuento4" value="{{$notas->Paquetes->descuento4}}" checked disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento4" id="descuento4" value="{{$notas->Paquetes->descuento4}}" checked >
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento4" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento4" id="descuento4" value="1" disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento4" id="descuento4" value="1" >
                                                                 </div>
                                                         @endif
                                                     </div>
@@ -279,12 +286,12 @@
                                                         @if ($notas->Paquetes->descuento4_5 == 1)
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento4_5" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="{{$notas->Paquetes->descuento4_5}}" checked disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="{{$notas->Paquetes->descuento4_5}}" checked >
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento4_5" style="font-size: 15px;">10%</label><br>
-                                                                    <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="1" disabled>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="1" >
                                                                 </div>
                                                         @endif
                                                     </div>
@@ -294,11 +301,11 @@
 
                                             <div class="form-group">
                                                 <label for="fecha">Fecha</label>
-                                                <input id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" disabled>
+                                                <input id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="nota">Nota</label>
-                                                <textarea name="nota" id="nota" cols="10" rows="3" class="form-control">{{$notas->nota}}</textarea>
+                                                <textarea name="nota" id="nota" cols="10" rows="3" class="form-control" >{{$notas->nota}}</textarea>
                                             </div>
                                         </div>
 
