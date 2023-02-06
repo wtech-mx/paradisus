@@ -354,7 +354,8 @@
                                                         <a href=""></a>
                                                     @else
                                                         <div class="col-1 py-2">
-                                                            <a href="javascript:abrir('{{asset('foto_servicios/'.$item->foto)}}','500','500')">Foto</a>
+                                                            <input  id="id_foto_pago" name="id_foto_pago" type="hidden"  class="form-control" value="{{$item->id}}">
+                                                            <a target="_blank" href="{{asset('foto_servicios/'.$item->foto)}}">Abrir Imagen</a>
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -412,7 +413,7 @@
 
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="nota">Foto</label>
+                                                            <label for="nota">Fotoss</label>
                                                             <input type="file" id="foto" class="form-control" name="foto">
                                                         </div>
                                                     </div>
