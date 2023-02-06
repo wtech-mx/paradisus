@@ -322,6 +322,7 @@
 
                                                 <p style="display: none">{{ $resultado = 0; }}</p>
                                                 @foreach ($pago as $item)
+                                                    <input  id="pago_id" name="pago_id" type="hidden"  class="form-control" value="{{$item->id}}">
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
                                                     <div class="col-2 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
@@ -329,7 +330,7 @@
                                                     </div>
 
                                                     <div class="col-3 py-2" >
-                                                        <select class="form-control toggle-class"  data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                             data-on="Active" data-off="InActive">
                                                             <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
                                                             @foreach ($user as $cosmes)
@@ -354,7 +355,6 @@
                                                         <a href=""></a>
                                                     @else
                                                         <div class="col-1 py-2">
-                                                            <input  id="id_foto_pago" name="id_foto_pago" type="hidden"  class="form-control" value="{{$item->id}}">
                                                             <a target="_blank" href="{{asset('foto_servicios/'.$item->foto)}}">Abrir Imagen</a>
                                                         </div>
                                                     @endif
@@ -413,7 +413,7 @@
 
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="nota">Fotoss</label>
+                                                            <label for="nota">Foto</label>
                                                             <input type="file" id="foto" class="form-control" name="foto">
                                                         </div>
                                                     </div>
@@ -580,6 +580,29 @@
 @endsection
 @section('js_custom')
     <script type="text/javascript">
+
+$(function() {
+        $('.toggle-class').change(function() {
+                let cosmetologa = $(this).val();
+                console.log(cosmetologa)
+                var id = $(this).data('id');
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '{{ route('notas.ChangeCosme') }}',
+                    data: {
+                        'cosmetologa': cosmetologa,
+                        'id': id
+                    },
+                    success: function(data) {
+                        console.log(data.success)
+                    }
+                });
+            })
+        })
+
+
         $(function() {
         $('.serv-edit').change(function() {
                 let id_servicio = $(this).val();
