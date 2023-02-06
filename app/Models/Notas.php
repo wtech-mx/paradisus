@@ -41,4 +41,9 @@ class Notas extends Model
     {
         return $this->hasOne('App\Models\NotasPaquetes', 'id_nota', 'id');
     }
+
+    public function NotasCosmes()
+    {
+        return $this->hasOne('App\Models\NotasCosmes', 'id_nota', 'id');
+    }
 }

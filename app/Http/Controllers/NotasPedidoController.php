@@ -8,7 +8,11 @@ use App\Models\Pedido;
 use App\Models\User;
 use Session;
 use Illuminate\Http\Request;
-use Product;
+
+// use Automattic\WooCommerce\Client;
+
+// use Product;
+// use Codexshaper\WooCommerce\Facades\Product;
 
 class NotasPedidoController extends Controller
 {
@@ -24,8 +28,8 @@ class NotasPedidoController extends Controller
         $pedido = Pedido::get();
         $client = Client::orderBy('name','ASC')->get();
         $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
-        //$products = Product::get();
-        // dd($products);
+        // $products = Product::all();
+
         $fechaActual = date('N');
         if($fechaActual == '1'){
             $user = User::join('horario', 'users.id', '=', 'horario.id_user')
@@ -58,6 +62,35 @@ class NotasPedidoController extends Controller
         }
 
         return view('notas_pedidos.index', compact('pedido', 'cosme','user', 'client', 'nota_pedido', 'nota_pedido_cosme'));
+    }
+
+    public function show_productos()
+    {
+
+        // $woocomerce = new Product(
+        //     'https://imnasmexico.com/new/wp-json/wc/v3/products?category=202',
+        //     'ck_9868525631eee54f198be17abf22ee6e2a1bb221',
+        //     'cs_7b2f0584b817cf11e6dabae2d113b72e6315f186',
+        //     [
+        //         'wp_api' => true,
+        //         'version' => 'wc/v3',
+        //         'query_string_auth' => true,
+        //     ]
+        // );
+
+
+         //Trae datos de db to jason
+        //  $json2 = $data2['products'] = $woocomerce->get('products');
+
+        //  //los convieerte en array
+        //  $decode2 = json_decode($json2);
+
+        //  //Une los array en uno solo
+        //  $resultado = array_merge($decode2);
+
+        //  //retorna a la vista sn json
+        //  return response()->json($resultado);
+
     }
 
     /**

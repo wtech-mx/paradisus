@@ -124,13 +124,12 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="descripcion">concepto</label>
-                                                <input  id="concepto[]" name="concepto[]" type="text" class="form-control">
-                                                {{-- <select class="form-control js-example-basic-single" id="concepto[]" name="concepto[]"
-                                                    value="{{ old('concepto') }}" required>
-                                                    @foreach ($products as $item)
+                                                {{-- <input  id="concepto[]" name="concepto[]" type="text" class="form-control"> --}}
+                                                <select class="form-control product"  data-toggle="select" id="concepto[]" name="concepto[]"value="{{ old('concepto') }}" required>
+                                                    {{-- @foreach ($products as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->price }}</option>
-                                                    @endforeach
-                                                </select> --}}
+                                                    @endforeach --}}
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-3">
@@ -157,3 +156,19 @@
         </div>
     </div>
 </div>
+
+@section('select2')
+
+  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+
+    <script type="text/javascript">
+
+
+                $(".product").select2({
+                    dropdownParent: $("#createDataModal")
+                });
+
+    </script>
+
+@endsection
