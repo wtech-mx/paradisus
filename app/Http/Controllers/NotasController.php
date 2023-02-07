@@ -311,7 +311,6 @@ class NotasController extends Controller
         $nota = Notas::find($id);
         $nota->cancelado = $request->get('cancelado');
         $nota->id_client = $request->get('id_client');
-        $nota->fecha = $request->get('fecha');
         $nota->nota = $request->get('nota');
         $nota->update();
 
@@ -418,11 +417,87 @@ class NotasController extends Controller
         $total = 0;
         $mult = 0;
         $descuento = 0;
+        if($request->get('id_servicio') != NULL){
+            if($nota_reciente->Servicios->act_descuento == 1){
+                $precio = $nota_reciente->Servicios->descuento;
+            }else{
+                $precio = $nota_reciente->Servicios->precio;
+            }
+            if($request->get('descuento') == 1){
+                $mult = $precio * .10;
+                $descuento = $precio - $mult;
+                $unitario = $descuento * $nota_reciente->num;
+            }elseif($request->get('descuento_5') == 1){
+                $mult = $precio * .05;
+                $descuento = $precio - $mult;
+                $unitario = $descuento * $nota_reciente->num;
+            }else{
+                $unitario = $precio * $nota_reciente->num;
+            }
+        }else{$unitario = 0;}
+        if($request->get('id_servicio2') != NULL){
+            if($nota_reciente->Servicios2->act_descuento == 1){
+                $precio2 = $nota_reciente->Servicios2->descuento;
+            }else{
+                $precio2 = $nota_reciente->Servicios2->precio;
+            }
+            if($request->get('descuento2') == 1){
+                $mult = $precio2 * .10;
+                $descuento = $precio2 - $mult;
+                $unitario2 = $descuento * $nota_reciente->num2;
+            }elseif($request->get('descuento2_5') == 1){
+                $mult = $precio2 * .05;
+                $descuento = $precio2 - $mult;
+                $unitario2 = $descuento * $nota_reciente->num2;
+            }else{
+                $unitario2 = $precio2 * $nota_reciente->num2;
+            }
+        }else{$unitario2 = 0;}
+        if($request->get('id_servicio3') != NULL){
+            if($nota_reciente->Servicios3->act_descuento == 1){
+                $precio3 = $nota_reciente->Servicios3->descuento;
+            }else{
+                $precio3 = $nota_reciente->Servicios3->precio3;
+            }
+            if($request->get('descuento3') == 1){
+                $mult = $precio3 * .10;
+                $descuento = $precio3 - $mult;
+                $unitario3 = $descuento * $nota_reciente->num3;
+            }elseif($request->get('descuento3_5') == 1){
+                $mult = $precio3 * .05;
+                $descuento = $precio3 - $mult;
+                $unitario3 = $descuento * $nota_reciente->num3;
+            }else{
+                $unitario3 = $precio3 * $nota_reciente->num3;
+            }
+        }else{$unitario3 = 0;}
+        if($request->get('id_servicio4') != NULL){
+            if($nota_reciente->Servicios4->act_descuento == 1){
+                $precio4 = $nota_reciente->Servicios4->descuento;
+            }else{
+                $precio4 = $nota_reciente->Servicios4->precio3;
+            }
+            if($request->get('descuento4') == 1){
+                $mult = $precio4 * .10;
+                $descuento = $precio4 - $mult;
+                $unitario4 = $descuento * $nota_reciente->num4;
+            }elseif($request->get('descuento4_5') == 1){
+                $mult = $precio4 * .05;
+                $descuento = $precio4 - $mult;
+                $unitario4 = $descuento * $nota_reciente->num4;
+            }else{
+                $unitario4 = $precio4 * $nota_reciente->num4;
+            }
+        }else{$unitario4 = 0;}
 
-        $total = $nota->precio + $suma_extra;
-        $restante = $total - $suma_pagos;
+        $total = $unitario + $unitario2 + $unitario3 + $unitario4;
+
+        $total2 = 0;
+        $total2 = $total + $suma_extra;
+        $restante = $total2 - $suma_pagos;
 
         $nota_pago = Notas::find($nota->id);
+        $nota_pago->precio = $total;
         $nota_pago->restante = $restante;
         $nota_pago->update();
 

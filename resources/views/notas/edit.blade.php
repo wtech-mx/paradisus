@@ -301,7 +301,7 @@
 
                                             <div class="form-group">
                                                 <label for="fecha">Fecha</label>
-                                                <input id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" >
+                                                <input id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$notas->fecha}}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nota">Nota</label>
