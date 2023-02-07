@@ -15,6 +15,7 @@ class NotasSesion extends Model
         'id_nota',
         'fecha',
         'sesion',
+        'nota',
     ];
 
     public function Notas()

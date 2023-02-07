@@ -437,6 +437,12 @@
                                                             <input  id="sesion" name="sesion" type="number" class="form-control" value="{{$item->sesion}}" disabled>
                                                         </div>
                                                     </div>
+                                                    <div class="col-5">
+                                                        <div class="form-group">
+                                                            <label for="nota">Nota</label>
+                                                            <textarea class="form-control" id="nota2" name="nota2" rows="1" disabled>{{$item->nota}}</textarea>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             @endforeach
                                             <div class="row">
@@ -451,6 +457,13 @@
                                                     <div class="form-group">
                                                         <label for="num_sesion">Num sesion</label>
                                                         <input  id="sesion" name="sesion" type="number" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-5">
+                                                    <div class="form-group">
+                                                        <label for="nota">Nota</label>
+                                                        <textarea class="form-control" id="nota2" name="nota2" rows="1"></textarea>
                                                     </div>
                                                 </div>
                                             </div>

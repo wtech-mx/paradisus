@@ -108,6 +108,7 @@ class NotasController extends Controller
             $nota_sesion->id_nota = $nota->id;
             $nota_sesion->fecha = $request->get('fecha_sesion');
             $nota_sesion->sesion = $request->get('sesion');
+            $nota_sesion->nota = $request->get('nota');
             $nota_sesion->save();
         }
 
@@ -379,6 +380,7 @@ class NotasController extends Controller
             $nota_sesion->id_nota = $nota->id;
             $nota_sesion->fecha = $request->get('fecha_sesion');
             $nota_sesion->sesion = $request->get('sesion');
+            $nota_sesion->nota = $request->get('nota');
             $nota_sesion->save();
         }
 
