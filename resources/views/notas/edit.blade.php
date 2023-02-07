@@ -285,12 +285,12 @@
                                                     <div class="col-1">
                                                         @if ($notas->Paquetes->descuento4_5 == 1)
                                                                 <div class="form-check">
-                                                                    <label class="custom-control-label" for="descuento4_5" style="font-size: 15px;">10%</label><br>
+                                                                    <label class="custom-control-label" for="descuento4_5" style="font-size: 15px;">5%</label><br>
                                                                     <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="{{$notas->Paquetes->descuento4_5}}" checked >
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
-                                                                    <label class="custom-control-label" for="descuento4_5" style="font-size: 15px;">10%</label><br>
+                                                                    <label class="custom-control-label" for="descuento4_5" style="font-size: 15px;">5%</label><br>
                                                                     <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="1" >
                                                                 </div>
                                                         @endif
