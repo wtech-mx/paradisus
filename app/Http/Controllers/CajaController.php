@@ -24,6 +24,12 @@ class CajaController extends Controller
         $caja = Caja::where('fecha', '=', $fechaActual)
         ->first();
 
+        if($caja == null){
+            $caja=0;
+        }else{
+            $caja=$caja->ingresos;
+        }
+
         $pago = Pagos::where('fecha', '=', $fechaActual)
         ->where('forma_pago', '=', 'Efectivo')->get();
         $pago_suma = Pagos::where('fecha', '=', $fechaActual)

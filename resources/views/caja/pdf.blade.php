@@ -2,11 +2,7 @@
 <html lang="en">
     @php
         $total_ing = 0;
-        if($caja_final->ingresos == null){
-            $caja=0;
-        }else{
-            $caja=$caja_final->ingresos;
-        }
+
         $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $caja;
 
         $total_egresos = 0;
