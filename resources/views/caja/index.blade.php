@@ -11,7 +11,7 @@
         <div class="row">
             @php
                 $total_ing = 0;
-                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total;
+                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $caja->ingresos;
 
                 $total_egresos = 0;
                 $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -98,6 +98,32 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- =============== S A L D O  I N I C I A L =============================== --}}
+
+                            @if ($caja == NULL)
+                                <div class="col-lg-6 col-md-6 col-6">
+                                    <div class="card  mb-4">
+                                        <div class="card-body p-3">
+                                            <form method="POST" action="{{ route('caja.caja_inicial') }}" enctype="multipart/form-data" role="form">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <div class="numbers">
+                                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Saldo inicial en caja</p>
+                                                            <input name="ingresos" id="ingresos" type="number" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <p></p>
+                                                        <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
                         </div>
                     </div>

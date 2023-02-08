@@ -124,12 +124,12 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="descripcion">concepto</label>
-                                                {{-- <input  id="concepto[]" name="concepto[]" type="text" class="form-control"> --}}
-                                                <select class="form-control product"  data-toggle="select" id="concepto[]" name="concepto[]"value="{{ old('concepto') }}" required>
-                                                    {{-- @foreach ($products as $item)
+                                                <input  id="concepto[]" name="concepto[]" type="text" class="form-control">
+                                               {{-- <select class="form-control product"  data-toggle="select" id="concepto[]" name="concepto[]"value="{{ old('concepto') }}" required>
+                                                     @foreach ($products as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->price }}</option>
-                                                    @endforeach --}}
-                                                </select>
+                                                    @endforeach
+                                                </select>--}}
                                             </div>
                                         </div>
                                         <div class="col-3">

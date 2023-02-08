@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
 use App\Models\Alertas;
+use App\Models\AlertasCosmes;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use DB;
@@ -53,16 +54,15 @@ class AlertasController extends Controller
         $datosEvento = new Alertas;
         $datosEvento->start = $request->start;
         $datosEvento->end = $request->end;
+        $datosEvento = $request->id_especialist;
         $datosEvento->image = $request->image;
         $datosEvento->id_client = $request->id_client;
-        $datosEvento->id_especialist = $request->id_especialist;
         $datosEvento->title = $datosEvento->Client->name;
         $datosEvento->telefono = $datosEvento->Client->phone;
         $datosEvento->resource_id = $request->resource_id;
         $datosEvento->descripcion = $request->descripcion;
         $datosEvento->check = $request->check;
-        $color = '#ccc';
-        $datosEvento->color = $color;
+        $datosEvento->id_servicio = $request->id_servicio;
 
         // if ( $datosEvento->end == $datosEvento->start){
         //     $now = date($datosEvento->end);
@@ -70,8 +70,13 @@ class AlertasController extends Controller
         //     $datosEvento->end = $new_time;
         // }
 
-
         $datosEvento->save();
+
+        $alert = Alertas::orderBy('id', 'desc')->first();
+        $cita = Alertas::find($alert->id);
+        $cita->color = $alert->Servicios->color;
+        $cita->update();
+
     }
 
     public function show_calendar()

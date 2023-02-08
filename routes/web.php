@@ -93,6 +93,7 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O   C A J A ===============================
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
+    Route::post('/caja/inicial/', [App\Http\Controllers\CajaController::class, 'caja_inicial'])->name('caja.caja_inicial');
     Route::get('/reporte/imprimir/caja', [App\Http\Controllers\CajaController::class, 'imprimir_caja'])->name('caja.print_caja');
     Route::get('/reporte/imprimir/corte', [App\Http\Controllers\CajaController::class, 'imprimir_corte'])->name('caja.print_corte');
 
