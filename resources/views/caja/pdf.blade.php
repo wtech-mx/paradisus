@@ -3,7 +3,7 @@
     @php
         $total_ing = 0;
 
-        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $caja;
+        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $caja_final2;
 
         $total_egresos = 0;
             $total_egresos = $total_ing - $caja_dia_suma->total;

@@ -97,6 +97,11 @@ class CajaController extends Controller
         //  =============== C A J A  F I N A L ===============================
         $caja_final = Caja::where('fecha', '=', $diaActual)
         ->first();
+        if($caja_final == null){
+            $caja_final2=0;
+        }else{
+            $caja_final2=$caja_final->ingresos;
+        }
         $pago = Pagos::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Efectivo')->get();
         $pago_suma = Pagos::where('fecha', '=', $diaActual)
         ->where('forma_pago', '=', 'Efectivo')
@@ -156,7 +161,7 @@ class CajaController extends Controller
 
 
 
-        $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
+        $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja_final2', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
