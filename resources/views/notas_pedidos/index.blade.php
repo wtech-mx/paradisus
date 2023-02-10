@@ -18,16 +18,14 @@
                             <h3 class="mb-3">Notas Pedidos</h3>
 
                             @can('notas-pedido-create')
-                                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    Crear
-                                </a>
+                            <a class="btn btn-sm btn-success" href="{{ route('notas_pedidos.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <i class="fa fa-fw fa-edit"></i> Crear </a>
                             @endcan
                         </div>
                     </div>
 
                     @can('notas-pedido-list')
                         <div class="card-body">
-                            @include('notas_pedidos.create')
                             <div class="table-responsive">
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
@@ -163,21 +161,3 @@ $('.clonar').click(function() {
 </script>
 
 @endsection
-@section('select2')
-
-  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
-  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
-
-    <script type="text/javascript">
-
-            $(document).ready(function() {
-
-                $(".cliente_pedido").select2({
-                    dropdownParent: $("#createDataModal")
-                });
-        });
-
-    </script>
-
-@endsection
-
