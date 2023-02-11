@@ -136,12 +136,13 @@
                                                 <div class="col-8">
                                                     <div class="form-group">
                                                         <label for="descripcion">concepto</label><br>
-                                                    <select class="form-control product"  data-toggle="select" id="concepto[]" name="concepto[]"value="{{ old('concepto') }}" required>
+                                                        <input  id="concepto[]" name="concepto[]" type="text" class="form-control">
+                                                    {{-- <select class="form-control product"  data-toggle="select" id="concepto[]" name="concepto[]"value="{{ old('concepto') }}" required>
 
                                                         @foreach ($json2 as $item)
                                                                 <option value="{{ $item->name }}">{{ $item->name }} - ${{ $item->price }}</option>
                                                             @endforeach
-                                                        </select>
+                                                        </select> --}}
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
