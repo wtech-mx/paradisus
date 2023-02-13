@@ -78,6 +78,8 @@
                                             {{-- @include('notas.show') --}}
                                             @if ($notas->cancelado == 1)
                                             <tr style="background-color: #e70f0f40;">
+                                            @elseif ($notas->anular == 1)
+                                            <tr style="background-color: #e7ad0f40;">
                                             @else
                                             <tr>
                                             @endif

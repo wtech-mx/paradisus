@@ -311,6 +311,7 @@ class NotasController extends Controller
 
         $nota = Notas::find($id);
         $nota->cancelado = $request->get('cancelado');
+        $nota->anular = $request->get('anular');
         $nota->id_client = $request->get('id_client');
         $nota->nota = $request->get('nota');
         $nota->update();

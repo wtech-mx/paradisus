@@ -30,11 +30,17 @@ class CajaController extends Controller
             $caja=$caja->ingresos;
         }
 
-        $pago = Pagos::where('fecha', '=', $fechaActual)
-        ->where('forma_pago', '=', 'Efectivo')->get();
-        $pago_suma = Pagos::where('fecha', '=', $fechaActual)
-        ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(pago) as total'))
+        $pago = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)
+        ->where('pagos.forma_pago', '=', 'Efectivo')
+        ->where('notas.anular', '=', NULL)
+        ->get();
+
+        $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)
+        ->where('pagos.forma_pago', '=', 'Efectivo')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.pago) as total'))
         ->first();
 
         $pago_pedidos = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Efectivo')->get();
@@ -102,10 +108,17 @@ class CajaController extends Controller
         }else{
             $caja_final2=$caja_final->ingresos;
         }
-        $pago = Pagos::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Efectivo')->get();
-        $pago_suma = Pagos::where('fecha', '=', $diaActual)
-        ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(pago) as total'))
+        $pago = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $diaActual)
+        ->where('pagos.forma_pago', '=', 'Efectivo')
+        ->where('notas.anular', '=', NULL)
+        ->get();
+
+        $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $diaActual)
+        ->where('pagos.forma_pago', '=', 'Efectivo')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.pago) as total'))
         ->first();
 
         $pago_pedidos = NotasPedidos::where('fecha', '=', $diaActual)->where('metodo_pago', '=', 'Efectivo')->get();
@@ -133,8 +146,10 @@ class CajaController extends Controller
 
         $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->get();
 
-        $servicios = Pagos::where(DB::raw('fecha'), '=', $diaActual)
-        ->where('forma_pago', '=', 'Efectivo')
+        $servicios = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where(DB::raw('pagos.fecha'), '=', $diaActual)
+        ->where('pagos.forma_pago', '=', 'Efectivo')
+        ->where('notas.anular', '=', NULL)
         ->get();
 
         $productos = NotasPedidos::where(DB::raw('fecha'), '=', $diaActual)
@@ -150,16 +165,9 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(total) as total'))
         ->first();
 
-        $pago_suma = Pagos::where('fecha', '=', $diaActual)
-        ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(pago) as total'))
-        ->first();
-
         $notas_paquetes = NotasPaquetes::get();
 
         $notas_propinas = NotasPropinas::get();
-
-
 
         $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja_final2', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
         // return $pdf->stream();
@@ -172,17 +180,22 @@ class CajaController extends Controller
         $fechaActual = date('Y-m-d');
         $today =  date('d-m-Y');
 
-        $total_servicios_trans = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Transferencia')->get();
-        $total_servicios_mercado = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
-        $total_servicios_tarjeta = Pagos::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Tarjeta')->get();
+        $total_servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)->where('pagos.forma_pago', '=', 'Transferencia')->where('notas.anular', '=', NULL)->get();
+        $total_servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)->where('pagos.forma_pago', '=', 'Mercado Pago')->where('notas.anular', '=', NULL)->get();
+        $total_servicios_tarjeta = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)->where('pagos.forma_pago', '=', 'Tarjeta')->where('notas.anular', '=', NULL)->get();
 
         $total_producto_trans = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Transferencia')->get();
         $total_producto_mercado = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Mercado Pago')->get();
         $total_producto_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Tarjeta')->get();
 
-        $servicios_trans = Pagos::where('fecha', '=', $fechaActual)
-        ->where('forma_pago', '=', 'Transferencia')
-        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        $servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)
+        ->where('pagos.forma_pago', '=', 'Transferencia')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.pago) as total'), DB::raw('count(*) as filas'))
         ->first();
 
         $productos_trans = NotasPedidos::where('fecha', '=', $fechaActual)
@@ -193,9 +206,11 @@ class CajaController extends Controller
         $suma_pago_trans = $servicios_trans->total + $productos_trans->total;
         $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas;
 
-        $servicios_mercado = Pagos::where('fecha', '=', $fechaActual)
-        ->where('forma_pago', '=', 'Mercado Pago')
-        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        $servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)
+        ->where('pagos.forma_pago', '=', 'Mercado Pago')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.pago) as total'), DB::raw('count(*) as filas'))
         ->first();
 
         $productos_mercado = NotasPedidos::where('fecha', '=', $fechaActual)
@@ -206,9 +221,11 @@ class CajaController extends Controller
         $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total;
         $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas;
 
-        $servicios_tarjeta = Pagos::where('fecha', '=', $fechaActual)
-        ->where('forma_pago', '=', 'Tarjeta')
-        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        $servicios_tarjeta = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $fechaActual)
+        ->where('pagos.forma_pago', '=', 'Tarjeta')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.pago) as total'), DB::raw('count(*) as filas'))
         ->first();
 
         $productos_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)

@@ -59,17 +59,40 @@
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="modal-body">
                                     <div class="tab-content">
-                                        @if ($notas->cancelado == 1)
-                                                <div class="form-check">
-                                                    <label class="custom-control-label" for="cancelado" style="font-size: 15px;">cancelar</label>
-                                                    <input class="form-check-input" type="checkbox" name="cancelado" id="cancelado" value="{{$notas->cancelado}}" checked>
+                                        <div class="row">
+                                            <div class="col-3"></div>
+                                            <div class="col-3">
+                                                <div class="form-group mt-3">
+                                                    @if ($notas->cancelado == 1)
+                                                            <div class="form-check">
+                                                                <label class="custom-control-label" for="cancelado" style="font-size: 15px;">Cancelar Nota</label>
+                                                                <input class="form-check-input" type="checkbox" name="cancelado" id="cancelado" value="{{$notas->cancelado}}" checked>
+                                                            </div>
+                                                        @else
+                                                            <div class="form-check">
+                                                                <label class="custom-control-label" for="cancelado" style="font-size: 15px;">Cancelar Nota</label>
+                                                                <input class="form-check-input" type="checkbox" name="cancelado" id="cancelado" value="1">
+                                                            </div>
+                                                    @endif
                                                 </div>
-                                            @else
-                                                <div class="form-check">
-                                                    <label class="custom-control-label" for="cancelado" style="font-size: 15px;">cancelar</label>
-                                                    <input class="form-check-input" type="checkbox" name="cancelado" id="cancelado" value="1">
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group mt-3">
+                                                    @if ($notas->anular == 1)
+                                                            <div class="form-check">
+                                                                <label class="custom-control-label" for="anular" style="font-size: 15px;">Anular Nota</label>
+                                                                <input class="form-check-input" type="checkbox" name="anular" id="anular" value="{{$notas->anular}}" checked>
+                                                            </div>
+                                                        @else
+                                                            <div class="form-check">
+                                                                <label class="custom-control-label" for="anular" style="font-size: 15px;">Anular Nota</label>
+                                                                <input class="form-check-input" type="checkbox" name="anular" id="anular" value="1">
+                                                            </div>
+                                                    @endif
                                                 </div>
-                                        @endif
+                                            </div>
+                                        </div>
+
                                         <input class="" type="hidden" name="id_notas_cosmes" id="id_notas_cosmes" value="{{ $notas->NotasCosmes->id }}">
                                         <div class="tab-pane fade in active show" id="servicioedit{{$notas->id}}">
                                             <div class="form-group">
