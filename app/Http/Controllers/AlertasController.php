@@ -54,7 +54,6 @@ class AlertasController extends Controller
         $datosEvento = new Alertas;
         $datosEvento->start = $request->start;
         $datosEvento->end = $request->end;
-        $datosEvento = $request->id_especialist;
         $datosEvento->image = $request->image;
         $datosEvento->id_client = $request->id_client;
         $datosEvento->title = $datosEvento->Client->name;
@@ -72,6 +71,18 @@ class AlertasController extends Controller
 
         $datosEvento->save();
 
+        // G U A R D A R  C O S M E S
+        $id_especialist = $request->get('id_especialist');
+        for ($count = 0; $count < count($id_especialist); $count++) {
+            $data = array(
+                'id_alerta' => $datosEvento->id,
+                'id_user' => $id_especialist[$count],
+            );
+            $insert_data2[] = $data;
+        }
+
+        AlertasCosmes::insert($insert_data2);
+
         $alert = Alertas::orderBy('id', 'desc')->first();
         $cita = Alertas::find($alert->id);
         $cita->color = $alert->Servicios->color;
@@ -83,12 +94,14 @@ class AlertasController extends Controller
     {
         //Trae datos de db to jason
         $json2 = $data2['alertas'] = Alertas::all();
+        $json3 = $data3['alertas_cosmes'] = AlertasCosmes::all();
 
         //los convieerte en array
         $decode2 = json_decode($json2);
+        $decode3 = json_decode($json3);
 
         //Une los array en uno solo
-        $resultado = array_merge($decode2);
+        $resultado = array_merge($decode2,$decode3);
 
         //retorna a la vista sn json
         return response()->json($resultado);
@@ -101,7 +114,6 @@ class AlertasController extends Controller
         $datosEvento->end = $request->end;
         $datosEvento->image = $request->image;
         $datosEvento->id_client = $request->id_client;
-        $datosEvento->id_especialist = $request->id_especialist;
         $datosEvento->title = $datosEvento->Client->name;
         $datosEvento->telefono = $datosEvento->Client->phone;
         $datosEvento->resource_id = $request->resource_id;
@@ -110,6 +122,16 @@ class AlertasController extends Controller
         $datosEvento->color = $datosEvento->Servicios->color;
 
         $datosEvento->update();
+
+        // G U A R D A R  C O S M E S
+        $id_especialist = $request->get('id_especialist');
+        for ($count = 0; $count < count($id_especialist); $count++) {
+            $data = array(
+                'id_alerta' => $datosEvento->id,
+                'id_user' => $id_especialist[$count],
+            );
+            $insert_data2[] = $data;
+        }
 
         // if ($datosEvento->check == 2){
         //     $controlpagos = new Controlpagos;
