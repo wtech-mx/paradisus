@@ -463,7 +463,7 @@
                                                     <div class="col-5">
                                                         <div class="form-group">
                                                             <label for="nota">Nota</label>
-                                                            <textarea class="form-control" id="nota2" name="nota2" rows="1" disabled>{{$item->nota}}</textarea>
+                                                            <textarea class="form-control" id="nota3" name="nota3" rows="1" disabled>{{$item->nota}}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -486,7 +486,7 @@
                                                 <div class="col-5">
                                                     <div class="form-group">
                                                         <label for="nota">Nota</label>
-                                                        <textarea class="form-control" id="nota2" name="nota2" rows="1"></textarea>
+                                                        <textarea class="form-control" id="nota3" name="nota3" rows="1"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
