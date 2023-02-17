@@ -165,6 +165,19 @@
                                                             </div>
                                                     @endif
                                                 </div>
+                                                <div class="col-1">
+                                                    @if ($notas->Paquetes->descuento_50 == 1)
+                                                            <div class="form-check">
+                                                                <label class="custom-control-label" for="descuento_50" style="font-size: 15px;">50%</label><br>
+                                                                <input class="form-check-input" type="checkbox" name="descuento_50" id="descuento_50" value="{{$notas->Paquetes->descuento_50}}" checked >
+                                                            </div>
+                                                        @else
+                                                            <div class="form-check">
+                                                                <label class="custom-control-label" for="descuento_50" style="font-size: 15px;">5%</label><br>
+                                                                <input class="form-check-input" type="checkbox" name="descuento_50" id="descuento_50" value="1" >
+                                                            </div>
+                                                    @endif
+                                                </div>
                                             </div>
 
                                             {{-- M A S  S E R V I C I O S --}}
@@ -218,6 +231,19 @@
                                                                 </div>
                                                         @endif
                                                     </div>
+                                                    <div class="col-1">
+                                                        @if ($notas->Paquetes->descuento2_50 == 1)
+                                                                <div class="form-check">
+                                                                    <label class="custom-control-label" for="descuento2_50" style="font-size: 15px;">50%</label><br>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento2_50" id="descuento2_50" value="{{$notas->Paquetes->descuento2_50}}" checked >
+                                                                </div>
+                                                            @else
+                                                                <div class="form-check">
+                                                                    <label class="custom-control-label" for="descuento2_50" style="font-size: 15px;">5%</label><br>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento2_50" id="descuento2_50" value="1" >
+                                                                </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 {{-- T R E S  S E R V I C I O  --}}
                                                 <div class="row">
@@ -268,6 +294,19 @@
                                                                 </div>
                                                         @endif
                                                     </div>
+                                                    <div class="col-1">
+                                                        @if ($notas->Paquetes->descuento3_50 == 1)
+                                                                <div class="form-check">
+                                                                    <label class="custom-control-label" for="descuento3_50" style="font-size: 15px;">50%</label><br>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento3_50" id="descuento3_50" value="{{$notas->Paquetes->descuento3_50}}" checked >
+                                                                </div>
+                                                            @else
+                                                                <div class="form-check">
+                                                                    <label class="custom-control-label" for="descuento3_50" style="font-size: 15px;">5%</label><br>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento3_50" id="descuento3_50" value="1" >
+                                                                </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 {{-- C U A T R O  S E R V I C I O  --}}
                                                 <div class="row">
@@ -315,6 +354,19 @@
                                                                 <div class="form-check">
                                                                     <label class="custom-control-label" for="descuento4_5" style="font-size: 15px;">5%</label><br>
                                                                     <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="1" >
+                                                                </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-1">
+                                                        @if ($notas->Paquetes->descuento4_50 == 1)
+                                                                <div class="form-check">
+                                                                    <label class="custom-control-label" for="descuento4_50" style="font-size: 15px;">50%</label><br>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento4_50" id="descuento4_50" value="{{$notas->Paquetes->descuento4_50}}" checked >
+                                                                </div>
+                                                            @else
+                                                                <div class="form-check">
+                                                                    <label class="custom-control-label" for="descuento4_50" style="font-size: 15px;">50%</label><br>
+                                                                    <input class="form-check-input" type="checkbox" name="descuento4_50" id="descuento4_50" value="1" >
                                                                 </div>
                                                         @endif
                                                     </div>
@@ -556,6 +608,7 @@
                                                                 <option value="Transferencia">Transferencia</option>
                                                                 <option value="Mercado Pago">Mercado Pago</option>
                                                                 <option value="Tarjeta">Tarjeta</option>
+                                                                <option value="Gift Card">Gift Card</option>
                                                             </select>
                                                         </div>
                                                     </div>

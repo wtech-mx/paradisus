@@ -130,7 +130,7 @@
                                                     +
                                                 </button>
                                             </div>
-                                            <div class="col-7">
+                                            <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="precio">Servicio</label><br>
                                                     <select class="form-control servicio" data-toggle="select" id="id_servicio" name="id_servicio">
@@ -149,14 +149,20 @@
                                             </div>
                                             <div class="col-1">
                                                 <div class="form-check">
-                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">10%</label>
+                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">10%</label><br>
                                                     <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="1">
                                                 </div>
                                             </div>
                                             <div class="col-1">
                                                 <div class="form-check">
-                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">5%</label>
+                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">5%</label><br>
                                                     <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1">
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="form-check">
+                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">50%</label><br>
+                                                    <input class="form-check-input" type="checkbox" name="descuento_50" id="descuento_50" value="1">
                                                 </div>
                                             </div>
                                         </div>
@@ -165,7 +171,7 @@
                                         <div class="collapse" id="collapseServicio">
                                             <div class="card card-body">
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 2</label><br>
                                                             <select class="form-control servicio2" data-toggle="select" id="servicio2" name="id_servicio2">
@@ -194,9 +200,15 @@
                                                             <input class="form-check-input" type="checkbox" name="descuento2_5" id="descuento2_5" value="1">
                                                         </div>
                                                     </div>
+                                                    <div class="col-1">
+                                                        <div class="form-check">
+                                                            <label class="custom-control-label" for="descuento2" style="font-size: 15px;">50%</label><br>
+                                                            <input class="form-check-input" type="checkbox" name="descuento2_50" id="descuento2_50" value="1">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 3</label><br>
                                                             <select class="form-control servicio3" data-toggle="select" id="servicio3" name="id_servicio3">
@@ -225,9 +237,15 @@
                                                             <input class="form-check-input" type="checkbox" name="descuento3_5" id="descuento3_5" value="1">
                                                         </div>
                                                     </div>
+                                                    <div class="col-1">
+                                                        <div class="form-check">
+                                                            <label class="custom-control-label" for="descuento3" style="font-size: 15px;">50%</label><br>
+                                                            <input class="form-check-input" type="checkbox" name="descuento3_50" id="descuento3_50" value="1">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 4</label><br>
                                                             <select class="form-control servicio4" id="servicio4" name="id_servicio4">
@@ -252,8 +270,14 @@
                                                     </div>
                                                     <div class="col-1">
                                                         <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento3" style="font-size: 15px;">5%</label><br>
+                                                            <label class="custom-control-label" for="descuento4" style="font-size: 15px;">5%</label><br>
                                                             <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <div class="form-check">
+                                                            <label class="custom-control-label" for="descuento4" style="font-size: 15px;">50%</label><br>
+                                                            <input class="form-check-input" type="checkbox" name="descuento4_50" id="descuento4_50" value="1">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -398,6 +422,7 @@
                                                             <option value="Transferencia">Transferencia</option>
                                                             <option value="Mercado Pago">Mercado Pago</option>
                                                             <option value="Tarjeta">Tarjeta</option>
+                                                            <option value="Gift Card">Gift Card</option>
                                                         </select>
                                                     </div>
                                                 </div>
