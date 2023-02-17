@@ -120,7 +120,7 @@
                                                 </select>
                                             </div>
                                             <div class="row">
-                                                <div class="col-8">
+                                                <div class="col-7">
                                                     <div class="form-group">
                                                         <label for="precio">Servicio</label>
                                                         <select class="form-control servedit serv-edit" id="id_servicio" name="id_servicio" data-toggle="select" data-id="{{ $notas->Paquetes->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
@@ -173,7 +173,7 @@
                                                             </div>
                                                         @else
                                                             <div class="form-check">
-                                                                <label class="custom-control-label" for="descuento_50" style="font-size: 15px;">5%</label><br>
+                                                                <label class="custom-control-label" for="descuento_50" style="font-size: 15px;">50%</label><br>
                                                                 <input class="form-check-input" type="checkbox" name="descuento_50" id="descuento_50" value="1" >
                                                             </div>
                                                     @endif
@@ -184,7 +184,7 @@
                                             <div class="card card-body">
                                                 {{-- D O S  S E R V I C I O  --}}
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 2</label><br>
                                                             <select class="form-control " data-toggle="select" id="servicio2" name="id_servicio2" >
@@ -239,7 +239,7 @@
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
-                                                                    <label class="custom-control-label" for="descuento2_50" style="font-size: 15px;">5%</label><br>
+                                                                    <label class="custom-control-label" for="descuento2_50" style="font-size: 15px;">50%</label><br>
                                                                     <input class="form-check-input" type="checkbox" name="descuento2_50" id="descuento2_50" value="1" >
                                                                 </div>
                                                         @endif
@@ -247,7 +247,7 @@
                                                 </div>
                                                 {{-- T R E S  S E R V I C I O  --}}
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 3</label><br>
                                                             <select class="form-control " data-toggle="select" id="servicio3" name="id_servicio3" >
@@ -302,7 +302,7 @@
                                                                 </div>
                                                             @else
                                                                 <div class="form-check">
-                                                                    <label class="custom-control-label" for="descuento3_50" style="font-size: 15px;">5%</label><br>
+                                                                    <label class="custom-control-label" for="descuento3_50" style="font-size: 15px;">50%</label><br>
                                                                     <input class="form-check-input" type="checkbox" name="descuento3_50" id="descuento3_50" value="1" >
                                                                 </div>
                                                         @endif
@@ -310,7 +310,7 @@
                                                 </div>
                                                 {{-- C U A T R O  S E R V I C I O  --}}
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 4</label><br>
                                                             <select class="form-control " id="servicio4" name="id_servicio4" >
