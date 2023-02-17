@@ -78,6 +78,7 @@ class NotasController extends Controller
         $nota->save();
 
         // G U A R D A R  S E R V I C I O
+
         $nota_paquete = new NotasPaquetes;
         $nota_paquete->id_nota = $nota->id;
         $nota_paquete->id_servicio = $request->get('id_servicio');
@@ -230,7 +231,7 @@ class NotasController extends Controller
             if($nota_reciente->Servicios3->act_descuento == 1){
                 $precio3 = $nota_reciente->Servicios3->descuento;
             }else{
-                $precio3 = $nota_reciente->Servicios3->precio3;
+                $precio3 = $nota_reciente->Servicios3->precio;
             }
             if($request->get('descuento3') == 1){
                 $mult = $precio3 * .10;
@@ -252,7 +253,7 @@ class NotasController extends Controller
             if($nota_reciente->Servicios4->act_descuento == 1){
                 $precio4 = $nota_reciente->Servicios4->descuento;
             }else{
-                $precio4 = $nota_reciente->Servicios4->precio3;
+                $precio4 = $nota_reciente->Servicios4->precio;
             }
             if($request->get('descuento4') == 1){
                 $mult = $precio4 * .10;
@@ -270,7 +271,6 @@ class NotasController extends Controller
                 $unitario4 = $precio4 * $nota_reciente->num4;
             }
         }else{$unitario4 = 0;}
-
         $total = $unitario + $unitario2 + $unitario3 + $unitario4;
 
 
@@ -488,7 +488,7 @@ class NotasController extends Controller
             if($nota_reciente->Servicios3->act_descuento == 1){
                 $precio3 = $nota_reciente->Servicios3->descuento;
             }else{
-                $precio3 = $nota_reciente->Servicios3->precio3;
+                $precio3 = $nota_reciente->Servicios3->precio;
             }
             if($request->get('descuento3') == 1){
                 $mult = $precio3 * .10;
@@ -510,7 +510,7 @@ class NotasController extends Controller
             if($nota_reciente->Servicios4->act_descuento == 1){
                 $precio4 = $nota_reciente->Servicios4->descuento;
             }else{
-                $precio4 = $nota_reciente->Servicios4->precio3;
+                $precio4 = $nota_reciente->Servicios4->precio;
             }
             if($request->get('descuento4') == 1){
                 $mult = $precio4 * .10;
