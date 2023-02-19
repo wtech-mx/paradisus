@@ -133,7 +133,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="precio">Servicio</label><br>
-                                                    <select class="form-control servicio" data-toggle="select" id="id_servicio" name="id_servicio">
+                                                    <select class="form-control servicio" data-toggle="select" id="id_servicio" name="id_servicio" required>
                                                         <option value="">Seleccionar servicio</option>
                                                         @foreach ($servicio as $item)
                                                             <option value="{{ $item->id }}">{{ $item->nombre }}</option>
