@@ -53,6 +53,8 @@ class NotasController extends Controller
         $this->validate($request, [
             'id_user' => 'required',
             'id_client' => 'required',
+            'id_servicio' => 'required',
+            'num' => 'required',
         ]);
 
         // N U E V O  U S U A R I O
