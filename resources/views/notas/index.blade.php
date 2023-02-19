@@ -96,7 +96,7 @@
                                                     <td>
                                                         @foreach($notas_paquetes as $item)
                                                             @if ($item->id_nota == $notas->id)
-                                                                @if($item->id_servicio2 != NULL || $item->id_servicio2 != 0)
+                                                                @if($item->id_servicio != NULL || $item->id_servicio != 0)
                                                                     SN
                                                                 @else
                                                                     {{$item->Servicios->nombre}}<br>
