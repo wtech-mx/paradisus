@@ -97,9 +97,9 @@
                                                         @foreach($notas_paquetes as $item)
                                                             @if ($item->id_nota == $notas->id)
                                                                 @if($item->id_servicio != NULL || $item->id_servicio != 0)
-                                                                    SN
+                                                                {{$item->Servicios->nombre}}<br>
                                                                 @else
-                                                                    {{$item->Servicios->nombre}}<br>
+                                                                SN
                                                                 @endif
                                                                 @if($item->id_servicio2 != NULL || $item->id_servicio2 != 0)
                                                                     {{$item->Servicios2->nombre}}<br>
