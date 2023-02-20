@@ -91,6 +91,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('/notas/pedidos/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update'])->name('notas_pedidos.update');
     Route::delete('/notas/pedidos/delete/{id}', [App\Http\Controllers\NotasPedidoController::class, 'destroy'])->name('notas_pedidos.destroy');
 
+        // =============== M O D U L O   PAQUETES ===============================
+        Route::get('/paquetes/pedidos', [App\Http\Controllers\PaquetesContollerpaquetes::class, 'index'])->name('paquetes_pedidos.index');
+        Route::get('/paquetes/pedidos/create/paquete_uno', [App\Http\Controllers\PaquetesContollerpaquetes::class, 'create_uno'])->name('create_paquete_uno.create_uno');
+        Route::post('/paquetes/pedidos/store', [App\Http\Controllers\PaquetesContollerpaquetes::class, 'store'])->name('paquetes_pedidos.store');
+        Route::patch('/paquetes/pedidos/update/{id}', [App\Http\Controllers\PaquetesContollerpaquetes::class, 'update'])->name('paquetes_pedidos.update');
+        Route::delete('/paquetes/pedidos/delete/{id}', [App\Http\Controllers\PaquetesContollerpaquetes::class, 'destroy'])->name('paquetes_pedidos.destroy');
+
     // =============== M O D U L O   C A J A ===============================
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
