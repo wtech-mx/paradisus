@@ -48,11 +48,11 @@
 
 
         <li class="nav-item">
-          <a class="nav-link {{ (Request::is('paquetes/pedidos*') ? 'active' : '') }}" href="{{ route('paquetes_pedidos.index') }}" target="">
+          <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" href="{{ route('paquetes_pedidos.index') }}" target="">
             <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
              <i class="ni ni-basket text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
-            <span class="nav-link-text ms-1">paquetes </span>
+            <span class="nav-link-text ms-1">Paquetes </span>
           </a>
         </li>
 

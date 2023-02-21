@@ -129,6 +129,9 @@
                                                             @can('notas-edit')
                                                                 <a class="btn btn-sm btn-success" href="{{ route('notas.edit',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                             @endcan
+                                                            @if ($notas->paquete == 1)
+                                                                <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button>
+                                                            @endif
                                                             @can('notas-delete')
                                                                 <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents;">
                                                                     @csrf

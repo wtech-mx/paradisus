@@ -20,11 +20,6 @@ return new class extends Migration
                 ->references('id')->on('clients')
                 ->inDelete('set null');
 
-            $table->unsignedBigInteger('id_servicio');
-            $table->foreign('id_servicio')
-                ->references('id')->on('servicios')
-                ->inDelete('set null');
-
             $table->date('fecha')->nullable();
             $table->float('restante')->nullable();
             $table->text('nota')->nullable();

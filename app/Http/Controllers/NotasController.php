@@ -12,7 +12,11 @@ use App\Models\NotasPropinas;
 use App\Models\NotasPaquetes;
 use App\Models\NotasSesion;
 use App\Models\Pagos;
+use App\Models\Paquetes;
+use App\Models\Paquete2;
+use App\Models\Paquete3;
 use App\Models\Servicios;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class NotasController extends Controller
@@ -79,8 +83,9 @@ class NotasController extends Controller
         $nota->nota = $request->get('nota');
         $nota->save();
 
-        // G U A R D A R  S E R V I C I O
 
+
+        // G U A R D A R  S E R V I C I O
         $nota_paquete = new NotasPaquetes;
         $nota_paquete->id_nota = $nota->id;
         $nota_paquete->id_servicio = $request->get('id_servicio');
@@ -176,6 +181,27 @@ class NotasController extends Controller
         $suma_extra = 0;
         foreach($notas_extra as $item){
             $suma_extra = $suma_extra + $item->precio;
+        }
+
+        // G U A R D A R  P A Q U E T E S
+        if($request->get('flexRadioDefault') != NULL){
+            $paquetes = new Paquetes;
+            $paquetes->num_paquete = $request->get('flexRadioDefault');
+            $paquetes->id_client = $nota->id_client;
+            $paquetes->fecha_inicial = $nota->fecha;
+            $paquetes->save();
+
+            $paquetes2 = new Paquete2;
+            $paquetes2->id_paquete = $paquetes->id;
+            $paquetes2->save();
+
+            $paquetes3 = new Paquete3;
+            $paquetes3->id_paquete = $paquetes->id;
+            $paquetes3->save();
+
+            $nota_paquete = Notas::find($nota->id);
+            $nota_paquete->paquete = 1;
+            $nota_paquete->update();
         }
 
         // G U A R D A R  T O T A L  S E R V I C I O

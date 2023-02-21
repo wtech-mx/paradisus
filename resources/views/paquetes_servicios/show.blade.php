@@ -18,7 +18,7 @@
 
                             <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn primary text-center" href="{{ route('create_paquete_uno.create_uno') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    <a class="btn primary text-center" href="{{ route('create_paquete_uno.create_uno') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                         Tu figura Ideal c/Aparatología
                                     </a>
                                 </div>
@@ -26,7 +26,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Lipoescultura s/cirugía
                                 </a>
                                  </div>
@@ -34,7 +34,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Moldeante & Reductivo
                                 </a>
                                  </div>
@@ -42,7 +42,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Drenante & Linfático
                                 </a>
                                  </div>
@@ -50,7 +50,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Tu figura Ideal c/Aparatología
                                 </a>
                                  </div>
@@ -58,7 +58,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Glúteos Definido & Perfectos
                                 </a>
                                  </div>

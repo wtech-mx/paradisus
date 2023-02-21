@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Client;
-
+use App\Models\Paquetes;
 use Session;
 
 class PaquetesContollerpaquetes extends Controller
@@ -18,7 +18,9 @@ class PaquetesContollerpaquetes extends Controller
      */
     public function index()
     {
-        return view('paquetes_pedidos.index');
+        $paquetes = Paquetes::orderBy('id','DESC')->get();
+
+        return view('paquetes_servicios.index', compact('paquetes'));
     }
 
     public function create_uno()
@@ -26,7 +28,7 @@ class PaquetesContollerpaquetes extends Controller
         $client = Client::orderBy('name','ASC')->get();
         $user = User::get();
 
-        return view('paquetes_pedidos.paqute_1',compact('client', 'user'));
+        return view('paquetes_servicios.paqute_1',compact('client', 'user'));
     }
 
 
