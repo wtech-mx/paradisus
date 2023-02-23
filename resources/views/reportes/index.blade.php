@@ -20,60 +20,71 @@
             {{-- =============== C A R D   S E R V I C I O S =============================== --}}
             <div class="col-sm-12 mb-5">
                 <div class="card">
+
                     <div class="card-header">
+
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-
                             <span id="card_title">
-                               Notas
+                               <strong>
+                                Reportes
+                               </strong>
                             </span>
-
-                            <form action="{{ route('advance_search') }}" method="GET" >
-                                @can('client-create')
-                                    <button class="btn btn-sm mb-0 mt-sm-0 mt-1" type="submit" style="background-color: #F82018; color: #ffffff;">Buscar</button>
-                                    <a type="button" class="btn btn-sm bg-gradient-success" href="{{ route('reporte.index') }}"><i class="fa fa-cash"></i> Limpiar</a>
-                                @endcan
-
-                                <div class="col-8">
-                                    <label class="form-label">Del</label>
-                                    <div class="input-group">
-                                        <input name="fecha" class="form-control"
-                                            type="date" >
-                                    </div>
-                                </div>
-                                <div class="col-8">
-                                    <label class="form-label">Al</label>
-                                    <div class="input-group">
-                                        <input  name="fecha2" type="date" class="form-control" >
-                                    </div>
-                                </div>
-
-                                <div class="col-8">
-                                    <label class="form-label">Tipo</label>
-                                    <div class="input-group">
-                                        <select class="form-control" name="tipo" id="tipo">
-                                            <option value="" selected>Todos</option>
-                                            <option value="NOTA SERVICIO">NOTA SERVICIO</option>
-                                            <option value="NOTA PRODUCTOS">NOTA PRODUCTOS</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-8">
-                                    <label class="form-label">Pago</label>
-                                    <div class="input-group">
-                                        <select class="form-control" name="metodo_pago" id="metodo_pago">
-                                            <option value="" selected>Todos</option>
-                                            <option value="Mercado Pago">Mercado Pago</option>
-                                            <option value="Transferencia">Transferencia</option>
-                                            <option value="Efectivo">Efectivo</option>
-                                            <option value="Gift Card">Gift Card</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
 
+                        <form class="row mt-5" action="{{ route('advance_search') }}" method="GET" >
+
+                            <div class="col-2 ml-3">
+                                <label class="form-label">Del</label>
+                                <div class="input-group">
+                                    <input name="fecha" class="form-control"
+                                        type="date" >
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <label class="form-label">Al</label>
+                                <div class="input-group">
+                                    <input  name="fecha2" type="date" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <label class="form-label">Tipo</label>
+                                <div class="input-group">
+                                    <select class="form-control" name="tipo" id="tipo">
+                                        <option value="" selected>Todos</option>
+                                        <option value="NOTA SERVICIO">NOTA SERVICIO</option>
+                                        <option value="NOTA PRODUCTOS">NOTA PRODUCTOS</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <label class="form-label">Pago</label>
+                                <div class="input-group">
+                                    <select class="form-control" name="metodo_pago" id="metodo_pago">
+                                        <option value="" selected>Todos</option>
+                                        <option value="Mercado Pago">Mercado Pago</option>
+                                        <option value="Transferencia">Transferencia</option>
+                                        <option value="Efectivo">Efectivo</option>
+                                        <option value="Gift Card">Gift Card</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                            @can('client-create')
+                                <button class="btn btn-sm mt-4" type="submit" style="background-color: #F82018; color: #ffffff;">Buscar</button>
+                                <a type="button" class="btn btn-sm mt-4 bg-gradient-success" href="{{ route('reporte.index') }}"><i class="fa fa-cash"></i> Limpiar</a>
+                            @endcan
+                            </div>
+                        </form>
                     </div>
+
+
+
+
+
+
 
 
 
