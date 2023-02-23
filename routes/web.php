@@ -116,6 +116,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte', [App\Http\Controllers\ReporteController::class, 'index'])->name('reporte.index');
     Route::get('/reporte/imprimir/serv', [App\Http\Controllers\ReporteController::class, 'imprimir_serv'])->name('reporte.print_serv');
     Route::get('/reporte/imprimir/prod', [App\Http\Controllers\ReporteController::class, 'imprimir_prod'])->name('reporte.print_prod');
+    Route::get('/reporte/advance', [App\Http\Controllers\ReporteController::class, 'advance'])->name('advance_search');
 });
 
 

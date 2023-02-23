@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\NotasPedidos;
 use App\Models\Pedido;
+use App\Models\Reporte;
 use App\Models\User;
 use Codexshaper\WooCommerce\Models\Product;
 use Session;
@@ -146,6 +147,16 @@ class NotasPedidoController extends Controller
         $nota->total = $sum;
         $nota->update();
 
+        $reporte = new Reporte;
+        $reporte->id_producto = $nota->id;
+        $reporte->fecha = $nota->fecha;
+        $reporte->tipo = 'NOTA PRODUCTOS';
+        $reporte->id_client = $nota->id_client;
+        $reporte->metodo_pago = $nota->metodo_pago;
+        $reporte->monto = $nota->total;
+        $reporte->restante = 0;
+        $reporte->save();
+
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('notas_pedidos.index')
                         ->with('success','Nota Productos Creado.');
@@ -203,6 +214,16 @@ class NotasPedidoController extends Controller
         $sum =array_sum($importe) + $nota->total;
         $nota->total = $sum;
         $nota->update();
+
+        $reporte = new Reporte;
+        $reporte->id_producto = $nota->id;
+        $reporte->fecha = $nota->fecha;
+        $reporte->tipo = 'NOTA PRODUCTOS';
+        $reporte->id_client = $nota->id_client;
+        $reporte->metodo_pago = $nota->forma_pago;
+        $reporte->monto = $nota->total;
+        $reporte->restante = 0;
+        $reporte->save();
 
         return redirect()->route('notas_pedidos.index')
         ->with('edit','Nota Productos Actualizado.');

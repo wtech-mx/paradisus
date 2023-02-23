@@ -23,10 +23,7 @@ class ReporteController extends Controller
     public function index()
     {
         $añoActual = date('Y');
-
-        $caja = Caja::get();
-        $pago = Pagos::get();
-        $pago_pedidos = NotasPedidos::get();
+        $diaActual = date('d');
 
         $pedidos_total = NotasPedidos::
         where(DB::raw("DATE_FORMAT(fecha,'%Y')"), '=', $añoActual)
@@ -38,12 +35,40 @@ class ReporteController extends Controller
         ->select(DB::raw('count(*) as filas'))
         ->first();
 
-        $clientes_total = Client::
-        where(DB::raw("DATE_FORMAT(created_at,'%Y')"), '=', $añoActual)
+        $reporte = Reporte::get();
+
+        return view('reportes.index', compact('pedidos_total', 'servicios_total', 'reporte'));
+    }
+
+    public function advance(Request $request) {
+        $reporte = DB::table('reporte');
+   
+        if( $request->fecha != NULL && $request->fecha2 != NULL){
+            $reporte = $reporte->where('fecha', '>=', $request->fecha)
+                                ->where('fecha', '<=', $request->fecha2);
+        }
+        if( $request->tipo){
+            $reporte = $reporte->where('tipo', 'LIKE', "%" . $request->tipo . "%");
+        }
+        if( $request->metodo_pago){
+            $reporte = $reporte->where('metodo_pago', 'LIKE', "%" . $request->metodo_pago . "%");
+        }
+        $reporte = $reporte->paginate(10);
+
+        $añoActual = date('Y');
+        $diaActual = date('d');
+
+        $pedidos_total = NotasPedidos::
+        where(DB::raw("DATE_FORMAT(fecha,'%Y')"), '=', $añoActual)
         ->select(DB::raw('count(*) as filas'))
         ->first();
 
-        return view('reportes.index', compact('añoActual' ,'caja', 'pago', 'pago_pedidos', 'pedidos_total', 'servicios_total', 'clientes_total'));
+        $servicios_total = Notas::
+        where(DB::raw("DATE_FORMAT(fecha,'%Y')"), '=', $añoActual)
+        ->select(DB::raw('count(*) as filas'))
+        ->first();
+
+        return view('reportes.index', compact('reporte', 'pedidos_total', 'servicios_total'));
     }
 
     public function imprimir_serv(){

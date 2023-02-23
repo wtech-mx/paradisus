@@ -20,7 +20,7 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
-
+  @yield('css')
    <!-- Select2  -->
    <link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css')}}">
 

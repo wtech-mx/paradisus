@@ -15,6 +15,7 @@ use App\Models\Pagos;
 use App\Models\Paquetes;
 use App\Models\Paquete2;
 use App\Models\Paquete3;
+use App\Models\Reporte;
 use App\Models\Servicios;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -311,6 +312,17 @@ class NotasController extends Controller
         $nota_pago->restante = $restante;
         $nota_pago->update();
 
+        // G U A R D A R  R E P O R T E
+        $reporte = new Reporte;
+        $reporte->id_nota = $nota->id;
+        $reporte->fecha = $nota->fecha;
+        $reporte->tipo = 'NOTA SERVICIO';
+        $reporte->id_client = $nota->id_client;
+        $reporte->metodo_pago = $pago->forma_pago;
+        $reporte->monto = $nota_pago->precio;
+        $reporte->restante = $nota_pago->restante;
+        $reporte->save();
+
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('notas.index')
                         ->with('success','Nota Servicio Creado.');
@@ -567,6 +579,20 @@ class NotasController extends Controller
         $nota_pago->precio = $total;
         $nota_pago->restante = $restante;
         $nota_pago->update();
+
+        $pago_reciente = Pagos::where('id_nota', '=', $nota->id)->orderBy('id','DESC')->first();
+        // G U A R D A R  R E P O R T E
+        if($nota->anular != 1){
+            $reporte = new Reporte;
+            $reporte->id_nota = $nota->id;
+            $reporte->fecha = $nota->fecha;
+            $reporte->tipo = 'NOTA SERVICIO';
+            $reporte->id_client = $nota->id_client;
+            $reporte->metodo_pago = $pago_reciente->forma_pago;
+            $reporte->monto = $nota_pago->precio;
+            $reporte->restante = $nota_pago->restante;
+            $reporte->save();
+        }
 
         return redirect()->route('notas.index')
         ->with('edit','Nota Servicio Actualizado.');
