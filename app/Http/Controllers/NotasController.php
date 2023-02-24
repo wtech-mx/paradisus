@@ -291,7 +291,7 @@ class NotasController extends Controller
         // G U A R D A R  R E P O R T E
         $reporte = new Reporte;
         $reporte->id_nota = $nota->id;
-        $reporte->fecha = $nota->fecha;
+        $reporte->fecha = $pago->fecha;
         $reporte->tipo = 'NOTA SERVICIO';
         $reporte->id_client = $nota->id_client;
         $reporte->metodo_pago = $pago->forma_pago;

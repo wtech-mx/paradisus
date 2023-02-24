@@ -90,40 +90,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="row mt-3">
-                                            <h6 for="precio">Ficha Clínica</h6><br>
-                                            <div class="col-2">
-                                                <div class="form-check mb-3">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="customRadio1" value="1">
-                                                    <label class="custom-control-label" for="customRadio1">figura Ideal c/Aparatología</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                              <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="customRadio2" value="2">
-                                                <label class="custom-control-label" for="customRadio2">Lipoescultura s/Cirugía</label>
-                                              </div>
-                                            </div>
-                                            <div class="col-2">
-                                              <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="customRadio3" value="3">
-                                                <label class="custom-control-label" for="customRadio3">Moldeante & Reductivo</label>
-                                              </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-check mb-3">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="customRadio4" value="4">
-                                                    <label class="custom-control-label" for="customRadio4">Drenante & Linfático</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                              <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="customRadio5" value="5">
-                                                <label class="custom-control-label" for="customRadio5">Glúteos Definido & Perfectos</label>
-                                              </div>
-                                            </div>
-                                        </div>
-
                                         <div class="form-group">
                                             <div class="collapse" id="collapseExample">
                                                 <div class="card card-body">
