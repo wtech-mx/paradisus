@@ -54,6 +54,7 @@
                                         <option value="" selected>Todos</option>
                                         <option value="NOTA SERVICIO">NOTA SERVICIO</option>
                                         <option value="NOTA PRODUCTOS">NOTA PRODUCTOS</option>
+                                        <option value="NOTA PAQUETE">NOTA PAQUETE</option>
                                     </select>
                                 </div>
                             </div>
@@ -98,6 +99,7 @@
                                             <th class="text-center">Fecha</th>
                                             <th class="text-center">Num Nota</th>
                                             <th class="text-center">Tipo</th>
+                                            <th class="text-center">Total</th>
                                             <th class="text-center">Monto</th>
                                             <th class="text-center">Restante</th>
                                             <th class="text-center">Metodo de Pago</th>
@@ -111,24 +113,19 @@
                                                 @if ($item->tipo == 'NOTA SERVICIO')
                                                 <td>{{ $item->id_nota }}</td>
                                                 <td> <label class="badge" style="color: #7500e3;background-color: #7500e36c;">NOTA SERVICIO</label> </td>
-                                                @else
+                                                @elseif ($item->tipo == 'NOTA PRODUCTOS')
                                                 <td>{{ $item->id_producto }}</td>
                                                 <td> <label class="badge" style="color: #004fe3;background-color: #0062e36c;">NOTA PRODUCTOS</label> </td>
+                                                @else
+                                                <td>{{ $item->id_paquete }}</td>
+                                                <td> <label class="badge" style="color: #e300aa;background-color: #e3009f6c;">NOTA PAQUETE</label> </td>
                                                 @endif
                                                 <td>${{ $item->monto }}</td>
+                                                <td>${{ $item->pago }}</td>
                                                 <td><b>${{ $item->restante }}</b></td>
                                                 <td><b>{{ $item->metodo_pago }}</b></td>
                                             </tr>
                                         @endforeach
-                                        {{-- @foreach ($pedidos_dia as $item)
-                                        <tr>
-                                            <td>{{ $item->fecha }}</td>
-                                            <td>{{ $item->id }}</td>
-                                            <td> <label class="badge" style="color: #0017e3;background-color: #002ae36c;">Nota Paquetes</label> </td>
-                                            <td>${{ $item->total }}</td>
-                                            <td><b>$0</b></td>
-                                        </tr>
-                                    @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
