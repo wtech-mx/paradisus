@@ -295,8 +295,8 @@ class NotasController extends Controller
         $reporte->tipo = 'NOTA SERVICIO';
         $reporte->id_client = $nota->id_client;
         $reporte->metodo_pago = $pago->forma_pago;
-        $reporte->precio = $nota_pago->precio;
-        $reporte->monto = $pago->pago;
+        $reporte->monto = $nota_pago->precio;
+        $reporte->pago = $pago->pago;
         $reporte->restante = $nota_pago->restante;
         $reporte->save();
 
@@ -566,8 +566,8 @@ class NotasController extends Controller
             $reporte->tipo = 'NOTA SERVICIO';
             $reporte->id_client = $nota->id_client;
             $reporte->metodo_pago = $pago_reciente->forma_pago;
-            $reporte->precio = $nota_pago->precio;
-            $reporte->monto = $pago_reciente->pago;
+            $reporte->monto = $nota_pago->precio;
+            $reporte->pago = $pago_reciente->pago;
             $reporte->restante = $nota_pago->restante;
             $reporte->save();
         }
