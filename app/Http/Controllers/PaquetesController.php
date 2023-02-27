@@ -42,6 +42,20 @@ class PaquetesController extends Controller
         return view('paquetes_servicios.paquete_1.edit',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
     }
 
+
+    public function firma_uno($id){
+
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::get();
+
+        return view('paquetes_servicios.paquete_1.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+
+    }
+
     public function create_dos()
     {
         $client = Client::orderBy('name','ASC')->get();
@@ -372,6 +386,26 @@ class PaquetesController extends Controller
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('paquetes_servicios.index')
             ->with('success', 'Paquete created successfully.');
+    }
+
+    public function store_firma(Request $request, $id){
+
+        $folderPath = public_path('signatures/'); // create signatures folder in public directory
+        $image_parts = explode(";base64,", $request->signed);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $signature = uniqid() . '.'.$image_type;
+        $file = $folderPath . $signature;
+
+        file_put_contents($file, $image_base64);
+
+        // Save in your data in database here.
+        $firma = Paquetes::where('id', '=', $id)->first();
+        $firma->firma1 = $signature;
+        $firma->update();
+
+        return back()->with('success', 'Successfully saved the signature');
     }
 
     public function update(Request $request, $id)

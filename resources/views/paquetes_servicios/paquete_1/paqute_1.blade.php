@@ -223,7 +223,7 @@
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="nombre">Cosmetologa</label>
-                                                                <select class="form-control " id="id_user2" name="id_user2" value="{{ old('submarca') }}">
+                                                                <select class="form-control " id="id_user2" name="id_user2" value="">
                                                                     <option value="">Seleccionar cosmetologa</option>
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>

@@ -186,6 +186,12 @@
                                                             </div>
                                                         </div>
                                                         <strong>Firma</strong>
+                                                        <p>
+                                                            Enviar Link para firmar por WhatsApp
+                                                            <a type="button" class="btn btn-sm" target="_blank"
+                                                            href="https://wa.me/52{{$paquete->Client->phone}}?text=Hola%20{{$paquete->Client->name}}%20{{$paquete->Client->last_name}},%20te%20enviamos%20tu%20nota%20el%20d%C3%ADa:%20{{ $paquete->fecha1 }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0{{ route('firma_paquete_uno.firma_edit_uno', $paquete->id) }}}"
+                                                            style="background: #00BB2D; color: #ffff">
+                                                            <i class="fa fa-whatsapp"></i></a>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
