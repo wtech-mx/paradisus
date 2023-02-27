@@ -47,14 +47,15 @@
         </li>
 
 
-        {{-- <li class="nav-item">
-          <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" href="{{ route('paquetes_pedidos.index') }}" target="">
+        <li class="nav-item">
+          <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" href="{{ route('paquetes_servicios.index') }}" target="">
             <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-             <i class="ni ni-basket text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+                <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+
             </div>
             <span class="nav-link-text ms-1">Paquetes </span>
           </a>
-        </li> --}}
+        </li>
 
         @can('caja')
             <li class="nav-item">

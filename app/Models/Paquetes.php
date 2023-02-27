@@ -77,4 +77,24 @@ class Paquetes extends Model
     {
         return $this->belongsTo(Client::class, 'id_client');
     }
+    public function Servicios()
+    {
+        return $this->belongsTo(Servicios::class, 'id_servicio');
+    }
+    public function User1()
+    {
+        return $this->belongsTo(User::class, 'id_user1');
+    }
+    public function User2()
+    {
+        return $this->belongsTo(User::class, 'id_user2');
+    }
+    public function User3()
+    {
+        return $this->belongsTo(User::class, 'id_user3');
+    }
+    public function User4()
+    {
+        return $this->belongsTo(User::class, 'id_user4');
+    }
 }

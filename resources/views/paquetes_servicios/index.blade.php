@@ -35,7 +35,7 @@
                                             <th>Cliente</th>
                                             <th>Paquete</th>
                                             <th>Fecha</th>
-                                            {{-- <th>Sesion</th> --}}
+                                            <th>Restante</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -59,17 +59,26 @@
 
                                                     <td>{{$paquete->fecha_inicial}}</td>
 
-                                                    {{-- @if ($paquete->id_user1 == null)
-                                                        <td>1ra Sesion</td>
-                                                    @elseif ($paquete->id_user2 == null)
-                                                        <td>2da Sesion</td>
-                                                    @elseif ($paquete->id_user3 == null)
-                                                        <td>3ra Sesion</td>
-                                                    @endif --}}
+                                                    @if ($paquete->restante == 0)
+                                                    <td> <label class="badge badge-success" style="font-size: 13px;">Pagado</label> </td>
+                                                    @else
+                                                    <td> <label class="badge badge-danger" style="font-size: 15px;">${{ $paquete->restante }}</label> </td>
+                                                    @endif
+
                                                     <td>
                                                         {{-- <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button> --}}
                                                         @can('notas-edit')
-                                                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-fw fa-edit"></i> </a>
+                                                            @if ($paquete->num_paquete == 1)
+                                                                <a class="btn btn-sm btn-success" href="{{ route('edit_paquete_uno.edit_uno',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                            @elseif ($paquete->num_paquete == 2)
+                                                                <a class="btn btn-sm btn-success" href="{{ route('edit_paquete_dos.edit_dos',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                            @elseif ($paquete->num_paquete == 3)
+                                                                <a class="btn btn-sm btn-success" href="{{ route('edit_paquete_tres.edit_tres',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                            @elseif ($paquete->num_paquete == 4)
+                                                                <a class="btn btn-sm btn-success" href="{{ route('edit_paquete_cuatro.edit_cuatro',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                            @elseif ($paquete->num_paquete == 5)
+                                                                <a class="btn btn-sm btn-success" href="{{ route('edit_paquete_cinco.edit_cinco',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                            @endif
                                                         @endcan
                                                     </td>
                                                 </tr>

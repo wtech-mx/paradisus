@@ -42,4 +42,12 @@ class Paquete3 extends Model
         'gluteo10_d',
         'firma10',
     ];
+    public function User9()
+    {
+        return $this->belongsTo(User::class, 'id_user9');
+    }
+    public function User10()
+    {
+        return $this->belongsTo(User::class, 'id_user10');
+    }
 }

@@ -70,4 +70,21 @@ class Paquete2 extends Model
         'gluteo8_d',
         'firma8',
     ];
+
+    public function User5()
+    {
+        return $this->belongsTo(User::class, 'id_user5');
+    }
+    public function User6()
+    {
+        return $this->belongsTo(User::class, 'id_user6');
+    }
+    public function User7()
+    {
+        return $this->belongsTo(User::class, 'id_user7');
+    }
+    public function User8()
+    {
+        return $this->belongsTo(User::class, 'id_user8');
+    }
 }

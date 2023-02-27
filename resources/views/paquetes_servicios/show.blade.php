@@ -26,7 +26,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                <a class="btn primary" href="{{ route('create_paquete_dos.create_dos') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Lipoescultura s/cirugía
                                 </a>
                                  </div>
@@ -34,7 +34,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                <a class="btn primary" href="{{ route('create_paquete_tres.create_tres') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Moldeante & Reductivo
                                 </a>
                                  </div>
@@ -42,7 +42,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                <a class="btn primary" href="{{ route('create_paquete_cuatro.create_cuatro') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Drenante & Linfático
                                 </a>
                                  </div>
@@ -50,15 +50,7 @@
 
                               <div class="col-12">
                                 <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                                    Tu figura Ideal c/Aparatología
-                                </a>
-                                 </div>
-                              </div>
-
-                              <div class="col-12">
-                                <div class="d-flex justify-content-center">
-                                <a class="btn primary" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                <a class="btn primary" href="{{ route('create_paquete_cinco.create_cinco') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Glúteos Definido & Perfectos
                                 </a>
                                  </div>
