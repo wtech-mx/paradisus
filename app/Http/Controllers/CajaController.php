@@ -10,6 +10,8 @@ use App\Models\NotasPaquetes;
 use App\Models\NotasPedidos;
 use App\Models\NotasPropinas;
 use App\Models\Pagos;
+use App\Models\Paquetes;
+use App\Models\PaquetesPago;
 use App\Models\Pedido;
 use Session;
 use DB;
@@ -49,6 +51,12 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(total) as total'))
         ->first();
 
+        $pago_paquete = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Efectivo')->get();
+        $pago_paquete_suma = PaquetesPago::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Efectivo')
+        ->select(DB::raw('SUM(pago) as total'))
+        ->first();
+
         $caja_dia = CajaDia::where('fecha', '=', $fechaActual)->get();
         $caja_dia_suma = CajaDia::where('fecha', '=', $fechaActual)
         ->select(DB::raw('SUM(egresos) as total'))
@@ -56,7 +64,7 @@ class CajaController extends Controller
 
         $notas_paquetes = NotasPaquetes::get();
 
-        return view('caja.index', compact('caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja'));
+        return view('caja.index', compact('caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja', 'pago_paquete', 'pago_paquete_suma'));
     }
 
     /**
@@ -108,11 +116,6 @@ class CajaController extends Controller
         }else{
             $caja_final2=$caja_final->ingresos;
         }
-        $pago = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
-        ->where('pagos.fecha', '=', $diaActual)
-        ->where('pagos.forma_pago', '=', 'Efectivo')
-        ->where('notas.anular', '=', NULL)
-        ->get();
 
         $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where('pagos.fecha', '=', $diaActual)
@@ -121,19 +124,22 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(pagos.pago) as total'))
         ->first();
 
-        $pago_pedidos = NotasPedidos::where('fecha', '=', $diaActual)->where('metodo_pago', '=', 'Efectivo')->get();
         $pago_pedidos_suma = NotasPedidos::where('fecha', '=', $diaActual)
         ->where('metodo_pago', '=', 'Efectivo')
         ->select(DB::raw('SUM(total) as total'))
         ->first();
 
-        $caja_dia = CajaDia::where('fecha', '=', $diaActual)->get();
+        $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
+        ->where('forma_pago', '=', 'Efectivo')
+        ->select(DB::raw('SUM(pago) as total'))
+        ->first();
+
         $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
 
         $total_ing = 0;
-        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $caja_final->ingresos;
+        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final->ingresos;
 
         $total_egresos = 0;
         $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -156,22 +162,21 @@ class CajaController extends Controller
         ->where('metodo_pago', '=', 'Efectivo')
         ->get();
 
+        $paquetes = PaquetesPago::where(DB::raw('fecha'), '=', $diaActual)
+        ->where('forma_pago', '=', 'Efectivo')
+        ->get();
+
         $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
         ->select(DB::raw('SUM(egresos) as total'))
-        ->first();
-
-        $pago_pedidos_suma = NotasPedidos::where('fecha', '=', $diaActual)
-        ->where('metodo_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(total) as total'))
         ->first();
 
         $notas_paquetes = NotasPaquetes::get();
 
         $notas_propinas = NotasPropinas::get();
 
-        $pdf = \PDF::loadView('caja.pdf', compact('today', 'caja_final2', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
-        // return $pdf->stream();
-        return $pdf->download('Reporte Caja '.$today.'.pdf');
+        $pdf = \PDF::loadView('caja.pdf', compact('paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
+        return $pdf->stream();
+        // return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
 
 
@@ -191,6 +196,10 @@ class CajaController extends Controller
         $total_producto_mercado = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Mercado Pago')->get();
         $total_producto_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Tarjeta')->get();
 
+        $total_paquetes_trans = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Transferencia')->get();
+        $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
+        $total_paquetes_tarjeta = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Tarjeta')->get();
+
         $servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where('pagos.fecha', '=', $fechaActual)
         ->where('pagos.forma_pago', '=', 'Transferencia')
@@ -203,8 +212,13 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
         ->first();
 
-        $suma_pago_trans = $servicios_trans->total + $productos_trans->total;
-        $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas;
+        $paquete_trans = PaquetesPago::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Transferencia')
+        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total;
+        $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas;
 
         $servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where('pagos.fecha', '=', $fechaActual)
@@ -218,8 +232,13 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
         ->first();
 
-        $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total;
-        $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas;
+        $paquete_mercado = PaquetesPago::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Mercado Pago')
+        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total;
+        $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas;
 
         $servicios_tarjeta = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where('pagos.fecha', '=', $fechaActual)
@@ -233,13 +252,19 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
         ->first();
 
-        $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total;
-        $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas;
+        $paquete_tarjeta = PaquetesPago::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Tarjeta')
+        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total + $paquete_tarjeta->total;
+        $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas + $paquete_tarjeta->filas;
 
         $notas_propinas = NotasPropinas::get();
 
         $pdf = \PDF::loadView('caja.pdf_corte', compact('suma_pago_trans', 'suma_filas_trans', 'suma_pago_mercado', 'suma_filas_mercado', 'suma_pago_tarjeta', 'suma_filas_tarjeta',
-        'today', 'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta', 'notas_propinas'));
+        'today', 'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
+        'notas_propinas', 'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta'));
        // return $pdf->stream();
         return $pdf->download('Corte '.$today.'.pdf');
     }

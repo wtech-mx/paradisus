@@ -142,6 +142,15 @@
                     <td>{{ $trans->nota }}</td>
                 </tr>
             @endforeach
+            @foreach ($total_paquetes_trans as $trans)
+                <tr>
+                    <td>{{ $trans->id }}</td>
+                    <td>${{ $trans->pago }}</td>
+                    <td>Paquete</td>
+                    <td>{{ $trans->fecha }}</td>
+                    <td>{{ $trans->User->name }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -176,6 +185,15 @@
                     <td>{{ $item->nota }}</td>
                 </tr>
             @endforeach
+            @foreach ($total_paquetes_mercado as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>${{ $item->pago }}</td>
+                    <td>Paquete</td>
+                    <td>{{ $item->fecha }}</td>
+                    <td>{{ $trans->User->name }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -208,6 +226,15 @@
                     <td>Servicio</td>
                     <td>{{ $item->fecha }}</td>
                     <td>{{ $item->nota }}</td>
+                </tr>
+            @endforeach
+            @foreach ($total_paquetes_tarjeta as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>${{ $item->pago }}</td>
+                    <td>Paquete</td>
+                    <td>{{ $item->fecha }}</td>
+                    <td>{{ $item->User->name }}</td>
                 </tr>
             @endforeach
         </tbody>

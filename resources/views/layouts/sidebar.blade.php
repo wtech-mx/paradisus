@@ -53,7 +53,7 @@
                 <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
 
             </div>
-            <span class="nav-link-text ms-1">Paquetes </span>
+            <span class="nav-link-text ms-1">Notas Paquetes</span>
           </a>
         </li>
 

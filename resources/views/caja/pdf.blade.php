@@ -3,7 +3,7 @@
     @php
         $total_ing = 0;
 
-        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $caja_final2;
+        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final2;
 
         $total_egresos = 0;
             $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -190,6 +190,43 @@
                     </td>
                     <td>{{ $item->pago }}</td>
                     <td>{{ $item->Notas->nota }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <h2 style="text-align: center;">
+        Paquetes</h2>
+    <table class="table text-center">
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>#Nota</th>
+                <th>Cliente</th>
+                <th>Paquete</th>
+                <th>Monto</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($paquetes as $item)
+                <tr>
+                    <td>{{ $item->id_paquete }}</td>
+                    <td>{{ $item->Paquetes->Client->name }}</td>
+                    <td>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            figura Ideal c/Aparatología
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            Lipoescultura s/Cirugía
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            Moldeante & Reductivo
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            Drenante & Linfático
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            Glúteos Definido & Perfectos
+                        @endif
+                    </td>
+                    <td>{{ $item->pago }}</td>
+                    <td>{{ $item->nota }}</td>
                 </tr>
             @endforeach
         </tbody>

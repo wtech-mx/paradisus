@@ -365,6 +365,7 @@ class PaquetesController extends Controller
         $reporte->id_client = $paquete->id_client;
         $reporte->metodo_pago = $pago->forma_pago;
         $reporte->monto = $nota_pago->monto;
+        $reporte->pago = $pago->pago;
         $reporte->restante = $nota_pago->restante;
         $reporte->save();
 
@@ -615,6 +616,7 @@ class PaquetesController extends Controller
         $reporte->metodo_pago = $pago_reciente->forma_pago;
         $reporte->monto = $nota_pago->monto;
         $reporte->restante = $nota_pago->restante;
+        $reporte->pago = $pago_reciente->pago;
         $reporte->save();
 
         Session::flash('success', 'Se ha guardado sus datos con exito');

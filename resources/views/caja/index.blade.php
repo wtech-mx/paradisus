@@ -12,7 +12,7 @@
             @php
                 $total_ing = 0;
 
-                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $caja;
+                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja;
 
                 $total_egresos = 0;
                 $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -175,6 +175,14 @@
                                                 <td>${{ $item->total }}</td>
                                             </tr>
                                         @endforeach
+                                        @foreach ($pago_paquete as $item)
+                                        <tr>
+                                            <td>{{ $item->fecha }}</td>
+                                            <td> <label class="badge" style="color: #e300aa;background-color: #e3009f6c;">Nota Paquete</label> </td>
+                                            <td>{{ $item->id }}</td>
+                                            <td>${{ $item->pago }}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
