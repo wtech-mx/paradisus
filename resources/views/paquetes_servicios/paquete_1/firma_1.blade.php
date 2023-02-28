@@ -12,10 +12,21 @@
 <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
 <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 <style>
-    .kbw-signature {
-        width: 100%;
-        height: 200px;
+.kbw-signature {
+    width: 100%;
+    height: 180px;
+}
+
+    #sig4 canvas{
+    width: 100 !important;
+    height: 178 !important;
     }
+
+    #sig5 canvas{
+    width: 100% !important;
+    height: auto;
+    }
+
 </style>
 
 <main class="main-content main-content-bg mt-0">
@@ -212,7 +223,7 @@
                                                                 <div id="sig"></div>
                                                                 <br/><br/>
                                                                 <button id="clear" class="btn btn-danger btn-sm">Clear</button>
-                                                                <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                                <textarea id="signed" name="signed" style="display: none"></textarea>
                                                                 <br/>
                                                                 <button class="btn btn-primary">Save</button>
                                                         </form>
@@ -350,10 +361,10 @@
                                                     @if ($paquete->firma2 == NULL)
                                                         <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete->id) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
-                                                                <div id="sig"></div>
+                                                                <div id="sig2"></div>
                                                                 <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
-                                                                <textarea id="signature" name="signed2" style="display: none"></textarea>
+                                                                <button id="clear2" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed2" name="signed2" style="display: none"></textarea>
                                                             <button class="btn btn-primary btn-sm">Guardar</button>
                                                         </form>
                                                     @else
@@ -502,10 +513,10 @@
                                                     @if ($paquete->firma3 == NULL)
                                                         <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete->id) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
-                                                            <div id="sig"></div>
+                                                            <div id="sig3"></div>
                                                                         <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
-                                                                <textarea id="signature" name="signed3" style="display: none"></textarea>
+                                                                <button id="clear3" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed3" name="signed3" style="display: none"></textarea>
 
                                                             <button class="btn btn-primary btn-sm">Guardar</button>
                                                         </form>
@@ -657,10 +668,10 @@
                                                     @if ($paquete->firma4 == NULL)
                                                         <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete->id) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
-                                                            <div id="sig"></div>
+                                                            <div id="sig4"></div>
                                                                         <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
-                                                                <textarea id="signature" name="signed4" style="display: none"></textarea>
+                                                                <button id="clear4" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed4" name="signed4" style="display: none"></textarea>
                                                             <button class="btn btn-primary btn-sm">Guardar</button>
                                                         </form>
                                                     @else
@@ -809,10 +820,10 @@
                                                     @if ($paquete->firma5 == NULL)
                                                         <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete->id) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
-                                                            <div id="sig"></div>
+                                                            <div id="sig5"></div>
                                                                         <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
-                                                                <textarea id="signature" name="signed5" style="display: none"></textarea>
+                                                                <button id="clear5" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed5" name="signed5" style="display: none"></textarea>
                                                             <button class="btn btn-primary btn-sm">Guardar</button>
                                                         </form>
                                                     @else
@@ -961,10 +972,10 @@
                                                     @if ($paquete->firma6 == NULL)
                                                         <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete->id) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
-                                                            <div id="sig"></div>
+                                                            <div id="sig6"></div>
                                                                         <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
-                                                                <textarea id="signature" name="signed6" style="display: none"></textarea>
+                                                                <button id="clear6" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed6" name="signed6" style="display: none"></textarea>
                                                             <button class="btn btn-primary btn-sm">Guardar</button>
                                                         </form>
                                                     @else
@@ -1000,12 +1011,50 @@
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
   <script type="text/javascript">
-      var sig = $('#sig').signature({syncField: '#signature', syncFormat: 'PNG'});
+
+      var sig = $('#sig').signature({syncField: '#signed', syncFormat: 'PNG'});
       $('#clear').click(function (e) {
           e.preventDefault();
           sig.signature('clear');
-          $("#signature64").val('');
+          $("#signed").val('');
       });
+
+      var sig = $('#sig2').signature({syncField: '#signed2', syncFormat: 'PNG'});
+      $('#clear2').click(function (e) {
+          e.preventDefault();
+          sig.signature('clear2');
+          $("#signed2").val('');
+      });
+
+      var sig = $('#sig3').signature({syncField: '#signed3', syncFormat: 'PNG'});
+      $('#clear3').click(function (e) {
+          e.preventDefault();
+          sig.signature('clear3');
+          $("#signed3").val('');
+      });
+
+      var sig = $('#sig4').signature({syncField: '#signed4', syncFormat: 'PNG'});
+      $('#clear4').click(function (e) {
+          e.preventDefault();
+          sig.signature('clear4');
+          $("#signed4").val('');
+      });
+      var sig = $('#sig5').signature({syncField: '#signed5', syncFormat: 'PNG'});
+      $('#clear5').click(function (e) {
+          e.preventDefault();
+          sig.signature('clear5');
+          $("#signed5").val('');
+      });
+
+      var sig = $('#sig6').signature({syncField: '#signed6', syncFormat: 'PNG'});
+      $('#clear6').click(function (e) {
+          e.preventDefault();
+          sig.signature('clear6');
+          $("#signed6").val('');
+      });
+
+
+
   </script>
 
 
