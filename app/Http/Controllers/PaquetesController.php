@@ -390,20 +390,159 @@ class PaquetesController extends Controller
 
     public function store_firma(Request $request, $id){
 
-        $folderPath = public_path('signatures/'); // create signatures folder in public directory
-        $image_parts = explode(";base64,", $request->signed);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-        $signature = uniqid() . '.'.$image_type;
-        $file = $folderPath . $signature;
+        if($request->signed != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
 
-        file_put_contents($file, $image_base64);
+            file_put_contents($file, $image_base64);
 
-        // Save in your data in database here.
-        $firma = Paquetes::where('id', '=', $id)->first();
-        $firma->firma1 = $signature;
-        $firma->update();
+            // Save in your data in database here.
+            $firma = Paquetes::where('id', '=', $id)->first();
+            $firma->firma1 = $signature;
+            $firma->update();
+        }elseif($request->signed2 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed2);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquetes::where('id', '=', $id)->first();
+            $firma->firma2 = $signature;
+            $firma->update();
+        }elseif($request->signed3 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed3);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquetes::where('id', '=', $id)->first();
+            $firma->firma3 = $signature;
+            $firma->update();
+        }elseif($request->signed4 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed4);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquetes::where('id', '=', $id)->first();
+            $firma->firma4 = $signature;
+            $firma->update();
+        }elseif($request->signed5 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed5);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma->firma5 = $signature;
+            $firma->update();
+        }elseif($request->signed6 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed6);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma->firma6 = $signature;
+            $firma->update();
+        }elseif($request->signed7 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed7);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma->firma7 = $signature;
+            $firma->update();
+        }elseif($request->signed8 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed8);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma->firma8 = $signature;
+            $firma->update();
+        }elseif($request->signed9 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed9);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquete3::where('id', '=', $id)->first();
+            $firma->firma9 = $signature;
+            $firma->update();
+        }elseif($request->signed10 != NULL){
+            $folderPath = public_path('signatures/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed10);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = Paquete3::where('id', '=', $id)->first();
+            $firma->firma10 = $signature;
+            $firma->update();
+        }
+
+
 
         return back()->with('success', 'Successfully saved the signature');
     }

@@ -175,8 +175,8 @@ class CajaController extends Controller
         $notas_propinas = NotasPropinas::get();
 
         $pdf = \PDF::loadView('caja.pdf', compact('paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
-        return $pdf->stream();
-        // return $pdf->download('Reporte Caja '.$today.'.pdf');
+        // return $pdf->stream();
+        return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
 
 

@@ -23,8 +23,8 @@
     }
 
     #sig5 canvas{
-    width: 100% !important;
-    height: auto;
+    width: 100 !important;
+    height: 178 !important;
     }
 
 </style>
@@ -697,23 +697,20 @@
                                                   </div>
 
                                                  <div class="col-md-6">
-                                                 <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-
-
-                                                     <input class="form-control"  type="text" value="{{ $paquete->talla5_a }}" disabled>
-                                                     </div>
-                                                 </div>
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control"  type="text" value="{{ $paquete->talla5_a }}" disabled>
+                                                        </div>
+                                                    </div>
                                                  </div>
 
                                                  <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->talla5_d }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->talla5_d }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
 
@@ -722,22 +719,20 @@
                                                   </div>
 
                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->abdomen5_a }}" disabled>
-                                                     </div>
-                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->abdomen5_a }}" disabled>
+                                                        </div>
+                                                    </div>
                                                  </div>
 
                                                  <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->abdomen5_d }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->abdomen5_d }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
 
@@ -747,24 +742,21 @@
 
                                                   <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->cintura5_a }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->cintura5_a }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
 
                                                  <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->cintura5_d }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->cintura5_d }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
-
 
                                                  <div class="col-12">
                                                      <strong>Cadera</strong>
@@ -772,21 +764,19 @@
 
                                                   <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->cadera5_a }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->cadera5_a }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
 
                                                  <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->cadera5_d }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->cadera5_d }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
 
@@ -796,24 +786,21 @@
 
                                                   <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->gluteo5_a }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->gluteo5_a }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
 
                                                  <div class="col-md-6">
                                                      <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->gluteo5_d }}" disabled>
-                                                     </div>
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete->gluteo5_d }}" disabled>
+                                                        </div>
                                                      </div>
                                                  </div>
-
 
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
@@ -852,8 +839,6 @@
                                                  <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Antes</label>
                                                      <div class="input-group mb-4">
-
-
                                                      <input class="form-control"  type="text" value="{{ $paquete->talla6_a }}" disabled>
                                                      </div>
                                                  </div>
@@ -863,7 +848,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Despues</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->talla6_d }}" disabled>
                                                      </div>
                                                      </div>
@@ -877,7 +861,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Antes</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->abdomen6_a }}" disabled>
                                                      </div>
                                                      </div>
@@ -887,7 +870,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Despues</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->abdomen6_d }}" disabled>
                                                      </div>
                                                      </div>
@@ -901,7 +883,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Antes</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->cintura6_a }}" disabled>
                                                      </div>
                                                      </div>
@@ -911,7 +892,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Despues</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->cintura6_d }}" disabled>
                                                      </div>
                                                      </div>
@@ -926,7 +906,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Antes</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->cadera6_a }}" disabled>
                                                      </div>
                                                      </div>
@@ -950,7 +929,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Antes</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->gluteo6_a }}" disabled>
                                                      </div>
                                                      </div>
@@ -960,7 +938,6 @@
                                                      <div class="form-group">
                                                      <label for="example-text-input" class="form-control-label">Despues</label>
                                                      <div class="input-group mb-4">
-
                                                          <input class="form-control" type="text" value="{{ $paquete->gluteo6_d }}" disabled>
                                                      </div>
                                                      </div>
@@ -1019,37 +996,37 @@
           $("#signed").val('');
       });
 
-      var sig = $('#sig2').signature({syncField: '#signed2', syncFormat: 'PNG'});
+      var sig2 = $('#sig2').signature({syncField: '#signed2', syncFormat: 'PNG'});
       $('#clear2').click(function (e) {
           e.preventDefault();
-          sig.signature('clear2');
+          sig2.signature('clear');
           $("#signed2").val('');
       });
 
-      var sig = $('#sig3').signature({syncField: '#signed3', syncFormat: 'PNG'});
+      var sig3 = $('#sig3').signature({syncField: '#signed3', syncFormat: 'PNG'});
       $('#clear3').click(function (e) {
           e.preventDefault();
-          sig.signature('clear3');
+          sig3.signature('clear');
           $("#signed3").val('');
       });
 
-      var sig = $('#sig4').signature({syncField: '#signed4', syncFormat: 'PNG'});
+      var sig4 = $('#sig4').signature({syncField: '#signed4', syncFormat: 'PNG'});
       $('#clear4').click(function (e) {
           e.preventDefault();
-          sig.signature('clear4');
+          sig4.signature('clear');
           $("#signed4").val('');
       });
-      var sig = $('#sig5').signature({syncField: '#signed5', syncFormat: 'PNG'});
+      var sig5 = $('#sig5').signature({syncField: '#signed5', syncFormat: 'PNG'});
       $('#clear5').click(function (e) {
           e.preventDefault();
-          sig.signature('clear5');
+          sig5.signature('clear');
           $("#signed5").val('');
       });
 
-      var sig = $('#sig6').signature({syncField: '#signed6', syncFormat: 'PNG'});
+      var sig6 = $('#sig6').signature({syncField: '#signed6', syncFormat: 'PNG'});
       $('#clear6').click(function (e) {
           e.preventDefault();
-          sig.signature('clear6');
+          sig6.signature('clear');
           $("#signed6").val('');
       });
 
