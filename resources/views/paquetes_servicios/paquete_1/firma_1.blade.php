@@ -6,27 +6,12 @@
 @endsection
 
 @section('client_app')
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-<script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 <style>
-.kbw-signature {
-    width: 100%;
-    height: 180px;
-}
-
-    #sig4 canvas{
-    width: 100 !important;
-    height: 178 !important;
-    }
-
-    #sig5 canvas{
-    width: 100 !important;
-    height: 178 !important;
-    }
-
+    .kbw-signature { width: 100%; height: 200px;}
+    #sig canvas{ width: 100% !important; height: auto;}
 </style>
 
 <main class="main-content main-content-bg mt-0">
@@ -985,7 +970,9 @@
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
 
   <script type="text/javascript">
 
