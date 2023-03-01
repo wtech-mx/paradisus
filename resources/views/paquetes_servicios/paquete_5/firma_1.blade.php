@@ -40,7 +40,7 @@
                         <label for="example-text-input" class="form-control-label">Paquete:</label>
                             <div class="input-group mb-4">
                                 <span class="input-group-text"><i class="ni ni-collection"></i></span>
-                                <input class="form-control" type="text" value="Tu figura Ideal c/Aparatología" disabled>
+                                <input class="form-control" type="text" value="Glúteos Definido & Perfectos" disabled>
                             </div>
                         </div>
                     </div>
@@ -207,10 +207,10 @@
                                                             @csrf
                                                                 <div id="sig"></div>
                                                                 <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Clear</button>
+                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
                                                                 <textarea id="signed" name="signed" style="display: none"></textarea>
                                                                 <br/>
-                                                                <button class="btn btn-primary">Save</button>
+                                                                <button class="btn btn-primary">Guardar</button>
                                                         </form>
                                                     @else
                                                         <img src="{{asset('signatures/'.$paquete->firma1)}}" alt="">

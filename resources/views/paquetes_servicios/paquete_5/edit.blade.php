@@ -22,6 +22,10 @@
                 </div>
 
                 <div class="card-body" >
+                    <a type="button" class="btn btn-sm" target="_blank"
+                    href="https://wa.me/52{{$paquete->Client->phone}}?text=Hola%20{{$paquete->Client->name}}%20{{$paquete->Client->last_name}},%20te%20enviamos%20tu%20nota%20el%20d%C3%ADia:%20{{ $paquete->fecha1 }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0{{ route('firma_paquete_cinco.firma_edit_cinco', $paquete->id) }}}"
+                    style="background: #00BB2D; color: #ffff">
+                    <i class="fa fa-whatsapp"></i> </a> Enviar Link para firmar
 
                     <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -187,10 +191,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma1" name="firma1" type="text" class="form-control" value="{{ $paquete->firma1 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma1)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -318,10 +319,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma2" name="firma2" type="text" class="form-control" value="{{ $paquete->firma2 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma2)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -448,10 +446,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma3" name="firma3" type="text" class="form-control" value="{{ $paquete->firma3 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma3)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -578,10 +573,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma4" name="firma4" type="text" class="form-control" value="{{ $paquete->firma4 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma4)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -708,10 +700,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma5" name="firma5" type="text" class="form-control" value="{{ $paquete2->firma5 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma5)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -838,10 +827,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma6" name="firma6" type="text" class="form-control" value="{{ $paquete2->firma6 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma6)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>

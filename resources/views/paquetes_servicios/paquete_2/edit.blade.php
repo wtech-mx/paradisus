@@ -22,6 +22,10 @@
                 </div>
 
                 <div class="card-body" >
+                    <a type="button" class="btn btn-sm" target="_blank"
+                    href="https://wa.me/52{{$paquete->Client->phone}}?text=Hola%20{{$paquete->Client->name}}%20{{$paquete->Client->last_name}},%20te%20enviamos%20tu%20nota%20el%20d%C3%ADa:%20{{ $paquete->fecha1 }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0{{ route('firma_paquete_dos.firma_edit_dos', $paquete->id) }}}"
+                    style="background: #00BB2D; color: #ffff">
+                    <i class="fa fa-whatsapp"></i> </a> Enviar Link para firmar
 
                     <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -183,10 +187,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma1" name="firma1" type="text" class="form-control" value="{{ $paquete->firma1 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma1)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -313,10 +314,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma2" name="firma2" type="text" class="form-control" value="{{ $paquete->firma2 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma2)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -442,10 +440,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma3" name="firma3" type="text" class="form-control" value="{{ $paquete->firma3 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma3)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -571,10 +566,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma4" name="firma4" type="text" class="form-control" value="{{ $paquete->firma4 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma4)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -700,10 +692,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma5" name="firma5" type="text" class="form-control" value="{{ $paquete2->firma5 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma5)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -829,10 +818,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma6" name="firma6" type="text" class="form-control" value="{{ $paquete2->firma6 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete->firma6)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -860,16 +846,16 @@
                                                             <div class="col-12">
                                                                 <span>Nota</span>
                                                                 <div class="stats">
-                                                                    <textarea name="notas7" id="notas7" cols="15" rows="3" class="form-control">{{ $paquete->notas7 }}</textarea>
+                                                                    <textarea name="notas7" id="notas7" cols="15" rows="3" class="form-control">{{ $paquete2->notas7 }}</textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="nombre">Cosmetologa</label>
                                                                 <select class="form-control " id="id_user7" name="id_user7" value="{{ old('id_user7') }}">
-                                                                    @if ($paquete->id_user7 == NULL)
+                                                                    @if ($paquete2->id_user7 == NULL)
                                                                         <option value="">Seleccionar cosme</option>
                                                                     @else
-                                                                        <option value="{{ $paquete->User7->id }}">{{ $paquete->User7->name }}</option>
+                                                                        <option value="{{ $paquete2->User7->id }}">{{ $paquete2->User7->name }}</option>
                                                                     @endif
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -889,79 +875,76 @@
                                                             <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2"> Fecha:</span>
                                                         </div>
                                                         <div class="col-8">
-                                                            <input  id="fecha7" name="fecha7" type="date" class="form-control" value="{{ $paquete->fecha7 }}">
+                                                            <input  id="fecha7" name="fecha7" type="date" class="form-control" value="{{ $paquete2->fecha7 }}">
                                                         </div>
                                                         <strong>Talla</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="talla7_a" name="talla7_a" type="text" class="form-control" value="{{ $paquete->talla7_a }}">
+                                                                <input  id="talla7_a" name="talla7_a" type="text" class="form-control" value="{{ $paquete2->talla7_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="talla7_d" name="talla7_d" type="text" class="form-control" value="{{ $paquete->talla7_d }}">
+                                                                <input  id="talla7_d" name="talla7_d" type="text" class="form-control" value="{{ $paquete2->talla7_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Abdomen</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="abdomen7_a" name="abdomen7_a" type="text" class="form-control" value="{{ $paquete->abdomen7_a }}">
+                                                                <input  id="abdomen7_a" name="abdomen7_a" type="text" class="form-control" value="{{ $paquete2->abdomen7_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="abdomen7_d" name="abdomen7_d" type="text" class="form-control" value="{{ $paquete->abdomen7_d }}">
+                                                                <input  id="abdomen7_d" name="abdomen7_d" type="text" class="form-control" value="{{ $paquete2->abdomen7_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Cintura</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="cintura7_a" name="cintura7_a" type="text" class="form-control" value="{{ $paquete->cintura7_a }}">
+                                                                <input  id="cintura7_a" name="cintura7_a" type="text" class="form-control" value="{{ $paquete2->cintura7_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="cintura7_d" name="cintura7_d" type="text" class="form-control" value="{{ $paquete->cintura7_d }}">
+                                                                <input  id="cintura7_d" name="cintura7_d" type="text" class="form-control" value="{{ $paquete2->cintura7_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Cadera</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="cadera7_a" name="cadera7_a" type="text" class="form-control" value="{{ $paquete->cadera7_a }}">
+                                                                <input  id="cadera7_a" name="cadera7_a" type="text" class="form-control" value="{{ $paquete2->cadera7_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="cadera7_d" name="cadera7_d" type="text" class="form-control" value="{{ $paquete->cadera7_d }}">
+                                                                <input  id="cadera7_d" name="cadera7_d" type="text" class="form-control" value="{{ $paquete2->cadera7_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Personalizada</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="gluteo7_a" name="gluteo7_a" type="text" class="form-control" value="{{ $paquete->gluteo7_a }}">
+                                                                <input  id="gluteo7_a" name="gluteo7_a" type="text" class="form-control" value="{{ $paquete2->gluteo7_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="gluteo7_d" name="gluteo7_d" type="text" class="form-control" value="{{ $paquete->gluteo7_d }}">
+                                                                <input  id="gluteo7_d" name="gluteo7_d" type="text" class="form-control" value="{{ $paquete2->gluteo7_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma7" name="firma7" type="text" class="form-control" value="{{ $paquete->firma7 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete2->firma7)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -989,16 +972,16 @@
                                                             <div class="col-12">
                                                                 <span>Nota</span>
                                                                 <div class="stats">
-                                                                    <textarea name="notas8" id="notas8" cols="15" rows="3" class="form-control">{{ $paquete->notas8 }}</textarea>
+                                                                    <textarea name="notas8" id="notas8" cols="15" rows="3" class="form-control">{{ $paquete2->notas8 }}</textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="nombre">Cosmetologa</label>
                                                                 <select class="form-control " id="id_user8" name="id_user8" value="{{ old('id_user8') }}">
-                                                                    @if ($paquete->id_user8 == NULL)
+                                                                    @if ($paquete2->id_user8 == NULL)
                                                                         <option value="">Seleccionar cosme</option>
                                                                     @else
-                                                                        <option value="{{ $paquete->User8->id }}">{{ $paquete->User8->name }}</option>
+                                                                        <option value="{{ $paquete2->User8->id }}">{{ $paquete2->User8->name }}</option>
                                                                     @endif
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -1018,79 +1001,76 @@
                                                             <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2"> Fecha:</span>
                                                         </div>
                                                         <div class="col-8">
-                                                            <input  id="fecha8" name="fecha8" type="date" class="form-control" value="{{ $paquete->fecha8 }}">
+                                                            <input  id="fecha8" name="fecha8" type="date" class="form-control" value="{{ $paquete2->fecha8 }}">
                                                         </div>
                                                         <strong>Talla</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="talla8_a" name="talla8_a" type="text" class="form-control" value="{{ $paquete->talla8_a }}">
+                                                                <input  id="talla8_a" name="talla8_a" type="text" class="form-control" value="{{ $paquete2->talla8_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="talla8_d" name="talla8_d" type="text" class="form-control" value="{{ $paquete->talla8_d }}">
+                                                                <input  id="talla8_d" name="talla8_d" type="text" class="form-control" value="{{ $paquete2->talla8_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Abdomen</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="abdomen8_a" name="abdomen8_a" type="text" class="form-control" value="{{ $paquete->abdomen8_a }}">
+                                                                <input  id="abdomen8_a" name="abdomen8_a" type="text" class="form-control" value="{{ $paquete2->abdomen8_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="abdomen8_d" name="abdomen8_d" type="text" class="form-control" value="{{ $paquete->abdomen8_d }}">
+                                                                <input  id="abdomen8_d" name="abdomen8_d" type="text" class="form-control" value="{{ $paquete2->abdomen8_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Cintura</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="cintura8_a" name="cintura8_a" type="text" class="form-control" value="{{ $paquete->cintura8_a }}">
+                                                                <input  id="cintura8_a" name="cintura8_a" type="text" class="form-control" value="{{ $paquete2->cintura8_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="cintura8_d" name="cintura8_d" type="text" class="form-control" value="{{ $paquete->cintura8_d }}">
+                                                                <input  id="cintura8_d" name="cintura8_d" type="text" class="form-control" value="{{ $paquete2->cintura8_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Cadera</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="cadera8_a" name="cadera8_a" type="text" class="form-control" value="{{ $paquete->cadera8_a }}">
+                                                                <input  id="cadera8_a" name="cadera8_a" type="text" class="form-control" value="{{ $paquete2->cadera8_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="cadera8_d" name="cadera8_d" type="text" class="form-control" value="{{ $paquete->cadera8_d }}">
+                                                                <input  id="cadera8_d" name="cadera8_d" type="text" class="form-control" value="{{ $paquete2->cadera8_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Personalizada</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Antes</label>
-                                                                <input  id="gluteo8_a" name="gluteo8_a" type="text" class="form-control" value="{{ $paquete->gluteo8_a }}">
+                                                                <input  id="gluteo8_a" name="gluteo8_a" type="text" class="form-control" value="{{ $paquete2->gluteo8_a }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
-                                                                <input  id="gluteo8_d" name="gluteo8_d" type="text" class="form-control" value="{{ $paquete->gluteo8_d }}">
+                                                                <input  id="gluteo8_d" name="gluteo8_d" type="text" class="form-control" value="{{ $paquete2->gluteo8_d }}">
                                                             </div>
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma8" name="firma8" type="text" class="form-control" value="{{ $paquete->firma8 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete2->firma8)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -1216,10 +1196,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma9" name="firma9" type="text" class="form-control" value="{{ $paquete3->firma9 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete3->firma9)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -1345,10 +1322,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma10" name="firma10" type="text" class="form-control" value="{{ $paquete3->firma10 }}">
-                                                            </div>
+                                                            <img src="{{asset('signatures/'.$paquete3->firma10)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>

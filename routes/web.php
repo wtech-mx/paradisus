@@ -101,15 +101,19 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/paquetes/servicios/create/lipoescultura', [App\Http\Controllers\PaquetesController::class, 'create_dos'])->name('create_paquete_dos.create_dos');
     Route::get('/paquetes/servicios/edit/lipoescultura/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_dos'])->name('edit_paquete_dos.edit_dos');
+    Route::get('/paquetes/servicios/edit/lipoescultura/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_dos'])->name('firma_paquete_dos.firma_edit_dos');
 
     Route::get('/paquetes/servicios/create/moldeante', [App\Http\Controllers\PaquetesController::class, 'create_tres'])->name('create_paquete_tres.create_tres');
     Route::get('/paquetes/servicios/edit/moldeante/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_tres'])->name('edit_paquete_tres.edit_tres');
+    Route::get('/paquetes/servicios/edit/moldeante/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_tres'])->name('firma_paquete_tres.firma_edit_tres');
 
     Route::get('/paquetes/servicios/create/drenante', [App\Http\Controllers\PaquetesController::class, 'create_cuatro'])->name('create_paquete_cuatro.create_cuatro');
     Route::get('/paquetes/servicios/edit/drenante/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_cuatro'])->name('edit_paquete_cuatro.edit_cuatro');
+    Route::get('/paquetes/servicios/edit/drenante/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cuatro'])->name('firma_paquete_cuatro.firma_edit_cuatro');
 
     Route::get('/paquetes/servicios/create/gluteos', [App\Http\Controllers\PaquetesController::class, 'create_cinco'])->name('create_paquete_cinco.create_cinco');
     Route::get('/paquetes/servicios/edit/gluteos/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_cinco'])->name('edit_paquete_cinco.edit_cinco');
+    Route::get('/paquetes/servicios/edit/gluteos/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cinco'])->name('firma_paquete_cinco.firma_edit_cinco');
 
     Route::post('/paquetes/servicios/store', [App\Http\Controllers\PaquetesController::class, 'store'])->name('paquetes_servicios.store');
     Route::patch('/paquetes/servicios/update/{id}', [App\Http\Controllers\PaquetesController::class, 'update'])->name('paquetes_servicios.update');

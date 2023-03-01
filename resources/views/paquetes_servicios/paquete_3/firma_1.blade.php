@@ -40,7 +40,7 @@
                         <label for="example-text-input" class="form-control-label">Paquete:</label>
                             <div class="input-group mb-4">
                                 <span class="input-group-text"><i class="ni ni-collection"></i></span>
-                                <input class="form-control" type="text" value="Tu figura Ideal c/Aparatología" disabled>
+                                <input class="form-control" type="text" value="Moldeante & Reductivo" disabled>
                             </div>
                         </div>
                     </div>
@@ -178,29 +178,6 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <strong>Gluteos</strong>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="example-text-input" class="form-control-label">Antes</label>
-                                                        <div class="input-group mb-4">
-                                                            <input class="form-control" type="text" value="{{ $paquete->gluteo1_a }}" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="example-text-input" class="form-control-label">Despues</label>
-                                                        <div class="input-group mb-4">
-                                                            <input class="form-control" type="text" value="{{ $paquete->gluteo1_d }}" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete->firma1 == NULL)
                                                         <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete->id) }}" enctype="multipart/form-data" role="form">
@@ -317,29 +294,6 @@
                                                         </div>
                                                      </div>
                                                 </div>
-
-                                                <div class="col-12">
-                                                    <strong>Gluteos</strong>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="example-text-input" class="form-control-label">Antes</label>
-                                                        <div class="input-group mb-4">
-                                                            <input class="form-control" type="text" value="{{ $paquete->gluteo2_a }}" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete->gluteo2_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                </div>
-
 
                                                 <div class="col-12">
                                                     <strong>Firma</strong>
@@ -467,31 +421,6 @@
                                                      </div>
                                                      </div>
                                                  </div>
-
-                                                 <div class="col-12">
-                                                     <strong>Gluteos</strong>
-                                                  </div>
-
-                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->gluteo3_a }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->gluteo3_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
 
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
@@ -624,31 +553,6 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
-                                                  </div>
-
-                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->gluteo4_a }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete->gluteo4_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-
-                                                 <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete->firma4 == NULL)
                                                         <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete->id) }}" enctype="multipart/form-data" role="form">
@@ -761,28 +665,6 @@
                                                         <label for="example-text-input" class="form-control-label">Despues</label>
                                                         <div class="input-group mb-4">
                                                             <input class="form-control" type="text" value="{{ $paquete2->cadera5_d }}" disabled>
-                                                        </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-12">
-                                                     <strong>Gluteos</strong>
-                                                  </div>
-
-                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                        <label for="example-text-input" class="form-control-label">Antes</label>
-                                                        <div class="input-group mb-4">
-                                                            <input class="form-control" type="text" value="{{ $paquete2->gluteo5_a }}" disabled>
-                                                        </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                        <label for="example-text-input" class="form-control-label">Despues</label>
-                                                        <div class="input-group mb-4">
-                                                            <input class="form-control" type="text" value="{{ $paquete2->gluteo5_d }}" disabled>
                                                         </div>
                                                      </div>
                                                  </div>
@@ -905,29 +787,6 @@
                                                      </div>
                                                      </div>
                                                  </div>
-
-                                                 <div class="col-12">
-                                                     <strong>Gluteos</strong>
-                                                  </div>
-
-                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->gluteo6_a }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->gluteo6_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
 
                                                  <div class="col-12">
                                                     <strong>Firma</strong>

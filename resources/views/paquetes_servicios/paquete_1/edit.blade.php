@@ -700,7 +700,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <img src="{{asset('signatures/'.$paquete->firma5)}}" alt="">
+                                                            <img src="{{asset('signatures/'.$paquete2->firma5)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -827,7 +827,7 @@
                                                         </div>
                                                         <strong>Firma</strong>
                                                         <div class="col-6">
-                                                            <img src="{{asset('signatures/'.$paquete->firma6)}}" alt="">
+                                                            <img src="{{asset('signatures/'.$paquete2->firma6)}}" alt="">
                                                         </div>
                                                     </div>
                                                     </div>

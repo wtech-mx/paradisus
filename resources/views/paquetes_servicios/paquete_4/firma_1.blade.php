@@ -40,7 +40,7 @@
                         <label for="example-text-input" class="form-control-label">Paquete:</label>
                             <div class="input-group mb-4">
                                 <span class="input-group-text"><i class="ni ni-collection"></i></span>
-                                <input class="form-control" type="text" value="Tu figura Ideal c/Aparatología" disabled>
+                                <input class="form-control" type="text" value="Drenante & Linfático" disabled>
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,6 @@
                                           <button class="nav-link" id="nav-tres-tab" data-bs-toggle="tab" data-bs-target="#nav-tres" type="button" role="tab" aria-controls="nav-tres" aria-selected="false">3</button>
                                           <button class="nav-link " id="nav-cuatro-tab" data-bs-toggle="tab" data-bs-target="#nav-cuatro" type="button" role="tab" aria-controls="nav-cuatro" aria-selected="true">4</button>
                                           <button class="nav-link" id="nav-cinco-tab" data-bs-toggle="tab" data-bs-target="#nav-cinco" type="button" role="tab" aria-controls="nav-cinco" aria-selected="false">5</button>
-                                          <button class="nav-link" id="nav-seis-tab" data-bs-toggle="tab" data-bs-target="#nav-seis" type="button" role="tab" aria-controls="nav-seis" aria-selected="false">6</button>
 
                                         </div>
                                     </nav>
@@ -178,7 +177,7 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <strong>Gluteos</strong>
+                                                    <strong>Perzonalizado</strong>
                                                 </div>
 
                                                 <div class="col-md-6">
@@ -319,7 +318,7 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <strong>Gluteos</strong>
+                                                    <strong>Perzonalizado</strong>
                                                 </div>
 
                                                 <div class="col-md-6">
@@ -469,7 +468,7 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
+                                                     <strong>Perzonalizado</strong>
                                                   </div>
 
                                                   <div class="col-md-6">
@@ -624,7 +623,7 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
+                                                     <strong>Perzonalizado</strong>
                                                   </div>
 
                                                   <div class="col-md-6">
@@ -766,7 +765,7 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
+                                                     <strong>Perzonalizado</strong>
                                                   </div>
 
                                                   <div class="col-md-6">
@@ -800,148 +799,6 @@
                                                         </form>
                                                     @else
                                                         <img src="{{asset('signatures/'.$paquete2->firma5)}}" alt="">
-                                                    @endif
-                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="nav-seis" role="tabpanel" aria-labelledby="nav-seis-tab">
-                                            <div class="row mt-3">
-
-                                                <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 06</strong>
-                                                 </div>
-
-                                                 <div class="col-6 mb-3">
-                                                     <strong>Fecha:</strong> {{ $paquete2->fecha6 }}
-                                                 </div>
-
-                                                 <div class="col-12">
-                                                     <strong>Talla</strong>
-                                                  </div>
-
-                                                 <div class="col-md-6">
-                                                 <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-                                                     <input class="form-control"  type="text" value="{{ $paquete2->talla6_a }}" disabled>
-                                                     </div>
-                                                 </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->talla6_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-12">
-                                                     <strong>Abdomen</strong>
-                                                  </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->abdomen6_a }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->abdomen6_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-12">
-                                                     <strong>Cintura</strong>
-                                                  </div>
-
-                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->cintura6_a }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->cintura6_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-
-                                                 <div class="col-12">
-                                                     <strong>Cadera</strong>
-                                                  </div>
-
-                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->cadera6_a }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-
-                                                         <input class="form-control" type="text" value="{{ $paquete2->cadera6_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-12">
-                                                     <strong>Gluteos</strong>
-                                                  </div>
-
-                                                  <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Antes</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->gluteo6_a }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                     <label for="example-text-input" class="form-control-label">Despues</label>
-                                                     <div class="input-group mb-4">
-                                                         <input class="form-control" type="text" value="{{ $paquete2->gluteo6_d }}" disabled>
-                                                     </div>
-                                                     </div>
-                                                 </div>
-
-
-                                                 <div class="col-12">
-                                                    <strong>Firma</strong>
-                                                    @if ($paquete2->firma6 == NULL)
-                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id) }}" enctype="multipart/form-data" role="form">
-                                                            @csrf
-                                                            <div id="sig6"></div>
-                                                                        <br/><br/>
-                                                                <button id="clear6" class="btn btn-danger btn-sm">Repetir</button>
-                                                                <textarea id="signed6" name="signed6" style="display: none"></textarea>
-                                                            <button class="btn btn-primary btn-sm">Guardar</button>
-                                                        </form>
-                                                    @else
-                                                        <img src="{{asset('signatures/'.$paquete2->firma6)}}" alt="">
                                                     @endif
                                                  </div>
                                             </div>

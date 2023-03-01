@@ -182,13 +182,6 @@
                                                                 <input  id="gluteo1_d" name="gluteo1_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma1" name="firma1" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -305,13 +298,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="gluteo2_d" name="gluteo2_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma2" name="firma2" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -432,13 +418,6 @@
                                                                 <input  id="gluteo3_d" name="gluteo3_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma3" name="firma3" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -555,13 +534,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="gluteo4_d" name="gluteo4_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma4" name="firma4" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -682,13 +654,6 @@
                                                                 <input  id="gluteo5_d" name="gluteo5_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma5" name="firma5" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -805,13 +770,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="gluteo6_d" name="gluteo6_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma6" name="firma6" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -932,13 +890,6 @@
                                                                 <input  id="gluteo7_d" name="gluteo7_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma7" name="firma7" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -1055,13 +1006,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="gluteo8_d" name="gluteo8_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma8" name="firma8" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1181,13 +1125,6 @@
                                                                 <input  id="gluteo9_d" name="gluteo9_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma9" name="firma9" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -1303,13 +1240,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="gluteo10_d" name="gluteo10_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma10" name="firma10" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>

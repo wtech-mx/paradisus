@@ -40,7 +40,7 @@
                         <label for="example-text-input" class="form-control-label">Paquete:</label>
                             <div class="input-group mb-4">
                                 <span class="input-group-text"><i class="ni ni-collection"></i></span>
-                                <input class="form-control" type="text" value="Tu figura Ideal c/Aparatología" disabled>
+                                <input class="form-control" type="text" value="Lipoescultura s/Cirugía" disabled>
                             </div>
                         </div>
                     </div>
@@ -74,6 +74,10 @@
                                           <button class="nav-link " id="nav-cuatro-tab" data-bs-toggle="tab" data-bs-target="#nav-cuatro" type="button" role="tab" aria-controls="nav-cuatro" aria-selected="true">4</button>
                                           <button class="nav-link" id="nav-cinco-tab" data-bs-toggle="tab" data-bs-target="#nav-cinco" type="button" role="tab" aria-controls="nav-cinco" aria-selected="false">5</button>
                                           <button class="nav-link" id="nav-seis-tab" data-bs-toggle="tab" data-bs-target="#nav-seis" type="button" role="tab" aria-controls="nav-seis" aria-selected="false">6</button>
+                                          <button class="nav-link" id="nav-siete-tab" data-bs-toggle="tab" data-bs-target="#nav-siete" type="button" role="tab" aria-controls="nav-siete" aria-selected="false">7</button>
+                                          <button class="nav-link" id="nav-ocho-tab" data-bs-toggle="tab" data-bs-target="#nav-ocho" type="button" role="tab" aria-controls="nav-ocho" aria-selected="false">8</button>
+                                          <button class="nav-link" id="nav-nueve-tab" data-bs-toggle="tab" data-bs-target="#nav-nueve" type="button" role="tab" aria-controls="nav-nueve" aria-selected="false">9</button>
+                                          <button class="nav-link" id="nav-diez-tab" data-bs-toggle="tab" data-bs-target="#nav-diez" type="button" role="tab" aria-controls="nav-diez" aria-selected="false">10</button>
 
                                         </div>
                                     </nav>
@@ -178,7 +182,7 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <strong>Gluteos</strong>
+                                                    <strong>Perzonalizada</strong>
                                                 </div>
 
                                                 <div class="col-md-6">
@@ -319,7 +323,7 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <strong>Gluteos</strong>
+                                                    <strong>Perzonalizada</strong>
                                                 </div>
 
                                                 <div class="col-md-6">
@@ -469,7 +473,7 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
+                                                     <strong>Perzonalizada</strong>
                                                   </div>
 
                                                   <div class="col-md-6">
@@ -624,7 +628,7 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
+                                                     <strong>Perzonalizada</strong>
                                                   </div>
 
                                                   <div class="col-md-6">
@@ -766,7 +770,7 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
+                                                     <strong>Perzonalizada</strong>
                                                   </div>
 
                                                   <div class="col-md-6">
@@ -907,7 +911,7 @@
                                                  </div>
 
                                                  <div class="col-12">
-                                                     <strong>Gluteos</strong>
+                                                     <strong>Perzonalizada</strong>
                                                   </div>
 
                                                   <div class="col-md-6">
@@ -947,6 +951,561 @@
                                             </div>
                                         </div>
 
+                                        <div class="tab-pane fade" id="nav-siete" role="tabpanel" aria-labelledby="nav-siete-tab">
+                                            <div class="row mt-3">
+
+                                                <div class="col-6 mb-3">
+                                                    <strong>SESIÓN 07</strong>
+                                                 </div>
+
+                                                 <div class="col-6 mb-3">
+                                                     <strong>Fecha:</strong> {{ $paquete2->fecha7 }}
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Talla</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control"  type="text" value="{{ $paquete2->talla7_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->talla7_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Abdomen</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->abdomen7_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->abdomen7_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cintura</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cintura7_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cintura7_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cadera</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cadera7_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cadera7_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Perzonalizada</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->gluteo7_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->gluteo7_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                    <strong>Firma</strong>
+                                                    @if ($paquete2->firma7 == NULL)
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id) }}" enctype="multipart/form-data" role="form">
+                                                            @csrf
+                                                            <div id="sig7"></div>
+                                                                        <br/><br/>
+                                                                <button id="clear7" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed7" name="signed7" style="display: none"></textarea>
+                                                            <button class="btn btn-primary btn-sm">Guardar</button>
+                                                        </form>
+                                                    @else
+                                                        <img src="{{asset('signatures/'.$paquete2->firma7)}}" alt="">
+                                                    @endif
+                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="nav-ocho" role="tabpanel" aria-labelledby="nav-ocho-tab">
+                                            <div class="row mt-3">
+
+                                                <div class="col-6 mb-3">
+                                                    <strong>SESIÓN 08</strong>
+                                                 </div>
+
+                                                 <div class="col-6 mb-3">
+                                                     <strong>Fecha:</strong> {{ $paquete2->fecha8 }}
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Talla</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control"  type="text" value="{{ $paquete2->talla8_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->talla8_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Abdomen</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->abdomen8_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->abdomen8_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cintura</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cintura8_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cintura8_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cadera</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cadera8_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->cadera8_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Perzonalizada</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->gluteo8_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete2->gluteo8_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                    <strong>Firma</strong>
+                                                    @if ($paquete2->firma8 == NULL)
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id) }}" enctype="multipart/form-data" role="form">
+                                                            @csrf
+                                                            <div id="sig8"></div>
+                                                                        <br/><br/>
+                                                                <button id="clear8" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed8" name="signed8" style="display: none"></textarea>
+                                                            <button class="btn btn-primary btn-sm">Guardar</button>
+                                                        </form>
+                                                    @else
+                                                        <img src="{{asset('signatures/'.$paquete2->firma8)}}" alt="">
+                                                    @endif
+                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="nav-nueve" role="tabpanel" aria-labelledby="nav-nueve-tab">
+                                            <div class="row mt-3">
+
+                                                <div class="col-6 mb-3">
+                                                    <strong>SESIÓN 09</strong>
+                                                 </div>
+
+                                                 <div class="col-6 mb-3">
+                                                     <strong>Fecha:</strong> {{ $paquete3->fecha9 }}
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Talla</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control"  type="text" value="{{ $paquete3->talla9_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->talla9_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Abdomen</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->abdomen9_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->abdomen9_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cintura</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cintura9_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cintura9_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cadera</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cadera9_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cadera9_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Perzonalizada</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->gluteo9_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->gluteo9_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                    <strong>Firma</strong>
+                                                    @if ($paquete3->firma9 == NULL)
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete3->id) }}" enctype="multipart/form-data" role="form">
+                                                            @csrf
+                                                            <div id="sig9"></div>
+                                                                        <br/><br/>
+                                                                <button id="clear9" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed9" name="signed9" style="display: none"></textarea>
+                                                            <button class="btn btn-primary btn-sm">Guardar</button>
+                                                        </form>
+                                                    @else
+                                                        <img src="{{asset('signatures/'.$paquete3->firma9)}}" alt="">
+                                                    @endif
+                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="nav-diez" role="tabpanel" aria-labelledby="nav-diez-tab">
+                                            <div class="row mt-3">
+
+                                                <div class="col-6 mb-3">
+                                                    <strong>SESIÓN 010</strong>
+                                                 </div>
+
+                                                 <div class="col-6 mb-3">
+                                                     <strong>Fecha:</strong> {{ $paquete3->fecha10 }}
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Talla</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control"  type="text" value="{{ $paquete3->talla10_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->talla10_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Abdomen</strong>
+                                                  </div>
+
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->abdomen10_a }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->abdomen10_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cintura</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cintura10_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cintura10_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Cadera</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cadera10_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->cadera10_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                     <strong>Perzonalizada</strong>
+                                                  </div>
+
+                                                  <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Antes</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->gluteo10_a }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                        <label for="example-text-input" class="form-control-label">Despues</label>
+                                                        <div class="input-group mb-4">
+                                                            <input class="form-control" type="text" value="{{ $paquete3->gluteo10_d }}" disabled>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-12">
+                                                    <strong>Firma</strong>
+                                                    @if ($paquete3->firma10 == NULL)
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete3->id) }}" enctype="multipart/form-data" role="form">
+                                                            @csrf
+                                                            <div id="sig10"></div>
+                                                                        <br/><br/>
+                                                                <button id="clear10" class="btn btn-danger btn-sm">Repetir</button>
+                                                                <textarea id="signed10" name="signed10" style="display: none"></textarea>
+                                                            <button class="btn btn-primary btn-sm">Guardar</button>
+                                                        </form>
+                                                    @else
+                                                        <img src="{{asset('signatures/'.$paquete3->firma10)}}" alt="">
+                                                    @endif
+                                                 </div>
+                                            </div>
+                                        </div>
                                       </div>
 
                                 </div>
@@ -1017,8 +1576,33 @@
           $("#signed6").val('');
       });
 
+      var sig7 = $('#sig7').signature({syncField: '#signed7', syncFormat: 'PNG'});
+      $('#clear7').click(function (e) {
+          e.preventDefault();
+          sig7.signature('clear');
+          $("#signed7").val('');
+      });
 
+      var sig8 = $('#sig8').signature({syncField: '#signed8', syncFormat: 'PNG'});
+      $('#clear8').click(function (e) {
+          e.preventDefault();
+          sig8.signature('clear');
+          $("#signed8").val('');
+      });
 
+      var sig9 = $('#sig9').signature({syncField: '#signed9', syncFormat: 'PNG'});
+      $('#clear9').click(function (e) {
+          e.preventDefault();
+          sig9.signature('clear');
+          $("#signed9").val('');
+      });
+
+      var sig8 = $('#sig10').signature({syncField: '#signed10', syncFormat: 'PNG'});
+      $('#clear10').click(function (e) {
+          e.preventDefault();
+          sig10.signature('clear');
+          $("#signed10").val('');
+      });
   </script>
 
 

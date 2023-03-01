@@ -53,7 +53,54 @@ class PaquetesController extends Controller
         $user = User::get();
 
         return view('paquetes_servicios.paquete_1.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
 
+    public function firma_dos($id){
+
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::get();
+
+        return view('paquetes_servicios.paquete_2.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
+
+    public function firma_tres($id){
+
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::get();
+
+        return view('paquetes_servicios.paquete_3.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
+
+    public function firma_cuatro($id){
+
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::get();
+
+        return view('paquetes_servicios.paquete_4.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
+
+    public function firma_cinco($id){
+
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::get();
+
+        return view('paquetes_servicios.paquete_5.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
     }
 
     public function create_dos()
@@ -462,7 +509,7 @@ class PaquetesController extends Controller
             file_put_contents($file, $image_base64);
 
             // Save in your data in database here.
-            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma = Paquete2::where('id_paquete', '=', $id)->first();
             $firma->firma5 = $signature;
             $firma->update();
         }elseif($request->signed6 != NULL){
@@ -477,7 +524,7 @@ class PaquetesController extends Controller
             file_put_contents($file, $image_base64);
 
             // Save in your data in database here.
-            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma = Paquete2::where('id_paquete', '=', $id)->first();
             $firma->firma6 = $signature;
             $firma->update();
         }elseif($request->signed7 != NULL){
@@ -492,7 +539,7 @@ class PaquetesController extends Controller
             file_put_contents($file, $image_base64);
 
             // Save in your data in database here.
-            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma = Paquete2::where('id_paquete', '=', $id)->first();
             $firma->firma7 = $signature;
             $firma->update();
         }elseif($request->signed8 != NULL){
@@ -507,7 +554,7 @@ class PaquetesController extends Controller
             file_put_contents($file, $image_base64);
 
             // Save in your data in database here.
-            $firma = Paquete2::where('id', '=', $id)->first();
+            $firma = Paquete2::where('id_paquete', '=', $id)->first();
             $firma->firma8 = $signature;
             $firma->update();
         }elseif($request->signed9 != NULL){
@@ -522,7 +569,7 @@ class PaquetesController extends Controller
             file_put_contents($file, $image_base64);
 
             // Save in your data in database here.
-            $firma = Paquete3::where('id', '=', $id)->first();
+            $firma = Paquete3::where('id_paquete', '=', $id)->first();
             $firma->firma9 = $signature;
             $firma->update();
         }elseif($request->signed10 != NULL){
@@ -537,12 +584,10 @@ class PaquetesController extends Controller
             file_put_contents($file, $image_base64);
 
             // Save in your data in database here.
-            $firma = Paquete3::where('id', '=', $id)->first();
+            $firma = Paquete3::where('id_paquete', '=', $id)->first();
             $firma->firma10 = $signature;
             $firma->update();
         }
-
-
 
         return back()->with('success', 'Successfully saved the signature');
     }

@@ -170,13 +170,6 @@
                                                                 <input  id="cadera1_d" name="cadera1_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma1" name="firma1" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -281,13 +274,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="cadera2_d" name="cadera2_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma2" name="firma2" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -396,13 +382,6 @@
                                                                 <input  id="cadera3_d" name="cadera3_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma3" name="firma3" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -507,13 +486,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="cadera4_d" name="cadera4_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma4" name="firma4" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -622,13 +594,6 @@
                                                                 <input  id="cadera5_d" name="cadera5_d" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma5" name="firma5" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -733,13 +698,6 @@
                                                             <div class="form-group">
                                                                 <label for="fecha">Despues</label>
                                                                 <input  id="cadera6_d" name="cadera6_d" type="text" class="form-control" value="">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Firma</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="firma6" name="firma6" type="text" class="form-control" value="">
                                                             </div>
                                                         </div>
                                                     </div>
