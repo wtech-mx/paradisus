@@ -1,14 +1,12 @@
-@extends('clientes.layout.app')
 
-
-@section('template_title')
-    Usuarios
-@endsection
-
-@section('client_app')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
-<link href="{{ asset('assets/css/jquery.signature.css')}}" rel="stylesheet" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+
 <style>
     .kbw-signature { width: 100%; height: 200px;}
     #sig canvas{ width: 100% !important; height: auto;}
@@ -63,21 +61,24 @@
                             <div class="row">
                                 <div class="col-12">
 
-                                    <nav>
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <h6 class="text-center">
                                             Sesiones
                                         </h6>
-                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                          <button class="nav-link active" id="nav-uno-tab" data-bs-toggle="tab" data-bs-target="#nav-uno" type="button" role="tab" aria-controls="nav-uno" aria-selected="true"> 1</button>
-                                          <button class="nav-link" id="nav-dos-tab" data-bs-toggle="tab" data-bs-target="#nav-dos" type="button" role="tab" aria-controls="nav-dos" aria-selected="false">2</button>
-                                          <button class="nav-link" id="nav-tres-tab" data-bs-toggle="tab" data-bs-target="#nav-tres" type="button" role="tab" aria-controls="nav-tres" aria-selected="false">3</button>
-                                          <button class="nav-link " id="nav-cuatro-tab" data-bs-toggle="tab" data-bs-target="#nav-cuatro" type="button" role="tab" aria-controls="nav-cuatro" aria-selected="true">4</button>
-                                          <button class="nav-link" id="nav-cinco-tab" data-bs-toggle="tab" data-bs-target="#nav-cinco" type="button" role="tab" aria-controls="nav-cinco" aria-selected="false">5</button>
-                                          <button class="nav-link" id="nav-seis-tab" data-bs-toggle="tab" data-bs-target="#nav-seis" type="button" role="tab" aria-controls="nav-seis" aria-selected="false">6</button>
+                                        <div class="nav nav-tabs" id="myTab" role="tablist">
 
+                                          <li class="nav-item">
+                                            <a class="nav-link active" id="nav-uno-tab" data-toggle="tab" href="#nav-dos" role="tab" aria-controls="nav-uno" aria-selected="true">1</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" id="nav-dos-tab" data-toggle="tab" href="#nav-dos" role="tab" aria-controls="nav-dos" aria-selected="false">2</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" id="nav-tres-tab" data-toggle="tab" href="#nav-tres" role="tab" aria-controls="nav-tres" aria-selected="false">3</a>
+                                          </li>
                                         </div>
-                                    </nav>
-                                      <div class="tab-content" id="nav-tabContent">
+                                    </ul>
+                                      <div class="tab-content" id="myTabContent">
 
                                         <div class="tab-pane fade show active" id="nav-uno" role="tabpanel" aria-labelledby="nav-uno-tab">
                                             <div class="row mt-3">
@@ -970,10 +971,6 @@
     </div>
   </main>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<link href="{{ asset('assets/js/jquery.signature.js')}}" rel="stylesheet" />
-
   <script type="text/javascript">
 
       var sig = $('#sig').signature({syncField: '#signed', syncFormat: 'PNG'});
@@ -1020,6 +1017,3 @@
 
 
   </script>
-
-
-@endsection
