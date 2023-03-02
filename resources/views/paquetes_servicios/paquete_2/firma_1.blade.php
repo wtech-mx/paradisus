@@ -8,7 +8,7 @@
 @section('client_app')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css')}}">
 <style>
     .kbw-signature { width: 100%; height: 200px;}
     #sig canvas{ width: 100% !important; height: auto;}
@@ -68,22 +68,21 @@
                                             Sesiones
                                         </h6>
                                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                          <button class="nav-link active" id="nav-uno-tab" data-bs-toggle="tab" data-bs-target="#nav-uno" type="button" role="tab" aria-controls="nav-uno" aria-selected="true"> 1</button>
-                                          <button class="nav-link" id="nav-dos-tab" data-bs-toggle="tab" data-bs-target="#nav-dos" type="button" role="tab" aria-controls="nav-dos" aria-selected="false">2</button>
-                                          <button class="nav-link" id="nav-tres-tab" data-bs-toggle="tab" data-bs-target="#nav-tres" type="button" role="tab" aria-controls="nav-tres" aria-selected="false">3</button>
-                                          <button class="nav-link " id="nav-cuatro-tab" data-bs-toggle="tab" data-bs-target="#nav-cuatro" type="button" role="tab" aria-controls="nav-cuatro" aria-selected="true">4</button>
-                                          <button class="nav-link" id="nav-cinco-tab" data-bs-toggle="tab" data-bs-target="#nav-cinco" type="button" role="tab" aria-controls="nav-cinco" aria-selected="false">5</button>
-                                          <button class="nav-link" id="nav-seis-tab" data-bs-toggle="tab" data-bs-target="#nav-seis" type="button" role="tab" aria-controls="nav-seis" aria-selected="false">6</button>
-                                          <button class="nav-link" id="nav-siete-tab" data-bs-toggle="tab" data-bs-target="#nav-siete" type="button" role="tab" aria-controls="nav-siete" aria-selected="false">7</button>
-                                          <button class="nav-link" id="nav-ocho-tab" data-bs-toggle="tab" data-bs-target="#nav-ocho" type="button" role="tab" aria-controls="nav-ocho" aria-selected="false">8</button>
-                                          <button class="nav-link" id="nav-nueve-tab" data-bs-toggle="tab" data-bs-target="#nav-nueve" type="button" role="tab" aria-controls="nav-nueve" aria-selected="false">9</button>
-                                          <button class="nav-link" id="nav-diez-tab" data-bs-toggle="tab" data-bs-target="#nav-diez" type="button" role="tab" aria-controls="nav-diez" aria-selected="false">10</button>
+                                          <a class="nav-link" href="#nav-uno" >1</a>
+                                          <a class="nav-link" href="#nav-dos" >2</a>
+                                          <a class="nav-link" href="#nav-tres" >3</a>
+                                          <a class="nav-link" href="#nav-cuatro" >4</a>
+                                          <a class="nav-link" href="#nav-cinco" >5</a>
+                                          <a class="nav-link" href="#nav-seis" >6</a>
+                                          <a class="nav-link" href="#nav-siete" >7</a>
+                                          <a class="nav-link" href="#nav-ocho" >8</a>
+                                          <a class="nav-link" href="#nav-nueve" >9</a>
+                                          <a class="nav-link" href="#nav-diez">10</a>
 
                                         </div>
                                     </nav>
-                                      <div class="tab-content" id="nav-tabContent">
 
-                                        <div class="tab-pane fade show active" id="nav-uno" role="tabpanel" aria-labelledby="nav-uno-tab">
+                                        <div class="tab-pane" id="nav-uno">
                                             <div class="row mt-3">
                                                 <div class="col-6 mb-3">
                                                     <strong>SESIÓN 01</strong>
@@ -223,7 +222,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-dos" role="tabpanel" aria-labelledby="nav-dos-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-dos">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -363,7 +363,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-tres">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -518,7 +519,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-cuatro" role="tabpanel" aria-labelledby="nav-cuatro-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-cuatro">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -670,7 +672,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-cinco" role="tabpanel" aria-labelledby="nav-cinco-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-cinco">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -809,7 +812,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-seis" role="tabpanel" aria-labelledby="nav-seis-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-seis">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -951,7 +955,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-siete" role="tabpanel" aria-labelledby="nav-siete-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-siete">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -1090,7 +1095,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-ocho" role="tabpanel" aria-labelledby="nav-ocho-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-ocho">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -1229,7 +1235,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-nueve" role="tabpanel" aria-labelledby="nav-nueve-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-nueve">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -1368,7 +1375,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade" id="nav-diez" role="tabpanel" aria-labelledby="nav-diez-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-diez">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
@@ -1506,7 +1514,6 @@
                                                  </div>
                                             </div>
                                         </div>
-                                      </div>
 
                                 </div>
                             </div>
@@ -1529,9 +1536,9 @@
     </div>
   </main>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+<script type="text/javascript" href="{{ asset('assets/js/jquery.signature.js')}}"></script>
 
   <script type="text/javascript">
 

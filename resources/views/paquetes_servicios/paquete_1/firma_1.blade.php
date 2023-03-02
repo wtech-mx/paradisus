@@ -1,16 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
-{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --}}
-<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+    <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <title>Firma</title>
+  </head>
+
 
 <style>
     .kbw-signature { width: 100%; height: 200px;}
     #sig canvas{ width: 100% !important; height: auto;}
 </style>
-
+<body>
 <main class="main-content main-content-bg mt-0">
     <div class="page-header min-vh-100" style="background-image: url('https://img.freepik.com/foto-gratis/composicion-spa-articulos-cuidado-corporal-luz_169016-4162.jpg?w=1380&t=st=1673891361~exp=1673891961~hmac=c4906a893a92ac918c550c104ff3007b935c475c8b53275e4b26bebee610d48f');">
       <span class="mask bg-gradient-dark opacity-6"></span>
@@ -60,29 +70,37 @@
                             <div class="row">
                                 <div class="col-12">
 
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <ul >
                                         <h6 class="text-center">
                                             Sesiones
                                         </h6>
                                         <div class="nav nav-tabs" id="myTab" role="tablist">
 
                                           <li class="nav-item">
-                                            <a class="nav-link active" id="nav-uno-tab" data-toggle="tab" href="#nav-dos" role="tab" aria-controls="nav-uno" aria-selected="true">1</a>
+                                            <a class="nav-link" href="#nav-uno" >1</a>
                                           </li>
                                           <li class="nav-item">
-                                            <a class="nav-link" id="nav-dos-tab" data-toggle="tab" href="#nav-dos" role="tab" aria-controls="nav-dos" aria-selected="false">2</a>
+                                            <a class="nav-link" href="#nav-dos">2</a>
                                           </li>
                                           <li class="nav-item">
-                                            <a class="nav-link" id="nav-tres-tab" data-toggle="tab" href="#nav-tres" role="tab" aria-controls="nav-tres" aria-selected="false">3</a>
+                                            <a class="nav-link" href="#nav-tres">3</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="#nav-cuatro">4</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="#nav-cinco">5</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="#nav-seis">6</a>
                                           </li>
                                         </div>
                                     </ul>
-                                      <div class="tab-content" id="myTabContent">
 
-                                        <div class="tab-pane fade show active" id="nav-uno" role="tabpanel" aria-labelledby="nav-uno-tab">
+                                        <div class="tab-pane" id="nav-uno">
                                             <div class="row mt-3">
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 01</strong>
+                                                  <h5><strong>SESIÓN 01</strong></h5>
                                                  </div>
 
 
@@ -220,12 +238,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-dos" role="tabpanel" aria-labelledby="nav-dos-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-dos">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 02</strong>
+                                                  <h5><strong>SESIÓN 02</strong></h5>
                                                 </div>
 
                                                 <div class="col-6 mb-3">
@@ -362,12 +380,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-tres" >
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 03</strong>
+                                                  <h5><strong>SESIÓN 03</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -517,12 +535,12 @@
 
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-cuatro" role="tabpanel" aria-labelledby="nav-cuatro-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-cuatro" >
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 04</strong>
+                                                  <h5><strong>SESIÓN 04</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -669,12 +687,12 @@
                                                  </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-cinco" role="tabpanel" aria-labelledby="nav-cinco-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-cinco">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 05</strong>
+                                                   <h5><strong>SESIÓN 05</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -808,12 +826,12 @@
                                                  </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-seis" role="tabpanel" aria-labelledby="nav-seis-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-seis" >
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 06</strong>
+                                                   <h5><strong>SESIÓN 06</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -951,8 +969,6 @@
                                             </div>
                                         </div>
 
-                                      </div>
-
                                 </div>
                             </div>
 
@@ -974,15 +990,19 @@
     </div>
   </main>
 
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+
+  {{-- <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script> --}}
+  <script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
+
+  {{-- <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css"> --}}
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
 
   <script type="text/javascript">
 
       var sig = $('#sig').signature({syncField: '#signed', syncFormat: 'PNG'});
+
       $('#clear').click(function (e) {
           e.preventDefault();
           sig.signature('clear');
@@ -1023,6 +1043,6 @@
           $("#signed6").val('');
       });
 
-
-
   </script>
+  </body>
+  </html>
