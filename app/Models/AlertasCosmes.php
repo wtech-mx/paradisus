@@ -14,7 +14,7 @@ class AlertasCosmes extends Model
 
     protected $fillable = [
         'id_alerta',
-        'id_user',
+        'id_especialist',
     ];
 
     public function Alertas()
@@ -24,6 +24,6 @@ class AlertasCosmes extends Model
 
     public function User()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_especialist');
     }
 }

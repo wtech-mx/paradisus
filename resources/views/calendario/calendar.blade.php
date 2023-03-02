@@ -88,7 +88,7 @@
                   $('#exampleModal').modal('toggle');
                 },
 
-                  eventClick:function (info) {
+                eventClick:function (info) {
 
                   $("#btnAgregar").prop("disabled",true);
                   $("#btnModificar").prop("disabled",false);
@@ -126,7 +126,7 @@
                   $('#txtHorafin').val(horario2);
                   $('#id_client').val(info.event.extendedProps.id_client);
                   $('#resource_id').val(info.event.extendedProps.resource_id);
-                  $('#id_especialist').val(info.event.extendedProps.id_especialist);
+                  $('#id_especialist').val(id_especialist);
                   $('#title').val(info.event.title);
                   $('#txtTelefono').val(info.event.extendedProps.telefono);
                   $('#color').val(info.event.backgroundColor);
@@ -137,7 +137,7 @@
                   $('#image').val(info.event.extendedProps.image);
                   $('#exampleModal').modal('toggle');
 
-                  console.log('Fecha', dia)
+                  console.log('Formulario', info)
                 },
 
                   eventContent: function(arg) {
@@ -149,6 +149,7 @@
                     let imageArg = arg.event.extendedProps.image;
                     let checkArg = arg.event.extendedProps.check;
                     let id_servicio = arg.event.extendedProps.id_servicio;
+                    let id_especialist = arg.event.extendedProps.id_especialist;
 
                     minutos3=(arg.event.start.getMinutes());
                     hora3=(arg.event.start.getHours());
@@ -204,7 +205,6 @@
                         arrayOfDomNodes = [contenedorEventWrap ]
                         return { domNodes: arrayOfDomNodes }
                     }
-
 
                   },
 
@@ -291,7 +291,7 @@
                     '_token':$("meta[name='csrf-token']").attr("content"),
                     '_method':method
                 }
-                console.log('Fecha nuevo 1',nuevoEvento)
+                console.log('Fecha nue',nuevoEvento)
                 return (nuevoEvento);
             }
 
@@ -363,107 +363,32 @@
           <div class="col-xl-12 col-md-6 mt-xl-0 mt-4">
             <div class="card">
               <div class="card-header p-3 pb-0">
-                <h6 class="mb-0">Next events</h6>
+                <h6 class="mb-0">Citas Del Dia</h6>
               </div>
               <div class="card-body border-radius-lg p-3">
-                <div class="d-flex">
-                  <div>
-                    <div class="icon icon-shape bg-danger-soft shadow text-center border-radius-md shadow-none">
-                      <i class="ni ni-money-coins text-lg text-danger text-gradient opacity-10" aria-hidden="true"></i>
+                @foreach ($alert as $item)
+                    <div class="d-flex">
+                        <div class="ms-3">
+                            <div class="numbers">
+                                <h6 class="mb-1 text-dark text-sm">{{$item->Client->name}} {{$item->Client->last_name}}</h6>
+                                <span class="text-sm">{{$item->Servicios->nombre}}</span><br>
+                                <span class="text-sm">{{$item->start}}</span><br>
+                                <span class="text-sm">Cabina: {{$item->resource_id}}</span>
+                                @if ($item->check == 1)
+                                    <a type="button" data-bs-toggle="modal" data-bs-target="#showDataModal{{$item->id}}"  class="badge badge-pill" style="color: #cce300;background-color: #a6e30040;"> </a>
+                                @elseif ($item->check == 2)
+                                <a href="#" class="badge badge-pill" style="color: #e30800;background-color: #e31a0040;"> </a>
+                                @elseif ($item->check == 3)
+                                    <a href="#" class="badge badge-pill" style="color: #00e300;background-color: #48e30040;"> </a>
+                                @elseif ($item->check == 4)
+                                    <a href="#" class="badge badge-pill" style="color: #e300d0;background-color: #e300bd40;"> </a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="ms-3">
-                    <div class="numbers">
-                      <h6 class="mb-1 text-dark text-sm">Cyber Week</h6>
-                      <span class="text-sm">27 March 2021, at 12:30 PM</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex mt-4">
-                  <div>
-                    <div class="icon icon-shape bg-primary-soft shadow text-center border-radius-md shadow-none">
-                      <i class="ni ni-bell-55 text-lg text-primary text-gradient opacity-10" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                  <div class="ms-3">
-                    <div class="numbers">
-                      <h6 class="mb-1 text-dark text-sm">Meeting with Marry</h6>
-                      <span class="text-sm">24 March 2021, at 10:00 PM</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex mt-4">
-                  <div>
-                    <div class="icon icon-shape bg-success-soft shadow text-center border-radius-md shadow-none">
-                      <i class="ni ni-books text-lg text-success text-gradient opacity-10" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                  <div class="ms-3">
-                    <div class="numbers">
-                      <h6 class="mb-1 text-dark text-sm">Book Deposit Hall</h6>
-                      <span class="text-sm">25 March 2021, at 9:30 AM</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex mt-4">
-                  <div>
-                    <div class="icon icon-shape bg-warning-soft shadow text-center border-radius-md shadow-none">
-                      <i class="ni ni-delivery-fast text-lg text-warning text-gradient opacity-10" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                  <div class="ms-3">
-                    <div class="numbers">
-                      <h6 class="mb-1 text-dark text-sm">Shipment Deal UK</h6>
-                      <span class="text-sm">25 March 2021, at 2:00 PM</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex mt-4">
-                  <div>
-                    <div class="icon icon-shape bg-info-soft shadow text-center border-radius-md shadow-none">
-                      <i class="ni ni-palette text-lg text-info text-gradient opacity-10" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                  <div class="ms-3">
-                    <div class="numbers">
-                      <h6 class="mb-1 text-dark text-sm">Verify Dashboard Color Palette</h6>
-                      <span class="text-sm">26 March 2021, at 9:00 AM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-12 col-md-6 mt-4">
-            <div class="card bg-gradient-dark">
-              <div class="card-header bg-transparent p-3 pb-0">
-                <div class="row">
-                  <div class="col-7">
-                    <h6 class="text-white mb-0">Productivity</h6>
-                    <p class="text-sm text-white">
-                      <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                      <span class="font-weight-bold">4% more</span> in 2021
-                    </p>
-                  </div>
-                  <div class="col-5 text-end">
-                    <div class="dropdown me-3">
-                      <a class="cursor-pointer" href="javascript:;" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false" role="button">
-                        <i class="fa fa-ellipsis-h text-white" aria-hidden="true"></i>
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-end ms-n5 px-2 py-3" aria-labelledby="dropdownTable" data-popper-placement="bottom-start">
-                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
-                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <div class="chart">
-                  <canvas id="chart-line-1" class="chart-canvas" height="100"></canvas>
-                </div>
-              </div>
+                    <hr>
+                    @include('calendario.show')
+                @endforeach
             </div>
           </div>
         </div>

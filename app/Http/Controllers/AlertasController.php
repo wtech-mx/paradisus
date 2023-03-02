@@ -38,11 +38,8 @@ class AlertasController extends Controller
     {
 
         $client = Client::get();
-
         $cosme = User::get();
-
         $alert = Alertas::get();
-
         $servicios = Servicios::get();
 
         return view('calendario.calendar', compact('client', 'alert', 'servicios', 'cosme'));
@@ -76,7 +73,7 @@ class AlertasController extends Controller
         for ($count = 0; $count < count($id_especialist); $count++) {
             $data = array(
                 'id_alerta' => $datosEvento->id,
-                'id_user' => $id_especialist[$count],
+                'id_especialist' => $id_especialist[$count],
             );
             $insert_data2[] = $data;
         }
@@ -123,15 +120,6 @@ class AlertasController extends Controller
 
         $datosEvento->update();
 
-        // G U A R D A R  C O S M E S
-        $id_especialist = $request->get('id_especialist');
-        for ($count = 0; $count < count($id_especialist); $count++) {
-            $data = array(
-                'id_alerta' => $datosEvento->id,
-                'id_user' => $id_especialist[$count],
-            );
-            $insert_data2[] = $data;
-        }
 
         // if ($datosEvento->check == 2){
         //     $controlpagos = new Controlpagos;
