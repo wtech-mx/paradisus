@@ -1,9 +1,11 @@
-
+@extends('clientes.layout.app')
+@section('template_title')
+    Usuarios
+@endsection
+@section('client_app')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --}}
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
-
-
 <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 
 <style>
@@ -60,29 +62,37 @@
                             <div class="row">
                                 <div class="col-12">
 
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <ul >
                                         <h6 class="text-center">
                                             Sesiones
                                         </h6>
                                         <div class="nav nav-tabs" id="myTab" role="tablist">
 
                                           <li class="nav-item">
-                                            <a class="nav-link active" id="nav-uno-tab" data-toggle="tab" href="#nav-dos" role="tab" aria-controls="nav-uno" aria-selected="true">1</a>
+                                            <a class="nav-link" href="#nav-uno" >1</a>
                                           </li>
                                           <li class="nav-item">
-                                            <a class="nav-link" id="nav-dos-tab" data-toggle="tab" href="#nav-dos" role="tab" aria-controls="nav-dos" aria-selected="false">2</a>
+                                            <a class="nav-link" href="#nav-dos">2</a>
                                           </li>
                                           <li class="nav-item">
-                                            <a class="nav-link" id="nav-tres-tab" data-toggle="tab" href="#nav-tres" role="tab" aria-controls="nav-tres" aria-selected="false">3</a>
+                                            <a class="nav-link" href="#nav-tres">3</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="#nav-cuatro">4</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="#nav-cinco">5</a>
+                                          </li>
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="#nav-seis">6</a>
                                           </li>
                                         </div>
                                     </ul>
-                                      <div class="tab-content" id="myTabContent">
 
-                                        <div class="tab-pane fade show active" id="nav-uno" role="tabpanel" aria-labelledby="nav-uno-tab">
+                                        <div class="tab-pane" id="nav-uno">
                                             <div class="row mt-3">
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 01</strong>
+                                                  <h5><strong>SESIÓN 01</strong></h5>
                                                  </div>
 
 
@@ -220,12 +230,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-dos" role="tabpanel" aria-labelledby="nav-dos-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane" id="nav-dos">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 02</strong>
+                                                  <h5><strong>SESIÓN 02</strong></h5>
                                                 </div>
 
                                                 <div class="col-6 mb-3">
@@ -362,12 +372,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-tres" role="tabpanel" aria-labelledby="nav-tres-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-tres" >
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 03</strong>
+                                                  <h5><strong>SESIÓN 03</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -517,12 +527,12 @@
 
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-cuatro" role="tabpanel" aria-labelledby="nav-cuatro-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-cuatro" >
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 04</strong>
+                                                  <h5><strong>SESIÓN 04</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -669,12 +679,12 @@
                                                  </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-cinco" role="tabpanel" aria-labelledby="nav-cinco-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-cinco">
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 05</strong>
+                                                   <h5><strong>SESIÓN 05</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -808,12 +818,12 @@
                                                  </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane fade" id="nav-seis" role="tabpanel" aria-labelledby="nav-seis-tab">
+                                        <hr style="background-color: #D9819C; height: 2px;">
+                                        <div class="tab-pane " id="nav-seis" >
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                    <strong>SESIÓN 06</strong>
+                                                   <h5><strong>SESIÓN 06</strong></h5>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -951,8 +961,6 @@
                                             </div>
                                         </div>
 
-                                      </div>
-
                                 </div>
                             </div>
 
@@ -1026,3 +1034,4 @@
 
 
   </script>
+@endsection
