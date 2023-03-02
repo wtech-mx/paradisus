@@ -52,6 +52,8 @@ Route::get('/paquetes/servicios/edit/moldeante/firma/{id}', [App\Http\Controller
 Route::get('/paquetes/servicios/edit/drenante/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cuatro'])->name('firma_paquete_cuatro.firma_edit_cuatro');
 Route::get('/paquetes/servicios/edit/gluteos/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cinco'])->name('firma_paquete_cinco.firma_edit_cinco');
 
+Route::post('/paquete/usuario/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'store_firma'])->name('paquetes_firma.store_firma');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/show/{id}', [App\Http\Controllers\RoleController::class, 'show'])->name('roles.show');
@@ -119,8 +121,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/paquetes/servicios/store', [App\Http\Controllers\PaquetesController::class, 'store'])->name('paquetes_servicios.store');
     Route::patch('/paquetes/servicios/update/{id}', [App\Http\Controllers\PaquetesController::class, 'update'])->name('paquetes_servicios.update');
     Route::delete('/paquetes/servicios/delete/{id}', [App\Http\Controllers\PaquetesController::class, 'destroy'])->name('paquetes_servicios.destroy');
-
-    Route::post('/paquete/usuario/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'store_firma'])->name('paquetes_firma.store_firma');
 
     // =============== M O D U L O   C A J A ===============================
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
