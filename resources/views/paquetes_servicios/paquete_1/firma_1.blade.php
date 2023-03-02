@@ -995,6 +995,7 @@
   <script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
   {{-- <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css"> --}}
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
+  <script type="text/javascript" src="{{ asset('assets/js/touch/jquery.ui.touch-punch.min.js') }}"></script>
   <script type="text/javascript">
 
       var sig = $('#sig').signature({syncField: '#signed', syncFormat: 'PNG'});
