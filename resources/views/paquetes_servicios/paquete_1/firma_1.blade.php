@@ -12,6 +12,8 @@
     <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
     <title>Firma</title>
   </head>
 
@@ -46,7 +48,7 @@
                         <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Paquete:</label>
                             <div class="input-group mb-4">
-                                <span class="input-group-text"><i class="ni ni-collection"></i></span>
+                                <span class="input-group-text"><i class="fa fa-file"></i></span>
                                 <input class="form-control" type="text" value="Tu figura Ideal c/Aparatología" disabled>
                             </div>
                         </div>
@@ -56,12 +58,31 @@
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Fecha Inicial</label>
                             <div class="input-group mb-4">
-                            <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             <input class="form-control" type="text" value="{{ $paquete->fecha_inicial }}" disabled>
                             </div>
                         </div>
                     </div>
 
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Precio</label>
+                            <div class="input-group mb-4">
+                            <span class="input-group-text"><i class="fa fa-coins"></i></span>
+                            <input class="form-control" type="text" value="${{ $paquete->monto }}" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Pago Restante</label>
+                            <div class="input-group mb-4">
+                            <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                            <input class="form-control" type="text" value="${{ $paquete->restante }}" disabled>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                     <hr style="background-color: #D9819C; height: 2px;">
@@ -71,9 +92,9 @@
                                 <div class="col-12">
 
                                     <ul >
-                                        <h6 class="text-center">
+                                        <h5 class="text-center">
                                             Sesiones
-                                        </h6>
+                                        </h5>
                                         <div class="nav nav-tabs" id="myTab" role="tablist">
 
                                           <li class="nav-item">
@@ -100,7 +121,7 @@
                                         <div class="tab-pane" id="nav-uno">
                                             <div class="row mt-3">
                                                 <div class="col-6 mb-3">
-                                                  <h5><strong>SESIÓN 01</strong></h5>
+                                                  <h6><strong>SESIÓN 01</strong></h6>
                                                  </div>
 
 
@@ -227,10 +248,10 @@
                                                             @csrf
                                                                 <div id="sig"></div>
                                                                 <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Clear</button>
+                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
                                                                 <textarea id="signed" name="signed" style="display: none"></textarea>
                                                                 <br/>
-                                                                <button class="btn btn-primary">Save</button>
+                                                                <button class="btn btn-primary">Guardar</button>
                                                         </form>
                                                     @else
                                                         <img src="{{asset('signatures/'.$paquete->firma1)}}" alt="">
@@ -243,7 +264,7 @@
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                  <h5><strong>SESIÓN 02</strong></h5>
+                                                  <h6><strong>SESIÓN 02</strong></h6>
                                                 </div>
 
                                                 <div class="col-6 mb-3">
@@ -385,7 +406,7 @@
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                  <h5><strong>SESIÓN 03</strong></h5>
+                                                  <h6><strong>SESIÓN 03</strong></h6>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -540,7 +561,7 @@
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                  <h5><strong>SESIÓN 04</strong></h5>
+                                                  <h6><strong>SESIÓN 04</strong></h6>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -692,7 +713,7 @@
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                   <h5><strong>SESIÓN 05</strong></h5>
+                                                   <h6><strong>SESIÓN 05</strong></h6>
                                                  </div>
 
                                                  <div class="col-6 mb-3">
@@ -831,7 +852,7 @@
                                             <div class="row mt-3">
 
                                                 <div class="col-6 mb-3">
-                                                   <h5><strong>SESIÓN 06</strong></h5>
+                                                   <h6><strong>SESIÓN 06</strong></h6>
                                                  </div>
 
                                                  <div class="col-6 mb-3">

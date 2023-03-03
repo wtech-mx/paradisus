@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css')}}">
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 <style>
     .kbw-signature { width: 100%; height: 200px;}
     #sig canvas{ width: 100% !important; height: auto;}
@@ -39,7 +40,7 @@
                         <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Paquete:</label>
                             <div class="input-group mb-4">
-                                <span class="input-group-text"><i class="ni ni-collection"></i></span>
+                                <span class="input-group-text"><i class="fa fa-file"></i></span>
                                 <input class="form-control" type="text" value="Lipoescultura s/Cirugía" disabled>
                             </div>
                         </div>
@@ -49,12 +50,31 @@
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Fecha Inicial</label>
                             <div class="input-group mb-4">
-                            <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             <input class="form-control" type="text" value="{{ $paquete->fecha_inicial }}" disabled>
                             </div>
                         </div>
                     </div>
 
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Precio</label>
+                            <div class="input-group mb-4">
+                            <span class="input-group-text"><i class="fa fa-coins"></i></span>
+                            <input class="form-control" type="text" value="${{ $paquete->monto }}" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Pago Restante</label>
+                            <div class="input-group mb-4">
+                            <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                            <input class="form-control" type="text" value="${{ $paquete->restante }}" disabled>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                     <hr style="background-color: #D9819C; height: 2px;">
@@ -64,9 +84,9 @@
                                 <div class="col-12">
 
                                     <nav>
-                                        <h6 class="text-center">
+                                        <h5 class="text-center">
                                             Sesiones
-                                        </h6>
+                                        </h5>
                                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                           <a class="nav-link" href="#nav-uno" >1</a>
                                           <a class="nav-link" href="#nav-dos" >2</a>
@@ -210,10 +230,10 @@
                                                             @csrf
                                                                 <div id="sig"></div>
                                                                 <br/><br/>
-                                                                <button id="clear" class="btn btn-danger btn-sm">Clear</button>
+                                                                <button id="clear" class="btn btn-danger btn-sm">Repetir</button>
                                                                 <textarea id="signed" name="signed" style="display: none"></textarea>
                                                                 <br/>
-                                                                <button class="btn btn-primary">Save</button>
+                                                                <button class="btn btn-primary">Guardar</button>
                                                         </form>
                                                     @else
                                                         <img src="{{asset('signatures/'.$paquete->firma1)}}" alt="">
