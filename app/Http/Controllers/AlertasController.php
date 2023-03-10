@@ -36,7 +36,6 @@ class AlertasController extends Controller
 
     public function index_calendar()
     {
-
         $client = Client::get();
         $cosme = User::get();
         $alert = Alertas::get();

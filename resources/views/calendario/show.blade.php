@@ -9,11 +9,27 @@
                 <span aria-hidden="true">X</span>
             </button>
         </div>
+
+        <div class="modal-body">
+            <label for="">Cosmetologa(s)</label>
+            <div class="row">
+                @foreach($cosmes_alerts as $item2)
+                    @if ($item2->id_alerta == $item->id)
+                    <div class="col-6">
+                        <input class="form-control" type="text" value="{{$item2->User->name}}" disabled >
+                    </div>
+                    @endif
+                @endforeach
+            </div>
+            <label for="">Nota</label>
+            <textarea class="form-control" cols="30" rows="2" disabled>{{$item->descripcion}}</textarea>
+        </div>
+
         <div class="modal-body">
             <label for="">Selecionar Cosmetologa</label>
             <select class="form-control" id="id_especialist[]" name="id_especialist[]" multiple>
                     @foreach($cosme as $item2)
-                        <option value="{{$item2->id}}" {{is_array($cosmes_alerts->id_especialist) && in_array($item2->id, $cosmes_alerts->id_especialist) ? 'selected' : ''}}>{{$item2->name}}</option>
+                        <option value="{{$item2->id}}">{{$item2->name}}</option>
                     @endforeach
             </select>
         </div>

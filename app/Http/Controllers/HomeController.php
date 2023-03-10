@@ -28,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $fechaActual = date('Y-m-d');
         $client = Client::orderBy('name', 'asc')->get();
         $cosme = User::get();
         $alert = Alertas::get();
