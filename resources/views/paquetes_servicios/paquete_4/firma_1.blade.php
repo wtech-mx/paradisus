@@ -71,10 +71,10 @@
         4
     </a>
 
-    <a href="#nav-ciento" class="facebook">
+    <a href="#nav-cinco" class="facebook">
         5
     </a>
-    <a href="#nav-ciento" class="facebook">
+    <a href="#nav-seis" class="facebook">
         6
     </a>
   </div>
