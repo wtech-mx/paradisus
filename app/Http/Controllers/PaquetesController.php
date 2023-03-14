@@ -196,17 +196,18 @@ class PaquetesController extends Controller
         $paquete->id_servicio = $request->get('id_servicio');
         $paquete->fecha_inicial = $request->get('fecha_inicial');
 
-        $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
-        $image_parts = explode(";base64,", $request->signed_ini);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-        $signature = uniqid() . '.'.$image_type;
-        $file = $folderPath . $signature;
+        if($request->signed_ini != NULL){
+            $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_ini);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
 
-        file_put_contents($file, $image_base64);
-        $paquete->firma = $signature;
-
+            file_put_contents($file, $image_base64);
+            $paquete->firma = $signature;
+        }
         $paquete->fecha1 = $request->get('fecha1');
         $paquete->notas1 = $request->get('notas1');
         $paquete->id_user1 = $request->get('id_user1');
@@ -400,16 +401,18 @@ class PaquetesController extends Controller
                 $pago->foto = $fileName;
             }
 
-            $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
-            $image_parts = explode(";base64,", $request->signed_pago);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $signature = uniqid() . '.'.$image_type;
-            $file = $folderPath . $signature;
+            if($request->signed_pago != NULL){
+                $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->signed_pago);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.'.$image_type;
+                $file = $folderPath . $signature;
 
-            file_put_contents($file, $image_base64);
-            $pago->firma = $signature;
+                file_put_contents($file, $image_base64);
+                $pago->firma = $signature;
+            }
 
             $pago->save();
         }
@@ -828,16 +831,18 @@ class PaquetesController extends Controller
                 $pago->foto = $fileName;
             }
 
-            $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
-            $image_parts = explode(";base64,", $request->signed_pago);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $signature = uniqid() . '.'.$image_type;
-            $file = $folderPath . $signature;
+            if($request->signed_pago != NULL){
+                $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->signed_pago);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.'.$image_type;
+                $file = $folderPath . $signature;
 
-            file_put_contents($file, $image_base64);
-            $pago->firma = $signature;
+                file_put_contents($file, $image_base64);
+                $pago->firma = $signature;
+            }
 
             $pago->save();
         }
