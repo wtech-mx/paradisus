@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('concentimiento_facial', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('id_cliente');
-            $table->string('id_cliente');
-            $table->timestamps();
+        Schema::table('paquetes_pago', function (Blueprint $table) {
+            $table->string('firma', 900)->nullable()->after('foto');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('concentimiento_facial');
+        Schema::table('paquetes_pago', function (Blueprint $table) {
+            //
+        });
     }
 };

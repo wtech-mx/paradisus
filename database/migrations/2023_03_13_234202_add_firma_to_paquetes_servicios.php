@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('alertas', function (Blueprint $table) {
-            $table->text('cosmes')->nullable()->after('resourceId');
+        Schema::table('paquetes_servicios', function (Blueprint $table) {
+            $table->string('firma', 900)->nullable()->after('restante');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('alertas', function (Blueprint $table) {
+        Schema::table('paquetes_servicios', function (Blueprint $table) {
             //
         });
     }

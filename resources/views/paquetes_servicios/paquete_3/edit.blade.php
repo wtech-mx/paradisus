@@ -4,6 +4,10 @@
    Editar Paquete
 @endsection
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -38,6 +42,12 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true" id="pills-profile-tab">
                                 <i class="ni ni-credit-card text-sm me-2"></i> Pago
+                            </a>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-condiciones" role="tab" aria-controls="pills-condiciones" aria-selected="true" id="pills-condiciones-tab">
+                                <i class="ni ni-credit-card text-sm me-2"></i> Condiciones
                             </a>
                         </li>
                     </ul>
@@ -766,11 +776,12 @@
                                         <div class="row">
                                             <div class="row text-center">
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
-                                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Usuario</div>
+                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Usuario</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
                                                 <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
+                                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Firma</div>
 
 
                                                 <p style="display: none">{{ $resultado = 0; }}</p>
@@ -782,7 +793,7 @@
                                                             value="{{$item->fecha}}" disabled>
                                                     </div>
 
-                                                    <div class="col-3 py-2" >
+                                                    <div class="col-2 py-2" >
                                                         <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa" disabled>
                                                             <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
                                                             @foreach ($user as $cosmes)
@@ -803,13 +814,20 @@
 
                                                     </div>
 
-                                                    @if ($item->foto == NULL)
-                                                        <a href=""></a>
-                                                    @else
-                                                        <div class="col-1 py-2">
-                                                            <a target="_blank" href="{{asset('foto_paquetes/'.$item->foto)}}">Abrir Imagen</a>
-                                                        </div>
-                                                    @endif
+                                                    <div class="col-1 py-2">
+                                                        @if ($item->foto == NULL)
+                                                            <a href=""></a>
+                                                        @else
+                                                            <a target="_blank" href="{{asset('foto_paquetes/'.$item->foto)}}">Ver</a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-1 py-2">
+                                                        @if ($item->firma == NULL)
+                                                            <a href=""></a>
+                                                        @else
+                                                            <a target="_blank" href="{{asset('firma_pago/'.$item->firma)}}">Ver</a>
+                                                        @endif
+                                                    </div>
                                                 @endforeach
                                             </div>
 
@@ -862,14 +880,51 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12">
+                                            <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="nota">Foto</label>
                                                     <input type="file" id="foto" class="form-control" name="foto">
                                                 </div>
                                             </div>
+
+                                            <div class="col-6">
+                                                <div id="sig-pago3"></div>
+                                                <br/><br/>
+                                                <button id="clear-pago3" class="btn btn-danger btn-sm">Repetir</button>
+                                                <textarea id="signed_pago3" name="signed_pago3" style="display: none"></textarea>
+                                            </div>
                                             <hr>
                                         </div>
+                            </div>
+
+                            {{-- tab de Condiciones --}}
+                            <div class="tab-pane fade" id="pills-condiciones" role="tabpanel" aria-labelledby="pills-condiciones-tab">
+
+                                <h5>Politicas & Condiciones</h5>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group mt-5 mb-5" style="margin-left: 3rem">
+                                            <li>Las sesiones únicamente deberán ser agendadas de <b>Lunes a Viernes.</b> </li>
+                                            <li>Al realizar tu pago se agendarán, el número de sesiones y fechas del paquete seleccionado. </li>
+                                            <li>NO HAY REEEMBOLSOS DE ANTICIPOS. </li>
+                                            <li>Solo tienes oportunidad de <b>re-agendar UNA sesión</b> con un mínimo de <b>3 días de anticipo.</b> </li>
+                                            <li>En caso de fallar más de una de las sesiones, ya <b>NO se reagendará</b> y tendrás que volverla a pagar, independiente del costo de tu paquete.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <strong>He leído todas las cláusulas y estoy de acuerdo.</strong><br/>
+                                        @if ($paquete->firma == NULL)
+                                            <div id="sig-ini3"></div>
+                                            <br/><br/>
+                                            <button id="clear-ini3" class="btn btn-danger btn-sm">Repetir</button>
+                                            <textarea id="signed_ini3" name="signed_ini3" style="display: none"></textarea>
+                                        @else
+                                            <img src="{{asset('condiciones_paquetes/'.$paquete->firma)}}" alt="">
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -883,7 +938,30 @@
     </div>
 </div>
 @endsection
+@section('js_custom')
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 
+<script type="text/javascript">
+    var sig_ini3 = $('#sig-ini3').signature({syncField: '#signed_ini3', syncFormat: 'PNG'});
+
+    $('#clear-ini3').click(function (e) {
+        e.preventDefault();
+        sig_ini3.signature('clear');
+        $("#signed_ini3").val('');
+    });
+
+    var sig3 = $('#sig-pago3').signature({syncField: '#signed_pago3', syncFormat: 'PNG'});
+
+    $('#clear-pago3').click(function (e) {
+        e.preventDefault();
+        sig3.signature('clear');
+        $("#signed_pago3").val('');
+    });
+</script>
+@endsection
 @section('select2')
 
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>

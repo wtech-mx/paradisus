@@ -30,7 +30,6 @@
    {{-- <link src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link src="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css" rel="stylesheet" />
 --}}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
   <style>
@@ -68,6 +67,7 @@
     </div>
   </main>
 
+  @yield('js_custom')
 
    <!-- Modal lateral Congif -->
     {{-- @include('layouts.modal_config') --}}
@@ -94,7 +94,6 @@
   <script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
   <script src="{{ asset('assets/js/argon-dashboard.min.js')}}"></script>
 
-  @yield('js_custom')
 
   @yield('datatable')
 
