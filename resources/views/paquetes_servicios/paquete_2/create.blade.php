@@ -4,6 +4,10 @@
    Crear Paquete
 @endsection
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -34,6 +38,12 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true" id="pills-profile-tab">
                                 <i class="ni ni-credit-card text-sm me-2"></i> Pago
+                            </a>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-condiciones" role="tab" aria-controls="pills-condiciones" aria-selected="true" id="pills-condiciones-tab">
+                                <i class="ni ni-credit-card text-sm me-2"></i> Condiciones
                             </a>
                         </li>
                     </ul>
@@ -1303,14 +1313,48 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12">
+                                            <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="nota">Foto</label>
                                                     <input type="file" id="foto" class="form-control" name="foto">
                                                 </div>
                                             </div>
+
+                                            <div class="col-6">
+                                                <div id="sig-pago2"></div>
+                                                <br/><br/>
+                                                <button id="clear-pago2" class="btn btn-danger btn-sm">Repetir</button>
+                                                <textarea id="signed_pago2" name="signed_pago2" style="display: none"></textarea>
+                                            </div>
+
                                             <hr>
                                         </div>
+                            </div>
+
+                            {{-- tab de Condiciones --}}
+                            <div class="tab-pane fade" id="pills-condiciones" role="tabpanel" aria-labelledby="pills-condiciones-tab">
+
+                                <h5>Politicas & Condiciones</h5>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group mt-5 mb-5" style="margin-left: 3rem">
+                                            <li>Las sesiones únicamente deberán ser agendadas de <b>Lunes a Viernes.</b> </li>
+                                            <li>Al realizar tu pago se agendarán, el número de sesiones y fechas del paquete seleccionado. </li>
+                                            <li>NO HAY REEEMBOLSOS DE ANTICIPOS. </li>
+                                            <li>Solo tienes oportunidad de <b>re-agendar UNA sesión</b> con un mínimo de <b>3 días de anticipo.</b> </li>
+                                            <li>En caso de fallar más de una de las sesiones, ya <b>NO se reagendará</b> y tendrás que volverla a pagar, independiente del costo de tu paquete.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <strong>He leído todas las cláusulas y estoy de acuerdo.</strong><br/>
+                                            <div id="sig-ini2"></div>
+                                            <br/><br/>
+                                            <button id="clear-ini2" class="btn btn-danger btn-sm">Repetir</button>
+                                            <textarea id="signed_ini2" name="signed_ini2" style="display: none"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -1324,7 +1368,30 @@
     </div>
 </div>
 @endsection
+@section('js_custom')
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 
+<script type="text/javascript">
+    var sig_ini2 = $('#sig-ini2').signature({syncField: '#signed_ini2', syncFormat: 'PNG'});
+
+    $('#clear-ini2').click(function (e) {
+        e.preventDefault();
+        sig_ini2.signature('clear');
+        $("#signed_ini2").val('');
+    });
+
+    var sig2 = $('#sig-pago2').signature({syncField: '#signed_pago2', syncFormat: 'PNG'});
+
+    $('#clear-pago2').click(function (e) {
+        e.preventDefault();
+        sig2.signature('clear');
+        $("#signed_pago2").val('');
+    });
+</script>
+@endsection
 @section('select2')
 
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
