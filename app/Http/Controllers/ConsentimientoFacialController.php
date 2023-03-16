@@ -46,12 +46,19 @@ class ConsentimientoFacialController extends Controller
     }
 
     public function user_show(Request $request, $id){
-        $ConsentimientoCorporal = ConsentimientoCorporal::find($id);
         $ConsentimientoFirmasCorporal = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->count();
-
+        $firmas = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->get();
         $ConcentimientoFacial = ConcentimientoFacial::find($id);
 
-        return view('consentimiento.create', compact('ConsentimientoCorporal', 'ConsentimientoFirmasCorporal'));
+        return view('consentimiento.create', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
+    }
+
+    public function cosme_show(Request $request, $id){
+        $ConsentimientoFirmasCorporal = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->count();
+        $firmas = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->get();
+        $ConcentimientoFacial = ConcentimientoFacial::find($id);
+
+        return view('consentimiento.show', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
     }
 
     public function user_edit(Request $request, $id)
@@ -196,6 +203,125 @@ class ConsentimientoFacialController extends Controller
             $ConcentimientoCorporalFirma->update();
         }
 
+        if($request->signed_pago6 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago6);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
+
+        if($request->signed_pago7 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago7);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
+
+        if($request->signed_pago8 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago8);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
+
+        if($request->signed_pago9 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago9);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
+
+        if($request->signed_pago10 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago10);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
+
+        if($request->signed_pago11 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago11);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
+
+        if($request->signed_pago12 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago12);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
+
+        if($request->signed_pago13 != NULL){
+            $ConcentimientoCorporalFirma = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoc/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago13);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConcentimientoCorporalFirma->firma = $signature;
+            $ConcentimientoCorporalFirma->update();
+        }
 
 
         Session::flash('success', 'Se ha guardado sus datos con exito');

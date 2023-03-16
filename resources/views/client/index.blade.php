@@ -54,6 +54,7 @@
                                             <th>Edad</th>
                                             <th>Telefono</th>
                                             <th>Email</th>
+                                            <th>Estatus</th>
 
                                             <th>Acciones</th>
                                         </tr>
@@ -71,8 +72,18 @@
                                                 <td>{{ $client->email }}</td>
 
                                                 <td>
-                                                    @if(!empty($client->ConsentimientoCorporal->id ))
-                                                    <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('clients_consen.user',$client->ConsentimientoCorporal->id) }}"><i class="fas fa-signature"></i> {{ $client->ConsentimientoCorporal->id }}</a>
+                                                    @if(!empty($client->ConcentimientoFacial->id ))
+                                                        @if ($client->ConcentimientoFacial->pregunta2 == NULL)
+                                                            <a href="{{ route('clients_consen.cosme',$client->ConcentimientoFacial->id) }}" class="badge badge-pill" style="color: #e30800;background-color: #e31a0040;" target="_blank" >No Realizado </a>
+                                                        @else
+                                                            <a href="{{ route('clients_consen.cosme',$client->ConcentimientoFacial->id) }}" class="badge badge-pill" style="color: #00e300;background-color: #48e30040;" target="_blank" >Completado </a>
+                                                        @endif
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    @if(!empty($client->ConcentimientoFacial->id ))
+                                                    <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('clients_consen.user',$client->ConcentimientoFacial->id) }}"><i class="fas fa-signature"></i></a>
                                                     @endif
 
                                                     <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>

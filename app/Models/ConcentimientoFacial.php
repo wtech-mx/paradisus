@@ -28,4 +28,8 @@ class ConcentimientoFacial extends Model
         'pregunta12',
         'fecha',
     ];
+    public function Client()
+    {
+        return $this->belongsTo(Client::class, 'id_client');
+    }
 }

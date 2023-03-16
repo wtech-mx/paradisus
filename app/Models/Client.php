@@ -30,9 +30,9 @@ class Client extends Model
         'phone' => 'required',
     ];
 
-    public function ConsentimientoCorporal()
+    public function ConcentimientoFacial()
     {
-        return $this->hasOne('App\Models\ConsentimientoCorporal', 'id_client', 'id');
+        return $this->hasOne('App\Models\ConcentimientoFacial', 'id_client', 'id');
     }
 
     protected $perPage = 20;

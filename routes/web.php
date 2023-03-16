@@ -56,6 +56,8 @@ Route::post('/paquete/usuario/firma/{id}', [App\Http\Controllers\PaquetesControl
 Route::get('/clients/user/con/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show'])->name('clients_consen.user');
 Route::patch('/clients/user/consentimiento/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit'])->name('clients_consentimiento.user');
 
+Route::get('/clients/cosme/cons/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show'])->name('clients_consen.cosme');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/show/{id}', [App\Http\Controllers\RoleController::class, 'show'])->name('roles.show');
