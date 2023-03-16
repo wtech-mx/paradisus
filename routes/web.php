@@ -53,8 +53,8 @@ Route::get('/paquetes/servicios/edit/drenante/firma/{id}', [App\Http\Controllers
 Route::get('/paquetes/servicios/edit/gluteos/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cinco'])->name('firma_paquete_cinco.firma_edit_cinco');
 
 Route::post('/paquete/usuario/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'store_firma'])->name('paquetes_firma.store_firma');
-Route::get('/clients/user/con/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user'])->name('clients_consen.user');
-Route::post('/clients/user/consentimiento/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user'])->name('clients_consentimiento.user');
+Route::get('/clients/user/con/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show'])->name('clients_consen.user');
+Route::post('/clients/user/consentimiento/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit'])->name('clients_consentimiento.user');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');

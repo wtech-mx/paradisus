@@ -71,6 +71,10 @@
                                                 <td>{{ $client->email }}</td>
 
                                                 <td>
+                                                    @if(!empty($client->ConsentimientoCorporal->id ))
+                                                    <a class="btn btn-sm btn-success" href="{{ route('clients_consen.user',$client->ConsentimientoCorporal->id) }}"><i class="fa fa-fw fa-edit"></i> {{ $client->ConsentimientoCorporal->id }}</a>
+                                                    @endif
+
                                                     <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
                                                     @can('client-edit')
                                                         <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>

@@ -966,9 +966,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                                <div id="sig-pago"></div>
+                                                <div id="sig_pago"></div>
                                                 <br/><br/>
-                                                <button id="clear-pago" class="btn btn-danger btn-sm">Repetir</button>
+                                                <button id="clear_pago" class="btn btn-danger btn-sm">Repetir</button>
                                                 <textarea id="signed_pago" name="signed_pago" style="display: none"></textarea>
                                             </div>
                                             <hr>
@@ -994,9 +994,9 @@
                                     <div class="col-12">
                                         <strong>He leído todas las cláusulas y estoy de acuerdo.</strong><br/>
                                         @if ($paquete->firma == NULL)
-                                                    <div id="sig-ini"></div>
+                                                    <div id="sig_ini"></div>
                                                     <br/><br/>
-                                                    <button id="clear-ini" class="btn btn-danger btn-sm">Repetir</button>
+                                                    <button id="clear_ini" class="btn btn-danger btn-sm">Repetir</button>
                                                     <textarea id="signed_ini" name="signed_ini" style="display: none"></textarea>
                                         @else
                                             <img src="{{asset('condiciones_paquetes/'.$paquete->firma)}}" alt="">
@@ -1023,19 +1023,19 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 
 <script type="text/javascript">
-    var sig_ini = $('#sig-ini').signature({syncField: '#signed_ini', syncFormat: 'PNG'});
+    var sig_ini = $('#sig_ini').signature({syncField: '#signed_ini', syncFormat: 'PNG'});
 
-    $('#clear-ini').click(function (e) {
+    $('#clear_ini').click(function (e) {
         e.preventDefault();
         sig_ini.signature('clear');
         $("#signed_ini").val('');
     });
 
-    var sig = $('#sig-pago').signature({syncField: '#signed_pago', syncFormat: 'PNG'});
+    var sig_pago = $('#sig_pago').signature({syncField: '#signed_pago', syncFormat: 'PNG'});
 
-    $('#clear-pago').click(function (e) {
+    $('#clear_pago').click(function (e) {
         e.preventDefault();
-        sig.signature('clear');
+        sig_pago.signature('clear');
         $("#signed_pago").val('');
     });
 </script>

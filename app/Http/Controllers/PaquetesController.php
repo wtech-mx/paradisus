@@ -635,7 +635,58 @@ class PaquetesController extends Controller
 
             file_put_contents($file, $image_base64);
             $paquete->firma = $signature;
+        }
 
+        if($request->signed_ini2 != NULL){
+            $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_ini2);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $paquete->firma = $signature;
+        }
+
+        if($request->signed_ini3 != NULL){
+            $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_ini3);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $paquete->firma = $signature;
+        }
+
+        if($request->signed_ini4 != NULL){
+            $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_ini4);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $paquete->firma = $signature;
+        }
+
+        if($request->signed_ini5 != NULL){
+            $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_ini5);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $paquete->firma = $signature;
         }
 
         $paquete->fecha1 = $request->get('fecha1');
@@ -844,6 +895,57 @@ class PaquetesController extends Controller
                 $pago->firma = $signature;
             }
 
+            if($request->signed_pago2 != NULL){
+                $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->signed_pago2);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.'.$image_type;
+                $file = $folderPath . $signature;
+
+                file_put_contents($file, $image_base64);
+                $pago->firma = $signature;
+            }
+
+            if($request->signed_pago3 != NULL){
+                $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->signed_pago3);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.'.$image_type;
+                $file = $folderPath . $signature;
+
+                file_put_contents($file, $image_base64);
+                $pago->firma = $signature;
+            }
+
+            if($request->signed_pago4 != NULL){
+                $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->signed_pago4);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.'.$image_type;
+                $file = $folderPath . $signature;
+
+                file_put_contents($file, $image_base64);
+                $pago->firma = $signature;
+            }
+
+            if($request->signed_pago5 != NULL){
+                $folderPath = public_path('firma_pago/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->signed_pago5);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.'.$image_type;
+                $file = $folderPath . $signature;
+
+                file_put_contents($file, $image_base64);
+                $pago->firma = $signature;
+            }
             $pago->save();
         }
 

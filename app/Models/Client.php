@@ -30,6 +30,11 @@ class Client extends Model
         'phone' => 'required',
     ];
 
+    public function ConsentimientoCorporal()
+    {
+        return $this->hasOne('App\Models\ConsentimientoCorporal', 'id_client', 'id');
+    }
+
     protected $perPage = 20;
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\ConcentimientoFacial;
 use App\Models\ConsentimientoFirmasFacial;
@@ -42,5 +43,12 @@ class ConsentimientoFacialController extends Controller
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('clients.index')
             ->with('success', 'caja created successfully.');
+    }
+
+    public function user_show(Request $request, $id){
+        $ConsentimientoCorporal = ConsentimientoCorporal::find($id);
+        $ConcentimientoFacial = ConcentimientoFacial::find($id);
+
+        return view('consentimiento.create', compact('ConsentimientoCorporal', 'ConcentimientoFacial'));
     }
 }

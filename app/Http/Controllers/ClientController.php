@@ -6,6 +6,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClientImport;
+use App\Models\ConsentimientoCorporal;
 use Session;
 
 /**

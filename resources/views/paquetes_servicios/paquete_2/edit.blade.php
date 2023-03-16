@@ -1462,9 +1462,9 @@
                                             </div>
 
                                             <div class="col-6">
-                                                <div id="sig-pago2"></div>
+                                                <div id="sig_pago2"></div>
                                                 <br/><br/>
-                                                <button id="clear-pago2" class="btn btn-danger btn-sm">Repetir</button>
+                                                <button id="clear_pago2" class="btn btn-danger btn-sm">Repetir</button>
                                                 <textarea id="signed_pago2" name="signed_pago2" style="display: none"></textarea>
                                             </div>
                                             <hr>
@@ -1490,9 +1490,9 @@
                                     <div class="col-12">
                                         <strong>He leído todas las cláusulas y estoy de acuerdo.</strong><br/>
                                         @if ($paquete->firma == NULL)
-                                            <div id="sig-ini2"></div>
+                                            <div id="sig_ini2"></div>
                                             <br/><br/>
-                                            <button id="clear-ini2" class="btn btn-danger btn-sm">Repetir</button>
+                                            <button id="clear_ini2" class="btn btn-danger btn-sm">Repetir</button>
                                             <textarea id="signed_ini2" name="signed_ini2" style="display: none"></textarea>
                                         @else
                                             <img src="{{asset('condiciones_paquetes/'.$paquete->firma)}}" alt="">
@@ -1519,17 +1519,17 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 
 <script type="text/javascript">
-    var sig_ini2 = $('#sig-ini2').signature({syncField: '#signed_ini2', syncFormat: 'PNG'});
+    var sig_ini2 = $('#sig_ini2').signature({syncField: '#signed_ini2', syncFormat: 'PNG'});
 
-    $('#clear-ini2').click(function (e) {
+    $('#clear_ini2').click(function (e) {
         e.preventDefault();
         sig_ini2.signature('clear');
         $("#signed_ini2").val('');
     });
 
-    var sig2 = $('#sig-pago2').signature({syncField: '#signed_pago2', syncFormat: 'PNG'});
+    var sig2 = $('#sig_pago2').signature({syncField: '#signed_pago2', syncFormat: 'PNG'});
 
-    $('#clear-pago2').click(function (e) {
+    $('#clear_pago2').click(function (e) {
         e.preventDefault();
         sig2.signature('clear');
         $("#signed_pago2").val('');
