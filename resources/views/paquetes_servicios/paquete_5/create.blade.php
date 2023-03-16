@@ -473,9 +473,9 @@
                                             </div>
 
                                             <div class="col-6">
-                                                <div id="sig-pago5"></div>
+                                                <div id="sig_pago5"></div>
                                                 <br/><br/>
-                                                <button id="clear-pago5" class="btn btn-danger btn-sm">Repetir</button>
+                                                <button id="clear_pago5" class="btn btn-danger btn-sm">Repetir</button>
                                                 <textarea id="signed_pago5" name="signed_pago5" style="display: none"></textarea>
                                             </div>
                                             <hr>
@@ -500,9 +500,9 @@
 
                                     <div class="col-12">
                                         <strong>He leído todas las cláusulas y estoy de acuerdo.</strong><br/>
-                                            <div id="sig-ini5"></div>
+                                            <div id="sig_ini5"></div>
                                             <br/><br/>
-                                            <button id="clear-ini5" class="btn btn-danger btn-sm">Repetir</button>
+                                            <button id="clear_ini5" class="btn btn-danger btn-sm">Repetir</button>
                                             <textarea id="signed_ini5" name="signed_ini5" style="display: none"></textarea>
                                     </div>
                                 </div>
@@ -526,17 +526,17 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 
 <script type="text/javascript">
-    var sig_ini5 = $('#sig-ini5').signature({syncField: '#signed_ini5', syncFormat: 'PNG'});
+    var sig_ini5 = $('#sig_ini5').signature({syncField: '#signed_ini5', syncFormat: 'PNG'});
 
-    $('#clear-ini5').click(function (e) {
+    $('#clear_ini5').click(function (e) {
         e.preventDefault();
         sig_ini5.signature('clear');
         $("#signed_ini5").val('');
     });
 
-    var sig2 = $('#sig-pago5').signature({syncField: '#signed_pago5', syncFormat: 'PNG'});
+    var sig2 = $('#sig_pago5').signature({syncField: '#signed_pago5', syncFormat: 'PNG'});
 
-    $('#clear-pago5').click(function (e) {
+    $('#clear_pago5').click(function (e) {
         e.preventDefault();
         sig2.signature('clear');
         $("#signed_pago5").val('');
