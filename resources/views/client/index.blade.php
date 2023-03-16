@@ -72,7 +72,7 @@
 
                                                 <td>
                                                     @if(!empty($client->ConsentimientoCorporal->id ))
-                                                    <a class="btn btn-sm btn-success" href="{{ route('clients_consen.user',$client->ConsentimientoCorporal->id) }}"><i class="fa fa-fw fa-edit"></i> {{ $client->ConsentimientoCorporal->id }}</a>
+                                                    <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('clients_consen.user',$client->ConsentimientoCorporal->id) }}"><i class="fas fa-signature"></i> {{ $client->ConsentimientoCorporal->id }}</a>
                                                     @endif
 
                                                     <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
@@ -98,6 +98,18 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('select2')
+  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $('.cliente').select2();
+
+        });
+    </script>
 @endsection
 
 @section('datatable')

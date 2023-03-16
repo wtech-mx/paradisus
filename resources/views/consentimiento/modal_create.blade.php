@@ -1,9 +1,16 @@
 <!-- Modal -->
+
+<style>
+.select2-container {
+    width: 100%;
+}
+</style>
+
 <div class="modal fade" id="exampleModalConsentimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalConsentimiento" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createDataModalLabel">Crear Cliente</h5>
+                <h5 class="modal-title" id="createDataModalLabel">Consentimientos</h5>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">
                     <span aria-hidden="true">X</span>
@@ -15,6 +22,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="precio">Cliente</label><br>
+
                         <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
                             <option>Seleccionar cliente</option>
                             @foreach ($clients as $item)
