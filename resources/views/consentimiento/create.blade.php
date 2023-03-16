@@ -84,6 +84,7 @@
                 <form method="POST" action="{{ route('clients_consentimiento.user', $ConsentimientoCorporal->id) }}" enctype="multipart/form-data" role="form">
                     @csrf
                     <input type="hidden" name="_method" value="PATCH">
+                    <h5>Ficha Clinica Facial</h5>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -349,9 +350,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Problemas en la piel</label>
-                                <p class="text-res"><strong>En respuesta otra:</strong> <br> En caso de tener algún problema de la piel, menciónalo. <br>
-                                     <strong>PARADISUS SPA TE INFORMA:</strong> <br>
-                                     EN CASO DE OMITIR ALGUNO DE ESTOS PROBLEMAS, LAS COSMETÓLOGAS INFORMARÁN DE INMEDIATO A RECEPCIÓN POR HABER OMITIDO LA INFORMACIÓN, TENDRAS QUE RETIRARTE DE LAS INSTALACIONES SIN DEVOLUCIÓN MONETARIA ALGUNA.</p>
+                                <p class="text-res">En respuesta otra: En caso de tener algún problema de la piel, menciónalo. <br>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" value="No" id="pregunta4" name="pregunta4">
                                     <label class="form-check-label" for="flexCheckDefault">
@@ -559,7 +558,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Medicamentos controlados</label>
-                                <p class="text-res"><strong>En respuesta otra:</strong> <br> En caso de tomar algún medicamento controlado, menciónalo.</p>
+                                <p class="text-res">En respuesta otra: En caso de tomar algún medicamento controlado, menciónalo.</p>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" value="Si" id="pregunta10" name="pregunta10">
                                     <label class="form-check-label" for="flexCheckDefault">
@@ -653,6 +652,71 @@
                         </div>
                     </div>
 
+                    <hr style="background-color: #D9819C; height: 5px;">
+                    <h5>Terminos & Condiciones</h5>
+                    <div class="row">
+                        <div class="col-4">
+                            <ul>
+                                <b style="color: #D9819C;">Ventajas</b>
+                                <li>Mejora su autoestima.</li>
+                                <li>Mejora su calidad de vida.</li>
+                                <li>Mejora su apariencia estética.</li>
+                                <li>Mejora la calidad de la piel.</li>
+                            </ul>
+                        </div>
+                        <div class="col-4">
+                            <ul>
+                                <b style="color: #D9819C;">Consecuencias o Riesgos:</b>
+                                <li>Puede presentar reacciones a un producto cosmetológico.</li>
+                                <li>No seguir las recomendaciones de la cosmetóloga puede retrasar el resultado del tratamiento.</li>
+                                <li>Por el incumplimiento de sesiones no se verán los resultados esperados.</li>
+                            </ul>
+                        </div>
+                        <div class="col-4">
+                            <ul>
+                                <b style="color: #D9819C;">La cosmetóloga para garantizar el tratamiento se compromete a:</b>
+                                <li>Poner en práctica su ética y conocimiento por el beneficio del paciente.</li>
+                                <li>Cumplir con las normas de bioseguridad.</li>
+                                <li>Explicarle al paciente los procedimientos.</li>
+                            </ul>
+                        </div>
+                        <div class="col-4">
+                            <ul>
+                                <b style="color: #D9819C;">El paciente para ver resultados se compromete a:</b>
+                                <li>Cumplir con todas las citas sin perder la secuencia de las sesiones acordadas.</li>
+                                <li>Seguir las recomendaciones y productos sugeridos.</li>
+                                <li>Realizar los pagos acordados.</li>
+                                <li>Mejorar su estilo de vida.</li>
+                            </ul>
+                        </div>
+                        <div class="col-8">
+                            <ul>
+                                <b style="color: #D9819C;">Paradisus SPA te informa:</b>
+                                <p>En caso de omitir alguno de estos problemas, las cosmetólogas informarán de inmediato a recepción por haber omitido la información, tendras que retirarte de las instalaciones sin devolución monetaria alguna.</p>
+                                <b>Se me ha explicado la naturaleza, propósito, ventajas, molestias y complicaciones que pueden presentarse en el tratamiento, todas las inquietudes han sido contestadas de manera satisfactoria & no me queda ninguna duda, certifico que la información aquí contenida es verdadera y correcta. Deslindo a Paradisus Spa de cualquier enfermedad que yo tenga, o haya escondido al contestar este consentimiento. Acepto que con este documento.</b>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr style="background-color: #D9819C; height: 5px;">
+                    <h5>Firma(s)</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    @for ($i=1; $i<=$ConsentimientoFirmasCorporal; $i++)
+                                        <div class="col-4">
+                                            <div id="sig_pago{{$i}}"></div>
+                                            <br/><br/>
+                                            <button id="clear_pago{{$i}}" class="btn btn-danger btn-sm">Repetir</button>
+                                            <textarea id="signed_pago{{$i}}" name="signed_pago{{$i}}" style="display: none"></textarea>
+                                        </div>
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
                 </form>
               </div>
@@ -672,12 +736,108 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 
 <script type="text/javascript">
-    var sig_pago = $('#sig_pago').signature({syncField: '#signed_pago', syncFormat: 'PNG'});
+    var sig_pago1 = $('#sig_pago1').signature({syncField: '#signed_pago1', syncFormat: 'PNG'});
 
-    $('#clear_pago').click(function (e) {
+    $('#clear_pago1').click(function (e) {
         e.preventDefault();
-        sig_pago.signature('clear');
-        $("#signed_pago").val('');
+        sig_pago1.signature('clear');
+        $("#signed_pago1").val('');
+    });
+
+    var sig_pago2 = $('#sig_pago2').signature({syncField: '#signed_pago2', syncFormat: 'PNG'});
+
+    $('#clear_pago2').click(function (e) {
+        e.preventDefault();
+        sig_pago2.signature('clear');
+        $("#signed_pago2").val('');
+    });
+
+    var sig_pago3 = $('#sig_pago3').signature({syncField: '#signed_pago3', syncFormat: 'PNG'});
+
+    $('#clear_pago3').click(function (e) {
+        e.preventDefault();
+        sig_pago3.signature('clear');
+        $("#signed_pago3").val('');
+    });
+
+    var sig_pago4 = $('#sig_pago4').signature({syncField: '#signed_pago4', syncFormat: 'PNG'});
+
+    $('#clear_pago4').click(function (e) {
+        e.preventDefault();
+        sig_pago4.signature('clear');
+        $("#signed_pago4").val('');
+    });
+
+    var sig_pago5 = $('#sig_pago5').signature({syncField: '#signed_pago5', syncFormat: 'PNG'});
+
+    $('#clear_pago5').click(function (e) {
+        e.preventDefault();
+        sig_pago5.signature('clear');
+        $("#signed_pago5").val('');
+    });
+
+    var sig_pago6 = $('#sig_pago6').signature({syncField: '#signed_pago6', syncFormat: 'PNG'});
+
+    $('#clear_pago6').click(function (e) {
+        e.preventDefault();
+        sig_pago6.signature('clear');
+        $("#signed_pago6").val('');
+    });
+
+    var sig_pago7 = $('#sig_pago7').signature({syncField: '#signed_pago7', syncFormat: 'PNG'});
+
+    $('#clear_pago7').click(function (e) {
+        e.preventDefault();
+        sig_pago7.signature('clear');
+        $("#signed_pago7").val('');
+    });
+
+    var sig_pago8 = $('#sig_pago8').signature({syncField: '#signed_pago8', syncFormat: 'PNG'});
+
+    $('#clear_pago8').click(function (e) {
+        e.preventDefault();
+        sig_pago8.signature('clear');
+        $("#signed_pago8").val('');
+    });
+
+    var sig_pago9 = $('#sig_pago9').signature({syncField: '#signed_pago9', syncFormat: 'PNG'});
+
+    $('#clear_pago9').click(function (e) {
+        e.preventDefault();
+        sig_pago9.signature('clear');
+        $("#signed_pago9").val('');
+    });
+
+    var sig_pago10 = $('#sig_pago10').signature({syncField: '#signed_pago10', syncFormat: 'PNG'});
+
+    $('#clear_pago10').click(function (e) {
+        e.preventDefault();
+        sig_pago10.signature('clear');
+        $("#signed_pago10").val('');
+    });
+
+    var sig_pago11 = $('#sig_pago11').signature({syncField: '#signed_pago11', syncFormat: 'PNG'});
+
+    $('#clear_pago11').click(function (e) {
+        e.preventDefault();
+        sig_pago11.signature('clear');
+        $("#signed_pago11").val('');
+    });
+
+    var sig_pago12 = $('#sig_pago12').signature({syncField: '#signed_pago12', syncFormat: 'PNG'});
+
+    $('#clear_pago12').click(function (e) {
+        e.preventDefault();
+        sig_pago12.signature('clear');
+        $("#signed_pago12").val('');
+    });
+
+    var sig_pago13 = $('#sig_pago13').signature({syncField: '#signed_pago13', syncFormat: 'PNG'});
+
+    $('#clear_pago13').click(function (e) {
+        e.preventDefault();
+        sig_pago13.signature('clear');
+        $("#signed_pago13").val('');
     });
 </script>
 @endsection

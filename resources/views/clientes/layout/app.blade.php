@@ -25,7 +25,7 @@
    <link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css')}}">
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4')}}" rel="stylesheet" />
-
+  @yield('client_app')
 
 <body class="">
     <div class="container-fluid" style="--bs-gutter-x: 0rem;">
