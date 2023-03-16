@@ -7,6 +7,7 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
+
 @endsection
 
 @section('content')
@@ -52,6 +53,13 @@
   background: #D7819D;
   color: white;
 }
+
+@media only screen and (max-width: 450px) {
+    .text-res {
+    font-size: 12px
+  }
+}
+
 </style>
 
 <main class="main-content main-content-bg mt-0">
@@ -59,7 +67,7 @@
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-9">
+          <div class="col-12 col-md-9">
             <div class="card border-0 mb-0">
 
               <div class="card-header bg-transparent">
@@ -81,7 +89,7 @@
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Enfermedades</label>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="renales" id="renales" name="renales">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -132,7 +140,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="bulimia" id="bulimia" name="bulimia">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -183,7 +191,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="embarazo" id="embarazo" name="embarazo">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -262,7 +270,7 @@
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Selecciona si realizas/utilizas/tomas alguna de estas:*</label>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="dieta" id="dieta" name="dieta">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -289,7 +297,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="corticoides" id="corticoides" name="corticoides">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -310,7 +318,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="diureticos" id="diureticos" name="diureticos">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -341,7 +349,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Problemas en la piel</label>
-                                <p><strong>En respuesta otra:</strong> <br> En caso de tener algún problema de la piel, menciónalo. <br>
+                                <p class="text-res"><strong>En respuesta otra:</strong> <br> En caso de tener algún problema de la piel, menciónalo. <br>
                                      <strong>PARADISUS SPA TE INFORMA:</strong> <br>
                                      EN CASO DE OMITIR ALGUNO DE ESTOS PROBLEMAS, LAS COSMETÓLOGAS INFORMARÁN DE INMEDIATO A RECEPCIÓN POR HABER OMITIDO LA INFORMACIÓN, TENDRAS QUE RETIRARTE DE LAS INSTALACIONES SIN DEVOLUCIÓN MONETARIA ALGUNA.</p>
                                 <div class="form-check">
@@ -473,7 +481,7 @@
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Selecciona si cuentas con alguna de estas</label>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="antidepresivos" id="antidepresivos" name="antidepresivos">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -500,7 +508,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="protesis" id="protesis" name="protesis">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -521,7 +529,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-6 col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Dispositivo intrauterino" id="dispositivo_intrauterino" name="dispositivo_intrauterino">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -551,7 +559,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Medicamentos controlados</label>
-                                <p><strong>En respuesta otra:</strong> <br> En caso de tomar algún medicamento controlado, menciónalo.</p>
+                                <p class="text-res"><strong>En respuesta otra:</strong> <br> En caso de tomar algún medicamento controlado, menciónalo.</p>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" value="Si" id="pregunta10" name="pregunta10">
                                     <label class="form-check-label" for="flexCheckDefault">
@@ -578,7 +586,7 @@
                                 <label for="example-text-input" class="form-control-label">¿Te has sometido a alguna cirugía estética?
                                     *</label>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-6 col-md-4">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="ninguna" id="ninguna" name="ninguna">
                                                 <label class="form-check-label" for="flexCheckDefault">
@@ -599,7 +607,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-6 col-md-4">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="tiroides" id="tiroides_11" name="tiroides_11">
                                                 <label class="form-check-label" for="flexCheckDefault">
@@ -620,7 +628,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-6 col-md-4">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="Hilos tensores" id="hilos_tensores" name="hilos_tensores">
                                                 <label class="form-check-label" for="flexCheckDefault">
@@ -641,10 +649,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
                             </div>
                         </div>
                     </div>
