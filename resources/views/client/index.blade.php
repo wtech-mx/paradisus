@@ -20,6 +20,10 @@
 
                             <h3 class="mb-3">Clientes</h3>
 
+                            <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModalConsentimiento" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                Consentimiento
+                            </a>
+
                             @can('client-create')
                                 <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
                                     Crear
@@ -40,6 +44,7 @@
                     @can('client-list')
                         <div class="card-body">
                             @include('client.create')
+                            @include('consentimiento.modal_create')
                             <div class="table-responsive">
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
