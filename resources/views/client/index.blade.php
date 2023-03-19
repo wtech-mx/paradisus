@@ -20,10 +20,6 @@
 
                             <h3 class="mb-3">Clientes</h3>
 
-                            <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModalConsentimiento" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                                Consentimiento
-                            </a>
-
                             @can('client-create')
                                 <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
                                     Crear
@@ -46,6 +42,29 @@
                             @include('client.create')
                             @include('consentimiento.modal_create')
                             <div class="table-responsive">
+                                <form method="POST" action="{{ route('clients_consentimiento.store') }}" enctype="multipart/form-data" role="form">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label for="precio">Cliente</label><br>
+                                            <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client">
+                                                <option>Seleccionar cliente</option>
+                                                @foreach ($clients as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-2">
+                                                <label for="num">Numero de personas</label><br>
+                                                <input id="num_personas" name="num_personas" type="number" class="form-control" >
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="num"></label><br>
+                                            <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
+                                        </div>
+                                    </div>
+                                </form>
+
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr>
@@ -112,15 +131,14 @@
 @endsection
 
 @section('select2')
-  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
-  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
-    <script type="text/javascript">
-            $(document).ready(function() {
-                $('.cliente').select2();
-
+  <script type="text/javascript">
+        $(document).ready(function() {
+            $('.cliente').select2();
         });
-    </script>
+  </script>
 @endsection
 
 @section('datatable')
