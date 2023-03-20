@@ -8,6 +8,8 @@ use App\Models\ConcentimientoFacial;
 use App\Models\ConsentimientoFirmasFacial;
 use App\Models\ConsentimientoCorporal;
 use App\Models\ConsentimientoFirmasCorporal;
+use App\Models\LashLifting;
+use App\Models\LashLiftingFirma;
 use Session;
 
 class ConsentimientoFacialController extends Controller
@@ -16,28 +18,46 @@ class ConsentimientoFacialController extends Controller
     {
         $fechaActual = date('Y-m-d');
 
-        $ConcentimientoFacial = new ConcentimientoFacial;
-        $ConcentimientoFacial->id_client = $request->get('id_client');
-        $ConcentimientoFacial->fecha = $fechaActual;
-        $ConcentimientoFacial->save();
+        if($request->get('consentimiento') == '1'){
+            $ConcentimientoFacial = new ConcentimientoFacial;
+            $ConcentimientoFacial->id_client = $request->get('id_client');
+            $ConcentimientoFacial->fecha = $fechaActual;
+            $ConcentimientoFacial->save();
 
-        $i = 0;
-        for($i=0; $i<=$request->get('num_personas'); $i++){
-            $ConcentimientoFacialFirma = new ConsentimientoFirmasFacial;
-            $ConcentimientoFacialFirma->id_consentimiento = $ConcentimientoFacial->id;
-            $ConcentimientoFacialFirma->save();
+            $i = 0;
+            for($i=0; $i<=$request->get('num_personas'); $i++){
+                $ConcentimientoFacialFirma = new ConsentimientoFirmasCorporal;
+                $ConcentimientoFacialFirma->id_consentimiento = $ConcentimientoFacial->id;
+                $ConcentimientoFacialFirma->save();
+            }
         }
 
-        $ConcentimientoCorporal = new ConsentimientoCorporal;
-        $ConcentimientoCorporal->id_client = $request->get('id_client');
-        $ConcentimientoCorporal->fecha = $fechaActual;
-        $ConcentimientoCorporal->save();
+        if($request->get('consentimiento') == '2'){
+            $ConcentimientoCorporal = new ConsentimientoCorporal;
+            $ConcentimientoCorporal->id_client = $request->get('id_client');
+            $ConcentimientoCorporal->fecha = $fechaActual;
+            $ConcentimientoCorporal->save();
 
-        $e = 0;
-        for($e=0; $e<=$request->get('num_personas'); $e++){
-            $ConcentimientoCorporalFirma = new ConsentimientoFirmasCorporal;
-            $ConcentimientoCorporalFirma->id_consentimiento = $ConcentimientoCorporal->id;
-            $ConcentimientoCorporalFirma->save();
+            $e = 0;
+            for($e=0; $e<=$request->get('num_personas'); $e++){
+                $ConcentimientoCorporalFirma = new ConsentimientoFirmasFacial;
+                $ConcentimientoCorporalFirma->id_consentimiento = $ConcentimientoCorporal->id;
+                $ConcentimientoCorporalFirma->save();
+            }
+        }
+
+        if($request->get('consentimiento') == '3'){
+            $LashLifting = new LashLifting;
+            $LashLifting->id_client = $request->get('id_client');
+            $LashLifting->fecha = $fechaActual;
+            $LashLifting->save();
+
+            $e = 0;
+            for($e=0; $e<=$request->get('num_personas'); $e++){
+                $LashLiftingFirma = new LashLiftingFirma;
+                $LashLiftingFirma->id_consentimiento = $LashLifting->id;
+                $LashLiftingFirma->save();
+            }
         }
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
@@ -53,6 +73,23 @@ class ConsentimientoFacialController extends Controller
         return view('consentimiento.create', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
     }
 
+    public function user_show_brow(Request $request, $id){
+        $ConsentimientoFirmasCorporal = ConsentimientoFirmasfacial::where('id_consentimiento', '=', $id)->count();
+        $firmas = ConsentimientoFirmasfacial::where('id_consentimiento', '=', $id)->get();
+        $ConcentimientoFacial = ConsentimientoCorporal::find($id);
+
+        return view('consentimiento.create_brow', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
+    }
+
+    public function user_show_lash(Request $request, $id){
+        $ConsentimientoFirmasCorporal = LashLiftingFirma::where('id_consentimiento', '=', $id)->count();
+        $firmas = LashLiftingFirma::where('id_consentimiento', '=', $id)->get();
+        $ConcentimientoFacial = LashLifting::find($id);
+
+        return view('consentimiento.create_lash', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
+    }
+
+
     public function cosme_show(Request $request, $id){
         $ConsentimientoFirmasCorporal = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->count();
         $firmas = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->get();
@@ -60,6 +97,23 @@ class ConsentimientoFacialController extends Controller
 
         return view('consentimiento.show', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
     }
+
+    public function cosme_show_brow(Request $request, $id){
+        $ConsentimientoFirmasCorporal = ConsentimientoFirmasfacial::where('id_consentimiento', '=', $id)->count();
+        $firmas = ConsentimientoFirmasfacial::where('id_consentimiento', '=', $id)->get();
+        $ConcentimientoFacial = ConsentimientoCorporal::find($id);
+
+        return view('consentimiento.show_brow', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
+    }
+
+    public function cosme_show_lash(Request $request, $id){
+        $ConsentimientoFirmasCorporal = LashLiftingFirma::where('id_consentimiento', '=', $id)->count();
+        $firmas = LashLiftingFirma::where('id_consentimiento', '=', $id)->get();
+        $ConcentimientoFacial = LashLifting::find($id);
+
+        return view('consentimiento.show_lash', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
+    }
+
 
     public function user_edit(Request $request, $id)
     {
@@ -321,6 +375,457 @@ class ConsentimientoFacialController extends Controller
             file_put_contents($file, $image_base64);
             $ConcentimientoCorporalFirma->firma = $signature;
             $ConcentimientoCorporalFirma->update();
+        }
+
+
+        Session::flash('success', 'Se ha guardado sus datos con exito');
+        return back()
+        ->with('edit','Consentimiento Guardado con exito.');
+    }
+
+    public function user_edit_brow(Request $request, $id)
+    {
+        $ConsentimientoCorporal = ConsentimientoCorporal::find($id);
+        if($request->get('pregunta1_otro') == NULL){
+            $ConsentimientoCorporal->pregunta1 = $request->get('renales') . ' ' . $request->get('digestivas') . ' ' . $request->get('circulatorias') . ' ' . $request->get('diabetes');
+        }else{
+            $ConsentimientoCorporal->pregunta1 = $request->get('pregunta1_otro');
+        }
+
+        $ConsentimientoCorporal->pregunta2 = $request->get('pregunta2');
+        $ConsentimientoCorporal->pregunta3 = $request->get('pregunta3');
+        $ConsentimientoCorporal->pregunta4 = $request->get('pregunta4');
+        $ConsentimientoCorporal->pregunta5 = $request->get('pregunta5');
+        $ConsentimientoCorporal->pregunta6 = $request->get('pregunta6');
+        $ConsentimientoCorporal->pregunta7 = $request->get('pregunta7');
+        $ConsentimientoCorporal->pregunta8 = $request->get('pregunta8');
+        $ConsentimientoCorporal->pregunta9 = $request->get('pregunta9');
+        $ConsentimientoCorporal->pregunta10 = $request->get('pregunta10');
+        $ConsentimientoCorporal->pregunta11 = $request->get('pregunta11');
+        $ConsentimientoCorporal->pregunta12 = $request->get('pregunta12');
+        $ConsentimientoCorporal->pregunta13 = $request->get('pregunta13');
+        $ConsentimientoCorporal->pregunta14 = $request->get('pregunta14');
+        $ConsentimientoCorporal->pregunta15 = $request->get('pregunta15');
+        $ConsentimientoCorporal->update();
+
+        if($request->signed_pago1 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago1);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago2 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago2);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago3 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago3);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago4 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago4);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago5 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago5);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago6 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago6);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago7 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago7);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago8 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago8);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago9 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago9);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago10 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago10);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago11 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago11);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago12 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago12);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+        if($request->signed_pago13 != NULL){
+            $ConsentimientoFirmasFacial = ConsentimientoFirmasFacial::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientob/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago13);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $ConsentimientoFirmasFacial->firma = $signature;
+            $ConsentimientoFirmasFacial->update();
+        }
+
+
+        Session::flash('success', 'Se ha guardado sus datos con exito');
+        return back()
+        ->with('edit','Consentimiento Guardado con exito.');
+    }
+
+    public function user_edit_lash(Request $request, $id)
+    {
+        $LashLifting = LashLifting::find($id);
+        if($request->get('pregunta1_otro') == NULL){
+            $LashLifting->pregunta1 = $request->get('renales') . ' ' . $request->get('digestivas');
+        }else{
+            $LashLifting->pregunta1 = $request->get('pregunta1_otro');
+        }
+
+        $LashLifting->pregunta2 = $request->get('pregunta2');
+        $LashLifting->pregunta3 = $request->get('pregunta3');
+        $LashLifting->pregunta4 = $request->get('pregunta4');
+        $LashLifting->pregunta5 = $request->get('pregunta5');
+        $LashLifting->pregunta6 = $request->get('pregunta6');
+        $LashLifting->pregunta7 = $request->get('pregunta7');
+        $LashLifting->pregunta8 = $request->get('pregunta8');
+        $LashLifting->pregunta9 = $request->get('pregunta9');
+        $LashLifting->pregunta10 = $request->get('pregunta10');
+        $LashLifting->pregunta11 = $request->get('pregunta11');
+        $LashLifting->pregunta12 = $request->get('pregunta12');
+        $LashLifting->pregunta13 = $request->get('pregunta13');
+        $LashLifting->pregunta14 = $request->get('pregunta14');
+        $LashLifting->update();
+
+        if($request->signed_pago1 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago1);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago2 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago2);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago3 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago3);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago4 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago4);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago5 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago5);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago6 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago6);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago7 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago7);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago8 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago8);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago9 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago9);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago10 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago10);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago11 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago11);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago12 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago12);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
+        }
+
+        if($request->signed_pago13 != NULL){
+            $LashLiftingFirma = LashLiftingFirma::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientol/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago13);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $LashLiftingFirma->firma = $signature;
+            $LashLiftingFirma->update();
         }
 
 

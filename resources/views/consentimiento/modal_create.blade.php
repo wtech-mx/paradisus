@@ -1,11 +1,4 @@
 <!-- Modal -->
-
-<style>
-.select2-container {
-    width: 100%;
-}
-</style>
-
 <div class="modal fade" id="exampleModalConsentimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalConsentimiento" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -23,17 +16,8 @@
                     <div class="form-group">
                         <label for="precio">Cliente</label><br>
 
-                        <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
-                            <option>Seleccionar cliente</option>
-                            @foreach ($clients as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                            @endforeach
-                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="num">Numero de personas</label>
-                        <input id="num_personas" name="num_personas" type="number" class="form-control" >
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>

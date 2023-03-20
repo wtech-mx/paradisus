@@ -35,6 +35,16 @@ class Client extends Model
         return $this->hasOne('App\Models\ConcentimientoFacial', 'id_client', 'id');
     }
 
+    public function ConcentimientoCorporal()
+    {
+        return $this->hasOne('App\Models\ConsentimientoCorporal', 'id_client', 'id');
+    }
+
+    public function LashLifting()
+    {
+        return $this->hasOne('App\Models\LashLifting', 'id_client', 'id');
+    }
+
     protected $perPage = 20;
 
     /**

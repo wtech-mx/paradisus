@@ -53,10 +53,18 @@ Route::get('/paquetes/servicios/edit/drenante/firma/{id}', [App\Http\Controllers
 Route::get('/paquetes/servicios/edit/gluteos/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cinco'])->name('firma_paquete_cinco.firma_edit_cinco');
 
 Route::post('/paquete/usuario/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'store_firma'])->name('paquetes_firma.store_firma');
+
 Route::get('/clients/user/con/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show'])->name('clients_consen.user');
+Route::get('/clients/user/con/brow/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show_brow'])->name('brow_clients_consen.user');
+Route::get('/clients/user/con/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show_lash'])->name('lash_clients_consen.user');
+
 Route::patch('/clients/user/consentimiento/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit'])->name('clients_consentimiento.user');
+Route::patch('/clients/user/consentimiento/brow/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit_brow'])->name('brow_consentimiento.user');
+Route::patch('/clients/user/consentimiento/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit_lash'])->name('lash_consentimiento.user');
 
 Route::get('/clients/cosme/cons/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show'])->name('clients_consen.cosme');
+Route::get('/clients/cosme/cons/brow/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_brow'])->name('brow_clients_consen.cosme');
+Route::get('/clients/cosme/cons/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_lash'])->name('lash_clients_consen.cosme');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');

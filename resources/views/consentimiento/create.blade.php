@@ -2,7 +2,7 @@
 
 
 @section('template_title')
-    Consentimiento Facial
+    Consentimiento Facial/Corporal
 @endsection
 
 @section('css')
@@ -85,7 +85,7 @@
                     @csrf
                     <input type="hidden" name="_method" value="PATCH">
                     @if ($ConcentimientoFacial->pregunta2 == NULL)
-                        <h5>Ficha Clinica Facial</h5>
+                        <h5>Ficha Clinica Facial/Corporal</h5>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">

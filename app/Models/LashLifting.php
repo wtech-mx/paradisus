@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ConsentimientoCorporal extends Model
+class LashLifting extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
-    protected $table = 'concentimiento_corporal';
+    protected $table = 'lash_lifting';
 
     protected $fillable = [
         'id_client',
@@ -28,10 +28,8 @@ class ConsentimientoCorporal extends Model
         'pregunta12',
         'pregunta13',
         'pregunta14',
-        'pregunta15',
         'fecha',
     ];
-
     public function Client()
     {
         return $this->belongsTo(Client::class, 'id_client');
