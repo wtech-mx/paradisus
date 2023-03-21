@@ -26,6 +26,8 @@
 
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4')}}" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ asset('assets/css/preloader.css')}}">
+
 
    {{-- <link src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link src="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css" rel="stylesheet" />
@@ -44,6 +46,7 @@
 
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300  position-absolute w-100" style="background-color: {{$configuracion->color_principal}}!important;"></div>
+  <div id="page-loader"><span class="preloader-interior"></span></div>
 
    <!-- Sidenav -->
     @include('layouts.sidebar')
@@ -95,6 +98,8 @@
   <script src="{{ asset('assets/js/argon-dashboard.min.js')}}"></script>
 
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="{{ asset('assets/js/preloader.js')}}"></script>
   @yield('datatable')
 
   @yield('fullcalendar')
