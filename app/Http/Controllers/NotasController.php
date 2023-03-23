@@ -26,14 +26,13 @@ class NotasController extends Controller
      */
     public function index()
     {
-        $nota = Notas::orderBy('id','DESC')->get();
+        $nota = Notas::orderBy('id','DESC')->simplePaginate(15);
 
-        $nota_cosme = NotasCosmes::get();
-        $notas_paquetes = NotasPaquetes::get();
+        $nota_cosme = NotasCosmes::simplePaginate(15);
         // $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
 
 
-        return view('notas.index', compact('nota', 'nota_cosme', 'notas_paquetes'));
+        return view('notas.index', compact('nota', 'nota_cosme'));
     }
 
     public function create()

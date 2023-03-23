@@ -94,24 +94,22 @@
                                                     </td>
                                                     <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
                                                     <td>
-                                                        @foreach($notas_paquetes as $item)
-                                                            @if ($item->id_nota == $notas->id)
-                                                                @if($item->id_servicio != NULL || $item->id_servicio != 0)
-                                                                {{$item->Servicios->nombre}}<br>
-                                                                @else
-                                                                SN
-                                                                @endif
-                                                                @if($item->id_servicio2 != NULL || $item->id_servicio2 != 0)
-                                                                    {{$item->Servicios2->nombre}}<br>
-                                                                @endif
-                                                                @if($item->id_servicio3 != NULL || $item->id_servicio3 != 0)
-                                                                    {{$item->Servicios3->nombre}}<br>
-                                                                @endif
-                                                                @if($item->id_servicio4 != NULL || $item->id_servicio4 != 0)
-                                                                    {{$item->Servicios4->nombre}}<br>
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
+
+                                                        @if($notas->Paquetes->id_servicio != NULL || $notas->Paquetes->id_servicio != 0)
+                                                            {{$notas->Paquetes->Servicios->nombre}}<br>
+                                                        @else
+                                                            SN
+                                                        @endif
+                                                        @if($notas->Paquetes->id_servicio2 != NULL || $notas->Paquetes->id_servicio2 != 0)
+                                                            {{$notas->Paquetes->Servicios2->nombre}}<br>
+                                                        @endif
+                                                        @if($notas->Paquetes->id_servicio3 != NULL || $notas->Paquetes->id_servicio3 != 0)
+                                                            {{$notas->Paquetes->Servicios3->nombre}}<br>
+                                                        @endif
+                                                        @if($notas->Paquetes->id_servicio4 != NULL || $notas->Paquetes->id_servicio4 != 0)
+                                                            {{$notas->Paquetes->Servicios4->nombre}}<br>
+                                                        @endif
+
                                                     </td>
                                                     <td>{{ $notas->fecha }}</td>
                                                     @if ($notas->restante == 0)
