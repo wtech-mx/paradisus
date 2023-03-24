@@ -80,6 +80,19 @@
                                             <input  id="fecha_inicial" name="fecha_inicial" type="date" class="form-control" value="{{ $paquete->fecha_inicial }}">
                                         </div>
                                     </div>
+                                    <div class="col-2">
+                                        @if ($paquete->descuento_5 == 1)
+                                                <div class="form-check">
+                                                    <label class="custom-control-label" for="descuento_5" style="font-size: 15px;">5%</label><br>
+                                                    <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="{{$paquete->descuento_5}}" checked >
+                                                </div>
+                                            @else
+                                                <div class="form-check">
+                                                    <label class="custom-control-label" for="descuento_5" style="font-size: 15px;">5%</label><br>
+                                                    <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1" >
+                                                </div>
+                                        @endif
+                                    </div>
                                 </div>
 
                                 <div class="col-12">

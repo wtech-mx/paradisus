@@ -17,7 +17,7 @@ class PaquetesController extends Controller
 {
     public function index()
     {
-        $paquetes = Paquetes::orderBy('id','DESC')->get();
+        $paquetes = Paquetes::orderBy('id','DESC')->paginate(10);
 
         return view('paquetes_servicios.index', compact('paquetes'));
     }
@@ -187,7 +187,6 @@ class PaquetesController extends Controller
     {
         $this->validate($request, [
             'id_client' => 'required',
-            'id_user1' => 'required'
         ]);
 
         $paquete = new Paquetes;
@@ -195,6 +194,7 @@ class PaquetesController extends Controller
         $paquete->num_paquete = $request->get('num_paquete');
         $paquete->id_servicio = $request->get('id_servicio');
         $paquete->fecha_inicial = $request->get('fecha_inicial');
+        $paquete->descuento_5 = $request->get('descuento_5');
 
         if($request->signed_ini != NULL){
             $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
@@ -431,7 +431,7 @@ class PaquetesController extends Controller
 
         if($request->get('descuento_5') == 1){
             $mult = $precio * .05;
-            $descuento = $precio - $mult;
+            $unitario = $precio - $mult;
         }else{
             $unitario = $precio;
         }
@@ -967,7 +967,7 @@ class PaquetesController extends Controller
 
         if($request->get('descuento_5') == 1){
             $mult = $precio * .05;
-            $descuento = $precio - $mult;
+            $unitario = $precio - $mult;
         }else{
             $unitario = $precio;
         }

@@ -112,7 +112,7 @@
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="nombre">Cosmetologa</label>
-                                                                <select class="form-control " id="id_user1" name="id_user1" value="{{ old('id_user1') }}" required>
+                                                                <select class="form-control " id="id_user1" name="id_user1" value="{{ old('id_user1') }}">
                                                                     <option value="{{ $paquete->User1->id }}">{{ $paquete->User1->name }}</option>
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>

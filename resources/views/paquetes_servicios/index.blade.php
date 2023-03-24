@@ -28,7 +28,7 @@
                     @can('notas-pedido-list')
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-flush" id="datatable-search">
+                                <table class="table table-flush">
                                     <thead class="thead">
                                         <tr class="text-center">
                                             <th>No</th>
@@ -96,6 +96,7 @@
                                             @endforeach
                                         </tbody>
                                 </table>
+                                {!! $paquetes->withQueryString()->links() !!}
                             </div>
                         </div>
                     @endcan

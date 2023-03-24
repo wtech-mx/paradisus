@@ -14,6 +14,7 @@ class Paquetes extends Model
     protected $fillable = [
         'id_client',
         'num_paquete',
+        'descuento_5',
         'fecha_inicial',
         'fecha1',
         'notas1',

@@ -75,6 +75,12 @@
                                             <input  id="fecha_inicial" name="fecha_inicial" type="date" class="form-control" value="{{$fechaActual}}">
                                         </div>
                                     </div>
+                                    <div class="col-2">
+                                        <div class="form-check">
+                                            <label class="custom-control-label" for="descuento" style="font-size: 15px;">5%</label><br>
+                                            <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-12">

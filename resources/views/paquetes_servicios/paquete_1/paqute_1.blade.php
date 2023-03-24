@@ -73,6 +73,12 @@
                                             <input  id="fecha_inicial" name="fecha_inicial" type="date" class="form-control" value="{{$fechaActual}}">
                                         </div>
                                     </div>
+                                    <div class="col-2">
+                                        <div class="form-check">
+                                            <label class="custom-control-label" for="descuento" style="font-size: 15px;">5%</label><br>
+                                            <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-12">
@@ -105,7 +111,7 @@
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="nombre">Cosmetologa</label>
-                                                                <select class="form-control " id="id_user1" name="id_user1" value="{{ old('id_user1') }}" required>
+                                                                <select class="form-control " id="id_user1" name="id_user1" value="{{ old('id_user1') }}">
                                                                     <option value="">Seleccionar cosmetologa</option>
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -824,7 +830,7 @@
                                             <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="pago">Pago</label>
-                                                    <input  id="pago" name="pago" type="text" class="form-control" required>
+                                                    <input  id="pago" name="pago" type="text" class="form-control">
                                                 </div>
                                             </div>
 
