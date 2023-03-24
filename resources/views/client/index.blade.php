@@ -73,7 +73,7 @@
                                     </div>
                                 </form>
 
-                                <table class="table table-flush" id="datatable-search">
+                                <table class="table table-flush" id="">
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
@@ -153,6 +153,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {!! $clients->withQueryString()->links() !!}
                             </div>
                         </div>
                     @endcan
