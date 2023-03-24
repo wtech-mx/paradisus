@@ -25,7 +25,7 @@
                         <div class="card-body">
                             {{-- @include('notas.create') --}}
                             <div class="table-responsive">
-                                <table class="table table-flush" id="datatable-search">
+                                <table class="table table-flush  data-table">
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
@@ -143,6 +143,7 @@
                                         </tbody>
                                     @endif
                                 </table>
+                                {!! $nota->withQueryString()->links() !!}
                             </div>
                         </div>
                     @endcan

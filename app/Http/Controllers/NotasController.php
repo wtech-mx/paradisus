@@ -26,9 +26,9 @@ class NotasController extends Controller
      */
     public function index()
     {
-        $nota = Notas::orderBy('id','DESC')->simplePaginate(15);
+        $nota = Notas::orderBy('id','DESC')->paginate(15);
 
-        $nota_cosme = NotasCosmes::simplePaginate(15);
+        $nota_cosme = NotasCosmes::get();
         // $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
 
 
