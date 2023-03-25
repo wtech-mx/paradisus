@@ -24,6 +24,27 @@
                     @can('notas-list')
                         <div class="card-body">
                             {{-- @include('notas.create') --}}
+                            <form class="row mt-5" action="{{ route('notas.advance_search') }}" method="GET" >
+                                <div class="col-2 ml-3">
+                                    <label class="form-label">Nombre Cliente</label>
+                                    <div class="input-group">
+                                        <input name="id_client" id="id_client" class="form-control"
+                                            type="text" >
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Apellido Cliente</label>
+                                    <div class="input-group">
+                                        <input  name="last_name" id="last_name" type="text" class="form-control" >
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <button class="btn btn-sm mt-4" type="submit" style="background-color: #F82018; color: #ffffff;">Buscar</button>
+                                    <a type="button" class="btn btn-sm mt-4 bg-gradient-success" href="{{ route('notas.index') }}"><i class="fa fa-cash"></i> Limpiar</a>
+                                </div>
+                            </form>
+
                             <div class="table-responsive">
                                 <table class="table table-flush  data-table">
                                     <thead class="thead">

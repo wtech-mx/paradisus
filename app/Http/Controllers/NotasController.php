@@ -16,6 +16,7 @@ use App\Models\Reporte;
 use App\Models\Servicios;
 use Illuminate\Support\Facades\DB;
 use Session;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class NotasController extends Controller
 {
@@ -31,6 +32,27 @@ class NotasController extends Controller
         $nota_cosme = NotasCosmes::get();
         // $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
 
+        return view('notas.index', compact('nota', 'nota_cosme'));
+    }
+
+    public function advance(Request $request) {
+        $nota = DB::table('notas');
+        $nota_cosme = NotasCosmes::get();
+
+        if( $request->id_client){
+            $id_client = $request->id_client;
+            $nota = Notas::whereHas('Client', function(Builder $query) use($id_client) {
+                     $query->where('name', $id_client);
+            });
+        }
+
+        if( $request->last_name){
+            $id_client = $request->last_name;
+            $nota = Notas::whereHas('Client', function(Builder $query) use($id_client) {
+                     $query->where('last_name', $id_client);
+            });
+        }
+        $nota = $nota->paginate(10);
 
         return view('notas.index', compact('nota', 'nota_cosme'));
     }
