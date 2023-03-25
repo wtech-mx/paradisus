@@ -26,14 +26,6 @@
                                 </a>
                             @endcan
 
-                            {{-- <form action="" method="post" enctype="multipart/form-data">
-                                @csrf
-
-                                <input type="file" name="file">
-
-                                <button>Importar Usuarios</button>
-                            </form> --}}
-
                         </div>
                     </div>
 
@@ -42,6 +34,34 @@
                             @include('client.create')
                             @include('consentimiento.modal_create')
                             <div class="table-responsive">
+                                <form class="row mt-5" action="{{ route('clients.advance_search') }}" method="GET" >
+
+                                    <div class="col-2 ml-3">
+                                        <label class="form-label">Nombre</label>
+                                        <div class="input-group">
+                                            <input name="name" class="form-control"
+                                                type="text" >
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <label class="form-label">Apellido</label>
+                                        <div class="input-group">
+                                            <input  name="last_name" type="text" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <label class="form-label">Telefono</label>
+                                        <div class="input-group">
+                                            <input  name="phone" type="text" class="form-control" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <button class="btn btn-sm mt-4" type="submit" style="background-color: #F82018; color: #ffffff;">Buscar</button>
+                                        <a type="button" class="btn btn-sm mt-4 bg-gradient-success" href="{{ route('clients.index') }}"><i class="fa fa-cash"></i> Limpiar</a>
+                                    </div>
+                                </form>
+
                                 <form method="POST" action="{{ route('clients_consentimiento.store') }}" enctype="multipart/form-data" role="form">
                                     @csrf
                                     <div class="row">
@@ -73,12 +93,11 @@
                                     </div>
                                 </form>
 
-                                <table class="table table-flush" id="">
+                                <table class="table table-flush">
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
                                             <th>Nombre</th>
-                                            <th>Edad</th>
                                             <th>Telefono</th>
                                             <th>Email</th>
                                             <th>Estatus</th>
@@ -153,7 +172,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {!! $clients->withQueryString()->links() !!}
                             </div>
                         </div>
                     @endcan
@@ -172,15 +190,21 @@
             $('.cliente').select2();
         });
   </script>
-@endsection
 
-@section('datatable')
-
-<script>
-    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-      searchable: true,
-      fixedHeight: false
+{{-- <script type="text/javascript">
+    $(function () {
+      var table = $('.user_datatable').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('clients.index') }}",
+          columns: [
+              {data: 'id', name: 'id'},
+              {data: 'name', name: 'name'},
+              {data: 'phone', name: 'phone'},
+              {data: 'email', name: 'email'},
+              {data: 'action', name: 'action', orderable: false, searchable: false},
+          ]
+      });
     });
-</script>
-
+  </script> --}}
 @endsection

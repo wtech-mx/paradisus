@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClientImport;
 use App\Models\ConsentimientoCorporal;
 use Session;
+use DB;
+use DataTables;
 
 /**
  * Class ClientController
@@ -20,9 +22,37 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::orderBy('id','DESC')->paginate(15);
+        $clients = Client::orderBy('id','DESC')->paginate();
+
+        if ($request->ajax()) {
+            $data = client::select('id','name','email')->get();
+            return Datatables::of($data)->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('client.index', compact('clients'));
+    }
+
+    public function advance(Request $request) {
+        $clients = DB::table('clients');
+
+        if( $request->name){
+            $clients = $clients->where('name', 'LIKE', "%" . $request->name . "%");
+        }
+        if( $request->last_name){
+            $clients = $clients->where('last_name', 'LIKE', "%" . $request->last_name . "%");
+        }
+        if( $request->phone){
+            $clients = $clients->where('phone', 'LIKE', "%" . $request->phone . "%");
+        }
+        $clients = $clients->paginate(10);
 
         return view('client.index', compact('clients'));
     }

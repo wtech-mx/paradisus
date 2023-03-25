@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/clients/delete/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
 
     Route::post('/clients/consentimiento/', [App\Http\Controllers\ConsentimientoFacialController::class, 'store'])->name('clients_consentimiento.store');
+    Route::get('/clients/advance', [App\Http\Controllers\ClientController::class, 'advance'])->name('clients.advance_search');
 
     // =============== M O D U L O   S E R V I C I O S ===============================
     Route::get('/servicios', [App\Http\Controllers\ServiciosController::class, 'index'])->name('servicio.index');
@@ -105,6 +106,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/notas/servicios/changeCosme', [App\Http\Controllers\NotasController::class, 'ChangeCosme'])->name('notas.ChangeCosme');
     Route::get('/notas/servicios/changeServicio', [App\Http\Controllers\NotasController::class, 'ChangeServicio'])->name('notas.ChangeServicio');
+
+    Route::get('/notas/advance', [App\Http\Controllers\NotasController::class, 'advance'])->name('notas.advance_search');
 
     // =============== M O D U L O   N O T A S  P E D I D O S ===============================
     Route::get('/productos/show', [App\Http\Controllers\NotasPedidoController::class, 'show_productos'])->name('productos.show');
