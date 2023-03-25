@@ -57,8 +57,8 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <button class="btn btn-sm mt-4" type="submit" style="background-color: #F82018; color: #ffffff;">Buscar</button>
-                                        <a type="button" class="btn btn-sm mt-4 bg-gradient-success" href="{{ route('clients.index') }}"><i class="fa fa-cash"></i> Limpiar</a>
+                                        <button class="btn btn-sm mt-4 bg-gradient-success" type="submit" >Buscar</button>
+                                        <a type="button" class="btn btn-sm mt-4 " href="{{ route('clients.index') }}" style="background-color: #F82018; color: #ffffff;"><i class="fa fa-cash"></i> Limpiar</a>
                                     </div>
                                 </form>
 
