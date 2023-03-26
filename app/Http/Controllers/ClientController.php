@@ -26,22 +26,22 @@ class ClientController extends Controller
     {
         $clients = Client::orderBy('id','DESC')->paginate();
 
-        if ($request->ajax()) {
-            $data = client::select('id','name','email')->get();
-            return Datatables::of($data)->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        // if ($request->ajax()) {
+        //     $data = client::select('id','name','email')->get();
+        //     return Datatables::of($data)->addIndexColumn()
+        //         ->addColumn('action', function($row){
+        //             $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+        //             return $btn;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->make(true);
+        // }
 
         return view('client.index', compact('clients'));
     }
 
-    public function advance(Request $request) {
-        $clients = DB::table('clients');
+    public function advance(Request $request, Client $cliente) {
+        $clients = $cliente;
 
         if( $request->name){
             $clients = $clients->where('name', 'LIKE', "%" . $request->name . "%");
