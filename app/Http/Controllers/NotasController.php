@@ -52,7 +52,7 @@ class NotasController extends Controller
                      $query->where('last_name', $id_client);
             });
         }
-        $nota = $nota->paginate(10);
+        $nota = $nota->paginate();
 
         return view('notas.index', compact('nota', 'nota_cosme'));
     }
