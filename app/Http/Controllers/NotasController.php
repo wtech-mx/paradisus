@@ -35,8 +35,7 @@ class NotasController extends Controller
         return view('notas.index', compact('nota', 'nota_cosme'));
     }
 
-    public function advance(Request $request) {
-        $nota = DB::table('notas');
+    public function advance(Request $request, Notas $nota) {
         $nota_cosme = NotasCosmes::get();
 
         if( $request->id_client){
