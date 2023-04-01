@@ -46,12 +46,17 @@ class NotasController extends Controller
             });
         }
 
-        if( $request->last_name){
-            $id_client = $request->last_name;
-            $nota = Notas::whereHas('Client', function(Builder $query) use($id_client) {
-                     $query->where('last_name', $id_client);
-            });
+        // if( $request->last_name){
+        //     $id_client = $request->last_name;
+        //     $nota = Notas::whereHas('Client', function(Builder $query) use($id_client) {
+        //              $query->where('last_name', $id_client);
+        //     });
+        // }
+
+        if( $request->id){
+            $nota = $nota->where('id', 'LIKE', "%" . $request->id . "%");
         }
+
         $nota = $nota->paginate();
 
         return view('notas.index', compact('nota', 'nota_cosme'));

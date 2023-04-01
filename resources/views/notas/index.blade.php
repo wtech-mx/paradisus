@@ -33,9 +33,9 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <label class="form-label">Apellido Cliente</label>
+                                    <label class="form-label">ID Nota</label>
                                     <div class="input-group">
-                                        <input  name="last_name" id="last_name" type="text" class="form-control" >
+                                        <input  name="id" id="id" type="text" class="form-control" >
                                     </div>
                                 </div>
 
