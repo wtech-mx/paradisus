@@ -50,7 +50,7 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
-                                            <th>Usuario</th>
+                                            {{-- <th>Usuario</th> --}}
                                             <th>Cliente</th>
                                             <th>Servicio</th>
                                             <th>Fecha</th>
@@ -58,42 +58,6 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    @if (Auth::user()->hasRole('cosmetologa'))
-                                        <tbody>
-                                            @foreach ($nota_cosme_ind as $notas)
-                                            @include('notas.show_cosme')
-                                                <tr>
-                                                    <td>{{ $notas->id_nota }}</td>
-                                                    <td>
-                                                        {{$notas->User->name}}
-                                                    </td>
-                                                    <td>{{ $notas->Notas->Client->name }} {{ $notas->Notas->Client->last_name }}</td>
-                                                    <td>
-                                                        @foreach($notas_paquetes as $item)
-                                                            @if ($item->id_nota == $notas->id)
-                                                                {{$item->Servicios->nombre}}<br>
-
-                                                                @if($item->id_servicio2 != NULL)
-                                                                    {{$item->Servicios2->nombre}}<br>
-                                                                @endif
-                                                                @if($item->id_servicio3 != NULL)
-                                                                    {{$item->Servicios3->nombre}}<br>
-                                                                @endif
-                                                                @if($item->id_servicio4 != NULL)
-                                                                    {{$item->Servicios4->nombre}}<br>
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
-                                                    <td>{{ $notas->Notas->fecha }}</td>
-
-                                                    <td>
-                                                            <div class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showCosmeDataModal{{$notas->id_nota}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i> Ver</div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    @else
                                         <tbody>
                                             @foreach ($nota as $notas)
                                             @if ($notas->cancelado == 1)
@@ -105,13 +69,13 @@
                                             @endif
 
                                                     <td>{{ $notas->id }}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @foreach($nota_cosme as $item)
                                                             @if ($item->id_nota == $notas->id)
                                                                <b>  {{$item->User->name}}</b><br>
                                                             @endif
                                                         @endforeach
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
                                                     <td>
 
@@ -161,7 +125,6 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                    @endif
                                 </table>
                             </div>
                         </div>
