@@ -24,7 +24,7 @@
                     @can('notas-list')
                         <div class="card-body">
                             {{-- @include('notas.create') --}}
-                            <form class="row mt-5" action="{{ route('notas.advance_search') }}" method="GET" >
+                            {{-- <form class="row mt-5" action="{{ route('notas.advance_search') }}" method="GET" >
                                 <div class="col-2 ml-3">
                                     <label class="form-label">Nombre Cliente</label>
                                     <div class="input-group">
@@ -43,7 +43,7 @@
                                     <button class="btn btn-sm mt-4 bg-gradient-success" type="submit" >Buscar</button>
                                     <a type="button" class="btn btn-sm mt-4" href="{{ route('notas.index') }}" style="background-color: #F82018; color: #ffffff;"><i class="fa fa-cash"></i> Limpiar</a>
                                 </div>
-                            </form>
+                            </form> --}}
 
                             <div class="table-responsive">
                                 <table class="table table-flush  data-table">
@@ -163,7 +163,6 @@
                                         </tbody>
                                     @endif
                                 </table>
-                                {!! $nota->withQueryString()->links() !!}
                             </div>
                         </div>
                     @endcan

@@ -96,7 +96,6 @@
                                             @endforeach
                                         </tbody>
                                 </table>
-                                {!! $paquetes->withQueryString()->links() !!}
                             </div>
                         </div>
                     @endcan
