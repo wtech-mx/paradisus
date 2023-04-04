@@ -122,14 +122,14 @@
 @endsection
 
 @section('datatable')
-
-<script>
+<script type="text/javascript">
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-      searchable: true,
-      fixedHeight: false
+      deferRender:true,
+      paging: true,
+      pageLength: 10
     });
-</script>
 
+</script>
 @endsection
 
 

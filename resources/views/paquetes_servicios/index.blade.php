@@ -28,7 +28,7 @@
                     @can('notas-pedido-list')
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-flush">
+                                <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr class="text-center">
                                             <th>No</th>
@@ -106,4 +106,14 @@
         </div>
     </div>
 @include('paquetes_servicios.show')
+@endsection
+@section('datatable')
+<script type="text/javascript">
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      deferRender:true,
+      paging: true,
+      pageLength: 10
+    });
+
+</script>
 @endsection

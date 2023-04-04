@@ -34,7 +34,7 @@
                             @include('client.create')
                             @include('consentimiento.modal_create')
                             <div class="table-responsive">
-                                <form class="row mt-5" action="{{ route('clients.advance_search') }}" method="GET" >
+                                {{-- <form class="row mt-5" action="{{ route('clients.advance_search') }}" method="GET" >
 
                                     <div class="col-2 ml-3">
                                         <label class="form-label">Nombre</label>
@@ -60,7 +60,7 @@
                                         <button class="btn btn-sm mt-4 bg-gradient-success" type="submit" >Buscar</button>
                                         <a type="button" class="btn btn-sm mt-4 " href="{{ route('clients.index') }}" style="background-color: #F82018; color: #ffffff;"><i class="fa fa-cash"></i> Limpiar</a>
                                     </div>
-                                </form>
+                                </form> --}}
 
                                 <form method="POST" action="{{ route('clients_consentimiento.store') }}" enctype="multipart/form-data" role="form">
                                     @csrf
@@ -93,27 +93,25 @@
                                     </div>
                                 </form>
 
-                                <table class="table table-flush">
+                                <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
                                             <th>Nombre</th>
                                             <th>Telefono</th>
                                             <th>Email</th>
-                                            <th>Estatus</th>
 
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($clients as $client)
-                                        @include('client.show')
-                                        @include('client.edit')
+                                        {{-- @include('client.show') --}}
+                                        {{-- @include('client.edit') --}}
                                             <tr>
                                                 <td>{{ $client->id }}</td>
 
                                                 <td>{{ $client->name }} <br>{{ $client->last_name }}</td>
-                                                <td>{{ $client->age }}</td>
                                                 <td>{{ $client->phone }}</td>
                                                 <td>{{ $client->email }}</td>
 
@@ -156,10 +154,10 @@
                                                     <a class="btn btn-sm" target="_blank" href="{{ route('lash_clients_consen.user',$client->LashLifting->id) }}" style="background-color: #2c95db"><i class="fas fa-signature"></i></a>
                                                     @endif
 
-                                                    <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
-                                                    @can('client-edit')
+                                                    {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
+                                                    {{-- @can('client-edit')
                                                         <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @endcan
+                                                    @endcan --}}
                                                     @can('client-delete')
                                                         <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display: contents">
                                                             @csrf
@@ -179,6 +177,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('datatable')
+<script type="text/javascript">
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      deferRender:true,
+      paging: true,
+      pageLength: 10
+    });
+
+</script>
 @endsection
 
 @section('select2')

@@ -24,7 +24,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = Client::orderBy('id','DESC')->paginate();
+        $clients = Client::orderBy('id','DESC')->get();
 
         // if ($request->ajax()) {
         //     $data = client::select('id','name','email')->get();

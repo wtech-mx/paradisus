@@ -20,7 +20,7 @@
 
                         </div>
                     </div>
-                    
+
                     <div class="card-body">
 
                             <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
@@ -28,7 +28,6 @@
                                     <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
                                         <i class="ni ni-folder-17 text-sm me-2"></i> Servicio
                                     </a>
-
                                 </li>
 
                                 <li class="nav-item" role="presentation">

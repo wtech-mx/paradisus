@@ -17,7 +17,7 @@ class PaquetesController extends Controller
 {
     public function index()
     {
-        $paquetes = Paquetes::orderBy('id','DESC')->paginate(10);
+        $paquetes = Paquetes::orderBy('id','DESC')->get();
 
         return view('paquetes_servicios.index', compact('paquetes'));
     }
