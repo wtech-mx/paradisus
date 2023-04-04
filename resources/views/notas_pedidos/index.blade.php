@@ -43,8 +43,8 @@
 
                                         <tbody>
                                             @foreach ($nota_pedido as $notas)
-                                            @include('notas_pedidos.show')
-                                            @include('notas_pedidos.edit')
+                                            {{-- @include('notas_pedidos.show')
+                                            @include('notas_pedidos.edit') --}}
                                                 <tr>
                                                     <td>{{ $notas->id }}</td>
 
@@ -62,10 +62,10 @@
                                                     <td>{{ $notas->fecha }}</td>
 
                                                     <td>
-                                                            <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
+                                                            {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a>
                                                             @can('notas-pedido-edit')
                                                                 <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
-                                                            @endcan
+                                                            @endcan --}}
 
                                                             @can('notas-pedido-delete')
                                                                 <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents">
@@ -78,7 +78,7 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                
+
                                 </table>
                             </div>
                         </div>
