@@ -46,7 +46,7 @@
                             </form> --}}
 
                             <div class="table-responsive">
-                                <table class="table table-flush  data-table">
+                                <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
