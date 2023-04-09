@@ -107,7 +107,7 @@
                                     <tbody>
                                         @foreach ($clients as $client)
                                         {{-- @include('client.show') --}}
-                                        {{-- @include('client.edit') --}}
+                                        @include('client.edit')
                                             <tr>
                                                 <td>{{ $client->id }}</td>
 
@@ -155,9 +155,9 @@
                                                     @endif
 
                                                     {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
-                                                    {{-- @can('client-edit')
+                                                    @can('client-edit')
                                                         <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @endcan --}}
+                                                    @endcan
                                                     @can('client-delete')
                                                         <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display: contents">
                                                             @csrf
