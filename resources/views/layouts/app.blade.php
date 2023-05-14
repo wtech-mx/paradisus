@@ -41,7 +41,7 @@
             color: black;
         }
     </style>
-  @livewireStyles
+
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -110,9 +110,6 @@
 
   @yield('select2')
 
-
-
-  @livewireScripts
 </body>
 
 </html>
