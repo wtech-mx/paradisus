@@ -681,7 +681,7 @@ $(function() {
                     dataType: "json",
                     url: '{{ route('notas.ChangeCosme') }}',
                     data: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        '_token': '{{ csrf_token() }}',
                         'cosmetologa': cosmetologa,
                         'id': id
                     },
@@ -704,7 +704,7 @@ $(function() {
                     dataType: "json",
                     url: '{{ route('notas.ChangeServicio') }}',
                     data: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        '_token': '{{ csrf_token() }}',
                         'id_servicio': id_servicio,
                         'id': id
                     },
