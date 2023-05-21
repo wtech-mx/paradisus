@@ -199,6 +199,30 @@
                                     </div>
                                 </div>
 
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <h4 class="text-center mt-5">General </h4>
+                                    @php
+                                    $totalgeneral = $total + $totalproduct + $totalpaquetes;
+                                    $totalformateadogeneral = number_format($totalgeneral, 1, '.', ',');
+
+                                    $totalformateadogeneralserv = number_format($total, 1, '.', ',');
+                                    $totalformateadogeneralpro = number_format($totalproduct, 1, '.', ',');
+                                    $totalformateadogeneralpaque = number_format($totalpaquetes, 1, '.', ',');
+                                    @endphp
+
+                                    <p class="text-center mb-3"><strong>${{ $totalformateadogeneral }}</strong></p>
+                                    <div class="d-flex justify-content-around">
+                                        <h6>SERVICIOS:<div class="grafica_syle" style="background: #2152ff;">-</div></br>$ {{ $totalformateadogeneralserv }}</h6>
+                                        <h6>PRODUCTOS:<div class="grafica_syle" style="background: #3A416F;">-</div></br>$ {{ $totalformateadogeneralpro }}</h6>
+                                        <h6>PAQUETES:<div class="grafica_syle" style="background: #f53939;">-</div></br>$ {{ $totalformateadogeneralpaque }}</h6>
+                                    </div>
+                                    <div class="chart">
+                                        <canvas id="polar-chart4" class="chart-canvas" height="80" width="80"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-4"></div>
+
                             </div>
                         </div>
                     @endcan
@@ -257,6 +281,7 @@ $(document).ready(function() {
     var ctx10 = document.getElementById("polar-chart").getContext("2d");
     var ctx11 = document.getElementById("polar-chart2").getContext("2d");
     var ctx12 = document.getElementById("polar-chart3").getContext("2d");
+    var ctx13 = document.getElementById("polar-chart4").getContext("2d");
 
     new Chart(ctx10, {
     //   type: "pie",
@@ -320,6 +345,30 @@ $(document).ready(function() {
         datasets: [{
           label: 'My First Dataset',
           data: [{{ $totalPaqueteTrans }}, {{ $totalPaqueteTarjeta }}, {{ $totalPaqueteEfectivo }},],
+          backgroundColor: ["#2152ff", "#3A416F", "#f53939"],
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          }
+        }
+      }
+    });
+
+    new Chart(ctx13, {
+    //   type: "pie",
+      type: "pie",
+      data: {
+        labels: [
+          'SERVICIOS',
+          'PRODUCTOS',
+          'PAQUETES',
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [{{ $total }}, {{ $totalproduct }}, {{ $totalpaquetes }},],
           backgroundColor: ["#2152ff", "#3A416F", "#f53939"],
         }]
       },
