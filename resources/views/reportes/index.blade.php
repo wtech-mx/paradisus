@@ -6,6 +6,15 @@
 @section('css')
 <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" rel="stylesheet">
+<style>
+    .grafica_syle{
+        width: 30px;
+        margin-left: 10px;
+        border-radius: 9px;
+        font-variant: diagonal-fractions;
+        display: inline-block;
+    }
+</style>
 @endsection
 @section('content')
 
@@ -22,7 +31,6 @@
                 <div class="card">
 
                     <div class="card-header">
-
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span id="card_title">
                                <strong>
@@ -32,7 +40,6 @@
                         </div>
 
                         <form class="row mt-5" action="{{ route('advance_search') }}" method="GET" >
-
                             <div class="col-2 ml-3">
                                 <label class="form-label">Del</label>
                                 <div class="input-group">
@@ -80,15 +87,6 @@
                             </div>
                         </form>
                     </div>
-
-
-
-
-
-
-
-
-
                     @can('client-list')
                         <div class="card-body">
                             @include('caja.create')
@@ -129,6 +127,79 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="text-center mt-3 mb-2">Graficas </h4>
+                                </div>
+
+                                <div class="col-4 mt-5">
+                                    <h4 class="text-center mt-2">NOTAS SERVICIOS </h4>
+                                    @php
+                                        $total = $totalNotaTrans + $totalNotaTarjeta + $totalNotaEfectivo;
+                                        $totalformateado = number_format($total, 1, '.', ',');
+                                    @endphp
+                                    <p class="text-center mb-3"><strong>${{ $totalformateado }}</strong></p>
+                                    <div class="d-flex justify-content-around">
+                                        @php
+                                            $totalPagadoFormattedTrans = number_format($totalNotaTrans, 1, '.', ',');
+                                            $totalPagadoFormattedTarjeta = number_format($totalNotaTarjeta, 1, '.', ',');
+                                            $totalPagadoFormattedEfectivo = number_format($totalNotaEfectivo, 1, '.', ',');
+                                        @endphp
+                                        <h6>Transferencia:<div class="grafica_syle" style="background: #2152ff;">-</div></br>$ {{ $totalPagadoFormattedTrans }}</h6>
+                                        <h6>Tarjeta:<div class="grafica_syle" style="background: #3A416F;">-</div></br>$ {{ $totalPagadoFormattedTarjeta }}</h6>
+                                        <h6>Efectivo:<div class="grafica_syle" style="background: #f53939;">-</div></br>$ {{ $totalPagadoFormattedEfectivo }}</h6>
+                                    </div>
+                                    <div class="chart">
+                                        <canvas id="polar-chart" class="chart-canvas" height="80" width="80"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="col-4 mt-5">
+                                    <h4 class="text-center mt-2">NOTAS PRODUCTOS </h4>
+                                    @php
+                                    $totalproduct = $totalProductoTrans + $totalProductoTarjeta + $totalProductoEfectivo;
+                                    $totalformateadoproduct = number_format($totalproduct, 1, '.', ',');
+                                    @endphp
+                                    <p class="text-center mb-3"><strong>${{ $totalformateadoproduct }}</strong></p>
+                                    <div class="d-flex justify-content-around">
+                                        @php
+                                            $totalPagadoProductoFormattedTrans = number_format($totalProductoTrans, 1, '.', ',');
+                                            $totalPagadoProductoFormattedTarjeta = number_format($totalProductoTarjeta, 1, '.', ',');
+                                            $totalPagadoProductoFormattedEfectivo = number_format($totalProductoEfectivo, 1, '.', ',');
+                                        @endphp
+                                        <h6>Transferencia:<div class="grafica_syle" style="background: #2152ff;">-</div></br>$ {{ $totalPagadoProductoFormattedTrans }}</h6>
+                                        <h6>Tarjeta:<div class="grafica_syle" style="background: #3A416F;">-</div></br>$ {{ $totalPagadoProductoFormattedTarjeta }}</h6>
+                                        <h6>Efectivo:<div class="grafica_syle" style="background: #f53939;">-</div></br>$ {{ $totalPagadoProductoFormattedEfectivo }}</h6>
+                                    </div>
+                                    <div class="chart">
+                                        <canvas id="polar-chart2" class="chart-canvas" height="80" width="80"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="col-4 mt-5">
+                                    <h4 class="text-center mt-2">NOTAS PAQUETES </h4>
+                                    @php
+                                    $totalpaquetes = $totalPaqueteTrans + $totalPaqueteTarjeta + $totalPaqueteEfectivo;
+                                    $totalformateadopaquetes = number_format($totalpaquetes, 1, '.', ',');
+                                    @endphp
+                                    <p class="text-center mb-3"><strong>${{ $totalformateadopaquetes }}</strong></p>
+                                    <div class="d-flex justify-content-around">
+                                        @php
+                                            $totalPagadoPaquetesFormattedTrans = number_format($totalPaqueteTrans, 1, '.', ',');
+                                            $totalPagadoPaquetesFormattedTarjeta = number_format($totalPaqueteTarjeta, 1, '.', ',');
+                                            $totalPagadoPaquetesFormattedEfectivo = number_format($totalPaqueteEfectivo, 1, '.', ',');
+                                        @endphp
+                                        <h6>Transferencia:<div class="grafica_syle" style="background: #2152ff;">-</div></br>$ {{ $totalPagadoPaquetesFormattedTrans }}</h6>
+                                        <h6>Tarjeta:<div class="grafica_syle" style="background: #3A416F;">-</div></br>$ {{ $totalPagadoPaquetesFormattedTarjeta }}</h6>
+                                        <h6>Efectivo:<div class="grafica_syle" style="background: #f53939;">-</div></br>$ {{ $totalPagadoPaquetesFormattedEfectivo }}</h6>
+                                    </div>
+                                    <div class="chart">
+                                        <canvas id="polar-chart3" class="chart-canvas" height="80" width="80"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     @endcan
                 </div>
@@ -139,6 +210,8 @@
     </div>
 @endsection
 @section('datatable')
+<script src="{{asset('assets/js/plugins/chartjs.min.js')}}"></script>
+
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
 
@@ -154,6 +227,7 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
 <script>
 $(document).ready(function() {
             $('#orden_servicio').DataTable({
@@ -179,6 +253,84 @@ $(document).ready(function() {
             });
         });
 
-</script>
+    // polar chart
+    var ctx10 = document.getElementById("polar-chart").getContext("2d");
+    var ctx11 = document.getElementById("polar-chart2").getContext("2d");
+    var ctx12 = document.getElementById("polar-chart3").getContext("2d");
 
+    new Chart(ctx10, {
+    //   type: "pie",
+      type: "polarArea",
+      data: {
+        labels: [
+          'Transferencia',
+          'Tarjeta',
+          'Efectivo',
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [{{ $totalNotaTrans }}, {{ $totalNotaTarjeta }}, {{ $totalNotaEfectivo }},],
+          backgroundColor: ["#2152ff", "#3A416F", "#f53939"],
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          }
+        }
+      }
+    });
+
+
+    new Chart(ctx11, {
+    //   type: "pie",
+      type: "polarArea",
+      data: {
+        labels: [
+          'Transferencia',
+          'Tarjeta',
+          'Efectivo',
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [{{ $totalProductoTrans }}, {{ $totalProductoTarjeta }}, {{ $totalProductoEfectivo }},],
+          backgroundColor: ["#2152ff", "#3A416F", "#f53939"],
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          }
+        }
+      }
+    });
+
+
+    new Chart(ctx12, {
+    //   type: "pie",
+      type: "polarArea",
+      data: {
+        labels: [
+          'Transferencia',
+          'Tarjeta',
+          'Efectivo',
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [{{ $totalPaqueteTrans }}, {{ $totalPaqueteTarjeta }}, {{ $totalPaqueteEfectivo }},],
+          backgroundColor: ["#2152ff", "#3A416F", "#f53939"],
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          }
+        }
+      }
+    });
+</script>
 @endsection
+
