@@ -102,15 +102,14 @@ class ReporteController extends Controller
             $totalProductoEfectivo = 0;
 
             foreach ($reporte_notasproducto_trans as $notasproducto_trans) {
-                $totalProductoTrans += $notasproducto_trans->pago;
+                $totalProductoTrans += $notasproducto_trans->monto;
             }
             foreach ($reporte_notasproducto_tarjeta as $notasproducto_tarjeta) {
-                $totalProductoTarjeta += $notasproducto_tarjeta->pago;
+                $totalProductoTarjeta += $notasproducto_tarjeta->monto;
             }
             foreach ($reporte_notasproducto_efectivo as $notasproducto_efectivo) {
-                $totalProductoEfectivo += $notasproducto_efectivo->pago;
+                $totalProductoEfectivo += $notasproducto_efectivo->monto;
             }
-
             // Grafica notas PRODUCTOS
 
             $reporte_notaspaquete_trans = Reporte::whereYear('fecha', $añoActual)
@@ -243,13 +242,13 @@ class ReporteController extends Controller
             $totalProductoEfectivo = 0;
 
             foreach ($reporte_notasproducto_trans as $notasproducto_trans) {
-                $totalProductoTrans += $notasproducto_trans->pago;
+                $totalProductoTrans += $notasproducto_trans->monto;
             }
             foreach ($reporte_notasproducto_tarjeta as $notasproducto_tarjeta) {
-                $totalProductoTarjeta += $notasproducto_tarjeta->pago;
+                $totalProductoTarjeta += $notasproducto_tarjeta->monto;
             }
             foreach ($reporte_notasproducto_efectivo as $notasproducto_efectivo) {
-                $totalProductoEfectivo += $notasproducto_efectivo->pago;
+                $totalProductoEfectivo += $notasproducto_efectivo->monto;
             }
 
             // Grafica notas PRODUCTOS
