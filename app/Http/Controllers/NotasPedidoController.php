@@ -25,14 +25,9 @@ class NotasPedidoController extends Controller
      */
     public function index()
     {
-        $cosme = auth()->user();
         $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
-        $pedido = Pedido::get();
-        $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
-        $client = Client::orderBy('name','ASC')->get();
-        $user = User::get();
 
-        return view('notas_pedidos.index', compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme'));
+        return view('notas_pedidos.index', compact('nota_pedido'));
     }
 
     public function create()
@@ -40,44 +35,6 @@ class NotasPedidoController extends Controller
         $cosme = auth()->user();
         $client = Client::orderBy('name','ASC')->get();
         $user = User::get();
-
-        // $woocomerce = new Product(
-        //     'https://imnasmexico.com/new/wp-json/wc/v3/products?category=202',
-        //     'ck_9868525631eee54f198be17abf22ee6e2a1bb221',
-        //     'cs_7b2f0584b817cf11e6dabae2d113b72e6315f186',
-        //     [
-        //         'wp_api' => true,
-        //         'version' => 'wc/v3',
-        //         'query_string_auth' => true,
-        //     ]
-        // );
-
-        //  //Trae datos de db to jason
-        //  $product_bandas = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'213']);
-        //  $product_bb = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'223']);
-        //  $product_keraluxe = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'224']);
-        //  $product_limp = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'222']);
-        //  $product_apoyo = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'218']);
-        //  $product_loci = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'206']);
-        //  $product_mas = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'193']);
-        //  $product_paque = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'187']);
-        //  $product_sueros = $data2['products'] = $woocomerce->all(['per_page'=> '50','category'=>'197']);
-
-        //  //los convieerte en array
-        //  $decode = json_decode($product_bandas);
-        //  $decode2 = json_decode($product_bb);
-        //  $decode3 = json_decode($product_keraluxe);
-        //  $decode4 = json_decode($product_limp);
-        //  $decode5 = json_decode($product_apoyo);
-        //  $decode6 = json_decode($product_loci);
-        //  $decode7 = json_decode($product_mas);
-        //  $decode8 = json_decode($product_paque);
-        //  $decode9 = json_decode($product_sueros);
-
-        //  //Une los array en uno solo
-        //  $resultado = array_merge($decode,$decode2,$decode3,$decode4,$decode5,$decode6,$decode7,$decode8,$decode9);
-        //  $json = json_encode($resultado);
-        //  $json2 = json_decode($json);
 
         return view('notas_pedidos.create', compact('cosme','user', 'client'));
     }
@@ -183,15 +140,21 @@ class NotasPedidoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function edit($id){
+         $cosme = auth()->user();
+         $nota_pedido = NotasPedidos::find($id);
+         $pedido = Pedido::get();
+         $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
+         $client = Client::orderBy('name','ASC')->get();
+         $user = User::get();
+
+         return view('notas_pedidos.edit', compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme'));
+     }
+
     public function update(Request $request, $id)
     {
 
         $nota = NotasPedidos::find($id);
-        // $nota->id_user = $request->get('id_user');
-        // $nota->id_client = $request->get('id_client');
-        // $nota->metodo_pago = $request->get('metodo_pago');
-        // $nota->fecha = $request->get('fecha');
-        // $nota->update();
 
         $concepto = $request->get('concepto');
         $cantidad = $request->get('cantidad');

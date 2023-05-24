@@ -55,7 +55,8 @@
     <!-- Navbar -->
     @include('layouts.navbar')
     <!-- End Navbar -->
-
+    @include('paquetes_servicios.show')
+    @include('client.create_cons')
     <div class="container-fluid py-4">
 
         {{-- @include('layouts.header') --}}

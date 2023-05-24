@@ -48,13 +48,6 @@
                                             @endif
 
                                                     <td>{{ $notas->id }}</td>
-                                                    {{-- <td>
-                                                        @foreach($nota_cosme as $item)
-                                                            @if ($item->id_nota == $notas->id)
-                                                               <b>  {{$item->User->name}}</b><br>
-                                                            @endif
-                                                        @endforeach
-                                                    </td> --}}
                                                     <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
                                                     <td>
 

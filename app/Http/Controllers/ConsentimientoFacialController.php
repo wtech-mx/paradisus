@@ -30,6 +30,10 @@ class ConsentimientoFacialController extends Controller
                 $ConcentimientoFacialFirma->id_consentimiento = $ConcentimientoFacial->id;
                 $ConcentimientoFacialFirma->save();
             }
+
+            Session::flash('success', 'Se ha guardado sus datos con exito');
+            return redirect()->route('clients_facial.index')
+                ->with('success', 'caja created successfully.');
         }
 
         if($request->get('consentimiento') == '2'){
@@ -44,6 +48,10 @@ class ConsentimientoFacialController extends Controller
                 $ConcentimientoCorporalFirma->id_consentimiento = $ConcentimientoCorporal->id;
                 $ConcentimientoCorporalFirma->save();
             }
+
+            Session::flash('success', 'Se ha guardado sus datos con exito');
+            return redirect()->route('clients_show_brow.index')
+                ->with('success', 'caja created successfully.');
         }
 
         if($request->get('consentimiento') == '3'){
@@ -58,11 +66,12 @@ class ConsentimientoFacialController extends Controller
                 $LashLiftingFirma->id_consentimiento = $LashLifting->id;
                 $LashLiftingFirma->save();
             }
+
+            Session::flash('success', 'Se ha guardado sus datos con exito');
+            return redirect()->route('clients_lash.index')
+                ->with('success', 'caja created successfully.');
         }
 
-        Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->route('clients.index')
-            ->with('success', 'caja created successfully.');
     }
 
     public function user_show(Request $request, $id){

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Client;
 use App\Models\Configuracion;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,7 +30,9 @@ class AppServiceProvider extends ServiceProvider
 
             $fechaActual = date('Y-m-d');
 
-            $view->with(['configuracion' => $configuracion, 'fechaActual' => $fechaActual]);
+            $clients = Client::orderBy('id','DESC')->get();
+
+            $view->with(['configuracion' => $configuracion, 'fechaActual' => $fechaActual, 'clients' => $clients]);
         });
     }
 }

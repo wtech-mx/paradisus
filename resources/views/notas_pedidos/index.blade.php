@@ -43,8 +43,6 @@
 
                                         <tbody>
                                             @foreach ($nota_pedido as $notas)
-                                            {{-- @include('notas_pedidos.show')--}}
-                                            @include('notas_pedidos.edit')
                                                 <tr>
                                                     <td>{{ $notas->id }}</td>
 
@@ -64,7 +62,7 @@
                                                     <td>
                                                             {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
                                                             @can('notas-pedido-edit')
-                                                                <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
+                                                                <a class="btn btn-sm btn-success" href="{{ route('notas_pedidos.edit',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                             @endcan
 
                                                             @can('notas-pedido-delete')
@@ -93,9 +91,8 @@
 @section('datatable')
 <script type="text/javascript">
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-      deferRender:true,
-      paging: true,
-      pageLength: 10
+      searchable: true,
+      fixedHeight: false
     });
 
 </script>

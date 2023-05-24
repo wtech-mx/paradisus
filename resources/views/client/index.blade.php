@@ -34,34 +34,7 @@
                             @include('client.create')
                             @include('consentimiento.modal_create')
                             <div class="table-responsive">
-                                {{-- <form class="row mt-5" action="{{ route('clients.advance_search') }}" method="GET" >
-
-                                    <div class="col-2 ml-3">
-                                        <label class="form-label">Nombre</label>
-                                        <div class="input-group">
-                                            <input name="name" class="form-control"
-                                                type="text" >
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <label class="form-label">Apellido</label>
-                                        <div class="input-group">
-                                            <input  name="last_name" type="text" class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <label class="form-label">Telefono</label>
-                                        <div class="input-group">
-                                            <input  name="phone" type="text" class="form-control" >
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <button class="btn btn-sm mt-4 bg-gradient-success" type="submit" >Buscar</button>
-                                        <a type="button" class="btn btn-sm mt-4 " href="{{ route('clients.index') }}" style="background-color: #F82018; color: #ffffff;"><i class="fa fa-cash"></i> Limpiar</a>
-                                    </div>
-                                </form> --}}
-
+{{-- 
                                 <form method="POST" action="{{ route('clients_consentimiento.store') }}" enctype="multipart/form-data" role="form">
                                     @csrf
                                     <div class="row">
@@ -91,7 +64,7 @@
                                             <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
                                         </div>
                                     </div>
-                                </form>
+                                </form> --}}
 
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
@@ -116,44 +89,6 @@
                                                 <td>{{ $client->email }}</td>
 
                                                 <td>
-                                                    @if(!empty($client->ConcentimientoFacial->id ))
-                                                        @if ($client->ConcentimientoFacial->pregunta2 == NULL)
-                                                            <a href="{{ route('clients_consen.cosme',$client->ConcentimientoFacial->id) }}" class="badge badge-pill" style="color: #e30800;background-color: #e31a0040;" target="_blank">Facial/Corporal </a>
-                                                        @else
-                                                            <a href="{{ route('clients_consen.cosme',$client->ConcentimientoFacial->id) }}" class="badge badge-pill" style="color: #00e300;background-color: #48e30040;" target="_blank">Facial/Corporal </a>
-                                                        @endif
-                                                    @endif
-
-                                                    @if(!empty($client->ConcentimientoCorporal->id ))
-                                                        @if ($client->ConcentimientoCorporal->pregunta2 == NULL)
-                                                            <a href="{{ route('brow_clients_consen.cosme',$client->ConcentimientoCorporal->id) }}" class="badge badge-pill" style="color: #e30800;background-color: #e31a0040;" target="_blank">Brow Bar </a>
-                                                        @else
-                                                            <a href="{{ route('brow_clients_consen.cosme',$client->ConcentimientoCorporal->id) }}" class="badge badge-pill" style="color: #00e300;background-color: #48e30040;" target="_blank">Brow Bar </a>
-                                                        @endif
-                                                    @endif
-
-                                                    @if(!empty($client->LashLifting->id ))
-                                                        @if ($client->LashLifting->pregunta2 == NULL)
-                                                            <a href="{{ route('lash_clients_consen.cosme',$client->LashLifting->id) }}" class="badge badge-pill" style="color: #e30800;background-color: #e31a0040;" target="_blank">Lash Lifting </a>
-                                                        @else
-                                                            <a href="{{ route('lash_clients_consen.cosme',$client->LashLifting->id) }}" class="badge badge-pill" style="color: #00e300;background-color: #48e30040;" target="_blank">Lash Lifting </a>
-                                                        @endif
-                                                    @endif
-                                                </td>
-
-                                                <td>
-                                                    @if(!empty($client->ConcentimientoFacial->id ))
-                                                    <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('clients_consen.user',$client->ConcentimientoFacial->id) }}"><i class="fas fa-signature"></i></a>
-                                                    @endif
-
-                                                    @if(!empty($client->ConcentimientoCorporal->id ))
-                                                    <a class="btn btn-sm" target="_blank" href="{{ route('brow_clients_consen.user',$client->ConcentimientoCorporal->id) }}" style="background-color: #c1db2c"><i class="fas fa-signature"></i></a>
-                                                    @endif
-
-                                                    @if(!empty($client->LashLifting->id ))
-                                                    <a class="btn btn-sm" target="_blank" href="{{ route('lash_clients_consen.user',$client->LashLifting->id) }}" style="background-color: #2c95db"><i class="fas fa-signature"></i></a>
-                                                    @endif
-
                                                     {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
                                                     @can('client-edit')
                                                         <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>

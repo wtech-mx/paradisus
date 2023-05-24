@@ -80,6 +80,11 @@ Route::group(['middleware' => ['auth']], function() {
 
     // =============== M O D U L O   C L I E N T S ===============================
     Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
+
+    Route::get('/clients/facial', [App\Http\Controllers\ClientController::class, 'index_facial'])->name('clients_facial.index');
+    Route::get('/clients/bar', [App\Http\Controllers\ClientController::class, 'index_show_brow'])->name('clients_show_brow.index');
+    Route::get('/clients/lash', [App\Http\Controllers\ClientController::class, 'index_lash'])->name('clients_lash.index');
+
     Route::post('/clients/create', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
     Route::patch('/clients/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
     Route::delete('/clients/delete/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
@@ -117,11 +122,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/notas/pedidos', [App\Http\Controllers\NotasPedidoController::class, 'index'])->name('notas_pedidos.index');
     Route::get('/notas/pedidos/create', [App\Http\Controllers\NotasPedidoController::class, 'create'])->name('notas_pedidos.create');
     Route::post('/notas/pedidos/store', [App\Http\Controllers\NotasPedidoController::class, 'store'])->name('notas_pedidos.store');
+    Route::get('/notas/pedidos/edit/{id}', [App\Http\Controllers\NotasPedidoController::class, 'edit'])->name('notas_pedidos.edit');
     Route::patch('/notas/pedidos/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update'])->name('notas_pedidos.update');
     Route::delete('/notas/pedidos/delete/{id}', [App\Http\Controllers\NotasPedidoController::class, 'destroy'])->name('notas_pedidos.destroy');
 
     // =============== M O D U L O   P A Q U E T E S ===============================
     Route::get('/paquetes/servicios', [App\Http\Controllers\PaquetesController::class, 'index'])->name('paquetes_servicios.index');
+
+    Route::get('/paquetes/servicios/pendientes', [App\Http\Controllers\PaquetesController::class, 'index_pendientes'])->name('paquetes_servicios_pendientes.index');
+    Route::get('/paquetes/servicios/pagados', [App\Http\Controllers\PaquetesController::class, 'index_pagados'])->name('paquetes_servicios_pagados.index');
 
     Route::get('/paquetes/servicios/create/figura_ideal', [App\Http\Controllers\PaquetesController::class, 'create_uno'])->name('create_paquete_uno.create_uno');
     Route::get('/paquetes/servicios/edit/figura_ideal/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_uno'])->name('edit_paquete_uno.edit_uno');

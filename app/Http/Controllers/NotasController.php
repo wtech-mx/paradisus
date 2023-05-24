@@ -345,9 +345,16 @@ class NotasController extends Controller
         $reporte->restante = $nota_pago->restante;
         $reporte->save();
 
-        Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->route('notas.index')
-                        ->with('success','Nota Servicio Creado.');
+        if($nota_pago->restante <= 0){
+            Session::flash('success', 'Se ha guardado sus datos con exito');
+            return redirect()->route('notas_completadas.index')
+                            ->with('success','Nota Servicio Creado.');
+        }else{
+            Session::flash('success', 'Se ha guardado sus datos con exito');
+            return redirect()->route('notas_pendientes.index')
+                            ->with('success','Nota Servicio Creado.');
+        }
+
     }
 
     /**

@@ -28,31 +28,69 @@
           </a>
         </li>
 
-        <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link {{ (Request::is('notas/servicios*') ? 'active' : '') }}" aria-controls="pagesExamples" role="button" aria-expanded="false">
+        <a data-bs-toggle="collapse" href="#pagesConsentimientos" class="nav-link {{ (Request::is('clients/facial*') ? 'active' : '') }}" aria-controls="pagesConsentimientos" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-              <i class="ni ni-settings text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+              <i class="fa fa-file-signature text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+            </div>
+            <span class="nav-link-text ms-1">Consentimientos</span>
+          </a>
+          <div class="collapse " id="pagesConsentimientos">
+            <ul class="nav ms-4">
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('clients/facial*') ? 'show' : '') }}" data-bs-toggle="modal" data-bs-target="#modalCons">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Crear Consentimiento</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('clients/facial*') ? 'show' : '') }}" href="{{ route('clients_facial.index') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Facial/Corporal</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('clients/bar*') ? 'show' : '') }}" href="{{ route('clients_show_brow.index') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Brow Bar</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('clients/lash*') ? 'show' : '') }}" href="{{ route('clients_lash.index') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Lash Lifting</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('clients/lash*') ? 'show' : '') }}" >
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Jacuzzi</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <a data-bs-toggle="collapse" href="#pagesServicios" class="nav-link {{ (Request::is('notas/servicios*') ? 'active' : '') }}" aria-controls="pagesServicios" role="button" aria-expanded="false">
+            <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+              <i class="ni ni-basket text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Notas Servicios</span>
           </a>
-          <div class="collapse " id="pagesExamples">
+          <div class="collapse " id="pagesServicios">
             <ul class="nav ms-4">
               <li class="nav-item ">
-                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas.create') }}">
+                <a class="nav-link {{ (Request::is('notas/servicios*') ? 'show' : '') }}" href="{{ route('notas.create') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Crear Nueva</span>
                 </a>
 
-                <a class="nav-link {{ (Request::is('users*') ? 'show' : '') }}" href="{{ route('notas.index') }}">
+                <a class="nav-link {{ (Request::is('notas/servicios*') ? 'show' : '') }}" href="{{ route('notas.index') }}">
                   <span class="sidenav-mini-icon"> P </span>
                   <span class="sidenav-normal">Todas</span>
                 </a>
 
-                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas_pendientes.index') }}">
+                <a class="nav-link {{ (Request::is('notas/servicios*') ? 'show' : '') }}" href="{{ route('notas_pendientes.index') }}">
                   <span class="sidenav-mini-icon"> P </span>
                   <span class="sidenav-normal">Pendientes</span>
                 </a>
 
-                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas_completadas.index') }}">
+                <a class="nav-link {{ (Request::is('notas/servicios*') ? 'show' : '') }}" href="{{ route('notas_completadas.index') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Completadas</span>
                 </a>
@@ -61,30 +99,21 @@
           </div>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link {{ (Request::is('notas/pedidos*') ? 'active' : '') }}" href="{{ route('notas_pedidos.index') }}" target="">
-            <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-             <i class="ni ni-basket text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
-            </div>
-            <span class="nav-link-text ms-1">Notas Pedidos</span>
-          </a>
-        </li>
-
-        <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link {{ (Request::is('notas/pedidos*') ? 'active' : '') }}" aria-controls="pagesExamples" role="button" aria-expanded="false">
+        <a data-bs-toggle="collapse" href="#pagesPedidos" class="nav-link {{ (Request::is('notas/pedidos*') ? 'active' : '') }}" aria-controls="pagesPedidos" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-              <i class="ni ni-settings text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+                <i class="ni ni-cart text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Notas Pedidos</span>
           </a>
-          <div class="collapse " id="pagesExamples">
+          <div class="collapse " id="pagesPedidos">
             <ul class="nav ms-4">
               <li class="nav-item ">
-                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas.create') }}">
+                <a class="nav-link {{ (Request::is('notas/pedidos*') ? 'show' : '') }}" href="{{ route('notas_pedidos.create') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Crear Nueva</span>
                 </a>
 
-                <a class="nav-link {{ (Request::is('users*') ? 'show' : '') }}" href="{{ route('notas_pedidos.index') }}">
+                <a class="nav-link {{ (Request::is('notas/pedidos*') ? 'show' : '') }}" href="{{ route('notas_pedidos.index') }}">
                   <span class="sidenav-mini-icon"> P </span>
                   <span class="sidenav-normal">Todas</span>
                 </a>
@@ -93,14 +122,37 @@
           </div>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" href="{{ route('paquetes_servicios.index') }}" target="">
-            <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-                <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
-
+        <a data-bs-toggle="collapse" href="#pagesPaquetes" class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" aria-controls="pagesPaquetes" role="button" aria-expanded="false">
+            <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+              <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
             <span class="nav-link-text ms-1">Notas Paquetes</span>
           </a>
+          <div class="collapse " id="pagesPaquetes">
+            <ul class="nav ms-4">
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'show' : '') }}" data-bs-toggle="modal" data-bs-target="#showDataModal">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Crear Nueva</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'show' : '') }}" href="{{ route('paquetes_servicios.index') }}">
+                  <span class="sidenav-mini-icon"> P </span>
+                  <span class="sidenav-normal">Todas</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('notas/servicios*') ? 'show' : '') }}" href="{{ route('paquetes_servicios_pendientes.index') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Pendientes</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('notas/servicios*') ? 'show' : '') }}" href="{{ route('paquetes_servicios_pagados.index') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Pagadas</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
 
             <li class="nav-item">

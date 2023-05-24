@@ -22,6 +22,20 @@ class PaquetesController extends Controller
         return view('paquetes_servicios.index', compact('paquetes'));
     }
 
+    public function index_pendientes()
+    {
+        $paquetes = Paquetes::where('restante', '>', 0)->orderBy('id','DESC')->get();
+
+        return view('paquetes_servicios.index_pendientes', compact('paquetes'));
+    }
+
+    public function index_pagados()
+    {
+        $paquetes = Paquetes::where('restante', '<=', 0)->orderBy('id','DESC')->get();
+
+        return view('paquetes_servicios.index_pagados', compact('paquetes'));
+    }
+
     public function create_uno()
     {
         $client = Client::orderBy('name','ASC')->get();

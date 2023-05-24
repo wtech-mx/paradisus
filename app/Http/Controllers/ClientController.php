@@ -6,7 +6,10 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClientImport;
+use App\Models\ConcentimientoFacial;
 use App\Models\ConsentimientoCorporal;
+use App\Models\ConsentimientoFirmasCorporal;
+use App\Models\LashLifting;
 use Session;
 use DB;
 use DataTables;
@@ -26,18 +29,28 @@ class ClientController extends Controller
     {
         $clients = Client::orderBy('id','DESC')->get();
 
-        // if ($request->ajax()) {
-        //     $data = client::select('id','name','email')->get();
-        //     return Datatables::of($data)->addIndexColumn()
-        //         ->addColumn('action', function($row){
-        //             $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
-        //             return $btn;
-        //         })
-        //         ->rawColumns(['action'])
-        //         ->make(true);
-        // }
-
         return view('client.index', compact('clients'));
+    }
+
+    public function index_facial(Request $request)
+    {
+        $Concentimientos = ConcentimientoFacial::get();
+
+        return view('client.index_facial', compact('Concentimientos'));
+    }
+
+    public function index_show_brow(Request $request)
+    {
+        $Concentimientos = ConsentimientoCorporal::get();
+
+        return view('client.index_show_brow', compact('Concentimientos'));
+    }
+
+    public function index_lash(Request $request)
+    {
+        $Concentimientos = LashLifting::get();
+
+        return view('client.index_lash', compact('Concentimientos'));
     }
 
     public function advance(Request $request, Client $cliente) {
