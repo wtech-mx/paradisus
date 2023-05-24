@@ -35,6 +35,26 @@ class NotasController extends Controller
         return view('notas.index', compact('nota', 'nota_cosme'));
     }
 
+    public function index_pendientes()
+    {
+        $nota = Notas::where('restante', '>', 0)->where('anular', '=', NULL)
+        ->where('cancelado', '=', NULL)->orderBy('id','DESC')->get();
+
+        $nota_cosme = NotasCosmes::orderBy('id','DESC')->get();
+
+        return view('notas.index_pendientes', compact('nota', 'nota_cosme'));
+    }
+
+    public function index_completadas()
+    {
+        $nota = Notas::where('restante', '<=', 0)->where('anular', '=', NULL)
+        ->where('cancelado', '=', NULL)->orderBy('id','DESC')->get();
+
+        $nota_cosme = NotasCosmes::get();
+
+        return view('notas.index_completadas', compact('nota', 'nota_cosme'));
+    }
+
     public function advance(Request $request, Notas $nota) {
         $nota_cosme = NotasCosmes::get();
 

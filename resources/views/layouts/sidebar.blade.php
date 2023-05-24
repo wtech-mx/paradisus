@@ -28,13 +28,37 @@
           </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link {{ (Request::is('notas/servicios*') ? 'active' : '') }}" href="{{ route('notas.index') }}">
-                <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-book-bookmark text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
-                </div>
-                <span class="nav-link-text ms-1">Notas Servicios</span>
-            </a>
+        <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link {{ (Request::is('notas/servicios*') ? 'active' : '') }}" aria-controls="pagesExamples" role="button" aria-expanded="false">
+            <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+              <i class="ni ni-settings text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+            </div>
+            <span class="nav-link-text ms-1">Notas Servicios</span>
+          </a>
+          <div class="collapse " id="pagesExamples">
+            <ul class="nav ms-4">
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas.create') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Crear Nueva</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('users*') ? 'show' : '') }}" href="{{ route('notas.index') }}">
+                  <span class="sidenav-mini-icon"> P </span>
+                  <span class="sidenav-normal">Todas</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas_pendientes.index') }}">
+                  <span class="sidenav-mini-icon"> P </span>
+                  <span class="sidenav-normal">Pendientes</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas_completadas.index') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Completadas</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
 
         <li class="nav-item">
@@ -46,6 +70,28 @@
           </a>
         </li>
 
+        <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link {{ (Request::is('notas/pedidos*') ? 'active' : '') }}" aria-controls="pagesExamples" role="button" aria-expanded="false">
+            <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+              <i class="ni ni-settings text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+            </div>
+            <span class="nav-link-text ms-1">Notas Pedidos</span>
+          </a>
+          <div class="collapse " id="pagesExamples">
+            <ul class="nav ms-4">
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('roles*') ? 'show' : '') }}" href="{{ route('notas.create') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Crear Nueva</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('users*') ? 'show' : '') }}" href="{{ route('notas_pedidos.index') }}">
+                  <span class="sidenav-mini-icon"> P </span>
+                  <span class="sidenav-normal">Todas</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" href="{{ route('paquetes_servicios.index') }}" target="">
@@ -57,7 +103,6 @@
           </a>
         </li>
 
-        @can('caja')
             <li class="nav-item">
             <a class="nav-link {{ (Request::is('caja*') ? 'active' : '') }}" href="{{ route('caja.index') }}" target="">
                 <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
@@ -66,7 +111,6 @@
                 <span class="nav-link-text ms-1">Caja</span>
             </a>
             </li>
-        @endcan
 
         <li class="nav-item mt-3">
           <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administrativo</h6>
@@ -87,12 +131,10 @@
                 <span class="sidenav-normal">Servicio</span>
             </a>
 
-            @can('reportes')
                 <a class="nav-link {{ (Request::is('reporte*') ? 'show' : '') }}" href="{{ route('reporte.index') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Reporte</span>
                 </a>
-            @endcan
             </li>
         </ul>
         </div>

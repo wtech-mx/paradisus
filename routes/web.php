@@ -109,6 +109,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/notas/advance', [App\Http\Controllers\NotasController::class, 'advance'])->name('notas.advance_search');
 
+    Route::get('/notas/servicios/pendientes', [App\Http\Controllers\NotasController::class, 'index_pendientes'])->name('notas_pendientes.index');
+    Route::get('/notas/servicios/completadas', [App\Http\Controllers\NotasController::class, 'index_completadas'])->name('notas_completadas.index');
+
     // =============== M O D U L O   N O T A S  P E D I D O S ===============================
     Route::get('/productos/show', [App\Http\Controllers\NotasPedidoController::class, 'show_productos'])->name('productos.show');
     Route::get('/notas/pedidos', [App\Http\Controllers\NotasPedidoController::class, 'index'])->name('notas_pedidos.index');
