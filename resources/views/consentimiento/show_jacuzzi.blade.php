@@ -2,7 +2,7 @@
 
 
 @section('template_title')
-    Consentimiento Brow Bar
+    Consentimiento Jacuzzi
 @endsection
 
 @section('css')
@@ -81,11 +81,11 @@
                 <div class="text-center text-muted mb-4">
                   <small></small>
                 </div>
-                    <h5>Consentimiento Brow Bar</h5>
+                    <h5>Consentimiento Jacuzzi</h5>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Que servicio es el que vas a realizarte?</label>
+                                <label for="example-text-input" class="form-control-label">¿Cuentas con alguna enfermedad de ETS? *</label>
                                 <div class="row">
                                     <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta1}}</textarea>
                                 </div>
@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Es la primera vez que te realizas este tratamiento?</label>
+                                <label for="example-text-input" class="form-control-label">¿Padeces actualmente algún tipo de hongo en la piel? *</label>
                                 <div class="row">
                                     <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta2}}</textarea>
                                 </div>
@@ -107,7 +107,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Si te haz realizado antes este procedimiento y presentaste reacción o mala pigmentación, ¿Hay algo importante que debas mencionar?</label>
+                                <label for="example-text-input" class="form-control-label">¿Has experimentado alguna infección en las zonas íntimas en los últimos 14 días? *</label>
                                 <div class="row">
                                     <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta3}}</textarea>
                                 </div>
@@ -118,8 +118,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Hace cuanto te realizaste ese proceso?</label>
-                                <p class="text-res">En respuesta otra: En caso de tener algún problema de la piel, menciónalo. <br>
+                                <label for="example-text-input" class="form-control-label">Antes de ingresar al jacuzzi, ¿te has lavado y limpiado adecuadamente?</label>
                                 <div class="row">
                                     <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta4}}</textarea>
                                 </div>
@@ -130,7 +129,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Estás en algún tratamiento dermatológico?</label>
+                                <label for="example-text-input" class="form-control-label">¿Estás al tanto de la temperatura predeterminada establecida para el jacuzzi en nuestro spa?</label>
                                 <div class="row">
                                     <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta5}}</textarea>
                                 </div>
@@ -141,7 +140,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Utilizas algún producto o tratamiento que contenga ácido glicolico y/o retinol?</label>
+                                <label for="example-text-input" class="form-control-label">¿Eres consciente de que no se permite ajustar la temperatura del jacuzzi?</label>
                                 <div class="row">
                                     <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta6}}</textarea>
                                 </div>
@@ -152,31 +151,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Estas en algún tratamiento de transplante de vello?</label>
+                                <label for="example-text-input" class="form-control-label">¿Estás dispuesto/a a seguir las pautas y recomendaciones de uso del jacuzzi en nuestro spa para garantizar tu seguridad y la de otros usuarios?</label>
                                 <div class="row">
                                     <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta7}}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Estas en algún tratamiento de depilación láser o luz pulsada?</label>
-                                <div class="row">
-                                    <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta8}}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">¿Te haz realizado en los últimos 15 días peeling o microdermoabrasión?</label>
-                                <div class="row">
-                                    <textarea name="" id="" cols="5" rows="3" disabled>{{$ConcentimientoFacial->pregunta9}}</textarea>
                                 </div>
                             </div>
                         </div>

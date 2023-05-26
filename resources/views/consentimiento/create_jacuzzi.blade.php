@@ -89,7 +89,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">¿Cuántas con alguna enfermedad de ETS? *</label>
+                                    <label for="example-text-input" class="form-control-label">¿Cuentas con alguna enfermedad de ETS? *</label>
                                     <div class="row">
                                         <div class="col-6 col-md-4">
                                             <div class="form-check">
