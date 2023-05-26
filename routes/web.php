@@ -55,14 +55,17 @@ Route::get('/paquetes/servicios/edit/gluteos/firma/{id}', [App\Http\Controllers\
 Route::post('/paquete/usuario/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'store_firma'])->name('paquetes_firma.store_firma');
 
 Route::get('/clients/user/con/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show'])->name('clients_consen.user');
+Route::get('/clients/user/con/jacuzzi/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show_jacuzzi'])->name('jacuzzi_clients_consen.user');
 Route::get('/clients/user/con/brow/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show_brow'])->name('brow_clients_consen.user');
 Route::get('/clients/user/con/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_show_lash'])->name('lash_clients_consen.user');
 
 Route::patch('/clients/user/consentimiento/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit'])->name('clients_consentimiento.user');
+Route::patch('/clients/user/consentimiento/jacuzzi/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit_jacuzzi'])->name('jacuzzi_consentimiento.user');
 Route::patch('/clients/user/consentimiento/brow/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit_brow'])->name('brow_consentimiento.user');
 Route::patch('/clients/user/consentimiento/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'user_edit_lash'])->name('lash_consentimiento.user');
 
 Route::get('/clients/cosme/cons/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show'])->name('clients_consen.cosme');
+Route::get('/clients/cosme/cons/jacuzzi/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_jacuzzi'])->name('jacuzzi_clients_consen.cosme');
 Route::get('/clients/cosme/cons/brow/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_brow'])->name('brow_clients_consen.cosme');
 Route::get('/clients/cosme/cons/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_lash'])->name('lash_clients_consen.cosme');
 
@@ -84,6 +87,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/clients/facial', [App\Http\Controllers\ClientController::class, 'index_facial'])->name('clients_facial.index');
     Route::get('/clients/bar', [App\Http\Controllers\ClientController::class, 'index_show_brow'])->name('clients_show_brow.index');
     Route::get('/clients/lash', [App\Http\Controllers\ClientController::class, 'index_lash'])->name('clients_lash.index');
+    Route::get('/clients/jacuzzi', [App\Http\Controllers\ClientController::class, 'index_jacuzzi'])->name('clients_jacuzzi.index');
 
     Route::post('/clients/create', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
     Route::patch('/clients/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');

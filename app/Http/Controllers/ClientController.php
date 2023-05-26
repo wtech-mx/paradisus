@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClientImport;
 use App\Models\ConcentimientoFacial;
+use App\Models\ConsentimeintoJacuzzi;
 use App\Models\ConsentimientoCorporal;
 use App\Models\ConsentimientoFirmasCorporal;
 use App\Models\LashLifting;
@@ -51,6 +52,13 @@ class ClientController extends Controller
         $Concentimientos = LashLifting::get();
 
         return view('client.index_lash', compact('Concentimientos'));
+    }
+
+    public function index_jacuzzi(Request $request)
+    {
+        $Concentimientos = ConsentimeintoJacuzzi::get();
+
+        return view('client.index_jacuzzi', compact('Concentimientos'));
     }
 
     public function advance(Request $request, Client $cliente) {

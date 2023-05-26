@@ -57,7 +57,7 @@
                     <span class="sidenav-normal">Lash Lifting</span>
                 </a>
 
-                <a class="nav-link {{ (Request::is('clients/lash*') ? 'show' : '') }}" >
+                <a class="nav-link {{ (Request::is('clients/jacuzzi*') ? 'show' : '') }}" href="{{ route('clients_jacuzzi.index') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Jacuzzi</span>
                 </a>

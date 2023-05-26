@@ -20,6 +20,7 @@
                                     <option value="1">Facial / Corporal</option>
                                     <option value="2">Brow bar</option>
                                     <option value="3">LASH LIFTING</option>
+                                    <option value="4">Jacuzzi</option>
                             </select>
                         </div>
                         <div class="col-12">

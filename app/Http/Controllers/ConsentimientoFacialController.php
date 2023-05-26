@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\ConcentimientoFacial;
+use App\Models\ConsentimeintoFirmasJacuzzi;
+use App\Models\ConsentimeintoJacuzzi;
 use App\Models\ConsentimientoFirmasFacial;
 use App\Models\ConsentimientoCorporal;
 use App\Models\ConsentimientoFirmasCorporal;
@@ -72,6 +74,24 @@ class ConsentimientoFacialController extends Controller
                 ->with('success', 'caja created successfully.');
         }
 
+        if($request->get('consentimiento') == '4'){
+            $Jacuzzi = new ConsentimeintoJacuzzi;
+            $Jacuzzi->id_client = $request->get('id_client');
+            $Jacuzzi->fecha = $fechaActual;
+            $Jacuzzi->save();
+
+            $e = 0;
+            for($e=0; $e<=$request->get('num_personas'); $e++){
+                $JacuzziFirma = new ConsentimeintoFirmasJacuzzi;
+                $JacuzziFirma->id_consentimiento = $Jacuzzi->id;
+                $JacuzziFirma->save();
+            }
+
+            Session::flash('success', 'Se ha guardado sus datos con exito');
+            return redirect()->route('clients_jacuzzi.index')
+                ->with('success', 'caja created successfully.');
+        }
+
     }
 
     public function user_show(Request $request, $id){
@@ -98,6 +118,14 @@ class ConsentimientoFacialController extends Controller
         return view('consentimiento.create_lash', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
     }
 
+    public function user_show_jacuzzi(Request $request, $id){
+        $ConsentimientoFirmasCorporal = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->count();
+        $firmas = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->get();
+        $ConcentimientoFacial = ConsentimeintoJacuzzi::find($id);
+
+        return view('consentimiento.create_jacuzzi', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
+    }
+
 
     public function cosme_show(Request $request, $id){
         $ConsentimientoFirmasCorporal = ConsentimientoFirmasCorporal::where('id_consentimiento', '=', $id)->count();
@@ -121,6 +149,14 @@ class ConsentimientoFacialController extends Controller
         $ConcentimientoFacial = LashLifting::find($id);
 
         return view('consentimiento.show_lash', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
+    }
+
+    public function cosme_show_jacuzzi(Request $request, $id){
+        $ConsentimientoFirmasCorporal = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->count();
+        $firmas = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->get();
+        $ConcentimientoFacial = ConsentimeintoJacuzzi::find($id);
+
+        return view('consentimiento.show_jacuzzi', compact('ConcentimientoFacial', 'ConsentimientoFirmasCorporal', 'firmas'));
     }
 
 
@@ -837,6 +873,218 @@ class ConsentimientoFacialController extends Controller
             $LashLiftingFirma->update();
         }
 
+
+        Session::flash('success', 'Se ha guardado sus datos con exito');
+        return back()
+        ->with('edit','Consentimiento Guardado con exito.');
+    }
+
+    public function user_edit_jacuzzi(Request $request, $id)
+    {
+        $Jacuzzi = ConsentimeintoJacuzzi::find($id);
+        $Jacuzzi->pregunta1 = $request->get('pregunta1');
+        $Jacuzzi->pregunta2 = $request->get('pregunta2');
+        $Jacuzzi->pregunta3 = $request->get('pregunta3');
+        $Jacuzzi->pregunta4 = $request->get('pregunta4');
+        $Jacuzzi->pregunta5 = $request->get('pregunta5');
+        $Jacuzzi->pregunta6 = $request->get('pregunta6');
+        $Jacuzzi->pregunta7 = $request->get('pregunta7');
+        $Jacuzzi->update();
+
+        if($request->signed_pago1 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago1);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago2 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago2);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago3 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago3);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago4 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago4);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago5 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago5);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago6 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago6);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago7 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago7);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago8 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago8);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago9 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago9);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago10 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago10);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago11 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago11);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago12 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago12);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
+
+        if($request->signed_pago13 != NULL){
+            $JacuzziFirma = ConsentimeintoFirmasJacuzzi::where('id_consentimiento', '=', $id)->where('firma', '=', NULL)->first();
+            $folderPath = public_path('firma_consentimientoj/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_pago13);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $JacuzziFirma->firma = $signature;
+            $JacuzziFirma->update();
+        }
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return back()
