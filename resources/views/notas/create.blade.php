@@ -136,35 +136,30 @@
                                                     <select class="form-control servicio" data-toggle="select" id="id_servicio" name="id_servicio" required>
                                                         <option value="">Seleccionar servicio</option>
                                                         @foreach ($servicio as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                                            <option value="{{ $item->id }}" data-precio="{{ $item->precio }}" data-descuento="{{ $item->descuento }}" data-act-descuento="{{ $item->act_descuento }}">{{ $item->nombre }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <div class="form-group">
                                                     <label for="precio">Num</label>
                                                         <input type="number" id="num" name="num" class="form-control" value="1">
                                                 </div>
                                             </div>
-                                            <div class="col-1">
-                                                <div class="form-check">
-                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">10%</label><br>
-                                                    <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="precio">Total</label>
+                                                    <input type="text" id="total" name="total" class="form-control" readonly>
                                                 </div>
                                             </div>
-                                            <div class="col-1">
-                                                <div class="form-check">
-                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">5%</label><br>
-                                                    <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1">
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="descuento-adicional">Descuento adicional (%)</label>
+                                                    <input type="number" id="descuento-adicional" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-1">
-                                                <div class="form-check">
-                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">50%</label><br>
-                                                    <input class="form-check-input" type="checkbox" name="descuento_50" id="descuento_50" value="1">
-                                                </div>
-                                            </div>
+
                                         </div>
 
                                         {{-- A G R E G A R  M A S  S E R V I C I O S --}}
@@ -177,33 +172,27 @@
                                                             <select class="form-control servicio2" data-toggle="select" id="servicio2" name="id_servicio2">
                                                                 <option value="">Seleccionar servicio</option>
                                                                 @foreach ($servicio as $item)
-                                                                    <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                                                    <option value="{{ $item->id }}" data-precio="{{ $item->precio }}" data-descuento="{{ $item->descuento }}" data-act-descuento="{{ $item->act_descuento }}">{{ $item->nombre }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-1">
                                                         <div class="form-group">
                                                             <label for="precio">Num 2</label>
                                                                 <input type="number" id="num2" name="num2" class="form-control" value="1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento2" style="font-size: 15px;">10%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento2" id="descuento2" value="1">
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label for="precio">Total</label>
+                                                            <input type="text" id="total2" name="total2" class="form-control" readonly>
                                                         </div>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento2" style="font-size: 15px;">5%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento2_5" id="descuento2_5" value="1">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento2" style="font-size: 15px;">50%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento2_50" id="descuento2_50" value="1">
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label for="descuento-adicional">Descuento adicional (%)</label>
+                                                            <input type="number" id="descuento-adicional2" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -214,33 +203,27 @@
                                                             <select class="form-control servicio3" data-toggle="select" id="servicio3" name="id_servicio3">
                                                                 <option value="">Seleccionar servicio</option>
                                                                 @foreach ($servicio as $item)
-                                                                    <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                                                    <option value="{{ $item->id }}" data-precio="{{ $item->precio }}" data-descuento="{{ $item->descuento }}" data-act-descuento="{{ $item->act_descuento }}">{{ $item->nombre }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-1">
                                                         <div class="form-group">
                                                             <label for="precio">Num 3</label>
                                                                 <input type="number" id="num3" name="num3" class="form-control" value="1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento3" style="font-size: 15px;">10%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento3" id="descuento3" value="1">
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label for="precio">Total</label>
+                                                            <input type="text" id="total3" name="total3" class="form-control" readonly>
                                                         </div>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento3" style="font-size: 15px;">5%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento3_5" id="descuento3_5" value="1">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento3" style="font-size: 15px;">50%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento3_50" id="descuento3_50" value="1">
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label for="descuento-adicional">Descuento adicional (%)</label>
+                                                            <input type="number" id="descuento-adicional3" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -251,33 +234,27 @@
                                                             <select class="form-control servicio4" id="servicio4" name="id_servicio4">
                                                                 <option value="">Seleccionar servicio</option>
                                                                 @foreach ($servicio as $item)
-                                                                    <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                                                    <option value="{{ $item->id }}" data-precio="{{ $item->precio }}" data-descuento="{{ $item->descuento }}" data-act-descuento="{{ $item->act_descuento }}">{{ $item->nombre }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-1">
                                                         <div class="form-group">
                                                             <label for="precio">Num 4</label>
                                                                 <input type="number" id="num4" name="num4" class="form-control" value="1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento4" style="font-size: 15px;">10%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento4" id="descuento4" value="1">
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label for="precio">Total</label>
+                                                            <input type="text" id="total4" name="total4" class="form-control" readonly>
                                                         </div>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento4" style="font-size: 15px;">5%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento4_5" id="descuento4_5" value="1">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <div class="form-check">
-                                                            <label class="custom-control-label" for="descuento4" style="font-size: 15px;">50%</label><br>
-                                                            <input class="form-check-input" type="checkbox" name="descuento4_50" id="descuento4_50" value="1">
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label for="descuento-adicional">Descuento adicional (%)</label>
+                                                            <input type="number" id="descuento-adicional4" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -287,6 +264,11 @@
                                         <div class="form-group">
                                             <label for="descuento">Nota</label>
                                             <textarea name="nota" id="nota" cols="10" rows="3" class="form-control"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="total-suma">Total Suma</label>
+                                            <input type="text" id="total-suma" class="form-control" readonly>
                                         </div>
                                     </div>
 
@@ -464,28 +446,138 @@
                 $('.servicio2').select2();
                 $('.servicio3').select2();
                 $('.servicio4').select2();
-
-                // $(".cliente").select2({
-                //     dropdownParent: $("#createDataModal")
-                // });
-
-                // $(".servicio").select2({
-                //     dropdownParent: $("#createDataModal")
-                // });
-
-                // $(".servicio2").select2({
-                //     dropdownParent: $("#createDataModal")
-                // });
-
-                // $(".servicio3").select2({
-                //     dropdownParent: $("#createDataModal")
-                // });
-
-                // $(".servicio4").select2({
-                //     dropdownParent: $("#createDataModal")
-                // });
         });
 
     </script>
 
+<script>
+    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+    $('.servicio, #num, #descuento-adicional').change(function() {
+        var selectedService = $('.servicio option:selected');
+        var precio = selectedService.data('precio');
+        var descuento = selectedService.data('descuento');
+        var actDescuento = selectedService.data('act-descuento');
+        var cantidad = parseInt($('#num').val());
+        var descuentoAdicional = parseInt($('#descuento-adicional').val()) || 0; // Descuento adicional ingresado
+
+        if (actDescuento === 1) {
+            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
+        }else{
+            var subtotal = cantidad * precio;
+        }
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        var total = subtotal - descuentoTotal;
+
+        $('#total').val(total);
+        calcularTotal();
+    });
+
+    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+    $('.servicio2, #num2, #descuento-adicional2').change(function() {
+        var selectedService = $('.servicio2 option:selected');
+        var precio = selectedService.data('precio');
+        var descuento = selectedService.data('descuento');
+        var actDescuento = selectedService.data('act-descuento');
+        var cantidad = parseInt($('#num2').val());
+        var descuentoAdicional = parseInt($('#descuento-adicional2').val()) || 0; // Descuento adicional ingresado
+
+        if (actDescuento === 1) {
+            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
+        }else{
+            var subtotal = cantidad * precio;
+        }
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        var total = subtotal - descuentoTotal;
+
+        $('#total2').val(total);
+        calcularTotal();
+    });
+
+    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+    $('.servicio3, #num3, #descuento-adicional3').change(function() {
+        var selectedService = $('.servicio3 option:selected');
+        var precio = selectedService.data('precio');
+        var descuento = selectedService.data('descuento');
+        var actDescuento = selectedService.data('act-descuento');
+        var cantidad = parseInt($('#num3').val());
+        var descuentoAdicional = parseInt($('#descuento-adicional3').val()) || 0; // Descuento adicional ingresado
+
+        if (actDescuento === 1) {
+            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
+        }else{
+            var subtotal = cantidad * precio;
+        }
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        var total = subtotal - descuentoTotal;
+
+        $('#total3').val(total);
+        calcularTotal();
+    });
+
+    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+    $('.servicio4, #num4, #descuento-adicional4').change(function() {
+        var selectedService = $('.servicio4 option:selected');
+        var precio = selectedService.data('precio');
+        var descuento = selectedService.data('descuento');
+        var actDescuento = selectedService.data('act-descuento');
+        var cantidad = parseInt($('#num4').val());
+        var descuentoAdicional = parseInt($('#descuento-adicional4').val()) || 0; // Descuento adicional ingresado
+
+        if (actDescuento === 1) {
+            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
+        }else{
+            var subtotal = cantidad * precio;
+        }
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        var total = subtotal - descuentoTotal;
+
+        $('#total4').val(total);
+        calcularTotal();
+    });
+
+    function calcularTotal() {
+  var totalSuma = 0;
+
+  $('.servicio, .servicio2, .servicio3, .servicio4').each(function() {
+    var selectedService = $('option:selected', this);
+    var precio = selectedService.data('precio');
+    var descuento = selectedService.data('descuento');
+    var actDescuento = selectedService.data('act-descuento');
+    var cantidad = parseInt($(this).siblings('input[name="num"]').val());
+    var descuentoAdicional = parseInt($(this).siblings('input[name="descuento-adicional"]').val()) || 0;
+
+    if (!isNaN(cantidad) && !isNaN(descuentoAdicional)) {
+      if (actDescuento === 1) {
+        var subtotal = cantidad * descuento; // Aplicar descuento si está activo
+      } else {
+        var subtotal = cantidad * precio;
+      }
+
+      var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+      var total = subtotal - descuentoTotal;
+
+      $(this).siblings('input[name="total"]').val(total);
+
+      if (!isNaN(total)) {
+        totalSuma += total;
+      }
+    }
+  });
+
+  $('#total-suma').val(totalSuma);
+}
+
+// Llamar a la función calcularTotal() al cargar la página para mostrar el total inicial
+calcularTotal();
+
+// Vincular el evento change a todos los campos relacionados para actualizar los totales al cambiar la selección o la cantidad
+$('.servicio, #num, #descuento-adicional, .servicio2, #num2, #descuento-adicional2, .servicio3, #num3, #descuento-adicional3, .servicio4, #num4, #descuento-adicional4').change(function() {
+  calcularTotal();
+});
+
+</script>
 @endsection
