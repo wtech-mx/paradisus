@@ -133,7 +133,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="precio">Servicio</label><br>
-                                                    <select class="form-control servicio" data-toggle="select" id="id_servicio" name="id_servicio" required>
+                                                    <select class="form-control servicio1" data-toggle="select" id="servicio1" name="id_servicio" required>
                                                         <option value="">Seleccionar servicio</option>
                                                         @foreach ($servicio as $item)
                                                             <option value="{{ $item->id }}" data-precio="{{ $item->precio }}" data-descuento="{{ $item->descuento }}" data-act-descuento="{{ $item->act_descuento }}">{{ $item->nombre }}</option>
@@ -144,19 +144,19 @@
                                             <div class="col-1">
                                                 <div class="form-group">
                                                     <label for="precio">Num</label>
-                                                        <input type="number" id="num" name="num" class="form-control" value="1">
+                                                        <input type="number" id="num1" name="num1" class="form-control" value="1">
                                                 </div>
                                             </div>
                                             <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="precio">Total</label>
-                                                    <input type="text" id="total" name="total" class="form-control" readonly>
+                                                    <input type="text" id="total1" name="total1" class="form-control" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="descuento-adicional">Descuento adicional (%)</label>
-                                                    <input type="number" id="descuento-adicional" class="form-control">
+                                                    <input type="number" id="descuento-adicional1" name="descuento" class="form-control">
                                                 </div>
                                             </div>
 
@@ -192,7 +192,7 @@
                                                     <div class="col-2">
                                                         <div class="form-group">
                                                             <label for="descuento-adicional">Descuento adicional (%)</label>
-                                                            <input type="number" id="descuento-adicional2" class="form-control">
+                                                            <input type="number" id="descuento-adicional2" name="descuento2" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -223,7 +223,7 @@
                                                     <div class="col-2">
                                                         <div class="form-group">
                                                             <label for="descuento-adicional">Descuento adicional (%)</label>
-                                                            <input type="number" id="descuento-adicional3" class="form-control">
+                                                            <input type="number" id="descuento-adicional3" name="descuento3" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -254,7 +254,7 @@
                                                     <div class="col-2">
                                                         <div class="form-group">
                                                             <label for="descuento-adicional">Descuento adicional (%)</label>
-                                                            <input type="number" id="descuento-adicional4" class="form-control">
+                                                            <input type="number" id="descuento-adicional4" name="descuento4" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -265,70 +265,78 @@
                                             <label for="descuento">Nota</label>
                                             <textarea name="nota" id="nota" cols="10" rows="3" class="form-control"></textarea>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="total-suma">Total Suma</label>
-                                            <input type="text" id="total-suma" class="form-control" readonly>
-                                        </div>
                                     </div>
 
                                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                                <div class="row">
-
-                                                    <div class="col-3">
-                                                        <div class="form-group">
-                                                            <label for="fecha">Fecha</label>
-                                                            <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-3">
-                                                        <div class="form-group">
-                                                            <label for="fecha">Cosme</label>
-                                                            <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa">
-                                                                <option value="">Seleccionar</option>
-                                                                @foreach ($user as $item)
-                                                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="pago">Pago</label>
-                                                            <input  id="pago" name="pago" type="text" class="form-control" required>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="num_sesion">Metodo Pago</label>
-                                                            <select id="forma_pago" name="forma_pago" class="form-control">
-                                                                <option value="Efectivo">Efectivo</option>
-                                                                <option value="Transferencia">Transferencia</option>
-                                                                <option value="Mercado Pago">Mercado Pago</option>
-                                                                <option value="Tarjeta">Tarjeta</option>
-                                                                <option value="Nota">Nota</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="nota">Nota</label>
-                                                            <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="nota">Foto</label>
-                                                            <input type="file" id="foto" class="form-control" name="foto">
-                                                        </div>
-                                                    </div>
-                                                    <hr>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="total-suma">Total a Pagar</label>
+                                                    <input type="text" id="total-suma" name="total-suma" class="form-control" readonly>
                                                 </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="restante">Restante</label>
+                                                    <input type="text" id="restante" name="restante" class="form-control" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="fecha">Fecha</label>
+                                                    <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="fecha">Cosme</label>
+                                                    <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa">
+                                                        <option value="">Seleccionar</option>
+                                                        @foreach ($user as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="pago">Pago</label>
+                                                    <input  id="pago" name="pago" type="number" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="num_sesion">Metodo Pago</label>
+                                                    <select id="forma_pago" name="forma_pago" class="form-control">
+                                                        <option value="Efectivo">Efectivo</option>
+                                                        <option value="Transferencia">Transferencia</option>
+                                                        <option value="Mercado Pago">Mercado Pago</option>
+                                                        <option value="Tarjeta">Tarjeta</option>
+                                                        <option value="Nota">Nota</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="nota">Nota</label>
+                                                    <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="nota">Foto</label>
+                                                    <input type="file" id="foto" class="form-control" name="foto">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
                                     </div>
 
                                     <div class="tab-pane fade" id="pills-sesion" role="tabpanel" aria-labelledby="pills-sesion-tab">
@@ -442,7 +450,7 @@
 
             $(document).ready(function() {
                 $('.cliente').select2();
-                $('.servicio').select2();
+                $('.servicio1').select2();
                 $('.servicio2').select2();
                 $('.servicio3').select2();
                 $('.servicio4').select2();
@@ -452,13 +460,13 @@
 
 <script>
     // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-    $('.servicio, #num, #descuento-adicional').change(function() {
-        var selectedService = $('.servicio option:selected');
+    $('.servicio1, #num1, #descuento-adicional1').change(function() {
+        var selectedService = $('.servicio1 option:selected');
         var precio = selectedService.data('precio');
         var descuento = selectedService.data('descuento');
         var actDescuento = selectedService.data('act-descuento');
-        var cantidad = parseInt($('#num').val());
-        var descuentoAdicional = parseInt($('#descuento-adicional').val()) || 0; // Descuento adicional ingresado
+        var cantidad = parseInt($('#num1').val());
+        var descuentoAdicional = parseInt($('#descuento-adicional1').val()) || 0; // Descuento adicional ingresado
 
         if (actDescuento === 1) {
             var subtotal = cantidad * descuento; // Aplicar descuento si está activo
@@ -469,8 +477,7 @@
         var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
         var total = subtotal - descuentoTotal;
 
-        $('#total').val(total);
-        calcularTotal();
+        $('#total1').val(total);
     });
 
     // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
@@ -492,7 +499,6 @@
         var total = subtotal - descuentoTotal;
 
         $('#total2').val(total);
-        calcularTotal();
     });
 
     // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
@@ -514,7 +520,6 @@
         var total = subtotal - descuentoTotal;
 
         $('#total3').val(total);
-        calcularTotal();
     });
 
     // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
@@ -536,48 +541,71 @@
         var total = subtotal - descuentoTotal;
 
         $('#total4').val(total);
-        calcularTotal();
     });
 
     function calcularTotal() {
-  var totalSuma = 0;
+    var totalSuma = 0;
 
-  $('.servicio, .servicio2, .servicio3, .servicio4').each(function() {
-    var selectedService = $('option:selected', this);
-    var precio = selectedService.data('precio');
-    var descuento = selectedService.data('descuento');
-    var actDescuento = selectedService.data('act-descuento');
-    var cantidad = parseInt($(this).siblings('input[name="num"]').val());
-    var descuentoAdicional = parseInt($(this).siblings('input[name="descuento-adicional"]').val()) || 0;
+    for (var i = 1; i <= 4; i++) {
+        var selectedService = $('.servicio' + i + ' option:selected');
+        var precio = selectedService.data('precio');
+        var descuento = selectedService.data('descuento');
+        var actDescuento = selectedService.data('act-descuento');
+        var cantidad = parseInt($('#num' + i).val());
+        var descuentoAdicional = parseInt($('#descuento-adicional' + i).val()) || 0;
 
-    if (!isNaN(cantidad) && !isNaN(descuentoAdicional)) {
-      if (actDescuento === 1) {
-        var subtotal = cantidad * descuento; // Aplicar descuento si está activo
-      } else {
-        var subtotal = cantidad * precio;
-      }
+        if (!isNaN(cantidad) && !isNaN(descuentoAdicional)) {
+        if (actDescuento === 1) {
+            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
+        } else {
+            var subtotal = cantidad * precio;
+        }
 
-      var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
-      var total = subtotal - descuentoTotal;
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        var total = subtotal - descuentoTotal;
 
-      $(this).siblings('input[name="total"]').val(total);
+        $('#total' + i).val(total);
 
-      if (!isNaN(total)) {
-        totalSuma += total;
-      }
+        if (!isNaN(total)) {
+            totalSuma += total;
+        }
+        }
     }
-  });
 
-  $('#total-suma').val(totalSuma);
-}
+    var precio = parseFloat($('#precio').val()) || 0;
+    var propina = parseFloat($('#propina').val()) || 0;
 
-// Llamar a la función calcularTotal() al cargar la página para mostrar el total inicial
-calcularTotal();
+    var nuevoTotal = totalSuma + precio + propina;
 
-// Vincular el evento change a todos los campos relacionados para actualizar los totales al cambiar la selección o la cantidad
-$('.servicio, #num, #descuento-adicional, .servicio2, #num2, #descuento-adicional2, .servicio3, #num3, #descuento-adicional3, .servicio4, #num4, #descuento-adicional4').change(function() {
-  calcularTotal();
-});
+    $('#total-suma').val(nuevoTotal.toFixed(2));
+    }
+
+    // Llamar a la función calcularTotal() al cargar la página para mostrar el total inicial
+    calcularTotal();
+
+    // Vincular el evento change a todos los campos relacionados para actualizar los totales al cambiar la selección o la cantidad
+    $('.servicio1, #num1, #descuento-adicional1, .servicio2, #num2, #descuento-adicional2, .servicio3, #num3, #descuento-adicional3, .servicio4, #num4, #descuento-adicional4, #precio, #propina').change(function() {
+    calcularTotal();
+    });
+
+
+    // Obtén la referencia al elemento de pago
+    var inputPago = $('#pago');
+
+    // Escucha el evento 'input' en el campo de pago
+    inputPago.on('input', function() {
+        // Obtiene el valor del pago
+        var pago = parseFloat($(this).val()) || 0;
+
+        // Obtiene el valor del total a pagar
+        var totalAPagar = parseFloat($('#total-suma').val()) || 0;
+
+        // Calcula el restante
+        var restante = totalAPagar - pago;
+
+        // Establece el valor del restante en el campo correspondiente
+        $('#restante').val(restante);
+    });
 
 </script>
 @endsection

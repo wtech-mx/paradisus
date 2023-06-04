@@ -101,7 +101,7 @@ class NotasController extends Controller
             'id_user' => 'required',
             'id_client' => 'required',
             'id_servicio' => 'required',
-            'num' => 'required',
+            'num1' => 'required',
         ]);
 
         // N U E V O  U S U A R I O
@@ -124,36 +124,28 @@ class NotasController extends Controller
         }
         $nota->fecha = $fechaActual;
         $nota->nota = $request->get('nota');
+        $nota->precio = $request->get('total-suma');
+        $nota->restante = $request->get('restante');
         $nota->save();
-
-
 
         // G U A R D A R  S E R V I C I O
         $nota_paquete = new NotasPaquetes;
         $nota_paquete->id_nota = $nota->id;
         $nota_paquete->id_servicio = $request->get('id_servicio');
-        $nota_paquete->num = $request->get('num');
+        $nota_paquete->num = $request->get('num1');
         $nota_paquete->descuento = $request->get('descuento');
-        $nota_paquete->descuento_5 = $request->get('descuento_5');
-        $nota_paquete->descuento_50 = $request->get('descuento_50');
 
         $nota_paquete->id_servicio2 = $request->get('id_servicio2');
         $nota_paquete->num2 = $request->get('num2');
         $nota_paquete->descuento2 = $request->get('descuento2');
-        $nota_paquete->descuento2_5 = $request->get('descuento2_5');
-        $nota_paquete->descuento2_50 = $request->get('descuento2_50');
 
         $nota_paquete->id_servicio3 = $request->get('id_servicio3');
         $nota_paquete->num3 = $request->get('num3');
         $nota_paquete->descuento3 = $request->get('descuento3');
-        $nota_paquete->descuento3_5 = $request->get('descuento3_5');
-        $nota_paquete->descuento3_50 = $request->get('descuento3_50');
 
         $nota_paquete->id_servicio4 = $request->get('id_servicio4');
         $nota_paquete->num4 = $request->get('num4');
         $nota_paquete->descuento4 = $request->get('descuento4');
-        $nota_paquete->descuento4_5 = $request->get('descuento4_5');
-        $nota_paquete->descuento4_50 = $request->get('descuento4_50');
 
         $nota_paquete->save();
 
@@ -219,120 +211,6 @@ class NotasController extends Controller
             $notas_propinas->save();
         }
 
-        $nota_one = Notas::orderBy('id', 'desc')->first();
-        $notas_extra = NotasExtras::where('id_nota', '=', $nota_one->id)->get();
-        $suma_extra = 0;
-        foreach($notas_extra as $item){
-            $suma_extra = $suma_extra + $item->precio;
-        }
-
-        // G U A R D A R  T O T A L  S E R V I C I O
-        $pago = Pagos::orderBy('id', 'desc')->first();
-        $nota_reciente = NotasPaquetes::where('id_nota', '=', $nota_one->id)->first();
-
-        $total = 0;
-        $mult = 0;
-        $descuento = 0;
-        if($request->get('id_servicio') != NULL){
-            if($nota_reciente->Servicios->act_descuento == 1){
-                $precio = $nota_reciente->Servicios->descuento;
-            }else{
-                $precio = $nota_reciente->Servicios->precio;
-            }
-            if($request->get('descuento') == 1){
-                $mult = $precio * .10;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }elseif($request->get('descuento_5') == 1){
-                $mult = $precio * .05;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }elseif($request->get('descuento_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario = $precio * $nota_reciente->num;
-            }
-        }else{$unitario = 0;}
-        if($request->get('id_servicio2') != NULL){
-            if($nota_reciente->Servicios2->act_descuento == 1){
-                $precio2 = $nota_reciente->Servicios2->descuento;
-            }else{
-                $precio2 = $nota_reciente->Servicios2->precio;
-            }
-            if($request->get('descuento2') == 1){
-                $mult = $precio2 * .10;
-                $descuento = $precio2 - $mult;
-                $unitario2 = $descuento * $nota_reciente->num2;
-            }elseif($request->get('descuento2_5') == 1){
-                $mult = $precio2 * .05;
-                $descuento = $precio2 - $mult;
-                $unitario2 = $descuento * $nota_reciente->num2;
-            }elseif($request->get('descuento2_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario2 = $precio2 * $nota_reciente->num2;
-            }
-        }else{$unitario2 = 0;}
-        if($request->get('id_servicio3') != NULL){
-            if($nota_reciente->Servicios3->act_descuento == 1){
-                $precio3 = $nota_reciente->Servicios3->descuento;
-            }else{
-                $precio3 = $nota_reciente->Servicios3->precio;
-            }
-            if($request->get('descuento3') == 1){
-                $mult = $precio3 * .10;
-                $descuento = $precio3 - $mult;
-                $unitario3 = $descuento * $nota_reciente->num3;
-            }elseif($request->get('descuento3_5') == 1){
-                $mult = $precio3 * .05;
-                $descuento = $precio3 - $mult;
-                $unitario3 = $descuento * $nota_reciente->num3;
-            }elseif($request->get('descuento3_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario3 = $precio3 * $nota_reciente->num3;
-            }
-        }else{$unitario3 = 0;}
-        if($request->get('id_servicio4') != NULL){
-            if($nota_reciente->Servicios4->act_descuento == 1){
-                $precio4 = $nota_reciente->Servicios4->descuento;
-            }else{
-                $precio4 = $nota_reciente->Servicios4->precio;
-            }
-            if($request->get('descuento4') == 1){
-                $mult = $precio4 * .10;
-                $descuento = $precio4 - $mult;
-                $unitario4 = $descuento * $nota_reciente->num4;
-            }elseif($request->get('descuento4_5') == 1){
-                $mult = $precio4 * .05;
-                $descuento = $precio4 - $mult;
-                $unitario4 = $descuento * $nota_reciente->num4;
-            }elseif($request->get('descuento4_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario4 = $precio4 * $nota_reciente->num4;
-            }
-        }else{$unitario4 = 0;}
-        $total = $unitario + $unitario2 + $unitario3 + $unitario4;
-
-
-        $total_extra = $suma_extra + $total;
-        $restante = $total_extra - $pago->pago;
-
-        //  dd($pago->pago);
-        $nota_pago = Notas::find($nota->id);
-        $nota_pago->precio = $total;
-        $nota_pago->restante = $restante;
-        $nota_pago->update();
-
         // G U A R D A R  R E P O R T E
         $reporte = new Reporte;
         $reporte->id_nota = $nota->id;
@@ -340,12 +218,12 @@ class NotasController extends Controller
         $reporte->tipo = 'NOTA SERVICIO';
         $reporte->id_client = $nota->id_client;
         $reporte->metodo_pago = $pago->forma_pago;
-        $reporte->monto = $nota_pago->precio;
+        $reporte->monto = $nota->precio;
         $reporte->pago = $pago->pago;
-        $reporte->restante = $nota_pago->restante;
+        $reporte->restante = $nota->restante;
         $reporte->save();
 
-        if($nota_pago->restante <= 0){
+        if($nota->restante <= 0){
             Session::flash('success', 'Se ha guardado sus datos con exito');
             return redirect()->route('notas_completadas.index')
                             ->with('success','Nota Servicio Creado.');
@@ -403,6 +281,8 @@ class NotasController extends Controller
         $nota->anular = $request->get('anular');
         $nota->id_client = $request->get('id_client');
         $nota->nota = $request->get('nota');
+        $nota->precio = $request->get('total-suma');
+        $nota->restante = $request->get('restante_paquetes');
         $nota->update();
 
         // G U A R D A R  C O S M E S
@@ -422,27 +302,23 @@ class NotasController extends Controller
             $id_notas_paquetes = $request->get('id_notas_paquetes');
 
             $nota_paquete = NotasPaquetes::find($id_notas_paquetes);
-            $nota_paquete->id_nota = $nota->id;
-            $nota_paquete->id_servicio = $request->get('id_servicio');
+            $nota_paquete->id_nota = $id;
 
-            $nota_paquete->num = $request->get('num');
-            $nota_paquete->descuento = $request->get('descuento');
-            $nota_paquete->descuento_5 = $request->get('descuento_5');
+            $nota_paquete->id_servicio = $request->get('id_servicio');
+            $nota_paquete->num = $request->get('num1_paquetes');
+            $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
 
             $nota_paquete->id_servicio2 = $request->get('id_servicio2');
-            $nota_paquete->num2 = $request->get('num2');
-            $nota_paquete->descuento2 = $request->get('descuento2');
-            $nota_paquete->descuento2_5 = $request->get('descuento2_5');
+            $nota_paquete->num2 = $request->get('num2_paquetes');
+            $nota_paquete->descuento2 = $request->get('descuento-adicional2_paquetes');
 
             $nota_paquete->id_servicio3 = $request->get('id_servicio3');
-            $nota_paquete->num3 = $request->get('num3');
-            $nota_paquete->descuento3 = $request->get('descuento3');
-            $nota_paquete->descuento3_5 = $request->get('descuento3_5');
+            $nota_paquete->num3 = $request->get('num3_paquetes');
+            $nota_paquete->descuento3 = $request->get('descuento-adicional3_paquetes');
 
             $nota_paquete->id_servicio4 = $request->get('id_servicio4');
-            $nota_paquete->num4 = $request->get('num4');
-            $nota_paquete->descuento4 = $request->get('descuento4');
-            $nota_paquete->descuento4_5 = $request->get('descuento4_5');
+            $nota_paquete->num4 = $request->get('num4_paquetes');
+            $nota_paquete->descuento4 = $request->get('descuento-adicional4_paquetes');
             $nota_paquete->update();
 
         if($request->get('pago') != NULL){
@@ -493,122 +369,6 @@ class NotasController extends Controller
             $notas_propinas->save();
         }
 
-        $notas_extra = NotasExtras::where('id_nota', '=', $nota->id)->get();
-        $suma_extra = 0;
-        foreach($notas_extra as $item){
-            $suma_extra = $suma_extra + $item->precio;
-        }
-
-        $suma_pagos = 0;
-        $pago = Pagos::where('id_nota', '=', $nota->id)->get();
-        foreach($pago as $item){
-            $suma_pagos = $suma_pagos + $item->pago;
-        }
-
-        $nota_reciente = NotasPaquetes::where('id_nota', '=', $nota->id)->first();
-        $total = 0;
-        $mult = 0;
-        $descuento = 0;
-        if($request->get('id_servicio') != NULL){
-            if($nota_reciente->Servicios->act_descuento == 1){
-                $precio = $nota_reciente->Servicios->descuento;
-            }else{
-                $precio = $nota_reciente->Servicios->precio;
-            }
-            if($request->get('descuento') == 1){
-                $mult = $precio * .10;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }elseif($request->get('descuento_5') == 1){
-                $mult = $precio * .05;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }elseif($request->get('descuento_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario = $precio * $nota_reciente->num;
-            }
-        }else{$unitario = 0;}
-        if($request->get('id_servicio2') != NULL){
-            if($nota_reciente->Servicios2->act_descuento == 1){
-                $precio2 = $nota_reciente->Servicios2->descuento;
-            }else{
-                $precio2 = $nota_reciente->Servicios2->precio;
-            }
-            if($request->get('descuento2') == 1){
-                $mult = $precio2 * .10;
-                $descuento = $precio2 - $mult;
-                $unitario2 = $descuento * $nota_reciente->num2;
-            }elseif($request->get('descuento2_5') == 1){
-                $mult = $precio2 * .05;
-                $descuento = $precio2 - $mult;
-                $unitario2 = $descuento * $nota_reciente->num2;
-            }elseif($request->get('descuento2_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario2 = $precio2 * $nota_reciente->num2;
-            }
-        }else{$unitario2 = 0;}
-        if($request->get('id_servicio3') != NULL){
-            if($nota_reciente->Servicios3->act_descuento == 1){
-                $precio3 = $nota_reciente->Servicios3->descuento;
-            }else{
-                $precio3 = $nota_reciente->Servicios3->precio;
-            }
-            if($request->get('descuento3') == 1){
-                $mult = $precio3 * .10;
-                $descuento = $precio3 - $mult;
-                $unitario3 = $descuento * $nota_reciente->num3;
-            }elseif($request->get('descuento3_5') == 1){
-                $mult = $precio3 * .05;
-                $descuento = $precio3 - $mult;
-                $unitario3 = $descuento * $nota_reciente->num3;
-            }elseif($request->get('descuento3_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario3 = $precio3 * $nota_reciente->num3;
-            }
-        }else{$unitario3 = 0;}
-        if($request->get('id_servicio4') != NULL){
-            if($nota_reciente->Servicios4->act_descuento == 1){
-                $precio4 = $nota_reciente->Servicios4->descuento;
-            }else{
-                $precio4 = $nota_reciente->Servicios4->precio;
-            }
-            if($request->get('descuento4') == 1){
-                $mult = $precio4 * .10;
-                $descuento = $precio4 - $mult;
-                $unitario4 = $descuento * $nota_reciente->num4;
-            }elseif($request->get('descuento4_5') == 1){
-                $mult = $precio4 * .05;
-                $descuento = $precio4 - $mult;
-                $unitario4 = $descuento * $nota_reciente->num4;
-            }elseif($request->get('descuento4_50') == 1){
-                $mult = $precio * .50;
-                $descuento = $precio - $mult;
-                $unitario = $descuento * $nota_reciente->num;
-            }else{
-                $unitario4 = $precio4 * $nota_reciente->num4;
-            }
-        }else{$unitario4 = 0;}
-
-        $total = $unitario + $unitario2 + $unitario3 + $unitario4;
-
-        $total2 = 0;
-        $total2 = $total + $suma_extra;
-        $restante = $total2 - $suma_pagos;
-
-        $nota_pago = Notas::find($nota->id);
-        $nota_pago->precio = $total;
-        $nota_pago->restante = $restante;
-        $nota_pago->update();
-
         $pago_reciente = Pagos::where('id_nota', '=', $nota->id)->orderBy('id','DESC')->first();
         // G U A R D A R  R E P O R T E
         if($nota->anular != 1){
@@ -618,9 +378,9 @@ class NotasController extends Controller
             $reporte->tipo = 'NOTA SERVICIO';
             $reporte->id_client = $nota->id_client;
             $reporte->metodo_pago = $pago_reciente->forma_pago;
-            $reporte->monto = $nota_pago->precio;
+            $reporte->monto = $nota->precio;
             $reporte->pago = $pago_reciente->pago;
-            $reporte->restante = $nota_pago->restante;
+            $reporte->restante = $nota->restante;
             $reporte->save();
         }
 
