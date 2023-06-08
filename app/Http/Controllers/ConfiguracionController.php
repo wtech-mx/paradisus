@@ -34,6 +34,9 @@ class ConfiguracionController extends Controller
         $configuracion->icon_boton_save = $request->get('icon_boton_save');
         $configuracion->color_boton_close = $request->get('color_boton_close');
         $configuracion->icon_boton_close = $request->get('icon_boton_close');
+        $configuracion->modulos = $request->get('modulos');
+        $configuracion->horario_inicio = $request->get('horario_inicio');
+        $configuracion->horario_fin = $request->get('horario_fin');
 
         if ($request->hasFile("logo")) {
 

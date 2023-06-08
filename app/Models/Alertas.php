@@ -15,35 +15,33 @@ class Alertas extends Model
 
     protected $fillable = [
         'id_client',
-        'id_especialist',
-        'id_servicio',
+        'titulo',
+        'descripcion',
+        'img',
         'color',
-        'resourceId',
-        'title',
         'start',
         'end',
-        'descripcion',
-        'estatus',
-        'check',
-        'image',
-        'telefono',
+        'status',
     ];
 
-    public function scopeTitulo($query,$titulo)
+    public function scopeTitulo($query, $titulo)
     {
         if ($titulo)
-            return $query->where('titulo','LIKE',"%$titulo%");
+            return $query->where('titulo', 'LIKE', "%$titulo%");
     }
 
     public function Client()
     {
-       return $this->belongsTo(Client::class,'id_client');
+        return $this->belongsTo(Client::class, 'id_client');
     }
 
-    public function Servicios()
+    public function Status()
     {
-       return $this->belongsTo(Servicios::class,'id_servicio');
+        return $this->belongsTo(Status::class, 'id_status');
     }
 
+    public function Colores()
+    {
+        return $this->belongsTo(Colores::class, 'id_color');
+    }
 }
-

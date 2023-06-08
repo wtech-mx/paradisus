@@ -112,6 +112,24 @@ Configuracion
                                 <input class="form-control" type="text" id="icon_boton_close" name="icon_boton_close" value="{{$configuracion->icon_boton_close}}">
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <label class="form-control-label">Modulos: </label>
+                                <input class="form-control" type="number" id="modulos" name="modulos" value="{{$configuracion->modulos}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <label class="form-control-label">Hora de inicio: </label>
+                                <input class="form-control" type="time" id="horario_inicio" name="horario_inicio" value="{{$configuracion->horario_inicio}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <label class="form-control-label">Hora de fin: </label>
+                                <input class="form-control" type="time" id="horario_fin" name="horario_fin" value="{{$configuracion->horario_fin}}">
+                            </div>
+                        </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                             <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Actualizar</button>

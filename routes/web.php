@@ -7,8 +7,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PermisosController;
-
-
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\ColoresController;
+use App\Http\Controllers\AlertasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,7 +36,7 @@ Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController:
 
 // =============== M O D U L O   login custom ===============================
 
-Route::get('dashboard', [App\Http\Controllers\CustomAuthController::class, 'dashboard']);
+// Route::get('dashboard', [App\Http\Controllers\CustomAuthController::class, 'dashboard']);
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login');
 Route::post('custom-login', [App\Http\Controllers\CustomAuthController::class, 'customLogin'])->name('login.custom');
 Route::get('registration', [App\Http\Controllers\CustomAuthController::class, 'registration'])->name('register-user');
@@ -44,7 +45,8 @@ Route::get('signout', [App\Http\Controllers\CustomAuthController::class, 'signOu
 
 // =============== M O D U L O   login custom ===============================
 
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [AlertasController::class, 'index_calendar'])->name('dashboard');
 
 Route::get('/paquetes/servicios/edit/figura_ideal/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_uno'])->name('firma_paquete_uno.firma_edit_uno');
 Route::get('/paquetes/servicios/edit/lipoescultura/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_dos'])->name('firma_paquete_dos.firma_edit_dos');
@@ -163,11 +165,23 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte/imprimir/corte', [App\Http\Controllers\CajaController::class, 'imprimir_corte'])->name('caja.print_corte');
 
     // =============== M O D U L O   C A L E N D A R I O ===============================
-    Route::get('calendar', [App\Http\Controllers\AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
-    Route::post('calendar', [App\Http\Controllers\AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');
-    Route::get('calendar/show', [App\Http\Controllers\AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
-    Route::patch('calendar/destroy/{id}', [App\Http\Controllers\AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
-    Route::patch('calendar/update/{id}', [App\Http\Controllers\AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
+    Route::get('calendar', [AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
+    Route::post('calendar', [AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');
+    Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
+    Route::patch('calendar/destroy/{id}', [AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
+    Route::patch('calendar/update/{id}', [AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
+
+    /*|--------------------------------------------------------------------------
+    |Colores
+    |--------------------------------------------------------------------------*/
+    Route::post('colores/create', [ColoresController::class, 'create'])->name('colores.create');
+    Route::post('colores/update/{id}', [ColoresController::class, 'update_colores'])->name('colores.update_colores');
+
+    /*|--------------------------------------------------------------------------
+    |Estatus
+    |--------------------------------------------------------------------------*/
+    Route::post('estatus/create', [StatusController::class, 'create'])->name('estatus.create');
+    Route::post('estatus/update/{id}', [StatusController::class, 'update_estatus'])->name('estatus.update_estatus');
 
     // =============== M O D U L O   R E P O R T E S ===============================
     Route::get('/reporte', [App\Http\Controllers\ReporteController::class, 'index'])->name('reporte.index');

@@ -54,7 +54,7 @@
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
     @include('layouts.navbar')
-    
+
     <!-- End Navbar -->
     @include('paquetes_servicios.show')
 
@@ -62,8 +62,8 @@
 
         {{-- @include('layouts.header') --}}
         @include('layouts.simple_alert')
+        @yield('breadcrumb')
         @yield('content')
-
 
        <!-- Modal lateral Congif -->
         @include('layouts.footer')
@@ -91,7 +91,7 @@
 
   <script src="{{ asset('assets/js/plugins/datatables.js')}}"></script>
 
-  <script src="{{ asset('assets/js/plugins/fullcalendar.min.js')}}"></script>
+  {{-- <script src="{{ asset('assets/js/plugins/fullcalendar.min.js')}}"></script> --}}
   <!-- Kanban scripts -->
 
   <script src="{{ asset('assets/js/plugins/dragula/dragula.min.js')}}"></script>
