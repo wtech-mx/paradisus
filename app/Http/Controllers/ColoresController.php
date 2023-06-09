@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alertas;
 use App\Models\Colores;
+use App\Models\Servicios;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Arr;
@@ -11,9 +12,8 @@ class ColoresController extends Controller
 {
     public function create(Request $request)
     {
-        $color = new Colores;
-        $color -> servicio = $request->get('servicio');
-        $color -> color = $request->get('color');
+        $color = new Servicios();
+        $color -> nombre = $request->get('servicio');
 
         $image  = $request->file('imagen');
         $imageName = time().'.'.$image->getClientOriginalName();
@@ -30,8 +30,8 @@ class ColoresController extends Controller
     public function update_colores(Request $request,$id)
     {
 
-        $color = Colores::find($id);
-        $color -> servicio = $request->get('servicio');
+        $color = Servicios::find($id);
+        $color -> nombre = $request->get('servicio');
         $color -> color = $request->get('color');
 
         $image  = $request->file('imagen');
