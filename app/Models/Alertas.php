@@ -40,8 +40,8 @@ class Alertas extends Model
         return $this->belongsTo(Status::class, 'id_status');
     }
 
-    public function Colores()
+    public function Servicios()
     {
-        return $this->belongsTo(Colores::class, 'id_color');
+        return $this->belongsTo(Servicios::class, 'id_color');
     }
 }

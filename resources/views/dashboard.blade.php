@@ -10,9 +10,9 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Citas</p>
                     <h5 class="font-weight-bolder">
-                      $53,000
+                     # {{$t_citas_contador}}
                     </h5>
                     <p class="mb-0">
                       <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -36,9 +36,9 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Proximas Citas</p>
                     <h5 class="font-weight-bolder">
-                      2,300
+                       # {{$p_citas_contador}}
                     </h5>
                     <p class="mb-0">
                       <span class="text-success text-sm font-weight-bolder">+3%</span>
@@ -65,17 +65,13 @@
                     <div class="numbers">
                         <p class="text-sm mb-0 text-uppercase font-weight-bold">Servicios</p>
                         <h5 class="font-weight-bolder">
-                        +3,462
+                        # {{$servicios_contador}}
                         </h5>
-                        <p class="mb-0">
-                        <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                        since last quarter
-                        </p>
                     </div>
                     </div>
                     <div class="col-4 text-end">
                     <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                        <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                        <i class="fa fa-area-chart text-lg opacity-10" aria-hidden="true"></i>
                     </div>
                     </div>
                 </div>
@@ -94,13 +90,13 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Estatus</p>
                     <h5 class="font-weight-bolder">
-                      $103,430
+                      # {{$estatus_contador}}
                     </h5>
                   </div>
                 </div>
                 <div class="col-4 text-end">
                   <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                    <i class="fa fa-cogs text-lg opacity-10" aria-hidden="true"></i>
                   </div>
                 </div>
               </div>

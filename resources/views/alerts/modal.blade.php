@@ -45,7 +45,7 @@
                    <label for="">Selecionar Paciente</label>
                    <input class="" type="text" name="title" id="title" disabled style="background: transparent;font-size: 12px;border: 0px;padding:0px">
                         <select class="form-control mibuscador_paciente" id="cliente_id" name="cliente_id" >
-                             <option value="">Seleccione Paciente</option>
+                             <option value="">Seleccione Cliente</option>
                              @foreach($client as $item)
                              <option  value="{{$item->id}}">{{$item->name}} {{$item->last_name}}</option>
                           @endforeach
@@ -82,8 +82,8 @@
                     <label for="">Selecciona el servicio</label>
                     <select class="form-control" id="id_color" name="id_color" >
                         <option value="">Selecionar servicio</option>
-                        @foreach($colores as $item)
-                              <option value="{{$item->id}}">{{$item->servicio}}</option>
+                        @foreach($servicios as $item)
+                              <option value="{{$item->id}}">{{$item->nombre}}</option>
                         @endforeach
                     </select>
                 </div>

@@ -41,14 +41,13 @@
                     </div>
                   </div>
                   <hr>
-                  @foreach ($colores as $item)
+                  @foreach ($servicios as $item)
                   <form action="{{ route('colores.update_colores',$item->id) }}" method="post" class="row"  enctype="multipart/form-data">
                     @csrf
-
-                      <div class="form-group col-3">
+                      <div class="form-group col-6">
                           <label for="limpieza">Servicio</label>
                           <input type="hidden" class="form-control" id="id" name="id" value="{{$item->id}}">
-                          <input type="text" class="form-control" id="servicio" name="servicio" value="{{$item->servicio}}">
+                          <input type="text" class="form-control" id="servicio" name="servicio" value="{{$item->nombre}}">
                       </div>
 
                       {{-- <div class="form-group col-2">
@@ -56,7 +55,7 @@
                           <input type="color" class="form-control" id="color" name="color" value="{{$item->color}}">
                       </div> --}}
 
-                      <div class="form-group col-4">
+                      <div class="form-group col-3">
                           <label for="limpieza">IMG</label>
                           <input class="form-control" type="file" name="imagen">
                           <img class="card-img-top" style="width: 90px" src="{{asset('/img/iconos_serv/'.$item->imagen)}}">

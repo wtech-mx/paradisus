@@ -62,7 +62,15 @@ class AlertasController extends Controller
             $modulos[] = ['id' => $letra, 'title' => 'Modulo ' . $letra];
         }
 
-        return view('dashboard', compact('client', 'alert','especialist', 'colores','servicios','cosme','cosmes_alerts','estatus','modulos'));
+        // Obtener la fecha y hora actual
+        $now = Carbon::now();
+
+        $estatus_contador = Status::count();
+        $servicios_contador = Servicios::count();
+        $t_citas_contador = Alertas::count();
+        $p_citas_contador = Alertas::where('start', '>=', $now)->count();
+
+        return view('dashboard', compact('client', 'alert','especialist', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosme','cosmes_alerts','estatus', 'estatus_contador','modulos'));
 
     }
 
@@ -83,7 +91,7 @@ class AlertasController extends Controller
         $datosEvento->resourceId = $request->resourceId;
         $datosEvento->id_especialist = $request->id_especialist;
         $datosEvento->descripcion = $request->descripcion;
-        $datosEvento->image = asset('img/iconos_serv/'.$datosEvento->Colores->imagen);
+        $datosEvento->image = asset('img/iconos_serv/'.$datosEvento->Servicios->imagen);
 
         if ( $datosEvento->end == $datosEvento->start){
             $now = date($datosEvento->end);
