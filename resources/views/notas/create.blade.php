@@ -341,7 +341,8 @@
 
                                     <div class="tab-pane fade" id="pills-sesion" role="tabpanel" aria-labelledby="pills-sesion-tab">
                                         <div class="row">
-                                            <div class="col-3">
+
+                                            <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="fecha">Fecha</label>
                                                     <input  id="fecha_sesion" name="fecha_sesion" type="date" class="form-control" value="{{$fechaActual}}">
@@ -350,11 +351,40 @@
 
                                             <div class="col-2">
                                                 <div class="form-group">
-                                                    <label for="num_sesion">Num sesion</label>
+                                                    <label for="fecha">Hora de inicio</label>
+                                                    <input  id="start" name="start" type="time" class="form-control" >
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="fecha">Hora de Fin</label>
+                                                    <input  id="end" name="end" type="time" class="form-control" >
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label for="">Selecionar Unidad</label>
+                                                    <select class="form-control" id="resourceId" name="resourceId">
+                                                         <option value="">Seleccione Unidad</option>
+                                                         @for ($i = 1; $i <= $configuracion->modulos; $i++)
+                                                            @php
+                                                                $letra = chr($i + 64); // Convierte el número en su equivalente de letra ASCII (A = 1, B = 2, etc.)
+                                                            @endphp
+                                                         <option value="{{ $letra }}">{{ $letra }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-1">
+                                                <div class="form-group">
+                                                    <label for="num_sesion">sesion</label>
                                                     <input  id="sesion" name="sesion" type="number" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-5">
+                                            <div class="col-3">
                                                 <div class="form-group">
                                                     <label for="nota">Nota</label>
                                                     <textarea class="form-control" id="nota3" name="nota3" rows="1"></textarea>

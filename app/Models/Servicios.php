@@ -24,5 +24,6 @@ class Servicios extends Model
         'color',
         'num_sesiones2',
         'duracion2',
+        'imagen',
     ];
 }

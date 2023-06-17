@@ -42,8 +42,10 @@
                   </div>
                   <hr>
                   @foreach ($servicios as $item)
-                  <form action="{{ route('colores.update_colores',$item->id) }}" method="post" class="row"  enctype="multipart/form-data">
-                    @csrf
+                  {{-- <form action="{{ route('colores.update_colores',$item->id) }}" method="post" class="row"  enctype="multipart/form-data"> --}}
+                    <form method="POST" class="row" action="{{ route('servicio.update_image', $item->id) }}" enctype="multipart/form-data" role="form">
+                        @csrf
+                        <input type="hidden" name="_method" value="PATCH">
                       <div class="form-group col-6">
                           <label for="limpieza">Servicio</label>
                           <input type="hidden" class="form-control" id="id" name="id" value="{{$item->id}}">
@@ -57,7 +59,7 @@
 
                       <div class="form-group col-3">
                           <label for="limpieza">IMG</label>
-                          <input class="form-control" type="file" name="imagen">
+                          <input class="form-control" type="file" name="imagen" id="imagen">
                           <img class="card-img-top" style="width: 90px" src="{{asset('/img/iconos_serv/'.$item->imagen)}}">
                       </div>
 

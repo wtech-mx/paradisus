@@ -98,15 +98,44 @@ class ServiciosController extends Controller
             'nombre' => 'required',
             'precio' => 'required',
             'duracion' => 'required',
-            'color' => 'required'
+            'color' => 'required',
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // Validación para el campo de imagen
         ]);
 
         $input = $request->all();
         $servicio = Servicios::find($id);
+
+        // Procesar la imagen si se proporcionó
+        if ($request->hasFile('imagen')) {
+
+            dd($request);
+            $image  = $request->file('imagen');
+            $imageName = time().'.'.$image->getClientOriginalName();
+
+            $image->move(public_path('/img/iconos_serv'),$imageName);
+            $servicio->imagen = $imageName;
+        }
+
         $servicio->update($input);
 
         return redirect()->route('servicio.index')
         ->with('edit','servicio Has Been updated successfully');
+    }
+
+    public function update_image(Request $request, $id)
+    {
+        $servicio = Servicios::find($id);
+
+        $image  = $request->file('imagen');
+        $imageName = time().'.'.$image->getClientOriginalName();
+
+        $image->move(public_path('/img/iconos_serv'),$imageName);
+        $servicio->imagen = $imageName;
+        $servicio->update();
+
+        Session::flash('edit', 'Se ha editado sus datos con exito');
+        return redirect()->back();
+
     }
 
     /**
