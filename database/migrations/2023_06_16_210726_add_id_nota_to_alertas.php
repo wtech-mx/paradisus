@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('alertas', function (Blueprint $table) {
             $table->unsignedBigInteger('id_nota');
             $table->foreign('id_nota')
-                ->references('id')->on('alertas')
+                ->references('id')->on('notas')
                 ->inDelete('set null');
 
         });

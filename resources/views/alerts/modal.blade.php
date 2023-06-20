@@ -103,6 +103,12 @@
         </div>
 
         <div class="modal-footer">
+            <button class="btn  btn-sm text-white" id="btnNota" style="background-color: #000">
+                <input type="text" name="txtNota" id="txtNota" disabled style="background: transparent;color: #fff;border: 1px solid transparent;display: inherit;left: 40px;position: relative;font-size:0px;">
+                <input type="hidden" name="txtNota" id="txtNota">
+                <i class="fa fa-pencil" aria-hidden="true"></i> Nota
+            </button>
+
             <button class="btn  btn-sm text-white" id="btnWhats" style="background-color: #128C7E">
                 <input type="text" name="txtTelefono" id="txtTelefono" disabled style="background: transparent;color: #fff;border: 1px solid transparent;display: inherit;left: 40px;position: relative;font-size:0px;">
                 <input type="hidden" name="txtTelefono" id="txtTelefono">

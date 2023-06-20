@@ -155,6 +155,7 @@
             $('#resourceId').val(info.event._def.resourceIds);
             $('#id_especialist').val(info.event.extendedProps.id_especialist);
             $('#title').val(info.event.title);
+            $('#txtNota').val(info.event.extendedProps.id_nota);
             $('#txtTelefono').val(info.event.extendedProps.telefono);
             $('#color').val(info.event.backgroundColor);
             $('#id_color').val(info.event.extendedProps.id_color);
@@ -216,6 +217,12 @@
           EnviarInformacionWhatsapp('', ObjEvento);
       });
 
+      $('#btnNota').click(function(){
+          ObjEvento= recolectarDatosGUInota('POST');
+          {{--EnviarInformacion('{{route('calendar.index_calendar')}}', ObjEvento);--}}
+          EnviarInformacionnota('', ObjEvento);
+      });
+
       $('#btnAgregar').click(function(){
           ObjEvento= recolectarDatosGUI('POST');
           {{--EnviarInformacion('{{route('calendar.index_calendar')}}', ObjEvento);--}}
@@ -237,6 +244,15 @@
               telefono:$('#txtTelefono').val(),
               fecha:$('#txtFecha').val(),
               hora:$('#txtHora').val(),
+              '_token':$("meta[name='csrf-token']").attr("content"),
+              '_method':method
+          }
+          return (nuevoEventowhatasapp);
+      }
+
+      function recolectarDatosGUInota(method){
+          nuevoEventowhatasapp={
+              nota:$('#txtNota').val(),
               '_token':$("meta[name='csrf-token']").attr("content"),
               '_method':method
           }
@@ -296,6 +312,12 @@
           window.open(pagina, '_blank');
       }
 
+      function EnviarInformacionnota(accion,ObjEvento){
+           console.log(ObjEvento['telefono']);
+          var pagina='https://paradisus.mx/notas/servicios/edit/'+ObjEvento['nota'];
+          window.open(pagina, '_blank');
+      }
+
       function EnviarInformacion(accion,ObjEvento){
           $.ajax(
                   {
@@ -319,6 +341,7 @@
             $('#resourceId').val("");
             $('#id_especialist').val("");
             $('#txtFecha').val("");
+            $('#txtNota').val("");
             $('#txtTelefono').val("");
             $('#txtHora').val("");
             $('#txtHorafin').val("");

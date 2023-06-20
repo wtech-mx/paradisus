@@ -15,6 +15,7 @@ class Alertas extends Model
 
     protected $fillable = [
         'id_client',
+        'id_nota',
         'titulo',
         'descripcion',
         'img',

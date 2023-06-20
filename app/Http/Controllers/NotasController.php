@@ -175,6 +175,7 @@ class NotasController extends Controller
             $datosEvento->start = $nota_sesion->start;
             $datosEvento->end = $nota_sesion->end;
             $datosEvento->id_color = $request->id_color;
+            $datosEvento->id_nota = $nota->id;
             $datosEvento->id_status = $status->id;
             $datosEvento->estatus = $status->estatus;
             $datosEvento->color = $status->color;
@@ -414,6 +415,7 @@ class NotasController extends Controller
             $datosEvento->start = $nota_sesion->start;
             $datosEvento->end = $nota_sesion->end;
             $datosEvento->id_color = $request->id_color;
+            $datosEvento->id_nota = $nota->id;
             $datosEvento->id_status = $status->id;
             $datosEvento->estatus = $status->estatus;
             $datosEvento->color = $status->color;
@@ -445,6 +447,7 @@ class NotasController extends Controller
                 $datosEvento->end = $new_time;
                 $datosEvento->start = $new_time2;
             }
+            //dd($datosEvento);
             $datosEvento->save();
         }
 
