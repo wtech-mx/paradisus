@@ -15,6 +15,7 @@ use App\Models\NotasSesion;
 use App\Models\Pagos;
 use App\Models\Reporte;
 use App\Models\Servicios;
+use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -164,10 +165,7 @@ class NotasController extends Controller
             $nota_sesion->resourceId = $request->get('resourceId');
             $nota_sesion->save();
 
-
-
-            $estatus_alert = "Agendado";
-
+            $status = Status::find(1);
             $client =  Client::find($nota->id_client);
             $img =  Servicios::find($request->get('id_servicio'));
             $full_name = $client->name.$client->last_name;
@@ -177,9 +175,9 @@ class NotasController extends Controller
             $datosEvento->start = $nota_sesion->start;
             $datosEvento->end = $nota_sesion->end;
             $datosEvento->id_color = $request->id_color;
-            $datosEvento->id_status = 1;
-            $datosEvento->estatus = $estatus_alert;
-            $datosEvento->color = "#ccc";
+            $datosEvento->id_status = $status->id;
+            $datosEvento->estatus = $status->estatus;
+            $datosEvento->color = $status->color;
             $datosEvento->id_client = $client->id;
             $datosEvento->title = $full_name;
             $datosEvento->telefono = $client->phone;
@@ -191,19 +189,23 @@ class NotasController extends Controller
             if ( $datosEvento->end == $datosEvento->start){
                 $now = date($datosEvento->end);
                 $now2 = date($datosEvento->start);
-                $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now))); // $now + 3 hours
-                $new_time2 = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now2))); // $now + 3 hours
-                $datosEvento->end = $new_time;
-                $datosEvento->start = $new_time2;
+
+                $new_time = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now; // Combinar la fecha y hora
+                $new_time_aumentada = date("Y-m-d H:i", strtotime('+1 hour', strtotime($new_time)));
+
+                $new_time2 = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now2; // Combinar la fecha y hora
+                $new_time_aumentada2 = date("Y-m-d H:i", strtotime('+1 hour', strtotime($new_time2)));
+
+                $datosEvento->end = $new_time_aumentada;
+                $datosEvento->start = $new_time_aumentada2;
             }else{
                 $now = date($datosEvento->end);
                 $now2 = date($datosEvento->start);
-                $new_time = date("Y-m-d H:i",  strtotime($now)); // $now + 3 hours
-                $new_time2 = date("Y-m-d H:i",  strtotime($now2)); // $now + 3 hours
+                $new_time = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now;
+                $new_time2 = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now2;
                 $datosEvento->end = $new_time;
                 $datosEvento->start = $new_time2;
             }
-
             // dd($datosEvento);
             $datosEvento->save();
 
@@ -397,7 +399,53 @@ class NotasController extends Controller
             $nota_sesion->fecha = $request->get('fecha_sesion');
             $nota_sesion->sesion = $request->get('sesion');
             $nota_sesion->nota = $request->get('nota3');
+            $nota_sesion->start = $request->get('start');
+            $nota_sesion->end = $request->get('end');
+            $nota_sesion->resourceId = $request->get('resourceId');
             $nota_sesion->save();
+
+            $status = Status::find(1);
+            $client =  Client::find($nota->id_client);
+            $img =  Servicios::find($request->get('id_servicio'));
+            $full_name = $client->name.$client->last_name;
+            $especialista = $request->get('id_user');
+
+            $datosEvento = new Alertas;
+            $datosEvento->start = $nota_sesion->start;
+            $datosEvento->end = $nota_sesion->end;
+            $datosEvento->id_color = $request->id_color;
+            $datosEvento->id_status = $status->id;
+            $datosEvento->estatus = $status->estatus;
+            $datosEvento->color = $status->color;
+            $datosEvento->id_client = $client->id;
+            $datosEvento->title = $full_name;
+            $datosEvento->telefono = $client->phone;
+            $datosEvento->resourceId = $nota_sesion->resourceId;
+            $datosEvento->id_especialist = $especialista[0];
+            $datosEvento->descripcion = "Agendado desde Notas";
+            $datosEvento->image = asset('img/iconos_serv/'.$img->imagen);
+
+            if ( $datosEvento->end == $datosEvento->start){
+                $now = date($datosEvento->end);
+                $now2 = date($datosEvento->start);
+
+                $new_time = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now; // Combinar la fecha y hora
+                $new_time_aumentada = date("Y-m-d H:i", strtotime('+1 hour', strtotime($new_time)));
+
+                $new_time2 = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now2; // Combinar la fecha y hora
+                $new_time_aumentada2 = date("Y-m-d H:i", strtotime('+1 hour', strtotime($new_time2)));
+
+                $datosEvento->end = $new_time_aumentada;
+                $datosEvento->start = $new_time_aumentada2;
+            }else{
+                $now = date($datosEvento->end);
+                $now2 = date($datosEvento->start);
+                $new_time = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now;
+                $new_time2 = date("Y-m-d", strtotime($nota_sesion->fecha)) . " " . $now2;
+                $datosEvento->end = $new_time;
+                $datosEvento->start = $new_time2;
+            }
+            $datosEvento->save();
         }
 
         // G U A R D A R  E X T R A S

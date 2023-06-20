@@ -132,15 +132,19 @@
 
               horario = (hora+":"+minutos);
 
-              // ---------
+              // ---------a
 
-              minutos2=(info.event.end.getMinutes());
-              hora2=(info.event.end.getHours());
+            minutos2 = (info.event.end && info.event.end.getMinutes()) || 0;
+            console.log(minutos2);
 
-              minutos2 = (minutos2<10)?"0"+minutos2:minutos2;
-              hora2 = (hora2<10)?"0"+hora2:hora2;
+            hora2 = (info.event.end && info.event.end.getHours()) || 0;
 
-              horario2 = (hora2+":"+minutos2);
+            if (info.event.end) {
+            minutos2 = (minutos2 < 10) ? "0" + minutos2 : minutos2;
+            hora2 = (hora2 < 10) ? "0" + hora2 : hora2;
+            }
+
+            horario2 = hora2 + ":" + minutos2;
 
 
             $('#txtFecha').val(anio+"-"+mes+"-"+dia);
