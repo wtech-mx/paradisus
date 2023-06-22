@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/servicios', [App\Http\Controllers\ServiciosController::class, 'index'])->name('servicio.index');
     Route::post('/servicios/create', [App\Http\Controllers\ServiciosController::class, 'store'])->name('servicio.store');
     Route::patch('/servicios/update/{id}', [App\Http\Controllers\ServiciosController::class, 'update'])->name('servicio.update');
-    Route::patch('/servicios/update/{id}', [App\Http\Controllers\ServiciosController::class, 'update_image'])->name('servicio.update_image');
+    Route::patch('/servicios/update_img/{id}', [App\Http\Controllers\ServiciosController::class, 'update_image'])->name('servicio.update_image');
     Route::delete('/servicios/delete/{id}', [App\Http\Controllers\ServiciosController::class, 'destroy'])->name('servicio.destroy');
 
     Route::get('changeStatus', [App\Http\Controllers\ServiciosController::class, 'ChangeServicioStatus'])->name('ChangeServicioStatus.servicio');
