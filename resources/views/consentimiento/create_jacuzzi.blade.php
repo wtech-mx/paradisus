@@ -296,7 +296,7 @@
                                     @else
                                         @foreach ($firmas as $firma)
                                             <div class="col-4">
-                                                <img src="{{asset('firma_consentimientob/'.$firma->firma)}}" alt="">
+                                                <img src="{{asset('firma_consentimientoj/'.$firma->firma)}}" alt="">
                                             </div>
                                         @endforeach
                                     @endif
