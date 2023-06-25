@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/servicios', [App\Http\Controllers\ServiciosController::class, 'index'])->name('servicio.index');
     Route::post('/servicios/create', [App\Http\Controllers\ServiciosController::class, 'store'])->name('servicio.store');
     Route::patch('/servicios/update/{id}', [App\Http\Controllers\ServiciosController::class, 'update'])->name('servicio.update');
-    Route::patch('/servicios/update_img/{id}', [App\Http\Controllers\ServiciosController::class, 'update_image'])->name('servicio.update_image');
+    Route::patch('/servicios/update/{id}', [App\Http\Controllers\ServiciosController::class, 'update_image'])->name('servicio.update_image');
     Route::delete('/servicios/delete/{id}', [App\Http\Controllers\ServiciosController::class, 'destroy'])->name('servicio.destroy');
 
     Route::get('changeStatus', [App\Http\Controllers\ServiciosController::class, 'ChangeServicioStatus'])->name('ChangeServicioStatus.servicio');
@@ -189,6 +189,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte/imprimir/serv', [App\Http\Controllers\ReporteController::class, 'imprimir_serv'])->name('reporte.print_serv');
     Route::get('/reporte/imprimir/prod', [App\Http\Controllers\ReporteController::class, 'imprimir_prod'])->name('reporte.print_prod');
     Route::get('/reporte/advance', [App\Http\Controllers\ReporteController::class, 'advance'])->name('advance_search');
+
+    // =============== M O D U L O   P R O D U C T O S ===============================
+    Route::get('/productos/bodega', [App\Http\Controllers\ProductosController::class, 'index'])->name('productos.index');
+    Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
 });
 
 
