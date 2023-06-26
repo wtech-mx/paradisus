@@ -193,6 +193,12 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O   P R O D U C T O S ===============================
     Route::get('/productos/bodega', [App\Http\Controllers\ProductosController::class, 'index'])->name('productos.index');
     Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
+
+    Route::get('/inventario/cabina1', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index1');
+    Route::get('/inventario/cabina2', [App\Http\Controllers\CabinaInvetarioController::class, 'index2'])->name('inventario.index2');
+    Route::get('/inventario/cabina3', [App\Http\Controllers\CabinaInvetarioController::class, 'index3'])->name('inventario.index3');
+    Route::get('/inventario/cabina4', [App\Http\Controllers\CabinaInvetarioController::class, 'index4'])->name('inventario.index4');
+    Route::get('/inventario/cabina5', [App\Http\Controllers\CabinaInvetarioController::class, 'index5'])->name('inventario.index5');
 });
 
 

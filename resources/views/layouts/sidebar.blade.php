@@ -168,7 +168,36 @@
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Bodega</span>
                 </a>
-
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('inventario/cabina1*') ? 'show' : '') }}" href="{{ route('inventario.index1') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Cabina 1</span>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('inventario/cabina2*') ? 'show' : '') }}" href="{{ route('inventario.index2') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Cabina 2</span>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('inventario/cabina3*') ? 'show' : '') }}" href="{{ route('inventario.index3') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Cabina 3</span>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('inventario/cabina4*') ? 'show' : '') }}" href="{{ route('inventario.index4') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Cabina 4</span>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('inventario/cabina5*') ? 'show' : '') }}" href="{{ route('inventario.index5') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Cabina5</span>
+                </a>
               </li>
             </ul>
           </div>
