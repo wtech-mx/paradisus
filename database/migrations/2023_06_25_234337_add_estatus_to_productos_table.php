@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('productos', function (Blueprint $table) {
-            $table->string('estatus');
+            $table->unsignedBigInteger('id_cabinainventario');
+            $table->foreign('id_cabinainventario')
+                ->references('id')->on('cabina_inventario')
+                ->inDelete('set null');
+            $table->string('estatus')->nullable();
+            $table->integer('cantidad_cabina')->nullable();
         });
     }
 

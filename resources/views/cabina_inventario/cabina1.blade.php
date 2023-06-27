@@ -32,8 +32,10 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>No</th>
-                                            <th>fecha</th>
+                                            <th>Num Semana</th>
+                                            <th>Num Cabina</th>
                                             <th>Fecha Edit</th>
+                                            <th>fecha</th>
                                         </tr>
                                     </thead>
 
@@ -41,6 +43,8 @@
                                             @foreach ($cabinas as $cabina)
                                                 <tr>
                                                     <td>{{ $cabina->id }}</td>
+                                                    <td>{{ $cabina->num_semana }}</td>
+                                                    <td>{{ $cabina->num_cabina }}</td>
                                                     <td>{{ $cabina->fecha }}</td>
                                                     <td>Ver</td>
                                                 </tr>

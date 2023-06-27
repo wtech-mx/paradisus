@@ -15,11 +15,8 @@ return new class extends Migration
     {
         Schema::create('cabina_inventario', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_productos');
-            $table->foreign('id_productos')
-                ->references('id')->on('productos')
-                ->inDelete('set null');
             $table->string('num_semana');
+            $table->string('num_cabina');
             $table->string('fecha');
             $table->timestamps();
         });

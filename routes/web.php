@@ -199,6 +199,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/inventario/cabina3', [App\Http\Controllers\CabinaInvetarioController::class, 'index3'])->name('inventario.index3');
     Route::get('/inventario/cabina4', [App\Http\Controllers\CabinaInvetarioController::class, 'index4'])->name('inventario.index4');
     Route::get('/inventario/cabina5', [App\Http\Controllers\CabinaInvetarioController::class, 'index5'])->name('inventario.index5');
+    Route::post('/inventario/cabina/store', [App\Http\Controllers\CabinaInvetarioController::class, 'store'])->name('cabina_inventario.store');
 });
 
 

@@ -10,10 +10,22 @@
 
         <div class="modal-body">
 
-          <form class="row" action="">
+          <form  class="row" method="POST" action="{{ route('cabina_inventario.store') }}" enctype="multipart/form-data" role="form">
+            @csrf
             <div class="form-group col-12">
                 <label for="">Fecha</label>
-                <input class="form-control" type="date" name="fecha" id="fecha" value="">
+                <input class="form-control" type="date" name="fecha" id="fecha" value="{{ $fechaActual }}" readonly>
+            </div>
+
+            <div class="form-group col-12">
+                <label for="">Num de Cabina</label>
+                <select class="form-select" name="num_cabina" id="num_cabina" readonly>
+                    <option  {{ (Request::is('inventario/cabina1') ? 'selected ' : '') }} value="1">Cabina 1</option>
+                    <option  {{ (Request::is('inventario/cabina2') ? 'selected ' : '') }} value="2">Cabina 2</option>
+                    <option  {{ (Request::is('inventario/cabina3') ? 'selected ' : '') }} value="3">Cabina 3</option>
+                    <option  {{ (Request::is('inventario/cabina4') ? 'selected ' : '') }} value="4">Cabina 4</option>
+                    <option  {{ (Request::is('inventario/cabina5') ? 'selected ' : '') }} value="5">Cabina 5</option>
+                </select>
             </div>
 
             <div class="form-group col-12">
@@ -69,12 +81,12 @@
                 </div>
             </div>
 
-          </form>
-        </div>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary mr-2" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          </form>
         </div>
       </div>
     </div>

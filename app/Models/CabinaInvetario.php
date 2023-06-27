@@ -12,7 +12,7 @@ class CabinaInvetario extends Model
     protected $table = 'cabina_inventario';
 
     protected $fillable = [
-        'id_productos',
+        'num_cabina',
         'num_semana',
         'fecha',
     ];
