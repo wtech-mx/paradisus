@@ -17,4 +17,7 @@ class CabinaInvetario extends Model
         'fecha',
     ];
 
+    public function ProductosInventario(){
+        return $this->hasOne('App\Models\ProductosInventario', 'id_cabina_inv', 'id');
+    }
 }

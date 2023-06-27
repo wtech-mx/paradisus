@@ -30,23 +30,37 @@
                             <div class="table-responsive">
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>No</th>
-                                            <th>Num Semana</th>
-                                            <th>Num Cabina</th>
+                                            <th>Mes</th>
+                                            <th>Semana</th>
                                             <th>Fecha Edit</th>
-                                            <th>fecha</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
 
                                         <tbody>
                                             @foreach ($cabinas as $cabina)
-                                                <tr>
+                                                <tr class="text-center">
                                                     <td>{{ $cabina->id }}</td>
-                                                    <td>{{ $cabina->num_semana }}</td>
-                                                    <td>{{ $cabina->num_cabina }}</td>
-                                                    <td>{{ $cabina->fecha }}</td>
-                                                    <td>Ver</td>
+                                                    <td>
+                                                        @php
+                                                            $fechaCarbon = \Carbon\Carbon::createFromFormat('Y-m-d', $cabina->fecha);
+                                                            $nombreMes = $fechaCarbon->locale('es')->monthName;
+                                                            echo $nombreMes;
+                                                        @endphp
+                                                    </td>
+                                                    <td>Semana {{ $cabina->num_semana }}</td>
+                                                    <td>
+                                                        @php
+                                                            $fechaCarbon = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $cabina->updated_at);
+                                                            $fechaActualizada = $fechaCarbon->format('Y-m-d');
+                                                            echo $fechaActualizada;
+                                                        @endphp
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-sm btn-success" href="{{ route('inventario.edit_cabina1',$cabina->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -60,6 +74,6 @@
             </div>
         </div>
     </div>
-    @include('cabina_inventario.modal_cabina')
+    {{-- @include('cabina_inventario.modal_cabina') --}}
 @endsection
 

@@ -25,8 +25,10 @@ return new class extends Migration
                 ->references('id')->on('productos')
                 ->inDelete('set null');
 
+            $table->string('num_semana');
+
             $table->string('estatus');
-            $table->string('cantidad');
+            $table->string('cantidad')->nullable();
             $table->timestamps();
         });
     }

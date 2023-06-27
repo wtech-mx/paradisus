@@ -12,10 +12,9 @@ class CabinaInvetarioController extends Controller
 {
     public function index1()
     {
-        $cabinas = CabinaInvetario::where('num_cabina','=', '1')->get();
-        $productos = Productos::orderBy('nombre','ASC')->get();
+        $cabinas = CabinaInvetario::where('num_cabina','=', 'Cabina 1')->get();
 
-        return view('cabina_inventario.cabina1',compact('cabinas','productos'));
+        return view('cabina_inventario.cabina1',compact('cabinas'));
     }
 
     public function index2()
@@ -83,5 +82,45 @@ class CabinaInvetarioController extends Controller
 
     }
 
+    public function update_cabina1(Request $request, $id){
+
+        $producto = $request->get('producto');
+        $cantidad = $request->get('cantidad');
+        $estatus = $request->get('estatus');
+        $num_semana = $request->get('num_semana');
+
+        $existingData = ProductosInventario::where('id_cabina_inv', $id)->get();
+
+        $insert_data = [];
+        $update_data = [];
+
+        for ($count = 0; $count < count($producto); $count++) {
+            $data = [
+                'id_cabina_inv' => $id,
+                'id_producto' => $producto[$count],
+                'cantidad' => $cantidad[$count],
+                'num_semana' => $num_semana,
+                'estatus' => $estatus[$count]
+            ];
+
+            $existingRecord = $existingData->where('id_producto', $producto[$count])->first();
+
+            if ($existingRecord) {
+                // Actualizar el registro existente
+                $existingRecord->update($data);
+                $update_data[] = $existingRecord;
+            } else {
+                // Guardar el nuevo registro
+                $insert_data[] = $data;
+            }
+        }
+
+        ProductosInventario::insert($insert_data);
+
+        Session::flash('success', 'Se ha editado sus datos con exito');
+        return redirect()->route('inventario.index1')
+        ->with('success', 'caja created successfully.');
+
+    }
 
 }

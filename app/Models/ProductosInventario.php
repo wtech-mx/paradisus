@@ -18,4 +18,14 @@ class ProductosInventario extends Model
         'estatus',
         'cantidad',
     ];
+
+    public function CabinaInvetario()
+    {
+        return $this->belongsTo(CabinaInvetario::class, 'id_cabina_inv');
+    }
+
+    public function Productos()
+    {
+        return $this->belongsTo(Productos::class, 'id_producto');
+    }
 }
