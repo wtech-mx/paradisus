@@ -35,7 +35,6 @@
                                     </a>
                                 </li>
                             @endfor
-
                         </ul>
 
                         <form method="POST" action="{{ route('cabina_inventario.store') }}" enctype="multipart/form-data" role="form">
@@ -46,7 +45,7 @@
                                             <div class="row">
                                                 <input class="form-control" type="hidden" name="cabina" id="cabina" value="Cabina 1">
                                                 <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="1">
-                                                
+
                                                 <div class="form-group col-6">
                                                     <label for="">Fecha</label>
                                                     <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>

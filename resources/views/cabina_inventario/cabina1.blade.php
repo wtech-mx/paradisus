@@ -21,6 +21,9 @@
                             <a class="btn btn-sm btn-success" type="button" href="{{route('inventario.create_cabina1')}}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
                                 <i class="fa fa-fw fa-edit"></i> Crear
                             </a>
+                            <a class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#cabinamodal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <i class="fa fa-fw fa-edit"></i> Crear
+                            </a>
                             @endcan
                         </div>
                     </div>
@@ -74,6 +77,6 @@
             </div>
         </div>
     </div>
-    {{-- @include('cabina_inventario.modal_cabina') --}}
+    @include('cabina_inventario.modal_cabina')
 @endsection
 

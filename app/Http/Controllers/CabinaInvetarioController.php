@@ -13,8 +13,9 @@ class CabinaInvetarioController extends Controller
     public function index1()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', 'Cabina 1')->get();
+        $productos = Productos::orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.cabina1',compact('cabinas'));
+        return view('cabina_inventario.cabina1',compact('cabinas','productos'));
     }
 
     public function index2()
@@ -77,9 +78,7 @@ class CabinaInvetarioController extends Controller
 
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->route('inventario.index1')
-        ->with('success', 'caja created successfully.');
-
+        return redirect()->back()->with('success','Nota Productos Creado.');
     }
 
     public function update_cabina1(Request $request, $id){
