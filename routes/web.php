@@ -195,6 +195,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
 
     Route::get('/inventario/cabina1', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index1');
+    Route::get('/inventario/cabina1/create', [App\Http\Controllers\ProductosController::class, 'create_cabina1'])->name('inventario.create_cabina1');
+
     Route::get('/inventario/cabina2', [App\Http\Controllers\CabinaInvetarioController::class, 'index2'])->name('inventario.index2');
     Route::get('/inventario/cabina3', [App\Http\Controllers\CabinaInvetarioController::class, 'index3'])->name('inventario.index3');
     Route::get('/inventario/cabina4', [App\Http\Controllers\CabinaInvetarioController::class, 'index4'])->name('inventario.index4');

@@ -48,7 +48,6 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="descripcion">producto</label><br>
-                                    {{-- <input  id="producto[]" name="producto[]" type="text" class="form-control"> --}}
                                     <select class="form-select"  id="producto[]" name="producto[]">
                                         <option value="">Seleciona el producto</option>
                                         @foreach ($productos as $producto)
@@ -68,7 +67,6 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="num_sesion">estatus</label>
-                                    {{-- <input  id="estatus[]" name="estatus[]" type="number" class="form-control" > --}}
                                     <select class="form-select"  id="estatus[]" name="estatus[]">
                                         <option value="">Selecionar</option>
                                         <option value="Por Terminar">Por Terminar</option>
@@ -90,7 +88,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 
 @section('datatable')
 

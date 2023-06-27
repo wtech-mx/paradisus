@@ -18,7 +18,7 @@
                             <h3 class="mb-3">Invetario Cabina 1</h3>
 
                             @can('notas-pedido-create')
-                            <a class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#cabinamodal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                            <a class="btn btn-sm btn-success" type="button" href="{{route('inventario.create_cabina1')}}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
                                 <i class="fa fa-fw fa-edit"></i> Crear
                             </a>
                             @endcan
