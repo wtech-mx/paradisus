@@ -163,6 +163,12 @@
           </a>
           <div class="collapse " id="pagesProductos">
             <ul class="nav ms-4">
+                <li class="nav-item ">
+                    <a class="nav-link {{ (Request::is('productos/reporte*') ? 'show' : '') }}" href="{{ route('productos.reporte') }}">
+                        <span class="sidenav-mini-icon"> P </span>
+                        <span class="sidenav-normal">Reporte</span>
+                    </a>
+                </li>
               <li class="nav-item ">
                 <a class="nav-link {{ (Request::is('productos/bodega*') ? 'show' : '') }}" href="{{ route('productos.index') }}">
                     <span class="sidenav-mini-icon"> P </span>

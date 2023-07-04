@@ -11,6 +11,15 @@ use DateTime;
 
 class ProductosController extends Controller
 {
+    public function reporte()
+    {
+        $productos_por_agotar = Productos::where('cantidad','<=', 2)->where('cantidad','>=', 1)->count();
+        $productos_agotado = Productos::where('cantidad','=', 0)->count();
+        $productos_stock = Productos::where('cantidad','>=', 3)->count();
+
+        return view('cabina_inventario.index', compact('productos_por_agotar', 'productos_agotado', 'productos_stock'));
+    }
+
     public function index()
     {
         $productos = Productos::orderBy('nombre','ASC')->get();

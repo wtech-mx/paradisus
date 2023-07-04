@@ -191,6 +191,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte/advance', [App\Http\Controllers\ReporteController::class, 'advance'])->name('advance_search');
 
     // =============== M O D U L O   P R O D U C T O S ===============================
+    Route::get('/productos/reporte', [App\Http\Controllers\ProductosController::class, 'reporte'])->name('productos.reporte');
+
     Route::get('/productos/bodega', [App\Http\Controllers\ProductosController::class, 'index'])->name('productos.index');
     Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
 
