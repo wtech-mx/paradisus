@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('num_semana');
 
             $table->string('estatus');
+            $table->string('extra');
             $table->string('cantidad')->nullable();
             $table->timestamps();
         });

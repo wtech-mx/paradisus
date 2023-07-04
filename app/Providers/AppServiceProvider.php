@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Client;
 use App\Models\Configuracion;
+use App\Models\Productos;
 use Illuminate\Support\ServiceProvider;
 use DateTime;
 
@@ -32,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
             $fechaActual = date('Y-m-d');
 
             $clients = Client::orderBy('id','DESC')->get();
+            $productos = Productos::orderBy('nombre','ASC')->get();
 
 
             // Obtener el mes actual
@@ -61,7 +63,7 @@ class AppServiceProvider extends ServiceProvider
             }
 
 
-            $view->with(['configuracion' => $configuracion, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
+            $view->with(['configuracion' => $configuracion,'productos' => $productos, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
         });
     }
 }

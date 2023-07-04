@@ -170,6 +170,11 @@
                 </a>
               </li>
               <li class="nav-item ">
+                <a class="btn btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#cabinamodal">
+                    <i class="fa fa-fw fa-edit"></i> Crear Inventario
+                </a>
+              </li>
+              <li class="nav-item ">
                 <a class="nav-link {{ (Request::is('inventario/cabina1*') ? 'show' : '') }}" href="{{ route('inventario.index1') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Cabina 1</span>
@@ -196,7 +201,7 @@
               <li class="nav-item ">
                 <a class="nav-link {{ (Request::is('inventario/cabina5*') ? 'show' : '') }}" href="{{ route('inventario.index5') }}">
                     <span class="sidenav-mini-icon"> P </span>
-                    <span class="sidenav-normal">Cabina5</span>
+                    <span class="sidenav-normal">Cabina 5</span>
                 </a>
               </li>
             </ul>

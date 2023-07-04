@@ -30,9 +30,8 @@
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Producto</th>
                                             <th>Cantidad</th>
+                                            <th>Producto</th>
                                             <th>Fecha Edit</th>
                                         </tr>
                                     </thead>
@@ -40,10 +39,6 @@
                                         <tbody>
                                             @foreach ($productos as $producto)
                                                 <tr>
-                                                    <td>{{ $producto->id }}</td>
-
-                                                    <td>{{ $producto->nombre }}</td>
-
                                                     @if ($producto->cantidad == 0)
                                                     <td>
                                                         <input type="text" class="form-control input-cantidad" style="color: #e30000;background-color: #e3000040;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}">
@@ -58,6 +53,7 @@
                                                     </td>
                                                     @endif
 
+                                                    <td>{{ $producto->nombre }}</td>
                                                     <td>{{ $producto->updated_at }}</td>
                                                 </tr>
                                             @endforeach

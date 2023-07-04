@@ -199,10 +199,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/inventario/cabina1/edit/{id}', [App\Http\Controllers\ProductosController::class, 'edit_cabina1'])->name('inventario.edit_cabina1');
     Route::patch('inventario/cabina1/update/{id}', [App\Http\Controllers\CabinaInvetarioController::class, 'update_cabina1'])->name('cabina1.update_cabina1');
 
-    Route::get('/inventario/cabina2', [App\Http\Controllers\CabinaInvetarioController::class, 'index2'])->name('inventario.index2');
-    Route::get('/inventario/cabina3', [App\Http\Controllers\CabinaInvetarioController::class, 'index3'])->name('inventario.index3');
-    Route::get('/inventario/cabina4', [App\Http\Controllers\CabinaInvetarioController::class, 'index4'])->name('inventario.index4');
-    Route::get('/inventario/cabina5', [App\Http\Controllers\CabinaInvetarioController::class, 'index5'])->name('inventario.index5');
+    Route::get('/inventario/cabina2', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index2');
+    Route::get('/inventario/cabina3', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index3');
+    Route::get('/inventario/cabina4', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index4');
+    Route::get('/inventario/cabina5', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index5');
     Route::post('/inventario/cabina/store', [App\Http\Controllers\CabinaInvetarioController::class, 'store'])->name('cabina_inventario.store');
 });
 
