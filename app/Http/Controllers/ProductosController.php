@@ -17,7 +17,29 @@ class ProductosController extends Controller
         $productos_agotado = Productos::where('cantidad','=', 0)->count();
         $productos_stock = Productos::where('cantidad','>=', 3)->count();
 
-        return view('cabina_inventario.index', compact('productos_por_agotar', 'productos_agotado', 'productos_stock'));
+        $productos = Productos::where('cantidad', '>', 2)->orderBy('cantidad', 'asc')->get();
+        $productosporagotar = Productos::where('cantidad', '<=', 2)->orderBy('cantidad', 'asc')->get();
+
+        $labels = [];
+        $labels2 = [];
+        $data = [];
+        $data2 = [];
+        $backgroundColor = [];
+        $backgroundColor2 = [];
+
+        foreach ($productos as $producto) {
+            $labels[] = $producto->nombre; // Reemplaza 'nombre' con el nombre correcto de la columna en tu tabla de productos
+            $data[] = $producto->cantidad; // Reemplaza 'cantidad' con el nombre correcto de la columna en tu tabla de productos
+            $backgroundColor[] = '#' . substr(md5(mt_rand()), 0, 6); // Generar colores aleatorios para cada barra
+        }
+
+        foreach ($productosporagotar as $producto) {
+            $labels2[] = $producto->nombre; // Reemplaza 'nombre' con el nombre correcto de la columna en tu tabla de productos
+            $data2[] = $producto->cantidad; // Reemplaza 'cantidad' con el nombre correcto de la columna en tu tabla de productos
+            $backgroundColor2[] = '#' . substr(md5(mt_rand()), 0, 6); // Generar colores aleatorios para cada barra
+        }
+
+        return view('cabina_inventario.index', compact('productos_por_agotar', 'productos_agotado', 'productos_stock','labels', 'data', 'backgroundColor','labels2', 'data2', 'backgroundColor2'));
     }
 
     public function index()
