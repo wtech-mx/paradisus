@@ -59,11 +59,233 @@
     </div>
 
     <div class="row mt-4">
-      <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Productos editados Bodega</h6>
+                </div>
+
+                <div class="card-body pt-4 p-3">
+                    <table class="table table-flush" id="datatable-search">
+                        <thead class="thead">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                @foreach ($productosSemana as $producto)
+                                    <tr>
+                                        @if ($producto->cantidad == 0)
+                                        <td>
+                                            <input type="text" class="form-control input-cantidad" style="color: #e30000;background-color: #e3000040;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}" disabled>
+                                        </td>
+                                        @elseif ($producto->cantidad <= 2 && $producto->cantidad >= 0)
+                                        <td>
+                                            <input type="text" class="form-control input-cantidad" style="color: #c54003;background-color: #c764023b;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}" disabled>
+                                        </td>
+                                        @else
+                                        <td>
+                                            <input type="text" class="form-control input-cantidad" style="color: #70b06a;background-color: #6ab06d61;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}" disabled>
+                                        </td>
+                                        @endif
+
+                                        <td>{{ $producto->nombre }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Productos editados Cabina 1</h6>
+                </div>
+
+                <div class="card-body pt-4 p-3">
+                    <table class="table table-flush" id="datatable-search">
+                        <thead class="thead">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Estatus</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                @foreach ($productosinvSemana1 as $producto)
+                                    <tr>
+                                        <td>
+                                            {{ $producto->Productos->nombre }}
+                                        </td>
+
+                                        @if ($producto->estatus == NULL)
+                                            <td>{{ $producto->cantidad }}</td>
+                                        @else
+                                            <td>{{ $producto->estatus }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <div class="card">
+
+                <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Productos editados Cabina 2</h6>
+                </div>
+
+                <div class="card-body pt-4 p-3">
+                    <table class="table table-flush" id="datatable-search">
+                        <thead class="thead">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Estatus/Cantidad</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                @foreach ($productosinvSemana2 as $producto)
+                                    <tr>
+                                        <td>
+                                            {{ $producto->Productos->nombre }}
+                                        </td>
+
+                                        @if ($producto->estatus == NULL)
+                                            <td>{{ $producto->cantidad }}</td>
+                                        @else
+                                            <td>{{ $producto->estatus }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <div class="card">
+
+                <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Productos editados Cabina 3</h6>
+                </div>
+
+                <div class="card-body pt-4 p-3">
+                    <table class="table table-flush" id="datatable-search">
+                        <thead class="thead">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Estatus/Cantidad</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                @foreach ($productosinvSemana3 as $producto)
+                                    <tr>
+                                        <td>
+                                            {{ $producto->Productos->nombre }}
+                                        </td>
+
+                                        @if ($producto->estatus == NULL)
+                                            <td>{{ $producto->cantidad }}</td>
+                                        @else
+                                            <td>{{ $producto->estatus }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <div class="card">
+
+                <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Productos editados Cabina 4</h6>
+                </div>
+
+                <div class="card-body pt-4 p-3">
+                    <table class="table table-flush" id="datatable-search">
+                        <thead class="thead">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Estatus/Cantidad</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                @foreach ($productosinvSemana4 as $producto)
+                                    <tr>
+                                        <td>
+                                            {{ $producto->Productos->nombre }}
+                                        </td>
+
+                                        @if ($producto->estatus == NULL)
+                                            <td>{{ $producto->cantidad }}</td>
+                                        @else
+                                            <td>{{ $producto->estatus }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <div class="card">
+
+                <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Productos editados Cabina 5</h6>
+                </div>
+
+                <div class="card-body pt-4 p-3">
+                    <table class="table table-flush" id="datatable-search">
+                        <thead class="thead">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Estatus/Cantidad</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                @foreach ($productosinvSemana5 as $producto)
+                                    <tr>
+                                        <td>
+                                            {{ $producto->Productos->nombre }}
+                                        </td>
+
+                                        @if ($producto->estatus == NULL)
+                                            <td>{{ $producto->cantidad }}</td>
+                                        @else
+                                            <td>{{ $producto->estatus }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+      <div class="col-md-12 mt-3">
         <div class="card">
 
           <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Pructos</h6>
+            <h6 class="mb-0">Productos stock</h6>
           </div>
 
           <div class="card-body pt-4 p-3">
@@ -74,10 +296,11 @@
 
         </div>
       </div>
-      <div class="col-md-12">
+
+      <div class="col-md-12 mt-3">
         <div class="card">
           <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Productos Por agotar</h6>
+            <h6 class="mb-0">Productos por agotar</h6>
           </div>
           <div class="card-body pt-4 p-3">
             <canvas id="bar-chart" class="chart-canvas" height="80" width="80"></canvas>
@@ -109,6 +332,13 @@
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
 <!-- Aquí coloca el código JavaScript -->
+<script type="text/javascript">
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      searchable: true,
+      fixedHeight: false
+    });
+
+</script>
 <script>
     var ctx10 = document.getElementById("polar-chart").getContext("2d");
     var bar = document.getElementById("bar-chart").getContext("2d");

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
 {
@@ -39,7 +40,44 @@ class ProductosController extends Controller
             $backgroundColor2[] = '#' . substr(md5(mt_rand()), 0, 6); // Generar colores aleatorios para cada barra
         }
 
-        return view('cabina_inventario.index', compact('productos_por_agotar', 'productos_agotado', 'productos_stock','labels', 'data', 'backgroundColor','labels2', 'data2', 'backgroundColor2'));
+        // Obtener la fecha actual
+        $hoy = Carbon::now();
+        // Obtener la fecha de inicio de la semana (lunes)
+        $inicioSemana = $hoy->startOfWeek();
+        // Obtener los productos editados en la semana
+        $productosSemana = Productos::where('updated_at', '>=', $inicioSemana)->get();
+
+        $productosinvSemana1 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+            ->where('cabina_inventario.num_cabina', '=', '1')
+            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->select('productos_inventario.*')
+            ->get();
+
+        $productosinvSemana2 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+            ->where('cabina_inventario.num_cabina', '=', '2')
+            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->select('productos_inventario.*')
+            ->get();
+
+        $productosinvSemana3 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+            ->where('cabina_inventario.num_cabina', '=', '3')
+            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->select('productos_inventario.*')
+            ->get();
+
+        $productosinvSemana4 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+            ->where('cabina_inventario.num_cabina', '=', '4')
+            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->select('productos_inventario.*')
+            ->get();
+
+        $productosinvSemana5 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+            ->where('cabina_inventario.num_cabina', '=', '5')
+            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->select('productos_inventario.*')
+            ->get();
+
+        return view('cabina_inventario.index', compact('productosSemana', 'productosinvSemana1', 'productosinvSemana2', 'productosinvSemana3', 'productosinvSemana4', 'productosinvSemana5', 'productos_por_agotar', 'productos_agotado', 'productos_stock','labels', 'data', 'backgroundColor','labels2', 'data2', 'backgroundColor2'));
     }
 
     public function index()
