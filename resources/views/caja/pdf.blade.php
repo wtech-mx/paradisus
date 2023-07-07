@@ -131,12 +131,13 @@
         </tbody>
     </table>
 
-    <h2 style="text-align: center;">
+    {{-- <h2 style="text-align: center;">
         Productos</h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
                 <th>Nota</th>
+                <th>Cliente</th>
                 <th>Monto</th>
                 <th>For. Pago</th>
             </tr>
@@ -145,12 +146,17 @@
             @foreach ($productos as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
+                    @if($item->Client->name == NULL)
+                        <td>.</td>
+                    @else
+                        <td>{{ $item->Client->name }}</td>
+                    @endif
                     <td>${{ $item->total }}</td>
                     <td>{{ $item->metodo_pago }}</td>
                 </tr>
             @endforeach
         </tbody>
-    </table>
+    </table> --}}
     {{-- <h2 style="page-break-before: always; text-align: center;"> --}}
     <h2 style="text-align: center;">
         Servicios</h2>
