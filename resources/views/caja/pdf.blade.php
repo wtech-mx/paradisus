@@ -137,7 +137,6 @@
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
                 <th>Nota</th>
-                <th>Cliente</th>
                 <th>Monto</th>
                 <th>For. Pago</th>
             </tr>
@@ -146,11 +145,6 @@
             @foreach ($productos as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    @if($item->Client->name == NULL)
-                        <td>.</td>
-                    @else
-                        <td>{{ $item->Client->name }}</td>
-                    @endif
                     <td>${{ $item->total }}</td>
                     <td>{{ $item->metodo_pago }}</td>
                 </tr>
