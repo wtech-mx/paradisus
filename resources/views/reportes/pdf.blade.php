@@ -97,7 +97,11 @@
             @foreach ($servicios as $item)
                 <tr>
                     <td>{{ $item->id_nota }}</td>
-                    <td>{{ $item->Notas->Client->name }}</td>
+                    @if($item->Notas->Client->name == NULL)
+                        <td>.</td>
+                    @else
+                        <td>{{ $item->Notas->Client->name }}</td>
+                    @endif
                     <td> <b>{{ $item->Notas->Servicios->nombre }}</b> </td>
                     <td>${{ $item->pago }}</td>
                     <td>{{ $item->forma_pago }}</td>

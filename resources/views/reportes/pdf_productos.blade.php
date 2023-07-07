@@ -96,7 +96,11 @@
             @foreach ($productos as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->Client->name }}</td>
+                    @if($item->Client->name == NULL)
+                        <td>.</td>
+                    @else
+                        <td>{{ $item->Client->name }}</td>
+                    @endif
                     <td>${{ $item->total }}</td>
                     <td>{{ $item->metodo_pago }}</td>
                     <td>{{ $item->fecha }}</td>
