@@ -14,7 +14,7 @@
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="modal-body">
                         <div class="form-group">
-                            <label for="nombre">Nombre</label>
+                            <label for="nombre">Nombre </label>
                             <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre" value="{{$servicios->nombre}}">
                         </div>
                         <div class="form-group">
