@@ -49,31 +49,31 @@ class ProductosController extends Controller
 
         $productosinvSemana1 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
             ->where('cabina_inventario.num_cabina', '=', '1')
-            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->where('productos_inventario.created_at', '>=', $inicioSemana)
             ->select('productos_inventario.*')
             ->get();
 
         $productosinvSemana2 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
             ->where('cabina_inventario.num_cabina', '=', '2')
-            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->where('productos_inventario.created_at', '>=', $inicioSemana)
             ->select('productos_inventario.*')
             ->get();
 
         $productosinvSemana3 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
             ->where('cabina_inventario.num_cabina', '=', '3')
-            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->where('productos_inventario.created_at', '>=', $inicioSemana)
             ->select('productos_inventario.*')
             ->get();
 
         $productosinvSemana4 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
             ->where('cabina_inventario.num_cabina', '=', '4')
-            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->where('productos_inventario.created_at', '>=', $inicioSemana)
             ->select('productos_inventario.*')
             ->get();
 
         $productosinvSemana5 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
             ->where('cabina_inventario.num_cabina', '=', '5')
-            ->where('productos_inventario.updated_at', '>=', $inicioSemana)
+            ->where('productos_inventario.created_at', '>=', $inicioSemana)
             ->select('productos_inventario.*')
             ->get();
 

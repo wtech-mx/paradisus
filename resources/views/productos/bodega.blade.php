@@ -81,34 +81,36 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-  $('.input-cantidad').on('change', function() {
-    var id = $(this).data('id');
-    var cantidad = $(this).val();
+        // Usamos el elemento padre estático '.table-responsive' para delegar el evento
+        $('.table-responsive').on('change', '.input-cantidad', function() {
+            var id = $(this).data('id');
+            var cantidad = $(this).val();
 
-    $.ajax({
-      url: '/actualizar-cantidad',
-      method: 'POST',
-      data: {
-        id: id,
-        cantidad: cantidad
-      },
-      success: function(response) {
-        console.log(response);
-      },
-      error: function(xhr) {
-        console.log(xhr.responseText);
-      }
+            $.ajax({
+                url: '/actualizar-cantidad',
+                method: 'POST',
+                data: {
+                    id: id,
+                    cantidad: cantidad
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
     });
-  });
-});
-</script>
+    </script>
+
 
 @endsection
