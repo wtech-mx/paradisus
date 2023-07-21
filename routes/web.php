@@ -32,7 +32,7 @@ Route::get('iniciar_sesion', function () {
 });
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
-
+Route::get('/nota/usuario/servicio/print/{id}', [App\Http\Controllers\NotasController::class, 'imprimir'])->name('notas.usuario_imprimir');
 
 // =============== M O D U L O   login custom ===============================
 

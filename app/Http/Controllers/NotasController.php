@@ -19,6 +19,7 @@ use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class NotasController extends Controller
 {
@@ -528,6 +529,27 @@ class NotasController extends Controller
         ->get();
 
         return view('clientes.notas.show', compact('notas_pedidos', 'pago', 'nota_cosme', 'notas_paquetes'));
+    }
+
+    public function imprimir($id){
+        $notas_pedidos = Notas::where('id', '=', $id)
+        ->first();
+
+        $pago = Pagos::where('id_nota', '=', $id)
+        ->get();
+
+        $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
+        ->get();
+
+        $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
+        ->get();
+
+        $pdf = PDF::loadView('notas.recibo_pdf_print',compact('notas_pedidos', 'pago', 'nota_cosme', 'notas_paquetes'));
+
+        // Para cambiar la medida se deben pasar milimetros a putnos
+        $pdf->setPaper([0, 0, 165, 500], 'portrait'); // Ancho: 58 mm, Alto: 500 mm (ajustar según tus necesidades)
+
+        return $pdf->download('Recibo_'.$id.'.pdf');
     }
 
     public function usuario_print($id){
