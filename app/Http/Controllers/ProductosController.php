@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DateTime;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductosController extends Controller
 {
@@ -83,6 +85,15 @@ class ProductosController extends Controller
     public function index()
     {
         $productos = Productos::orderBy('nombre','ASC')->get();
+
+        $productosSinSku = Productos::whereNull('sku')->get();
+
+        // Recorrer los productos y asignarles un SKU aleatorio
+        foreach ($productosSinSku as $producto) {
+            $skuAleatorio = str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT); // Generar SKU aleatorio de 5 dígitos
+            $producto->sku = $skuAleatorio;
+            $producto->save();
+        }
 
         return view('productos.bodega', compact('productos'));
     }
@@ -165,6 +176,14 @@ class ProductosController extends Controller
         return view('cabina_inventario.edit', compact('productos', 'contadorMiercoles', 'product_inv', 'products_invs'));
     }
 
+    public function imprimir(Request $request, $id){
 
+        $producto = Productos::find($id);
+
+        $pdf = PDF::loadView('productos.pdf_sku',compact('producto'));
+        // Para cambiar la medida se deben pasar milimetros a putnos
+        $pdf->setPaper([0, 0,141.732,70.8661], 'portrair');
+        return $pdf->download('etiqueta-'.$producto->sku.'.pdf');
+    }
 
 }

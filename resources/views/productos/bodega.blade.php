@@ -31,6 +31,7 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>Cantidad</th>
+                                            <th>SKU</th>
                                             <th>Producto</th>
                                             <th>Fecha Edit</th>
                                         </tr>
@@ -52,7 +53,11 @@
                                                         <input type="text" class="form-control input-cantidad" style="color: #70b06a;background-color: #6ab06d61;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}">
                                                     </td>
                                                     @endif
-
+                                                    <td>
+                                                        <a type="button" class="btn btn-primary btn-sm" href="{{route('productos.imprimir', $producto->id)}}">
+                                                            {{ $producto->sku }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $producto->nombre }}</td>
                                                     <td>{{ $producto->updated_at }}</td>
                                                 </tr>
