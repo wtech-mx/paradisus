@@ -8,6 +8,6 @@
         <div class="" style="position: absolute;top:-30px;left:-42px;padding:0;">
             {!! DNS1D::getBarcodeHTML($producto->sku, 'C128',2.5,30) !!}
         </div>
-        <p style="font-size: 12px;padding:0;position: absolute;top:-10px;left:-42px;display: inline-block;">#{{$producto->sku}}/{{$producto->nombre}} <br> Categoria: {{$producto->categoria}} <br> </p>
+        <p style="font-size: 12px;padding:0;position: absolute;top:-10px;left:-42px;display: inline-block;">#{{$producto->sku}} / {{$producto->nombre}} </p>
     </body>
 </html>
