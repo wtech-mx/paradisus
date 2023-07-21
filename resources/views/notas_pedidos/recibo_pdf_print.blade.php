@@ -75,7 +75,7 @@ $medidaTicket = 180;
 
 <body>
     <div class="ticket left" style="padding: 15px">
-        <h3>ManiaBike</h3> <br>
+        <h3>Paradisus</h3> <br>
         <h5>Ticket #{{ $nota_pedido->id }}</h5>
         <h5>Fecha: {{$nota_pedido->fecha}}</h5>
         <h5>Cosmetologa: {{ $nota_pedido->User->name }}</h5>
