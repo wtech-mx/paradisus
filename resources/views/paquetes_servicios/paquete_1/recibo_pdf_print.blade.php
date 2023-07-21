@@ -75,27 +75,27 @@ $medidaTicket = 180;
 
 <body>
     <div class="ticket left" style="padding: 15px">
-        <h3>ManiaBike</h3> <br>
-        <h5>Ticket #{{ $nota_pedido->id }}</h5>
-        <h5>Fecha: {{$nota_pedido->fecha}}</h5>
-        <h5>Cosmetologa: {{ $nota_pedido->User->name }}</h5>
-        <h5>Cliente: {{ $nota_pedido->Client->name }} {{ $nota_pedido->Client->last_name }}</h5><br>
-        <h5>{{ $nota_pedido->fecha }}</h5><br>
+        <h3>Paradisus</h3> <br>
+        <h5>Ticket # </h5>
+        <h5>Fecha inicial: {{ $paquete->fecha_inicial }}</h5>
+        <h5>Cliente: {{ $paquete->Client->name }} {{ $paquete->Client->last_name }} </h5><br>
 
-        @foreach ($pedido as $item)
-        @if ($item->id_nota == $nota_pedido->id)
+        <p style="display: none">{{ $resultado = 0; }}</p>
+
+        @foreach ($pago as $item)
+        <p style="display: none">{{ $resultado += $item->pago; }}</p>
         <p style="font-size: 13px">
-            <strong>Concepto:   </strong> <br>  {{$item->concepto}} <br>
-            <strong>Cantidad:   </strong> <br>  {{$item->cantidad}} <br>
-            <strong>Importe: </strong> <br>    {{$item->importe}} <br>
+            <strong>Fecha:   </strong> <br>  {{$item->fecha}} <br>
+            <strong>Cosmetologas:   </strong> <br> {{ $item->User->name }} <br>
+            <strong>Pago: </strong> <br>    {{$item->pago}} <br>
+            <strong>Metodo: </strong> <br>    {{$item->forma_pago}} <br>
+            <strong>Nota: </strong> <br>    {{$item->nota}} <br>
             <strong> ------------------------------------------- </strong>
         </p>
-        @endif
         @endforeach
-
         <p style="font-size: 16px">
-            <strong>Metodo de pago: </strong> <br>  {{$nota_pedido->metodo_pago}}<br>
-            <strong>Total: </strong> <br>  {{$nota_pedido->total}} <br> <br>
+            <strong>Saldo a favor: </strong> <br>  $ {{ $resultado; }} .00  MXN <br>
+            <strong>Restante: </strong> <br>  ${{$paquete->restante}} .00  MXN <br> <br>
         </p>
 
         <p class="centrado" style="font-size: 15px"><br>¡GRACIAS POR SU COMPRA!</p>
