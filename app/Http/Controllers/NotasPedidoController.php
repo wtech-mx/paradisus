@@ -10,6 +10,7 @@ use App\Models\User;
 use Codexshaper\WooCommerce\Models\Product;
 use Session;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 // use Automattic\WooCommerce\Client;
 
@@ -150,6 +151,22 @@ class NotasPedidoController extends Controller
 
          return view('notas_pedidos.edit', compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme'));
      }
+
+     public function imprimir($id){
+        $cosme = auth()->user();
+        $nota_pedido = NotasPedidos::find($id);
+        $pedido = Pedido::get();
+        $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::get();
+
+        $pdf = PDF::loadView('notas_pedidos.recibo_pdf_print',compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme'));
+
+        // Para cambiar la medida se deben pasar milimetros a putnos
+        $pdf->setPaper([0, 0, 165, 500], 'portrait'); // Ancho: 58 mm, Alto: 500 mm (ajustar según tus necesidades)
+
+        return $pdf->download('Recibo_'.$id.'.pdf');
+    }
 
     public function update(Request $request, $id)
     {

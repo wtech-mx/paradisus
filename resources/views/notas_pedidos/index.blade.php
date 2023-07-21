@@ -60,11 +60,14 @@
                                                     <td>{{ $notas->fecha }}</td>
 
                                                     <td>
+
                                                             {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
                                                             @can('notas-pedido-edit')
                                                                 <a class="btn btn-sm btn-success" href="{{ route('notas_pedidos.edit',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                             @endcan
-
+                                                                <a type="button" class="btn btn-primary btn-sm" href="{{route('notas_pedidos.imprimir',$notas->id)}}"style="color: #ffff">
+                                                                    <i class="fa fa-print"></i>
+                                                                </a>
                                                             @can('notas-pedido-delete')
                                                                 <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents">
                                                                     @csrf

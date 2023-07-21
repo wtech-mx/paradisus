@@ -123,7 +123,7 @@ $medidaTicket = 180;
         @endforeach
 
 
-        <p class="centrado" style="font-size: 15px"><br>¡GRACIAS POR SU COMPRA! <br> <br> paradisus.mx</p>
+        <p class="centrado" style="font-size: 15px"><br>¡GRACIAS POR SU COMPRA!</p>
     </div>
 </body>
 

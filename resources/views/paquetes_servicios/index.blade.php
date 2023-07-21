@@ -69,14 +69,29 @@
                                                         {{-- <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button> --}}
                                                             @if ($paquete->num_paquete == 1)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_uno.firma_edit_uno', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_uno.print_uno',$paquete->id)}}"style="color: #ffff">
+                                                                    <i class="fa fa-print"></i>
+                                                                </a>
                                                             @elseif ($paquete->num_paquete == 2)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_dos.firma_edit_dos', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_dos.print_dos',$paquete->id)}}"style="color: #ffff">
+                                                                    <i class="fa fa-print"></i>
+                                                                </a>
                                                             @elseif ($paquete->num_paquete == 3)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_tres.firma_edit_tres', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_tres.print_tres',$paquete->id)}}"style="color: #ffff">
+                                                                    <i class="fa fa-print"></i>
+                                                                </a>
                                                             @elseif ($paquete->num_paquete == 4)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_cuatro.firma_edit_cuatro', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_cuatro.print_cuatro',$paquete->id)}}"style="color: #ffff">
+                                                                    <i class="fa fa-print"></i>
+                                                                </a>
                                                             @elseif ($paquete->num_paquete == 5)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_cinco.firma_edit_cinco', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_cinco.print_cinco',$paquete->id)}}"style="color: #ffff">
+                                                                    <i class="fa fa-print"></i>
+                                                                </a>
                                                             @endif
                                                         @can('notas-edit')
                                                             @if ($paquete->num_paquete == 1)

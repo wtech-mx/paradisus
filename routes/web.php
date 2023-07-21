@@ -33,6 +33,13 @@ Route::get('iniciar_sesion', function () {
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
 Route::get('/nota/usuario/servicio/print/{id}', [App\Http\Controllers\NotasController::class, 'imprimir'])->name('notas.usuario_imprimir');
+Route::get('/notas/pedidos/print/{id}', [App\Http\Controllers\NotasPedidoController::class, 'imprimir'])->name('notas_pedidos.imprimir');
+
+Route::get('/paquetes/servicios/edit/figura_ideal/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_uno'])->name('print_paquete_uno.print_uno');
+Route::get('/paquetes/servicios/edit/lipoescultura/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_dos'])->name('print_paquete_dos.print_dos');
+Route::get('/paquetes/servicios/edit/moldeante/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_tres'])->name('print_paquete_tres.print_tres');
+Route::get('/paquetes/servicios/edit/drenante/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_cuatro'])->name('print_paquete_cuatro.print_cuatro');
+Route::get('/paquetes/servicios/edit/gluteos/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_cinco'])->name('print_paquete_cinco.print_cinco');
 
 // =============== M O D U L O   login custom ===============================
 
