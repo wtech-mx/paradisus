@@ -203,6 +203,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/productos/bodega', [App\Http\Controllers\ProductosController::class, 'index'])->name('productos.index');
     Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
     Route::get('/producto/sku/print/{id}', [App\Http\Controllers\ProductosController::class, 'imprimir'])->name('productos.imprimir');
+    
+    Route::get('/producto/reporte/print', [App\Http\Controllers\CabinaInvetarioController::class, 'imprimir'])->name('productos_reporte.imprimir');
 
     Route::get('/inventario/cabina1', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index1');
     Route::get('/inventario/cabina1/create', [App\Http\Controllers\ProductosController::class, 'create_cabina1'])->name('inventario.create_cabina1');

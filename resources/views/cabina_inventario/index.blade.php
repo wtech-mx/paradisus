@@ -64,14 +64,15 @@
 
                 <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">Productos editados Bodega</h6>
+                <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('productos_reporte.imprimir') }}">Imprimir</a>
                 </div>
 
                 <div class="card-body pt-4 p-3">
                     <table class="table table-flush" id="datatable-search">
                         <thead class="thead">
                             <tr>
-                                <th>Producto</th>
                                 <th>Cantidad</th>
+                                <th>Producto</th>
                             </tr>
                         </thead>
                             <tbody>
