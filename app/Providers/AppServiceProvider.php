@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Caja;
 use App\Models\Client;
 use App\Models\Configuracion;
 use App\Models\Productos;
@@ -62,6 +63,17 @@ class AppServiceProvider extends ServiceProvider
                 $primerDiaMes->modify('+1 day');
             }
 
+            $registroHoy = Caja::whereDate('fecha', now()->toDateString())->exists();
+            if($registroHoy){
+
+            }else{
+                $totalDiaAnterior = Caja::orderBy('fecha', 'desc')->value('total');
+
+                Caja::create([
+                    'fecha' => now(),
+                    'ingresos' => $totalDiaAnterior,
+                ]);
+            }
 
             $view->with(['configuracion' => $configuracion,'productos' => $productos, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
         });
