@@ -884,7 +884,7 @@
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete2->firma5 == NULL)
-                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id) }}" enctype="multipart/form-data" role="form">
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id_paquete) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
                                                             <div id="sig5"></div>
                                                                         <br/><br/>
@@ -1027,7 +1027,7 @@
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete2->firma6 == NULL)
-                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id) }}" enctype="multipart/form-data" role="form">
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id_paquete) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
                                                             <div id="sig6"></div>
                                                                         <br/><br/>
@@ -1167,7 +1167,7 @@
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete2->firma7 == NULL)
-                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id) }}" enctype="multipart/form-data" role="form">
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id_paquete) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
                                                             <div id="sig7"></div>
                                                                         <br/><br/>
@@ -1307,7 +1307,7 @@
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete2->firma8 == NULL)
-                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id) }}" enctype="multipart/form-data" role="form">
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete2->id_paquete) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
                                                             <div id="sig8"></div>
                                                                         <br/><br/>
@@ -1447,7 +1447,7 @@
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete3->firma9 == NULL)
-                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete3->id) }}" enctype="multipart/form-data" role="form">
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete3->id_paquete) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
                                                             <div id="sig9"></div>
                                                                         <br/><br/>
@@ -1587,7 +1587,7 @@
                                                  <div class="col-12">
                                                     <strong>Firma</strong>
                                                     @if ($paquete3->firma10 == NULL)
-                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete3->id) }}" enctype="multipart/form-data" role="form">
+                                                        <form method="POST" action="{{ route('paquetes_firma.store_firma', $paquete3->id_paquete) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
                                                             <div id="sig10"></div>
                                                                         <br/><br/>

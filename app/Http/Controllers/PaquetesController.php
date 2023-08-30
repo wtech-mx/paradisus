@@ -636,6 +636,7 @@ class PaquetesController extends Controller
             $firma->firma5 = $signature;
             $firma->update();
         }elseif($request->signed6 != NULL){
+
             $folderPath = public_path('signatures/'); // create signatures folder in public directory
             $image_parts = explode(";base64,", $request->signed6);
             $image_type_aux = explode("image/", $image_parts[0]);
