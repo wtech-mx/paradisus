@@ -73,12 +73,6 @@
                                             <input  id="fecha_inicial" name="fecha_inicial" type="date" class="form-control" value="{{$fechaActual}}">
                                         </div>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="form-check">
-                                            <label class="custom-control-label" for="descuento" style="font-size: 15px;">5%</label><br>
-                                            <input class="form-check-input" type="checkbox" name="descuento_5" id="descuento_5" value="1">
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="col-12">
@@ -688,6 +682,34 @@
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                         <div class="row">
 
+                                            <div class="col-1">
+                                                <div class="form-check">
+                                                    <label class="custom-control-label" for="descuento" style="font-size: 15px;">Contado</label><br>
+                                                    <input class="form-check-input" type="checkbox" name="es-contado" id="es-contado" value="1">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="total-suma">Total a Pagar</label>
+                                                    <input type="text" id="total-suma" name="total-suma" class="form-control" value="${{$servicio->precio}}" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="restante">Restante</label>
+                                                    <input type="text" id="restante" name="restante" class="form-control" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="restante">Cambio</label>
+                                                    <input type="text" id="cambio" name="cambio" class="form-control" readonly>
+                                                </div>
+                                            </div>
+
                                             <div class="col-3">
                                                 <div class="form-group">
                                                     <label for="fecha">Fecha</label>
@@ -822,6 +844,58 @@
                 $('.cliente').select2();
 
         });
+
+                        // Obtén la referencia al elemento de pago y al campo de cambio
+                        var inputPago = $('#pago');
+        var inputCambio = $('#cambio');
+        var inputRestante = $('#restante');
+        var inputEsContado = $('#es-contado'); // Campo que indica si el pago es de contado
+        var inputTotalSuma = $('#total-suma'); // Campo del total a pagar
+
+        // Obtén el valor del precio original desde la base de datos (supongamos que se almacena en una variable PHP llamada $servicio->precio)
+        var precioServicio = parseFloat(<?php echo $servicio->precio; ?>) || 0;
+
+        // Inicializa el valor del campo total-suma con el precio original
+        inputTotalSuma.val(precioServicio.toFixed(2));
+
+        // Función para calcular el restante y el cambio
+        function calcularRestanteYCambiar() {
+            // Obtiene el valor del pago
+            var pago = parseFloat(inputPago.val()) || 0;
+
+            // Obtiene el valor del total a pagar, considerando el descuento si es de contado
+            var totalAPagar = precioServicio;
+
+            if (inputEsContado.prop('checked')) {
+                var descuento = precioServicio * 0.05; // Calcula el descuento
+                totalAPagar -= descuento; // Resta el descuento al precio total
+            }
+
+            // Calcula el restante
+            var restante = totalAPagar - pago;
+
+            // Calcula el cambio si el pago excede el total
+            var cambio = 0;
+            if (pago > totalAPagar) {
+                cambio = pago - totalAPagar;
+                restante = 0;
+            }
+
+            // Establece el valor del restante en el campo correspondiente
+            inputRestante.val(restante.toFixed(2));
+
+            // Establece el valor del cambio en el campo correspondiente
+            inputCambio.val(cambio.toFixed(2));
+
+            // Actualiza el campo total-suma con el precio modificado
+            inputTotalSuma.val(totalAPagar.toFixed(2));
+        }
+
+        // Escucha el evento 'input' en el campo de pago
+        inputPago.on('input', calcularRestanteYCambiar);
+
+        // Escucha el evento 'change' en el checkbox de contado para actualizar el total-suma cuando se marca o desmarca
+        inputEsContado.on('change', calcularRestanteYCambiar);
     </script>
 
 @endsection

@@ -26,6 +26,9 @@ class CajaController extends Controller
         $caja = Caja::where('fecha', '=', $fechaActual)
         ->first();
 
+        $caja_vista = Caja::where('fecha', '=', $fechaActual)
+        ->first();
+
         if($caja == null){
             $caja=0;
         }else{
@@ -64,7 +67,7 @@ class CajaController extends Controller
 
         $notas_paquetes = NotasPaquetes::get();
 
-        return view('caja.index', compact('caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja', 'pago_paquete', 'pago_paquete_suma'));
+        return view('caja.index', compact('caja_vista','caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja', 'pago_paquete', 'pago_paquete_suma'));
     }
 
     /**
@@ -104,7 +107,7 @@ class CajaController extends Controller
             ->with('success', 'caja created successfully.');
     }
 
-    public function imprimir_caja(){
+    public function corte(){
         $diaActual = date('Y-m-d');
         $today =  date('d-m-Y');
 
@@ -150,7 +153,45 @@ class CajaController extends Controller
         $nota->total = $total_egresos;
         $nota->update();
 
+        Session::flash('success', 'Se ha guardado sus datos con exito');
+        return redirect()->route('caja.index')
+            ->with('success', 'Corte con exito.');
+    }
+
+    public function imprimir_caja(){
+        $diaActual = date('Y-m-d');
+        $today =  date('d-m-Y');
+
+        //  =============== C A J A  F I N A L ===============================
+        $caja_final = Caja::where('fecha', '=', $diaActual)
+        ->first();
+        if($caja_final == null){
+            $caja_final2=0;
+        }else{
+            $caja_final2=$caja_final->ingresos;
+        }
+
+        $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $diaActual)
+        ->where('pagos.forma_pago', '=', 'Efectivo')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.pago) as total'))
+        ->first();
+
+        $pago_pedidos_suma = NotasPedidos::where('fecha', '=', $diaActual)
+        ->where('metodo_pago', '=', 'Efectivo')
+        ->select(DB::raw('SUM(total) as total'))
+        ->first();
+
+        $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
+        ->where('forma_pago', '=', 'Efectivo')
+        ->select(DB::raw('SUM(pago) as total'))
+        ->first();
+
+
         $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->get();
+        $caja_rep = Caja::where('fecha', '=', $diaActual)
+        ->first();
 
         $servicios = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where(DB::raw('pagos.fecha'), '=', $diaActual)
@@ -158,7 +199,7 @@ class CajaController extends Controller
         ->where('notas.anular', '=', NULL)
         ->get();
 
-        $productos = NotasPedidos::where(DB::raw('fecha'), '=', $diaActual)
+        $productos_rep = NotasPedidos::where('fecha', '=', $diaActual)
         ->where('metodo_pago', '=', 'Efectivo')
         ->get();
 
@@ -174,11 +215,10 @@ class CajaController extends Controller
 
         $notas_propinas = NotasPropinas::get();
 
-        $pdf = \PDF::loadView('caja.pdf', compact('paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
+        $pdf = \PDF::loadView('caja.pdf', compact( 'caja_rep','paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
-
 
     public function imprimir_corte()
     {

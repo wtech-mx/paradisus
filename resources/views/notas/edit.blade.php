@@ -329,82 +329,89 @@
                                             </div>
                                             <div class="mt-4">
                                                 <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-3">
                                                         <div class="form-group">
                                                             <label for="total-suma">Total a Pagar</label>
                                                             <input type="text" id="total-suma" name="total-suma" class="form-control" readonly value="{{$notas->precio}}">
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-4">
+                                                    <div class="col-3">
                                                         <div class="form-group">
                                                             <label for="restante">Saldo a favor</label>
                                                             <input type="text" class="form-control" readonly value="$ {{ $resultado; }} MXN">
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-4">
+                                                    <div class="col-3">
                                                         <div class="form-group">
                                                             <label for="restante">Restante</label>
                                                             <input type="text" id="restante" name="restante_paquetes" class="form-control" readonly value="{{$notas->restante}}">
                                                         </div>
                                                     </div>
-                                                </div>
 
-
-                                                <div class="row">
-                                                    <div class="col-2">
+                                                    <div class="col-3">
                                                         <div class="form-group">
-                                                            <label for="fecha">Fecha</label>
-                                                            <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="fecha">Usuario</label>
-                                                            <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
-                                                                <option value="">Selecciona</option>
-                                                                @foreach ($user as $cosmes)
-                                                                    <option value="{{ $cosmes->id }}">{{ $cosmes->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="pago">Pago</label>
-                                                            <input  id="nuevo-pago" name="pago" type="number" class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="num_sesion">Metodo Pago</label>
-                                                            <select id="forma_pago" name="forma_pago" class="form-control">
-                                                                <option value="Efectivo">Efectivo</option>
-                                                                <option value="Transferencia">Transferencia</option>
-                                                                <option value="Mercado Pago">Mercado Pago</option>
-                                                                <option value="Tarjeta">Tarjeta</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="nota">Nota</label>
-                                                            <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="nota">Foto</label>
-                                                            <input type="file" id="foto" class="form-control" name="foto">
+                                                            <label for="restante">Cambio</label>
+                                                            <input type="text" id="cambio" name="cambio" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                @if ($notas->restante != 0)
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="fecha">Fecha</label>
+                                                                <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="fecha">Usuario</label>
+                                                                <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" value="">
+                                                                    @foreach ($user as $cosmes)
+                                                                        <option value="{{ $cosmes->id }}">{{ $cosmes->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="pago">Pago</label>
+                                                                <input  id="nuevo-pago" name="pago" type="number" class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="num_sesion">Metodo Pago</label>
+                                                                <select id="forma_pago" name="forma_pago" class="form-control">
+                                                                    <option value="Efectivo">Efectivo</option>
+                                                                    <option value="Transferencia">Transferencia</option>
+                                                                    <option value="Mercado Pago">Mercado Pago</option>
+                                                                    <option value="Tarjeta">Tarjeta</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="nota">Nota</label>
+                                                                <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <label for="nota">Foto</label>
+                                                                <input type="file" id="foto" class="form-control" name="foto">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -642,18 +649,35 @@
     <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 
     <script>
-        // Calcula el restante y actualiza el valor
+        // Obtén la referencia al elemento de pago y al campo de cambio
+        var inputPago = $('#nuevo-pago');
+        var inputCambio = $('#cambio');
+        var inputRestante = $('#restante');
+
         function calcularRestante() {
             var pagosExistentes = 0;
             $('.pago-existente').each(function() {
                 pagosExistentes += parseInt($(this).val()) || 0;
             });
 
-            var nuevoPago = parseInt($('#nuevo-pago').val()) || 0;
+            var nuevoPago = parseInt(inputPago.val()) || 0;
             var totalSuma = parseInt($('#total-suma').val()) || 0;
 
             var restante = totalSuma - pagosExistentes - nuevoPago;
-            $('#restante').val(restante);
+            console.log('restante', restante);
+            inputRestante.val(restante);
+
+            // Calcula el cambio correctamente
+            var cambio = 0;
+            if (nuevoPago >= restante) {
+                var restanteDB = parseInt(<?php echo $notas->restante; ?>); // Valor del restante en la base de datos
+                cambio = nuevoPago - restanteDB;
+                console.log('resta', cambio);
+                restante = 0;
+            }
+
+            inputRestante.val(restante);
+            inputCambio.val(cambio); // Actualiza el campo de cambio
         }
 
         $(document).ready(function() {
@@ -721,6 +745,14 @@
 
             // Llamar a calcularTotales al cargar la página de edición
             calcularTotales();
+
+            // Llamar a calcularRestante al cargar la página de edición
+            calcularRestante();
+
+            // Agregar evento de cambio en el campo de nuevo pago
+            inputPago.on('input', function() {
+                calcularRestante();
+            });
         });
 
         function sumarPreciosAdicionales() {

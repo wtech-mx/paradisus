@@ -1405,13 +1405,38 @@
                                                 @endforeach
                                             </div>
 
-                                            <h5><strong>Saldo a favor:</strong>  $ {{ $resultado; }} .00  MXN</h5>
-                                            <h5><strong>Restante:</strong>  ${{$paquete->restante}} .00  MXN</h5>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="total-suma">Total a Pagar</label>
+                                                    <input type="text" id="total-suma" name="total-suma" class="form-control" readonly value="{{$paquete->monto}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="restante">Saldo a favor</label>
+                                                    <input type="text" class="form-control" readonly value="$ {{ $resultado; }} MXN">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="restante">Restante</label>
+                                                    <input type="text" id="restante" name="restante_paquetes" class="form-control" readonly value="{{$paquete->restante}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="restante">Cambio</label>
+                                                    <input type="text" id="cambio" name="cambio" class="form-control" readonly>
+                                                </div>
+                                            </div>
 
                                             <div class="col-3">
                                                 <div class="form-group">
                                                     <label for="fecha">Fecha</label>
-                                                    <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="">
+                                                    <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
                                                 </div>
                                             </div>
 
@@ -1430,7 +1455,7 @@
                                             <div class="col-2">
                                                 <div class="form-group">
                                                     <label for="pago">Pago</label>
-                                                    <input  id="pago" name="pago" type="text" class="form-control">
+                                                    <input  id="nuevo-pago" name="pago" type="text" class="form-control">
                                                 </div>
                                             </div>
 
@@ -1545,6 +1570,46 @@
             $(document).ready(function() {
                 $('.cliente').select2();
 
+        });
+
+                // Obtén la referencia al elemento de pago y al campo de cambio
+                var inputPago = $('#nuevo-pago');
+        var inputCambio = $('#cambio');
+        var restanteInicial; // Variable global para almacenar el valor inicial de restante
+
+        // Llamar a calcularRestante al cargar la página de edición
+        $(document).ready(function() {
+            restanteInicial = parseInt($('#restante').val()) || 0; // Obten el valor inicial de #restante
+            calcularRestante();
+        });
+
+        function calcularRestante() {
+            var pagosExistentes = 0;
+            $('.pago-existente').each(function() {
+                pagosExistentes += parseInt($(this).val()) || 0;
+            });
+
+            var nuevoPago = parseInt(inputPago.val()) || 0;
+            var restante = restanteInicial - pagosExistentes - nuevoPago; // Utiliza el valor inicial de restante
+            console.log('restante', restante);
+            $('#restante').val(restante);
+
+            // Calcula el cambio correctamente
+            var cambio = 0;
+            if (nuevoPago >= restante) {
+                var restanteDB = parseInt(<?php echo $paquete->restante; ?>); // Valor del restante en la base de datos
+                cambio = nuevoPago - restanteDB;
+                console.log('resta', cambio);
+                restante = 0;
+            }
+            console.log('resta', cambio);
+            $('#restante').val(restante);
+            inputCambio.val(cambio); // Actualiza el campo de cambio
+        }
+
+        // Agregar evento de cambio en el campo de nuevo pago
+        inputPago.on('input', function() {
+            calcularRestante();
         });
     </script>
 

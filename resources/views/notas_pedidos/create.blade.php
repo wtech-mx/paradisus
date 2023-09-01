@@ -100,23 +100,54 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <label for="fecha">Fecha</label>
-                                        <input id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{ old('fecha') }}" required>
-                                    </div> --}}
-                                    <div class="form-group">
-                                        <label for="num_sesion">Metodo de pago</label>
-                                        <select id="metodo_pago" name="metodo_pago" class="form-control" value="{{old('metodo_pago')}}" required>
-                                            <option value="Efectivo">Efectivo</option>
-                                            <option value="Transferencia">Transferencia</option>
-                                            <option value="Mercado Pago">Mercado Pago</option>
-                                            <option value="Tarjeta">Tarjeta</option>
-                                        </select>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="nota">Foto</label>
-                                        <input type="file" id="foto" class="form-control" name="foto">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Total</label>
+                                                <input id="totalSuma" name="totalSuma" type="text" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="pago">Pago</label>
+                                                <input  id="pago" name="pago" type="number" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="restante">Restante</label>
+                                                <input type="text" id="restante" name="restante" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="restante">Cambio</label>
+                                                <input type="text" id="cambio" name="cambio" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="num_sesion">Metodo de pago</label>
+                                                <select id="metodo_pago" name="metodo_pago" class="form-control" value="{{old('metodo_pago')}}" required>
+                                                    <option value="Efectivo">Efectivo</option>
+                                                    <option value="Transferencia">Transferencia</option>
+                                                    <option value="Mercado Pago">Mercado Pago</option>
+                                                    <option value="Tarjeta">Tarjeta</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="nota">Foto</label>
+                                                <input type="file" id="foto" class="form-control" name="foto">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -190,22 +221,76 @@
             });
 </script>
 <script type="text/javascript">
-    // ============= Agregar mas inputs dinamicamente =============
-    $('.clonar').click(function() {
-      // Clona el .input-group
-      var $clone = $('#formulario .clonars').last().clone();
-
-      // Borra los valores de los inputs clonados
-      $clone.find(':input').each(function () {
-        if ($(this).is('select')) {
-          this.selectedIndex = 0;
-        } else {
-          this.value = '';
-        }
-      });
-
-      // Agrega lo clonado al final del #formulario
-      $clone.appendTo('#formulario');
+    // Escucha el evento 'input' en los campos con name="importe[]"
+    $('input[name="importe[]"]').on('input', function() {
+        calcularSuma();
     });
+
+    function calcularSuma() {
+        var totalSuma = 0;
+        // Itera a través de los campos y suma sus valores
+        $('input[name="importe[]"]').each(function() {
+            var valor = parseFloat($(this).val()) || 0;
+            totalSuma += valor;
+        });
+
+        // Actualiza el valor del campo de suma
+        $('#totalSuma').val(totalSuma);
+    }
+
+    // Agregar más campos dinámicamente
+    $('.clonar').click(function() {
+        // Clona el .clonars
+        var $clone = $('#formulario .clonars').first().clone();
+
+        // Borra los valores de los inputs clonados
+        $clone.find(':input').each(function () {
+            if ($(this).is('select')) {
+                this.selectedIndex = 0;
+            } else {
+                this.value = '';
+            }
+        });
+
+        // Agrega lo clonado al final del #formulario
+        $clone.appendTo('#formulario');
+
+        // Asocia el evento 'input' al campo clonado
+        $clone.find('input[name="importe[]"]').on('input', function() {
+            calcularSuma();
+        });
+    });
+
+    // Obtén la referencia a los elementos de pago, restante y cambio
+    var inputPago = $('#pago');
+    var inputRestante = $('#restante');
+    var inputCambio = $('#cambio');
+    var inputTotalSuma = $('#totalSuma');
+
+    // Escucha el evento 'input' en el campo de pago
+    inputPago.on('input', function() {
+        // Obtiene el valor del pago
+        var pago = parseFloat($(this).val()) || 0;
+
+        // Obtiene el valor del total a pagar
+        var totalAPagar = parseFloat(inputTotalSuma.val()) || 0;
+
+        // Calcula el restante
+        var restante = totalAPagar - pago;
+
+        // Calcula el cambio si el pago excede el total
+        var cambio = 0;
+        if (pago > totalAPagar) {
+            cambio = pago - totalAPagar;
+            restante = 0;
+        }
+
+        // Establece el valor del restante en el campo correspondiente
+        inputRestante.val(restante);
+
+        // Establece el valor del cambio en el campo correspondiente
+        inputCambio.val(cambio);
+    });
+
     </script>
 @endsection

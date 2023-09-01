@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CajaDia;
 use App\Models\Client;
 use App\Models\Paquete2;
 use App\Models\Paquete3;
 use App\Models\Paquetes;
 use App\Models\PaquetesPago;
 use App\Models\Reporte;
+use App\Models\Servicios;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,8 +44,9 @@ class PaquetesController extends Controller
     {
         $client = Client::orderBy('name','ASC')->get();
         $user = User::get();
+        $servicio = Servicios::find(151);
 
-        return view('paquetes_servicios.paquete_1.paqute_1',compact('client', 'user'));
+        return view('paquetes_servicios.paquete_1.paqute_1',compact('client', 'user', 'servicio'));
     }
 
     public function edit_uno($id)
@@ -73,7 +76,6 @@ class PaquetesController extends Controller
 
         return $pdf->download('Recibo_paquete_1_'.$id.'.pdf');
     }
-
 
     public function firma_uno($id){
 
@@ -140,8 +142,9 @@ class PaquetesController extends Controller
     {
         $client = Client::orderBy('name','ASC')->get();
         $user = User::get();
+        $servicio = Servicios::find(156);
 
-        return view('paquetes_servicios.paquete_2.create',compact('client', 'user'));
+        return view('paquetes_servicios.paquete_2.create',compact('client', 'user', 'servicio'));
     }
 
     public function edit_dos($id)
@@ -176,8 +179,9 @@ class PaquetesController extends Controller
     {
         $client = Client::orderBy('name','ASC')->get();
         $user = User::get();
+        $servicio = Servicios::find(153);
 
-        return view('paquetes_servicios.paquete_3.create',compact('client', 'user'));
+        return view('paquetes_servicios.paquete_3.create',compact('client', 'user', 'servicio'));
     }
 
     public function edit_tres($id)
@@ -212,8 +216,9 @@ class PaquetesController extends Controller
     {
         $client = Client::orderBy('name','ASC')->get();
         $user = User::get();
+        $servicio = Servicios::find(154);
 
-        return view('paquetes_servicios.paquete_4.create',compact('client', 'user'));
+        return view('paquetes_servicios.paquete_4.create',compact('client', 'user', 'servicio'));
     }
 
     public function edit_cuatro($id)
@@ -248,8 +253,9 @@ class PaquetesController extends Controller
     {
         $client = Client::orderBy('name','ASC')->get();
         $user = User::get();
+        $servicio = Servicios::find(155);
 
-        return view('paquetes_servicios.paquete_5.create',compact('client', 'user'));
+        return view('paquetes_servicios.paquete_5.create',compact('client', 'user', 'servicio'));
     }
 
     public function edit_cinco($id)
@@ -291,7 +297,10 @@ class PaquetesController extends Controller
         $paquete->num_paquete = $request->get('num_paquete');
         $paquete->id_servicio = $request->get('id_servicio');
         $paquete->fecha_inicial = $request->get('fecha_inicial');
-        $paquete->descuento_5 = $request->get('descuento_5');
+        $paquete->descuento_5 = $request->get('es-contado');
+        $paquete->monto = $request->get('total-suma');
+        $paquete->restante = $request->get('restante');
+        $paquete->cambio = $request->get('cambio');
 
         if($request->signed_ini != NULL){
             $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
@@ -371,6 +380,16 @@ class PaquetesController extends Controller
             $paquete->firma4 = $request->get('firma4');
         }
         $paquete->save();
+
+        // G U A R D A R  C A M B I O
+        if($request->get('cambio') != '0'){
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->egresos = $request->get('cambio');
+            $caja->concepto = 'Cambio nota paquete: ' . $paquete->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }
 
         $paquete2 = new Paquete2;
         $paquete2->id_paquete = $paquete->id;
@@ -514,33 +533,6 @@ class PaquetesController extends Controller
             $pago->save();
         }
 
-        // G U A R D A R  T O T A L  S E R V I C I O
-        $total = 0;
-        $mult = 0;
-        $descuento = 0;
-        $pago = PaquetesPago::orderBy('id', 'desc')->first();
-
-        if($paquete->Servicios->act_descuento == 1){
-            $precio = $paquete->Servicios->descuento;
-        }else{
-            $precio = $paquete->Servicios->precio;
-        }
-
-        if($request->get('descuento_5') == 1){
-            $mult = $precio * .05;
-            $unitario = $precio - $mult;
-        }else{
-            $unitario = $precio;
-        }
-
-        $restante = $unitario - $pago->pago;
-
-        //  dd($pago->pago);
-        $nota_pago = Paquetes::find($paquete->id);
-        $nota_pago->monto = $precio;
-        $nota_pago->restante = $restante;
-        $nota_pago->update();
-
         // G U A R D A R  R E P O R T E
         $reporte = new Reporte;
         $reporte->id_paquete = $paquete->id;
@@ -548,9 +540,9 @@ class PaquetesController extends Controller
         $reporte->tipo = 'NOTA PAQUETE';
         $reporte->id_client = $paquete->id_client;
         $reporte->metodo_pago = $pago->forma_pago;
-        $reporte->monto = $nota_pago->monto;
+        $reporte->monto = $paquete->monto;
         $reporte->pago = $pago->pago;
-        $reporte->restante = $nota_pago->restante;
+        $reporte->restante = $paquete->restante;
         $reporte->save();
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
@@ -721,6 +713,8 @@ class PaquetesController extends Controller
         $paquete = Paquetes::find($id);
         $paquete->id_client = $request->get('id_client');
         $paquete->fecha_inicial = $request->get('fecha_inicial');
+        $paquete->restante = $request->get('restante');
+        $paquete->cambio = $request->get('cambio');
 
         if($request->signed_ini != NULL){
             $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
@@ -853,6 +847,16 @@ class PaquetesController extends Controller
             $paquete->firma4 = $request->get('firma4');
         }
         $paquete->update();
+
+        // G U A R D A R  C A M B I O
+        if($request->get('cambio') != '0'){
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->egresos = $request->get('cambio');
+            $caja->concepto = 'Cambio nota paquete: ' . $paquete->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }
 
         $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
         $paquete2->id_paquete = $paquete->id;
@@ -1047,37 +1051,6 @@ class PaquetesController extends Controller
             $pago->save();
         }
 
-        // G U A R D A R  T O T A L  S E R V I C I O
-        $suma_pagos = 0;
-        $total = 0;
-        $mult = 0;
-        $descuento = 0;
-        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
-        foreach($pago as $item){
-            $suma_pagos = $suma_pagos + $item->pago;
-        }
-
-        if($paquete->Servicios->act_descuento == 1){
-            $precio = $paquete->Servicios->descuento;
-        }else{
-            $precio = $paquete->Servicios->precio;
-        }
-
-        if($request->get('descuento_5') == 1){
-            $mult = $precio * .05;
-            $unitario = $precio - $mult;
-        }else{
-            $unitario = $precio;
-        }
-
-        $restante = $unitario - $suma_pagos;
-
-        //  dd($pago->pago);
-        $nota_pago = Paquetes::find($paquete->id);
-        $nota_pago->monto = $precio;
-        $nota_pago->restante = $restante;
-        $nota_pago->update();
-
         $pago_reciente = PaquetesPago::where('id_paquete', '=', $id)->orderBy('id','DESC')->first();
         // G U A R D A R  R E P O R T E
         $reporte = new Reporte;
@@ -1086,8 +1059,8 @@ class PaquetesController extends Controller
         $reporte->tipo = 'NOTA PAQUETE';
         $reporte->id_client = $paquete->id_client;
         $reporte->metodo_pago = $pago_reciente->forma_pago;
-        $reporte->monto = $nota_pago->monto;
-        $reporte->restante = $nota_pago->restante;
+        $reporte->monto = $paquete->monto;
+        $reporte->restante = $paquete->restante;
         $reporte->pago = $pago_reciente->pago;
         $reporte->save();
 

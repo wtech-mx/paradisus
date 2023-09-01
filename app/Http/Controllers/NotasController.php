@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alertas;
+use App\Models\CajaDia;
 use App\Models\Notas;
 use App\Models\User;
 use App\Models\Client;
@@ -129,9 +130,18 @@ class NotasController extends Controller
         $nota->nota = $request->get('nota');
         $nota->precio = $request->get('total-suma');
         $nota->restante = $request->get('restante');
+        $nota->cambio = $request->get('cambio');
         $nota->save();
 
-
+        // G U A R D A R  C A M B I O
+        if($request->get('cambio') != '0'){
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->egresos = $request->get('cambio');
+            $caja->concepto = 'Cambio nota servicio: ' . $nota->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }
 
         // G U A R D A R  S E R V I C I O
         $nota_paquete = new NotasPaquetes;
@@ -337,10 +347,21 @@ class NotasController extends Controller
         $nota->nota = $request->get('nota');
         $nota->precio = $request->get('total-suma');
         $nota->restante = $request->get('restante_paquetes');
+        $nota->cambio = $request->get('cambio');
         $nota->update();
 
+        // G U A R D A R  C A M B I O
+        if($request->get('cambio') != '0'){
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->egresos = $request->get('cambio');
+            $caja->concepto = 'Cambio nota servicio: ' . $id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }
+
         // G U A R D A R  C O S M E S
-         $id_notas_cosmes = $request->get('id_notas_cosmes');
+        $id_notas_cosmes = $request->get('id_notas_cosmes');
         $id_user = $request->get('id_user');
         for ($count = 0; $count < count($id_user); $count++) {
 

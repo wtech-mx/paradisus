@@ -269,17 +269,24 @@
 
                                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                         <div class="row">
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="total-suma">Total a Pagar</label>
                                                     <input type="text" id="total-suma" name="total-suma" class="form-control" readonly>
                                                 </div>
                                             </div>
 
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="restante">Restante</label>
                                                     <input type="text" id="restante" name="restante" class="form-control" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="restante">Cambio</label>
+                                                    <input type="text" id="cambio" name="cambio" class="form-control" readonly>
                                                 </div>
                                             </div>
 
@@ -619,8 +626,9 @@
     });
 
 
-    // Obtén la referencia al elemento de pago
+    // Obtén la referencia al elemento de pago y al campo de cambio
     var inputPago = $('#pago');
+    var inputCambio = $('#cambio');
 
     // Escucha el evento 'input' en el campo de pago
     inputPago.on('input', function() {
@@ -633,9 +641,20 @@
         // Calcula el restante
         var restante = totalAPagar - pago;
 
+        // Calcula el cambio si el pago excede el total
+        var cambio = 0;
+        if (pago > totalAPagar) {
+            cambio = pago - totalAPagar;
+            restante = 0;
+        }
+
         // Establece el valor del restante en el campo correspondiente
         $('#restante').val(restante);
+
+        // Establece el valor del cambio en el campo correspondiente
+        inputCambio.val(cambio);
     });
+
 
 </script>
 @endsection

@@ -12,7 +12,7 @@
             @php
                 $total_ing = 0;
 
-                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja;
+                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_vista->inicio;
 
                 $total_egresos = 0;
                 $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -140,7 +140,11 @@
                             <span id="card_title">
                                Ingresos
                             </span>
-                            @can('client-create')
+                            @if ($caja_vista->egresos == NULL)
+                                <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.corte') }}">Corte</a>
+                            @endif
+
+                            @can('retirar')
                                 <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff"><i class="fa fa-cash"></i> Retirar</a>
                             @endcan
                         </div>
@@ -201,8 +205,10 @@
                                Egresos
                             </span>
                             @can('client-create')
-                                <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Caja Reporte</a>
-                                <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.print_corte') }}">Corte</a>
+                                @if ($caja_vista->egresos != NULL)
+                                    <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.corte') }}">Imprimir Trans/Tarjeta</a>
+                                    <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Imprimir Caja</a>
+                                @endif
                             @endcan
                         </div>
                     </div>

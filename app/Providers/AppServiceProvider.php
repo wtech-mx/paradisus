@@ -72,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
                 Caja::create([
                     'fecha' => now(),
                     'ingresos' => $totalDiaAnterior,
+                    'inicio' => $totalDiaAnterior,
                 ]);
             }
 

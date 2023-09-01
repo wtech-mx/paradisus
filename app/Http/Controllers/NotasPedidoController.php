@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CajaDia;
 use App\Models\Client;
 use App\Models\NotasPedidos;
 use App\Models\Pedido;
@@ -80,8 +81,20 @@ class NotasPedidoController extends Controller
             $file->move($path, $fileName);
             $nota->foto = $fileName;
         }
-
+        $nota->total = $request->get('totalSuma');
+        $nota->restante = $request->get('restante');
+        $nota->cambio = $request->get('cambio');
         $nota->save();
+
+        // G U A R D A R  C A M B I O
+        if($request->get('cambio') != '0'){
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->egresos = $request->get('cambio');
+            $caja->concepto = 'Cambio nota productos: ' . $nota->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }
 
         $concepto = $request->get('concepto');
         $cantidad = $request->get('cantidad');
@@ -98,12 +111,6 @@ class NotasPedidoController extends Controller
         }
 
         Pedido::insert($insert_data);
-
-        $sum = 0;
-        $sum =array_sum($importe);
-        $nota = NotasPedidos::find($nota->id);
-        $nota->total = $sum;
-        $nota->update();
 
         $reporte = new Reporte;
         $reporte->id_producto = $nota->id;

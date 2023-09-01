@@ -169,6 +169,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
     Route::post('/caja/inicial/', [App\Http\Controllers\CajaController::class, 'caja_inicial'])->name('caja.caja_inicial');
+    Route::get('/caja/corte', [App\Http\Controllers\CajaController::class, 'corte'])->name('caja.corte');
     Route::get('/reporte/imprimir/caja', [App\Http\Controllers\CajaController::class, 'imprimir_caja'])->name('caja.print_caja');
     Route::get('/reporte/imprimir/corte', [App\Http\Controllers\CajaController::class, 'imprimir_corte'])->name('caja.print_corte');
 
@@ -203,7 +204,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/productos/bodega', [App\Http\Controllers\ProductosController::class, 'index'])->name('productos.index');
     Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
     Route::get('/producto/sku/print/{id}', [App\Http\Controllers\ProductosController::class, 'imprimir'])->name('productos.imprimir');
-    
+
     Route::get('/producto/reporte/print', [App\Http\Controllers\CabinaInvetarioController::class, 'imprimir'])->name('productos_reporte.imprimir');
 
     Route::get('/inventario/cabina1', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index1');
