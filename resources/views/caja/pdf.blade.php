@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="en">
-    @php
-        $total_ing = 0;
 
-        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final2;
-
-        $total_egresos = 0;
-            $total_egresos = $total_ing - $caja_dia_suma->total;
-    @endphp
 <head>
   <style>
     body{
@@ -101,9 +94,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ $total_ing }}</td>
-                <td>{{ $caja_dia_suma->total }}</td>
-                <td>{{ $total_egresos }}</td>
+                <td>{{ $caja_rep->ingresos }}</td>
+                <td>{{ $caja_rep->egresos }}</td>
+                <td>{{ $caja_rep->total }}</td>
             </tr>
         </tbody>
     </table>
@@ -123,7 +116,7 @@
             @foreach ($caja as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->egresos }}</td>
+                    <td>${{ $item->egresos }}</td>
                     <td>{{ $item->fecha }}</td>
                     <td>{{ $item->concepto }}</td>
                 </tr>
@@ -131,7 +124,7 @@
         </tbody>
     </table>
 
-    {{-- <h2 style="text-align: center;">
+    <h2 style="text-align: center;">
         Productos</h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
@@ -143,10 +136,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($productos as $item)
+            @foreach ($productos_rep as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    @if($item->Client->name == NULL)
+                    @if($item->Client == NULL)
                         <td>.</td>
                     @else
                         <td>{{ $item->Client->name }}</td>
@@ -156,7 +149,7 @@
                 </tr>
             @endforeach
         </tbody>
-    </table> --}}
+    </table>
     {{-- <h2 style="page-break-before: always; text-align: center;"> --}}
     <h2 style="text-align: center;">
         Servicios</h2>
@@ -167,7 +160,8 @@
                 <th>Cliente</th>
                 <th>Servicio</th>
                 <th>Monto</th>
-                <th>Nota</th>
+                <th>Restante</th>
+                <th>Cambio</th>
             </tr>
         </thead>
         <tbody>
@@ -193,7 +187,8 @@
                         @endforeach
                     </td>
                     <td>{{ $item->pago }}</td>
-                    <td>{{ $item->Notas->nota }}</td>
+                    <td>{{ $item->restante }}</td>
+                    <td>{{ $item->cambio }}</td>
                 </tr>
             @endforeach
         </tbody>
