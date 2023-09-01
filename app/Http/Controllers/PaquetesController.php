@@ -713,7 +713,7 @@ class PaquetesController extends Controller
         $paquete = Paquetes::find($id);
         $paquete->id_client = $request->get('id_client');
         $paquete->fecha_inicial = $request->get('fecha_inicial');
-        $paquete->restante = $request->get('restante');
+        $paquete->restante = $request->get('restante_paquetes');
         $paquete->cambio = $request->get('cambio');
 
         if($request->signed_ini != NULL){
