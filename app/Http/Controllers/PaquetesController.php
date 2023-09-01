@@ -300,7 +300,6 @@ class PaquetesController extends Controller
         $paquete->descuento_5 = $request->get('es-contado');
         $paquete->monto = $request->get('total-suma');
         $paquete->restante = $request->get('restante');
-        $paquete->cambio = $request->get('cambio');
 
         if($request->signed_ini != NULL){
             $folderPath = public_path('condiciones_paquetes/'); // create signatures folder in public directory
@@ -508,6 +507,7 @@ class PaquetesController extends Controller
             $pago->pago = $request->get('pago');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota_pago');
+            $pago->cambio = $request->get('cambio');
 
             if ($request->hasFile("foto")) {
                 $file = $request->file('foto');
@@ -975,6 +975,7 @@ class PaquetesController extends Controller
             $pago->pago = $request->get('pago');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota_pago');
+            $pago->cambio = $request->get('cambio');
 
             if ($request->hasFile("foto")) {
                 $file = $request->file('foto');

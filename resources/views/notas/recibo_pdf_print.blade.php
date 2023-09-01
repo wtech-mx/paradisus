@@ -89,7 +89,8 @@ $medidaTicket = 180;
 
         <p style="font-size: 13px">
             <strong>Cosmetologa:   </strong> <br> {{  $ultimoElemento }} <br> <br>
-            <strong>Restante:   </strong> <br> {{  $notas_pedidos->restante }} <br> <br>
+            <strong>Total:   </strong> <br>  ${{ $notas_pedidos->precio }}.0 <br> <br>
+            <strong>Restante:   </strong> <br> ${{  $notas_pedidos->restante }}.0 <br> <br>
             <strong> ------------------------------------------- </strong>
         </p>
 
@@ -97,6 +98,7 @@ $medidaTicket = 180;
         <p style="font-size: 13px">
             <strong>Fecha:   </strong> <br> {{ $item->fecha }} <br> <br>
             <strong>Pago:   </strong> <br>  ${{ $item->pago }}.0 <br> <br>
+            <strong>Cambio:   </strong> <br>  ${{ $item->cambio }}.0 <br> <br>
             <strong>Met. Pago: </strong> <br>    {{ $item->forma_pago }} <br> <br>
             <strong> ------------------------------------------- </strong>
         </p>
@@ -123,7 +125,7 @@ $medidaTicket = 180;
         @endforeach
 
 
-        <p class="centrado" style="font-size: 15px"><br>¡GRACIAS POR SU COMPRA!</p>
+        <p class="centrado" style="font-size: 15px"><br>¡GRACIAS POR SU VISITA!</p>
     </div>
 </body>
 

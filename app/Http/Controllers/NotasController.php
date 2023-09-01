@@ -244,6 +244,7 @@ class NotasController extends Controller
             $pago->pago = $request->get('pago');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota2');
+            $pago->cambio = $request->get('cambio');
 
             if ($request->hasFile("foto")) {
                 $file = $request->file('foto');
@@ -347,7 +348,6 @@ class NotasController extends Controller
         $nota->nota = $request->get('nota');
         $nota->precio = $request->get('total-suma');
         $nota->restante = $request->get('restante_paquetes');
-        $nota->cambio = $request->get('cambio');
         $nota->update();
 
         // G U A R D A R  C A M B I O
@@ -404,6 +404,7 @@ class NotasController extends Controller
             $pago->pago = $request->get('pago');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota2');
+            $pago->cambio = $request->get('cambio');
 
             if ($request->hasFile("foto")) {
                 $file = $request->file('foto');
