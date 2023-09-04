@@ -967,19 +967,20 @@
             });
 
             var nuevoPago = parseInt(inputPago.val()) || 0;
-            var restante = restanteInicial - pagosExistentes - nuevoPago; // Utiliza el valor inicial de restante
+            var restante = restanteInicial - pagosExistentes; // Utiliza el valor inicial de restante
             console.log('restante', restante);
             $('#restante').val(restante);
 
             // Calcula el cambio correctamente
             var cambio = 0;
             if (nuevoPago >= restante) {
-                var restanteDB = parseInt(<?php echo $paquete->restante; ?>); // Valor del restante en la base de datos
-                cambio = nuevoPago - restanteDB;
-                console.log('resta', cambio);
+                cambio = nuevoPago - restante;
                 restante = 0;
+            } else {
+                restante -= nuevoPago; // Reduce el restante por el valor del nuevo pago
             }
-            console.log('resta', cambio);
+
+            console.log('cambio', cambio);
             $('#restante').val(restante);
             inputCambio.val(cambio); // Actualiza el campo de cambio
         }

@@ -662,23 +662,22 @@
 
             var nuevoPago = parseInt(inputPago.val()) || 0;
             var totalSuma = parseInt($('#total-suma').val()) || 0;
-
-            var restante = totalSuma - pagosExistentes - nuevoPago;
-            console.log('restante', restante);
-            inputRestante.val(restante);
+            var restante = totalSuma - pagosExistentes;
 
             // Calcula el cambio correctamente
             var cambio = 0;
             if (nuevoPago >= restante) {
-                var restanteDB = parseInt(<?php echo $notas->restante; ?>); // Valor del restante en la base de datos
-                cambio = nuevoPago - restanteDB;
-                console.log('resta', cambio);
+                cambio = nuevoPago - restante;
                 restante = 0;
+            } else {
+                restante -= nuevoPago; // Reduce el restante por el nuevo pago
             }
 
+            console.log('restante', restante);
             inputRestante.val(restante);
             inputCambio.val(cambio); // Actualiza el campo de cambio
         }
+
 
         $(document).ready(function() {
           function calcularTotalServicio(servicioNumber) {

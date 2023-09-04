@@ -15,5 +15,6 @@ class Caja extends Model
         'ingresos',
         'egresos',
         'total',
+        'inicio',
     ];
 }
