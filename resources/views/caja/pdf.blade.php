@@ -107,8 +107,8 @@
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
                 <th>ID</th>
-                <th>Monto</th>
                 <th>Fecha</th>
+                <th>Monto</th>
                 <th>Nota</th>
             </tr>
         </thead>
@@ -161,7 +161,6 @@
                 <th>Servicio</th>
                 <th>Monto</th>
                 <th>Restante</th>
-                <th>Cambio</th>
             </tr>
         </thead>
         <tbody>
@@ -186,9 +185,8 @@
                                 @endif
                         @endforeach
                     </td>
-                    <td>{{ $item->pago }}</td>
-                    <td>{{ $item->restante }}</td>
-                    <td>{{ $item->cambio }}</td>
+                    <td>${{ $item->pago }}</td>
+                    <td>${{ $item->restante }}</td>
                 </tr>
             @endforeach
         </tbody>
