@@ -205,10 +205,10 @@
                                Egresos
                             </span>
                             @can('client-create')
-                                @if ($caja_vista->egresos != NULL)
+
                                     <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.print_corte') }}">Imprimir Trans/Tarjeta</a>
                                     <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Imprimir Caja</a>
-                                @endif
+                              
                             @endcan
                         </div>
                     </div>
