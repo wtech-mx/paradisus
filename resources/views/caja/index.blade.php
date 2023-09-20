@@ -208,7 +208,7 @@
 
                                     <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.print_corte') }}">Imprimir Trans/Tarjeta</a>
                                     <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Imprimir Caja</a>
-                              
+
                             @endcan
                         </div>
                     </div>
@@ -221,6 +221,7 @@
                                             <th>Fecha</th>
                                             <th>Monto</th>
                                             <th>Concepto</th>
+                                            <th>Editar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -229,8 +230,11 @@
                                                 <td>{{ $item->fecha }}</td>
                                                 <td>${{ $item->egresos }}</td>
                                                 <td>{{ $item->concepto }}</td>
-
+                                                <td>
+                                                    <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDataModal{{ $item->id }}" ><i class="fa fa-cash"></i> Editar</a>
+                                                </td>
                                             </tr>
+                                            @include('caja.edit')
                                         @endforeach
                                     </tbody>
                                 </table>

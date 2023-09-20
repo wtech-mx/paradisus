@@ -76,6 +76,27 @@ class CajaController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+
+    public function update_caja(Request $request, $id){
+
+         $caja = CajaDia::find($id);
+         $caja->egresos = $request->get('egresos');
+         $caja->concepto = $request->get('concepto');
+
+         if ($request->hasFile("foto")) {
+             $file = $request->file('foto');
+             $path = public_path() . '/foto_retiros';
+             $fileName = uniqid() . $file->getClientOriginalName();
+             $file->move($path, $fileName);
+             $caja->foto = $fileName;
+         }
+         $caja->update();
+
+         Session::flash('success', 'Se ha guardado sus datos con exito');
+         return redirect()->route('caja.index')
+             ->with('success', 'caja created successfully.');
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -84,11 +105,24 @@ class CajaController extends Controller
         ]);
 
         $fechaActual = date('Y-m-d');
+        $today =  date('d-m-Y');
         $caja = new CajaDia;
         $caja->egresos = $request->get('egresos');
         $caja->concepto = $request->get('concepto');
         $caja->fecha = $fechaActual;
+
+        if ($request->hasFile("foto")) {
+            $file = $request->file('foto');
+            $path = public_path() . '/foto_retiros';
+            $fileName = uniqid() . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $caja->foto = $fileName;
+        }
         $caja->save();
+
+        $pdf = \PDF::loadView('caja.pdf_retiro', compact('caja','today'));
+
+        return $pdf->download('Retiro '.$fechaActual.'.pdf');
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('caja.index')
