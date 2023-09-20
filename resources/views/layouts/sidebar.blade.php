@@ -28,6 +28,15 @@
           </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link {{ (Request::is('buscador*') ? 'active' : '') }}" href="{{ route('index.buscador') }}" target="">
+              <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
+               <i class="ni ni-circle-08 text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+              </div>
+              <span class="nav-link-text ms-1">Buscador</span>
+            </a>
+          </li>
+
         <a data-bs-toggle="collapse" href="#pagesConsentimientos" class="nav-link {{ (Request::is('clients/facial*') ? 'active' : '') }}" aria-controls="pagesConsentimientos" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
               <i class="fa fa-file-signature text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>

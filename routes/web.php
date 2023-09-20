@@ -217,6 +217,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/inventario/cabina4', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index4');
     Route::get('/inventario/cabina5', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index5');
     Route::post('/inventario/cabina/store', [App\Http\Controllers\CabinaInvetarioController::class, 'store'])->name('cabina_inventario.store');
+
+    // =============== M O D U L O   B U S C A D O R ===============================
+    Route::get('/buscador/index', [App\Http\Controllers\BuscadorController::class, 'index'])->name('index.buscador');
+    Route::get('/buscador', [App\Http\Controllers\BuscadorController::class, 'advance'])->name('advance_search.buscador');
 });
 
 
