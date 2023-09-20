@@ -508,8 +508,7 @@ class NotasController extends Controller
             $reporte->save();
         }
 
-        return redirect()->route('notas.index')
-        ->with('edit','Nota Servicio Actualizado.');
+        return redirect()->back()->with('edit','Nota Servicio Actualizado.');
     }
 
     public function ChangeCosme(Request $request)

@@ -134,58 +134,6 @@
                                                         <div class="col-8">
                                                             <input  id="fecha1" name="fecha1" type="date" class="form-control" value="{{ $paquete->fecha1 }}">
                                                         </div>
-                                                        <strong>Talla</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="talla1_a" name="talla1_a" type="text" class="form-control" value="{{ $paquete->talla1_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="talla1_d" name="talla1_d" type="text" class="form-control" value="{{ $paquete->talla1_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Abdomen</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="abdomen1_a" name="abdomen1_a" type="text" class="form-control" value="{{ $paquete->abdomen1_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="abdomen1_d" name="abdomen1_d" type="text" class="form-control" value="{{ $paquete->abdomen1_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cintura</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cintura1_a" name="cintura1_a" type="text" class="form-control" value="{{ $paquete->cintura1_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cintura1_d" name="cintura1_d" type="text" class="form-control" value="{{ $paquete->cintura1_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cadera</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cadera1_a" name="cadera1_a" type="text" class="form-control" value="{{ $paquete->cadera1_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cadera1_d" name="cadera1_d" type="text" class="form-control" value="{{ $paquete->cadera1_d }}">
-                                                            </div>
-                                                        </div>
                                                         <strong>Gluteos</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
@@ -262,58 +210,6 @@
                                                         <div class="col-8">
                                                             <input  id="fecha2" name="fecha2" type="date" class="form-control" value="{{ $paquete->fecha2 }}">
                                                         </div>
-                                                        <strong>Talla</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="talla2_a" name="talla2_a" type="text" class="form-control" value="{{ $paquete->talla2_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="talla2_d" name="talla2_d" type="text" class="form-control" value="{{ $paquete->talla2_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Abdomen</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="abdomen2_a" name="abdomen2_a" type="text" class="form-control" value="{{ $paquete->abdomen2_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="abdomen2_d" name="abdomen2_d" type="text" class="form-control" value="{{ $paquete->abdomen2_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cintura</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cintura2_a" name="cintura2_a" type="text" class="form-control" value="{{ $paquete->cintura2_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cintura2_d" name="cintura2_d" type="text" class="form-control" value="{{ $paquete->cintura2_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cadera</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cadera2_a" name="cadera2_a" type="text" class="form-control" value="{{ $paquete->cadera2_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cadera2_d" name="cadera2_d" type="text" class="form-control" value="{{ $paquete->cadera2_d }}">
-                                                            </div>
-                                                        </div>
                                                         <strong>Gluteos</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
@@ -388,58 +284,6 @@
                                                         </div>
                                                         <div class="col-8">
                                                             <input  id="fecha3" name="fecha3" type="date" class="form-control" value="{{ $paquete->fecha3 }}">
-                                                        </div>
-                                                        <strong>Talla</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="talla3_a" name="talla3_a" type="text" class="form-control" value="{{ $paquete->talla3_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="talla3_d" name="talla3_d" type="text" class="form-control" value="{{ $paquete->talla3_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Abdomen</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="abdomen3_a" name="abdomen3_a" type="text" class="form-control" value="{{ $paquete->abdomen3_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="abdomen3_d" name="abdomen3_d" type="text" class="form-control" value="{{ $paquete->abdomen3_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cintura</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cintura3_a" name="cintura3_a" type="text" class="form-control" value="{{ $paquete->cintura3_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cintura3_d" name="cintura3_d" type="text" class="form-control" value="{{ $paquete->cintura3_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cadera</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cadera3_a" name="cadera3_a" type="text" class="form-control" value="{{ $paquete->cadera3_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cadera3_d" name="cadera3_d" type="text" class="form-control" value="{{ $paquete->cadera3_d }}">
-                                                            </div>
                                                         </div>
                                                         <strong>Gluteos</strong>
                                                         <div class="col-6">
@@ -516,58 +360,6 @@
                                                         <div class="col-8">
                                                             <input  id="fecha4" name="fecha4" type="date" class="form-control" value="{{ $paquete->fecha4 }}">
                                                         </div>
-                                                        <strong>Talla</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="talla4_a" name="talla4_a" type="text" class="form-control" value="{{ $paquete->talla4_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="talla4_d" name="talla4_d" type="text" class="form-control" value="{{ $paquete->talla4_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Abdomen</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="abdomen4_a" name="abdomen4_a" type="text" class="form-control" value="{{ $paquete->abdomen4_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="abdomen4_d" name="abdomen4_d" type="text" class="form-control" value="{{ $paquete->abdomen4_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cintura</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cintura4_a" name="cintura4_a" type="text" class="form-control" value="{{ $paquete->cintura4_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cintura4_d" name="cintura4_d" type="text" class="form-control" value="{{ $paquete->cintura4_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cadera</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cadera4_a" name="cadera4_a" type="text" class="form-control" value="{{ $paquete->cadera4_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cadera4_d" name="cadera4_d" type="text" class="form-control" value="{{ $paquete->cadera4_d }}">
-                                                            </div>
-                                                        </div>
                                                         <strong>Gluteos</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
@@ -643,58 +435,6 @@
                                                         <div class="col-8">
                                                             <input  id="fecha5" name="fecha5" type="date" class="form-control" value="{{ $paquete2->fecha5 }}">
                                                         </div>
-                                                        <strong>Talla</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="talla5_a" name="talla5_a" type="text" class="form-control" value="{{ $paquete2->talla5_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="talla5_d" name="talla5_d" type="text" class="form-control" value="{{ $paquete2->talla5_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Abdomen</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="abdomen5_a" name="abdomen5_a" type="text" class="form-control" value="{{ $paquete2->abdomen5_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="abdomen5_d" name="abdomen5_d" type="text" class="form-control" value="{{ $paquete2->abdomen5_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cintura</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cintura5_a" name="cintura5_a" type="text" class="form-control" value="{{ $paquete2->cintura5_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cintura5_d" name="cintura5_d" type="text" class="form-control" value="{{ $paquete2->cintura5_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cadera</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cadera5_a" name="cadera5_a" type="text" class="form-control" value="{{ $paquete2->cadera5_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cadera5_d" name="cadera5_d" type="text" class="form-control" value="{{ $paquete2->cadera5_d }}">
-                                                            </div>
-                                                        </div>
                                                         <strong>Gluteos</strong>
                                                         <div class="col-6">
                                                             <div class="form-group">
@@ -769,58 +509,6 @@
                                                         </div>
                                                         <div class="col-8">
                                                             <input  id="fecha6" name="fecha6" type="date" class="form-control" value="{{ $paquete2->fecha6 }}">
-                                                        </div>
-                                                        <strong>Talla</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="talla6_a" name="talla6_a" type="text" class="form-control" value="{{ $paquete2->talla6_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="talla6_d" name="talla6_d" type="text" class="form-control" value="{{ $paquete2->talla6_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Abdomen</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="abdomen6_a" name="abdomen6_a" type="text" class="form-control" value="{{ $paquete2->abdomen6_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="abdomen6_d" name="abdomen6_d" type="text" class="form-control" value="{{ $paquete2->abdomen6_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cintura</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cintura6_a" name="cintura6_a" type="text" class="form-control" value="{{ $paquete2->cintura6_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cintura6_d" name="cintura6_d" type="text" class="form-control" value="{{ $paquete2->cintura6_d }}">
-                                                            </div>
-                                                        </div>
-                                                        <strong>Cadera</strong>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Antes</label>
-                                                                <input  id="cadera6_a" name="cadera6_a" type="text" class="form-control" value="{{ $paquete2->cadera6_a }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Despues</label>
-                                                                <input  id="cadera6_d" name="cadera6_d" type="text" class="form-control" value="{{ $paquete2->cadera6_d }}">
-                                                            </div>
                                                         </div>
                                                         <strong>Gluteos</strong>
                                                         <div class="col-6">
