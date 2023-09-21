@@ -99,6 +99,7 @@
   <script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
   <script src="{{ asset('assets/js/argon-dashboard.min.js')}}"></script>
 
+  @include('sweetalert::alert')
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="{{ asset('assets/js/preloader.js')}}"></script>

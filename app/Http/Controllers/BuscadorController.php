@@ -18,6 +18,7 @@ use App\Models\Paquetes;
 use App\Models\Reporte;
 use Illuminate\Http\Request;
 use DB;
+Use Alert;
 
 class BuscadorController extends Controller
 {
@@ -83,6 +84,13 @@ class BuscadorController extends Controller
     }
 
     public function advance(Request $request) {
+
+        $request->validate([
+            'id_client' => 'required_without_all:phone',
+            'phone' => 'required_without_all:id_client',
+        ]);
+
+
         $id_client = $request->id_client;
         $phone = $request->phone;
 
@@ -96,6 +104,8 @@ class BuscadorController extends Controller
             $nota = Notas::where('id_client', $phone)->get();
             $paquetes = Paquetes::where('id_client', $phone)->get();
         }
+
+        Alert::success('Encontrado con exito ');
 
         return view('buscador.index', compact('nota', 'paquetes'));
     }

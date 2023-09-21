@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Barryvdh\DomPDF\Facade\Pdf;
+Use Alert;
 
 class NotasController extends Controller
 {
@@ -291,13 +292,35 @@ class NotasController extends Controller
         $reporte->save();
 
         if($nota->restante <= 0){
-            Session::flash('success', 'Se ha guardado sus datos con exito');
-            return redirect()->route('notas_completadas.index')
-                            ->with('success','Nota Servicio Creado.');
+
+            // Session::flash('success', 'Se ha guardado sus datos con exito');
+
+            Alert::question('Registro exitoso', '¿Qué deseas hacer?')
+            ->showCancelButton('Ver Nora', '#3085d6')
+            ->showConfirmButton('Generar recibo', '#d33')
+            ->persistent(false)
+            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Ver recibo</a>')
+            ->position('bottom-end')
+            ->toToast();
+
+            return redirect()->route('notas.edit',$nota->id);
+
         }else{
-            Session::flash('success', 'Se ha guardado sus datos con exito');
-            return redirect()->route('notas_pendientes.index')
-                            ->with('success','Nota Servicio Creado.');
+
+            // Session::flash('success', 'Se ha guardado sus datos con exito');
+            // return redirect()->route('notas_pendientes.index')
+            //                 ->with('success','Nota Servicio Creado.');
+
+            Alert::question('Registro exitoso', '¿Qué deseas hacer?')
+            ->showCancelButton('Ver Nota', '#3085d6')
+            ->showConfirmButton('Generar recibo', '#d33')
+            ->persistent(false)
+            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Ver recibo</a>')
+            ->position('bottom-end')
+            ->toToast();
+
+            return redirect()->route('notas.edit',$nota->id);
+
         }
 
     }
