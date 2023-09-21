@@ -31,12 +31,14 @@ class NotasController extends Controller
      */
     public function index()
     {
-        $nota = Notas::orderBy('id','DESC')->get();
+        $nota = Notas::orderBy('id', 'DESC')
+        ->select('id', 'fecha', 'restante', 'id_client', 'id_servicio')
+        ->get();
 
-        $nota_cosme = NotasCosmes::get();
+        //$nota_cosme = NotasCosmes::get();
         // $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
 
-        return view('notas.index', compact('nota', 'nota_cosme'));
+        return view('notas.index', compact('nota'));
     }
 
     public function index_pendientes()

@@ -76,7 +76,7 @@
                                                             @endif
                                                         @endforeach
                                                     </td> --}}
-                                                    <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
+                                                    <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br> {{ $notas->Client->phone }}</td>
                                                     <td>
 
                                                         @if($notas->Paquetes->id_servicio != NULL || $notas->Paquetes->id_servicio != 0)
@@ -95,7 +95,8 @@
                                                         @endif
 
                                                     </td>
-                                                    <td>{{ $notas->fecha }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($notas->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+
                                                     @if ($notas->restante == 0)
                                                     <td> <label class="badge badge-success" style="font-size: 13px;">Pagado</label> </td>
                                                     @else
