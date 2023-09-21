@@ -296,10 +296,10 @@ class NotasController extends Controller
             // Session::flash('success', 'Se ha guardado sus datos con exito');
 
             Alert::question('Registro exitoso', '¿Qué deseas hacer?')
-            ->showCancelButton('Ver Nora', '#3085d6')
-            ->showConfirmButton('Generar recibo', '#d33')
+            ->showCancelButton('Ver Nota', '#3085d6')
+            ->showConfirmButton('Generar recibo', '#3085d6')
             ->persistent(false)
-            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Ver recibo</a>')
+            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
             ->position('bottom-end')
             ->toToast();
 
@@ -313,9 +313,9 @@ class NotasController extends Controller
 
             Alert::question('Registro exitoso', '¿Qué deseas hacer?')
             ->showCancelButton('Ver Nota', '#3085d6')
-            ->showConfirmButton('Generar recibo', '#d33')
+            ->showConfirmButton('Generar recibo', '#3085d6')
             ->persistent(false)
-            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Ver recibo</a>')
+            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
             ->position('bottom-end')
             ->toToast();
 
