@@ -24,8 +24,18 @@
                                                             <div class="col-3">
                                                                 <label for="user_id">Seleccionar cliente:</label>
                                                                 <select class="form-control cliente" name="id_client" id="id_client">
+                                                                    <option selected value="">seleccionar cliente</option>
                                                                     @foreach($clients as $client)
                                                                         <option value="{{ $client->id }}">{{ $client->name }} {{ $client->last_name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <label for="user_id">Seleccionar Telefono:</label>
+                                                                <select class="form-control phone" name="phone" id="phone">
+                                                                    <option selected value="">seleccionar Telefono</option>
+                                                                    @foreach($clients as $client)
+                                                                        <option value="{{ $client->id }}">{{ $client->phone }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -49,7 +59,7 @@
                                             <th>Cliente</th>
                                             <th>Servicio</th>
                                             <th>Fecha</th>
-                                            <th>Tipo</th>
+                                            <th>Estatus</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -64,7 +74,7 @@
                                                     <tr>
                                                 @endif
                                                     <td>{{ $notas->id }}</td>
-                                                    <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
+                                                    <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br> {{ $notas->Client->phone }}</td>
                                                     <td>
 
                                                         @if($notas->Paquetes->id_servicio != NULL || $notas->Paquetes->id_servicio != 0)
@@ -83,8 +93,13 @@
                                                         @endif
 
                                                     </td>
-                                                    <td>{{ $notas->fecha }}</td>
-                                                    <td><label class="badge" style="color: #009ee3;background-color: #009ee340;">Servicio</label></td>
+                                                    <td>{{ \Carbon\Carbon::parse($notas->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+
+                                                    @if ($notas->restante == 0)
+                                                    <td> <label class="badge badge-success" style="font-size: 13px;">Pagado</label> </td>
+                                                    @else
+                                                    <td> <label class="badge badge-danger" style="font-size: 15px;">${{ $notas->restante }}</label> </td>
+                                                    @endif
                                                     <td>
                                                             <a type="button" class="btn btn-sm" target="_blank"
                                                             href="https://wa.me/52{{$notas->Client->phone}}?text=Hola%20{{$notas->Client->name}}%20{{$notas->Client->last_name}},%20te%20enviamos%20tu%20nota%20el%20d%C3%ADa:%20{{ $notas->fecha }}%20Esperamos%20que%20la%20hayas%20pasado%20incre%C3%ADble,%20vuelve%20pronto.%0D%0ADa+click+en+el+siguente+enlace%0D%0A%0D%0A{{route('notas.usuario', $notas->id)}}"
@@ -110,6 +125,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+
                                             @foreach ($paquetes as $paquete)
                                                 <tr class="text-center">
                                                     <td>{{$paquete->id}}</td>
@@ -199,6 +215,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.cliente').select2();
+        });
+
+        $(document).ready(function() {
+            $('.phone').select2();
         });
     </script>
 @endsection
