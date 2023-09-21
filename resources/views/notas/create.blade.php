@@ -23,7 +23,7 @@
 
                     <div class="card-body">
 
-                            <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
+                            <ul class="nav nav-pills nav-fill p-1 mb-5" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
                                         <i class="ni ni-folder-17 text-sm me-2"></i> Servicio
@@ -61,75 +61,115 @@
                             <div class="modal-body">
                                 <div class="tab-content" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                        <div class="form-group">
-                                            <label for="nombre">Seleccione Cosmetologa</label>
-                                            <select class="form-control " id="id_user[]" name="id_user[]" multiple value="{{ old('submarca') }}" required>
-                                                @foreach ($user as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
 
                                         <div class="row">
-                                            <div class="col-2">
-                                                <label for="precio">Nuevo cliente</label><br>
-                                                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                                    Agregar
-                                                </button>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="precio">Cliente</label><br>
-                                                    <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" value="{{ old('submarca') }}">
-                                                        <option>Seleccionar cliente</option>
-                                                        @foreach ($client as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <div class="collapse" id="collapseExample">
-                                                <div class="card card-body">
-                                                    <div class="row">
-                                                    <div class="col-4">
-                                                        <div class="form-group">
-                                                            <label for="nombre">Nombre *</label>
-                                                            <input  id="name" name="name" type="text" class="form-control">
-                                                        </div>
+                                            <div class="col-6 form-group ">
+                                                <label for="nombre">Seleccione Cosmetologa</label>
+                                                <select class="form-control " id="id_user[]" name="id_user[]" multiple value="{{ old('submarca') }}" required>
+                                                    @foreach ($user as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <label for="precio">Nuevo cliente</label><br>
+                                                        <button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                            Agregar <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
+                                                        </button>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-9">
+
                                                         <div class="form-group">
-                                                            <label for="nombre">Apellido</label>
-                                                            <input  id="last_name" name="last_name" type="text" class="form-control">
+                                                            <label for="name">Cliente *</label>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">
+                                                                    <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
+                                                                </span>
+
+                                                                <select class="form-select cliente d-inline-block"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
+                                                                    <option>Seleccionar cliente</option>
+                                                                    @foreach ($client as $item)
+                                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="form-group">
-                                                            <label for="nombre">Telefono *</label>
-                                                            <input  id="phone" name="phone" type="number" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="nombre">Correo</label>
-                                                            <input  id="email" name="email" type="email" class="form-control">
-                                                        </div>
-                                                    </div>
+
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                         <div class="row">
+
+                                            <div class="form-group col-12">
+                                                <div class="collapse" id="collapseExample">
+                                                    <div class="card card-body">
+                                                        <div class="row">
+
+
+                                                            <div class="col-4">
+                                                                <label for="name">Nombre(s) *</label>
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">
+                                                                        <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="29px">
+                                                                    </span>
+                                                                    <input  id="name" name="name" type="text" class="form-control" placeholder="Nombre o Nombres">
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="col-4">
+                                                                <label for="name">Apellido(s) *</label>
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">
+                                                                        <img src="{{ asset('assets/icons/letter.png') }}" alt="" width="29px">
+                                                                    </span>
+                                                                    <input  id="last_name" name="last_name" type="text" class="form-control" placeholder="Apellidos">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-4">
+                                                                <label for="name">Telefono *</label>
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">
+                                                                        <img src="{{ asset('assets/icons/phone.png') }}" alt="" width="29px">
+                                                                    </span>
+                                                                    <input  id="last_name" name="last_name" type="text" class="form-control" type="tel" minlength="10" maxlength="10" placeholder="555555555">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-4">
+                                                                <label for="name">Correo *</label>
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">
+                                                                        <img src="{{ asset('assets/icons/correo-electronico.png') }}" alt="" width="29px">
+                                                                    </span>
+                                                                    <input  id="email" name="email" type="email" class="form-control" placeholder="correo@correo.com">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+
                                             <div class="col-1">
                                                 <label for="precio">Mas</label><br>
-                                                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseServicio" aria-expanded="false" aria-controls="collapseExample">
-                                                    +
+                                                <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseServicio" aria-expanded="false" aria-controls="collapseExample">
+                                                    <img src="{{ asset('assets/icons/mas.png') }}" alt="" width="25px">
                                                 </button>
                                             </div>
+
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="precio">Servicio</label><br>
@@ -141,23 +181,35 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-1">
-                                                <div class="form-group">
-                                                    <label for="precio">Num</label>
+                                                    <label for="name">Num *</label>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <img src="{{ asset('assets/icons/hashtag.png') }}" alt="" width="25px">
+                                                        </span>
                                                         <input type="number" id="num1" name="num1" class="form-control" value="1">
-                                                </div>
+                                                    </div>
                                             </div>
+
                                             <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="precio">Total</label>
-                                                    <input type="text" id="total1" name="total1" class="form-control" readonly>
-                                                </div>
+                                                    <label for="name">Total *</label>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                        </span>
+                                                        <input type="text" id="total1" name="total1" class="form-control" readonly>
+                                                    </div>
                                             </div>
+
                                             <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="descuento-adicional">Descuento adicional (%)</label>
-                                                    <input type="number" id="descuento-adicional1" name="descuento" class="form-control">
-                                                </div>
+                                                    <label for="name">Descuento adicional (%)</label>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
+                                                        </span>
+                                                        <input type="number" id="descuento-adicional1" name="descuento" class="form-control">
+                                                    </div>
                                             </div>
 
                                         </div>
@@ -177,21 +229,33 @@
                                                             </select>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-1">
-                                                        <div class="form-group">
-                                                            <label for="precio">Num 2</label>
-                                                                <input type="number" id="num2" name="num2" class="form-control" value="1">
+                                                        <label for="name">Num 2</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/hashtag.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="num2" name="num2" class="form-control" value="1">
                                                         </div>
                                                     </div>
+
                                                     <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="precio">Total</label>
-                                                            <input type="text" id="total2" name="total2" class="form-control" readonly>
-                                                        </div>
+                                                            <label for="name">Total</label>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">
+                                                                    <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                                </span>
+                                                                <input type="text" id="total2" name="total2" class="form-control" readonly>
+                                                            </div>
                                                     </div>
+
                                                     <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="descuento-adicional">Descuento adicional (%)</label>
+                                                        <label for="name">Descuento adicional (%)</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input type="number" id="descuento-adicional2" name="descuento2" class="form-control">
                                                         </div>
                                                     </div>
@@ -208,25 +272,38 @@
                                                             </select>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-1">
-                                                        <div class="form-group">
-                                                            <label for="precio">Num 3</label>
-                                                                <input type="number" id="num3" name="num3" class="form-control" value="1">
+                                                        <label for="name">Num 3</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/hashtag.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="num3" name="num3" class="form-control" value="1">
                                                         </div>
                                                     </div>
+
                                                     <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="precio">Total</label>
+                                                        <label for="name">Total</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input type="text" id="total3" name="total3" class="form-control" readonly>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="descuento-adicional">Descuento adicional (%)</label>
+                                                        <label for="name">Descuento adicional (%)</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input type="number" id="descuento-adicional3" name="descuento3" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="row">
                                                     <div class="col-7">
                                                         <div class="form-group">
@@ -239,23 +316,36 @@
                                                             </select>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-1">
-                                                        <div class="form-group">
-                                                            <label for="precio">Num 4</label>
-                                                                <input type="number" id="num4" name="num4" class="form-control" value="1">
+                                                        <label for="name">Num 3</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/hashtag.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="num4" name="num4" class="form-control" value="1">
                                                         </div>
                                                     </div>
+
                                                     <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="precio">Total</label>
+                                                        <label for="name">Total</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input type="text" id="total4" name="total4" class="form-control" readonly>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="descuento-adicional">Descuento adicional (%)</label>
+                                                        <label for="name">Descuento adicional (%)</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input type="number" id="descuento-adicional4" name="descuento4" class="form-control">
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -265,60 +355,90 @@
                                             <label for="descuento">Nota</label>
                                             <textarea name="nota" id="nota" cols="10" rows="3" class="form-control"></textarea>
                                         </div>
+
                                     </div>
 
                                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                         <div class="row">
                                             <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="total-suma">Total a Pagar</label>
+
+                                                <label for="total-suma">Total a Pagar</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                    </span>
                                                     <input type="text" id="total-suma" name="total-suma" class="form-control" readonly>
                                                 </div>
+
                                             </div>
 
                                             <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="restante">Restante</label>
+                                                <label for="total-suma">Restante</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
+                                                    </span>
                                                     <input type="text" id="restante" name="restante" class="form-control" readonly>
                                                 </div>
+
                                             </div>
 
                                             <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="restante">Cambio</label>
+                                                <label for="total-suma">Cambio</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="25px">
+                                                    </span>
                                                     <input type="text" id="cambio" name="cambio" class="form-control" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="fecha">Fecha</label>
+
+                                                <label for="total-suma">Fecha</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="25px">
+                                                    </span>
                                                     <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
                                                 </div>
+
                                             </div>
 
                                             <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="fecha">Cosme</label>
-                                                    <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa">
-                                                        <option value="">Seleccionar</option>
+
+                                                <label for="total-suma">Cosme</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" required>
+                                                        <option value="">Seleccionar cosme</option>
                                                         @foreach ($user as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
+
                                             </div>
 
                                             <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="pago">Pago</label>
+                                                <label for="total-suma">Pago</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                    </span>
                                                     <input  id="pago" name="pago" type="number" class="form-control" required>
                                                 </div>
                                             </div>
 
                                             <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="num_sesion">Metodo Pago</label>
+
+                                                <label for="num_sesion">Metodo Pago</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/transferir.png') }}" alt="" width="25px">
+                                                    </span>
                                                     <select id="forma_pago" name="forma_pago" class="form-control">
                                                         <option value="Efectivo">Efectivo</option>
                                                         <option value="Transferencia">Transferencia</option>
@@ -337,10 +457,15 @@
                                             </div>
 
                                             <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="nota">Foto</label>
+
+                                                <label for="total-suma">Comprobante de pago</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="25px">
+                                                    </span>
                                                     <input type="file" id="foto" class="form-control" name="foto">
                                                 </div>
+
                                             </div>
                                             <hr>
                                         </div>
@@ -405,17 +530,27 @@
                                             {{-- <button type="button" class="btn_clonar2 btn btn-secondary btn-sm">Agregar</button> --}}
                                             <div class="clonars2">
                                                 <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="descripcion">Concepto</label>
+
+                                                    <div class="col-3">
+
+                                                        <label for="total-suma">Concepto</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/carta_res.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input  id="concepto" name="concepto" type="text" class="form-control">
                                                         </div>
                                                     </div>
+
                                                     <div class="col-3">
-                                                        <div class="form-group">
-                                                            <label for="num_sesion">Precio</label>
+                                                        <label for="total-suma">Precio</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input  id="precio" name="precio" type="number" class="form-control" >
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -426,24 +561,38 @@
                                         <div id="formulario_3" class="mt-4">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="nombre">Seleccione Usuario</label>
+
+                                                    <label for="total-suma">Seleccione Usuario</label>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <img src="{{ asset('assets/icons/ama-de-casa.webp') }}" alt="" width="25px">
+                                                        </span>
                                                         <select class="form-control " id="id_user_propina" name="id_user_propina" value="{{ old('id_user_propina') }}" required>
                                                             @foreach ($user as $item)
                                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
+
                                                 </div>
+
                                                 <div class="col-3">
-                                                    <div class="form-group">
-                                                        <label for="Propina">Propina</label>
+                                                    <label for="total-suma">Propina</label>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="25px">
+                                                        </span>
                                                         <input  id="propina" name="propina" type="number" class="form-control" >
                                                     </div>
                                                 </div>
+
                                                 <div class="col-3">
-                                                    <div class="form-group">
-                                                        <label for="num_sesion">Metodo Pago</label>
+
+                                                    <label for="total-suma">Metodo Pago</label>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <img src="{{ asset('assets/icons/transferir.png') }}" alt="" width="25px">
+                                                        </span>
                                                         <select id="forma_pago_propina" name="forma_pago_propina" class="form-control">
                                                             <option value="Efectivo">Efectivo</option>
                                                             <option value="Transferencia">Transferencia</option>
