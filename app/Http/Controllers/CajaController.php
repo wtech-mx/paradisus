@@ -15,6 +15,7 @@ use App\Models\PaquetesPago;
 use App\Models\Pedido;
 use Session;
 use DB;
+Use Alert;
 
 class CajaController extends Controller
 {
@@ -125,6 +126,15 @@ class CajaController extends Controller
         return $pdf->download('Retiro '.$fechaActual.'.pdf');
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
+
+        // Alert::question('Retiro exitoso', '¿Qué deseas hacer?')
+        // ->showCancelButton('Cerrar', '#3085d6')
+        // ->showConfirmButton('Generar recibo', '#3085d6')
+        // ->persistent(false)
+        // ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
+        // ->position('bottom-end')
+        // ->toToast();
+
         return redirect()->route('caja.index')
             ->with('success', 'caja created successfully.');
     }
