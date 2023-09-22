@@ -50,9 +50,22 @@
                                             <tr>
                                                 <td>{{ $Concentimiento->id }}</td>
 
-                                                <td>{{ $Concentimiento->Client->name }} <br>{{ $Concentimiento->Client->last_name }}</td>
-                                                <td>{{ $Concentimiento->Client->phone }}</td>
-                                                <td>{{ $Concentimiento->Client->email }}</td>
+
+                                                <td>
+                                                    @if ($Concentimiento->Client)
+                                                        {{ $Concentimiento->Client->name }} <br>{{ $Concentimiento->Client->last_name }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($Concentimiento->Client)
+                                                        {{ $Concentimiento->Client->phone }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($Concentimiento->Client)
+                                                        {{ $Concentimiento->Client->email }}
+                                                    @endif
+                                                </td>
 
                                                 <td>
                                                     @if ($Concentimiento->pregunta2 == NULL)
