@@ -39,7 +39,7 @@
                                         <div class="numbers">
                                             <p class="text-sm text-white mb-0 text-uppercase font-weight-bold">Ingresos</p>
                                             <h5 class="font-weight-bolder text-white" >
-                                                ${{ $total_ing }}
+                                                ${{ number_format($total_ing, 1, '.', ',') }}
                                             </h5>
                                         </div>
                                         </div>
@@ -62,7 +62,7 @@
                                         <div class="numbers">
                                             <p class="text-sm text-white mb-0 text-uppercase font-weight-bold">Egresos</p>
                                             <h5 class="font-weight-bolder text-white">
-                                                ${{ $caja_dia_suma->total }}
+                                                ${{ number_format($caja_dia_suma->total, 1, '.', ',') }}
                                             </h5>
                                         </div>
                                         </div>
@@ -86,7 +86,7 @@
                                         <div class="numbers">
                                             <p class="text-sm text-white mb-0 text-uppercase font-weight-bold">Total</p>
                                             <h5 class="font-weight-bolder text-white">
-                                            ${{ $total_egresos }}
+                                                ${{ number_format($total_egresos, 1, '.', ',') }}
                                             </h5>
                                         </div>
                                         </div>

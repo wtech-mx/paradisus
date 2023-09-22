@@ -61,7 +61,7 @@
 <body>
   <header>
     <h1>Reporte de Paradisus</h1>
-    <h2>Corte</h2>
+    <h2>Corte <img src="{{ asset('assets/icons/cortar.png') }}" alt="" width="35px"> </h2>
   </header>
 
   <footer>
@@ -69,7 +69,7 @@
       <tr>
         <td>
             <p class="izq">
-               Fecha: {{$today}}
+               Fecha: {{ date('d/n/y', strtotime($today)) }}
             </p>
         </td>
         <td>
@@ -88,9 +88,9 @@
         <colgroup span="2" width="100"></colgroup>
         <colgroup span="2" width="100"></colgroup>
         <tr>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia</td>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Mercado Pago</td>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta</td>
+            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia <br> <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></td>
+            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Mercado Pago <br> <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></td>
+            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></td>
         </tr>
         <tr>
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
@@ -101,18 +101,33 @@
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
         </tr>
         <tr>
-            <td>{{ $suma_filas_trans }}</td>
-            <td>${{ $suma_pago_trans}}</td>
+            <td>
+                {{ $suma_filas_trans }}
+            </td>
 
-            <td>{{ $suma_filas_mercado }}</td>
-            <td>${{ $suma_pago_mercado}}</td>
+            <td>
+                ${{ number_format($suma_pago_trans, 1, '.', ',') }}
+            </td>
 
-            <td>{{ $suma_filas_tarjeta }}</td>
-            <td>${{ $suma_pago_tarjeta}}</td>
+            <td>
+                ${{ number_format($suma_filas_mercado, 1, '.', ',') }}
+            </td>
+
+            <td>
+                ${{ number_format($suma_pago_mercado, 1, '.', ',') }}
+            </td>
+
+            <td>
+                ${{ number_format($suma_filas_tarjeta, 1, '.', ',') }}
+            </td>
+
+            <td>
+                ${{ number_format($suma_pago_tarjeta, 1, '.', ',') }}
+            </td>
         </tr>
     </table>
 
-    <h2 style="text-align: center;">Transferencia</h2>
+    <h2 style="text-align: center;">Transferencia <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -126,40 +141,68 @@
         <tbody>
             @foreach ($total_producto_trans as $trans)
                 <tr>
-                    <td>{{ $trans->id }}</td>
+                    <td>
+                        {{ $trans->id }}
+                    </td>
                     @if ($trans->metodo_pago2 == NULL)
-                        <td>${{ $trans->dinero_recibido }}</td>
+                        <td>
+                            ${{ number_format($trans->dinero_recibido, 1, '.', ',') }}
+                        </td>
                     @else
-                        <td>${{ $trans->dinero_recibido2 }}</td>
+                        <td>
+                            ${{ number_format($trans->dinero_recibido2, 1, '.', ',') }}
+                        </td>
                     @endif
                     <td>Producto</td>
                     <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
                     <td>{{ $trans->User->name }}</td>
                 </tr>
             @endforeach
+
             @foreach ($total_servicios_trans as $trans)
                 <tr>
-                    <td>{{ $trans->id }}</td>
-                    <td>${{ $trans->pago }}</td>
-                    <td>Servicio</td>
-                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
-                    <td>{{ $trans->nota }}</td>
+                    <td>
+                        {{ $trans->id }}
+                    </td>
+                    <td>
+                        ${{ number_format($trans->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Servicio
+                    </td>
+                    <td>
+                        {{ date('d/n/y', strtotime($trans->fecha)) }}
+                    </td>
+                    <td>
+                        {{ $trans->nota }}
+                    </td>
                 </tr>
             @endforeach
+
             @foreach ($total_paquetes_trans as $trans)
                 <tr>
-                    <td>{{ $trans->id }}</td>
-                    <td>${{ $trans->pago }}</td>
-                    <td>Paquete</td>
-                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
-                    <td>{{ $trans->User->name }}</td>
+                    <td>
+                        {{ $trans->id }}
+                    </td>
+                    <td>
+                        ${{ number_format($trans->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Paquete
+                    </td>
+                    <td>
+                        {{ date('d/n/y', strtotime($trans->fecha)) }}
+                    </td>
+                    <td>
+                        {{ $trans->User->name }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
     <h2 style="text-align: center;">
-        Mercado Pago</h2>
+        Mercado Pago <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -184,6 +227,7 @@
                     <td>{{ $trans->User->name }}</td>
                 </tr>
             @endforeach
+
             @foreach ($total_servicios_mercado as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
@@ -193,6 +237,7 @@
                     <td>{{ $item->nota }}</td>
                 </tr>
             @endforeach
+
             @foreach ($total_paquetes_mercado as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
@@ -205,8 +250,8 @@
         </tbody>
     </table>
 
-    <h2 style="text-align: center;">
-        Tarjeta</h2>
+    <h2 style="text-align: center;">Tarjeta <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></h2>
+
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -220,40 +265,74 @@
         <tbody>
             @foreach ($total_producto_tarjeta as $trans)
                 <tr>
-                    <td>{{ $trans->id }}</td>
+                    <td>
+                        {{ $trans->id }}
+                    </td>
                     @if ($trans->metodo_pago2 == NULL)
-                        <td>${{ $trans->dinero_recibido }}</td>
+                        <td>
+                            ${{ number_format($trans->dinero_recibido, 1, '.', ',') }}
+                        </td>
                     @else
-                        <td>${{ $trans->dinero_recibido2 }}</td>
+                        <td>
+                            ${{ number_format($trans->dinero_recibido2, 1, '.', ',') }}
+                        </td>
                     @endif
-                    <td>Producto</td>
-                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
-                    <td>{{ $trans->User->name }}</td>
+                    <td>
+                        Producto
+                    </td>
+                    <td>
+                        {{ date('d/n/y', strtotime($trans->fecha)) }}
+                    </td>
+                    <td>
+                        {{ $trans->User->name }}
+                    </td>
                 </tr>
             @endforeach
+
             @foreach ($total_servicios_tarjeta as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>${{ $item->pago }}</td>
-                    <td>Servicio</td>
-                    <td>{{ date('d/n/y', strtotime($item->fecha)) }}</td>
-                    <td>{{ $item->nota }}</td>
+                    <td>
+                        {{ $item->id }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Servicio
+                    </td>
+                    <td>
+                        {{ date('d/n/y', strtotime($item->fecha)) }}
+                    </td>
+                    <td>
+                        {{ $item->nota }}
+                    </td>
                 </tr>
             @endforeach
+
             @foreach ($total_paquetes_tarjeta as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>${{ $item->pago }}</td>
-                    <td>Paquete</td>
-                    <td>{{ date('d/n/y', strtotime($item->fecha)) }}</td>
-                    <td>{{ $item->User->name }}</td>
+                    <td>
+                        {{ $item->id }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Paquete
+                    </td>
+                    <td>
+                        {{ date('d/n/y', strtotime($item->fecha)) }}
+                    </td>
+                    <td>
+                        {{ $item->User->name }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
     <h2 style="text-align: center;">
-        Propinas</h2>
+        Propinas <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -268,7 +347,9 @@
                 <tr>
                     <td>{{ $item->id_nota }}</td>
                     <td>{{ $item->User->name }}</td>
-                    <td>{{ $item->propina }}</td>
+                    <td>
+                        ${{ number_format($propina, 1, '.', ',') }}
+                    </td>
                     <td>{{ $item->metdodo_pago }}</td>
                 </tr>
             @endforeach

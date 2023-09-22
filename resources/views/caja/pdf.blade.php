@@ -62,7 +62,7 @@
 <body>
   <header>
     <h1>Reporte de Paradisus</h1>
-    <h2>Caja</h2>
+    <h2>Caja <img src="{{ asset('assets/icons/cajero-automatico.png') }}" alt="" width="35px"> </h2>
   </header>
 
   <footer>
@@ -70,7 +70,7 @@
       <tr>
         <td>
             <p class="izq">
-               Fecha: {{$today}}
+                Fecha: {{ date('d/n/y', strtotime($today)) }}
             </p>
         </td>
         <td>
@@ -85,24 +85,30 @@
   <div id="content">
 
     <table class="table text-center">
-        <thead style="background-color: #DDBBA2; color: #fff">
+        <thead style="background-color: #000; color: #fff">
             <tr>
-                <th>Ingresos</th>
-                <th>Egresos</th>
-                <th>Total</th>
+                <th>Ingresos <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="35px"> </th>
+                <th>Egresos <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> </th>
+                <th>Total <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px"> </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>{{ $caja_rep->ingresos }}</td>
-                <td>{{ $caja_rep->egresos }}</td>
-                <td>{{ $caja_rep->total }}</td>
+                <td>
+                    ${{ number_format($caja_rep->ingresos, 1, '.', ',') }}
+                </td>
+                <td>
+                    ${{ number_format($caja_rep->egresos, 1, '.', ',') }}
+                </td>
+                <td>
+                    ${{ number_format($caja_rep->total, 1, '.', ',') }}
+                </td>
             </tr>
         </tbody>
     </table>
 
     <h2 style="text-align: center;">
-        Egresos</h2>
+        Egresos <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -115,17 +121,25 @@
         <tbody>
             @foreach ($caja as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->fecha }}</td>
-                    <td>${{ $item->egresos }}</td>
-                    <td>{{ $item->concepto }}</td>
+                    <td>
+                        {{ $item->id }}
+                    </td>
+                    <td>
+                        {{ date('d/n/y', strtotime( $item->fecha)) }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->egresos, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        {{ $item->concepto }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
     <h2 style="text-align: center;">
-        Productos</h2>
+        Productos <img src="{{ asset('assets/icons/productos.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -139,18 +153,32 @@
             @foreach ($productos_rep as $item)
 
                 <tr>
-                    <td>{{ $item->id }}</td>
+                    <td>
+                        {{ $item->id }}
+                    </td>
                     @if($item->Client == NULL)
-                        <td>.</td>
+                        <td>
+                            .
+                        </td>
                     @else
-                        <td>{{ $item->Client->name }}</td>
+                        <td>
+                            {{ $item->Client->name }}
+                        </td>
                     @endif
                     @if ($item->metodo_pago2 == NULL)
-                        <td>${{ $item->dinero_recibido }}</td>
-                        <td>{{ $item->metodo_pago }}</td>
+                        <td>
+                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </td>
+                        <td>
+                            {{ $item->metodo_pago }}
+                        </td>
                     @else
-                        <td>${{ $item->dinero_recibido2 }}</td>
-                        <td>{{ $item->metodo_pago2 }}</td>
+                        <td>
+                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        </td>
+                        <td>
+                            {{ $item->metodo_pago2 }}
+                        </td>
                     @endif
 
                 </tr>
@@ -159,7 +187,7 @@
     </table>
     {{-- <h2 style="page-break-before: always; text-align: center;"> --}}
     <h2 style="text-align: center;">
-        Servicios</h2>
+        Servicios <img src="{{ asset('assets/icons/mascara-facial.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -173,8 +201,12 @@
         <tbody>
             @foreach ($servicios as $item)
                 <tr>
-                    <td>{{ $item->id_nota }}</td>
-                    <td>{{ $item->Notas->Client->name }}</td>
+                    <td>
+                        {{ $item->id_nota }}
+                    </td>
+                    <td>
+                        {{ $item->Notas->Client->name }}
+                    </td>
                     <td>
                         @foreach($notas_paquetes as $paquete)
                                 @if ($paquete->id_nota == $item->id_nota)
@@ -192,15 +224,19 @@
                                 @endif
                         @endforeach
                     </td>
-                    <td>${{ $item->pago }}</td>
-                    <td>${{ $item->restante }}</td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->restante, 1, '.', ',') }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
     <h2 style="text-align: center;">
-        Paquetes</h2>
+        Paquetes <img src="{{ asset('assets/icons/nuevo-producto.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -214,8 +250,12 @@
         <tbody>
             @foreach ($paquetes as $item)
                 <tr>
-                    <td>{{ $item->id_paquete }}</td>
-                    <td>{{ $item->Paquetes->Client->name }}</td>
+                    <td>
+                        {{ $item->id_paquete }}
+                    </td>
+                    <td>
+                        {{ $item->Paquetes->Client->name }}
+                    </td>
                     <td>
                         @if ($item->Paquetes->num_paquete == 1)
                             figura Ideal c/Aparatología
@@ -229,15 +269,19 @@
                             Glúteos Definido & Perfectos
                         @endif
                     </td>
-                    <td>{{ $item->pago }}</td>
-                    <td>{{ $item->nota }}</td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        {{ $item->nota }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
     <h2 style="text-align: center;">
-        Propinas</h2>
+        Propinas <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -251,14 +295,24 @@
             @foreach ($propinasHoy as $item)
 
                 <tr>
-                    <td>{{ $item->id_nota }}</td>
+                    <td>
+                        {{ $item->id_nota }}
+                    </td>
                     @if($item->User == NULL)
-                        <td>.</td>
+                        <td>
+                            .
+                        </td>
                     @else
-                        <td>{{ $item->User->name }}</td>
+                        <td>
+                            {{ $item->User->name }}
+                        </td>
                     @endif
-                    <td>${{ $item->propina }}</td>
-                    <td>{{ $item->metdodo_pago }}</td>
+                    <td>
+                        ${{ number_format($item->propina, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        {{ $item->metdodo_pago }}
+                    </td>
 
 
                 </tr>
