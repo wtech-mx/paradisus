@@ -127,7 +127,11 @@
             @foreach ($total_producto_trans as $trans)
                 <tr>
                     <td>{{ $trans->id }}</td>
-                    <td>${{ $trans->total }}</td>
+                    @if ($trans->metodo_pago2 == NULL)
+                        <td>${{ $trans->dinero_recibido }}</td>
+                    @else
+                        <td>${{ $trans->dinero_recibido2 }}</td>
+                    @endif
                     <td>Producto</td>
                     <td>{{ $trans->fecha }}</td>
                     <td>{{ $trans->User->name }}</td>
@@ -170,7 +174,11 @@
             @foreach ($total_producto_mercado as $trans)
                 <tr>
                     <td>{{ $trans->id }}</td>
-                    <td>${{ $trans->total }}</td>
+                    @if ($trans->metodo_pago2 == NULL)
+                        <td>${{ $trans->dinero_recibido }}</td>
+                    @else
+                        <td>${{ $trans->dinero_recibido2 }}</td>
+                    @endif
                     <td>Producto</td>
                     <td>{{ $trans->fecha }}</td>
                     <td>{{ $trans->User->name }}</td>
@@ -213,7 +221,11 @@
             @foreach ($total_producto_tarjeta as $trans)
                 <tr>
                     <td>{{ $trans->id }}</td>
-                    <td>${{ $trans->total }}</td>
+                    @if ($trans->metodo_pago2 == NULL)
+                        <td>${{ $trans->dinero_recibido }}</td>
+                    @else
+                        <td>${{ $trans->dinero_recibido2 }}</td>
+                    @endif
                     <td>Producto</td>
                     <td>{{ $trans->fecha }}</td>
                     <td>{{ $trans->User->name }}</td>
