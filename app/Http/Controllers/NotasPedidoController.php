@@ -84,6 +84,20 @@ class NotasPedidoController extends Controller
         $nota->total = $request->get('totalSuma');
         $nota->restante = $request->get('restante');
         $nota->cambio = $request->get('cambio');
+        $nota->dinero_recibido = $request->get('dinero_recibido');
+
+        if($request->get('dinero_recibido2') > '0' ){
+            $nota->dinero_recibido2 = $request->get('dinero_recibido2');
+            $nota->metodo_pago2 = $request->get('metodo_pago2');
+            if ($request->hasFile("foto2")) {
+                $file = $request->file('foto2');
+                $path = public_path() . '/foto_producto';
+                $fileName = uniqid() . $file->getClientOriginalName();
+                $file->move($path, $fileName);
+                $nota->foto2 = $fileName;
+            }
+        }
+
         $nota->save();
 
         // G U A R D A R  C A M B I O
