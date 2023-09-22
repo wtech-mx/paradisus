@@ -231,8 +231,11 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(pagos.pago) as total'))
         ->first();
 
-        $pago_pedidos_suma = NotasPedidos::where('fecha', '=', $diaActual)
-        ->where('metodo_pago', '=', 'Efectivo')
+        $pago_pedidos_suma = NotasPedidos::where('fecha', $diaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Efectivo')
+                ->orWhere('metodo_pago2', 'Efectivo');
+        })
         ->select(DB::raw('SUM(total) as total'))
         ->first();
 
@@ -252,8 +255,12 @@ class CajaController extends Controller
         ->where('notas.anular', '=', NULL)
         ->get();
 
-        $productos_rep = NotasPedidos::where('fecha', '=', $diaActual)
-        ->where('metodo_pago', '=', 'Efectivo')
+        $productos_rep = NotasPedidos::where('fecha', $diaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Efectivo')
+                ->orWhere('metodo_pago2', 'Efectivo');
+        })
+        ->select(DB::raw('SUM(total) as total'))
         ->get();
 
         $paquetes = PaquetesPago::where(DB::raw('fecha'), '=', $diaActual)
@@ -285,9 +292,26 @@ class CajaController extends Controller
         $total_servicios_tarjeta = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where('pagos.fecha', '=', $fechaActual)->where('pagos.forma_pago', '=', 'Tarjeta')->where('notas.anular', '=', NULL)->get();
 
-        $total_producto_trans = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Transferencia')->get();
-        $total_producto_mercado = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Mercado Pago')->get();
-        $total_producto_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Tarjeta')->get();
+        $total_producto_trans = NotasPedidos::where('fecha', $fechaActual)
+            ->where(function ($query) {
+                $query->where('metodo_pago', 'Transferencia')
+                    ->orWhere('metodo_pago2', 'Transferencia');
+            })
+            ->get();
+
+        $total_producto_mercado = NotasPedidos::where('fecha', $fechaActual)
+            ->where(function ($query) {
+                $query->where('metodo_pago', 'Mercado Pago')
+                    ->orWhere('metodo_pago2', 'Mercado Pago');
+            })
+            ->get();
+
+        $total_producto_tarjeta = NotasPedidos::where('fecha', $fechaActual)
+            ->where(function ($query) {
+                $query->where('metodo_pago', 'Tarjeta')
+                    ->orWhere('metodo_pago2', 'Tarjeta');
+            })
+            ->get();
 
         $total_paquetes_trans = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Transferencia')->get();
         $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
@@ -301,7 +325,10 @@ class CajaController extends Controller
         ->first();
 
         $productos_trans = NotasPedidos::where('fecha', '=', $fechaActual)
-        ->where('metodo_pago', '=', 'Transferencia')
+        ->where(function ($query) {
+            $query->where('metodo_pago', '=', 'Transferencia')
+                ->orWhere('metodo_pago2', '=', 'Transferencia');
+        })
         ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
         ->first();
 
@@ -321,7 +348,10 @@ class CajaController extends Controller
         ->first();
 
         $productos_mercado = NotasPedidos::where('fecha', '=', $fechaActual)
-        ->where('metodo_pago', '=', 'Mercado Pago')
+        ->where(function ($query) {
+            $query->where('metodo_pago', '=', 'Mercado Pago')
+                ->orWhere('metodo_pago2', '=', 'Mercado Pago');
+        })
         ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
         ->first();
 
@@ -341,7 +371,10 @@ class CajaController extends Controller
         ->first();
 
         $productos_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)
-        ->where('metodo_pago', '=', 'Tarjeta')
+        ->where(function ($query) {
+            $query->where('metodo_pago', '=', 'Tarjeta')
+                ->orWhere('metodo_pago2', '=', 'Tarjeta');
+        })
         ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
         ->first();
 
