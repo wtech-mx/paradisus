@@ -141,8 +141,14 @@
                                Ingresos
                             </span>
                             @if ($caja_vista->total == NULL)
-                                <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.corte') }}">Corte</a>
-                                <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff"><i class="fa fa-cash"></i> Retirar</a>
+                            <a type="button" class="btn btn-outline-warning" href="{{ route('caja.corte') }}"
+                                onclick="return confirm('¿Estás seguro de que deseas realizar el corte?')">
+                                <img src="{{ asset('assets/icons/cortar.png') }}" alt="" width="35px"> -  Corte
+                            </a>
+
+                                <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> - Retirar
+                                </a>
                             @endif
                         </div>
                     </div>

@@ -205,7 +205,8 @@ class CajaController extends Controller
         $nota->total = $total_egresos;
         $nota->update();
 
-        Session::flash('success', 'Se ha guardado sus datos con exito');
+        Alert::success('El corte de caja se ha realizado');
+
         return redirect()->route('caja.index')
             ->with('success', 'Corte con exito.');
     }
