@@ -133,7 +133,7 @@
                         <td>${{ $trans->dinero_recibido2 }}</td>
                     @endif
                     <td>Producto</td>
-                    <td>{{ $trans->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
                     <td>{{ $trans->User->name }}</td>
                 </tr>
             @endforeach
@@ -142,7 +142,7 @@
                     <td>{{ $trans->id }}</td>
                     <td>${{ $trans->pago }}</td>
                     <td>Servicio</td>
-                    <td>{{ $trans->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
                     <td>{{ $trans->nota }}</td>
                 </tr>
             @endforeach
@@ -151,7 +151,7 @@
                     <td>{{ $trans->id }}</td>
                     <td>${{ $trans->pago }}</td>
                     <td>Paquete</td>
-                    <td>{{ $trans->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
                     <td>{{ $trans->User->name }}</td>
                 </tr>
             @endforeach
@@ -180,7 +180,7 @@
                         <td>${{ $trans->dinero_recibido2 }}</td>
                     @endif
                     <td>Producto</td>
-                    <td>{{ $trans->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
                     <td>{{ $trans->User->name }}</td>
                 </tr>
             @endforeach
@@ -189,7 +189,7 @@
                     <td>{{ $item->id }}</td>
                     <td>${{ $item->pago }}</td>
                     <td>Servicio</td>
-                    <td>{{ $item->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($item->fecha)) }}</td>
                     <td>{{ $item->nota }}</td>
                 </tr>
             @endforeach
@@ -198,7 +198,7 @@
                     <td>{{ $item->id }}</td>
                     <td>${{ $item->pago }}</td>
                     <td>Paquete</td>
-                    <td>{{ $item->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($item->fecha)) }}</td>
                     <td>{{ $trans->User->name }}</td>
                 </tr>
             @endforeach
@@ -227,7 +227,7 @@
                         <td>${{ $trans->dinero_recibido2 }}</td>
                     @endif
                     <td>Producto</td>
-                    <td>{{ $trans->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
                     <td>{{ $trans->User->name }}</td>
                 </tr>
             @endforeach
@@ -236,7 +236,7 @@
                     <td>{{ $item->id }}</td>
                     <td>${{ $item->pago }}</td>
                     <td>Servicio</td>
-                    <td>{{ $item->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($item->fecha)) }}</td>
                     <td>{{ $item->nota }}</td>
                 </tr>
             @endforeach
@@ -245,7 +245,7 @@
                     <td>{{ $item->id }}</td>
                     <td>${{ $item->pago }}</td>
                     <td>Paquete</td>
-                    <td>{{ $item->fecha }}</td>
+                    <td>{{ date('d/n/y', strtotime($item->fecha)) }}</td>
                     <td>{{ $item->User->name }}</td>
                 </tr>
             @endforeach

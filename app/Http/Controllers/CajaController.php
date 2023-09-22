@@ -274,9 +274,8 @@ class CajaController extends Controller
 
         $notas_paquetes = NotasPaquetes::get();
 
-        $notas_propinas = NotasPropinas::get();
 
-        $pdf = \PDF::loadView('caja.pdf', compact('propinasHoy','caja_rep','paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
+        $pdf = \PDF::loadView('caja.pdf', compact('propinasHoy','caja_rep','paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'caja_final'));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
@@ -387,7 +386,7 @@ class CajaController extends Controller
         $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total + $paquete_tarjeta->total;
         $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas + $paquete_tarjeta->filas;
 
-        $notas_propinas = NotasPropinas::get();
+        $notas_propinas = NotasPropinas::whereDate('created_at', $fechaActual)->where('metdodo_pago', 'Efectivo')->get();
 
         $pdf = \PDF::loadView('caja.pdf_corte', compact('suma_pago_trans', 'suma_filas_trans', 'suma_pago_mercado', 'suma_filas_mercado', 'suma_pago_tarjeta', 'suma_filas_tarjeta',
         'today', 'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',

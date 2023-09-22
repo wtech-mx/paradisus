@@ -209,8 +209,8 @@
                             </span>
 
                             @if ($caja_vista->total != NULL)
-                                <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.print_corte') }}">Imprimir Trans/Tarjeta</a>
-                                <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Imprimir Caja</a>
+                                <a type="button" class="btn btn-outline-dark" href="{{ route('caja.print_corte') }}">Imprimir Trans/Tarjeta</a>
+                                <a type="button" class="btn btn-outline-dark" href="{{ route('caja.print_caja') }}">Imprimir Caja</a>
                             @endif
 
                         </div>
