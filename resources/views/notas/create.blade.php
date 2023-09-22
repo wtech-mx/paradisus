@@ -140,7 +140,7 @@
                                                                     <span class="input-group-text" id="basic-addon1">
                                                                         <img src="{{ asset('assets/icons/phone.png') }}" alt="" width="29px">
                                                                     </span>
-                                                                    <input  id="last_name" name="last_name" type="text" class="form-control" type="tel" minlength="10" maxlength="10" placeholder="555555555">
+                                                                    <input  id="phone" name="phone" type="text" class="form-control" type="tel" minlength="10" maxlength="10" placeholder="555555555">
                                                                 </div>
                                                             </div>
 
