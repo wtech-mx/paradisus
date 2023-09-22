@@ -28,24 +28,24 @@
                             </span>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body ">
                         <div class="row">
                             {{-- =============== I N G R E S O S =============================== --}}
                             <div class="col-lg-4 col-md-4 col-12">
-                                <div class="card  mb-4">
+                                <div class="card bg-dark mb-4">
                                     <div class="card-body p-3">
                                     <div class="row">
                                         <div class="col-8">
                                         <div class="numbers">
-                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Ingresos</p>
-                                            <h5 class="font-weight-bolder">
+                                            <p class="text-sm text-white mb-0 text-uppercase font-weight-bold">Ingresos</p>
+                                            <h5 class="font-weight-bolder text-white" >
                                                 ${{ $total_ing }}
                                             </h5>
                                         </div>
                                         </div>
                                         <div class="col-4 text-end">
-                                        <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle" style="background: {{$configuracion->color_iconos_sidebar}}; color: #ffff">
-                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                        <div class="icon icon-shape bg-white shadow-primary text-center rounded-circle" style="background: {{$configuracion->color_iconos_sidebar}}; color: #ffff">
+                                            <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px">
                                         </div>
                                         </div>
                                     </div>
@@ -55,20 +55,20 @@
 
                             {{-- =============== E G R E S O S =============================== --}}
                             <div class="col-lg-4 col-md-4 col-12">
-                                <div class="card  mb-4">
+                                <div class="card bg-dark mb-4">
                                     <div class="card-body p-3">
                                     <div class="row">
                                         <div class="col-8">
                                         <div class="numbers">
-                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Egresos</p>
-                                            <h5 class="font-weight-bolder">
+                                            <p class="text-sm text-white mb-0 text-uppercase font-weight-bold">Egresos</p>
+                                            <h5 class="font-weight-bolder text-white">
                                                 ${{ $caja_dia_suma->total }}
                                             </h5>
                                         </div>
                                         </div>
                                         <div class="col-4 text-end">
-                                        <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"  style="background: {{$configuracion->color_principal}}; color: #ffff">
-                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                        <div class="icon icon-shape bg-white shadow-primary text-center rounded-circle"  style="background: {{$configuracion->color_principal}}; color: #ffff">
+                                            <img src="{{ asset('assets/icons/presupuesto.png') }}" alt="" width="35px">
                                         </div>
                                         </div>
                                     </div>
@@ -79,20 +79,20 @@
                             {{-- =============== T O T A L =============================== --}}
 
                             <div class="col-lg-4 col-md-4 col-12">
-                                <div class="card  mb-4">
+                                <div class="card bg-dark mb-4">
                                     <div class="card-body p-3">
                                     <div class="row">
                                         <div class="col-8">
                                         <div class="numbers">
-                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Total</p>
-                                            <h5 class="font-weight-bolder">
+                                            <p class="text-sm text-white mb-0 text-uppercase font-weight-bold">Total</p>
+                                            <h5 class="font-weight-bolder text-white">
                                             ${{ $total_egresos }}
                                             </h5>
                                         </div>
                                         </div>
                                         <div class="col-4 text-end">
-                                        <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"  style="background: {{$configuracion->color_principal}}; color: #ffff">
-                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                        <div class="icon icon-shape bg-white shadow-primary text-center rounded-circle"  style="background: {{$configuracion->color_principal}}; color: #ffff">
+                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px">
                                         </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
 
                             {{-- =============== S A L D O  I N I C I A L =============================== --}}
 
-                            @if ($caja == NULL)
+                            {{-- @if ($caja == NULL)
                                 <div class="col-lg-6 col-md-6 col-6">
                                     <div class="card  mb-4">
                                         <div class="card-body p-3">
@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
 
                         </div>
                     </div>
