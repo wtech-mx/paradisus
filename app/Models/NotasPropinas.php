@@ -10,7 +10,6 @@ class NotasPropinas extends Model
     use HasFactory;
 
     protected $table = 'notas_propinas';
-    public $timestamps = false;
 
     protected $fillable = [
         'id_nota',

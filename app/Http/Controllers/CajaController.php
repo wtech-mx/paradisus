@@ -224,6 +224,8 @@ class CajaController extends Controller
             $caja_final2=$caja_final->ingresos;
         }
 
+        $propinasHoy = NotasPropinas::whereDate('created_at', $diaActual)->where('metdodo_pago', 'Efectivo')->get();
+
         $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where('pagos.fecha', '=', $diaActual)
         ->where('pagos.forma_pago', '=', 'Efectivo')
@@ -260,7 +262,6 @@ class CajaController extends Controller
             $query->where('metodo_pago', 'Efectivo')
                 ->orWhere('metodo_pago2', 'Efectivo');
         })
-        ->select(DB::raw('SUM(total) as total'))
         ->get();
 
         $paquetes = PaquetesPago::where(DB::raw('fecha'), '=', $diaActual)
@@ -275,7 +276,7 @@ class CajaController extends Controller
 
         $notas_propinas = NotasPropinas::get();
 
-        $pdf = \PDF::loadView('caja.pdf', compact( 'caja_rep','paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
+        $pdf = \PDF::loadView('caja.pdf', compact('propinasHoy','caja_rep','paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'notas_propinas', 'caja_final'));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }

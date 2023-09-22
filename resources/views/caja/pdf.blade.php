@@ -116,8 +116,8 @@
             @foreach ($caja as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td>${{ $item->egresos }}</td>
                     <td>{{ $item->fecha }}</td>
+                    <td>${{ $item->egresos }}</td>
                     <td>{{ $item->concepto }}</td>
                 </tr>
             @endforeach
@@ -137,6 +137,7 @@
         </thead>
         <tbody>
             @foreach ($productos_rep as $item)
+
                 <tr>
                     <td>{{ $item->id }}</td>
                     @if($item->Client == NULL)
@@ -144,8 +145,14 @@
                     @else
                         <td>{{ $item->Client->name }}</td>
                     @endif
-                    <td>${{ $item->total }}</td>
-                    <td>{{ $item->metodo_pago }}</td>
+                    @if ($item->metodo_pago2 == NULL)
+                        <td>${{ $item->dinero_recibido }}</td>
+                        <td>{{ $item->metodo_pago }}</td>
+                    @else
+                        <td>${{ $item->dinero_recibido2 }}</td>
+                        <td>{{ $item->metodo_pago2 }}</td>
+                    @endif
+
                 </tr>
             @endforeach
         </tbody>
@@ -224,6 +231,36 @@
                     </td>
                     <td>{{ $item->pago }}</td>
                     <td>{{ $item->nota }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <h2 style="text-align: center;">
+        Propinas</h2>
+    <table class="table text-center">
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>Nota</th>
+                <th>Cliente</th>
+                <th>Monto</th>
+                <th>For. Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($propinasHoy as $item)
+
+                <tr>
+                    <td>{{ $item->id_nota }}</td>
+                    @if($item->User == NULL)
+                        <td>.</td>
+                    @else
+                        <td>{{ $item->User->name }}</td>
+                    @endif
+                    <td>${{ $item->propina }}</td>
+                    <td>{{ $item->metdodo_pago }}</td>
+
+
                 </tr>
             @endforeach
         </tbody>
