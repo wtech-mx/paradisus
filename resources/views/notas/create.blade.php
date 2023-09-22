@@ -393,7 +393,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-3">
+                                            <div class="col-2">
 
                                                 <label for="total-suma">Fecha</label>
                                                 <div class="input-group mb-3">
@@ -405,9 +405,9 @@
 
                                             </div>
 
-                                            <div class="col-3">
+                                            <div class="col-2">
 
-                                                <label for="total-suma">Cosme</label>
+                                                <label for="total-suma">Cajera</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="25px">
@@ -422,13 +422,23 @@
 
                                             </div>
 
-                                            <div class="col-2">
-                                                <label for="total-suma">Pago</label>
+                                            <div class="col-3">
+                                                <label for="total-suma">Monto a pagar</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
-                                                        <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                        <img src="{{ asset('assets/icons/cash-machine.png') }}" alt="" width="25px">
                                                     </span>
                                                     <input  id="pago" name="pago" type="number" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <label for="total-suma">Dinero recibido</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <input  id="dinero_recibido" name="dinero_recibido" type="number" class="form-control" required>
                                                 </div>
                                             </div>
 
@@ -449,14 +459,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-2">
+                                            <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="nota">Nota</label>
                                                     <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
                                                 </div>
                                             </div>
 
-                                            <div class="col-12">
+                                            <div class="col-6">
 
                                                 <label for="total-suma">Comprobante de pago</label>
                                                 <div class="input-group mb-3">
@@ -774,35 +784,38 @@
     calcularTotal();
     });
 
-
-    // Obtén la referencia al elemento de pago y al campo de cambio
+    // Obtén la referencia a los elementos de pago, cambio, y dinero recibido
     var inputPago = $('#pago');
     var inputCambio = $('#cambio');
+    var inputDineroRecibido = $('#dinero_recibido');
 
-    // Escucha el evento 'input' en el campo de pago
-    inputPago.on('input', function() {
+    // Función para calcular cambio y restante
+    function calcularCambioYRestante() {
         // Obtiene el valor del pago
-        var pago = parseFloat($(this).val()) || 0;
+        var pago = parseFloat(inputPago.val()) || 0;
 
         // Obtiene el valor del total a pagar
         var totalAPagar = parseFloat($('#total-suma').val()) || 0;
 
-        // Calcula el restante
+        // Calcula el restante solo en función del pago
         var restante = totalAPagar - pago;
-
-        // Calcula el cambio si el pago excede el total
-        var cambio = 0;
-        if (pago > totalAPagar) {
-            cambio = pago - totalAPagar;
-            restante = 0;
-        }
 
         // Establece el valor del restante en el campo correspondiente
         $('#restante').val(restante);
 
+        // Obtiene el valor del dinero recibido
+        var dineroRecibido = parseFloat(inputDineroRecibido.val()) || 0;
+
+        // Calcula el cambio solo si el dinero recibido es mayor que el pago
+        var cambio = (dineroRecibido > pago) ? dineroRecibido - pago : 0;
+
         // Establece el valor del cambio en el campo correspondiente
         inputCambio.val(cambio);
-    });
+    }
+
+    // Escucha el evento 'input' en los campos de pago y dinero recibido
+    inputPago.on('input', calcularCambioYRestante);
+    inputDineroRecibido.on('input', calcularCambioYRestante);
 
 
 </script>

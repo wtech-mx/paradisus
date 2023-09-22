@@ -14,27 +14,27 @@
                 @csrf
                 <div class="modal-body">
                         <div class="form-group">
-                            <label for="name"></label>
+                            <label for="name">Nombre *</label>
                             <input id="name" name="name" type="text" class="form-control" placeholder="Nombre" required>@error('name') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label for="last_name"></label>
-                            <input id="last_name" name="last_name" type="text" class="form-control" placeholder="Apellido">@error('last_name') <span class="error text-danger">{{ $message }}</span> @enderror
+                            <label for="last_name">Apellido *</label>
+                            <input id="last_name" name="last_name" type="text" class="form-control" placeholder="Apellido" required>@error('last_name') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label for="email"></label>
-                            <input id="email" name="email" type="email" class="form-control" placeholder="Correo" required>@error('email') <span class="error text-danger">{{ $message }}</span> @enderror
+                            <label for="email">Correo</label>
+                            <input id="email" name="email" type="email" class="form-control" placeholder="Correo">@error('email') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="phone"></label>
+                                    <label for="phone">Telefono *</label>
                                     <input id="phone" name="phone" type="number" class="form-control" placeholder="Telefono" required>@error('phone') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="occupation"></label>
+                                    <label for="occupation">Ocupacion</label>
                                     <input id="occupation" name="occupation" type="text" class="form-control" placeholder="Ocupacion">@error('occupation') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
@@ -42,19 +42,19 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="sanguineous"></label>
+                                    <label for="sanguineous">Sanguineo</label>
                                     <input id="sanguineous" name="sanguineous" type="text" class="form-control" placeholder="Sanguineo">@error('sanguineous') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="age"></label>
+                                    <label for="age">Edad</label>
                                     <input id="age" name="age" type="number" class="form-control" placeholder="Edad">@error('age') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="birth_date"></label>
+                                    <label for="birth_date">Cumpleaños</label>
                                     <input id="birth_date" name="birth_date" type="date" class="form-control" value="23-11-2018">@error('birth_date') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>

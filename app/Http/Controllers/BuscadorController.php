@@ -25,61 +25,7 @@ class BuscadorController extends Controller
     public function index() {
 
         $clients = Client::all();
-        // $telefonosDuplicados = DB::table('clients')
-        // ->select('phone', DB::raw('COUNT(*) as cantidad'))
-        // ->groupBy('phone')
-        // ->having('cantidad', '>', 1)
-        // ->pluck('phone');
 
-        // foreach ($telefonosDuplicados as $telefono) {
-        //     // Encuentra los registros duplicados con el mismo número de teléfono
-        //     $clientesDuplicados = Client::where('phone', $telefono)->get();
-
-        //     // Mantén el cliente más antiguo y actualiza las relaciones en las notas
-        //     $clientePrincipal = $clientesDuplicados->sortBy('created_at')->first();
-
-        //     // Actualiza las relaciones en las notas para apuntar al cliente principal
-        //     foreach ($clientesDuplicados as $cliente) {
-        //         if ($cliente->id !== $clientePrincipal->id) {
-        //             Notas::where('id_client', $cliente->id)->update(['id_client' => $clientePrincipal->id]);
-        //             Paquetes::where('id_client', $cliente->id)->update(['id_client' => $clientePrincipal->id]);
-        //             NotasPedidos::where('id_client', $cliente->id)->update(['id_client' => $clientePrincipal->id]);
-        //             Reporte::where('id_client', $cliente->id)->update(['id_client' => $clientePrincipal->id]);
-        //             Alertas::where('id_client', $cliente->id)->update(['id_client' => $clientePrincipal->id]);
-        //             ConsentimeintoFirmasJacuzzi::whereIn('id_consentimiento', function ($query) use ($cliente) {
-        //                 $query->select('id')
-        //                     ->from('consentimiento_jacuzzi')
-        //                     ->where('id_client', $cliente->id);
-        //             })->delete();
-
-        //             ConsentimientoFirmasCorporal::whereIn('id_consentimiento', function ($query) use ($cliente) {
-        //                 $query->select('id')
-        //                     ->from('concentimiento_corporal')
-        //                     ->where('id_client', $cliente->id);
-        //             })->delete();
-
-        //             LashLiftingFirma::whereIn('id_consentimiento', function ($query) use ($cliente) {
-        //                 $query->select('id')
-        //                     ->from('lash_lifting')
-        //                     ->where('id_client', $cliente->id);
-        //             })->delete();
-
-        //             ConsentimientoFirmasFacial::whereIn('id_consentimiento', function ($query) use ($cliente) {
-        //                 $query->select('id')
-        //                     ->from('concentimiento_facial')
-        //                     ->where('id_client', $cliente->id);
-        //             })->delete();
-
-        //             ConsentimeintoJacuzzi::where('id_client', $cliente->id)->delete();
-        //             ConsentimientoCorporal::where('id_client', $cliente->id)->delete();
-        //             ConcentimientoFacial::where('id_client', $cliente->id)->delete();
-        //             LashLifting::where('id_client', $cliente->id)->delete();
-        //         }
-        //     }
-
-        //     // Elimina los clientes duplicados, excepto el principal
-        //     $clientesDuplicados->except($clientePrincipal->id)->each->delete();
-        // }
         return view('buscador.index', compact('clients'));
     }
 

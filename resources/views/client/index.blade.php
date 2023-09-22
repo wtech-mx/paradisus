@@ -25,7 +25,45 @@
                                     Crear
                                 </a>
                             @endcan
+                        </div>
+                    </div>
 
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <form action="{{ route('clients.advance_search') }}" method="GET" >
+
+                                        <div class="card-body" style="padding-left: 1.5rem; padding-top: 1rem;">
+                                            <h5>Filtro</h5>
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <label for="user_id">Seleccionar cliente:</label>
+                                                        <select class="form-control cliente" name="id_client" id="id_client">
+                                                            <option selected value="">seleccionar cliente</option>
+                                                            @foreach($clients as $client)
+                                                                <option value="{{ $client->id }}">{{ $client->name }} {{ $client->last_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="user_id">Seleccionar Telefono:</label>
+                                                        <select class="form-control phone" name="phone" id="phone">
+                                                            <option selected value="">seleccionar Telefono</option>
+                                                            @foreach($clients as $client)
+                                                                <option value="{{ $client->id }}">{{ $client->phone }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <br>
+                                                        <button class="btn btn-sm mb-0 mt-sm-0 mt-1" type="submit" style="background-color: #F82018; color: #ffffff;">Buscar</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -34,37 +72,6 @@
                             @include('client.create')
                             @include('consentimiento.modal_create')
                             <div class="table-responsive">
-{{-- 
-                                <form method="POST" action="{{ route('clients_consentimiento.store') }}" enctype="multipart/form-data" role="form">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <label for="precio">Cliente</label><br>
-                                            <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client">
-                                                <option>Seleccionar cliente</option>
-                                                @foreach ($clients as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-2">
-                                            <label for="precio">Consentimiento</label><br>
-                                            <select class="form-control " id="consentimiento" name="consentimiento">
-                                                    <option value="1">Facial / Corporal</option>
-                                                    <option value="2">Brow bar</option>
-                                                    <option value="3">LASH LIFTING</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-2">
-                                                <label for="num">Numero de personas</label><br>
-                                                <input id="num_personas" name="num_personas" type="number" class="form-control" >
-                                        </div>
-                                        <div class="col-3">
-                                            <label for="num"></label><br>
-                                            <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
-                                        </div>
-                                    </div>
-                                </form> --}}
 
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
@@ -78,31 +85,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($clients as $client)
-                                        {{-- @include('client.show') --}}
-                                        @include('client.edit')
-                                            <tr>
-                                                <td>{{ $client->id }}</td>
+                                        @if(Route::currentRouteName() != 'clients.index')
+                                                @include('client.edit')
+                                                <tr>
+                                                    <td>{{ $client->id }}</td>
 
-                                                <td>{{ $client->name }} <br>{{ $client->last_name }}</td>
-                                                <td>{{ $client->phone }}</td>
-                                                <td>{{ $client->email }}</td>
+                                                    <td>{{ $client->name }} <br>{{ $client->last_name }}</td>
+                                                    <td>{{ $client->phone }}</td>
+                                                    <td>{{ $client->email }}</td>
 
-                                                <td>
-                                                    {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
-                                                    @can('client-edit')
-                                                        <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @endcan
-                                                    @can('client-delete')
-                                                        <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display: contents">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
-                                                        </form>
-                                                    @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                    <td>
+                                                        {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
+                                                        @can('client-edit')
+                                                            <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
+                                                        @endcan
+                                                        @can('client-delete')
+                                                            <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display: contents">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
+                                                            </form>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -132,6 +138,7 @@
   <script type="text/javascript">
         $(document).ready(function() {
             $('.cliente').select2();
+            $('.phone').select2();
         });
   </script>
 

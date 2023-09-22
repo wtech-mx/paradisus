@@ -106,7 +106,6 @@ class CajaController extends Controller
         ]);
 
         $fechaActual = date('Y-m-d');
-        $today =  date('d-m-Y');
         $caja = new CajaDia;
         $caja->egresos = $request->get('egresos');
         $caja->concepto = $request->get('concepto');
@@ -121,22 +120,25 @@ class CajaController extends Controller
         }
         $caja->save();
 
-        $pdf = \PDF::loadView('caja.pdf_retiro', compact('caja','today'));
-
-        return $pdf->download('Retiro '.$fechaActual.'.pdf');
-
-        Session::flash('success', 'Se ha guardado sus datos con exito');
-
-        // Alert::question('Retiro exitoso', '¿Qué deseas hacer?')
-        // ->showCancelButton('Cerrar', '#3085d6')
-        // ->showConfirmButton('Generar recibo', '#3085d6')
-        // ->persistent(false)
-        // ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
-        // ->position('bottom-end')
-        // ->toToast();
+        Alert::question('Retiro exitoso', '¿Qué deseas hacer?')
+        ->persistent(false)
+        ->showCancelButton('<a href="'.route('caja.print_recibo', $caja->id).'" style="color: #ffffff!important;"><strong>Generar Recibo</strong></a>')
+        ->position('bottom-end')
+        ->toToast();
 
         return redirect()->route('caja.index')
             ->with('success', 'caja created successfully.');
+    }
+
+    public function imprimir_recibo($id){
+        $diaActual = date('Y-m-d');
+        $today =  date('d-m-Y');
+
+        $caja = CajaDia::where('id', '=', $id)->first();
+
+        $pdf = \PDF::loadView('caja.pdf_retiro', compact('caja', 'today'));
+        // return $pdf->stream();
+        return $pdf->download('Retiro '.$today.'.pdf');
     }
 
     public function caja_inicial(Request $request){
@@ -191,9 +193,15 @@ class CajaController extends Controller
         $total_egresos = 0;
         $total_egresos = $total_ing - $caja_dia_suma->total;
 
+        if($caja_dia_suma->total == NULL){
+            $caja_egre = 0;
+        }else{
+            $caja_egre = $caja_dia_suma->total;
+        }
+
         $nota = Caja::find($caja_final->id);
         $nota->ingresos = $total_ing;
-        $nota->egresos = $caja_dia_suma->total;
+        $nota->egresos = $caja_egre;
         $nota->total = $total_egresos;
         $nota->update();
 

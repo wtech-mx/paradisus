@@ -268,9 +268,10 @@
 
                                         <div class="tab-pane fade" id="pagoedit{{$notas->id}}" >
                                             <div class="row text-center">
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
-                                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Usuario</div>
+                                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Fecha</div>
+                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Usuario</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
+                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Dinero recibido</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
                                                 <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
@@ -281,11 +282,11 @@
                                                     <input id="pago_{{ $item->id }}" name="pago_id" type="hidden" class="form-control" value="{{ $item->id }}">
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
-                                                    <div class="col-2 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
+                                                    <div class="col-1 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
                                                             value="{{$item->fecha}}" disabled>
                                                     </div>
 
-                                                    <div class="col-3 py-2" >
+                                                    <div class="col-2 py-2" >
                                                         <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                             data-on="Active" data-off="InActive">
                                                             <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
@@ -298,6 +299,10 @@
                                                     <div class="col-2 py-2" >
                                                         <input name="pago" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}"
                                                             value="{{$item->pago}}" disabled></div>
+
+                                                    <div class="col-2 py-2" >
+                                                        <input name="pago" type="number" class="form-control text-center" id="pago_{{ $item->id }}"
+                                                            value="{{$item->dinero_recibido}}" disabled></div>
 
                                                     <div class="col-2 py-2" ><input name="forma_pago" type="text" class="form-control text-center" id="forma_pago"
                                                         value="{{$item->forma_pago}}" disabled>
@@ -329,21 +334,21 @@
                                                     <div class="col-3">
                                                         <div class="form-group">
                                                             <label for="restante">Saldo a favor</label>
-                                                            <input type="text" class="form-control" readonly value="$ {{ $resultado; }} MXN">
+                                                            <input type="text" id="saldo-favor" class="form-control" readonly value="$ {{ $resultado; }} MXN">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-3">
                                                         <div class="form-group">
                                                             <label for="restante">Restante</label>
-                                                            <input type="text" id="restante" name="restante_paquetes" class="form-control" readonly value="{{$notas->restante}}">
+                                                            <input type="text" id="restante-edit" name="restante_paquetes" class="form-control" readonly value="{{$notas->restante}}">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-3">
                                                         <div class="form-group">
                                                             <label for="restante">Cambio</label>
-                                                            <input type="text" id="cambio" name="cambio" class="form-control" readonly>
+                                                            <input type="text" id="cambio-edit" name="cambio" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -367,12 +372,26 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-2">
-                                                        <div class="form-group">
-                                                            <label for="pago">Pago</label>
-                                                            <input  id="nuevo-pago" name="pago" type="number" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Monto a pagar</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/cash-machine.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input  id="nuevo-pago" name="pago" type="number" class="form-control" required>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Dinero recibido</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input  id="dinero-recibido-edit" name="dinero_recibido" type="number" class="form-control" required>
+                                                        </div>
+                                                    </div>
+
 
                                                     <div class="col-2">
                                                         <div class="form-group">
@@ -386,14 +405,14 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-2">
+                                                    <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="nota">Nota</label>
                                                             <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-12">
+                                                    <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="nota">Foto</label>
                                                             <input type="file" id="foto" class="form-control" name="foto">
@@ -638,35 +657,53 @@
     <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 
     <script>
-        // Obtén la referencia al elemento de pago y al campo de cambio
-        var inputPago = $('#nuevo-pago');
-        var inputCambio = $('#cambio');
-        var inputRestante = $('#restante');
+        // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
+        var inputNuevoPago = $('#nuevo-pago');
+        var inputCambioEdit = $('#cambio-edit');
+        var inputDineroRecibidoEdit = $('#dinero-recibido-edit');
+        var inputRestanteEdit = $('#restante-edit');
+
+        function calcularCambio() {
+            var nuevoPago = parseFloat(inputNuevoPago.val()) || 0;
+            var dineroRecibidoEdit = parseFloat(inputDineroRecibidoEdit.val()) || 0;
+
+            var cambio = 0;
+
+            if (dineroRecibidoEdit > nuevoPago) {
+                cambio = dineroRecibidoEdit - nuevoPago;
+            }
+
+            inputCambioEdit.val(cambio);
+        }
 
         function calcularRestante() {
             var pagosExistentes = 0;
             $('.pago-existente').each(function() {
-                pagosExistentes += parseInt($(this).val()) || 0;
+                pagosExistentes += parseFloat($(this).val()) || 0;
             });
 
-            var nuevoPago = parseInt(inputPago.val()) || 0;
-            var totalSuma = parseInt($('#total-suma').val()) || 0;
-            var restante = totalSuma - pagosExistentes;
+            var nuevoPago = parseFloat(inputNuevoPago.val()) || 0;
+            var totalSuma = parseFloat($('#total-suma').val()) || 0;
+            console.log('saldo', pagosExistentes);
+            var restante = totalSuma - pagosExistentes - nuevoPago;
 
-            // Calcula el cambio correctamente
-            var cambio = 0;
-            if (nuevoPago >= restante) {
-                cambio = nuevoPago - restante;
-                restante = 0;
-            } else {
-                restante -= nuevoPago; // Reduce el restante por el nuevo pago
-            }
-
-            console.log('restante', restante);
-            inputRestante.val(restante);
-            inputCambio.val(cambio); // Actualiza el campo de cambio
+            inputRestanteEdit.val(restante);
         }
 
+        // Escucha el evento 'input' en los campos de nuevo-pago y dinero-recibido-edit
+        inputNuevoPago.on('input', function() {
+            calcularCambio();
+            calcularRestante();
+        });
+
+        inputDineroRecibidoEdit.on('input', function() {
+            calcularCambio();
+            calcularRestante();
+        });
+
+        // Calcula el cambio y el restante al cargar la página
+        calcularCambio();
+        calcularRestante();
 
         $(document).ready(function() {
           function calcularTotalServicio(servicioNumber) {

@@ -87,7 +87,7 @@ class NotasPedidoController extends Controller
         $nota->save();
 
         // G U A R D A R  C A M B I O
-        if($request->get('cambio') != '0'){
+        if($request->get('cambio') > '0'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
             $caja->egresos = $request->get('cambio');
@@ -111,16 +111,6 @@ class NotasPedidoController extends Controller
         }
 
         Pedido::insert($insert_data);
-
-        $reporte = new Reporte;
-        $reporte->id_producto = $nota->id;
-        $reporte->fecha = $nota->fecha;
-        $reporte->tipo = 'NOTA PRODUCTOS';
-        $reporte->id_client = $nota->id_client;
-        $reporte->metodo_pago = $nota->metodo_pago;
-        $reporte->monto = $nota->total;
-        $reporte->restante = 0;
-        $reporte->save();
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('notas_pedidos.index')

@@ -133,11 +133,10 @@ class NotasController extends Controller
         $nota->nota = $request->get('nota');
         $nota->precio = $request->get('total-suma');
         $nota->restante = $request->get('restante');
-        $nota->cambio = $request->get('cambio');
         $nota->save();
 
         // G U A R D A R  C A M B I O
-        if($request->get('cambio') != '0'){
+        if($request->get('cambio') > '0'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
             $caja->egresos = $request->get('cambio');
@@ -245,6 +244,7 @@ class NotasController extends Controller
             $pago->fecha = $request->get('fecha_pago');
             $pago->cosmetologa = $request->get('cosmetologa');
             $pago->pago = $request->get('pago');
+            $pago->dinero_recibido = $request->get('dinero_recibido');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota2');
             $pago->cambio = $request->get('cambio');
@@ -279,50 +279,15 @@ class NotasController extends Controller
             $notas_propinas->save();
         }
 
-        // G U A R D A R  R E P O R T E
-        $reporte = new Reporte;
-        $reporte->id_nota = $nota->id;
-        $reporte->fecha = $pago->fecha;
-        $reporte->tipo = 'NOTA SERVICIO';
-        $reporte->id_client = $nota->id_client;
-        $reporte->metodo_pago = $pago->forma_pago;
-        $reporte->monto = $nota->precio;
-        $reporte->pago = $pago->pago;
-        $reporte->restante = $nota->restante;
-        $reporte->save();
+        Alert::question('Registro exitoso', '¿Qué deseas hacer?')
+        ->showCancelButton('Ver Nota', '#3085d6')
+        ->showConfirmButton('Generar recibo', '#3085d6')
+        ->persistent(false)
+        ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
+        ->position('bottom-end')
+        ->toToast();
 
-        if($nota->restante <= 0){
-
-            // Session::flash('success', 'Se ha guardado sus datos con exito');
-
-            Alert::question('Registro exitoso', '¿Qué deseas hacer?')
-            ->showCancelButton('Ver Nota', '#3085d6')
-            ->showConfirmButton('Generar recibo', '#3085d6')
-            ->persistent(false)
-            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
-            ->position('bottom-end')
-            ->toToast();
-
-            return redirect()->route('notas.edit',$nota->id);
-
-        }else{
-
-            // Session::flash('success', 'Se ha guardado sus datos con exito');
-            // return redirect()->route('notas_pendientes.index')
-            //                 ->with('success','Nota Servicio Creado.');
-
-            Alert::question('Registro exitoso', '¿Qué deseas hacer?')
-            ->showCancelButton('Ver Nota', '#3085d6')
-            ->showConfirmButton('Generar recibo', '#3085d6')
-            ->persistent(false)
-            ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
-            ->position('bottom-end')
-            ->toToast();
-
-            return redirect()->route('notas.edit',$nota->id);
-
-        }
-
+        return redirect()->route('notas.edit',$nota->id);
     }
 
     /**
@@ -367,7 +332,6 @@ class NotasController extends Controller
     {
 
         $nota = Notas::find($id);
-        $nota->cancelado = $request->get('cancelado');
         $nota->anular = $request->get('anular');
         $nota->id_client = $request->get('id_client');
         $nota->nota = $request->get('nota');
@@ -376,7 +340,7 @@ class NotasController extends Controller
         $nota->update();
 
         // G U A R D A R  C A M B I O
-        if($request->get('cambio') != '0'){
+        if($request->get('cambio') > '0'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
             $caja->egresos = $request->get('cambio');
@@ -398,28 +362,28 @@ class NotasController extends Controller
             NotasCosmes::find($id_notas_cosmes)->update($data);
         }
 
-            // G U A R D A R  S E R V I C I O
-            $id_notas_paquetes = $request->get('id_notas_paquetes');
+        // G U A R D A R  S E R V I C I O
+        $id_notas_paquetes = $request->get('id_notas_paquetes');
 
-            $nota_paquete = NotasPaquetes::find($id_notas_paquetes);
-            $nota_paquete->id_nota = $id;
+        $nota_paquete = NotasPaquetes::find($id_notas_paquetes);
+        $nota_paquete->id_nota = $id;
 
-            $nota_paquete->id_servicio = $request->get('id_servicio');
-            $nota_paquete->num = $request->get('num1_paquetes');
-            $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
+        $nota_paquete->id_servicio = $request->get('id_servicio');
+        $nota_paquete->num = $request->get('num1_paquetes');
+        $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
 
-            $nota_paquete->id_servicio2 = $request->get('id_servicio2');
-            $nota_paquete->num2 = $request->get('num2_paquetes');
-            $nota_paquete->descuento2 = $request->get('descuento-adicional2_paquetes');
+        $nota_paquete->id_servicio2 = $request->get('id_servicio2');
+        $nota_paquete->num2 = $request->get('num2_paquetes');
+        $nota_paquete->descuento2 = $request->get('descuento-adicional2_paquetes');
 
-            $nota_paquete->id_servicio3 = $request->get('id_servicio3');
-            $nota_paquete->num3 = $request->get('num3_paquetes');
-            $nota_paquete->descuento3 = $request->get('descuento-adicional3_paquetes');
+        $nota_paquete->id_servicio3 = $request->get('id_servicio3');
+        $nota_paquete->num3 = $request->get('num3_paquetes');
+        $nota_paquete->descuento3 = $request->get('descuento-adicional3_paquetes');
 
-            $nota_paquete->id_servicio4 = $request->get('id_servicio4');
-            $nota_paquete->num4 = $request->get('num4_paquetes');
-            $nota_paquete->descuento4 = $request->get('descuento-adicional4_paquetes');
-            $nota_paquete->update();
+        $nota_paquete->id_servicio4 = $request->get('id_servicio4');
+        $nota_paquete->num4 = $request->get('num4_paquetes');
+        $nota_paquete->descuento4 = $request->get('descuento-adicional4_paquetes');
+        $nota_paquete->update();
 
         if($request->get('pago') != NULL){
             $pago = new Pagos;
@@ -427,6 +391,7 @@ class NotasController extends Controller
             $pago->fecha = $request->get('fecha_pago');
             $pago->cosmetologa = $request->get('cosmetologa');
             $pago->pago = $request->get('pago');
+            $pago->dinero_recibido = $request->get('dinero_recibido');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota2');
             $pago->cambio = $request->get('cambio');
@@ -519,19 +484,6 @@ class NotasController extends Controller
         }
 
         $pago_reciente = Pagos::where('id_nota', '=', $nota->id)->orderBy('id','DESC')->first();
-        // G U A R D A R  R E P O R T E
-        if($nota->anular != 1){
-            $reporte = new Reporte;
-            $reporte->id_nota = $nota->id;
-            $reporte->fecha = $nota->fecha;
-            $reporte->tipo = 'NOTA SERVICIO';
-            $reporte->id_client = $nota->id_client;
-            $reporte->metodo_pago = $pago_reciente->forma_pago;
-            $reporte->monto = $nota->precio;
-            $reporte->pago = $pago_reciente->pago;
-            $reporte->restante = $nota->restante;
-            $reporte->save();
-        }
 
         return redirect()->back()->with('edit','Nota Servicio Actualizado.');
     }

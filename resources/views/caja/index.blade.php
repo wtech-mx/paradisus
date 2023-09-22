@@ -140,13 +140,10 @@
                             <span id="card_title">
                                Ingresos
                             </span>
-                            @if ($caja_vista->egresos == NULL)
+                            @if ($caja_vista->total == NULL)
                                 <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.corte') }}">Corte</a>
-                            @endif
-
-                            @can('retirar')
                                 <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff"><i class="fa fa-cash"></i> Retirar</a>
-                            @endcan
+                            @endif
                         </div>
                     </div>
                     @can('client-list')
@@ -204,12 +201,12 @@
                             <span id="card_title">
                                Egresos
                             </span>
-                            @can('client-create')
 
-                                    <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.print_corte') }}">Imprimir Trans/Tarjeta</a>
-                                    <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Imprimir Caja</a>
+                            @if ($caja_vista->total != NULL)
+                                <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('caja.print_corte') }}">Imprimir Trans/Tarjeta</a>
+                                <a type="button" class="btn btn-sm btn-outline-danger" href="{{ route('caja.print_caja') }}">Imprimir Caja</a>
+                            @endif
 
-                            @endcan
                         </div>
                     </div>
                     @can('client-list')
@@ -250,66 +247,5 @@
 
 @section('js_custom')
 
-<script src="{{ asset('assets/js/highcharts.js') }}"></script>
-<script src="{{ asset('assets/js/highcharts-3d.js') }}"></script>
-
-<script type="text/javascript">
-    var noTer = '{{$caja_dia_suma->total}}';
-    var Ter = '{{$total_ing}}';
-    var Fecha = '{{$fechaActual}}';
-
-    Highcharts.chart('container2', {
-        chart: {
-            type: 'column',
-        },
-        title: {
-            text: 'Grafica del Dia'
-        },
-        accessibility: {
-            announceNewData: {
-                enabled: true
-            }
-        },
-        xAxis: {
-        type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: 'Capital'
-            }
-
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '${point.y:.0f}'
-                }
-            }
-        },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>${point.y:.0f}</b>'
-        },
-        series: [{
-            name: Fecha,
-            colorByPoint: true,
-            data: [
-                {
-                    name: "Ingresos",
-                    y: + Ter,
-                    drilldown: "Ingresos"
-                },
-                {
-                    name: "Egresos",
-                    y: + noTer,
-                    drilldown: "Egresos"
-                },
-            ]
-        }]
-    });
-</script>
 
 @endsection

@@ -13,21 +13,21 @@
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Nombre</label>
+                        <label for="name">Nombre *</label>
                         <input id="name" name="name" type="text" class="form-control" placeholder="Nombre" required value="{{$client->name}}">
                     </div>
                     <div class="form-group">
-                        <label for="last_name">Apellido</label>
-                        <input id="last_name" name="last_name" type="text" class="form-control" placeholder="Apellido" value="{{$client->last_name}}">
+                        <label for="last_name">Apellido *</label>
+                        <input id="last_name" name="last_name" type="text" class="form-control" placeholder="Apellido" required value="{{$client->last_name}}">
                     </div>
                     <div class="form-group">
                         <label for="email">Correo</label>
-                        <input id="email" name="email" type="email" class="form-control" placeholder="Correo" required value="{{$client->email}}">
+                        <input id="email" name="email" type="email" class="form-control" placeholder="Correo" value="{{$client->email}}">
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="phone">Telefono</label>
+                                <label for="phone">Telefono *</label>
                                 <input id="phone" name="phone" type="number" class="form-control" placeholder="Telefono" required value="{{$client->phone}}">
                             </div>
                         </div>

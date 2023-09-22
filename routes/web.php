@@ -174,6 +174,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte/imprimir/caja', [App\Http\Controllers\CajaController::class, 'imprimir_caja'])->name('caja.print_caja');
     Route::get('/reporte/imprimir/corte', [App\Http\Controllers\CajaController::class, 'imprimir_corte'])->name('caja.print_corte');
 
+    Route::get('/reporte/imprimir/caja/{id}', [App\Http\Controllers\CajaController::class, 'imprimir_recibo'])->name('caja.print_recibo');
+
     // =============== M O D U L O   C A L E N D A R I O ===============================
     Route::get('calendar', [AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
     Route::post('calendar', [AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');

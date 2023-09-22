@@ -14,6 +14,7 @@ use App\Models\LashLifting;
 use Session;
 use DB;
 use DataTables;
+Use Alert;
 
 /**
  * Class ClientController
@@ -31,6 +32,31 @@ class ClientController extends Controller
         $clients = Client::orderBy('id','DESC')->get();
 
         return view('client.index', compact('clients'));
+    }
+
+    public function advance(Request $request) {
+
+        $request->validate([
+            'id_client' => 'required_without_all:phone',
+            'phone' => 'required_without_all:id_client',
+        ]);
+
+
+        $id_client = $request->id_client;
+        $phone = $request->phone;
+
+        $client = [];
+        $paquetes = [];
+
+        if ($id_client !== 'null' && $id_client !== null) {
+            $client = Client::where('id', $id_client)->first();
+        } elseif ($phone !== 'null' && $phone !== null) {
+            $client = Client::where('id', $phone)->first();
+        }
+
+        Alert::success('Encontrado con exito ');
+
+        return view('client.index', compact('client'));
     }
 
     public function index_facial(Request $request)
@@ -59,23 +85,6 @@ class ClientController extends Controller
         $Concentimientos = ConsentimeintoJacuzzi::get();
 
         return view('client.index_jacuzzi', compact('Concentimientos'));
-    }
-
-    public function advance(Request $request, Client $cliente) {
-        $clients = $cliente;
-
-        if( $request->name){
-            $clients = $clients->where('name', 'LIKE', "%" . $request->name . "%");
-        }
-        if( $request->last_name){
-            $clients = $clients->where('last_name', 'LIKE', "%" . $request->last_name . "%");
-        }
-        if( $request->phone){
-            $clients = $clients->where('phone', 'LIKE', "%" . $request->phone . "%");
-        }
-        $clients = $clients->paginate(10);
-
-        return view('client.index', compact('clients'));
     }
 
     /**
