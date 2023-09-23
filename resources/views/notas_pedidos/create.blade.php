@@ -288,7 +288,7 @@
     // Agregar más campos dinámicamente
     $('.clonar').click(function() {
         // Clona el .clonar
-        var $clone = $('.clonar').first().clone();
+        var $clone = $('.clonars').first().clone();
 
         // Borra los valores de los inputs clonados
         $clone.find(':input').each(function() {
