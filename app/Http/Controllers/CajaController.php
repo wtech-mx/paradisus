@@ -46,7 +46,7 @@ class CajaController extends Controller
         ->where('pagos.fecha', '=', $fechaActual)
         ->where('pagos.forma_pago', '=', 'Efectivo')
         ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.pago) as total'))
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'))
         ->first();
 
         $pago_pedidos = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Efectivo')->get();
