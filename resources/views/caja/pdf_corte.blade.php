@@ -110,7 +110,7 @@
             </td>
 
             <td>
-                ${{ number_format($suma_filas_mercado, 1, '.', ',') }}
+                {{$suma_filas_mercado}}
             </td>
 
             <td>
@@ -118,7 +118,7 @@
             </td>
 
             <td>
-                ${{ number_format($suma_filas_tarjeta, 1, '.', ',') }}
+                {{$suma_filas_tarjeta}}
             </td>
 
             <td>
@@ -144,13 +144,13 @@
                     <td>
                         {{ $trans->id }}
                     </td>
-                    @if ($trans->metodo_pago2 == NULL)
+                    @if ($trans->metodo_pago2 == 'Transferencia')
                         <td>
-                            ${{ number_format($trans->dinero_recibido, 1, '.', ',') }}
+                            ${{ number_format($trans->dinero_recibido2, 1, '.', ',') }}
                         </td>
                     @else
                         <td>
-                            ${{ number_format($trans->dinero_recibido2, 1, '.', ',') }}
+                            ${{ number_format($trans->dinero_recibido, 1, '.', ',') }}
                         </td>
                     @endif
                     <td>Producto</td>
@@ -217,10 +217,14 @@
             @foreach ($total_producto_mercado as $trans)
                 <tr>
                     <td>{{ $trans->id }}</td>
-                    @if ($trans->metodo_pago2 == NULL)
-                        <td>${{ $trans->dinero_recibido }}</td>
+                    @if ($trans->metodo_pago2 == 'Mercado Pago')
+                        <td>
+                            ${{ number_format($trans->dinero_recibido2, 1, '.', ',') }}
+                        </td>
                     @else
-                        <td>${{ $trans->dinero_recibido2 }}</td>
+                        <td>
+                            ${{ number_format($trans->dinero_recibido, 1, '.', ',') }}
+                        </td>
                     @endif
                     <td>Producto</td>
                     <td>{{ date('d/n/y', strtotime($trans->fecha)) }}</td>
@@ -268,13 +272,13 @@
                     <td>
                         {{ $trans->id }}
                     </td>
-                    @if ($trans->metodo_pago2 == NULL)
+                    @if ($trans->metodo_pago2 == 'Tarjeta')
                         <td>
-                            ${{ number_format($trans->dinero_recibido, 1, '.', ',') }}
+                            ${{ number_format($trans->dinero_recibido2, 1, '.', ',') }}
                         </td>
                     @else
                         <td>
-                            ${{ number_format($trans->dinero_recibido2, 1, '.', ',') }}
+                            ${{ number_format($trans->dinero_recibido, 1, '.', ',') }}
                         </td>
                     @endif
                     <td>

@@ -163,6 +163,7 @@
                                             <th>Tipo</th>
                                             <th>Num Nota</th>
                                             <th>Monto</th>
+                                            <th>Dinero recibido</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -171,7 +172,8 @@
                                                 <td>{{ $item->fecha }}</td>
                                                 <td> <label class="badge" style="color: #7500e3;background-color: #7500e36c;">Nota Servicio</label> </td>
                                                 <td>{{ $item->id_nota }}</td>
-                                                <td>${{ $item->pago }}</td>
+                                                <td>${{ number_format($item->pago, 1, '.', ',') }}</td>
+                                                <td>${{ number_format($item->dinero_recibido, 1, '.', ',') }}</td>
                                             </tr>
                                         @endforeach
                                         @foreach ($pago_pedidos as $item)
@@ -179,17 +181,27 @@
                                                 <td>{{ $item->fecha }}</td>
                                                 <td> <label class="badge" style="color: #004fe3;background-color: #0062e36c;">Nota Pedido</label> </td>
                                                 <td>{{ $item->id }}</td>
-                                                <td>${{ $item->total }}</td>
+                                                <td>${{ number_format($item->total, 1, '.', ',') }}</td>
+                                                @if ($item->metodo_pago2 == 'Efectivo')
+                                                    <td>
+                                                        ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                         @foreach ($pago_paquete as $item)
-                                        <tr>
-                                            <td>{{ $item->fecha }}</td>
-                                            <td> <label class="badge" style="color: #e300aa;background-color: #e3009f6c;">Nota Paquete</label> </td>
-                                            <td>{{ $item->id }}</td>
-                                            <td>${{ $item->pago }}</td>
-                                        </tr>
-                                    @endforeach
+                                            <tr>
+                                                <td>{{ $item->fecha }}</td>
+                                                <td> <label class="badge" style="color: #e300aa;background-color: #e3009f6c;">Nota Paquete</label> </td>
+                                                <td>{{ $item->id }}</td>
+                                                <td>${{ $item->pago }}</td>
+                                                <td></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -231,7 +243,7 @@
                                         @foreach ($caja_dia as $item)
                                             <tr>
                                                 <td>{{ $item->fecha }}</td>
-                                                <td>${{ $item->egresos }}</td>
+                                                <td>${{ number_format($item->egresos, 1, '.', ',') }}</td>
                                                 <td>{{ $item->concepto }}</td>
                                                 <td>
                                                     <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDataModal{{ $item->id }}" ><i class="fa fa-cash"></i> Editar</a>

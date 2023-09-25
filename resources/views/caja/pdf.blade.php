@@ -165,19 +165,19 @@
                             {{ $item->Client->name }}
                         </td>
                     @endif
-                    @if ($item->metodo_pago2 == NULL)
-                        <td>
-                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
-                        </td>
-                        <td>
-                            {{ $item->metodo_pago }}
-                        </td>
-                    @else
+                    @if ($item->metodo_pago2 == 'Efectivo')
                         <td>
                             ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
                         </td>
                         <td>
                             {{ $item->metodo_pago2 }}
+                        </td>
+                    @else
+                        <td>
+                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </td>
+                        <td>
+                            {{ $item->metodo_pago }}
                         </td>
                     @endif
 

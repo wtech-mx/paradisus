@@ -49,10 +49,28 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(pagos.dinero_recibido) as total'))
         ->first();
 
-        $pago_pedidos = NotasPedidos::where('fecha', '=', $fechaActual)->where('metodo_pago', '=', 'Efectivo')->get();
-        $pago_pedidos_suma = NotasPedidos::where('fecha', '=', $fechaActual)
-        ->where('metodo_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(total) as total'))
+        $pago_pedidos = NotasPedidos::where('fecha', $fechaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Efectivo')
+                ->orWhere('metodo_pago2', 'Efectivo');
+        })
+        ->get();
+
+        $pago_pedidos_suma = NotasPedidos::where('fecha', $fechaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Efectivo')
+                ->orWhere('metodo_pago2', 'Efectivo');
+        })
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Efectivo" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'))
         ->first();
 
         $pago_paquete = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Efectivo')->get();
@@ -170,12 +188,24 @@ class CajaController extends Controller
         ->where('pagos.fecha', '=', $diaActual)
         ->where('pagos.forma_pago', '=', 'Efectivo')
         ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.pago) as total'))
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'))
         ->first();
 
-        $pago_pedidos_suma = NotasPedidos::where('fecha', '=', $diaActual)
-        ->where('metodo_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(total) as total'))
+        $pago_pedidos_suma = NotasPedidos::where('fecha', $diaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Efectivo')
+                ->orWhere('metodo_pago2', 'Efectivo');
+        })
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Efectivo" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'))
         ->first();
 
         $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
@@ -230,7 +260,7 @@ class CajaController extends Controller
         ->where('pagos.fecha', '=', $diaActual)
         ->where('pagos.forma_pago', '=', 'Efectivo')
         ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.pago) as total'))
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'))
         ->first();
 
         $pago_pedidos_suma = NotasPedidos::where('fecha', $diaActual)
@@ -238,7 +268,16 @@ class CajaController extends Controller
             $query->where('metodo_pago', 'Efectivo')
                 ->orWhere('metodo_pago2', 'Efectivo');
         })
-        ->select(DB::raw('SUM(total) as total'))
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Efectivo" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'))
         ->first();
 
         $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
@@ -321,15 +360,24 @@ class CajaController extends Controller
         ->where('pagos.fecha', '=', $fechaActual)
         ->where('pagos.forma_pago', '=', 'Transferencia')
         ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.pago) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
         ->first();
 
-        $productos_trans = NotasPedidos::where('fecha', '=', $fechaActual)
+        $productos_trans = NotasPedidos::where('fecha', $fechaActual)
         ->where(function ($query) {
-            $query->where('metodo_pago', '=', 'Transferencia')
-                ->orWhere('metodo_pago2', '=', 'Transferencia');
+            $query->where('metodo_pago', 'Transferencia')
+                ->orWhere('metodo_pago2', 'Transferencia');
         })
-        ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Transferencia" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Transferencia" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'), DB::raw('count(*) as filas'))
         ->first();
 
         $paquete_trans = PaquetesPago::where('fecha', '=', $fechaActual)
@@ -344,15 +392,24 @@ class CajaController extends Controller
         ->where('pagos.fecha', '=', $fechaActual)
         ->where('pagos.forma_pago', '=', 'Mercado Pago')
         ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.pago) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
         ->first();
 
-        $productos_mercado = NotasPedidos::where('fecha', '=', $fechaActual)
+        $productos_mercado = NotasPedidos::where('fecha', $fechaActual)
         ->where(function ($query) {
-            $query->where('metodo_pago', '=', 'Mercado Pago')
-                ->orWhere('metodo_pago2', '=', 'Mercado Pago');
+            $query->where('metodo_pago', 'Mercado Pago')
+                ->orWhere('metodo_pago2', 'Mercado Pago');
         })
-        ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Mercado Pago" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Mercado Pago" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'), DB::raw('count(*) as filas'))
         ->first();
 
         $paquete_mercado = PaquetesPago::where('fecha', '=', $fechaActual)
@@ -367,15 +424,24 @@ class CajaController extends Controller
         ->where('pagos.fecha', '=', $fechaActual)
         ->where('pagos.forma_pago', '=', 'Tarjeta')
         ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.pago) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
         ->first();
 
-        $productos_tarjeta = NotasPedidos::where('fecha', '=', $fechaActual)
+        $productos_tarjeta = NotasPedidos::where('fecha', $fechaActual)
         ->where(function ($query) {
-            $query->where('metodo_pago', '=', 'Tarjeta')
-                ->orWhere('metodo_pago2', '=', 'Tarjeta');
+            $query->where('metodo_pago', 'Tarjeta')
+                ->orWhere('metodo_pago2', 'Tarjeta');
         })
-        ->select(DB::raw('SUM(total) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Tarjeta" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Tarjeta" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'), DB::raw('count(*) as filas'))
         ->first();
 
         $paquete_tarjeta = PaquetesPago::where('fecha', '=', $fechaActual)
