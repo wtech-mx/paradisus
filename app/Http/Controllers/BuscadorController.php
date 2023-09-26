@@ -56,6 +56,37 @@ class BuscadorController extends Controller
         return view('buscador.index', compact('nota', 'paquetes'));
     }
 
+    public function update_paquete(Request $request, $id)
+    {
+
+        $paquete = Paquetes::find($id);
+        if ($request->get('id_paquete') == 1){
+            $paquete->id_servicio = 151;
+        }elseif ($request->get('id_paquete') == 2){
+            $paquete->id_servicio = 156;
+        }elseif ($request->get('id_paquete') == 3){
+            $paquete->id_servicio = 153;
+        }elseif ($request->get('id_paquete') == 4){
+            $paquete->id_servicio = 154;
+        }elseif ($request->get('id_paquete') == 5){
+            $paquete->id_servicio = 155;
+        }
+
+        if($request->get('descuento_5') == 1){
+            $descuento_5 = $request->get('precio_paquete') * .05;
+            $descuento_5_total = $request->get('precio_paquete') - $descuento_5;
+            $paquete->monto = $descuento_5_total;
+        }else{
+            $paquete->monto = $request->get('precio_paquete');
+        }
+   
+        $paquete->num_paquete = $request->get('id_paquete');
+        $paquete->restante = $request->get('pago_restante');
+        $paquete->update();
+
+        Alert::success('Se ha cambiado de paquete con exito');
+        return redirect()->back();
+    }
 
 
 }

@@ -224,6 +224,8 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O   B U S C A D O R ===============================
     Route::get('/buscador/index', [App\Http\Controllers\BuscadorController::class, 'index'])->name('index.buscador');
     Route::get('/buscador', [App\Http\Controllers\BuscadorController::class, 'advance'])->name('advance_search.buscador');
+
+    Route::patch('/buscador/cambio/paquete/update/{id}', [App\Http\Controllers\BuscadorController::class, 'update_paquete'])->name('update_paquete.buscador');
 });
 
 

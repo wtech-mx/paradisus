@@ -147,6 +147,9 @@
 
                                                     <td><label class="badge" style="color: #072146;background-color: #0721463b;">Paquete</label></td>
                                                     <td>
+                                                        <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaquete{{$paquete->id}}">
+                                                            <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px">
+                                                        </a>
                                                         {{-- <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button> --}}
                                                             @if ($paquete->num_paquete == 1)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_uno.firma_edit_uno', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
@@ -189,6 +192,7 @@
                                                         @endcan
                                                     </td>
                                                 </tr>
+                                                @include('paquetes_servicios.modal_cambio_paquete')
                                             @endforeach
                                         @endif
                                     </tbody>
@@ -219,6 +223,50 @@
 
         $(document).ready(function() {
             $('.phone').select2();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Escucha el cambio en el menú desplegable
+            $('#id_paquete').change(function() {
+                // Obtiene el precio del paquete seleccionado
+                var selectedOption = $(this).find('option:selected');
+                var precioPaquete = selectedOption.data('precio');
+
+                // Actualiza el valor del campo de precio
+                $('#precio_paquete').val(precioPaquete);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Función para actualizar el campo de pago restante
+            function actualizarPagoRestante() {
+                // Obtiene el valor del precio del paquete y el saldo a favor
+                var precioPaquete = parseFloat($('#precio_paquete').val()) || 0;
+                var saldoFavor = parseFloat($('#saldo_favor').val().replace('$', '')) || 0;
+
+                // Obtiene el valor del campo descuento_5 (debe ser 1 o 0)
+                var descuento5 = parseInt($('#descuento_5').val()) || 0;
+
+                // Calcula el descuento del 5%
+                var descuento = descuento5 === 1 ? 0.05 : 0;
+
+                // Calcula el pago restante con el descuento aplicado
+                var pagoRestante = (precioPaquete * (1 - descuento)) - saldoFavor ;
+
+                // Actualiza el valor del campo de pago restante
+                $('#pago_restante').val(pagoRestante);
+            }
+
+            // Escucha los cambios en los campos
+            $('#id_paquete, #saldo_favor, #descuento_5').change(function() {
+                actualizarPagoRestante();
+            });
+
+            // Llama a la función para establecer el valor inicialmente como vacío
+            $('#pago_restante').val('');
         });
     </script>
 @endsection
