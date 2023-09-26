@@ -131,7 +131,7 @@
                                             @endforeach
 
                                             @foreach ($paquetes as $paquete)
-                                                <tr class="text-center">
+                                                <tr>
                                                     <td>{{$paquete->id}}</td>
 
                                                     <td>{{$paquete->Client->name }} {{ $paquete->Client->last_name }}</td>
@@ -151,8 +151,8 @@
 
                                                     <td><label class="badge" style="color: #072146;background-color: #0721463b;">Paquete</label></td>
                                                     <td>
-                                                        <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaquete{{$paquete->id}}">
-                                                            <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px">
+                                                        <a type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPaquete{{$paquete->id}}">
+                                                            <i class="fa fa-files-o"></i>
                                                         </a>
                                                         {{-- <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button> --}}
                                                             @if ($paquete->num_paquete == 1)
