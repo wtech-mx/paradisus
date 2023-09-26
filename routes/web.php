@@ -32,7 +32,11 @@ Route::get('iniciar_sesion', function () {
 });
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
+
 Route::get('/nota/usuario/servicio/print/{id}', [App\Http\Controllers\NotasController::class, 'imprimir'])->name('notas.usuario_imprimir');
+Route::get('/nota/usuario/servicio/print2/{id}', [App\Http\Controllers\NotasController::class, 'imprimir2'])->name('notas.usuario_imprimir2');
+
+
 Route::get('/notas/pedidos/print/{id}', [App\Http\Controllers\NotasPedidoController::class, 'imprimir'])->name('notas_pedidos.imprimir');
 
 Route::get('/paquetes/servicios/edit/figura_ideal/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_uno'])->name('print_paquete_uno.print_uno');

@@ -550,6 +550,65 @@ class NotasController extends Controller
         return $pdf->download('Recibo_'.$id.'.pdf');
     }
 
+
+    public function imprimir2($id){
+
+        $notas_pedidos = Notas::where('id', '=', $id)
+        ->first();
+
+        $pago = Pagos::where('id_nota', '=', $id)
+        ->get();
+
+        $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
+        ->get();
+
+        $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
+        ->get();
+
+        foreach ($nota_cosme as $nota){
+            $cadena = $nota->User->name;
+        }
+
+        foreach ($notas_paquetes as $item) {
+            $servicios = [];
+
+            $servicios[] = $item->Servicios->nombre;
+
+            if ($item->id_servicio2 != NULL || $item->id_servicio2 != 0) {
+                $servicios[] = $item->Servicios2->nombre;
+            }
+
+            if ($item->id_servicio3 != NULL || $item->id_servicio3 != 0) {
+                $servicios[] = $item->Servicios3->nombre;
+            }
+
+            if ($item->id_servicio4 != NULL || $item->id_servicio4 != 0) {
+                $servicios[] = $item->Servicios4->nombre;
+            }
+
+            $notas_paquetes_data[] = [
+                'servicios' => $servicios,
+            ];
+        }
+
+        $recibo = [
+            "id" => $notas_pedidos->id,
+            "Cliente" => $notas_pedidos->Client->name ,
+            "Total" => $notas_pedidos->precio,
+            "Restante" => $notas_pedidos->restante,
+            "nombreImpresora" => "ZJ-58",
+            'pago' => $pago,
+            'cosmetologa' => $cadena,
+            'notas_paquetes' => $notas_paquetes_data,
+            // Agrega cualquier otro dato necesario para el recibo
+        ];
+
+
+        // Devuelve los datos en formato JSON
+        return response()->json(['success' => true, 'recibo' => $recibo]);
+
+    }
+
     public function usuario_print($id){
         $today =  date('d-m-Y');
         $notas_pedidos = Notas::where('id', '=', $id)

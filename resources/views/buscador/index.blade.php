@@ -106,9 +106,13 @@
                                                             style="background: #00BB2D; color: #ffff">
                                                             <i class="fa fa-whatsapp"></i>
                                                             </a>
+
                                                             <a type="button" class="btn btn-primary btn-sm" href="{{route('notas.usuario_imprimir', $notas->id)}}"style="color: #ffff">
                                                                 <i class="fa fa-print"></i>
                                                             </a>
+
+                                                            {{-- <a class="imprimirButton btn btn-primary btn-xs"  data-id="{{ $notas->id }}"><i class="fa fa-print"></i></a> --}}
+
                                                             @can('notas-edit')
                                                                 <a class="btn btn-sm btn-success" href="{{ route('notas.edit',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                             @endcan
@@ -153,6 +157,7 @@
                                                         {{-- <button type="button" class="btn btn-sm btn-primary " data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></button> --}}
                                                             @if ($paquete->num_paquete == 1)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_uno.firma_edit_uno', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+
                                                                 <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_uno.print_uno',$paquete->id)}}"style="color: #ffff">
                                                                     <i class="fa fa-print"></i>
                                                                 </a>
@@ -215,6 +220,7 @@
 
     <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{ asset('assets/js/ConectorJavaScript.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -239,6 +245,7 @@
             });
         });
     </script>
+
     <script>
         $(document).ready(function() {
             // Función para actualizar el campo de pago restante
@@ -268,5 +275,78 @@
             // Llama a la función para establecer el valor inicialmente como vacío
             $('#pago_restante').val('');
         });
+
+
+            // Agrega un evento de clic a todos los botones con la clase "imprimirButton"
+            $('.imprimirButton').click(async function() { // Agrega "async" aquí
+                console.log('click');
+                // Obtén el ID de la nota desde el atributo "data-id"
+                const id = $(this).data('id');
+                const url = '/nota/usuario/servicio/print2/' + id;
+
+                // Realiza la solicitud AJAX
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    data: {
+                        '_token': '{{ csrf_token() }}', // Agregar el token CSRF a los datos enviados
+                    },
+                    success: async function(response) { // Agrega "async" aquí
+                        console.log('Data from AJAX buscador:', response);
+
+                        // Obtén los datos del recibo de la respuesta AJAX
+                        const recibo = response.recibo;
+                        console.log('conector', recibo);
+
+                        // Empezar a usar el plugin
+                        const conector = new ConectorPluginV3();
+                        console.log('conector', conector);
+
+                        conector
+                            .EscribirTexto("Paradisus\n")
+                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                            .EscribirTexto("Total: " + recibo.Total + "\n")
+                            .EscribirTexto("Restante: " + recibo.Restante + "\n")
+                            .EscribirTexto("-------------------------")
+                            .Feed(1);
+
+                        for (const pago of recibo.pago) {
+                            conector
+                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                            .EscribirTexto(" Pago: " + pago.pago + "\n")
+                            .EscribirTexto(" Cambio: " + pago.cambio + "\n")
+                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                            .EscribirTexto("-------------------------")
+                            conector.Feed(1);
+                        }
+
+                        for (const paquete of recibo.notas_paquetes) {
+                            for (const servicio of paquete.servicios) {
+                                conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
+                                conector.Feed(1);
+                            }
+                        }
+
+                        conector
+                            .EscribirTexto("¡GRACIAS POR SU\n")
+                            .EscribirTexto("VISITA!\n")
+                            .EscribirTexto("-------------------------")
+                            .Feed(1);
+
+                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+                        if (!respuesta) {
+                            alert("Error al imprimir ticket: " + respuesta);
+                        } else {
+                            alert("Impresion realziada ");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
     </script>
 @endsection
