@@ -54,7 +54,7 @@
 
                             </ul>
 
-                            <form method="POST" action="{{ route('notas.update', $notas->id) }}" enctype="multipart/form-data" role="form">
+                            <form method="POST" action="{{ route('notas.update', $notas->id) }}" id="miFormulario" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="modal-body">
@@ -761,7 +761,7 @@
             calcularRestante();
           }
 
-          $('.servicio1_paquetes, #num1_paquetes, #descuento-adicional1_paquetes').change(calcularTotales);
+            $('.servicio1_paquetes, #num1_paquetes, #descuento-adicional1_paquetes').change(calcularTotales);
             $('.servicio2_paquetes, #num2_paquetes, #descuento-adicional2_paquetes').change(calcularTotales);
             $('.servicio3_paquetes, #num3_paquetes, #descuento-adicional3_paquetes').change(calcularTotales);
             $('.servicio4_paquetes, #num4_paquetes, #descuento-adicional4_paquetes').change(calcularTotales);
@@ -810,7 +810,6 @@
             calcularRestante();
         }
 
-
         // Llamar a sumarPreciosAdicionales al cargar la página de edición
         sumarPreciosAdicionales();
 
@@ -820,7 +819,78 @@
         // Agregar evento de cambio en el campo de propina
         $('input[id="propina"]').change(sumarPreciosAdicionales);
 
-    </script>
 
+        $(document).ready(function () {
+            $("#miFormulario").on("submit", function (event) {
+                event.preventDefault(); // Evita el envío predeterminado del formulario
+
+
+                // Realiza la solicitud POST usando AJAX
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: async function(response) { // Agrega "async" aquí
+                        // El formulario se ha enviado correctamente, ahora realiza la impresión
+                        imprimirRecibo(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            // Función para imprimir el recibo
+            async function imprimirRecibo(response) {
+
+                        // Obtén los datos del recibo de la respuesta AJAX
+                        const recibo = response.recibo;
+
+                        // Empezar a usar el plugin
+                        const conector = new ConectorPluginV3();
+
+                        conector
+                            .EscribirTexto("Paradisus\n")
+                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                            .EscribirTexto("Total: " + recibo.Total + "\n")
+                            .EscribirTexto("Restante: " + recibo.Restante + "\n")
+                            .EscribirTexto("-------------------------")
+                            .Feed(1);
+
+                            console.log(recibo.pago);
+
+                        for (const pago of recibo.pago) {
+                            conector
+                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                            .EscribirTexto(" Pago: " + pago.pago + "\n")
+                            .EscribirTexto(" Cambio: " + pago.cambio + "\n")
+                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                            .EscribirTexto("-------------------------")
+                            conector.Feed(1);
+                        }
+
+                        for (const paquete of recibo.notas_paquetes) {
+                            for (const servicio of paquete.servicios) {
+                                conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
+                                conector.Feed(1);
+                            }
+                        }
+
+                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                        if (!respuesta) {
+                            alert("Error al imprimir ticket: " + respuesta);
+
+                        } else {
+                            alert("Impresion realziada ");
+                        }
+            }
+        });
+
+    </script>
 
 @endsection

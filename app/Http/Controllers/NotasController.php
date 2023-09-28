@@ -22,6 +22,8 @@ use Session;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Barryvdh\DomPDF\Facade\Pdf;
 Use Alert;
+use Illuminate\Support\Facades\Response;
+
 
 class NotasController extends Controller
 {
@@ -405,6 +407,57 @@ class NotasController extends Controller
             }
 
             $pago->save();
+
+            if($request->get('forma_pago') == 'Efectivo'){
+
+                $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
+                ->get();
+
+                $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
+                ->get();
+
+                foreach ($nota_cosme as $notacosme){
+                    $cadena = $notacosme->User->name;
+                }
+
+                foreach ($notas_paquetes as $item) {
+                    $servicios = [];
+
+                    $servicios[] = $item->Servicios->nombre;
+
+                    if ($item->id_servicio2 != NULL || $item->id_servicio2 != 0) {
+                        $servicios[] = $item->Servicios2->nombre;
+                    }
+
+                    if ($item->id_servicio3 != NULL || $item->id_servicio3 != 0) {
+                        $servicios[] = $item->Servicios3->nombre;
+                    }
+
+                    if ($item->id_servicio4 != NULL || $item->id_servicio4 != 0) {
+                        $servicios[] = $item->Servicios4->nombre;
+                    }
+
+                    $notas_paquetes_data[] = [
+                        'servicios' => $servicios,
+                    ];
+                }
+
+                $recibo = [
+                    "id" => $nota->id,
+                    "Cliente" => $nota->Client->name,
+                    "Total" => $nota->precio,
+                    "Restante" => $nota->restante,
+                    "nombreImpresora" => "ZJ-58",
+                    'pago' => [$pago],
+                    'cosmetologa' => $cadena,
+                    'notas_paquetes' => $notas_paquetes_data,
+                    // Agrega cualquier otro dato necesario para el recibo
+                ];
+
+                // Devuelve los datos en formato JSON
+                return response()->json(['success' => true, 'recibo' => $recibo]);
+            }
+
         }
 
         if($request->get('sesion') != NULL){
@@ -485,6 +538,7 @@ class NotasController extends Controller
 
         $pago_reciente = Pagos::where('id_nota', '=', $nota->id)->orderBy('id','DESC')->first();
 
+        Alert::success('Actualizado con exito ');
         return redirect()->back()->with('edit','Nota Servicio Actualizado.');
     }
 

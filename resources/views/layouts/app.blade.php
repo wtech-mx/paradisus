@@ -98,6 +98,7 @@
   <script src="{{ asset('assets/js/plugins/jkanban/jkanban.js')}}"></script>
   <script src="{{ asset('assets/js/plugins/chartjs.min.js')}}"></script>
   <script src="{{ asset('assets/js/argon-dashboard.min.js')}}"></script>
+  <script src="{{ asset('assets/js/ConectorJavaScript.js')}}"></script>
 
   @include('sweetalert::alert')
 
