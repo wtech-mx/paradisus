@@ -304,7 +304,7 @@
                                                         <input name="pago" type="number" class="form-control text-center" id="pago_{{ $item->id }}"
                                                             value="{{$item->dinero_recibido}}" disabled></div>
 
-                                                    <div class="col-2 py-2" ><input name="forma_pago" type="text" class="form-control text-center" id="forma_pago"
+                                                    <div class="col-2 py-2" ><input name="" type="text" class="form-control text-center" id=""
                                                         value="{{$item->forma_pago}}" disabled>
                                                     </div>
 
@@ -655,6 +655,8 @@
 @endsection
 @section('select2')
     <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
 
     <script>
         // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
@@ -824,7 +826,6 @@
             $("#miFormulario").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
-
                 // Realiza la solicitud POST usando AJAX
                 $.ajax({
                     url: $(this).attr("action"),
@@ -840,6 +841,7 @@
                         console.error(xhr.responseText);
                     }
                 });
+
             });
 
             // Función para imprimir el recibo
@@ -847,46 +849,106 @@
 
                         // Obtén los datos del recibo de la respuesta AJAX
                         const recibo = response.recibo;
-
                         // Empezar a usar el plugin
-                        const conector = new ConectorPluginV3();
+                        const formaPago = $("#forma_pago").val();
 
-                        conector
-                            .EscribirTexto("Paradisus\n")
-                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                            .EscribirTexto("Total: " + recibo.Total + "\n")
-                            .EscribirTexto("Restante: " + recibo.Restante + "\n")
-                            .EscribirTexto("-------------------------")
-                            .Feed(1);
 
-                            console.log(recibo.pago);
+                        if(formaPago === 'Efectivo'){
 
-                        for (const pago of recibo.pago) {
+                            const conector = new ConectorPluginV3();
+                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+
                             conector
-                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                            .EscribirTexto(" Pago: " + pago.pago + "\n")
-                            .EscribirTexto(" Cambio: " + pago.cambio + "\n")
-                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                            .EscribirTexto("-------------------------")
-                            conector.Feed(1);
-                        }
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                .EscribirTexto("Total: " + recibo.Total + "\n")
+                                .EscribirTexto("Restante: " + recibo.Restante + "\n")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
 
-                        for (const paquete of recibo.notas_paquetes) {
-                            for (const servicio of paquete.servicios) {
-                                conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
+                            for (const pago of recibo.pago) {
+                                conector
+                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                .EscribirTexto(" Pago: " + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: " + pago.cambio + "\n")
+                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                .EscribirTexto("-------------------------")
                                 conector.Feed(1);
                             }
-                        }
 
-                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+                            for (const paquete of recibo.notas_paquetes) {
+                                for (const servicio of paquete.servicios) {
+                                    conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
+                                    conector.Feed(1);
+                                }
+                            }
 
-                        if (!respuesta) {
-                            alert("Error al imprimir ticket: " + respuesta);
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
 
-                        } else {
-                            alert("Impresion realziada ");
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket y apertura de caja',
+                                }).then(() => {
+                                    // Recarga la página
+                                    location.reload();
+                                });
+                            }
+
+                        }else{
+
+                            const conector = new ConectorPluginV3();
+                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+
+                            conector
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                .EscribirTexto("Total: " + recibo.Total + "\n")
+                                .EscribirTexto("Restante: " + recibo.Restante + "\n")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
+
+                            for (const pago of recibo.pago) {
+                                conector
+                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                .EscribirTexto(" Pago: " + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: " + pago.cambio + "\n")
+                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                .EscribirTexto("-------------------------")
+                                conector.Feed(1);
+                            }
+
+                            for (const paquete of recibo.notas_paquetes) {
+                                for (const servicio of paquete.servicios) {
+                                    conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
+                                    conector.Feed(1);
+                                }
+                            }
+
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket',
+                                }).then(() => {
+                                    // Recarga la página
+                                    location.reload();
+                                });
+                            }
+
                         }
             }
         });
