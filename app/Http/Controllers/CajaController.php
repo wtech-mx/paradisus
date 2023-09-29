@@ -138,14 +138,17 @@ class CajaController extends Controller
         }
         $caja->save();
 
-        Alert::question('Retiro exitoso', '¿Qué deseas hacer?')
-        ->persistent(false)
-        ->showCancelButton('<a href="'.route('caja.print_recibo', $caja->id).'" style="color: #ffffff!important;"><strong>Generar Recibo</strong></a>')
-        ->position('bottom-end')
-        ->toToast();
+        $recibo = [
+            "id" => $caja->id,
+            "Monto" => $caja->egresos,
+            "Concepto" => $caja->concepto,
+            "Fecha" => $caja->fecha,
+            "nombreImpresora" => "ZJ-58",
+        ];
 
-        return redirect()->route('caja.index')
-            ->with('success', 'caja created successfully.');
+        // Devuelve los datos en formato JSON
+        return response()->json(['success' => true, 'recibo' => $recibo]);
+
     }
 
     public function imprimir_recibo($id){

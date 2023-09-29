@@ -6,7 +6,6 @@
 
 @section('content')
 
-
     <div class="container-fluid">
         <div class="row">
             @php
@@ -154,7 +153,10 @@
                     </div>
                     @can('client-list')
                         <div class="card-body">
+
                             @include('caja.create')
+
+
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover table_id text-center">
                                     <thead class="thead">
@@ -265,6 +267,71 @@
 
 
 @section('js_custom')
+<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+            $("#miFormulario").on("submit", function (event) {
+                event.preventDefault(); // Evita el envío predeterminado del formulario
+
+                // Realiza la solicitud POST usando AJAX
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function(response) { // Agrega "async" aquí
+                        // El formulario se ha enviado correctamente, ahora realiza la impresión
+                        imprimirRecibo(response);
+                        console.log(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+
+            });
+
+            // Función para imprimir el recibo
+            async function imprimirRecibo(response) {
+
+                        // Obtén los datos del recibo de la respuesta AJAX
+                        const recibo = response.recibo;
+                        console.log(recibo);
+                        // Empezar a usar el plugin
+                            const conector = new ConectorPluginV3();
+                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+                            conector
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Fecha : " + recibo.Fecha + "\n")
+                                .EscribirTexto("Monto: " + recibo.Monto + "\n")
+                                .EscribirTexto("Concepto: " + recibo.Concepto + "\n")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
+
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket y apertura de caja',
+                                }).then(() => {
+                                    // Recarga la página
+                                   window.location.href = '/caja/';
+                                });
+                            }
+            }
+    });
+</script>
 
 @endsection
