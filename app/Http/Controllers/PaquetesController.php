@@ -313,6 +313,7 @@ class PaquetesController extends Controller
             file_put_contents($file, $image_base64);
             $paquete->firma = $signature;
         }
+
         $paquete->fecha1 = $request->get('fecha1');
         $paquete->notas1 = $request->get('notas1');
         $paquete->id_user1 = $request->get('id_user1');
@@ -547,6 +548,21 @@ class PaquetesController extends Controller
         $reporte->pago = $pago->pago;
         $reporte->restante = $paquete->restante;
         $reporte->save();
+
+        $recibo = [
+            "nombreImpresora" => "ZJ-58",
+            "id" => $paquete->id,
+            "Fecha" => $paquete->fecha_inicial,
+            "Cliente" => $paquete->Client->name,
+            "Paquete" => $paquete->num_paquete,
+            "Pago" => $request->get('pago'),
+            "Dinero_recibido" => $request->get('dinero_recibido'),
+            "Cambio" => $request->get('cambio'),
+            "Forma_pago" => $request->get('forma_pago'),
+        ];
+
+        // Devuelve los datos en formato JSON
+        return response()->json(['success' => true, 'recibo' => $recibo]);
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->route('paquetes_servicios.index')

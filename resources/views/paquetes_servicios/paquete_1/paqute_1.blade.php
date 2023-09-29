@@ -46,7 +46,7 @@
                         </li>
                     </ul>
 
-                    <form method="POST" action="{{ route('paquetes_servicios.store') }}" enctype="multipart/form-data" role="form">
+                    <form method="POST" action="{{ route('paquetes_servicios.store') }}" enctype="multipart/form-data" id="miFormulario" role="form">
                         @csrf
                         <div class="tab-content" id="pills-tabContent">
                             {{-- tab de paquete --}}
@@ -881,5 +881,7 @@
   <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
     @include('paquetes_servicios.script_crear')
+
+    @include('paquetes_servicios.script_print_caja')
 
 @endsection
