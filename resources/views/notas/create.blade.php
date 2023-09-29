@@ -903,7 +903,6 @@
                         }else{
 
                             const conector = new ConectorPluginV3();
-                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
 
                             conector
                                 .EscribirTexto("Paradisus\n")
