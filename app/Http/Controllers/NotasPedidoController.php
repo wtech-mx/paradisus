@@ -8,6 +8,7 @@ use App\Models\NotasPedidos;
 use App\Models\Pedido;
 use App\Models\Reporte;
 use App\Models\User;
+use App\Models\NotasCosmes;
 use Codexshaper\WooCommerce\Models\Product;
 use Session;
 use Illuminate\Http\Request;
@@ -53,6 +54,7 @@ class NotasPedidoController extends Controller
             'id_user' => 'required',
             'id_client' => 'required',
         ]);
+
         $fechaActual = date('Y-m-d');
 
         if($request->get('name') != NULL){
@@ -62,15 +64,18 @@ class NotasPedidoController extends Controller
             $client->phone = $request->get('phone');
             $client->email = $request->get('email');
             $client->save();
-         }
+        }
 
         $nota = new NotasPedidos;
         $nota->id_user = $request->get('id_user');
+
         if($request->get('name') != NULL){
             $nota->id_client = $client->id;
+
         }else{
             $nota->id_client = $request->get('id_client');
         }
+
         $nota->metodo_pago = $request->get('metodo_pago');
         $nota->fecha = $fechaActual;
 
@@ -81,6 +86,7 @@ class NotasPedidoController extends Controller
             $file->move($path, $fileName);
             $nota->foto = $fileName;
         }
+
         $nota->total = $request->get('totalSuma');
         $nota->restante = $request->get('restante');
         $nota->cambio = $request->get('cambio');
@@ -89,6 +95,7 @@ class NotasPedidoController extends Controller
         if($request->get('dinero_recibido2') > '0' ){
             $nota->dinero_recibido2 = $request->get('dinero_recibido2');
             $nota->metodo_pago2 = $request->get('metodo_pago2');
+
             if ($request->hasFile("foto2")) {
                 $file = $request->file('foto2');
                 $path = public_path() . '/foto_producto';
@@ -126,9 +133,51 @@ class NotasPedidoController extends Controller
 
         Pedido::insert($insert_data);
 
-        Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->route('notas_pedidos.index')
-                        ->with('success','Nota Productos Creado.');
+        $pedidos = Pedido::where('id_nota', '=', $nota->id)->get();
+
+        $nota_cosme = NotasCosmes::where('id_nota', '=', $nota->id)
+        ->get();
+
+
+        foreach ($nota_cosme as $notacosme){
+            $cadena = $notacosme->User->name;
+        }
+
+        foreach ($pedidos as $item) {
+
+            $pedido = [];
+
+            $pedido[] = $item->cantidad;
+            $pedido[] = $item->concepto;
+            $pedido[] = $item->importe;
+
+            $pedido_paquetes_data[] = [
+                'pedido' => $pedido,
+            ];
+        }
+
+        $recibo = [
+            "id" => $nota->id,
+            "fecha" => $nota->fecha,
+            "Metodo_pago" => $nota->metodo_pago,
+            "Metodo_pago_2" => $request->get('metodo_pago2'),
+            "Cliente" => $nota->Client->name,
+            "Total" => $nota->total,
+            "Restante" => $nota->restante,
+            "Cambio" => $nota->cambio,
+            "dinero_recibido" => $nota->dinero_recibido,
+            "nombreImpresora" => "ZJ-58",
+            'pago' => $pedido_paquetes_data,
+            'cosmetologa' => $cadena,
+            // Agrega cualquier otro dato necesario para el recibo
+        ];
+
+        // Devuelve los datos en formato JSON
+        return response()->json(['success' => true, 'recibo' => $recibo]);
+
+        // Session::flash('success', 'Se ha guardado sus datos con exito');
+        // return redirect()->route('notas_pedidos.index')
+        //                 ->with('success','Nota Productos Creado.');
     }
 
     /**

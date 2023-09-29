@@ -139,7 +139,8 @@ class NotasController extends Controller
 
         $cambio = $request->get('dinero_recibido') - $request->get('pago');
 
-        // G U A R D A R  C A M B I O
+        // G U A R D A R  C A M B I |
+        // if($request->get('cambio') > '0'){
         if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
@@ -243,6 +244,7 @@ class NotasController extends Controller
 
         // G U A R D A R  P A G O
         if($request->get('pago') != NULL){
+
             $pago = new Pagos;
             $pago->id_nota = $nota->id;
             $pago->fecha = $request->get('fecha_pago');
@@ -261,6 +263,7 @@ class NotasController extends Controller
                 $pago->foto = $fileName;
             }
             $pago->save();
+
         }
 
         // G U A R D A R  E X T R A S
@@ -272,7 +275,6 @@ class NotasController extends Controller
             $notas_extra->save();
         }
 
-
         // G U A R D A R   P R O P I N A S
         if($request->get('propina') != NULL){
             $notas_propinas = new NotasPropinas;
@@ -283,15 +285,55 @@ class NotasController extends Controller
             $notas_propinas->save();
         }
 
-        Alert::question('Registro exitoso', '¿Qué deseas hacer?')
-        ->showCancelButton('Ver Nota', '#3085d6')
-        ->showConfirmButton('Generar recibo', '#3085d6')
-        ->persistent(false)
-        ->footer('<a href="'.route('notas.usuario_imprimir', $nota->id).'">Generar Recibo</a>')
-        ->position('bottom-end')
-        ->toToast();
+        // inicio de code ajax
+        $notas_paquetes = NotasPaquetes::where('id_nota', '=', $nota_paquete->id)
+        ->get();
 
-        return redirect()->route('notas.edit',$nota->id);
+        $nota_cosme = NotasCosmes::where('id_nota', '=', $nota->id)
+        ->get();
+
+        foreach ($nota_cosme as $notacosme){
+            $cadena = $notacosme->User->name;
+        }
+
+        foreach ($notas_paquetes as $item) {
+            $servicios = [];
+
+            $servicios[] = $item->Servicios->nombre;
+
+            if ($item->id_servicio2 != NULL || $item->id_servicio2 != 0) {
+                $servicios[] = $item->Servicios2->nombre;
+            }
+
+            if ($item->id_servicio3 != NULL || $item->id_servicio3 != 0) {
+                $servicios[] = $item->Servicios3->nombre;
+            }
+
+            if ($item->id_servicio4 != NULL || $item->id_servicio4 != 0) {
+                $servicios[] = $item->Servicios4->nombre;
+            }
+
+            $notas_paquetes_data[] = [
+                'servicios' => $servicios,
+            ];
+        }
+
+        $recibo = [
+            "id" => $nota->id,
+            "Cliente" => $nota->Client->name,
+            "Total" => $nota->precio,
+            "Restante" => $nota->restante,
+            "nombreImpresora" => "ZJ-58",
+            'pago' => [$pago],
+            'cosmetologa' => $cadena,
+            'notas_paquetes' => $notas_paquetes_data,
+            // Agrega cualquier otro dato necesario para el recibo
+        ];
+
+        // Devuelve los datos en formato JSON
+        return response()->json(['success' => true, 'recibo' => $recibo]);
+
+        // return redirect()->route('notas.edit',$nota->id);
     }
 
     /**

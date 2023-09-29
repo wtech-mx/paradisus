@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3 class="mb-3">Editar Nota</h3>
+                            <h3 class="mb-3">Editar Nota Pedido</h3>
 
                             <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                                 Regresar
@@ -36,7 +36,7 @@
                         </ul>
 
 
-                        <form method="POST" action="{{ route('notas_pedidos.update', $nota_pedido->id) }}" enctype="multipart/form-data" role="form">
+                        <form method="POST" action="{{ route('notas_pedidos.update', $nota_pedido->id) }}" enctype="multipart/form-data" role="form" id="miFormulario" >
                             @csrf
                             <input type="hidden" name="_method" value="PATCH">
                             <div class="modal-body">
@@ -156,5 +156,149 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('select2')
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
+
+
+<script>
+        // inicio de funcion ajax impresion caja y tiket
+
+        $(document).ready(function () {
+            $("#miFormulario").on("submit", function (event) {
+                event.preventDefault(); // Evita el envío predeterminado del formulario
+
+                // Realiza la solicitud POST usando AJAX
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: async function(response) { // Agrega "async" aquí
+                        // El formulario se ha enviado correctamente, ahora realiza la impresión
+                        imprimirRecibo(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+
+            });
+
+            // Función para imprimir el recibo
+            async function imprimirRecibo(response) {
+
+                        // Obtén los datos del recibo de la respuesta AJAX
+                        const recibo = response.recibo;
+                        // Empezar a usar el plugin
+                        const formaPago = $("#forma_pago").val();
+
+                        if(formaPago === 'Efectivo'){
+
+                            const conector = new ConectorPluginV3();
+
+                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+
+                            conector
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
+
+                            for (const pago of recibo.pago) {
+                                conector
+                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                .EscribirTexto("-------------------------")
+                                conector.Feed(1);
+                            }
+
+                            for (const paquete of recibo.notas_paquetes) {
+                                for (const servicio of paquete.servicios) {
+                                    conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
+                                    conector.Feed(1);
+                                }
+                            }
+
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket y apertura de caja',
+                                }).then(() => {
+                                    // Recarga la página
+                                   window.location.href = '/notas/servicios/edit/' + recibo.id;
+                                });
+                            }
+
+                        }else{
+
+                            const conector = new ConectorPluginV3();
+                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+
+                            conector
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
+
+                            for (const pago of recibo.pago) {
+                                conector
+                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                .EscribirTexto("-------------------------")
+                                conector.Feed(1);
+                            }
+
+                            for (const paquete of recibo.notas_paquetes) {
+                                for (const servicio of paquete.servicios) {
+                                    conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
+                                    conector.Feed(1);
+                                }
+                            }
+
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket',
+                                }).then(() => {
+                                    // Recarga la página
+                                    window.location.href = '/notas/servicios/edit/' + recibo.id;
+                                });
+                            }
+
+                        }
+            }
+        });
+</script>
+
 
 @endsection

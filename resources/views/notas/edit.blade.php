@@ -856,6 +856,7 @@
                         if(formaPago === 'Efectivo'){
 
                             const conector = new ConectorPluginV3();
+
                             conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
 
                             conector
@@ -863,16 +864,16 @@
                                 .EscribirTexto("Ticket #: " + recibo.id + "\n")
                                 .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
                                 .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                                .EscribirTexto("Total: " + recibo.Total + "\n")
-                                .EscribirTexto("Restante: " + recibo.Restante + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
 
                             for (const pago of recibo.pago) {
                                 conector
                                 .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                                .EscribirTexto(" Pago: " + pago.pago + "\n")
-                                .EscribirTexto(" Cambio: " + pago.cambio + "\n")
+                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
                                 .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
                                 .EscribirTexto("-------------------------")
                                 conector.Feed(1);
@@ -911,16 +912,16 @@
                                 .EscribirTexto("Ticket #: " + recibo.id + "\n")
                                 .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
                                 .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                                .EscribirTexto("Total: " + recibo.Total + "\n")
-                                .EscribirTexto("Restante: " + recibo.Restante + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
 
                             for (const pago of recibo.pago) {
                                 conector
                                 .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                                .EscribirTexto(" Pago: " + pago.pago + "\n")
-                                .EscribirTexto(" Cambio: " + pago.cambio + "\n")
+                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
                                 .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
                                 .EscribirTexto("-------------------------")
                                 conector.Feed(1);

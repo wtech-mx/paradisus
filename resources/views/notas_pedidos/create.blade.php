@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 class="mb-3">Crear Nota</h3>
+                        <h3 class="mb-3">Crear Nota Pedido</h3>
 
                         <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                             Regresar
@@ -35,70 +35,103 @@
                         </li>
                     </ul>
 
-                    <form method="POST" action="{{ route('notas_pedidos.store') }}" enctype="multipart/form-data" role="form">
+                    <form method="POST" action="{{ route('notas_pedidos.store') }}" enctype="multipart/form-data" role="form" id="miFormulario">
                         @csrf
                         <div class="modal-body">
                             <div class="tab-content" id="pills-tabContent">
 
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
-                                    <div class="form-group">
+                                    <div class="row">
 
-                                        @if (Auth::user()->hasRole('cosmetologa'))
-                                        <input type="text" id="id_user" class="form-control" name="id_user" value="{{ $cosme->id }}" style="display: none">
-                                        @else
-                                        <label for="nombre">Usuario</label>
-                                        <select class="form-control" id="id_user" name="id_user"
-                                            value="{{ old('id_user') }}" required>
-                                            @foreach ($user as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @endif
-                                    </div>
+                                        <div class="form-group col-3">
+                                            @if (Auth::user()->hasRole('cosmetologa'))
+                                            <input type="text" id="id_user" class="form-control" name="id_user" value="{{ $cosme->id }}" style="display: none">
+                                            @else
+                                            <label for="nombre">Usuario</label>
+                                            <select class="form-control" id="id_user" name="id_user"
+                                                value="{{ old('id_user') }}" required>
+                                                @foreach ($user as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @endif
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="descripcion">Cliente</label>
-                                        <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                            +
-                                        </button>
-                                        <div class="collapse" id="collapseExample">
-                                            <div class="card card-body">
-                                                <div class="row">
-                                                <div class="col-4">
-                                                    <div class="form-group">
-                                                        <label for="nombre">Nombre *</label>
-                                                        <input  id="name" name="name" type="text" class="form-control">
+                                        <div class="form-group col-3">
+                                            <label for="precio">Nuevo cliente</label><br>
+                                            <button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                Agregar <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
+                                            </button>
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <label for="name">Cliente *</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">
+                                                    <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
+                                                </span>
+
+                                                <select class="form-select cliente d-inline-block"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}" >
+                                                    <option>Seleccionar cliente</option>
+                                                    @foreach ($client as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <div class="collapse" id="collapseExample">
+                                                <div class="card card-body">
+                                                    <div class="row">
+
+
+                                                        <div class="col-4">
+                                                            <label for="name">Nombre(s) *</label>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">
+                                                                    <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="29px">
+                                                                </span>
+                                                                <input  id="name" name="name" type="text" class="form-control" placeholder="Nombre o Nombres">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-4">
+                                                            <label for="name">Apellido(s) *</label>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">
+                                                                    <img src="{{ asset('assets/icons/letter.png') }}" alt="" width="29px">
+                                                                </span>
+                                                                <input  id="last_name" name="last_name" type="text" class="form-control" placeholder="Apellidos">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-4">
+                                                            <label for="name">Telefono *</label>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">
+                                                                    <img src="{{ asset('assets/icons/phone.png') }}" alt="" width="29px">
+                                                                </span>
+                                                                <input  id="phone" name="phone" type="text" class="form-control" type="tel" minlength="10" maxlength="10" placeholder="555555555">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-4">
+                                                            <label for="name">Correo *</label>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">
+                                                                    <img src="{{ asset('assets/icons/correo-electronico.png') }}" alt="" width="29px">
+                                                                </span>
+                                                                <input  id="email" name="email" type="email" class="form-control" placeholder="correo@correo.com">
+                                                            </div>
+                                                        </div>
+
                                                     </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="form-group">
-                                                        <label for="nombre">Apellido</label>
-                                                        <input  id="last_name" name="last_name" type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="form-group">
-                                                        <label for="nombre">Telefono *</label>
-                                                        <input  id="phone" name="phone" type="number" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="nombre">Correo</label>
-                                                        <input  id="email" name="email" type="email" class="form-control">
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </div>
-                                        </div><br>
-                                        <select class="form-control cliente_pedido" data-toggle="select" id="id_client" name="id_client"
-                                            value="{{ old('id_client') }}" required>
-                                            <option>Seleccionar cliente</option>
-                                            @foreach ($client as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                                            @endforeach
-                                        </select>
+                                        </div>
+
                                     </div>
 
                                     <div class="row">
@@ -137,6 +170,7 @@
                                             <div class="form-group">
                                                 <label for="num_sesion">Metodo de pago</label>
                                                 <select id="metodo_pago" name="metodo_pago" class="form-control" value="{{old('metodo_pago')}}" required>
+                                                    <option value="" selected>selecione metodo de pago</option>
                                                     <option value="Efectivo">Efectivo</option>
                                                     <option value="Transferencia">Transferencia</option>
                                                     <option value="Mercado Pago">Mercado Pago</option>
@@ -175,8 +209,9 @@
 
                                                 <div class="col-3">
                                                     <div class="form-group">
-                                                        <label for="num_sesion">Metodo de pago</label>
+                                                        <label for="num_sesion">Metodo de pago 2</label>
                                                         <select id="metodo_pago2" name="metodo_pago2" class="form-control" value="{{old('metodo_pago2')}}" >
+                                                            <option value="" selected>selecione metodo de pago</option>
                                                             <option value="Efectivo">Efectivo</option>
                                                             <option value="Transferencia">Transferencia</option>
                                                             <option value="Mercado Pago">Mercado Pago</option>
@@ -253,6 +288,8 @@
 
 <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
             $(".product").select2({
@@ -318,42 +355,192 @@
     var inputCambio = $('#cambio');
     var inputTotalSuma = $('#totalSuma');
 
-    // Función para calcular cambio y restante
-    function calcularCambioYRestante() {
-        // Obtiene el valor del dinero recibido
-        var dineroRecibido = parseFloat(inputDineroRecibido.val()) || 0;
+    function calcularSuma() {
+        var totalSuma = 0;
 
-        // Obtiene el valor del segundo dinero recibido
-        var dineroRecibido2 = parseFloat(inputDineroRecibido2.val()) || 0;
+        // Itera a través de las filas de campos de cantidad e importe
+        $('.clonars').each(function() {
+            var cantidad = parseFloat($(this).find('input[name="cantidad[]"]').val()) || 0;
+            var importe = parseFloat($(this).find('input[name="importe[]"]').val()) || 0;
+            var subtotal = cantidad * importe; // Calcula el subtotal de esta fila
+            totalSuma += subtotal;
+        });
 
-        // Calcula la suma de dinero recibido y dinero recibido2
-        var sumaDineroRecibido = dineroRecibido + dineroRecibido2;
-
-        // Obtiene el valor de total-suma
-        var totalSuma = parseFloat(inputTotalSuma.val()) || 0;
-
-        // Calcula el restante como la diferencia entre total-suma y la suma de dinero recibido y dinero recibido2
-        var restante = totalSuma - sumaDineroRecibido;
-
-        // El restante no debe ser negativo
-        restante = Math.max(restante, 0);
-
-        // Calcula el cambio solo si la suma de dinero recibido y dinero recibido2 es mayor que total-suma
-        var cambio = (sumaDineroRecibido >= totalSuma) ? sumaDineroRecibido - totalSuma : 0;
-
-        // Establece el valor del restante en el campo correspondiente
-        inputRestante.val(restante);
-
-        // Establece el valor del cambio en el campo correspondiente
-        inputCambio.val(cambio);
+        // Actualiza el valor del campo de suma
+        $('#totalSuma').val(totalSuma);
     }
 
-    // Escucha el evento 'input' en los campos de dinero recibido y dinero recibido2
-    inputDineroRecibido.on('input', calcularCambioYRestante);
-    inputDineroRecibido2.on('input', calcularCambioYRestante);
+    // Escucha el evento 'input' en los campos de cantidad y importe
+    $('input[name="cantidad[]"], input[name="importe[]"]').on('input', function() {
+        calcularSuma();
+    });
 
-    // Calcula el cambio y el restante al cargar la página
+
+    // Escucha el evento 'input' en los campos de dinero recibido y dinero recibido2
+    $('#dinero_recibido').on('input', function() {
     calcularCambioYRestante();
+    });
+
+// Función para calcular cambio y restante
+function calcularCambioYRestante() {
+    // Obtiene el valor del dinero recibido
+    var dineroRecibido = parseFloat($('#dinero_recibido').val()) || 0;
+
+    // Obtiene el valor del total sumado
+    var totalSuma = parseFloat($('#totalSuma').val()) || 0;
+
+    // Calcula el restante como la diferencia entre el total y el dinero recibido
+    var restante = totalSuma - dineroRecibido;
+
+    // El restante no debe ser negativo
+    restante = Math.max(restante, 0);
+
+    // Calcula el cambio solo si el dinero recibido es mayor o igual que el total
+    var cambio = (dineroRecibido >= totalSuma) ? dineroRecibido - totalSuma : 0;
+
+    // Actualiza los campos Restante y Cambio
+    $('#restante').val(restante);
+    $('#cambio').val(cambio);
+}
+
+// Calcula el cambio y restante al cargar la página
+calcularCambioYRestante();
+
+    // inicio de funcion ajax impresion caja y tiket
+
+    $(document).ready(function () {
+            $("#miFormulario").on("submit", function (event) {
+                event.preventDefault(); // Evita el envío predeterminado del formulario
+
+                // Realiza la solicitud POST usando AJAX
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: async function(response) { // Agrega "async" aquí
+                        // El formulario se ha enviado correctamente, ahora realiza la impresión
+                        imprimirRecibo(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+
+            });
+
+            // Función para imprimir el recibo
+            async function imprimirRecibo(response) {
+
+                        // Obtén los datos del recibo de la respuesta AJAX
+                        const recibo = response.recibo;
+                        // Empezar a usar el plugin
+                        const formaPago = $("#metodo_pago").val();
+                        const formaPago2 = $("#metodo_pago2").val();
+                        console.log(formaPago);
+                        console.log(formaPago2);
+
+                        if(formaPago === 'Efectivo' || formaPago2 === 'Efectivo'){
+
+                            const conector = new ConectorPluginV3();
+
+                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+
+                            conector
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Fecha: " + recibo.fecha + "\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Metodo Pago: " + recibo.Metodo_pago + "\n")
+                                .EscribirTexto("Metodo Pago 2: " + recibo.Metodo_pago_2 + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("Cambio: $" + recibo.Cambio + "\n")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
+
+                                for (const pago of recibo.pago) {
+                                    const cantidad = pago.pedido[0];
+                                    const concepto = pago.pedido[1];
+                                    const importe = pago.pedido[2];
+
+                                    conector
+                                        .EscribirTexto("Cantidad: " + cantidad + "\n")
+                                        .EscribirTexto("Concepto: " + concepto + "\n")
+                                        .EscribirTexto("Importe: " + importe + "\n")
+                                        .EscribirTexto("-------------------------");
+
+                                    conector.Feed(1);
+                                }
+
+
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket y apertura de caja',
+                                }).then(() => {
+                                    // Recarga la página
+                                //    window.location.href = '/notas/pedidos/edit/' + recibo.id;
+                                });
+                            }
+
+                        }else{
+
+                            const conector = new ConectorPluginV3();
+
+                            conector
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Fecha: " + recibo.fecha + "\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("Cambio: $" + recibo.Cambio + "\n")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
+
+                                for (const pago of recibo.pago) {
+                                    const cantidad = pago.pedido[0];
+                                    const concepto = pago.pedido[1];
+                                    const importe = pago.pedido[2];
+
+                                    conector
+                                        .EscribirTexto("Cantidad: " + cantidad + "\n")
+                                        .EscribirTexto("Concepto: " + concepto + "\n")
+                                        .EscribirTexto("Importe: " + importe + "\n")
+                                        .EscribirTexto("-------------------------");
+
+                                    conector.Feed(1);
+                                }
+
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket',
+                                }).then(() => {
+                                    // Recarga la página
+                                    // window.location.href = '/notas/pedidos/edit/' + recibo.id;
+                                });
+                            }
+
+                        }
+            }
+        });
+
 
     </script>
 @endsection
