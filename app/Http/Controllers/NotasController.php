@@ -137,8 +137,10 @@ class NotasController extends Controller
         $nota->restante = $request->get('restante');
         $nota->save();
 
+        $cambio = $request->get('dinero_recibido') - $request->get('pago');
+
         // G U A R D A R  C A M B I O
-        if($request->get('cambio') > '0'){
+        if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
             $caja->egresos = $request->get('cambio');
@@ -341,8 +343,10 @@ class NotasController extends Controller
         $nota->restante = $request->get('restante_paquetes');
         $nota->update();
 
+        $cambio = $request->get('dinero_recibido') - $request->get('pago');
+
         // G U A R D A R  C A M B I O
-        if($request->get('cambio') > '0'){
+        if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
             $caja->egresos = $request->get('cambio');

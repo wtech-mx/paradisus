@@ -807,52 +807,6 @@
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
-    <script type="text/javascript">
-            $(document).ready(function() {
-                $('.cliente').select2();
-
-        });
-
-        // Obtén la referencia al elemento de pago y al campo de cambio
-        var inputPago = $('#nuevo-pago');
-        var inputCambio = $('#cambio');
-        var restanteInicial; // Variable global para almacenar el valor inicial de restante
-
-        // Llamar a calcularRestante al cargar la página de edición
-        $(document).ready(function() {
-            restanteInicial = parseInt($('#restante').val()) || 0; // Obten el valor inicial de #restante
-            calcularRestante();
-        });
-
-        function calcularRestante() {
-            var pagosExistentes = 0;
-            $('.pago-existente').each(function() {
-                pagosExistentes += parseInt($(this).val()) || 0;
-            });
-
-            var nuevoPago = parseInt(inputPago.val()) || 0;
-            var restante = restanteInicial - pagosExistentes; // Utiliza el valor inicial de restante
-            console.log('restante', restante);
-            $('#restante').val(restante);
-
-            // Calcula el cambio correctamente
-            var cambio = 0;
-            if (nuevoPago >= restante) {
-                cambio = nuevoPago - restante;
-                restante = 0;
-            } else {
-                restante -= nuevoPago; // Reduce el restante por el valor del nuevo pago
-            }
-
-            console.log('cambio', cambio);
-            $('#restante').val(restante);
-            inputCambio.val(cambio); // Actualiza el campo de cambio
-        }
-
-        // Agregar evento de cambio en el campo de nuevo pago
-        inputPago.on('input', function() {
-            calcularRestante();
-        });
-    </script>
+  @include('paquetes_servicios.script_edit')
 
 @endsection

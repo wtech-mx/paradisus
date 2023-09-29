@@ -197,8 +197,9 @@
                                             <tr>
                                                 <td>{{ $item->fecha }}</td>
                                                 <td> <label class="badge" style="color: #e300aa;background-color: #e3009f6c;">Nota Paquete</label> </td>
-                                                <td>{{ $item->id }}</td>
+                                                <td>{{ $item->id_paquete }}</td>
                                                 <td>${{ $item->pago }}</td>
+                                                <td>${{ number_format($item->dinero_recibido, 1, '.', ',') }}</td>
                                                 <td></td>
                                             </tr>
                                         @endforeach

@@ -496,63 +496,6 @@
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
-    <script type="text/javascript">
-            $(document).ready(function() {
-                $('.cliente').select2();
-
-        });
-
-                        // Obtén la referencia al elemento de pago y al campo de cambio
-                        var inputPago = $('#pago');
-        var inputCambio = $('#cambio');
-        var inputRestante = $('#restante');
-        var inputEsContado = $('#es-contado'); // Campo que indica si el pago es de contado
-        var inputTotalSuma = $('#total-suma'); // Campo del total a pagar
-
-        // Obtén el valor del precio original desde la base de datos (supongamos que se almacena en una variable PHP llamada $servicio->precio)
-        var precioServicio = parseFloat(<?php echo $servicio->precio; ?>) || 0;
-
-        // Inicializa el valor del campo total-suma con el precio original
-        inputTotalSuma.val(precioServicio.toFixed(2));
-
-        // Función para calcular el restante y el cambio
-        function calcularRestanteYCambiar() {
-            // Obtiene el valor del pago
-            var pago = parseFloat(inputPago.val()) || 0;
-
-            // Obtiene el valor del total a pagar, considerando el descuento si es de contado
-            var totalAPagar = precioServicio;
-
-            if (inputEsContado.prop('checked')) {
-                var descuento = precioServicio * 0.05; // Calcula el descuento
-                totalAPagar -= descuento; // Resta el descuento al precio total
-            }
-
-            // Calcula el restante
-            var restante = totalAPagar - pago;
-
-            // Calcula el cambio si el pago excede el total
-            var cambio = 0;
-            if (pago > totalAPagar) {
-                cambio = pago - totalAPagar;
-                restante = 0;
-            }
-
-            // Establece el valor del restante en el campo correspondiente
-            inputRestante.val(restante.toFixed(2));
-
-            // Establece el valor del cambio en el campo correspondiente
-            inputCambio.val(cambio.toFixed(2));
-
-            // Actualiza el campo total-suma con el precio modificado
-            inputTotalSuma.val(totalAPagar.toFixed(2));
-        }
-
-        // Escucha el evento 'input' en el campo de pago
-        inputPago.on('input', calcularRestanteYCambiar);
-
-        // Escucha el evento 'change' en el checkbox de contado para actualizar el total-suma cuando se marca o desmarca
-        inputEsContado.on('change', calcularRestanteYCambiar);
-    </script>
+  @include('paquetes_servicios.script_crear')
 
 @endsection

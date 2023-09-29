@@ -76,7 +76,7 @@ class CajaController extends Controller
         $pago_paquete = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Efectivo')->get();
         $pago_paquete_suma = PaquetesPago::where('fecha', '=', $fechaActual)
         ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(pago) as total'))
+        ->select(DB::raw('SUM(dinero_recibido) as total'))
         ->first();
 
         $caja_dia = CajaDia::where('fecha', '=', $fechaActual)->get();
@@ -210,7 +210,7 @@ class CajaController extends Controller
 
         $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
         ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(pago) as total'))
+        ->select(DB::raw('SUM(dinero_recibido) as total'))
         ->first();
 
         $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
@@ -282,7 +282,7 @@ class CajaController extends Controller
 
         $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
         ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(pago) as total'))
+        ->select(DB::raw('SUM(dinero_recibido) as total'))
         ->first();
 
 
@@ -382,7 +382,7 @@ class CajaController extends Controller
 
         $paquete_trans = PaquetesPago::where('fecha', '=', $fechaActual)
         ->where('forma_pago', '=', 'Transferencia')
-        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
         ->first();
 
         $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total;
@@ -414,7 +414,7 @@ class CajaController extends Controller
 
         $paquete_mercado = PaquetesPago::where('fecha', '=', $fechaActual)
         ->where('forma_pago', '=', 'Mercado Pago')
-        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
         ->first();
 
         $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total;
@@ -446,7 +446,7 @@ class CajaController extends Controller
 
         $paquete_tarjeta = PaquetesPago::where('fecha', '=', $fechaActual)
         ->where('forma_pago', '=', 'Tarjeta')
-        ->select(DB::raw('SUM(pago) as total'), DB::raw('count(*) as filas'))
+        ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
         ->first();
 
         $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total + $paquete_tarjeta->total;

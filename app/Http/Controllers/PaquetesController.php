@@ -505,6 +505,7 @@ class PaquetesController extends Controller
             $pago->fecha = $request->get('fecha_pago');
             $pago->id_user = $request->get('id_user');
             $pago->pago = $request->get('pago');
+            $pago->dinero_recibido = $request->get('dinero_recibido');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota_pago');
             $pago->cambio = $request->get('cambio');
@@ -973,6 +974,7 @@ class PaquetesController extends Controller
             $pago->fecha = $request->get('fecha_pago');
             $pago->id_user = $request->get('id_user');
             $pago->pago = $request->get('pago');
+            $pago->dinero_recibido = $request->get('dinero_recibido');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->nota = $request->get('nota_pago');
             $pago->cambio = $request->get('cambio');
