@@ -248,66 +248,22 @@ class CajaController extends Controller
         $diaActual = date('Y-m-d');
         $today =  date('d-m-Y');
 
-        //  =============== C A J A  F I N A L ===============================
-        $caja_final = Caja::where('fecha', '=', $diaActual)
-        ->first();
-        if($caja_final == null){
-            $caja_final2=0;
-        }else{
-            $caja_final2=$caja_final->ingresos;
-        }
-
-        $propinasHoy = NotasPropinas::whereDate('created_at', $diaActual)->where('metdodo_pago', 'Efectivo')->get();
-
-        $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
-        ->where('pagos.fecha', '=', $diaActual)
-        ->where('pagos.forma_pago', '=', 'Efectivo')
-        ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'))
-        ->first();
-
-        $pago_pedidos_suma = NotasPedidos::where('fecha', $diaActual)
-        ->where(function ($query) {
-            $query->where('metodo_pago', 'Efectivo')
-                ->orWhere('metodo_pago2', 'Efectivo');
-        })
-        ->select(DB::raw('SUM(
-            CASE
-                WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
-                ELSE 0
-            END +
-            CASE
-                WHEN metodo_pago2 = "Efectivo" THEN COALESCE(dinero_recibido2, 0)
-                ELSE 0
-            END
-        ) AS total'))
-        ->first();
-
-        $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
-        ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(dinero_recibido) as total'))
-        ->first();
-
-
+        //====================================== LLAMADO DE LA CAJA ======================================
         $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->get();
         $caja_rep = Caja::where('fecha', '=', $diaActual)
         ->first();
 
+        //====================================== LLAMADO DE LOS REGISTROS ======================================
+
         $servicios = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
         ->where(DB::raw('pagos.fecha'), '=', $diaActual)
-        ->where('pagos.forma_pago', '=', 'Efectivo')
         ->where('notas.anular', '=', NULL)
         ->get();
 
         $productos_rep = NotasPedidos::where('fecha', $diaActual)
-        ->where(function ($query) {
-            $query->where('metodo_pago', 'Efectivo')
-                ->orWhere('metodo_pago2', 'Efectivo');
-        })
         ->get();
 
         $paquetes = PaquetesPago::where(DB::raw('fecha'), '=', $diaActual)
-        ->where('forma_pago', '=', 'Efectivo')
         ->get();
 
         $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
@@ -316,8 +272,110 @@ class CajaController extends Controller
 
         $notas_paquetes = NotasPaquetes::get();
 
+        $propinasHoy = NotasPropinas::whereDate('created_at', $diaActual)->get();
 
-        $pdf = \PDF::loadView('caja.pdf', compact('propinasHoy','caja_rep','paquetes','pago_paquete_suma','today', 'caja_final2', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'pago_pedidos_suma', 'pago_suma', 'notas_paquetes', 'caja_final'));
+        //====================================== TOTALES PARA TRANSFERENCIA ======================================
+
+        $servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $diaActual)
+        ->where('pagos.forma_pago', '=', 'Transferencia')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $productos_trans = NotasPedidos::where('fecha', $diaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Transferencia')
+                ->orWhere('metodo_pago2', 'Transferencia');
+        })
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Transferencia" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Transferencia" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $paquete_trans = PaquetesPago::where('fecha', '=', $diaActual)
+        ->where('forma_pago', '=', 'Transferencia')
+        ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total;
+        $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas;
+
+        //====================================== TOTALES PARA TRANSFERENCIA ======================================
+        $servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $diaActual)
+        ->where('pagos.forma_pago', '=', 'Mercado Pago')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $productos_mercado = NotasPedidos::where('fecha', $diaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Mercado Pago')
+                ->orWhere('metodo_pago2', 'Mercado Pago');
+        })
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Mercado Pago" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Mercado Pago" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $paquete_mercado = PaquetesPago::where('fecha', '=', $diaActual)
+        ->where('forma_pago', '=', 'Mercado Pago')
+        ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total;
+        $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas;
+
+        //====================================== TOTALES PARA TRANSFERENCIA ======================================
+        $servicios_tarjeta = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        ->where('pagos.fecha', '=', $diaActual)
+        ->where('pagos.forma_pago', '=', 'Tarjeta')
+        ->where('notas.anular', '=', NULL)
+        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $productos_tarjeta = NotasPedidos::where('fecha', $diaActual)
+        ->where(function ($query) {
+            $query->where('metodo_pago', 'Tarjeta')
+                ->orWhere('metodo_pago2', 'Tarjeta');
+        })
+        ->select(DB::raw('SUM(
+            CASE
+                WHEN metodo_pago = "Tarjeta" THEN COALESCE(dinero_recibido, 0)
+                ELSE 0
+            END +
+            CASE
+                WHEN metodo_pago2 = "Tarjeta" THEN COALESCE(dinero_recibido2, 0)
+                ELSE 0
+            END
+        ) AS total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $paquete_tarjeta = PaquetesPago::where('fecha', '=', $diaActual)
+        ->where('forma_pago', '=', 'Tarjeta')
+        ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
+        ->first();
+
+        $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total + $paquete_tarjeta->total;
+        $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas + $paquete_tarjeta->filas;
+
+
+        $pdf = \PDF::loadView('caja.pdf', compact('suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes'));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
