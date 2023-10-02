@@ -250,9 +250,23 @@
                                             <tr>
                                                 <td>${{ number_format($item->egresos, 1, '.', ',') }}</td>
                                                 <td>{{ $item->concepto }}</td>
-                                                <td>{{ $item->motivo }}</td>
+
                                                 <td>
-                                                    <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDataModal{{ $item->id }}" ><i class="fa fa-cash"></i> Editar</a>
+                                                    @if($item->motivo == 'Ingreso')
+
+                                                    <a type="" class="btn btn-sm btn-outline-success">
+                                                        {{ $item->motivo }}
+                                                    </a>
+                                                    @else
+
+                                                    <a type="" class="btn btn-sm btn-outline-danger">
+                                                        {{ $item->motivo }}
+                                                    </a>
+
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDataModal{{ $item->id }}" ><i class="fa fa-pencil"></i> Editar</a>
                                                 </td>
                                             </tr>
                                             @include('caja.edit')

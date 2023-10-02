@@ -11,26 +11,49 @@
             <form method="POST" action="{{ route('caja.update_caja', $item->id) }}" enctype="multipart/form-data" role="form">
                 @csrf
                 <input type="hidden" name="_method" value="PATCH">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nombre">Monto</label>
-                        <input name="egresos" id="egresos" type="number" class="form-control" value="{{ $item->egresos }}" required>
+                <div class="modal-body row">
+
+                    <div class="col-6 form-group">
+                        <label for="name">Monto *</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                            </span>
+                            <input name="egresos" id="egresos" type="number" class="form-control" value="{{ $item->egresos }}" >
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="descuento">Concepto</label>
-                        <textarea name="concepto" id="concepto" cols="10" rows="3" class="form-control" required>{{ $item->concepto }}</textarea>
+                    <div class="col-6 form-group">
+                        <label for="name">Retiro y/o Ingreso *</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="25px">
+                            </span>
+                            <select class="form-control" data-toggle="select" id="motivo" name="motivo" >
+                                <option value="">{{ $item->motivo }}</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="nota">Foto</label>
-                        <input type="file" id="foto" class="form-control" name="foto" value="{{ $item->foto }}">
+                    <div class="col-12 form-group">
+                        <label for="name">Comprobante *</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="25px">
+                            </span>
+                            <input type="file" id="foto" class="form-control" name="foto" value="{{ $item->foto }}">
+                        </div>
+
                         @if ($item->foto == NULL)
-                            <a href=""></a>
+
+                        <a href=""></a>
+
                         @else
                             <a target="_blank" href="{{asset('foto_retiros/'.$item->foto)}}">Abrir Imagen</a>
                         @endif
+
                     </div>
+
                 </div>
 
                 <div class="modal-footer">
