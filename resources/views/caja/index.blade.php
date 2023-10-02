@@ -131,7 +131,7 @@
             </div>
 
             {{-- =============== C A R D   I N G R E S O S =============================== --}}
-            <div class="col-sm-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -217,7 +217,7 @@
             </div>
 
             {{-- =============== C A R D   E G R E S O S =============================== --}}
-            <div class="col-sm-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -328,7 +328,7 @@
                                 .EscribirTexto("Ticket #: " + recibo.id + "\n")
                                 .EscribirTexto("Motivo : " + recibo.Motivo + "\n")
                                 .EscribirTexto("Fecha : " + recibo.Fecha + "\n")
-                                .EscribirTexto("Monto: " + recibo.Monto + "\n")
+                                .EscribirTexto("Monto: $" + recibo.Monto + "\n")
                                 .EscribirTexto("Concepto: " + recibo.Concepto + "\n")
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
