@@ -11,7 +11,7 @@
             @php
                 $total_ing = 0;
 
-                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_vista->inicio;
+                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_vista->inicio + $caja_dia_suma_Ingreso->total;
 
                 $total_egresos = 0;
                 $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -146,7 +146,7 @@
                             </a>
 
                                 <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> - Retirar
+                                    <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> Ingresos y/o Retiro
                                 </a>
                             @endif
                         </div>
@@ -169,6 +169,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         @foreach ($pago as $item)
                                             <tr>
                                                 <td>{{ $item->fecha }}</td>
@@ -178,6 +179,7 @@
                                                 <td>${{ number_format($item->dinero_recibido, 1, '.', ',') }}</td>
                                             </tr>
                                         @endforeach
+
                                         @foreach ($pago_pedidos as $item)
                                             <tr>
                                                 <td>{{ $item->fecha }}</td>
@@ -195,6 +197,7 @@
                                                 @endif
                                             </tr>
                                         @endforeach
+
                                         @foreach ($pago_paquete as $item)
                                             <tr>
                                                 <td>{{ $item->fecha }}</td>
@@ -236,18 +239,18 @@
                                 <table class="table table-striped table-hover table_id text-center">
                                     <thead class="thead">
                                         <tr>
-                                            <th>Fecha</th>
                                             <th>Monto</th>
                                             <th>Concepto</th>
+                                            <th>Motivo</th>
                                             <th>Editar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($caja_dia as $item)
                                             <tr>
-                                                <td>{{ $item->fecha }}</td>
                                                 <td>${{ number_format($item->egresos, 1, '.', ',') }}</td>
                                                 <td>{{ $item->concepto }}</td>
+                                                <td>{{ $item->motivo }}</td>
                                                 <td>
                                                     <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDataModal{{ $item->id }}" ><i class="fa fa-cash"></i> Editar</a>
                                                 </td>
@@ -309,6 +312,7 @@
                             conector
                                 .EscribirTexto("Paradisus\n")
                                 .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Motivo : " + recibo.Motivo + "\n")
                                 .EscribirTexto("Fecha : " + recibo.Fecha + "\n")
                                 .EscribirTexto("Monto: " + recibo.Monto + "\n")
                                 .EscribirTexto("Concepto: " + recibo.Concepto + "\n")

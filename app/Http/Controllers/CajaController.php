@@ -80,13 +80,13 @@ class CajaController extends Controller
         ->first();
 
         $caja_dia = CajaDia::where('fecha', '=', $fechaActual)->get();
-        $caja_dia_suma = CajaDia::where('fecha', '=', $fechaActual)
-        ->select(DB::raw('SUM(egresos) as total'))
-        ->first();
+        $caja_dia_suma = CajaDia::where('fecha', '=', $fechaActual)->where('motivo', '=', 'Retiro')->select(DB::raw('SUM(egresos) as total'))->first();
+
+        $caja_dia_suma_Ingreso = CajaDia::where('fecha', '=', $fechaActual)->where('motivo', '=', 'Ingreso')->select(DB::raw('SUM(egresos) as total'))->first();
 
         $notas_paquetes = NotasPaquetes::get();
 
-        return view('caja.index', compact('caja_vista','caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja', 'pago_paquete', 'pago_paquete_suma'));
+        return view('caja.index', compact('caja_dia_suma_Ingreso','caja_vista','caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja', 'pago_paquete', 'pago_paquete_suma'));
     }
 
     /**
@@ -120,31 +120,38 @@ class CajaController extends Controller
     {
         $this->validate($request, [
             'egresos' => 'required',
-            'concepto' => 'required'
+            'concepto' => 'required',
+            'motivo' => 'required'
         ]);
 
         $fechaActual = date('Y-m-d');
-        $caja = new CajaDia;
-        $caja->egresos = $request->get('egresos');
-        $caja->concepto = $request->get('concepto');
-        $caja->fecha = $fechaActual;
 
-        if ($request->hasFile("foto")) {
-            $file = $request->file('foto');
-            $path = public_path() . '/foto_retiros';
-            $fileName = uniqid() . $file->getClientOriginalName();
-            $file->move($path, $fileName);
-            $caja->foto = $fileName;
-        }
-        $caja->save();
+            $caja = new CajaDia;
+            $caja->egresos = $request->get('egresos');
+            $caja->concepto = $request->get('concepto');
+            $caja->motivo = $request->get('motivo');
+            $caja->fecha = $fechaActual;
+
+            if ($request->hasFile("foto")) {
+                $file = $request->file('foto');
+                $path = public_path() . '/foto_retiros';
+                $fileName = uniqid() . $file->getClientOriginalName();
+                $file->move($path, $fileName);
+                $caja->foto = $fileName;
+            }
+
+            $caja->save();
+
 
         $recibo = [
             "id" => $caja->id,
             "Monto" => $caja->egresos,
-            "Concepto" => $caja->concepto,
             "Fecha" => $caja->fecha,
+            "Concepto" => $caja->concepto,
+            "Motivo" => $caja->motivo,
             "nombreImpresora" => "ZJ-58",
         ];
+
 
         // Devuelve los datos en formato JSON
         return response()->json(['success' => true, 'recibo' => $recibo]);

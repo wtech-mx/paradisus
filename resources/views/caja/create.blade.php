@@ -10,16 +10,38 @@
             </div>
             <form method="POST" action="{{ route('caja.store') }}" id="miFormulario" enctype="multipart/form-data" role="form">
                 @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nombre">Monto</label>
-                        <input name="egresos" id="egresos" type="number" class="form-control" required>
+
+                <div class="modal-body row">
+
+                    <div class="col-6 form-group">
+                        <label for="name">Monto *</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                            </span>
+                            <input name="egresos" id="egresos" type="number" class="form-control" required>
+                        </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="col-6 form-group">
+                        <label for="name">Retiro y/o Ingreso *</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="25px">
+                            </span>
+                            <select class="form-control" data-toggle="select" id="motivo" name="motivo" required>
+                                <option value="">Seleccionar</option>
+                                <option value="Retiro">Retiro</option>
+                                <option value="Ingreso">Ingreso</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-group">
                         <label for="descuento">Concepto</label>
                         <textarea name="concepto" id="concepto" cols="10" rows="3" class="form-control" required></textarea>
                     </div>
+
                 </div>
 
                 <div class="modal-footer">
