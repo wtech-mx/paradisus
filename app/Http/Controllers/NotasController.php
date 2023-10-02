@@ -145,6 +145,7 @@ class NotasController extends Controller
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
             $caja->egresos = $request->get('cambio');
+            $caja->motivo = 'Retiro';
             $caja->concepto = 'Cambio nota servicio: ' . $nota->id;
             $caja->fecha = $fechaActual;
             $caja->save();
@@ -391,6 +392,7 @@ class NotasController extends Controller
         if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
+            $caja->motivo = 'Retiro';
             $caja->egresos = $request->get('cambio');
             $caja->concepto = 'Cambio nota servicio: ' . $id;
             $caja->fecha = $fechaActual;

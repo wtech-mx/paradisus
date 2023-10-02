@@ -93,7 +93,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr style="font-size: 14px">
                 <td>
                     ${{ number_format($caja_rep->ingresos, 1, '.', ',') }}
                 </td>
@@ -124,7 +124,7 @@
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
         </tr>
-        <tr>
+        <tr style="font-size: 14px">
             <td>
                 {{ $suma_filas_trans }}
             </td>
@@ -159,12 +159,12 @@
                 <th>ID</th>
                 <th>Fecha</th>
                 <th>Monto</th>
-                <th>Nota</th>
+                <th>Concepto</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($caja as $item)
-                <tr>
+                <tr style="font-size: 14px">
                     <td>
                         {{ $item->id }}
                     </td>
@@ -182,74 +182,31 @@
         </tbody>
     </table>
 
-    <h2 style="text-align: center;">
-        Productos <img src="{{ asset('assets/icons/productos.png') }}" alt="" width="35px"></h2>
-    <table class="table text-center">
-        <thead style="background-color: #CA87A6; color: #fff">
-            <tr>
-                <th>Nota</th>
-                <th>Cliente</th>
-                <th>Monto</th>
-                <th>Dinero Recibido</th>
-                <th>For. Pago</th>
-                <th>Dinero Recibido 2</th>
-                <th>Monto 2</th>
-                <th>For. Pago 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($productos_rep as $item)
-                <tr>
-                    <td>
-                        {{ $item->id }}
-                    </td>
-
-                        <td>
-                            {{ $item->Client->name }}
-                        </td>
-
-                        <td>
-                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
-                        </td>
-                        <td>
-                            {{ $item->metodo_pago2 }}
-                        </td>
-
-                        <td>
-                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
-                        </td>
-                        <td>
-                            {{ $item->metodo_pago }}
-                        </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
     {{-- <h2 style="page-break-before: always; text-align: center;"> --}}
     <h2 style="text-align: center;">
         Servicios <img src="{{ asset('assets/icons/mascara-facial.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
-                <th>#Nota</th>
                 <th>Cliente</th>
                 <th>Servicio</th>
-                <th>Monto</th>
+                <th>Total</th>
+                <th>Abono</th>
                 <th>Dinero Recibido</th>
+                <th>Cambio</th>
                 <th>Restante</th>
                 <th>For. Pago</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($servicios as $item)
-                <tr>
+                <tr style="font-size: 14px">
                     <td>
-                        {{ $item->id_nota }}
+                        <p class="text-sm">
+                        {{ $item->Notas->Client->name }} <br> {{ $item->Notas->Client->last_name }} <br><a href="{{ route('notas.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
                     </td>
-                    <td>
-                        {{ $item->Notas->Client->name }}
-                    </td>
-                    <td>
+                    <td >
                         @foreach($notas_paquetes as $paquete)
                             @if ($paquete->id_nota == $item->id_nota)
                                 {{$paquete->Servicios->nombre}}<br>
@@ -267,16 +224,34 @@
                         @endforeach
                     </td>
                     <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->Notas->precio, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
                         ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
                     </td>
                     <td>
+                        <p class="text-sm">
                         ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
                     </td>
                     <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
                         ${{ number_format($item->restante, 1, '.', ',') }}
+                        </p>
                     </td>
                     <td>
+                        <p class="text-sm">
                         {{ $item->forma_pago }}
+                        </p>
                     </td>
                 </tr>
             @endforeach
@@ -288,23 +263,32 @@
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
-                <th>#Nota</th>
                 <th>Cliente</th>
                 <th>Paquete</th>
-                <th>Monto</th>
+                <th>Total</th>
+                <th>Abono</th>
                 <th>Dinero Recibido</th>
+                <th>Cambio</th>
                 <th>Restante</th>
                 <th>For. Pago</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($paquetes as $item)
-                <tr>
+                <tr style="font-size: 14px">
                     <td>
-                        {{ $item->id_paquete }}
-                    </td>
-                    <td>
-                        {{ $item->Paquetes->Client->name }}
+                        {{ $item->Paquetes->Client->name }} <br> {{ $item->Paquetes->Client->last_name }} <br>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            <a href="{{ route('edit_paquete_uno.edit_uno',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            <a href="{{ route('edit_paquete_dos.edit_dos',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            <a href="{{ route('edit_paquete_tres.edit_tres',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            <a href="{{ route('edit_paquete_cuatro.edit_cuatro',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            <a href="{{ route('edit_paquete_cinco.edit_cinco',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @endif
                     </td>
                     <td>
                         @if ($item->Paquetes->num_paquete == 1)
@@ -320,10 +304,16 @@
                         @endif
                     </td>
                     <td>
+                        ${{ number_format($item->Paquetes->monto, 1, '.', ',') }}
+                    </td>
+                    <td>
                         ${{ number_format($item->pago, 1, '.', ',') }}
                     </td>
                     <td>
                         ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
                     </td>
                     <td>
                         ${{ number_format($item->Paquetes->restante, 1, '.', ',') }}
@@ -331,6 +321,55 @@
                     <td>
                         {{ $item->forma_pago }}
                     </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <h2 style="text-align: center;">
+        Productos <img src="{{ asset('assets/icons/productos.png') }}" alt="" width="35px"></h2>
+    <table class="table text-center">
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>Nota</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Dinero Recibido</th>
+                <th>For. Pago</th>
+                <th>Dinero Recibido 2</th>
+                <th>For. Pago 2</th>
+                <th>Cambio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($productos_rep as $item)
+                <tr style="font-size: 14px">
+                    <td>
+                        <a href="{{ route('notas_pedidos.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id }}</a>
+                    </td>
+
+                        <td>
+                            {{ $item->Client->name }} <br> {{ $item->Client->last_name }}
+                        </td>
+                        <td>
+                            ${{ number_format($item->total, 1, '.', ',') }}
+                        </td>
+                        <td>
+                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </td>
+                        <td>
+                            {{ $item->metodo_pago }}
+                        </td>
+
+                        <td>
+                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        </td>
+                        <td>
+                            {{ $item->metodo_pago2 }}
+                        </td>
+                        <td>
+                            ${{ number_format($item->cambio, 1, '.', ',') }}
+                        </td>
                 </tr>
             @endforeach
         </tbody>

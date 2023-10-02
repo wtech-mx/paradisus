@@ -224,19 +224,25 @@ class CajaController extends Controller
         ->first();
 
         $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
+        ->where('motivo', '=', 'Ingreso')
+        ->select(DB::raw('SUM(egresos) as total'))
+        ->first();
+
+        $caja_dia_resta = CajaDia::where('fecha', '=', $diaActual)
+        ->where('motivo', '=', 'Retiro')
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
 
         $total_ing = 0;
-        $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final->ingresos;
+        $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final->ingresos;
 
         $total_egresos = 0;
-        $total_egresos = $total_ing - $caja_dia_suma->total;
+        $total_egresos = $total_ing - $caja_dia_resta->total;
 
-        if($caja_dia_suma->total == NULL){
+        if($caja_dia_resta->total == NULL){
             $caja_egre = 0;
         }else{
-            $caja_egre = $caja_dia_suma->total;
+            $caja_egre = $caja_dia_resta->total;
         }
 
         $nota = Caja::find($caja_final->id);
@@ -256,7 +262,7 @@ class CajaController extends Controller
         $today =  date('d-m-Y');
 
         //====================================== LLAMADO DE LA CAJA ======================================
-        $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->get();
+        $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->where('motivo', '=', 'Retiro')->get();
         $caja_rep = Caja::where('fecha', '=', $diaActual)
         ->first();
 
@@ -382,7 +388,7 @@ class CajaController extends Controller
         $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas + $paquete_tarjeta->filas;
 
 
-        $pdf = \PDF::loadView('caja.pdf', compact('suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes'));
+        $pdf = \PDF::loadView('caja.pdf_nuevo', compact('suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes'));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }

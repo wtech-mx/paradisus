@@ -387,6 +387,7 @@ class PaquetesController extends Controller
         if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
+            $caja->motivo = 'Retiro';
             $caja->egresos = $request->get('cambio');
             $caja->concepto = 'Cambio nota paquete: ' . $paquete->id;
             $caja->fecha = $fechaActual;
@@ -873,6 +874,7 @@ class PaquetesController extends Controller
         if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
+            $caja->motivo = 'Retiro';
             $caja->egresos = $request->get('cambio');
             $caja->concepto = 'Cambio nota paquete: ' . $paquete->id;
             $caja->fecha = $fechaActual;

@@ -111,6 +111,7 @@ class NotasPedidoController extends Controller
         if($request->get('cambio') > '0'){
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
+            $caja->motivo = 'Retiro';
             $caja->egresos = $request->get('cambio');
             $caja->concepto = 'Cambio nota productos: ' . $nota->id;
             $caja->fecha = $fechaActual;
