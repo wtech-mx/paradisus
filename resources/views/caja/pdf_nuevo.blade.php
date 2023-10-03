@@ -84,38 +84,85 @@
 
   <div id="content">
 
+    <table style="">
+        <thead style="background-color: #CD6155; color: #fff">
+            <tr>
+                <th>Inicio de Caja del Dia con : <img src="{{ asset('assets/icons/manana.png') }}" alt="" width="35px"> </th>
+                <th>Fin de caja del dia con : <img src="{{ asset('assets/icons/pm.png') }}"alt="" width="35px"> </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th>
+                    <strong> ${{ number_format($caja_rep->inicio, 1, '.', ',') }}</strong>
+                </th>
+
+                <th>
+                    <strong> ${{ number_format($caja_rep->total, 1, '.', ',') }}</strong>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+
 
     <table class="table text-center">
         <thead style="background-color: #000; color: #fff">
             <tr>
-                <th>Ingresos <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="35px"> </th>
-                <th>Egresos <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> </th>
-                <th>Total <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px"> </th>
+                <th><p class="text-center"> Caja Ingresos  <br><img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="35px"> </p></th>
+                <th><p class="text-center"> Caja Egresos  <br><img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> </p></th>
+                <th><p class="text-center"> Caja incial - egresos = <br><img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px"> </p></th>
             </tr>
         </thead>
         <tbody>
             <tr style="font-size: 14px">
                 <td>
-                    ${{ number_format($caja_rep->ingresos, 1, '.', ',') }}
+                    <p class="text-center">
+                        ${{ number_format($caja_rep->ingresos, 1, '.', ',') }}
+                    </p>
                 </td>
+
                 <td>
-                    ${{ number_format($caja_rep->egresos, 1, '.', ',') }}
+                    <p class="text-center">
+                        ${{ number_format($caja_rep->egresos, 1, '.', ',') }}
+                    </p>
                 </td>
+
                 <td>
-                    ${{ number_format($caja_rep->total, 1, '.', ',') }}
+                    <p class="text-center">
+                        ${{ number_format($caja_rep->total, 1, '.', ',') }}
+                    </p>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <h2 style="text-align: center;">Total de ingresos del dia  <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> <br>
+        @php
+            $totalingresos =  $suma_pago_trans + $suma_pago_mercado +  $suma_pago_tarjeta;
+        @endphp
+
+        <strong> ${{ number_format($totalingresos, 1, '.', ',') }}</strong>
+
+    </h2>
+
+    <h2 style="text-align: center;">No de Servicos y ventas  <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="35px"> <br>
+        @php
+
+            $totalsumaservent = $suma_filas_trans + $suma_filas_mercado + $suma_filas_tarjeta
+
+        @endphp
+        {{ $totalsumaservent }}
+    </h2>
 
     <table class="table text-center">
         <colgroup span="2" width="100"></colgroup>
         <colgroup span="2" width="100"></colgroup>
         <colgroup span="2" width="100"></colgroup>
         <tr>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia <br> <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></td>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo <br> <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></td>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></td>
+            <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia <br> <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></td>
+            <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo <br> <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></td>
+            <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px"></td>
         </tr>
         <tr>
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
@@ -131,7 +178,7 @@
             </td>
 
             <td>
-                ${{ number_format($suma_pago_trans, 1, '.', ',') }}
+                <strong>${{ number_format($suma_pago_trans, 1, '.', ',') }}</strong>
             </td>
 
             <td>
@@ -139,7 +186,7 @@
             </td>
 
             <td>
-                ${{ number_format($suma_pago_mercado, 1, '.', ',') }}
+                <strong>${{ number_format($suma_pago_mercado, 1, '.', ',') }}</strong>
             </td>
 
             <td>
@@ -147,7 +194,7 @@
             </td>
 
             <td>
-                ${{ number_format($suma_pago_tarjeta, 1, '.', ',') }}
+                <strong>${{ number_format($suma_pago_tarjeta, 1, '.', ',') }}</strong>
             </td>
         </tr>
     </table>
@@ -174,7 +221,7 @@
     </table>
 
     <h2 style="text-align: center;">
-        Egresos <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"></h2>
+        Apertura de Caja : <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -283,7 +330,7 @@
     <h2 style="text-align: center;">
         Paquetes <img src="{{ asset('assets/icons/nuevo-producto.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
-        <thead style="background-color: #CA87A6; color: #fff">
+        <thead style="background-color: #F39C12; color: #fff">
             <tr>
                 <th>Cliente</th>
                 <th>Paquete</th>
@@ -351,7 +398,7 @@
     <h2 style="text-align: center;">
         Productos <img src="{{ asset('assets/icons/productos.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
-        <thead style="background-color: #CA87A6; color: #fff">
+        <thead style="background-color: #27AE60; color: #fff">
             <tr>
                 <th>Cliente</th>
                 <th>Total</th>
@@ -411,7 +458,7 @@
     <h2 style="text-align: center;">
         Propinas <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
-        <thead style="background-color: #CA87A6; color: #fff">
+        <thead style="background-color: #7F8C8D; color: #fff">
             <tr>
                 <th>Nota</th>
                 <th>Cliente</th>
@@ -443,7 +490,7 @@
 
     <h2 style="text-align: center;">Transferencia <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
-        <thead style="background-color: #CA87A6; color: #fff">
+        <thead style="background-color: #E74C3C; color: #fff">
             <tr>
                 <th>Cliente</th>
                 <th>Servicio</th>
@@ -586,7 +633,7 @@
 
     <h2 style="text-align: center;">Efectivo <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></h2>
     <table class="table text-center">
-        <thead style="background-color: #CA87A6; color: #fff">
+        <thead style="background-color: #9B59B6; color: #fff">
             <tr>
                 <th>Cliente</th>
                 <th>Servicio</th>
@@ -731,7 +778,7 @@
 
     <h2 style="text-align: center;">Tarjeta <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
-        <thead style="background-color: #CA87A6; color: #fff">
+        <thead style="background-color: #2980B9; color: #fff">
             <tr>
                 <th>Cliente</th>
                 <th>Servicio</th>
