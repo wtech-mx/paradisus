@@ -952,10 +952,10 @@
                         }
                     } else if (/Macintosh/i.test(userAgent)) {
                         // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
-                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 3 segundos.");
+                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
                         setTimeout(function() {
                             window.location.href = '/notas/servicios/edit/' + recibo.id;
-                        }, 3000);
+                        }, 1000);
                     }
             }
 

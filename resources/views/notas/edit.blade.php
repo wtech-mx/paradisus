@@ -846,12 +846,12 @@
 
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
-
+                        const userAgent = navigator.userAgent;
                         // Obtén los datos del recibo de la respuesta AJAX
                         const recibo = response.recibo;
                         // Empezar a usar el plugin
                         const formaPago = $("#forma_pago").val();
-
+                        if (/Windows/i.test(userAgent)) {
 
                         if(formaPago === 'Efectivo'){
 
@@ -950,6 +950,13 @@
                             }
 
                         }
+                    } else if (/Macintosh/i.test(userAgent)) {
+                        // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    }
             }
         });
 
