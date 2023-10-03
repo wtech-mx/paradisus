@@ -23,6 +23,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Barryvdh\DomPDF\Facade\Pdf;
 Use Alert;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 
 class NotasController extends Controller
@@ -106,12 +107,23 @@ class NotasController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'id_user' => 'required',
             'id_client' => 'required',
             'id_servicio' => 'required',
             'num1' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            dd($validator);
+            return back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         // N U E V O  U S U A R I O
         $fechaActual = date('Y-m-d');
@@ -455,8 +467,8 @@ class NotasController extends Controller
             }
 
             $pago->save();
-
-
+        }else{
+            $pago = '';
         }
 
         if($request->get('sesion') != NULL){
@@ -570,6 +582,7 @@ class NotasController extends Controller
                     'servicios' => $servicios,
                 ];
             }
+
 
             $recibo = [
                 "id" => $nota->id,
