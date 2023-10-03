@@ -288,7 +288,7 @@ class NotasController extends Controller
 
         // inicio de code ajax
         $notas_paquetes = NotasPaquetes::where('id_nota', '=', $nota_paquete->id)
-        ->get();
+        ->first();
 
         $nota_cosme = NotasCosmes::where('id_nota', '=', $nota->id)
         ->get();
@@ -297,26 +297,17 @@ class NotasController extends Controller
             $cadena = $notacosme->User->name;
         }
 
-        foreach ($notas_paquetes as $item) {
-            $servicios = [];
+        $servicio = $notas_paquetes->Servicios->nombre;
+        if ($notas_paquetes->id_servicio2 !== null) {
+            $servicio .= ' ' . $notas_paquetes->Servicios2->nombre;
+        }
 
-            $servicios[] = $item->Servicios->nombre;
+        if ($notas_paquetes->id_servicio3 !== null) {
+            $servicio .= ' ' . $notas_paquetes->Servicios3->nombre;
+        }
 
-            if ($item->id_servicio2 != NULL || $item->id_servicio2 != 0) {
-                $servicios[] = $item->Servicios2->nombre;
-            }
-
-            if ($item->id_servicio3 != NULL || $item->id_servicio3 != 0) {
-                $servicios[] = $item->Servicios3->nombre;
-            }
-
-            if ($item->id_servicio4 != NULL || $item->id_servicio4 != 0) {
-                $servicios[] = $item->Servicios4->nombre;
-            }
-
-            $notas_paquetes_data[] = [
-                'servicios' => $servicios,
-            ];
+        if ($notas_paquetes->id_servicio4 !== null) {
+            $servicio .= ' ' . $notas_paquetes->Servicios4->nombre;
         }
 
         $recibo = [
@@ -327,7 +318,7 @@ class NotasController extends Controller
             "nombreImpresora" => "ZJ-58",
             'pago' => [$pago],
             'cosmetologa' => $cadena,
-            'notas_paquetes' => $notas_paquetes_data,
+            'notas_paquetes' => $servicio,
             // Agrega cualquier otro dato necesario para el recibo
         ];
 
@@ -538,10 +529,6 @@ class NotasController extends Controller
         $pago_reciente = Pagos::where('id_nota', '=', $nota->id)->orderBy('id','DESC')->first();
 
 
-
-            $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
-            ->get();
-
             $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
             ->get();
 
@@ -549,26 +536,21 @@ class NotasController extends Controller
                 $cadena = $notacosme->User->name;
             }
 
-            foreach ($notas_paquetes as $item) {
-                $servicios = [];
+            $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
+            ->first();
 
-                $servicios[] = $item->Servicios->nombre;
+            $servicio = $notas_paquetes->Servicios->nombre;
 
-                if ($item->id_servicio2 != NULL || $item->id_servicio2 != 0) {
-                    $servicios[] = $item->Servicios2->nombre;
-                }
+            if ($notas_paquetes->id_servicio2 !== null) {
+                $servicio .= ' ' . $notas_paquetes->Servicios2->nombre;
+            }
 
-                if ($item->id_servicio3 != NULL || $item->id_servicio3 != 0) {
-                    $servicios[] = $item->Servicios3->nombre;
-                }
+            if ($notas_paquetes->id_servicio3 !== null) {
+                $servicio .= ' ' . $notas_paquetes->Servicios3->nombre;
+            }
 
-                if ($item->id_servicio4 != NULL || $item->id_servicio4 != 0) {
-                    $servicios[] = $item->Servicios4->nombre;
-                }
-
-                $notas_paquetes_data[] = [
-                    'servicios' => $servicios,
-                ];
+            if ($notas_paquetes->id_servicio4 !== null) {
+                $servicio .= ' ' . $notas_paquetes->Servicios4->nombre;
             }
 
             $recibo = [
@@ -579,10 +561,9 @@ class NotasController extends Controller
                 "nombreImpresora" => "ZJ-58",
                 'pago' => [$pago],
                 'cosmetologa' => $cadena,
-                'notas_paquetes' => $notas_paquetes_data,
+                'notas_paquetes' => $servicio,
                 // Agrega cualquier otro dato necesario para el recibo
             ];
-
             // Devuelve los datos en formato JSON
             return response()->json(['success' => true, 'recibo' => $recibo]);
 
