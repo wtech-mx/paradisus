@@ -856,6 +856,7 @@
                         if(formaPago === 'Efectivo'){
 
                             const conector = new ConectorPluginV3();
+                            console.log(conector);
 
                             conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
 
@@ -905,6 +906,8 @@
                         }else{
 
                             const conector = new ConectorPluginV3();
+                            console.log(conector);
+
 
                             conector
                                 .EscribirTexto("Paradisus\n")
