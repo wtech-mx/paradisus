@@ -84,6 +84,7 @@
 
   <div id="content">
 
+
     <table class="table text-center">
         <thead style="background-color: #000; color: #fff">
             <tr>
@@ -113,7 +114,7 @@
         <colgroup span="2" width="100"></colgroup>
         <tr>
             <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia <br> <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></td>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Clip <br> <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></td>
+            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo <br> <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></td>
             <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></td>
         </tr>
         <tr>
@@ -149,6 +150,27 @@
                 ${{ number_format($suma_pago_tarjeta, 1, '.', ',') }}
             </td>
         </tr>
+    </table>
+
+    <table>
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>Grafica de Ingresos/Egresos y Total</th>
+                <th>Grafica de Metodos de pago</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th>
+                    <img src="{{$chart}}">
+                </th>
+
+                <th>
+                    <img src="{{$chartmp}}">
+                </th>
+            </tr>
+        </tbody>
     </table>
 
     <h2 style="text-align: center;">
@@ -562,7 +584,7 @@
         </tbody>
     </table>
 
-    <h2 style="text-align: center;">Clip <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></h2>
+    <h2 style="text-align: center;">Efectivo <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
