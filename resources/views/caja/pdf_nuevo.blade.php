@@ -214,10 +214,13 @@
         </tr>
     </table>
 
-    {{-- <table>
+    <h2 style="text-align: center;"> <br>Graficas <br>
+    </h2>
+
+    <table>
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
-                <th>Grafica de Ingresos/Egresos y Total</th>
+                <th>Grafica Caja</th>
                 <th>Grafica de Metodos de pago</th>
             </tr>
         </thead>
@@ -233,7 +236,7 @@
                 </th>
             </tr>
         </tbody>
-    </table> --}}
+    </table>
 
     <h2 style="text-align: center;">
         Apertura de Caja : <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"></h2>
@@ -273,12 +276,12 @@
                                 if (preg_match('/Cambio nota productos: (\d{3,4})/', $texto, $matches)) {
                                     $tipo = "Productos";
                                     $digitos = $matches[1];
-                                    $enlaceHTML = "<a href='" . route('notas.edit', $digitos) . "'>Ver Pedido $digitos</a>";
+                                    $enlaceHTML = "<a href='" . route('notas_pedidos.edit', $digitos) . "'>Ver Pedido $digitos</a>";
                                     echo  $enlaceHTML;
                                 } elseif (preg_match('/Cambio nota servicio: (\d{3,4})/', $texto, $matches)) {
                                     $tipo = "Servicio";
                                     $digitos = $matches[1];
-                                    $enlaceHTML = "<a href='" . route('notas_pedidos.edit', $digitos) . "'>Ver Servicio $digitos</a>";
+                                    $enlaceHTML = "<a href='" . route('notas.edit', $digitos) . "'>Ver Servicio $digitos</a>";
                                     echo  $enlaceHTML;
                                 }
                             @endphp
