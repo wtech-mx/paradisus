@@ -101,11 +101,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="descripcion">Cliente</label>
-                                                <select class="form-control input-edit-car" id="id_client" name="id_client"
+                                                <select class="form-control input-edit-car cliente" id="id_client" name="id_client"
                                                     value="{{ old('id_client') }}" >
                                                     <option value="{{ $notas->id_client }}">{{ $notas->Client->name }} {{ $notas->Client->last_name }}</option>
                                                     @foreach ($client as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }} / {{ $item->phone }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -655,10 +655,18 @@
 @endsection
 @section('select2')
     <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
 
     <script>
+            $(document).ready(function() {
+                $('.cliente').select2();
+                $('.servicio1').select2();
+                $('.servicio2').select2();
+                $('.servicio3').select2();
+                $('.servicio4').select2();
+        });
         // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
         var inputNuevoPago = $('#nuevo-pago');
         var inputCambioEdit = $('#cambio-edit');
@@ -846,16 +854,17 @@
 
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
-
+                        const userAgent = navigator.userAgent;
                         // Obtén los datos del recibo de la respuesta AJAX
                         const recibo = response.recibo;
                         // Empezar a usar el plugin
                         const formaPago = $("#forma_pago").val();
-
+                        if (/Windows/i.test(userAgent)) {
 
                         if(formaPago === 'Efectivo'){
 
                             const conector = new ConectorPluginV3();
+                            console.log(conector);
 
                             conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
 
@@ -938,6 +947,13 @@
                             }
 
                         }
+                    } else if (/Macintosh/i.test(userAgent)) {
+                        // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    }
             }
         });
 

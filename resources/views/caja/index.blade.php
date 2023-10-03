@@ -315,10 +315,15 @@
 
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
+                        const userAgent = navigator.userAgent;
 
                         // Obtén los datos del recibo de la respuesta AJAX
+
                         const recibo = response.recibo;
                         console.log(recibo);
+
+                        if (/Windows/i.test(userAgent)) {
+
                         // Empezar a usar el plugin
                             const conector = new ConectorPluginV3();
                             conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
@@ -347,6 +352,13 @@
                                    window.location.href = '/caja/';
                                 });
                             }
+                        } else if (/Macintosh/i.test(userAgent)) {
+                        // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                        setTimeout(function() {
+                            window.location.href = 'caja';
+                        }, 1000);
+                    }
             }
     });
 </script>

@@ -93,7 +93,7 @@
                                                                 <select class="form-select cliente d-inline-block"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
                                                                     <option>Seleccionar cliente</option>
                                                                     @foreach ($client as $item)
-                                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }} / {{ $item->phone }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -835,9 +835,26 @@
                     success: async function(response) { // Agrega "async" aquí
                         // El formulario se ha enviado correctamente, ahora realiza la impresión
                         imprimirRecibo(response);
+
                     },
                     error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                            var errors = xhr.responseJSON.errors;
+                            var errorMessage = '';
+
+                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
+                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                                }
+                            }
+                            console.log(errorMessage);
+                            // Muestra el mensaje de error en una SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Faltan Campos',
+                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
+                            });
                     }
                 });
 
@@ -846,14 +863,17 @@
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
 
+                        const userAgent = navigator.userAgent;
                         // Obtén los datos del recibo de la respuesta AJAX
                         const recibo = response.recibo;
                         // Empezar a usar el plugin
                         const formaPago = $("#forma_pago").val();
+                    if (/Windows/i.test(userAgent)) {
 
                         if(formaPago === 'Efectivo'){
 
                             const conector = new ConectorPluginV3();
+                            console.log(conector);
 
                             conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
 
@@ -903,6 +923,8 @@
                         }else{
 
                             const conector = new ConectorPluginV3();
+                            console.log(conector);
+
 
                             conector
                                 .EscribirTexto("Paradisus\n")
@@ -948,7 +970,16 @@
                             }
 
                         }
+                    } else if (/Macintosh/i.test(userAgent)) {
+                        // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                        setTimeout(function() {
+                            window.location.href = '/notas/servicios/edit/' + recibo.id;
+                        }, 1000);
+                    }
             }
+
+
         });
 
 
