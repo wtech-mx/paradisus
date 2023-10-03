@@ -916,7 +916,7 @@
                                 .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
                                 .EscribirTexto("Total: $" + recibo.Total + "\n")
                                 .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n");
+                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
 
