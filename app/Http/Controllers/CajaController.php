@@ -379,6 +379,7 @@ class CajaController extends Controller
             ->with('Pedido')
             ->get();
 
+
             $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
         //====================================== END TOTALES PARA MERCADO PAGO ======================================
 
@@ -442,7 +443,14 @@ class CajaController extends Controller
                         "backgroundColor" => ['#27ae60', '#f1c40f', '#e74c3c']
                         ],
                     ],
-                    ]
+                ],
+                "options" => [
+                    "plugins" => [
+                        "datalabels" => [
+                            "color" => 'white', // Cambia el color del texto a blanco
+                        ],
+                    ],
+                ],
                 ];
 
             $chartData = json_encode($chartData);
@@ -458,13 +466,23 @@ class CajaController extends Controller
                     "labels" => ['Transferencia', 'Efectivo', 'Tarjeta'],
                     "datasets" => [
                         [
-                        "label" => "Dados",
-                        "data" => [$suma_pago_trans, $suma_pago_mercado, $suma_pago_tarjeta],
-                        "backgroundColor" => ['#2E86C1', '#28B463', '#D4AC0D']
+                            "label" => "Dados",
+                            "data" => [$suma_pago_trans, $suma_pago_mercado, $suma_pago_tarjeta],
+                            "backgroundColor" => ['#2E86C1', '#28B463', '#D4AC0D']
                         ],
                     ],
-                    ]
+                ],
+                "options" => [
+                    "plugins" => [
+                        "datalabels" => [
+                            "color" => 'white', // Cambia el color del texto a blanco
+                        ],
+                    ],
+                ],
                 ];
+
+
+
 
             $chartDatamp = json_encode($chartDatamp);
 
