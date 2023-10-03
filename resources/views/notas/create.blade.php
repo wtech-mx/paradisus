@@ -884,6 +884,7 @@
                                 .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
                                 .EscribirTexto("Total: $" + recibo.Total + "\n")
                                 .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
 
@@ -897,12 +898,6 @@
                                 conector.Feed(1);
                             }
 
-                            for (const paquete of recibo.notas_paquetes) {
-                                for (const servicio of paquete.servicios) {
-                                    conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
-                                    conector.Feed(1);
-                                }
-                            }
 
                             const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
 
@@ -925,7 +920,6 @@
                             const conector = new ConectorPluginV3();
                             console.log(conector);
 
-
                             conector
                                 .EscribirTexto("Paradisus\n")
                                 .EscribirTexto("Ticket #: " + recibo.id + "\n")
@@ -933,6 +927,7 @@
                                 .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
                                 .EscribirTexto("Total: $" + recibo.Total + "\n")
                                 .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
 
@@ -944,13 +939,6 @@
                                 .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
                                 .EscribirTexto("-------------------------")
                                 conector.Feed(1);
-                            }
-
-                            for (const paquete of recibo.notas_paquetes) {
-                                for (const servicio of paquete.servicios) {
-                                    conector.EscribirTexto("Servicio: " + servicio + "\n").EscribirTexto("-------------------------");
-                                    conector.Feed(1);
-                                }
                             }
 
                             const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
