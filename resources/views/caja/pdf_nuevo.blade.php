@@ -6,9 +6,11 @@
     body{
       font-family: sans-serif;
     }
+
     @page {
       margin: 160px 50px;
     }
+
     header { position: fixed;
       left: 0px;
       top: -160px;
@@ -18,12 +20,15 @@
       color: #fff;
       text-align: center;
     }
+
     header h1{
       margin: 10px 0;
     }
+
     header h2{
       margin: 0 0 10px 0;
     }
+
     footer {
       position: fixed;
       left: 0px;
@@ -32,23 +37,30 @@
       height: 40px;
       border-bottom: 2px solid #CA87A6;
     }
+
     footer .page:after {
       content: counter(page);
     }
+
     footer table {
       width: 100%;
     }
+
     footer p {
       text-align: right;
     }
+
     footer .izq {
       text-align: left;
     }
+
     table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    }
+    border-radius: 6px;
+
+}
 
     td, th {
     text-align: center;
@@ -58,6 +70,9 @@
     tr:nth-child(even) {
     background-color: #F7EAED;
     }
+
+
+
   </style>
 <body>
   <header>
@@ -111,7 +126,7 @@
             <tr>
                 <th><p class="text-center"> Caja Ingresos  <br><img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="35px"> </p></th>
                 <th><p class="text-center"> Caja Egresos  <br><img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> </p></th>
-                <th><p class="text-center"> Caja incial - egresos = <br><img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px"> </p></th>
+                <th><p class="text-center"> Caja Ingresos - egresos = <br>(Total de caja) <br><img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px"> </p></th>
             </tr>
         </thead>
         <tbody>
@@ -199,7 +214,7 @@
         </tr>
     </table>
 
-    <table>
+    {{-- <table>
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
                 <th>Grafica de Ingresos/Egresos y Total</th>
@@ -218,7 +233,7 @@
                 </th>
             </tr>
         </tbody>
-    </table>
+    </table> --}}
 
     <h2 style="text-align: center;">
         Apertura de Caja : <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"></h2>
@@ -229,6 +244,7 @@
                 <th>Fecha</th>
                 <th>Monto</th>
                 <th>Concepto</th>
+                <th>Ver imagen / Ir a la nota</th>
             </tr>
         </thead>
         <tbody>
@@ -245,6 +261,33 @@
                     </td>
                     <td>
                         {{ $item->concepto }}
+                    </td>
+                    <td>
+                        @if($item->foto == NULL)
+                            @php
+                                $texto = $item->concepto;
+                                // Otra opción de texto
+                                // $texto = "Cambio nota servicio: 2967";
+
+                                // Usamos una expresión regular para buscar los dígitos al final del texto
+                                if (preg_match('/Cambio nota productos: (\d{3,4})/', $texto, $matches)) {
+                                    $tipo = "Productos";
+                                    $digitos = $matches[1];
+                                    $enlaceHTML = "<a href='" . route('notas.edit', $digitos) . "'>Ver Pedido $digitos</a>";
+                                    echo  $enlaceHTML;
+                                } elseif (preg_match('/Cambio nota servicio: (\d{3,4})/', $texto, $matches)) {
+                                    $tipo = "Servicio";
+                                    $digitos = $matches[1];
+                                    $enlaceHTML = "<a href='" . route('notas_pedidos.edit', $digitos) . "'>Ver Servicio $digitos</a>";
+                                    echo  $enlaceHTML;
+                                }
+                            @endphp
+                        @else
+                            <a href="{{asset('foto_retiros/'.$item->foto)}}">
+                                Abrir imagen
+                            </a>
+
+                        @endif
                     </td>
                 </tr>
             @endforeach
