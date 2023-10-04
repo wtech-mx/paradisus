@@ -30,7 +30,7 @@
                                 <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="25px">
                             </span>
                             <select class="form-control" data-toggle="select" id="motivo" name="motivo" >
-                                <option value="">{{ $item->motivo }}</option>
+                                <option value="{{ $item->motivo }}">{{ $item->motivo }}</option>
                             </select>
                         </div>
                     </div>

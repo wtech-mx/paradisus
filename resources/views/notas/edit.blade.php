@@ -672,6 +672,9 @@
         var inputCambioEdit = $('#cambio-edit');
         var inputDineroRecibidoEdit = $('#dinero-recibido-edit');
         var inputRestanteEdit = $('#restante-edit');
+        var precioDesdeDB = parseFloat("<?php echo $notas->precio; ?>");
+        $('#total-suma').val(precioDesdeDB);
+        console.log('precio', precioDesdeDB);
 
         function calcularCambio() {
             var nuevoPago = parseFloat(inputNuevoPago.val()) || 0;
@@ -693,7 +696,7 @@
             });
 
             var nuevoPago = parseFloat(inputNuevoPago.val()) || 0;
-            var totalSuma = parseFloat($('#total-suma').val()) || 0;
+            var totalSuma = parseFloat("<?php echo $notas->precio; ?>") || 0;
             console.log('saldo', pagosExistentes);
             var restante = totalSuma - pagosExistentes - nuevoPago;
 

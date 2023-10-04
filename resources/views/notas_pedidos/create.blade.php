@@ -297,6 +297,10 @@
             });
 
             $(document).ready(function() {
+                    $('.cliente').select2();
+            });
+
+            $(document).ready(function() {
                 $(".cliente_pedido").select2({
                     dropdownParent: $("#createDataModal")
                 });
