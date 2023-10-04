@@ -331,45 +331,56 @@
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
-                <th>Nota</th>
                 <th>Cliente</th>
                 <th>Total</th>
                 <th>Dinero Recibido</th>
                 <th>For. Pago</th>
-                <th>Dinero Recibido 2</th>
-                <th>For. Pago 2</th>
                 <th>Cambio</th>
+                <th>Producto(s)</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($productos_rep as $item)
+            @php
+                $pedidos = $item->Pedido;
+            @endphp
+
                 <tr style="font-size: 14px">
-                    <td>
-                        <a href="{{ route('notas_pedidos.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id }}</a>
-                    </td>
 
                         <td>
-                            {{ $item->Client->name }} <br> {{ $item->Client->last_name }}
+                            {{ $item->Client->name }} <br> {{ $item->Client->last_name }} <br>
+                            <a href="{{ route('notas_pedidos.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id }}</a>
                         </td>
                         <td>
                             ${{ number_format($item->total, 1, '.', ',') }}
                         </td>
                         <td>
-                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }} <br>
+                            @if ($item->dinero_recibido2 !== NULL)
+                             ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                            @endif
                         </td>
                         <td>
-                            {{ $item->metodo_pago }}
+                            {{ $item->metodo_pago }}<br>
+                            @if ($item->metodo_pago2 !== NULL)
+                               {{ $item->metodo_pago2 }}
+                            @endif
                         </td>
 
                         <td>
-                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
-                        </td>
-                        <td>
-                            {{ $item->metodo_pago2 }}
-                        </td>
-                        <td>
                             ${{ number_format($item->cambio, 1, '.', ',') }}
                         </td>
+
+                        <td>
+                            <ul>
+                                @foreach ($pedidos as $pedido)
+                                    <li>
+                                        {{ $pedido->concepto}}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </td>
+
                 </tr>
             @endforeach
         </tbody>
@@ -402,6 +413,435 @@
                     </td>
                     <td>
                         {{ $item->metdodo_pago }}
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <h2 style="text-align: center;">Transferencia <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></h2>
+    <table class="table text-center">
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Abono</th>
+                <th>Dinero Recibido</th>
+                <th>Cambio</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($total_producto_trans as $item)
+                @php
+                    $pedidos = $item->Pedido;
+                @endphp
+                <tr>
+                    <td>
+                        {{ $item->Client->name }} <br> {{ $item->Client->last_name }} <br>
+                        <a href="{{ route('notas_pedidos.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id }}</a>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach ($pedidos as $pedido)
+                                <li>
+                                    {{ $pedido->concepto}}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        @if ($item->metodo_pago2 == 'Transferencia')
+                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @else
+                                ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->metodo_pago2 == 'Transferencia')
+                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @else
+                                ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        @endif
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>Producto</td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_servicios_trans as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->Notas->Client->name }} <br> {{ $item->Notas->Client->last_name }} <br><a href="{{ route('notas.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                        @foreach($notas_paquetes as $paquete)
+                            @if ($paquete->id_nota == $item->id_nota)
+                                {{$paquete->Servicios->nombre}}<br>
+
+                                @if($paquete->id_servicio2 != NULL || $paquete->id_servicio2 != 0)
+                                    {{$paquete->Servicios2->nombre}}<br>
+                                @endif
+                                @if($paquete->id_servicio3 != NULL || $paquete->id_servicio3 != 0)
+                                    {{$paquete->Servicios3->nombre}}<br>
+                                @endif
+                                @if($paquete->id_servicio4 != NULL || $paquete->id_servicio4 != 0)
+                                    {{$paquete->Servicios4->nombre}}<br>
+                                @endif
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Servicio
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_paquetes_trans as $item)
+                <tr>
+                    <td>
+                        {{ $item->Paquetes->Client->name }} <br> {{ $item->Paquetes->Client->last_name }} <br>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            <a href="{{ route('edit_paquete_uno.edit_uno',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            <a href="{{ route('edit_paquete_dos.edit_dos',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            <a href="{{ route('edit_paquete_tres.edit_tres',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            <a href="{{ route('edit_paquete_cuatro.edit_cuatro',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            <a href="{{ route('edit_paquete_cinco.edit_cinco',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            figura Ideal c/Aparatología
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            Lipoescultura s/Cirugía
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            Moldeante & Reductivo
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            Drenante & Linfático
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            Glúteos Definido & Perfectos
+                        @endif
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Paquete
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <h2 style="text-align: center;">Clip <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></h2>
+    <table class="table text-center">
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Abono</th>
+                <th>Dinero Recibido</th>
+                <th>Cambio</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($total_producto_mercado as $item)
+                @php
+                    $pedidos = $item->Pedido;
+                @endphp
+                <tr>
+                    <td>
+                        {{ $item->Client->name }} <br> {{ $item->Client->last_name }} <br>
+                        <a href="{{ route('notas_pedidos.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id }}</a>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach ($pedidos as $pedido)
+                                <li>
+                                    {{ $pedido->concepto}}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        @if ($item->metodo_pago2 == 'Mercado Pago')
+                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @else
+                                ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->metodo_pago2 == 'Mercado Pago')
+                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @else
+                                ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        @endif
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>Producto</td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_servicios_mercado as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->Notas->Client->name }} <br> {{ $item->Notas->Client->last_name }} <br><a href="{{ route('notas.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                        @foreach($notas_paquetes as $paquete)
+                            @if ($paquete->id_nota == $item->id_nota)
+                                {{$paquete->Servicios->nombre}}<br>
+
+                                @if($paquete->id_servicio2 != NULL || $paquete->id_servicio2 != 0)
+                                    {{$paquete->Servicios2->nombre}}<br>
+                                @endif
+                                @if($paquete->id_servicio3 != NULL || $paquete->id_servicio3 != 0)
+                                    {{$paquete->Servicios3->nombre}}<br>
+                                @endif
+                                @if($paquete->id_servicio4 != NULL || $paquete->id_servicio4 != 0)
+                                    {{$paquete->Servicios4->nombre}}<br>
+                                @endif
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Servicio
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_paquetes_mercado as $item)
+                <tr>
+                    <td>
+                        {{ $item->Paquetes->Client->name }} <br> {{ $item->Paquetes->Client->last_name }} <br>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            <a href="{{ route('edit_paquete_uno.edit_uno',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            <a href="{{ route('edit_paquete_dos.edit_dos',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            <a href="{{ route('edit_paquete_tres.edit_tres',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            <a href="{{ route('edit_paquete_cuatro.edit_cuatro',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            <a href="{{ route('edit_paquete_cinco.edit_cinco',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            figura Ideal c/Aparatología
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            Lipoescultura s/Cirugía
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            Moldeante & Reductivo
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            Drenante & Linfático
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            Glúteos Definido & Perfectos
+                        @endif
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Paquete
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <h2 style="text-align: center;">Tarjeta <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></h2>
+    <table class="table text-center">
+        <thead style="background-color: #CA87A6; color: #fff">
+            <tr>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Abono</th>
+                <th>Dinero Recibido</th>
+                <th>Cambio</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($total_producto_tarjeta as $item)
+                @php
+                    $pedidos = $item->Pedido;
+                @endphp
+                <tr>
+                    <td>
+                        {{ $item->Client->name }} <br> {{ $item->Client->last_name }} <br>
+                        <a href="{{ route('notas_pedidos.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id }}</a>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach ($pedidos as $pedido)
+                                <li>
+                                    {{ $pedido->concepto}}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        @if ($item->metodo_pago2 == 'Tarjeta')
+                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @else
+                                ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->metodo_pago2 == 'Tarjeta')
+                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @else
+                                ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        @endif
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>Producto</td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_servicios_tarjeta as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->Notas->Client->name }} <br> {{ $item->Notas->Client->last_name }} <br><a href="{{ route('notas.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                        @foreach($notas_paquetes as $paquete)
+                            @if ($paquete->id_nota == $item->id_nota)
+                                {{$paquete->Servicios->nombre}}<br>
+
+                                @if($paquete->id_servicio2 != NULL || $paquete->id_servicio2 != 0)
+                                    {{$paquete->Servicios2->nombre}}<br>
+                                @endif
+                                @if($paquete->id_servicio3 != NULL || $paquete->id_servicio3 != 0)
+                                    {{$paquete->Servicios3->nombre}}<br>
+                                @endif
+                                @if($paquete->id_servicio4 != NULL || $paquete->id_servicio4 != 0)
+                                    {{$paquete->Servicios4->nombre}}<br>
+                                @endif
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Servicio
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_paquetes_tarjeta as $item)
+                <tr>
+                    <td>
+                        {{ $item->Paquetes->Client->name }} <br> {{ $item->Paquetes->Client->last_name }} <br>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            <a href="{{ route('edit_paquete_uno.edit_uno',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            <a href="{{ route('edit_paquete_dos.edit_dos',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            <a href="{{ route('edit_paquete_tres.edit_tres',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            <a href="{{ route('edit_paquete_cuatro.edit_cuatro',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            <a href="{{ route('edit_paquete_cinco.edit_cinco',$item->id_paquete) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_paquete }}</a>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->Paquetes->num_paquete == 1)
+                            figura Ideal c/Aparatología
+                        @elseif ($item->Paquetes->num_paquete == 2)
+                            Lipoescultura s/Cirugía
+                        @elseif ($item->Paquetes->num_paquete == 3)
+                            Moldeante & Reductivo
+                        @elseif ($item->Paquetes->num_paquete == 4)
+                            Drenante & Linfático
+                        @elseif ($item->Paquetes->num_paquete == 5)
+                            Glúteos Definido & Perfectos
+                        @endif
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Paquete
                     </td>
                 </tr>
             @endforeach

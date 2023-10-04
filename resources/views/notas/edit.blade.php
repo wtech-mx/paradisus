@@ -690,13 +690,19 @@
         }
 
         function calcularRestante() {
+            var cambiosRealizados = false;
             var pagosExistentes = 0;
             $('.pago-existente').each(function() {
                 pagosExistentes += parseFloat($(this).val()) || 0;
             });
 
             var nuevoPago = parseFloat(inputNuevoPago.val()) || 0;
-            var totalSuma = parseFloat("<?php echo $notas->precio; ?>") || 0;
+            if (cambiosRealizados) {
+                var totalSuma = parseFloat($('#total-suma').val()) || 0;
+            }else{
+                var totalSuma = parseFloat("<?php echo $notas->precio; ?>") || 0;
+            }
+
             console.log('saldo', pagosExistentes);
             var restante = totalSuma - pagosExistentes - nuevoPago;
 
@@ -740,6 +746,7 @@
           }
 
           function calcularTotales() {
+            var cambiosRealizados = false;
             calcularTotalServicio(1);
             calcularTotalServicio(2);
             calcularTotalServicio(3);
@@ -747,12 +754,14 @@
 
             // Calcular el total de suma
             var totalSuma = 0;
+
             $('.form-control[id^="total"][id$="_paquetes"]').each(function() {
-              var valorTotal = parseFloat($(this).val());
-              if (!isNaN(valorTotal)) {
+            var valorTotal = parseFloat($(this).val());
+            if (!isNaN(valorTotal)) {
                 totalSuma += valorTotal;
-              }
+            }
             });
+
 
             // Sumar los precios de las notas extras
             $('input[name="precio[]"]').each(function() {
@@ -770,7 +779,11 @@
                 }
             });
 
-            $('#total-suma').val(precioDesdeDB);
+            if (cambiosRealizados) {
+                $('#total-suma').val(totalSuma);
+            }else{
+                $('#total-suma').val(precioDesdeDB);
+            }
             calcularRestante();
           }
 
@@ -795,12 +808,18 @@
 
         function sumarPreciosAdicionales() {
             var totalServicios = 0;
-            $('.form-control[id^="total"][id$="_paquetes"]').each(function() {
-                var valorTotal = parseFloat($(this).val());
-                if (!isNaN(valorTotal)) {
-                totalServicios += valorTotal;
-                }
-            });
+            var cambiosRealizados = false;
+            if(cambiosRealizados){
+                $('.form-control[id^="total"][id$="_paquetes"]').each(function() {
+                    var valorTotal = parseFloat($(this).val());
+                    if (!isNaN(valorTotal)) {
+                    totalServicios += valorTotal;
+                    }
+                });
+            }else{
+                totalServicios = precioDesdeDB;
+            }
+
 
             var totalAdicionales = 0;
             $('input[id="precio"]').each(function() {
