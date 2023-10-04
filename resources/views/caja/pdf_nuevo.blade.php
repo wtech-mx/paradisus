@@ -672,11 +672,13 @@
                     </td>
                     <td>
                         <p class="text-sm">
-                        ${{ $item->cambio }}
+                            ${{ number_format($item->cambio, 1, '.', ',') }}
                         </p>
                     </td>
                     <td>
-                        Servicio
+                        <p class="text-sm">
+                            Servicio
+                        </p>
                     </td>
                 </tr>
             @endforeach
