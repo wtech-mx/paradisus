@@ -770,7 +770,7 @@
                 }
             });
 
-            $('#total-suma').val(totalSuma);
+            $('#total-suma').val(precioDesdeDB);
             calcularRestante();
           }
 
