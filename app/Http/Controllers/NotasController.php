@@ -95,7 +95,7 @@ class NotasController extends Controller
     {
         $client = Client::orderBy('name','ASC')->get();
         $servicio = Servicios::orderBy('nombre','ASC')->get();
-        $user = User::get();
+        $user = User::where('id', '!=', 1)->get();
 
         return view('notas.create',compact('client', 'servicio', 'user'));
     }
@@ -366,7 +366,7 @@ class NotasController extends Controller
         $notas_propinas = NotasPropinas::where('id_nota', '=', $id)->get();
 
         $nota_cosme = NotasCosmes::where('id_nota', '=', $id)->get();
-        $user = User::get();
+        $user = User::where('id', '!=', 1)->get();
 
         return view('notas.edit',compact('client', 'servicio', 'user', 'pago', 'nota_cosme', 'notas_sesiones', 'notas_paquetes', 'notas_extras','notas_propinas', 'notas'));
     }

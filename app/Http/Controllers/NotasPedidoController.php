@@ -37,7 +37,7 @@ class NotasPedidoController extends Controller
     {
         $cosme = auth()->user();
         $client = Client::orderBy('name','ASC')->get();
-        $user = User::get();
+        $user = User::where('id', '!=', 1)->get();
 
         return view('notas_pedidos.create', compact('cosme','user', 'client'));
     }
@@ -208,7 +208,7 @@ class NotasPedidoController extends Controller
          $pedido = Pedido::get();
          $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
          $client = Client::orderBy('name','ASC')->get();
-         $user = User::get();
+         $user = User::where('id', '!=', 1)->get();
 
          return view('notas_pedidos.edit', compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme'));
      }
