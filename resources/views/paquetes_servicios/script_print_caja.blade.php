@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
+
 <script>
 $(document).ready(function () {
             $("#miFormulario").on("submit", function (event) {
@@ -19,7 +20,23 @@ $(document).ready(function () {
 
                     },
                     error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                            var errors = xhr.responseJSON.errors;
+                            var errorMessage = '';
+
+                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
+                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                                }
+                            }
+                            console.log(errorMessage);
+                            // Muestra el mensaje de error en una SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Faltan Campos',
+                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
+                            });
                     }
                 });
 
