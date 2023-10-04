@@ -66,7 +66,7 @@
 
                                             <div class="col-6 form-group ">
                                                 <label for="nombre">Seleccione Cosmetologa</label>
-                                                <select class="form-control " id="id_user[]" name="id_user[]" multiple value="{{ old('submarca') }}" required>
+                                                <select class="form-control user" id="id_user[]" name="id_user[]" value="{{ old('submarca') }}" required>
                                                     @foreach ($user as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                     @endforeach
@@ -646,6 +646,7 @@
     <script type="text/javascript">
 
             $(document).ready(function() {
+                $('.user').select2();
                 $('.cliente').select2();
                 $('.servicio1').select2();
                 $('.servicio2').select2();
