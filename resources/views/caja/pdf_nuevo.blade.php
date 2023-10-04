@@ -114,7 +114,7 @@
         <colgroup span="2" width="100"></colgroup>
         <tr>
             <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia <br> <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></td>
-            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo <br> <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></td>
+            <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo <br> <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></td>
             <td colspan="2" style="background-color: #CA87A6; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></td>
         </tr>
         <tr>
@@ -584,7 +584,7 @@
         </tbody>
     </table>
 
-    <h2 style="text-align: center;">Efectivo <img src="{{ asset('assets/icons/ml.png') }}" alt="" width="50x"></h2>
+    <h2 style="text-align: center;">Efectivo <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></h2>
     <table class="table text-center">
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
@@ -616,14 +616,14 @@
                         </ul>
                     </td>
                     <td>
-                        @if ($item->metodo_pago2 == 'Mercado Pago')
+                        @if ($item->metodo_pago2 == 'Efectivo')
                                 ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
                         @else
                                 ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
                         @endif
                     </td>
                     <td>
-                        @if ($item->metodo_pago2 == 'Mercado Pago')
+                        @if ($item->metodo_pago2 == 'Efectivo')
                                 ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
                         @else
                                 ${{ number_format($item->dinero_recibido, 1, '.', ',') }}

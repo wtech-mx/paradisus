@@ -427,50 +427,52 @@ class CajaController extends Controller
             ->get();
 
             $total_paquetes_tarjeta = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Tarjeta')->get();
+        //====================================== END TOTALES PARA TARJETA ======================================
 
         //====================================== GRAFICAS ======================================
 
-        $chartData = [
-            "type" => 'pie',
-              "data" => [
-                "labels" => ['Ingresos', 'Egresos', 'Total'],
-                  "datasets" => [
-                    [
-                      "label" => "Dados",
-                      "data" => [$caja_rep->ingresos, $caja_rep->egresos, $caja_rep->total],
-                      "backgroundColor" => ['#27ae60', '#f1c40f', '#e74c3c']
+            $chartData = [
+                "type" => 'pie',
+                "data" => [
+                    "labels" => ['Ingresos', 'Egresos', 'Total'],
+                    "datasets" => [
+                        [
+                        "label" => "Dados",
+                        "data" => [$caja_rep->ingresos, $caja_rep->egresos, $caja_rep->total],
+                        "backgroundColor" => ['#27ae60', '#f1c40f', '#e74c3c']
+                        ],
                     ],
-                  ],
-                ]
-            ];
+                    ]
+                ];
 
-        $chartData = json_encode($chartData);
+            $chartData = json_encode($chartData);
 
-        $chartURL = "https://quickchart.io/chart?width=180&height=180&c=".urlencode($chartData);
+            $chartURL = "https://quickchart.io/chart?width=180&height=180&c=".urlencode($chartData);
 
-        $chartData = file_get_contents($chartURL);
-        $chart = 'data:image/png;base64, '.base64_encode($chartData);
+            $chartData = file_get_contents($chartURL);
+            $chart = 'data:image/png;base64, '.base64_encode($chartData);
 
-        $chartDatamp = [
-            "type" => 'pie',
-              "data" => [
-                "labels" => ['Transferencia', 'Efectivo', 'Tarjeta'],
-                  "datasets" => [
-                    [
-                      "label" => "Dados",
-                      "data" => [$suma_pago_trans, $suma_pago_mercado, $suma_pago_tarjeta],
-                      "backgroundColor" => ['#2E86C1', '#28B463', '#D4AC0D']
+            $chartDatamp = [
+                "type" => 'pie',
+                "data" => [
+                    "labels" => ['Transferencia', 'Efectivo', 'Tarjeta'],
+                    "datasets" => [
+                        [
+                        "label" => "Dados",
+                        "data" => [$suma_pago_trans, $suma_pago_mercado, $suma_pago_tarjeta],
+                        "backgroundColor" => ['#2E86C1', '#28B463', '#D4AC0D']
+                        ],
                     ],
-                  ],
-                ]
-            ];
+                    ]
+                ];
 
-        $chartDatamp = json_encode($chartDatamp);
+            $chartDatamp = json_encode($chartDatamp);
 
-        $chartURLmp = "https://quickchart.io/chart?width=180&height=180&c=".urlencode($chartDatamp);
+            $chartURLmp = "https://quickchart.io/chart?width=180&height=180&c=".urlencode($chartDatamp);
 
-        $chartDatamp = file_get_contents($chartURLmp);
-        $chartmp = 'data:image/png;base64, '.base64_encode($chartDatamp);
+            $chartDatamp = file_get_contents($chartURLmp);
+            $chartmp = 'data:image/png;base64, '.base64_encode($chartDatamp);
+        //====================================== END GRAFICAS ======================================
 
 
         $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
