@@ -433,12 +433,12 @@ class CajaController extends Controller
         //====================================== GRAFICAS ======================================
 
             $chartData = [
-                "type" => 'pie',
+                "type" => 'bar',
                 "data" => [
                     "labels" => ['Ingresos', 'Egresos', 'Total'],
                     "datasets" => [
                         [
-                        "label" => "Dados",
+                        "label" => "",
                         "data" => [$caja_rep->ingresos, $caja_rep->egresos, $caja_rep->total],
                         "backgroundColor" => ['#27ae60', '#f1c40f', '#e74c3c']
                         ],
@@ -449,6 +449,9 @@ class CajaController extends Controller
                         "datalabels" => [
                             "color" => 'white', // Cambia el color del texto a blanco
                         ],
+                    ],
+                    "legend" => [
+                        "display" => false // Esto oculta la leyenda de colores
                     ],
                 ],
                 ];
@@ -461,12 +464,12 @@ class CajaController extends Controller
             $chart = 'data:image/png;base64, '.base64_encode($chartData);
 
             $chartDatamp = [
-                "type" => 'pie',
+                "type" => 'bar',
                 "data" => [
                     "labels" => ['Transferencia', 'Efectivo', 'Tarjeta'],
                     "datasets" => [
                         [
-                            "label" => "Dados",
+                            "label" => "",
                             "data" => [$suma_pago_trans, $suma_pago_mercado, $suma_pago_tarjeta],
                             "backgroundColor" => ['#2E86C1', '#28B463', '#D4AC0D']
                         ],
@@ -477,6 +480,9 @@ class CajaController extends Controller
                         "datalabels" => [
                             "color" => 'white', // Cambia el color del texto a blanco
                         ],
+                    ],
+                    "legend" => [
+                        "display" => false // Esto oculta la leyenda de colores
                     ],
                 ],
                 ];
