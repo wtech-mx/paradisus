@@ -268,10 +268,9 @@
 
                                         <div class="tab-pane fade" id="pagoedit{{$notas->id}}" >
                                             <div class="row text-center">
-                                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Fecha</div>
+                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Usuario</div>
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Dinero recibido</div>
+                                                <div class="col-3" style="background-color: #bb546c; color: #fff;">Pago</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
                                                 <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
@@ -282,7 +281,7 @@
                                                     <input id="pago_{{ $item->id }}" name="pago_id" type="hidden" class="form-control" value="{{ $item->id }}">
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
-                                                    <div class="col-1 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
+                                                    <div class="col-2 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
                                                             value="{{$item->fecha}}" disabled>
                                                     </div>
 
@@ -296,13 +295,10 @@
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-2 py-2" >
-                                                        <input name="pago" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}"
-                                                            value="{{$item->pago}}" disabled></div>
-
-                                                    <div class="col-2 py-2" >
-                                                        <input name="pago" type="number" class="form-control text-center" id="pago_{{ $item->id }}"
-                                                            value="{{$item->dinero_recibido}}" disabled></div>
+                                                    <div class="col-3 py-2" >
+                                                       Pago: ${{$item->pago}} <br>
+                                                       D. recibido: ${{$item->dinero_recibido}}
+                                                    </div>
 
                                                     <div class="col-2 py-2" ><input name="" type="text" class="form-control text-center" id=""
                                                         value="{{$item->forma_pago}}" disabled>
