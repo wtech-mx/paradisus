@@ -240,14 +240,19 @@
         <div class="collapse mb-3" id="pagesExamples1">
         <ul class="nav ms-4">
             <li class="nav-item ">
-            <a class="nav-link {{ (Request::is('servicio*') ? 'show' : '') }}" href="{{ route('servicio.index') }}">
-                <span class="sidenav-mini-icon"> P </span>
-                <span class="sidenav-normal">Servicio</span>
-            </a>
+                <a class="nav-link {{ (Request::is('servicio*') ? 'show' : '') }}" href="{{ route('servicio.index') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Servicio</span>
+                </a>
 
                 <a class="nav-link {{ (Request::is('reporte*') ? 'show' : '') }}" href="{{ route('reporte.index') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Reporte</span>
+                </a>
+
+                <a class="nav-link {{ (Request::is('encuestas*') ? 'show' : '') }}" href="{{ route('index.encuestas') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Reporte Encuestas</span>
                 </a>
             </li>
         </ul>

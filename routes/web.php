@@ -230,6 +230,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/buscador', [App\Http\Controllers\BuscadorController::class, 'advance'])->name('advance_search.buscador');
 
     Route::patch('/buscador/cambio/paquete/update/{id}', [App\Http\Controllers\BuscadorController::class, 'update_paquete'])->name('update_paquete.buscador');
+
+    // =============== M O D U L O   E N C U E S T A S ===============================
+    Route::get('/encuestas/index', [App\Http\Controllers\EncuestasController::class, 'index'])->name('index.encuestas');
+    Route::get('/encuestas/buscador/index', [App\Http\Controllers\EncuestasController::class, 'advance'])->name('advance_search.encuestas');
+
+    Route::get('/encuesta/faciales', [App\Http\Controllers\EncuestasController::class, 'index_faciales'])->name('index.faciales');
+    Route::get('/encuesta/corporal', [App\Http\Controllers\EncuestasController::class, 'index_corporal'])->name('index.corporal');
+    Route::get('/encuesta/experiencias', [App\Http\Controllers\EncuestasController::class, 'index_experiencias'])->name('index.experiencias');
+    Route::get('/encuesta/jacuzzi/experiencia', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi_experiencia'])->name('index.jacuzzi_experiencia');
+    Route::get('/encuesta/jacuzzi', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi'])->name('index.jacuzzi');
+
+    Route::get('/encuesta/brow', [App\Http\Controllers\EncuestasController::class, 'index_brow'])->name('index.brow');
+    Route::get('/encuesta/nailbar', [App\Http\Controllers\EncuestasController::class, 'index_nailbar'])->name('index.nailbar');
+
+    Route::post('/encuesta/create/faciales', [App\Http\Controllers\EncuestasController::class, 'create_faciales'])->name('create.faciales');
 });
 
 
