@@ -268,9 +268,9 @@
 
                                         <div class="tab-pane fade" id="pagoedit{{$notas->id}}" >
                                             <div class="row text-center">
-                                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Fecha</div>
+                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Usuario</div>
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Pago</div>
+                                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Pago</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Dinero recibido</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
@@ -278,15 +278,18 @@
 
 
                                                 <p style="display: none">{{ $resultado = 0; }}</p>
+
                                                 @foreach ($pago as $item)
+
                                                     <input id="pago_{{ $item->id }}" name="pago_id" type="hidden" class="form-control" value="{{ $item->id }}">
+
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
-                                                    <div class="col-1 py-2" ><input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago"
-                                                            value="{{$item->fecha}}" disabled>
+                                                    <div class="col-2 py-2 p-1" >
+                                                        <input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" disabled>
                                                     </div>
 
-                                                    <div class="col-2 py-2" >
+                                                    <div class="col-2 py-2 p-1" >
                                                         <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                             data-on="Active" data-off="InActive">
                                                             <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
@@ -296,29 +299,30 @@
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-2 py-2" >
-                                                        <input name="pago" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}"
-                                                            value="{{$item->pago}}" disabled></div>
-
-                                                    <div class="col-2 py-2" >
-                                                        <input name="pago" type="number" class="form-control text-center" id="pago_{{ $item->id }}"
-                                                            value="{{$item->dinero_recibido}}" disabled></div>
-
-                                                    <div class="col-2 py-2" ><input name="" type="text" class="form-control text-center" id=""
-                                                        value="{{$item->forma_pago}}" disabled>
+                                                    <div class="col-1 py-2 p-1" >
+                                                        <input name="pago" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" disabled>
                                                     </div>
 
-                                                    <div class="col-2 py-2" ><textarea class="form-control text-center" name="nota[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
+                                                    <div class="col-2 py-2 p-1" >
+                                                        <input name="pago" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" disabled>
+                                                    </div>
 
+                                                    <div class="col-2 py-2 p-1" >
+                                                        <input name="" type="text" class="form-control text-center" id="" value="{{$item->forma_pago}}" disabled>
+                                                    </div>
+
+                                                    <div class="col-2 py-2 p-1" >
+                                                        <textarea class="form-control text-center" name="nota[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
                                                     </div>
 
                                                     @if ($item->foto == NULL)
                                                         <a href=""></a>
                                                     @else
-                                                        <div class="col-1 py-2">
-                                                            <a target="_blank" href="{{asset('foto_servicios/'.$item->foto)}}">Abrir Imagen</a>
+                                                        <div class="col-1 py-2 p-1">
+                                                            <a target="_blank" href="{{asset('foto_servicios/'.$item->foto)}}">Ver</a>
                                                         </div>
                                                     @endif
+
                                                 @endforeach
 
                                             </div>
