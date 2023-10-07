@@ -299,7 +299,7 @@ class NotasController extends Controller
         }
 
         // inicio de code ajax
-        $notas_paquetes = NotasPaquetes::where('id_nota', '=', $nota_paquete->id)
+        $notas_paquetes = NotasPaquetes::where('id_nota', '=',$nota->id)
         ->first();
 
         $nota_cosme = NotasCosmes::where('id_nota', '=', $nota->id)
