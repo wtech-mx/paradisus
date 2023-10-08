@@ -136,13 +136,7 @@ class NotasPedidoController extends Controller
 
         $pedidos = Pedido::where('id_nota', '=', $nota->id)->get();
 
-        $nota_cosme = NotasCosmes::where('id_nota', '=', $nota->id)
-        ->get();
-
-
-        foreach ($nota_cosme as $notacosme){
-            $cadena = $notacosme->User->name;
-        }
+        $user_cosme = User::where('id','=',$request->get('id_user'))->first();
 
         foreach ($pedidos as $item) {
 
@@ -169,7 +163,7 @@ class NotasPedidoController extends Controller
             "dinero_recibido" => $nota->dinero_recibido,
             "nombreImpresora" => "ZJ-58",
             'pago' => $pedido_paquetes_data,
-            'cosmetologa' => $cadena,
+            'cosmetologa' => $user_cosme->name,
             // Agrega cualquier otro dato necesario para el recibo
         ];
 
