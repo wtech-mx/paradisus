@@ -56,7 +56,7 @@
                             @csrf
 
                             <input class="form-control" id="tipo" name="tipo" type="text" value="Jacuzzi" style="display: none">
-
+                            @include('encuestas.preguntas_base')
 
                             <div class="col-md-12">
                                 <div class="form-group p-2">
