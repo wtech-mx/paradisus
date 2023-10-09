@@ -15,82 +15,12 @@
 
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/preloader.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/encuestas.css')}}">
 
   </head>
 
 
-<style>
-    .kbw-signature { width: 100%; height: 200px;}
-    #sig canvas{ width: 100% !important; height: auto;}
 
-    .tab-pane{
-        padding: 15px 15px 15px 15px;
-    }
-    .custom_col{
-
-    }
-    .icon-bar {
-    position: fixed;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    z-index: 10;
-    right: 0;
-    }
-
-    .icon-bar a {
-    display: block;
-    text-align: center;
-    padding: 16px;
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 20px;
-    }
-
-    .icon-bar a:hover {
-    background-color: #000;
-    }
-    .content {
-    margin-left: 75px;
-    font-size: 30px;
-    }
-
-    h4{
-        color: #ec85b0;
-    }
-
-    h3{
-        color: #ec85b0;
-        font-family: 'DancingScript', cursive;
-    }
-
-    label{
-        color: #f3a3b0;
-        font-size: 20px;
-    }
-
-    .facebook {
-    background: #D7819D;
-    color: white;
-    }
-
-    /* Cambiar el color del borde del select cuando está enfocado */
-    select:focus {
-        border-color: #ec85b0!important;
-    }
-
-    textarea {
-        color: #D7819D!important; /* Cambia "rosa" al color que desees */
-    }
-
-    /* Cambiar el color del cursor o punto de inserción en el textarea */
-    textarea::selection {
-        background-color: #D7819D!important; /* Cambia "rosa" al color que desees */
-    }
-
-
-</style>
 <body>
 
 <main class="main-content main-content-bg mt-0">

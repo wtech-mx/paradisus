@@ -443,15 +443,14 @@ calcularCambioYRestante();
                         // Empezar a usar el plugin
                         const formaPago = $("#metodo_pago").val();
                         const formaPago2 = $("#metodo_pago2").val();
-                        console.log(formaPago);
-                        console.log(formaPago2);
 
                     if (/Windows/i.test(userAgent)) {
                         if(formaPago === 'Efectivo' || formaPago2 === 'Efectivo'){
 
                             const conector = new ConectorPluginV3();
 
-                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+                            const pulso = conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+                            console.log(pulso);
 
                             conector
                                 .EscribirTexto("Paradisus\n")
@@ -484,7 +483,9 @@ calcularCambioYRestante();
                             const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
 
                             if (!respuesta) {
+
                                 alert("Error al imprimir ticket: " + respuesta);
+                                // location.reload();
                             } else {
 
                                 Swal.fire({
@@ -493,13 +494,14 @@ calcularCambioYRestante();
                                     text: 'Impresion de ticket y apertura de caja',
                                 }).then(() => {
                                     // Recarga la página
-                                //    window.location.href = '/notas/pedidos/edit/' + recibo.id;
+                                   window.location.href = '/notas/pedidos/';
                                 });
                             }
 
                         }else{
 
                             const conector = new ConectorPluginV3();
+                            console.log(conector);
 
                             conector
                                 .EscribirTexto("Paradisus\n")
@@ -528,6 +530,7 @@ calcularCambioYRestante();
                                 }
 
                             const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+                            console.log(respuesta);
 
                             if (!respuesta) {
                                 alert("Error al imprimir ticket: " + respuesta);

@@ -14,105 +14,45 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="{{ asset('assets/css/preloader.css')}}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/encuestas.css')}}">
 
   </head>
 
-
-<style>
-    .kbw-signature { width: 100%; height: 200px;}
-    #sig canvas{ width: 100% !important; height: auto;}
-
-    .tab-pane{
-        padding: 15px 15px 15px 15px;
-    }
-    .custom_col{
-
-    }
-    .icon-bar {
-    position: fixed;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    z-index: 10;
-    right: 0;
-    }
-
-    .icon-bar a {
-    display: block;
-    text-align: center;
-    padding: 16px;
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 20px;
-    }
-
-    .icon-bar a:hover {
-    background-color: #000;
-    }
-    .content {
-    margin-left: 75px;
-    font-size: 30px;
-    }
-
-    h4{
-        color: #ec85b0;
-    }
-
-    h3{
-        color: #ec85b0;
-        font-family: 'DancingScript', cursive;
-    }
-
-    label{
-        color: #f3a3b0;
-        font-size: 20px;
-    }
-
-    .facebook {
-    background: #D7819D;
-    color: white;
-    }
-
-    /* Cambiar el color del borde del select cuando está enfocado */
-    select:focus {
-        border-color: #ec85b0!important;
-    }
-
-    textarea {
-        color: #D7819D!important; /* Cambia "rosa" al color que desees */
-    }
-
-    /* Cambiar el color del cursor o punto de inserción en el textarea */
-    textarea::selection {
-        background-color: #D7819D!important; /* Cambia "rosa" al color que desees */
-    }
-
-
-</style>
 <body>
 
 <main class="main-content main-content-bg mt-0">
-    <div class="page-header min-vh-100" style="background-image: url('https://img.freepik.com/foto-gratis/vista-superior-sal-bano-copia-espacio-tarjeta_23-2148481773.jpg?w=826&t=st=1696565340~exp=1696565940~hmac=b94baeac134a901ed1eb53ce5250206b04d57a0f859f292257c9ee10bd3af73c');">
-      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-7 custom_col">
-            <div class="card border-0 mb-0">
 
-              <div class="card-header bg-transparent">
-                <h4 class="text-center mt-2 mb-3">Encuesta de Satisfacción</h4>
-                <h3 class="text-center mt-2 mb-3"> <em>Faciales</em> </h3>
+    <div class="page-header min-vh-100" style="background-image: url('');">
+        <span class="mask"></span>
+
+      <div class="container">
+
+        <div class="row justify-content-center">
+          <div class="col-10 custom_col p-3">
+
+            <div class="card card_custom" style="">
+
+              <div class="card-header" style="border: solid 0px;background:transparent;">
+
+                <p class="text-center">
+                    <img class="img_logo" src="{{ asset('assets/logo_paradisus.png')}}" alt="">
+                </p>
+                <p class="text-center">
+                    <img class="img_tittle_encuesta" src="{{ asset('assets/tittle_encuesta.png')}}" alt="">
+                </p>
+                <p class="text-center">
+                    <label class="form-control-label" style="font-size: 35px;">Faciales</label>
+                </p>
+
               </div>
 
-              <div class="card-body px-lg-3 pt-0">
-                <div class="text-center text-muted mb-4">
-                  <small></small>
-                </div>
-
+              <div class="card-body">
                 <div class="row">
-                    <form method="POST" action="{{ route('create.faciales') }}" id="miFormulario" enctype="multipart/form-data" role="form">
+
+                    <form method="POST" action="{{ route('create.faciales') }}" id="miFormulario" enctype="multipart/form-data" role="form" style="text-align: center;">
                         @csrf
                         <input class="form-control" id="tipo" name="tipo" type="text" value="Facial" style="display: none">
                         @include('encuestas.preguntas_base')
@@ -127,22 +67,27 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="submit" class="btn mb-5" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                <button type="submit" class="btn_save" style="">
                                     Guardar
                                 </button>
                             </div>
                         </div>
                     </form>
-                </div>
 
+                </div>
+              </div>
 
               </div>
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
-  </main>
+
+</main>
+
   @include('sweetalert::alert')
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
