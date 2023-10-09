@@ -286,10 +286,12 @@
                     <span class="sidenav-normal">Reporte</span>
                 </a>
 
-                <a class="nav-link {{ (Request::is('encuestas*') ? 'show' : '') }}" href="{{ route('index.encuestas') }}">
-                    <span class="sidenav-mini-icon"> P </span>
-                    <span class="sidenav-normal">Reporte Encuestas</span>
-                </a>
+                @can('encuestas')
+                    <a class="nav-link {{ (Request::is('encuestas*') ? 'show' : '') }}" href="{{ route('index.encuestas') }}">
+                        <span class="sidenav-mini-icon"> P </span>
+                        <span class="sidenav-normal">Reporte Encuestas</span>
+                    </a>
+                @endcan
             </li>
         </ul>
         </div>
