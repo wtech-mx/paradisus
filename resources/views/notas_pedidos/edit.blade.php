@@ -72,10 +72,7 @@
                                         <div class="form-group">
                                             <label for="num_sesion">Metodo de pago</label>
                                             <select disabled id="metodo_pago" name="metodo_pago" class="form-control" required>
-                                                <option value="Efectivo">Efectivo</option>
-                                                <option value="Transferencia">Transferencia</option>
-                                                <option value="Mercado Pago">Mercado Pago</option>
-                                                <option value="Tarjeta">Tarjeta</option>
+                                                <option value="{{$nota_pedido->metodo_pago}}">{{$nota_pedido->metodo_pago}}</option>
                                             </select>
                                         </div>
 
