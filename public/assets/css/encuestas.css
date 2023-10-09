@@ -1,0 +1,120 @@
+.kbw-signature { width: 100%; height: 200px;}
+#sig canvas{ width: 100% !important; height: auto;}
+
+.tab-pane{
+    padding: 15px 15px 15px 15px;
+}
+.custom_col{
+
+}
+
+@font-face {
+    font-family: "gabriela";
+    src: url("./../gabriela-alt-bold.otf");
+}
+
+.icon-bar {
+position: fixed;
+top: 50%;
+-webkit-transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
+z-index: 10;
+right: 0;
+}
+
+.icon-bar a {
+display: block;
+text-align: center;
+padding: 16px;
+transition: all 0.3s ease;
+color: white;
+font-size: 20px;
+}
+
+.icon-bar a:hover {
+background-color: #000;
+}
+.content {
+margin-left: 75px;
+font-size: 30px;
+}
+
+h4{
+    color: #ec85b0;
+}
+
+h3{
+    color: #ec85b0;
+    font-family: 'DancingScript', cursive;
+}
+
+label{
+    color: #EE6AA0;
+    font-size: 23px;
+    font-family: 'gabriela';
+}
+
+.facebook {
+background: #D7819D;
+color: white;
+}
+
+/* Cambiar el color del borde del select cuando está enfocado */
+select:focus {
+    border-color: #ec85b0!important;
+}
+
+textarea {
+    color: #D7819D!important; /* Cambia "rosa" al color que desees */
+}
+
+/* Cambiar el color del cursor o punto de inserción en el textarea */
+textarea::selection {
+    background-color: #D7819D!important; /* Cambia "rosa" al color que desees */
+}
+
+.card_custom{
+    background-color: #F3E0E8;
+    border: solid 0px;
+    border-radius: 19px;
+    box-shadow: 6px 6px 15px -10px rgb(0 0 0 / 50%);
+}
+
+.mask{
+    position: absolute;
+    background-size: cover;
+    background-position: center center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background-image: linear-gradient(310deg, #ffffff 0%, #ffffff 100%);
+}
+
+.img_tittle_encuesta{
+    width: 350px;
+}
+
+.img_logo{
+    width: 200px;
+}
+
+.btn_save{
+    border: solid 3px #EE6AA1;
+    border-radius: 16px;
+    color: #EE6AA0;
+    padding: 10px;
+    width: 150px;
+    transition: 0.5s;
+}
+
+.btn_save:hover{
+    background-color:  #EE6AA1;
+    border: solid 3px #fff;
+    border-radius: 16px;
+    color: #fff;
+    padding: 10px;
+    width: 150px;
+}
