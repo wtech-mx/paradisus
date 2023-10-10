@@ -519,6 +519,7 @@ class CajaController extends Controller
         $diaActual = date('Y-m-d');
         $today =  date('d-m-Y');
 
+        Carbon::setLocale('es');
         $fechaYHoraActual = Carbon::now();
         $fechaYHoraFormateada = $fechaYHoraActual;
 

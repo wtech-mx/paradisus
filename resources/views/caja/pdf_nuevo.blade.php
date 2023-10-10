@@ -175,7 +175,7 @@
 
         <tr>
             <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia <br> <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></td>
-            <td colspan="3" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo<br> <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></td>
+            <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo<br> <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></td>
             <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></td>
         </tr>
         <tr>
@@ -183,12 +183,19 @@
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
 
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
-            <td style="border: rgb(255, 255, 255) 1px solid;">Abono</td>
-            <td style="border: rgb(255, 255, 255) 1px solid;">Dinero Recibido</td>
+            <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
 
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
         </tr>
+        @php
+            $efectivo = $total_egresos - $caja_final->inicio;
+            if($efectivo > 0){
+            $total_efectivo = $efectivo;
+            }else{
+            $total_efectivo = 0;
+            }
+        @endphp
         <tr style="font-size: 14px">
             <td>
                 {{ $suma_filas_trans }}
@@ -203,11 +210,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($sumaServiciosEfectivoCambio, 1, '.', ',') }}</strong>
-            </td>
-
-            <td>
-                <strong>${{ number_format($suma_pago_mercado, 1, '.', ',') }}</strong>
+                <strong>${{ number_format($total_efectivo, 1, '.', ',') }}</strong>
             </td>
 
             <td>
