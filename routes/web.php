@@ -176,7 +176,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/caja/corte', [App\Http\Controllers\CajaController::class, 'corte'])->name('caja.corte');
     Route::patch('caja/update/{id}', [App\Http\Controllers\CajaController::class, 'update_caja'])->name('caja.update_caja');
     Route::get('/reporte/imprimir/caja', [App\Http\Controllers\CajaController::class, 'imprimir_caja'])->name('caja.print_caja');
-    Route::get('/reporte/imprimir/corte', [App\Http\Controllers\CajaController::class, 'imprimir_corte'])->name('caja.print_corte');
+    Route::get('/reporte/imprimir/precorte', [App\Http\Controllers\CajaController::class, 'imprimir_precorte'])->name('caja.print_precorte');
 
     Route::get('/reporte/imprimir/caja/{id}', [App\Http\Controllers\CajaController::class, 'imprimir_recibo'])->name('caja.print_recibo');
 

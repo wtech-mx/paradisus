@@ -230,6 +230,10 @@
                                 <a type="button" class="btn btn-outline-dark" href="{{ route('caja.print_caja') }}">Imprimir Corte</a>
                             @endif
 
+                            <a type="button" class="btn btn-outline-warning" href="{{ route('caja.print_precorte') }}">
+                                <img src="{{ asset('assets/icons/presupuesto.png') }}" alt="" width="35px"> Precorte
+                            </a>
+
                         </div>
                     </div>
                     @can('client-list')
