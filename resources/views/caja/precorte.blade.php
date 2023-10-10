@@ -190,6 +190,11 @@
         </tr>
         @php
            $efectivo = $total_egresos - $caja_final->inicio;
+           if($efectivo > 0){
+            $total_efectivo = $efectivo;
+           }else{
+            $total_efectivo = 0;
+           }
         @endphp
         <tr style="font-size: 14px">
             <td>
@@ -205,7 +210,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($efectivo, 1, '.', ',') }}</strong>
+                <strong>${{ number_format($total_efectivo, 1, '.', ',') }}</strong>
             </td>
 
             <td>
