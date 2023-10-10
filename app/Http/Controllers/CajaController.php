@@ -365,22 +365,29 @@ class CajaController extends Controller
             ->first();
 
             $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total;
+
             $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas;
 
             $total_servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)->where('pagos.forma_pago', '=', 'Efectivo')->where('notas.anular', '=', NULL)->get();
+
+            $sumaServiciosEfectivoCambio = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+            ->where('pagos.fecha', '=', $diaActual)
+            ->where('pagos.forma_pago', '=', 'Efectivo')
+            ->where('notas.anular', '=', NULL)
+            ->sum('pago');
+            // Reemplaza 'nombre_del_campo_que_quieres_sumar' con el nombre real del campo que deseas sumar.
 
             $total_producto_mercado = NotasPedidos::where('fecha', $diaActual)
             ->where(function ($query) {
                 $query->where('metodo_pago', 'Efectivo')
                     ->orWhere('metodo_pago2', 'Efectivo');
             })
-
             ->with('Pedido')
             ->get();
 
-
             $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
+
         //====================================== END TOTALES PARA MERCADO PAGO ======================================
 
         //====================================== TOTALES PARA TARJETA ======================================
@@ -499,7 +506,7 @@ class CajaController extends Controller
         //====================================== END GRAFICAS ======================================
 
 
-        $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
+        $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
         'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta'));
