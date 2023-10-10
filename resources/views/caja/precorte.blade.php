@@ -188,6 +188,9 @@
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
         </tr>
+        @php
+           $efectivo = $total_egresos - $caja_final->inicio;
+        @endphp
         <tr style="font-size: 14px">
             <td>
                 {{ $suma_filas_trans }}
@@ -202,7 +205,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($total_egresos, 1, '.', ',') }}</strong>
+                <strong>${{ number_format($efectivo, 1, '.', ',') }}</strong>
             </td>
 
             <td>
