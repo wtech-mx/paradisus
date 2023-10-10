@@ -89,7 +89,6 @@ class NotasPedidoController extends Controller
 
         $nota->total = $request->get('totalSuma');
         $nota->restante = $request->get('restante');
-        $nota->cambio = $request->get('cambio');
         $nota->dinero_recibido = $request->get('dinero_recibido');
 
         if($request->get('dinero_recibido2') > '0' ){
@@ -104,15 +103,35 @@ class NotasPedidoController extends Controller
                 $nota->foto2 = $fileName;
             }
         }
+        $suma_pagos = $request->get('dinero_recibido') + $request->get('dinero_recibido2');
+        if(($request->get('dinero_recibido') > $request->get('totalSuma')) && ($request->get('metodo_pago') == 'Efectivo')){
+            $cambio = $request->get('dinero_recibido') - $request->get('totalSuma');
+            $nota->cambio = $cambio;
+        }elseif($suma_pagos > $request->get('totalSuma')){
+            $cambio = $suma_pagos - $request->get('totalSuma');
+            $nota->cambio = $cambio;
+        }
 
         $nota->save();
 
         // G U A R D A R  C A M B I O
-        if($request->get('cambio') > '0'){
+        $suma_pagos = $request->get('dinero_recibido') + $request->get('dinero_recibido2');
+
+        if($request->get('dinero_recibido') > $request->get('totalSuma') && $request->get('metodo_pago') == 'Efectivo'){
+            $cambio = $request->get('dinero_recibido') - $request->get('totalSuma');
             $fechaActual = date('Y-m-d');
             $caja = new CajaDia;
             $caja->motivo = 'Retiro';
-            $caja->egresos = $request->get('cambio');
+            $caja->egresos = $cambio;
+            $caja->concepto = 'Cambio nota productos: ' . $nota->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }elseif($suma_pagos > $request->get('totalSuma')){
+            $cambio = $suma_pagos - $request->get('totalSuma');
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->motivo = 'Retiro';
+            $caja->egresos = $cambio;
             $caja->concepto = 'Cambio nota productos: ' . $nota->id;
             $caja->fecha = $fechaActual;
             $caja->save();
