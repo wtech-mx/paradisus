@@ -77,7 +77,10 @@
 <body>
   <header>
     <h1>Precorte</h1>
-    <h2>{{$fechaYHoraFormateada}} </h2>
+    @php
+        $fecha = $fechaYHoraFormateada->formatLocalized('%d de %B del %Y %I:%M %p');
+    @endphp
+    <h2>{{$fecha}} </h2>
   </header>
 
   <footer>

@@ -520,7 +520,7 @@ class CajaController extends Controller
         $today =  date('d-m-Y');
 
         $fechaYHoraActual = Carbon::now();
-        $fechaYHoraFormateada = $fechaYHoraActual->format('d-m-Y H:i');
+        $fechaYHoraFormateada = $fechaYHoraActual;
 
         //====================================== LLAMADO DE LA CAJA ======================================
             $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->where('motivo', '=', 'Retiro')->get();
