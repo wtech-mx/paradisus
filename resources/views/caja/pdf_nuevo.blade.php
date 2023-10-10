@@ -163,9 +163,7 @@
 
     <h2 style="text-align: center;">No de Servicos y ventas  <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="35px"> <br>
         @php
-
             $totalsumaservent = $suma_filas_trans + $suma_filas_mercado + $suma_filas_tarjeta
-
         @endphp
         {{ $totalsumaservent }}
     </h2>
@@ -174,16 +172,20 @@
         <colgroup span="2" width="100"></colgroup>
         <colgroup span="2" width="100"></colgroup>
         <colgroup span="2" width="100"></colgroup>
+
         <tr>
             <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Transferencia <br> <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></td>
-            <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo <br> <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></td>
-            <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px"></td>
+            <td colspan="3" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Efectivo<br> <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="50x"></td>
+            <td colspan="2" style="background-color: #2ECC71; color: #fff; border: rgb(255, 255, 255) 1px solid;">Tarjeta <br> <img src="{{ asset('assets/icons/tarjeta-de-credito.png') }}" alt="" width="35px"></td>
         </tr>
         <tr>
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
+
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
-            <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
+            <td style="border: rgb(255, 255, 255) 1px solid;">Abono</td>
+            <td style="border: rgb(255, 255, 255) 1px solid;">Dinero Recibido</td>
+
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
         </tr>
@@ -198,6 +200,10 @@
 
             <td>
                 {{$suma_filas_mercado}}
+            </td>
+
+            <td>
+                <strong>${{ number_format($sumaServiciosEfectivoCambio, 1, '.', ',') }}</strong>
             </td>
 
             <td>
@@ -699,6 +705,7 @@
                         {{ $item->Client->name }} <br> {{ $item->Client->last_name }} <br>
                         <a href="{{ route('notas_pedidos.edit',$item->id) }}" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id }}</a>
                     </td>
+
                     <td>
                         <ul>
                             @foreach ($pedidos as $pedido)
@@ -708,6 +715,7 @@
                             @endforeach
                         </ul>
                     </td>
+
                     <td>
                         @if ($item->metodo_pago2 == 'Efectivo')
                                 ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
@@ -715,6 +723,7 @@
                                 ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
                         @endif
                     </td>
+
                     <td>
                         @if ($item->metodo_pago2 == 'Efectivo')
                                 ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
@@ -722,9 +731,11 @@
                                 ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
                         @endif
                     </td>
+
                     <td>
                         ${{ number_format($item->cambio, 1, '.', ',') }}
                     </td>
+
                     <td>Producto</td>
                 </tr>
             @endforeach

@@ -36,7 +36,6 @@ class BuscadorController extends Controller
             'phone' => 'required_without_all:id_client',
         ]);
 
-
         $id_client = $request->id_client;
         $phone = $request->phone;
 
@@ -46,12 +45,13 @@ class BuscadorController extends Controller
         if ($id_client !== 'null' && $id_client !== null) {
             $nota = Notas::where('id_client', $id_client)->get();
             $paquetes = Paquetes::where('id_client', $id_client)->get();
+
         } elseif ($phone !== 'null' && $phone !== null) {
             $nota = Notas::where('id_client', $phone)->get();
             $paquetes = Paquetes::where('id_client', $phone)->get();
         }
 
-        Alert::success('Encontrado con exito ');
+        //Alert::success('Encontrado con exito ');
 
         return view('buscador.index', compact('nota', 'paquetes'));
     }
@@ -79,7 +79,7 @@ class BuscadorController extends Controller
         }else{
             $paquete->monto = $request->get('precio_paquete');
         }
-   
+
         $paquete->num_paquete = $request->get('id_paquete');
         $paquete->restante = $request->get('pago_restante');
         $paquete->update();
