@@ -110,7 +110,10 @@ class NotasPedidoController extends Controller
         }elseif($suma_pagos > $request->get('totalSuma')){
             $cambio = $suma_pagos - $request->get('totalSuma');
             $nota->cambio = $cambio;
+        }else{
+            $nota->cambio = '0';
         }
+
 
         $nota->save();
 
