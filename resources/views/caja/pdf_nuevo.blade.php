@@ -189,7 +189,7 @@
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
         </tr>
         @php
-           $resta = $total_ing - $caja_final->inicio ;
+           $resta = $total_ing - $caja_rep->inicio ;
            $efectivo = $resta - $caja_dia_suma_cambios->total;
            if($efectivo > 0){
             $total_efectivo = $efectivo;
