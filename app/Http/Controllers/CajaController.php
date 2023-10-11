@@ -506,8 +506,12 @@ class CajaController extends Controller
             $chartmp = 'data:image/png;base64, '.base64_encode($chartDatamp);
         //====================================== END GRAFICAS ======================================
 
+        $caja_dia_suma_cambios = CajaDia::where('fecha', '=', $diaActual)
+        ->where('concepto', 'LIKE', '%Cambio%')
+        ->select(DB::raw('SUM(egresos) as total'))
+        ->first();
 
-        $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
+        $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
         'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta'));
@@ -569,6 +573,11 @@ class CajaController extends Controller
 
             $caja_dia_resta = CajaDia::where('fecha', '=', $diaActual)
             ->where('motivo', '=', 'Retiro')
+            ->select(DB::raw('SUM(egresos) as total'))
+            ->first();
+
+            $caja_dia_suma_cambios = CajaDia::where('fecha', '=', $diaActual)
+            ->where('concepto', 'LIKE', '%Cambio%')
             ->select(DB::raw('SUM(egresos) as total'))
             ->first();
 
@@ -758,7 +767,7 @@ class CajaController extends Controller
         //====================================== END TOTALES PARA TARJETA ======================================
 
 
-        $pdf = \PDF::loadView('caja.precorte', compact('sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
+        $pdf = \PDF::loadView('caja.precorte', compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
         'suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'caja_final','suma_filas_trans','propinasHoy','total_ing','caja_egre','total_egresos','paquetes',
         'fechaYHoraFormateada', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes','total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta',
         'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta'));
