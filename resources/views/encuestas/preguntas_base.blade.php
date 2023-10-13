@@ -1,5 +1,26 @@
 <div class="col-md-12">
     <div class="form-group p-2">
+        <label for="example-text-input" class="form-control-label">Nombre Completo</label>
+        <div class="input-group mb-4">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input class="form-control" type="text" id="nombre" name="nombre">
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="form-group p-2">
+        <label for="example-text-input" class="form-control-label">Celular</label>
+        <div class="input-group mb-4">
+        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+        <input class="form-control" type="number" id="telefono" name="telefono">
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+    <div class="form-group p-2">
     <label for="example-text-input" class="form-control-label">Cosmetologa *</label>
         <div class="input-group mb-4">
             <span class="input-group-text"><i class="fa fa-file"></i></span>
@@ -177,10 +198,10 @@
     </div>
 </div>
 
-<div class="col-md-12" id="div_p9" style="display: none;">
+<div class="col-md-12" id="div_p9" style="">
     <div class="form-group p-2">
         <label for="example-text-input" class="form-control-label">¿Por qué no se cumplió el tiempo de sesión?</label>
-        <div class="input-group text-center" style="display: table;">
+        <div class="input-group text-center" style="">
             <textarea class="form-control" id="p15" name="p15" rows="2" ></textarea>
         </div>
     </div>

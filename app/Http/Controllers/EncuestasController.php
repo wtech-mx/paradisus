@@ -74,7 +74,7 @@ class EncuestasController extends Controller
             $noCounts[] = $noCount;
         }
 
-    
+
 
         $conteoCalificaciones = [
             'Muy mala' => 0,
@@ -182,6 +182,9 @@ class EncuestasController extends Controller
         $paquete->p16 = $request->get('p16');
         $paquete->p17 = $request->get('p17');
         $paquete->comentario = $request->get('comentario');
+        $paquete->nombre = $request->get('nombre');
+        $paquete->telefono = $request->get('telefono');
+
         $paquete->save();
 
         Alert::success('¡Apreciamos tu opinión y esperamos verte de nuevo pronto!');
