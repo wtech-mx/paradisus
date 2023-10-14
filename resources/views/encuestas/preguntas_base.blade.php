@@ -105,7 +105,7 @@
     </div>
 </div>
 
-@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/brow') || !request()->is('encuesta/hair'))
+@if(in_array(Route::currentRouteName(), ['index.jacuzzi', 'index.brow', 'index.hair']))
     <div class="col-md-12">
         <div class="form-group p-2">
             <label for="example-text-input" class="form-control-label">¿Aplicaron todos los productos mencionados en el flyer publicitario? </label>
@@ -118,9 +118,10 @@
             </div>
         </div>
     </div>
-
 @endif
-@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/hair'))
+
+
+@if(in_array(Route::currentRouteName(), ['index.jacuzzi', 'index.hair']))
     <div class="col-md-12">
         <div class="form-group p-2">
             <label for="example-text-input" class="form-control-label">¿Aplicaron Aromaterapia? *</label>
@@ -154,7 +155,7 @@
 
 <div class="col-md-12">
     <div class="form-group p-2">
-        @if(!request()->is('encuesta/hair') || !request()->is('encuesta/brow'))
+        @if(in_array(Route::currentRouteName(), ['index.brow', 'index.hair']))
             <label for="example-text-input" class="form-control-label">¿Cómo calificas la calidad y limpieza de las cabinas? *</label>
             @else
             <label for="example-text-input" class="form-control-label">¿Cómo calificas la calidad y limpieza de las instalaciones? *</label>
