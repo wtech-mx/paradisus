@@ -105,7 +105,7 @@
     </div>
 </div>
 
-@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/brow') || !request()->is('encuesta/nailbar'))
+@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/brow') || !request()->is('encuesta/hair'))
     <div class="col-md-12">
         <div class="form-group p-2">
             <label for="example-text-input" class="form-control-label">¿Aplicaron todos los productos mencionados en el flyer publicitario? </label>
