@@ -105,30 +105,31 @@
     </div>
 </div>
 
-@if(!request()->is('encuesta/jacuzzi'))
+@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/brow') || !request()->is('encuesta/nailbar'))
     <div class="col-md-12">
         <div class="form-group p-2">
-            <label for="example-text-input" class="form-control-label">¿Aplicaron todos los productos mencionados en el flyer publicitario? *</label>
+            <label for="example-text-input" class="form-control-label">¿Aplicaron todos los productos mencionados en el flyer publicitario? </label>
             <div class="input-group text-center" style="display: table;">
                 <label style="margin-left: 30px; margin-right: 10px" for="scales">Si</label>
-                <input type="radio" id="p5" name="p5" value="si" required/>
+                <input type="radio" id="p5" name="p5" value="si" />
 
                 <label style="margin-left: 30px; margin-right: 10px" for="scales">No</label>
-                <input type="radio" id="p5" name="p5" value="no" required/>
+                <input type="radio" id="p5" name="p5" value="no" />
             </div>
         </div>
     </div>
 
-
+@endif
+@if(!request()->is('encuesta/jacuzzi'))
     <div class="col-md-12">
         <div class="form-group p-2">
             <label for="example-text-input" class="form-control-label">¿Aplicaron Aromaterapia? *</label>
             <div class="input-group text-center" style="display: table;">
                 <label style="margin-left: 30px; margin-right: 10px" for="scales">Si</label>
-                <input type="radio" id="p6" name="p6" value="si" required/>
+                <input type="radio" id="p6" name="p6" value="si" />
 
                 <label style="margin-left: 30px; margin-right: 10px" for="scales">No</label>
-                <input type="radio" id="p6" name="p6" value="no" required/>
+                <input type="radio" id="p6" name="p6" value="no" />
             </div>
         </div>
     </div>

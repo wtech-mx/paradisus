@@ -157,6 +157,18 @@ class EncuestasController extends Controller
         return view('encuestas.jacuzzi', compact('cosme'));
     }
 
+    public function index_brow(){
+        $cosme = User::where('id', '!=', 1)->get();
+
+        return view('encuestas.brow_bar', compact('cosme'));
+    }
+
+    public function index_nailbar(){
+        $cosme = User::where('id', '!=', 1)->get();
+
+        return view('encuestas.nailbar', compact('cosme'));
+    }
+
     public function create_faciales(Request $request)
     {
         $fechaActual = date('Y-m-d');
