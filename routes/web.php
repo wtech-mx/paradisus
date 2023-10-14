@@ -240,6 +240,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 Route::get('/encuesta/faciales', [App\Http\Controllers\EncuestasController::class, 'index_faciales'])->name('index.faciales');
 Route::get('/encuesta/corporal', [App\Http\Controllers\EncuestasController::class, 'index_corporal'])->name('index.corporal');
+Route::get('/encuesta/facial/corporal', [App\Http\Controllers\EncuestasController::class, 'index_facorpo'])->name('index.facorpo');
 Route::get('/encuesta/experiencias', [App\Http\Controllers\EncuestasController::class, 'index_experiencias'])->name('index.experiencias');
 Route::get('/encuesta/jacuzzi/experiencia', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi_experiencia'])->name('index.jacuzzi_experiencia');
 Route::get('/encuesta/jacuzzi', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi'])->name('index.jacuzzi');

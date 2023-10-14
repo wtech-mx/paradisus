@@ -133,6 +133,12 @@ class EncuestasController extends Controller
         return view('encuestas.faciales', compact('cosme'));
     }
 
+    public function index_facorpo(){
+        $cosme = User::where('id', '!=', 1)->Orderby('name','ASC')->get();
+
+        return view('encuestas.facial_corporal', compact('cosme'));
+    }
+
     public function index_corporal(){
         $cosme = User::where('id', '!=', 1)->Orderby('name','ASC')->get();
 

@@ -94,6 +94,11 @@
                   <span class="sidenav-normal">Corporales</span>
                 </a>
 
+                <a class="nav-link {{ (Request::is('/encuesta*') ? 'show' : '') }}" href="{{ route('index.facorpo') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Faciales & Corporal</span>
+                </a>
+
                 <a class="nav-link {{ (Request::is('/encuesta*') ? 'show' : '') }}" href="{{ route('index.experiencias') }}">
                   <span class="sidenav-mini-icon"> P </span>
                   <span class="sidenav-normal">Experiencias</span>
