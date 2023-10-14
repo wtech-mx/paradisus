@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Jacuzzi | Encuesta de satisfaccion</title>
+    <link rel="icon" type="image/png" href="{{ asset('favicon/'. $configuracion->favicon) }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
