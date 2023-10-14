@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nail Bar | Encuesta de satisfaccion</title>
+    <title>Hair Lab | Encuesta de satisfaccion</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
@@ -42,7 +42,7 @@
                         <img class="img_tittle_encuesta" src="{{ asset('assets/tittle_encuesta.png')}}" alt="">
                     </p>
                     <p class="text-center">
-                        <label class="form-control-label" style="font-size: 35px;">Nail Bar</label>
+                        <label class="form-control-label" style="font-size: 35px;">Hair Lab</label>
                     </p>
 
                   </div>
@@ -51,7 +51,7 @@
                     <div class="row">
                     <form method="POST" action="{{ route('create.faciales') }}" id="miFormulario" enctype="multipart/form-data" role="form">
                         @csrf
-                        <input class="form-control" id="tipo" name="tipo" type="text" value="Nailbar" style="display: none">
+                        <input class="form-control" id="tipo" name="tipo" type="text" value="HairLab" style="display: none">
                         @include('encuestas.preguntas_base')
                         <div class="col-md-12">
                             <div class="form-group">

@@ -151,10 +151,18 @@
             </tr>
         </tbody>
     </table>
-
+    @php
+        $resta = $caja_rep->ingresos - $caja_rep->inicio ;
+        $efectivo = $resta - $caja_dia_suma_cambios->total;
+        if($efectivo > 0){
+        $total_efectivo = $efectivo;
+        }else{
+        $total_efectivo = 0;
+        }
+    @endphp
     <h2 style="text-align: center;">Total de ingresos del dia  <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> <br>
         @php
-            $totalingresos =  $suma_pago_trans + $suma_pago_mercado +  $suma_pago_tarjeta;
+            $totalingresos =  $suma_pago_trans + $total_efectivo +  $suma_pago_tarjeta;
         @endphp
 
         <strong> ${{ number_format($totalingresos, 1, '.', ',') }}</strong>
@@ -188,15 +196,7 @@
             <td style="border: rgb(255, 255, 255) 1px solid;">Serv/Venta</td>
             <td style="border: rgb(255, 255, 255) 1px solid;">Total</td>
         </tr>
-        @php
-           $resta = $caja_rep->ingresos - $caja_rep->inicio ;
-           $efectivo = $resta - $caja_dia_suma_cambios->total;
-           if($efectivo > 0){
-            $total_efectivo = $efectivo;
-           }else{
-            $total_efectivo = 0;
-           }
-        @endphp
+
         <tr style="font-size: 14px">
             <td>
                 {{ $suma_filas_trans }}

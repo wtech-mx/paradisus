@@ -116,7 +116,7 @@
 
                 <a class="nav-link {{ (Request::is('/encuesta*') ? 'show' : '') }}" href="{{ route('index.nailbar') }}">
                     <span class="sidenav-mini-icon"> P </span>
-                    <span class="sidenav-normal">Nail Bar</span>
+                    <span class="sidenav-normal">Hair Lab</span>
                 </a>
               </li>
             </ul>

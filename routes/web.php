@@ -242,7 +242,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/encuesta/jacuzzi', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi'])->name('index.jacuzzi');
 
     Route::get('/encuesta/brow', [App\Http\Controllers\EncuestasController::class, 'index_brow'])->name('index.brow');
-    Route::get('/encuesta/nailbar', [App\Http\Controllers\EncuestasController::class, 'index_nailbar'])->name('index.nailbar');
+    Route::get('/encuesta/hair', [App\Http\Controllers\EncuestasController::class, 'index_nailbar'])->name('index.nailbar');
 
     Route::post('/encuesta/create/faciales', [App\Http\Controllers\EncuestasController::class, 'create_faciales'])->name('create.faciales');
 });
