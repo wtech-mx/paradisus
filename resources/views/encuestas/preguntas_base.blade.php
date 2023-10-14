@@ -105,7 +105,7 @@
     </div>
 </div>
 
-@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/brow') || !request()->is('encuesta/nailbar'))
+@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/brow') || !request()->is('encuesta/hair'))
     <div class="col-md-12">
         <div class="form-group p-2">
             <label for="example-text-input" class="form-control-label">¿Aplicaron todos los productos mencionados en el flyer publicitario? </label>
@@ -120,7 +120,7 @@
     </div>
 
 @endif
-@if(!request()->is('encuesta/jacuzzi'))
+@if(!request()->is('encuesta/jacuzzi') || !request()->is('encuesta/hair'))
     <div class="col-md-12">
         <div class="form-group p-2">
             <label for="example-text-input" class="form-control-label">¿Aplicaron Aromaterapia? *</label>
@@ -154,7 +154,11 @@
 
 <div class="col-md-12">
     <div class="form-group p-2">
-        <label for="example-text-input" class="form-control-label">¿Cómo calificas la calidad y limpieza de las cabinas? *</label>
+        @if(!request()->is('encuesta/hair') || !request()->is('encuesta/brow'))
+            <label for="example-text-input" class="form-control-label">¿Cómo calificas la calidad y limpieza de las cabinas? *</label>
+            @else
+            <label for="example-text-input" class="form-control-label">¿Cómo calificas la calidad y limpieza de las instalaciones? *</label>
+        @endif
         <div class="input-group text-center">
             <select class="form-control" id="p8" name="p8" value="{{ old('p8') }}" required>
                 <option value="">Seleccione una opción</option>

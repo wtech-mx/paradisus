@@ -235,17 +235,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/encuestas/index', [App\Http\Controllers\EncuestasController::class, 'index'])->name('index.encuestas');
     Route::get('/encuestas/buscador/index', [App\Http\Controllers\EncuestasController::class, 'advance'])->name('advance_search.encuestas');
 
-    Route::get('/encuesta/faciales', [App\Http\Controllers\EncuestasController::class, 'index_faciales'])->name('index.faciales');
-    Route::get('/encuesta/corporal', [App\Http\Controllers\EncuestasController::class, 'index_corporal'])->name('index.corporal');
-    Route::get('/encuesta/experiencias', [App\Http\Controllers\EncuestasController::class, 'index_experiencias'])->name('index.experiencias');
-    Route::get('/encuesta/jacuzzi/experiencia', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi_experiencia'])->name('index.jacuzzi_experiencia');
-    Route::get('/encuesta/jacuzzi', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi'])->name('index.jacuzzi');
-
-    Route::get('/encuesta/brow', [App\Http\Controllers\EncuestasController::class, 'index_brow'])->name('index.brow');
-    Route::get('/encuesta/hair', [App\Http\Controllers\EncuestasController::class, 'index_nailbar'])->name('index.nailbar');
-
     Route::post('/encuesta/create/faciales', [App\Http\Controllers\EncuestasController::class, 'create_faciales'])->name('create.faciales');
 });
+
+Route::get('/encuesta/faciales', [App\Http\Controllers\EncuestasController::class, 'index_faciales'])->name('index.faciales');
+Route::get('/encuesta/corporal', [App\Http\Controllers\EncuestasController::class, 'index_corporal'])->name('index.corporal');
+Route::get('/encuesta/experiencias', [App\Http\Controllers\EncuestasController::class, 'index_experiencias'])->name('index.experiencias');
+Route::get('/encuesta/jacuzzi/experiencia', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi_experiencia'])->name('index.jacuzzi_experiencia');
+Route::get('/encuesta/jacuzzi', [App\Http\Controllers\EncuestasController::class, 'index_jacuzzi'])->name('index.jacuzzi');
+Route::get('/encuesta/brow', [App\Http\Controllers\EncuestasController::class, 'index_brow'])->name('index.brow');
+Route::get('/encuesta/hair', [App\Http\Controllers\EncuestasController::class, 'index_nailbar'])->name('index.nailbar');
 
 
 //Route Hooks - Do not delete//
