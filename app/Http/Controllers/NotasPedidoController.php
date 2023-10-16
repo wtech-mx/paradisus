@@ -52,7 +52,6 @@ class NotasPedidoController extends Controller
     {
         $this->validate($request, [
             'id_user' => 'required',
-            'id_client' => 'required',
         ]);
 
         $fechaActual = date('Y-m-d');
