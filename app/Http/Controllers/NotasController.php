@@ -39,9 +39,6 @@ class NotasController extends Controller
         ->select('id', 'fecha', 'restante', 'id_client', 'id_servicio')
         ->get();
 
-        //$nota_cosme = NotasCosmes::get();
-        // $nota_cosme_ind = NotasCosmes::where('id_user', '=',$cosme->id)->get();
-
         return view('notas.index', compact('nota'));
     }
 
@@ -74,13 +71,6 @@ class NotasController extends Controller
                      $query->where('name', $id_client);
             });
         }
-
-        // if( $request->last_name){
-        //     $id_client = $request->last_name;
-        //     $nota = Notas::whereHas('Client', function(Builder $query) use($id_client) {
-        //              $query->where('last_name', $id_client);
-        //     });
-        // }
 
         if( $request->id){
             $nota = $nota->where('id', 'LIKE', "%" . $request->id . "%");
@@ -419,24 +409,77 @@ class NotasController extends Controller
         $id_notas_paquetes = $request->get('id_notas_paquetes');
 
         $nota_paquete = NotasPaquetes::find($id_notas_paquetes);
-        $nota_paquete->id_nota = $id;
 
-        $nota_paquete->id_servicio = $request->get('id_servicio');
-        $nota_paquete->num = $request->get('num1_paquetes');
-        $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
+        if($nota_paquete->id_servicio == $request->get('id_servicio')){
+            $nota_paquete->id_servicio = $request->get('id_servicio');
+            $nota_paquete->num = $request->get('num1_paquetes');
+            $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
 
-        $nota_paquete->id_servicio2 = $request->get('id_servicio2');
-        $nota_paquete->num2 = $request->get('num2_paquetes');
-        $nota_paquete->descuento2 = $request->get('descuento-adicional2_paquetes');
+            $nota_paquete->id_servicio2 = $request->get('id_servicio2');
+            $nota_paquete->num2 = $request->get('num2_paquetes');
+            $nota_paquete->descuento2 = $request->get('descuento-adicional2_paquetes');
 
-        $nota_paquete->id_servicio3 = $request->get('id_servicio3');
-        $nota_paquete->num3 = $request->get('num3_paquetes');
-        $nota_paquete->descuento3 = $request->get('descuento-adicional3_paquetes');
+            $nota_paquete->id_servicio3 = $request->get('id_servicio3');
+            $nota_paquete->num3 = $request->get('num3_paquetes');
+            $nota_paquete->descuento3 = $request->get('descuento-adicional3_paquetes');
 
-        $nota_paquete->id_servicio4 = $request->get('id_servicio4');
-        $nota_paquete->num4 = $request->get('num4_paquetes');
-        $nota_paquete->descuento4 = $request->get('descuento-adicional4_paquetes');
-        $nota_paquete->update();
+            $nota_paquete->id_servicio4 = $request->get('id_servicio4');
+            $nota_paquete->num4 = $request->get('num4_paquetes');
+            $nota_paquete->descuento4 = $request->get('descuento-adicional4_paquetes');
+            $nota_paquete->update();
+        }else{
+            $nota_paquete->id_servicio = $request->get('id_servicio');
+            $nota_paquete->num = $request->get('num1_paquetes');
+            $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
+
+            $nota_paquete->id_servicio2 = $request->get('id_servicio2');
+            $nota_paquete->num2 = $request->get('num2_paquetes');
+            $nota_paquete->descuento2 = $request->get('descuento-adicional2_paquetes');
+
+            $nota_paquete->id_servicio3 = $request->get('id_servicio3');
+            $nota_paquete->num3 = $request->get('num3_paquetes');
+            $nota_paquete->descuento3 = $request->get('descuento-adicional3_paquetes');
+
+            $nota_paquete->id_servicio4 = $request->get('id_servicio4');
+            $nota_paquete->num4 = $request->get('num4_paquetes');
+            $nota_paquete->descuento4 = $request->get('descuento-adicional4_paquetes');
+            $nota_paquete->update();
+
+            // Recupera los ID de los servicios del formulario
+            $servicioIds = [
+                $request->get('id_servicio'),
+                $request->get('id_servicio2'),
+                $request->get('id_servicio3'),
+                $request->get('id_servicio4'),
+            ];
+
+            $totalSuma = 0;
+            foreach ($servicioIds as $servicioId) {
+                if ($servicioId) {
+                    $servicio = Servicios::find($servicioId);
+
+                    // Verifica si el servicio tiene descuento
+                    if ($servicio->act_descuento === 1) {
+                        // Si tiene descuento, usa el precio de la columna "descuento"
+                        $totalSuma += $servicio->descuento;
+                    } else {
+                        // Si no tiene descuento o es NULL, usa el precio de la columna "precio"
+                        $totalSuma += $servicio->precio;
+                    }
+                }
+            }
+
+            $pagos = Pagos::where('id_nota', $id)->get();
+            $totalPagos = $pagos->sum('pago');
+
+            $restante =  $totalSuma - $totalPagos;
+
+            $nota = Notas::find($id);
+            $nota->precio = $totalSuma;
+            $nota->restante = $restante;
+            $nota->update();
+        }
+
 
         if($request->get('pago') != NULL){
             $pago = new Pagos;
