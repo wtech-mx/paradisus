@@ -16,115 +16,67 @@ class EncuestasController extends Controller
     }
 
     public function advance(Request $request) {
-        $reportes = DB::table('encuestas');
+
+        $fecha1 = $request->fecha;
+        $fecha2 = $request->fecha2;
+
+        // Formatea las fechas al formato deseado "d/m/y".
+        $fecha1 = date("d/m/y", strtotime($fecha1));
+        $fecha2 = date("d/m/y", strtotime($fecha2));
+
+        // Concatena las fechas en el formato deseado.
+        $rango_fechas = "Fecha elegida del: <br><br> " . $fecha1 . " al " . $fecha2;
+
+        if ($request->fecha != NULL && $request->fecha2 != NULL) {
+            $reportesfacial = Encuestas::where('fecha', '>=', $request->fecha)
+                ->where(function ($query) {
+                    $query->where('tipo', 'Facial')
+                        ->orWhere('tipo', 'Faciales & Corporal');
+                })
+                ->where('fecha', '<=', $request->fecha2)
+                ->get();
+
+            $reportescorporal = Encuestas::where('fecha', '>=', $request->fecha)
+                ->where('tipo', 'Corporal')
+                ->where('fecha', '<=', $request->fecha2)
+                ->get();
+
+            $reportesfyc = Encuestas::where('fecha', '>=', $request->fecha)
+                ->where('tipo', 'Facial')
+                ->where('tipo', 'Corporal')
+                ->where('fecha', '<=', $request->fecha2)
+                ->get();
+        }
+
+        $reportes = $reportesfacial->concat($reportescorporal)->concat($reportesfyc);
+
 
         if( $request->fecha != NULL && $request->fecha2 != NULL){
-            $reportes = $reportes->where('fecha', '>=', $request->fecha)
+            $reportes_brow = Encuestas::where('fecha', '>=', $request->fecha)
+                                ->where('tipo', '=', 'Brow Bar & Lash Lifting')
                                 ->where('fecha', '<=', $request->fecha2);
         }
-        if( $request->tipo){
-            $reportes = $reportes->where('tipo', 'LIKE', "%" . $request->tipo . "%");
-        }
-        $reportes = $reportes->get();
 
-        $p1 = ["Probable", "Neutral", "Algo poco probable", "Bastante probable", "Poco probable"];
-        $conteoPorTipo = [];
-        foreach ($p1 as $tipo) {
-            $query = DB::table('encuestas')
-                ->where('fecha', '>=', $request->fecha)
-                ->where('fecha', '<=', $request->fecha2)
-                ->where('tipo',  $request->tipo)
-                ->where('p1',  $tipo);
+        $reportes_brow = $reportes_brow->get();
 
-            $conteo = $query->count();
-
-            $conteoPorTipo[$tipo] = $conteo;
+        if( $request->fecha != NULL && $request->fecha2 != NULL){
+            $reportes_exp_ja = Encuestas::where('fecha', '>=', $request->fecha)
+                                ->where('tipo', '=', 'Experiencia + Jacuzzi')
+                                ->where('fecha', '<=', $request->fecha2);
         }
 
-        $p7 = ["Muy mala", "Mala", "Neutral", "Buena", "Muy buena"];
-        $conteoPorTipoP7 = [];
-        foreach ($p7 as $tipo) {
-            $query = DB::table('encuestas')
-                ->where('fecha', '>=', $request->fecha)
-                ->where('fecha', '<=', $request->fecha2)
-                ->where('tipo',  $request->tipo)
-                ->where('p7',  $tipo);
+        $reportes_exp_ja = $reportes_exp_ja->get();
 
-            $conteo = $query->count();
-
-            $conteoPorTipoP4[$tipo] = $conteo;
+        if( $request->fecha != NULL && $request->fecha2 != NULL){
+            $reportes_exp = Encuestas::where('fecha', '>=', $request->fecha)
+                                ->where('tipo', '=', 'Experiencias')
+                                ->where('fecha', '<=', $request->fecha2);
         }
 
-        $data = DB::table('encuestas')
-        ->select('p5', 'p6', 'p10', 'p11', 'p12', 'p13')
-        ->where('fecha', '>=', $request->fecha)
-        ->where('fecha', '<=', $request->fecha2)
-        ->where('tipo', $request->tipo)
-        ->get();
-
-        $categories = ['p5', 'p6', 'p10', 'p11', 'p12', 'p13'];
-        $siCounts = [];
-        $noCounts = [];
-
-        foreach ($categories as $category) {
-            $siCount = $data->where($category, 'si')->count();
-            $noCount = $data->where($category, 'no')->count();
-
-            $siCounts[] = $siCount;
-            $noCounts[] = $noCount;
-        }
+        $reportes_exp = $reportes_exp->get();
 
 
-
-        $conteoCalificaciones = [
-            'Muy mala' => 0,
-            'Mala' => 0,
-            'Neutral' => 0,
-            'Buena' => 0,
-            'Muy buena' => 0,
-        ];
-        $redes = DB::table('encuestas')
-            ->select('p3')
-            ->where('fecha', '>=', $request->fecha)
-            ->where('fecha', '<=', $request->fecha2)
-            ->where('tipo', 'LIKE', "%" . $request->tipo . "%")
-            ->get();
-        foreach ($redes as $red) {
-            $conteoCalificaciones[$red->p3]++;
-        }
-
-        $conteoSiNo = [
-            'si' => 0,
-            'no' => 0,
-        ];
-        $dudas = DB::table('encuestas')
-        ->select('p4')
-        ->where('fecha', '>=', $request->fecha)
-        ->where('fecha', '<=', $request->fecha2)
-        ->where('tipo', 'LIKE', "%" . $request->tipo . "%")
-        ->get();
-        foreach ($dudas as $duda) {
-            $conteoSiNo[$duda->p4]++;
-        }
-
-        $conteoAtencion = [
-            'Muy mala' => 0,
-            'Mala' => 0,
-            'Neutral' => 0,
-            'Buena' => 0,
-            'Muy buena' => 0,
-        ];
-        $atenciones = DB::table('encuestas')
-            ->select('p2')
-            ->where('fecha', '>=', $request->fecha)
-            ->where('fecha', '<=', $request->fecha2)
-            ->where('tipo', 'LIKE', "%" . $request->tipo . "%")
-            ->get();
-        foreach ($atenciones as $atencion) {
-            $conteoAtencion[$atencion->p2]++;
-        }
-
-        return view('encuestas.vista_admin.index',['conteoCalificaciones' => $conteoCalificaciones, 'conteoSiNo' => $conteoSiNo, 'conteoAtencion' => $conteoAtencion], compact('reportes', 'conteoPorTipo', 'conteoPorTipoP4', 'siCounts', 'noCounts'));
+        return view('encuestas.vista_admin.index', compact('reportes','rango_fechas','reportes_brow','reportes_exp_ja','reportes_exp'));
     }
 
     public function index_faciales(){
