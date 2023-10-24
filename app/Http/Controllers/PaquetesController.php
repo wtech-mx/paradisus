@@ -819,7 +819,6 @@ class PaquetesController extends Controller
         $paquete->cadera1_d = $request->get('cadera1_d');
         $paquete->gluteo1_a = $request->get('gluteo1_a');
         $paquete->gluteo1_d = $request->get('gluteo1_d');
-        $paquete->firma1 = $request->get('firma1');
 
         if($request->get('id_user2') != NULL){
             $paquete->fecha2 = $request->get('fecha2');
@@ -835,7 +834,6 @@ class PaquetesController extends Controller
             $paquete->cadera2_d = $request->get('cadera2_d');
             $paquete->gluteo2_a = $request->get('gluteo2_a');
             $paquete->gluteo2_d = $request->get('gluteo2_d');
-            $paquete->firma2 = $request->get('firma2');
         }
 
         if($request->get('id_user3') != NULL){
@@ -851,8 +849,6 @@ class PaquetesController extends Controller
             $paquete->cadera3_a = $request->get('cadera3_a');
             $paquete->cadera3_d = $request->get('cadera3_d');
             $paquete->gluteo3_a = $request->get('gluteo3_a');
-            $paquete->gluteo3_d = $request->get('gluteo3_d');
-            $paquete->firma3 = $request->get('firma3');
         }
 
         if($request->get('id_user4') != NULL){
@@ -869,7 +865,6 @@ class PaquetesController extends Controller
             $paquete->cadera4_d = $request->get('cadera4_d');
             $paquete->gluteo4_a = $request->get('gluteo4_a');
             $paquete->gluteo4_d = $request->get('gluteo4_d');
-            $paquete->firma4 = $request->get('firma4');
         }
         $paquete->update();
 
@@ -902,7 +897,6 @@ class PaquetesController extends Controller
             $paquete2->cadera5_d = $request->get('cadera5_d');
             $paquete2->gluteo5_a = $request->get('gluteo5_a');
             $paquete2->gluteo5_d = $request->get('gluteo5_d');
-            $paquete2->firma5 = $request->get('firma5');
         }
 
         if($request->get('id_user6') != NULL){
@@ -919,7 +913,6 @@ class PaquetesController extends Controller
             $paquete2->cadera6_d = $request->get('cadera6_d');
             $paquete2->gluteo6_a = $request->get('gluteo6_a');
             $paquete2->gluteo6_d = $request->get('gluteo6_d');
-            $paquete2->firma6 = $request->get('firma6');
         }
 
         if($request->get('id_user7') != NULL){
@@ -936,7 +929,6 @@ class PaquetesController extends Controller
             $paquete2->cadera7_d = $request->get('cadera7_d');
             $paquete2->gluteo7_a = $request->get('gluteo7_a');
             $paquete2->gluteo7_d = $request->get('gluteo7_d');
-            $paquete2->firma7 = $request->get('firma7');
         }
 
         if($request->get('id_user8') != NULL){
@@ -953,7 +945,6 @@ class PaquetesController extends Controller
             $paquete2->cadera8_d = $request->get('cadera8_d');
             $paquete2->gluteo8_a = $request->get('gluteo8_a');
             $paquete2->gluteo8_d = $request->get('gluteo8_d');
-            $paquete2->firma8 = $request->get('firma8');
         }
         $paquete2->update();
 
@@ -973,7 +964,6 @@ class PaquetesController extends Controller
             $paquete3->cadera9_d = $request->get('cadera9_d');
             $paquete3->gluteo9_a = $request->get('gluteo9_a');
             $paquete3->gluteo9_d = $request->get('gluteo9_d');
-            $paquete3->firma9 = $request->get('firma9');
         }
 
         if($request->get('id_user10') != NULL){
@@ -990,7 +980,6 @@ class PaquetesController extends Controller
             $paquete3->cadera10_d = $request->get('cadera10_d');
             $paquete3->gluteo10_a = $request->get('gluteo10_a');
             $paquete3->gluteo10_d = $request->get('gluteo10_d');
-            $paquete3->firma10 = $request->get('firma10');
         }
         $paquete3->update();
 
