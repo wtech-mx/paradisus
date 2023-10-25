@@ -113,7 +113,7 @@
                                                 <div class="col-7">
                                                     <div class="form-group">
                                                         <label for="precio">Servicio</label>
-                                                        <select class="form-control servicio1_paquetes" id="servicio1_paquetes" name="id_servicio" data-toggle="select" data-id="{{ $notas->Paquetes->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                        <select class="form-control servicio_search servicio1_paquetes" id="servicio1_paquetes" name="id_servicio" data-toggle="select" data-id="{{ $notas->Paquetes->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                             data-on="Active" data-off="InActive" >
                                                             <option value="{{ $notas->Paquetes->id_servicio }}" data-precio="{{ $notas->Paquetes->Servicios->precio }}" data-descuento="{{ $notas->Paquetes->Servicios->descuento }}" data-act-descuento="{{ $notas->Paquetes->Servicios->act_descuento }}">{{ $notas->Paquetes->Servicios->nombre }}</option>
                                                             @foreach ($servicio as $item)
@@ -665,6 +665,7 @@
 
     <script>
             $(document).ready(function() {
+                $('.servicio_search').select2();
                 $('.cliente').select2();
                 $('.servicio1').select2();
                 $('.servicio2').select2();
