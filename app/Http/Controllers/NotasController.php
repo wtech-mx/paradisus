@@ -405,6 +405,31 @@ class NotasController extends Controller
             NotasCosmes::find($id_notas_cosmes)->update($data);
         }
 
+        // G U A R D A R  P A G O S
+        if($request->get('pago') != NULL){
+            $pago = new Pagos;
+            $pago->id_nota = $nota->id;
+            $pago->fecha = $request->get('fecha_pago');
+            $pago->cosmetologa = $request->get('cosmetologa');
+            $pago->pago = $request->get('pago');
+            $pago->dinero_recibido = $request->get('dinero_recibido');
+            $pago->forma_pago = $request->get('forma_pago');
+            $pago->nota = $request->get('nota2');
+            $pago->cambio = $request->get('cambio');
+
+            if ($request->hasFile("foto")) {
+                $file = $request->file('foto');
+                $path = public_path() . '/foto_servicios';
+                $fileName = uniqid() . $file->getClientOriginalName();
+                $file->move($path, $fileName);
+                $pago->foto = $fileName;
+            }
+
+            $pago->save();
+        }else{
+            $pago = '';
+        }
+
         // G U A R D A R  S E R V I C I O
         $id_notas_paquetes = $request->get('id_notas_paquetes');
 
@@ -478,31 +503,6 @@ class NotasController extends Controller
             $nota->precio = $totalSuma;
             $nota->restante = $restante;
             $nota->update();
-        }
-
-
-        if($request->get('pago') != NULL){
-            $pago = new Pagos;
-            $pago->id_nota = $nota->id;
-            $pago->fecha = $request->get('fecha_pago');
-            $pago->cosmetologa = $request->get('cosmetologa');
-            $pago->pago = $request->get('pago');
-            $pago->dinero_recibido = $request->get('dinero_recibido');
-            $pago->forma_pago = $request->get('forma_pago');
-            $pago->nota = $request->get('nota2');
-            $pago->cambio = $request->get('cambio');
-
-            if ($request->hasFile("foto")) {
-                $file = $request->file('foto');
-                $path = public_path() . '/foto_servicios';
-                $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move($path, $fileName);
-                $pago->foto = $fileName;
-            }
-
-            $pago->save();
-        }else{
-            $pago = '';
         }
 
         if($request->get('sesion') != NULL){
