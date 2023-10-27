@@ -169,7 +169,7 @@
                                                 </button>
                                             </div>
 
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="precio">Servicio</label><br>
                                                     <select class="form-control servicio1" data-toggle="select" id="servicio1" name="id_servicio" required>
@@ -197,10 +197,15 @@
                                                         <span class="input-group-text" id="basic-addon1">
                                                             <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
                                                         </span>
-                                                        <input type="text" id="total1" name="total1" class="form-control" readonly>
+                                                        <input type="text" id="total" name="total1" class="form-control" readonly>
                                                     </div>
                                             </div>
-
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <label>Descuento</label>
+                                                    <input type="text" class="form-control" id="totalConDescuento1" name="totalConDescuento1" disabled>
+                                                </div>
+                                            </div>
                                             <div class="col-2">
                                                     <label for="name">Descuento adicional (%)</label>
                                                     <div class="input-group mb-3">
@@ -217,7 +222,7 @@
                                         <div class="collapse" id="collapseServicio">
                                             <div class="card card-body">
                                                 <div class="row">
-                                                    <div class="col-7">
+                                                    <div class="col-5">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 2</label><br>
                                                             <select class="form-control servicio2" data-toggle="select" id="servicio2" name="id_servicio2">
@@ -245,10 +250,15 @@
                                                                 <span class="input-group-text" id="basic-addon1">
                                                                     <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
                                                                 </span>
-                                                                <input type="text" id="total2" name="total2" class="form-control" readonly>
+                                                                <input type="text" id="total22" name="total2" class="form-control" readonly>
                                                             </div>
                                                     </div>
-
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label>Descuento</label>
+                                                            <input type="text" class="form-control" id="totalConDescuento2" name="totalConDescuento2" disabled>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-2">
                                                         <label for="name">Descuento adicional (%)</label>
                                                         <div class="input-group mb-3">
@@ -260,7 +270,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-7">
+                                                    <div class="col-5">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 3</label><br>
                                                             <select class="form-control servicio3" data-toggle="select" id="servicio3" name="id_servicio3">
@@ -288,10 +298,15 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="text" id="total3" name="total3" class="form-control" readonly>
+                                                            <input type="text" id="total33" name="total3" class="form-control" readonly>
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label>Descuento</label>
+                                                            <input type="text" class="form-control" id="totalConDescuento3" name="totalConDescuento3" disabled>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-2">
                                                         <label for="name">Descuento adicional (%)</label>
                                                         <div class="input-group mb-3">
@@ -304,7 +319,7 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-7">
+                                                    <div class="col-5">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 4</label><br>
                                                             <select class="form-control servicio4" id="servicio4" name="id_servicio4">
@@ -332,10 +347,15 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="text" id="total4" name="total4" class="form-control" readonly>
+                                                            <input type="text" id="total44" name="total4" class="form-control" readonly>
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label>Descuento</label>
+                                                            <input type="text" class="form-control" id="totalConDescuento4" name="totalConDescuento4" disabled>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-2">
                                                         <label for="name">Descuento adicional (%)</label>
                                                         <div class="input-group mb-3">
@@ -666,16 +686,17 @@
         var cantidad = parseInt($('#num1').val());
         var descuentoAdicional = parseInt($('#descuento-adicional1').val()) || 0; // Descuento adicional ingresado
 
-        if (actDescuento === 1) {
-            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
-        }else{
-            var subtotal = cantidad * precio;
-        }
+        // Calcular el subtotal usando el precio
+        var subtotal = cantidad * precio;
 
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        $('#total').val(precio);
+
+        $('#totalConDescuento1').val(descuento);
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
         var total = subtotal - descuentoTotal;
 
-        $('#total1').val(total);
+        $('#total').val(total);
     });
 
     // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
@@ -687,16 +708,17 @@
         var cantidad = parseInt($('#num2').val());
         var descuentoAdicional = parseInt($('#descuento-adicional2').val()) || 0; // Descuento adicional ingresado
 
-        if (actDescuento === 1) {
-            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
-        }else{
-            var subtotal = cantidad * precio;
-        }
+        // Calcular el subtotal usando el precio
+        var subtotal = cantidad * precio;
 
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        $('#total22').val(precio);
+
+        $('#totalConDescuento2').val(descuento);
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
         var total = subtotal - descuentoTotal;
 
-        $('#total2').val(total);
+        $('#total22').val(total);
     });
 
     // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
@@ -708,16 +730,17 @@
         var cantidad = parseInt($('#num3').val());
         var descuentoAdicional = parseInt($('#descuento-adicional3').val()) || 0; // Descuento adicional ingresado
 
-        if (actDescuento === 1) {
-            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
-        }else{
-            var subtotal = cantidad * precio;
-        }
+        // Calcular el subtotal usando el precio
+        var subtotal = cantidad * precio;
 
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        $('#total33').val(precio);
+
+        $('#totalConDescuento3').val(descuento);
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
         var total = subtotal - descuentoTotal;
 
-        $('#total3').val(total);
+        $('#total33').val(total);
     });
 
     // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
@@ -729,16 +752,17 @@
         var cantidad = parseInt($('#num4').val());
         var descuentoAdicional = parseInt($('#descuento-adicional4').val()) || 0; // Descuento adicional ingresado
 
-        if (actDescuento === 1) {
-            var subtotal = cantidad * descuento; // Aplicar descuento si está activo
-        }else{
-            var subtotal = cantidad * precio;
-        }
+        // Calcular el subtotal usando el precio
+        var subtotal = cantidad * precio;
 
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+        $('#total44').val(precio);
+
+        $('#totalConDescuento4').val(descuento);
+
+        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
         var total = subtotal - descuentoTotal;
 
-        $('#total4').val(total);
+        $('#total44').val(total);
     });
 
     function calcularTotal() {

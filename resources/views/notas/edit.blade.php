@@ -87,7 +87,7 @@
                                         <div class="tab-pane fade in active show" id="servicioedit{{$notas->id}}">
                                             <div class="form-group">
                                                 <label for="nombre">Cosmetologas</label>
-                                                <select  id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control" multiple="multiple">
+                                                <select  id="id_user[]" name="id_user[]" class="js-example-basic-multiple form-control user" >
                                                     @foreach ($user as $item)
                                                         @if ($notas->NotasCosmes->id_user == $item->id)
                                                         <option selected value="{{$item->id }}">{{$item->name}}</option>
@@ -110,7 +110,7 @@
                                                 </select>
                                             </div>
                                             <div class="row">
-                                                <div class="col-7">
+                                                <div class="col-5">
                                                     <div class="form-group">
                                                         <label for="precio">Servicio</label>
                                                         <select class="form-control servicio_search servicio1_paquetes" id="servicio1_paquetes" name="id_servicio" data-toggle="select" data-id="{{ $notas->Paquetes->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
@@ -137,6 +137,12 @@
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="form-group">
+                                                        <label>Descuento</label>
+                                                        <input type="text" class="form-control" id="totalConDescuento1_paquetes" name="totalConDescuento1_paquetes" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="form-group">
                                                         <label for="descuento">Descuento %</label><br>
                                                         <input class="form-control" type="number" name="descuento-adicional1_paquetes" id="descuento-adicional1_paquetes" value="{{$notas->Paquetes->descuento}}" >
                                                     </div>
@@ -147,10 +153,10 @@
                                             <div class="card card-body">
                                                 {{-- D O S  S E R V I C I O  --}}
                                                 <div class="row">
-                                                    <div class="col-7">
+                                                    <div class="col-5">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 2</label><br>
-                                                            <select class="form-control servicio2_paquetes" data-toggle="select" id="servicio2_paquetes" name="id_servicio2" >
+                                                            <select class="form-control servicio2_paquetes servicio2" data-toggle="select" id="servicio2_paquetes" name="id_servicio2" >
                                                                 @if ($notas->Paquetes->id_servicio2 == NULL || $notas->Paquetes->id_servicio2 == 0)
                                                                     <option value="">Seleccione Servicio</option>
                                                                 @else
@@ -176,6 +182,12 @@
                                                     </div>
                                                     <div class="col-2">
                                                         <div class="form-group">
+                                                            <label>Descuento</label>
+                                                            <input type="text" class="form-control" id="totalConDescuento2_paquetes" name="totalConDescuento2_paquetes" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <div class="form-group">
                                                             <label for="descuento">Descuento %</label><br>
                                                             <input class="form-control" type="number" name="descuento-adicional2_paquetes" id="descuento-adicional2_paquetes" value="{{$notas->Paquetes->descuento2}}" >
                                                         </div>
@@ -183,10 +195,10 @@
                                                 </div>
                                                 {{-- T R E S  S E R V I C I O  --}}
                                                 <div class="row">
-                                                    <div class="col-7">
+                                                    <div class="col-5">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 3</label><br>
-                                                            <select class="form-control servicio3_paquetes" data-toggle="select" id="servicio3_paquetes" name="id_servicio3" >
+                                                            <select class="form-control servicio3_paquetes servicio3" data-toggle="select" id="servicio3_paquetes" name="id_servicio3" >
                                                                 @if ($notas->Paquetes->id_servicio3 == NULL || $notas->Paquetes->id_servicio3 == 0)
                                                                     <option value="">Seleccione Servicio</option>
                                                                 @else
@@ -212,6 +224,12 @@
                                                     </div>
                                                     <div class="col-2">
                                                         <div class="form-group">
+                                                            <label>Descuento</label>
+                                                            <input type="text" class="form-control" id="totalConDescuento3_paquetes" name="totalConDescuento3_paquetes" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <div class="form-group">
                                                             <label for="descuento">Descuento %</label><br>
                                                             <input class="form-control" type="number" name="descuento-adicional3_paquetes" id="descuento-adicional3_paquetes" value="{{$notas->Paquetes->descuento3}}" >
                                                         </div>
@@ -219,10 +237,10 @@
                                                 </div>
                                                 {{-- C U A T R O  S E R V I C I O  --}}
                                                 <div class="row">
-                                                    <div class="col-7">
+                                                    <div class="col-5">
                                                         <div class="form-group">
                                                             <label for="precio">Servicio 4</label><br>
-                                                            <select class="form-control servicio4_paquetes" id="servicio4_paquetes" name="id_servicio4" >
+                                                            <select class="form-control servicio4_paquetes servicio4" id="servicio4_paquetes" name="id_servicio4" >
                                                                 @if ($notas->Paquetes->id_servicio4 == NULL || $notas->Paquetes->id_servicio4 == 0)
                                                                     <option value="">Seleccione Servicio</option>
                                                                 @else
@@ -244,6 +262,12 @@
                                                         <div class="form-group">
                                                             <label for="precio">Total</label>
                                                             <input type="text" id="total4_paquetes" name="total4_paquetes" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <div class="form-group">
+                                                            <label>Descuento</label>
+                                                            <input type="text" class="form-control" id="totalConDescuento4_paquetes" name="totalConDescuento4_paquetes" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-2">
@@ -665,9 +689,9 @@
 
     <script>
             $(document).ready(function() {
+                $('.user').select2();
                 $('.servicio_search').select2();
                 $('.cliente').select2();
-                $('.servicio1').select2();
                 $('.servicio2').select2();
                 $('.servicio3').select2();
                 $('.servicio4').select2();
@@ -738,12 +762,16 @@
             var cantidad = parseInt($('#num' + servicioNumber + '_paquetes').val());
             var descuentoAdicional = parseInt($('#descuento-adicional' + servicioNumber + '_paquetes').val()) || 0;
 
-            if (actDescuento === 1) {
-              var subtotal = cantidad * descuento;
-            } else {
-              var subtotal = cantidad * precio;
-            }
+            // Calcular el subtotal usando el precio
+            var subtotal = cantidad * precio;
 
+            // Mostrar el precio en "total1_paquetes"
+            $('#total' + servicioNumber + '_paquetes').val(precio);
+
+            // Mostrar el descuento en "totalConDescuento1_paquetes"
+            $('#totalConDescuento' + servicioNumber + '_paquetes').val(descuento);
+
+            // Calcular el total con descuento adicional
             var descuentoTotal = (subtotal * descuentoAdicional) / 100;
             var total = subtotal - descuentoTotal;
 

@@ -583,45 +583,44 @@ class NotasController extends Controller
 
         $pago_reciente = Pagos::where('id_nota', '=', $nota->id)->orderBy('id','DESC')->first();
 
+        $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
+        ->get();
 
-            $nota_cosme = NotasCosmes::where('id_nota', '=', $id)
-            ->get();
+        foreach ($nota_cosme as $notacosme){
+            $cadena = $notacosme->User->name;
+        }
 
-            foreach ($nota_cosme as $notacosme){
-                $cadena = $notacosme->User->name;
-            }
+        $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
+        ->first();
 
-            $notas_paquetes = NotasPaquetes::where('id_nota', '=', $id)
-            ->first();
+        $servicio = $notas_paquetes->Servicios->nombre;
 
-            $servicio = $notas_paquetes->Servicios->nombre;
+        if ($notas_paquetes->id_servicio2 !== null) {
+            $servicio .= ' ' . $notas_paquetes->Servicios2->nombre;
+        }
 
-            if ($notas_paquetes->id_servicio2 !== null) {
-                $servicio .= ' ' . $notas_paquetes->Servicios2->nombre;
-            }
+        if ($notas_paquetes->id_servicio3 !== null) {
+            $servicio .= ' ' . $notas_paquetes->Servicios3->nombre;
+        }
 
-            if ($notas_paquetes->id_servicio3 !== null) {
-                $servicio .= ' ' . $notas_paquetes->Servicios3->nombre;
-            }
-
-            if ($notas_paquetes->id_servicio4 !== null) {
-                $servicio .= ' ' . $notas_paquetes->Servicios4->nombre;
-            }
+        if ($notas_paquetes->id_servicio4 !== null) {
+            $servicio .= ' ' . $notas_paquetes->Servicios4->nombre;
+        }
 
 
-            $recibo = [
-                "id" => $nota->id,
-                "Cliente" => $nota->Client->name,
-                "Total" => $nota->precio,
-                "Restante" => $nota->restante,
-                "nombreImpresora" => "ZJ-58",
-                'pago' => [$pago],
-                'cosmetologa' => $cadena,
-                'notas_paquetes' => $servicio,
-                // Agrega cualquier otro dato necesario para el recibo
-            ];
-            // Devuelve los datos en formato JSON
-            return response()->json(['success' => true, 'recibo' => $recibo]);
+        $recibo = [
+            "id" => $nota->id,
+            "Cliente" => $nota->Client->name,
+            "Total" => $nota->precio,
+            "Restante" => $nota->restante,
+            "nombreImpresora" => "ZJ-58",
+            'pago' => [$pago],
+            'cosmetologa' => $cadena,
+            'notas_paquetes' => $servicio,
+            // Agrega cualquier otro dato necesario para el recibo
+        ];
+        // Devuelve los datos en formato JSON
+        return response()->json(['success' => true, 'recibo' => $recibo]);
 
 
         Alert::success('Actualizado con exito ');
