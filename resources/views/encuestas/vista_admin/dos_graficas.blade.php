@@ -56,9 +56,9 @@
             </div>
             @foreach ($reportes_exp_ja as $item)
             <div class="col-3">
-                <div class="card mt-3" style="background: #fde9ef!important;">
+                <div class="card mt-3" style="background: #f6e9fd!important;">
 
-                    <div class="d-flex justify-content-between px-3" style="background: #f9d4df;padding: 30px 0px 10px 0px;border-radius: 9px 9px 0 0;">
+                    <div class="d-flex justify-content-between px-3" style="background: #f9d4f9;padding: 30px 0px 10px 0px;border-radius: 9px 9px 0 0;">
                         <p class="" style="font-size: 13px;color: #d32156;font-weight: bold;">Cliente: <br> <strong style="color: #6b0020;font-size: 13px;"> {{ $item->nombre }}</strong></p>
                         <p class="px-3" style="font-size: 13px;color: #d32156;font-weight: bold;">Telefono: <br> <strong style="color: #6b0020;font-size: 13px;">{{ $item->telefono }}</strong></p>
                         <p class="" style="font-size: 13px;color: #d32156;font-weight: bold;">Cosmetologa: <br><strong style="color: #6b0020;font-size: 13px;">{{ $item->User->name }}</strong></p>
@@ -106,16 +106,15 @@
             @endforeach
         </div>
 
-
         <div class="row">
             <div class="col-12">
                 <h5 class="p-3"> Brow Bar & Lash Lifting</h5>
             </div>
             @foreach ($reportes_brow as $item)
             <div class="col-3">
-                <div class="card mt-3" style="background: #fde9ef!important;">
+                <div class="card mt-3" style="background: #ebe9fd!important;">
 
-                    <div class="d-flex justify-content-between px-3" style="background: #f9d4df;padding: 30px 0px 10px 0px;border-radius: 9px 9px 0 0;">
+                    <div class="d-flex justify-content-between px-3" style="background: #d7d4f9;padding: 30px 0px 10px 0px;border-radius: 9px 9px 0 0;">
                         <p class="" style="font-size: 13px;color: #d32156;font-weight: bold;">Cliente: <br> <strong style="color: #6b0020;font-size: 13px;"> {{ $item->nombre }}</strong></p>
                         <p class="px-3" style="font-size: 13px;color: #d32156;font-weight: bold;">Telefono: <br> <strong style="color: #6b0020;font-size: 13px;">{{ $item->telefono }}</strong></p>
                         <p class="" style="font-size: 13px;color: #d32156;font-weight: bold;">Cosmetologa: <br><strong style="color: #6b0020;font-size: 13px;">{{ $item->User->name }}</strong></p>
@@ -164,9 +163,9 @@
             </div>
             @foreach ($reportes_exp as $item)
             <div class="col-3">
-                <div class="card mt-3" style="background: #fde9ef!important;">
+                <div class="card mt-3" style="background: #f9f3d4!important;">
 
-                    <div class="d-flex justify-content-between px-3" style="background: #f9d4df;padding: 30px 0px 10px 0px;border-radius: 9px 9px 0 0;">
+                    <div class="d-flex justify-content-between px-3" style="background: #f9d4d4;padding: 30px 0px 10px 0px;border-radius: 9px 9px 0 0;">
                         <p class="" style="font-size: 13px;color: #d32156;font-weight: bold;">Cliente: <br> <strong style="color: #6b0020;font-size: 13px;"> {{ $item->nombre }}</strong></p>
                         <p class="px-3" style="font-size: 13px;color: #d32156;font-weight: bold;">Telefono: <br> <strong style="color: #6b0020;font-size: 13px;">{{ $item->telefono }}</strong></p>
                         <p class="" style="font-size: 13px;color: #d32156;font-weight: bold;">Cosmetologa: <br><strong style="color: #6b0020;font-size: 13px;">{{ $item->User->name }}</strong></p>
