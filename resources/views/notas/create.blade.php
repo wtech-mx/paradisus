@@ -144,7 +144,7 @@
                                                             </div>
 
                                                             <div class="col-4">
-                                                                <label for="name">Correo *</label>
+                                                                <label for="name">Correo (Opcional)</label>
                                                                 <div class="input-group mb-3">
                                                                     <span class="input-group-text" id="basic-addon1">
                                                                         <img src="{{ asset('assets/icons/correo-electronico.png') }}" alt="" width="29px">
