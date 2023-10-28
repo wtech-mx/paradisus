@@ -39,7 +39,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = Client::orderBy('id','DESC')->get();
+        $clients = Client::all();
 
         return view('client.index', compact('clients'));
     }
@@ -51,22 +51,20 @@ class ClientController extends Controller
             'phone' => 'required_without_all:id_client',
         ]);
 
-
         $id_client = $request->id_client;
         $phone = $request->phone;
 
-        $client = [];
+        $nota = [];
         $paquetes = [];
 
         if ($id_client !== 'null' && $id_client !== null) {
-            $client = Client::where('id', $id_client)->first();
+            $user = Client::where('id', $id_client)->get();
+
         } elseif ($phone !== 'null' && $phone !== null) {
-            $client = Client::where('id', $phone)->first();
+            $user = Client::where('id', $phone)->get();
         }
 
-        Alert::success('Encontrado con exito ');
-
-        return view('client.index', compact('client'));
+        return view('client.index', compact('user'));
     }
 
     public function index_facial(Request $request)

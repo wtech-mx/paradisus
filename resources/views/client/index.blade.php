@@ -86,28 +86,30 @@
                                     </thead>
                                     <tbody>
                                         @if(Route::currentRouteName() != 'clients.index')
-                                                @include('client.edit')
-                                                <tr>
-                                                    <td>{{ $client->id }}</td>
+                                                @foreach ($user as $item)
+                                                    @include('client.edit')
+                                                    <tr>
+                                                        <td>{{ $client->id }}</td>
 
-                                                    <td>{{ $client->name }} <br>{{ $client->last_name }}</td>
-                                                    <td>{{ $client->phone }}</td>
-                                                    <td>{{ $client->email }}</td>
+                                                        <td>{{ $item->name }} <br>{{ $item->last_name }}</td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>{{ $item->email }}</td>
 
-                                                    <td>
-                                                        {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
-                                                        @can('client-edit')
-                                                            <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
-                                                        @endcan
-                                                        @can('client-delete')
-                                                            <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display: contents">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
-                                                            </form>
-                                                        @endcan
-                                                    </td>
-                                                </tr>
+                                                        <td>
+                                                            {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
+                                                            @can('client-edit')
+                                                                <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editClientModal{{$client->id}}" style="color: #ffff"><i class="fa fa-fw fa-edit"></i></a>
+                                                            @endcan
+                                                            @can('client-delete')
+                                                                <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display: contents">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
+                                                                </form>
+                                                            @endcan
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                         @endif
                                     </tbody>
                                 </table>
