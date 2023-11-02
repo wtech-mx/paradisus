@@ -13,6 +13,9 @@ use Codexshaper\WooCommerce\Models\Product;
 use Session;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 // use Automattic\WooCommerce\Client;
 
@@ -50,9 +53,20 @@ class NotasPedidoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+
+        $validator = Validator::make($request->all(), [
             'id_user' => 'required',
+            'phone' => [
+                Rule::unique('clients')->where(function ($query) use ($request) {
+                    return $query->where('phone', $request->input('phone'));
+                }),
+            ],
         ]);
+
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         $fechaActual = date('Y-m-d');
 
