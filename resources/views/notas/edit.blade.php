@@ -485,11 +485,13 @@
                                                     </div>
 
                                                         <div class="col-2 py-2 p-1" >
-                                                            <input name="restante_existente" type="number" class="form-control text-center" value="{{$notas->restante}}" @cannot('edit-pago-exist') style="display: none" @endcannot>
+                                                            <label for="">Restante</label>
+                                                            <input name="restante_existente" type="number" class="form-control text-center" value="{{$notas->restante}}" @cannot('edit-pago-exist') readonly @endcannot>
                                                         </div>
 
                                                         <div class="col-2 py-2 p-1" >
-                                                            <input name="total_existente" type="number" class="form-control text-center" value="{{$notas->precio}}" @cannot('edit-pago-exist') style="display: none" @endcannot>
+                                                            <label for="">Total</label>
+                                                            <input name="total_existente" type="number" class="form-control text-center" value="{{$notas->precio}}" @cannot('edit-pago-exist') readonly @endcannot>
                                                         </div>
                                                 </div>
 
