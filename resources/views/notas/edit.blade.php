@@ -110,7 +110,7 @@
                                                 </select>
                                             </div>
                                             <div class="row">
-                                                <div class="col-5">
+                                                <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="precio">Servicio</label>
                                                         <select class="form-control servicio_search servicio1_paquetes" id="servicio1_paquetes" name="id_servicio" data-toggle="select" data-id="{{ $notas->Paquetes->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
@@ -122,29 +122,55 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-1">
+                                                <div class="col-2">
                                                     <div class="form-group">
                                                         <label for="precio">Num</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/hashtag.png') }}" alt="" width="25px">
+                                                            </span>
                                                             <input type="number" id="num1_paquetes" name="num1_paquetes" class="form-control" value="{{ $notas->Paquetes->num }}" >
                                                             <input type="hidden" id="id_notas_paquetes" name="id_notas_paquetes" class="form-control" value="{{ $notas->Paquetes->id }}" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group">
+                                                        <label for="precio">Precio</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" id="total1_paquetes" name="total1_paquetes" class="form-control" readonly>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="form-group">
-                                                        <label for="precio">Total</label>
-                                                        <input type="text" id="total1_paquetes" name="total1_paquetes" class="form-control" readonly>
+                                                        <label>P. Descuento</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" class="form-control" id="totalConDescuento1_paquetes" name="totalConDescuento1_paquetes" disabled>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label>Descuento</label>
-                                                        <input type="text" class="form-control" id="totalConDescuento1_paquetes" name="totalConDescuento1_paquetes" disabled>
+                                                    <div class="form-check">
+                                                        <label>¿Descuento?</label><br>
+                                                        <input class="form-check-input" type="checkbox" name="check_desc1" id="check_desc1" value="1">
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <div class="form-group">
                                                         <label for="descuento">Descuento %</label><br>
-                                                        <input class="form-control" type="number" name="descuento-adicional1_paquetes" id="descuento-adicional1_paquetes" value="{{$notas->Paquetes->descuento}}" >
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input class="form-control" type="number" name="descuento-adicional1_paquetes" id="descuento-adicional1_paquetes" value="{{$notas->Paquetes->descuento}}" >
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -305,16 +331,16 @@
 
                                                 @foreach ($pago as $item)
 
-                                                    <input id="pago_{{ $item->id }}" name="pago_id_existente[]" type="hidden" class="form-control" value="{{ $item->id }}">
+                                                    <input id="pago_{{ $item->id }}" name="pago_id_existente[]" type="text" class="form-control" value="{{ $item->id }}" readonly>
 
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <input name="fecha_pago_existente[]" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" @cannot('edit-pago-exist') disabled @endcannot>
+                                                        <input name="fecha_pago_existente[]" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" @cannot('edit-pago-exist') readonly @endcannot>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa_existente[]" @cannot('edit-pago-exist') disabled @endcannot>
+                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa_existente[]" @cannot('edit-pago-exist') readonly @endcannot>
                                                             <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
                                                             @foreach ($user as $cosmes)
                                                                 <option value="{{ $cosmes->id }}" >{{ $cosmes->name }}</option>
@@ -323,11 +349,11 @@
                                                     </div>
 
                                                     <div class="col-1 py-2 p-1" >
-                                                        <input name="pago_existente[]" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" @cannot('edit-pago-exist') disabled @endcannot>
+                                                        <input name="pago_existente[]" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" @cannot('edit-pago-exist') readonly @endcannot>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <input name="dinero_recibido_existente[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" @cannot('edit-pago-exist') disabled @endcannot>
+                                                        <input name="dinero_recibido_existente[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" @cannot('edit-pago-exist') readonly @endcannot>
                                                     </div>
 
                                                     @can('edit-pago-exist')
@@ -337,7 +363,7 @@
                                                     @endcan
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <select id="forma_pago_existente[]" name="forma_pago_existente[]" class="form-control text-center" @cannot('edit-pago-exist') disabled @endcannot>
+                                                        <select id="forma_pago_existente[]" name="forma_pago_existente[]" class="form-control text-center" @cannot('edit-pago-exist') readonly @endcannot>
                                                             <option value="{{$item->forma_pago}}">{{$item->forma_pago}}</option>
                                                             <option value="Efectivo">Efectivo</option>
                                                             <option value="Transferencia">Transferencia</option>
@@ -458,17 +484,13 @@
                                                         </div>
                                                     </div>
 
-                                                    @can('edit-pago-exist')
                                                         <div class="col-2 py-2 p-1" >
-                                                            <label for="">Restante</label>
-                                                            <input name="restante_existente" type="number" class="form-control text-center" value="{{$notas->restante}}" >
+                                                            <input name="restante_existente" type="number" class="form-control text-center" value="{{$notas->restante}}" @cannot('edit-pago-exist') style="display: none" @endcannot>
                                                         </div>
 
                                                         <div class="col-2 py-2 p-1" >
-                                                            <label for="">Total</label>
-                                                            <input name="total_existente" type="number" class="form-control text-center" value="{{$notas->precio}}" >
+                                                            <input name="total_existente" type="number" class="form-control text-center" value="{{$notas->precio}}" @cannot('edit-pago-exist') style="display: none" @endcannot>
                                                         </div>
-                                                    @endcan
                                                 </div>
 
                                             </div>
@@ -776,6 +798,20 @@
         calcularCambio();
         calcularRestante();
 
+            // Configura el evento change para el checkbox
+            $('#totalConDescuento1_paquetes').change(function() {
+                calcularTotalServicio();
+            });
+            $('#totalConDescuento2_paquetes').change(function() {
+                calcularTotalServicio();
+            });
+            $('#totalConDescuento3_paquetes').change(function() {
+                calcularTotalServicio();
+            });
+            $('#totalConDescuento4_paquetes').change(function() {
+                calcularTotalServicio();
+            });
+
         $(document).ready(function() {
           function calcularTotalServicio(servicioNumber) {
             var selectedService = $('.servicio' + servicioNumber + '_paquetes option:selected');
@@ -784,9 +820,15 @@
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num' + servicioNumber + '_paquetes').val());
             var descuentoAdicional = parseInt($('#descuento-adicional' + servicioNumber + '_paquetes').val()) || 0;
-
+            var checkDesc = $('#totalConDescuento' + servicioNumber + '_paquetes').is(':checked');
+            console.log('numSer',servicioNumber);
             // Calcular el subtotal usando el precio
-            var subtotal = cantidad * precio;
+            if (checkDesc && descuento > 0) {
+                    subtotal = cantidad * descuento; // Aplicar descuento si el checkbox está marcado y hay un descuento
+                } else {
+                    subtotal = cantidad * precio;
+                }
+                    console.log('sub',subtotal);
 
             // Mostrar el precio en "total1_paquetes"
             $('#total' + servicioNumber + '_paquetes').val(precio);
