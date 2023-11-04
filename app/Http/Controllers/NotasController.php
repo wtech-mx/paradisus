@@ -99,9 +99,7 @@ class NotasController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
-            'id_client' => 'required',
             'id_servicio' => 'required',
-            'num1' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -414,7 +412,7 @@ class NotasController extends Controller
             $nota->restante = $restanteNota;
         }
         $nota->update();
-        
+
         // G U A R D A R  C A M B I O
         if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
             $fechaActual = date('Y-m-d');
