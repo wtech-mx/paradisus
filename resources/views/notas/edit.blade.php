@@ -356,11 +356,11 @@
                                                         <input name="dinero_recibido_existente[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" @cannot('edit-pago-exist') readonly @endcannot>
                                                     </div>
 
-                                                    @cannot('edit-pago-exist')
+                                                    @can('edit-pago-exist')
                                                         <div class="col-2 py-2 p-1" >
                                                             <input name="cambio_existente[]" type="number" class="form-control text-center" value="{{$item->cambio}}">
                                                         </div>
-                                                        @endcannot
+                                                    @endcan
 
                                                     <div class="col-2 py-2 p-1" >
                                                         <select id="forma_pago_existente[]" name="forma_pago_existente[]" class="form-control text-center" @cannot('edit-pago-exist') readonly @endcannot>
