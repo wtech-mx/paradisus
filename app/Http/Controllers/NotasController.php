@@ -378,6 +378,13 @@ class NotasController extends Controller
         $forma_pago_existente = $request->input('forma_pago_existente');
         $cambio_existente = $request->input('cambio_existente');
 
+        if (!is_null($pagoIds_existente) &&
+        !is_null($fechasPago_existente) &&
+        !is_null($cosmetologas_existente) &&
+        !is_null($pago_existente) &&
+        !is_null($dinero_recibido_existente) &&
+        !is_null($forma_pago_existente) &&
+        !is_null($cambio_existente)) {
         foreach ($pagoIds_existente as $key => $pagoId) {
             $pago = Pagos::find($pagoId);
             $pago->fecha = $fechasPago_existente[$key];
@@ -388,7 +395,8 @@ class NotasController extends Controller
             $pago->cambio = $cambio_existente[$key];
             $pago->save();
         }
-
+        // Realiza alguna acción en caso de que alguno de los arreglos sea nulo
+    }
         // A C T U A L I Z A R  N O T A
         $nota = Notas::find($id);
         $nota->anular = $request->get('anular');
@@ -404,6 +412,7 @@ class NotasController extends Controller
             $nota->restante = $request->get('restante_existente');
         }
         if($nota->precio == $request->get('total_existente')){
+
             $nota->precio = $request->get('total-suma');
         }else{
             $nota->precio = $request->get('total_existente');
