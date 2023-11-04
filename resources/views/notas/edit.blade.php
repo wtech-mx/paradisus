@@ -331,7 +331,7 @@
 
                                                 @foreach ($pago as $item)
 
-                                                    <input id="pago_{{ $item->id }}" name="pago_id_existente[]" type="text" class="form-control" value="{{ $item->id }}" readonly>
+                                                    <input id="pago_{{ $item->id }}" name="pago_id_existente[]" type="text" class="form-control" value="{{ $item->id }}" style="display: none">
 
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
@@ -356,9 +356,11 @@
                                                         <input name="dinero_recibido_existente[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" @cannot('edit-pago-exist') readonly @endcannot>
                                                     </div>
 
+                                                    @cannot('edit-pago-exist')
                                                         <div class="col-2 py-2 p-1" >
-                                                            <input name="cambio_existente[]" type="number" class="form-control text-center" value="{{$item->cambio}}"  @cannot('edit-pago-exist') readonly @endcannot>
+                                                            <input name="cambio_existente[]" type="number" class="form-control text-center" value="{{$item->cambio}}">
                                                         </div>
+                                                        @endcannot
 
                                                     <div class="col-2 py-2 p-1" >
                                                         <select id="forma_pago_existente[]" name="forma_pago_existente[]" class="form-control text-center" @cannot('edit-pago-exist') readonly @endcannot>
