@@ -331,16 +331,17 @@
 
                                                 @foreach ($pago as $item)
 
-                                                    <input id="pago_{{ $item->id }}" name="pago_id_existente[]" type="text" class="form-control" value="{{ $item->id }}" style="display: none">
+                                                    <input id="pago_{{ $item->id }}" name="pago_id" type="hidden" class="form-control" value="{{ $item->id }}">
 
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <input name="fecha_pago_existente[]" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" @cannot('edit-pago-exist') readonly @endcannot>
+                                                        <input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" disabled>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa_existente[]" @cannot('edit-pago-exist') readonly @endcannot>
+                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                            data-on="Active" data-off="InActive">
                                                             <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
                                                             @foreach ($user as $cosmes)
                                                                 <option value="{{ $cosmes->id }}" >{{ $cosmes->name }}</option>
@@ -349,27 +350,15 @@
                                                     </div>
 
                                                     <div class="col-1 py-2 p-1" >
-                                                        <input name="pago_existente[]" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" @cannot('edit-pago-exist') readonly @endcannot>
+                                                        <input name="pago" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" disabled>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <input name="dinero_recibido_existente[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" @cannot('edit-pago-exist') readonly @endcannot>
+                                                        <input name="pago" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" disabled>
                                                     </div>
 
-                                                    @can('edit-pago-exist')
-                                                        <div class="col-2 py-2 p-1" >
-                                                            <input name="cambio_existente[]" type="number" class="form-control text-center" value="{{$item->cambio}}">
-                                                        </div>
-                                                    @endcan
-
                                                     <div class="col-2 py-2 p-1" >
-                                                        <select id="forma_pago_existente[]" name="forma_pago_existente[]" class="form-control text-center" @cannot('edit-pago-exist') readonly @endcannot>
-                                                            <option value="{{$item->forma_pago}}">{{$item->forma_pago}}</option>
-                                                            <option value="Efectivo">Efectivo</option>
-                                                            <option value="Transferencia">Transferencia</option>
-                                                            <option value="Mercado Pago">Mercado Pago</option>
-                                                            <option value="Tarjeta">Tarjeta</option>
-                                                        </select>
+                                                        <input name="" type="text" class="form-control text-center" id="" value="{{$item->forma_pago}}" disabled>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
@@ -483,16 +472,6 @@
                                                             <input type="file" id="foto" class="form-control" name="foto">
                                                         </div>
                                                     </div>
-
-                                                        <div class="col-2 py-2 p-1" >
-                                                            <label for="">Restante</label>
-                                                            <input name="restante_existente" type="number" class="form-control text-center" value="{{$notas->restante}}" @cannot('edit-pago-exist') readonly @endcannot>
-                                                        </div>
-
-                                                        <div class="col-2 py-2 p-1" >
-                                                            <label for="">Total</label>
-                                                            <input name="total_existente" type="number" class="form-control text-center" value="{{$notas->precio}}" @cannot('edit-pago-exist') readonly @endcannot>
-                                                        </div>
                                                 </div>
 
                                             </div>

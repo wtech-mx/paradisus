@@ -369,58 +369,15 @@ class NotasController extends Controller
     public function update(Request $request, $id)
     {
 
-        // A C T U A L I Z A R  P A G O S
-        $pagoIds_existente = $request->input('pago_id_existente');
-        $fechasPago_existente = $request->input('fecha_pago_existente');
-        $cosmetologas_existente = $request->input('cosmetologa_existente');
-        $pago_existente = $request->input('pago_existente');
-        $dinero_recibido_existente = $request->input('dinero_recibido_existente');
-        $forma_pago_existente = $request->input('forma_pago_existente');
-        $cambio_existente = $request->input('cambio_existente');
-
-        if (!is_null($pagoIds_existente) &&
-        !is_null($fechasPago_existente) &&
-        !is_null($cosmetologas_existente) &&
-        !is_null($pago_existente) &&
-        !is_null($dinero_recibido_existente) &&
-        !is_null($forma_pago_existente) &&
-        !is_null($cambio_existente)) {
-        foreach ($pagoIds_existente as $key => $pagoId) {
-            $pago = Pagos::find($pagoId);
-            $pago->fecha = $fechasPago_existente[$key];
-            $pago->cosmetologa = $cosmetologas_existente[$key];
-            $pago->pago = $pago_existente[$key];
-            $pago->dinero_recibido = $dinero_recibido_existente[$key];
-            $pago->forma_pago = $forma_pago_existente[$key];
-            $pago->cambio = $cambio_existente[$key];
-            $pago->save();
-        }
-        // Realiza alguna acción en caso de que alguno de los arreglos sea nulo
-    }
-        // A C T U A L I Z A R  N O T A
         $nota = Notas::find($id);
         $nota->anular = $request->get('anular');
         $nota->id_client = $request->get('id_client');
         $nota->nota = $request->get('nota');
-        $cambio = $request->get('dinero_recibido') - $request->get('pago');
-
-        if($nota->restante == $request->get('restante_existente')){
-            $sumaPagos = $nota->Pagos->sum('pago');
-            $restanteNota = $request->get('total-suma') - $sumaPagos;
-            $nota->restante = $restanteNota;
-        }else{
-            $nota->restante = $request->get('restante_existente');
-        }
-        if($nota->precio == $request->get('total_existente')){
-
-            $nota->precio = $request->get('total-suma');
-        }else{
-            $nota->precio = $request->get('total_existente');
-            $sumaPagos = $nota->Pagos->sum('pago');
-            $restanteNota = $request->get('total_existente') - $sumaPagos;
-            $nota->restante = $restanteNota;
-        }
+        $nota->precio = $request->get('total-suma');
+        $nota->restante = $request->get('restante_paquetes');
         $nota->update();
+
+        $cambio = $request->get('dinero_recibido') - $request->get('pago');
 
         // G U A R D A R  C A M B I O
         if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
