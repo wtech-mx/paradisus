@@ -9,6 +9,7 @@ use App\Models\Pedido;
 use App\Models\Reporte;
 use App\Models\User;
 use App\Models\NotasCosmes;
+use App\Models\ProductosNAS;
 use Codexshaper\WooCommerce\Models\Product;
 use Session;
 use Illuminate\Http\Request;
@@ -41,8 +42,9 @@ class NotasPedidoController extends Controller
         $cosme = auth()->user();
         $client = Client::orderBy('name','ASC')->get();
         $user = User::where('id', '!=', 1)->get();
+        $products = ProductosNAS::get();
 
-        return view('notas_pedidos.create', compact('cosme','user', 'client'));
+        return view('notas_pedidos.create', compact('cosme','user', 'client', 'products'));
     }
 
     /**

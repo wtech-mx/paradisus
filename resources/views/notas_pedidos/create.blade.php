@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 class="mb-3">Crear Nota Pedido</h3>
+                        <h3 class="mb-3">Crear Nota Producto</h3>
 
                         <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                             Regresar
@@ -29,7 +29,7 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link mb-0 px-0 py-1" id="pills-profile-tab" data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">
-                                <i class="fa fa-solid fa-receipt"></i> Pedido
+                                <i class="fa fa-solid fa-receipt"></i> Producto
 
                             </a>
                         </li>
@@ -238,28 +238,27 @@
                                         <button type="button" class="clonar btn btn-secondary btn-sm">Agregar</button>
                                         <div class="clonars">
                                             <div class="row">
+                                                <div class="col-6">
+                                                    <label for="">Producto</label>
+                                                    <div class="form-group">
+                                                        <select name="concepto[]" class="form-select d-inline-block select2">
+                                                            <option value="">Seleccione products</option>
+                                                            @foreach ($products as $product)
+                                                            <option value="{{ $product->nombre }}" data-precio_normal="{{ $product->precio_normal }}">{{ $product->nombre }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="col-2">
                                                     <div class="form-group">
                                                         <label for="fecha">Cantidad</label>
                                                         <input  id="cantidad[]" name="cantidad[]" type="number" class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="col-8">
-                                                    <div class="form-group">
-                                                        <label for="descripcion">concepto</label><br>
-                                                        <input  id="concepto[]" name="concepto[]" type="text" class="form-control">
-                                                    {{-- <select class="form-control product"  data-toggle="select" id="concepto[]" name="concepto[]"value="{{ old('concepto') }}" required>
-
-                                                        @foreach ($json2 as $item)
-                                                                <option value="{{ $item->name }}">{{ $item->name }} - ${{ $item->price }}</option>
-                                                            @endforeach
-                                                        </select> --}}
-                                                    </div>
-                                                </div>
                                                 <div class="col-2">
                                                     <div class="form-group">
-                                                        <label for="num_sesion">Importe</label>
-                                                        <input  id="importe[]" name="importe[]" type="number" class="form-control" >
+                                                        <label for="num_sesion">Subtotal</label>
+                                                        <input  id="importe[]" name="importe[]" type="number" class="form-control importe" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -297,7 +296,7 @@
             });
 
             $(document).ready(function() {
-                    $('.cliente').select2();
+               $('.cliente').select2();
             });
 
             $(document).ready(function() {
@@ -307,13 +306,63 @@
             });
 </script>
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        function initializeSelect2($container) {
+            $container.find('.select2').select2();
+        }
+
+        // Inicializa Select2 en todos los elementos .select2 existentes
+        initializeSelect2($('#formulario'));
+
+        // Asocia un evento de cambio al campo de concepto
+        $(document).on('change', '.select2', function() {
+            // Obtiene el precio normal del producto seleccionado
+            var precioNormal = $(this).find('option:selected').data('precio_normal');
+
+            // Encuentra el campo de importe correspondiente y establece su valor
+            $(this).closest('.row').find('.importe').val(precioNormal);
+        });
+
+        // Clonar el div cuando se haga clic en el botón "Clonar"
+        $(document).on('click', '.clonar', function() {
+            var $clone = $('.clonars').first().clone();
+            $clone.find('select.select2').removeClass('select2-hidden-accessible').next().remove();
+            $clone.find('select.select2').select2();
+
+            // Borra los valores de los inputs clonados
+            $clone.find(':input').each(function() {
+                if ($(this).is('select')) {
+                    this.selectedIndex = 0;
+                } else {
+                    this.value = '';
+                }
+            });
+
+            // Agrega lo clonado al final del formulario
+            $clone.appendTo('#formulario');
+
+            // Asocia el evento de cambio al campo de concepto clonado
+            $clone.find('.select2').on('change', function() {
+                var precioNormal = $(this).find('option:selected').data('precio_normal');
+                $(this).closest('.row').find('.importe').val(precioNormal);
+            });
+
+            // Asocia el evento 'input' al campo clonado
+            $clone.find('input[name="importe[]"]').on('input', function() {
+                calcularSuma();
+            });
+        });
+
+            // Función para calcular la suma de los importes
     // Función para calcular la suma de los importes
     function calcularSuma() {
         var totalSuma = 0;
-        // Itera a través de los campos de importe
-        $('input[name="importe[]"]').each(function() {
-            var valor = parseFloat($(this).val()) || 0;
-            totalSuma += valor;
+        // Itera a través de los campos de cantidad y importe
+        $('input[name="cantidad[]"]').each(function(index) {
+            var cantidad = parseFloat($(this).val()) || 0;
+            var importe = parseFloat($('input[name="importe[]"]').eq(index).val()) || 0;
+            totalSuma += cantidad * importe;
         });
 
         console.log(totalSuma);
@@ -321,86 +370,36 @@
         $('#totalSuma').val(totalSuma);
     }
 
-    // Escucha el evento 'input' en los campos de importe existentes
-    $('input[name="importe[]"]').on('input', function() {
+    // Escucha el evento 'input' en los campos de cantidad e importe existentes y futuros
+    $(document).on('input', 'input[name="cantidad[]"], input[name="importe[]"]', function() {
         calcularSuma();
     });
 
-    // Agregar más campos dinámicamente
-    $('.clonar').click(function() {
-        // Clona el .clonar
-        var $clone = $('.clonars').first().clone();
+});
 
-        // Borra los valores de los inputs clonados
-        $clone.find(':input').each(function() {
-            if ($(this).is('select')) {
-                this.selectedIndex = 0;
-            } else {
-                this.value = '';
-            }
-        });
-
-        // Agrega lo clonado al final del formulario
-        $clone.appendTo('#formulario');
-
-        // Asocia el evento 'input' al campo clonado
-        $clone.find('input[name="importe[]"]').on('input', function() {
-            calcularSuma();
-        });
-    });
-
-    // Calcular la suma al cargar la página
-    calcularSuma();
-
-    // Obtén la referencia a los elementos HTML
-    var inputDineroRecibido = $('#dinero_recibido');
-    var inputDineroRecibido2 = $('#dinero_recibido2');
-    var inputRestante = $('#restante');
-    var inputCambio = $('#cambio');
-    var inputTotalSuma = $('#totalSuma');
-
-    function calcularSuma() {
-        var totalSuma = 0;
-
-        // Itera a través de las filas de campos de cantidad e importe
-        $('.clonars').each(function() {
-            var cantidad = parseFloat($(this).find('input[name="cantidad[]"]').val()) || 0;
-            var importe = parseFloat($(this).find('input[name="importe[]"]').val()) || 0;
-            var subtotal = cantidad * importe; // Calcula el subtotal de esta fila
-            totalSuma += subtotal;
-        });
-
-        // Actualiza el valor del campo de suma
-        $('#totalSuma').val(totalSuma);
-    }
-
-    // Escucha el evento 'input' en los campos de cantidad y importe
-    $('input[name="cantidad[]"], input[name="importe[]"]').on('input', function() {
-        calcularSuma();
-    });
-
-
-    // Escucha el evento 'input' en los campos de dinero recibido y dinero recibido2
-    $('#dinero_recibido').on('input', function() {
+// Escucha el evento 'input' en los campos de dinero recibido
+$('input[name^="dinero_recibido"]').on('input', function() {
     calcularCambioYRestante();
-    });
+});
 
 // Función para calcular cambio y restante
 function calcularCambioYRestante() {
-    // Obtiene el valor del dinero recibido
-    var dineroRecibido = parseFloat($('#dinero_recibido').val()) || 0;
+    var dineroRecibidoTotal = 0;
+    $('input[name^="dinero_recibido"]').each(function() {
+        dineroRecibidoTotal += parseFloat($(this).val()) || 0;
+    });
 
     // Obtiene el valor del total sumado
     var totalSuma = parseFloat($('#totalSuma').val()) || 0;
 
-    // Calcula el restante como la diferencia entre el total y el dinero recibido
-    var restante = totalSuma - dineroRecibido;
+    // Calcula el restante como la diferencia entre el total y el dinero recibido total
+    var restante = totalSuma - dineroRecibidoTotal;
 
     // El restante no debe ser negativo
     restante = Math.max(restante, 0);
 
-    // Calcula el cambio solo si el dinero recibido es mayor o igual que el total
-    var cambio = (dineroRecibido >= totalSuma) ? dineroRecibido - totalSuma : 0;
+    // Calcula el cambio solo si el dinero recibido total es mayor o igual que el total
+    var cambio = (dineroRecibidoTotal >= totalSuma) ? dineroRecibidoTotal - totalSuma : 0;
 
     // Actualiza los campos Restante y Cambio
     $('#restante').val(restante);
@@ -409,7 +408,6 @@ function calcularCambioYRestante() {
 
 // Calcula el cambio y restante al cargar la página
 calcularCambioYRestante();
-
     // inicio de funcion ajax impresion caja y tiket
 
     $(document).ready(function () {
