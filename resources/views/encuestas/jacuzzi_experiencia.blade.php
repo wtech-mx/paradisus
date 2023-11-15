@@ -74,7 +74,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group p-2">
-                                <label for="example-text-input" class="form-control-label">¿Te ofrecieron Vino y Fresas? </label>
+                                <label for="example-text-input" class="form-control-label">¿Te ofrecieron Vino y chocolates? </label>
                                 <div class="input-group text-center" style="display: table;">
                                     <label style="margin-left: 30px; margin-right: 10px" for="scales">Si</label>
                                     <input type="radio" id="p11" name="p11" value="si" />

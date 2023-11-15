@@ -88,7 +88,7 @@
                                 7- ¿Te exfoliaron los pies con Sugar Honey? <strong style="color: #6b0020;">{{ $item->p10 }}</strong></li> </li>
                                 <br>
                             <li>
-                                8- ¿Te ofrecieron <br> Vino y Fresas? <strong style="color: #6b0020;">{{ $item->p11 }}</strong></li> </li>
+                                8- ¿Te ofrecieron <br> Vino y chocolates? <strong style="color: #6b0020;">{{ $item->p11 }}</strong></li> </li>
                                 <br>
                             <li>
                                 9- ¿Te exfoliaron las manos con Sugar Honey? <strong style="color: #6b0020;">{{ $item->p12 }}</strong></li> </li>
@@ -198,7 +198,7 @@
                                 8- ¿Te exfoliaron los pies con <br> Sugar Honey? <strong style="color: #6b0020;">{{ $item->p10 }}</strong></li> </li>
                                 <br>
                             <li>
-                                8-¿Te ofrecieron <br> Vino y Fresas? <strong style="color: #6b0020;">{{ $item->p11 }}</strong></li> </li>
+                                8-¿Te ofrecieron <br> Vino y chocolates? <strong style="color: #6b0020;">{{ $item->p11 }}</strong></li> </li>
                                 <br>
                             <li>
                                 8- ¿Te exfoliaron las manos <br> con Sugar Honey? <strong style="color: #6b0020;">{{ $item->p12 }}</strong></li> </li>
