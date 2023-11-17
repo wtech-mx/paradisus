@@ -715,7 +715,7 @@ class CajaController extends Controller
             ->with('Pedido')
             ->get();
 
-            $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
+            $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Efectivo')->get();
 
         //====================================== END TOTALES PARA MERCADO PAGO ======================================
 
