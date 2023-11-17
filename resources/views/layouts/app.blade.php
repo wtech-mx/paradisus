@@ -56,6 +56,7 @@
     @include('layouts.navbar')
 
     <!-- End Navbar -->
+    @include('sueldo_cosmes.crear')
     @include('paquetes_servicios.show')
 
     <div class="container-fluid py-4">

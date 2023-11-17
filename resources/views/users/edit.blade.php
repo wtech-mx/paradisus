@@ -50,6 +50,12 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
+                            <label class="form-control-label">Sueldo Base:</label>
+                            {!! Form::text('sueldo_base', null, array('placeholder' => 'Sueldo Base','class' => 'form-control')) !!}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
                             <label class="form-control-label">Password:</label>
                             {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
                         </div>

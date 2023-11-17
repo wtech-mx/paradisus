@@ -16,6 +16,9 @@ use App\Models\Pedido;
 use Session;
 use DB;
 Use Alert;
+use App\Models\NotasCosmes;
+use App\Models\RegistroSemanal;
+use App\Models\User;
 use Carbon\Carbon;
 
 class CajaController extends Controller
@@ -181,75 +184,123 @@ class CajaController extends Controller
             ->with('success', 'caja created successfully.');
     }
 
+    private function obtenerVentasDelDia($cosmetologoId, $fecha){
+        // Inicializa el total de ventas del día
+        $totalVentas = 0;
+        $totalNotas = 0;
+        $totalPedido = 0;
+
+        // Obtén las notasCosmes para el cosmetólogo y la fecha específica
+        $notasCosmes = NotasCosmes::whereHas('Notas', function ($query) use ($cosmetologoId, $fecha) {
+            $query->where('id_user', $cosmetologoId)
+                ->whereDate('fecha', $fecha);
+        })->get();
+
+        $pedidoCosmes = NotasPedidos::where('id_user', $cosmetologoId)->whereDate('fecha', $fecha)->get();
+        //$paquetesCosmes = Paquetes::where('id_user1', $cosmetologoId)->get();
+
+        // Suma los precios de las notas para obtener el total de ventas del día
+        foreach ($notasCosmes as $notaCosme) {
+            $totalNotas += $notaCosme->Notas->precio;
+        }
+        foreach ($pedidoCosmes as $pedidoCosme) {
+            $totalPedido += $pedidoCosme->total;
+        }
+
+        $totalVentas = $totalNotas + $totalPedido;
+
+        return $totalVentas;
+    }
+
     public function corte(){
         $diaActual = date('Y-m-d');
         $today =  date('d-m-Y');
 
-        //  =============== C A J A  F I N A L ===============================
-        $caja_final = Caja::where('fecha', '=', $diaActual)
-        ->first();
-        if($caja_final == null){
-            $caja_final2=0;
-        }else{
-            $caja_final2=$caja_final->ingresos;
+        // $caja_final = Caja::where('fecha', '=', $diaActual)
+        // ->first();
+        // if($caja_final == null){
+        //     $caja_final2=0;
+        // }else{
+        //     $caja_final2=$caja_final->ingresos;
+        // }
+
+        // $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
+        // ->where('pagos.fecha', '=', $diaActual)
+        // ->where('pagos.forma_pago', '=', 'Efectivo')
+        // ->where('notas.anular', '=', NULL)
+        // ->select(DB::raw('SUM(pagos.dinero_recibido) as total'))
+        // ->first();
+
+        // $pago_pedidos_suma = NotasPedidos::where('fecha', $diaActual)
+        // ->where(function ($query) {
+        //     $query->where('metodo_pago', 'Efectivo')
+        //         ->orWhere('metodo_pago2', 'Efectivo');
+        // })
+        // ->select(DB::raw('SUM(
+        //     CASE
+        //         WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
+        //         ELSE 0
+        //     END +
+        //     CASE
+        //         WHEN metodo_pago2 = "Efectivo" THEN COALESCE(dinero_recibido2, 0)
+        //         ELSE 0
+        //     END
+        // ) AS total'))
+        // ->first();
+
+        // $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
+        // ->where('forma_pago', '=', 'Efectivo')
+        // ->select(DB::raw('SUM(dinero_recibido) as total'))
+        // ->first();
+
+        // $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
+        // ->where('motivo', '=', 'Ingreso')
+        // ->select(DB::raw('SUM(egresos) as total'))
+        // ->first();
+
+        // $caja_dia_resta = CajaDia::where('fecha', '=', $diaActual)
+        // ->where('motivo', '=', 'Retiro')
+        // ->select(DB::raw('SUM(egresos) as total'))
+        // ->first();
+
+        // $total_ing = 0;
+        // $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final->ingresos;
+
+        // $total_egresos = 0;
+        // $total_egresos = $total_ing - $caja_dia_resta->total;
+
+        // if($caja_dia_resta->total == NULL){
+        //     $caja_egre = 0;
+        // }else{
+        //     $caja_egre = $caja_dia_resta->total;
+        // }
+
+        // $nota = Caja::find($caja_final->id);
+        // $nota->ingresos = $total_ing;
+        // $nota->egresos = $caja_egre;
+        // $nota->total = $total_egresos;
+        // $nota->update();
+
+        $user_pagos = User::where('puesto', '=', 'Cosme')->get();
+
+        foreach ($user_pagos as $cosme) {
+            // Obtén el total de ventas del día para el cosmetólogo
+            $ventasDelDia = $this->obtenerVentasDelDia($cosme->id, $diaActual);
+
+            // Calcula el monto de pago según las reglas
+            $montoPago = ($ventasDelDia >= 5000) ? 1000 : $cosme->sueldo_base;
+
+            // Busca el registro correspondiente en la tabla de registros semanales
+            $registro = RegistroSemanal::where('cosmetologo_id', $cosme->id)
+                ->where('fecha', $diaActual)
+                ->first();
+
+            // Actualiza el monto de pago en el registro
+            if ($registro) {
+                $registro->monto_pago = $montoPago;
+                $registro->save();
+            }
         }
-
-        $pago_suma = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
-        ->where('pagos.fecha', '=', $diaActual)
-        ->where('pagos.forma_pago', '=', 'Efectivo')
-        ->where('notas.anular', '=', NULL)
-        ->select(DB::raw('SUM(pagos.dinero_recibido) as total'))
-        ->first();
-
-        $pago_pedidos_suma = NotasPedidos::where('fecha', $diaActual)
-        ->where(function ($query) {
-            $query->where('metodo_pago', 'Efectivo')
-                ->orWhere('metodo_pago2', 'Efectivo');
-        })
-        ->select(DB::raw('SUM(
-            CASE
-                WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
-                ELSE 0
-            END +
-            CASE
-                WHEN metodo_pago2 = "Efectivo" THEN COALESCE(dinero_recibido2, 0)
-                ELSE 0
-            END
-        ) AS total'))
-        ->first();
-
-        $pago_paquete_suma = PaquetesPago::where('fecha', '=', $diaActual)
-        ->where('forma_pago', '=', 'Efectivo')
-        ->select(DB::raw('SUM(dinero_recibido) as total'))
-        ->first();
-
-        $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
-        ->where('motivo', '=', 'Ingreso')
-        ->select(DB::raw('SUM(egresos) as total'))
-        ->first();
-
-        $caja_dia_resta = CajaDia::where('fecha', '=', $diaActual)
-        ->where('motivo', '=', 'Retiro')
-        ->select(DB::raw('SUM(egresos) as total'))
-        ->first();
-
-        $total_ing = 0;
-        $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final->ingresos;
-
-        $total_egresos = 0;
-        $total_egresos = $total_ing - $caja_dia_resta->total;
-
-        if($caja_dia_resta->total == NULL){
-            $caja_egre = 0;
-        }else{
-            $caja_egre = $caja_dia_resta->total;
-        }
-
-        $nota = Caja::find($caja_final->id);
-        $nota->ingresos = $total_ing;
-        $nota->egresos = $caja_egre;
-        $nota->total = $total_egresos;
-        $nota->update();
 
         Alert::success('El corte de caja se ha realizado');
 

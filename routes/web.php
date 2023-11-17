@@ -54,6 +54,10 @@ Route::get('registration', [App\Http\Controllers\CustomAuthController::class, 'r
 Route::post('custom-registration', [App\Http\Controllers\CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [App\Http\Controllers\CustomAuthController::class, 'signOut'])->name('signout');
 
+// =============== M O D U L O   P A G O S  C O S M E S ===============================
+Route::get('/pagos/cosmes', [App\Http\Controllers\RegistroSemanalController::class, 'index'])->name('pagos.index');
+Route::post('/pagos/create', [App\Http\Controllers\RegistroSemanalController::class, 'store'])->name('pagos.store');
+
 // =============== M O D U L O   login custom ===============================
 
 // Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');

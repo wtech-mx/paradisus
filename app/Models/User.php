@@ -24,6 +24,7 @@ class User extends Authenticatable
         'photo',
         'password',
         'puesto',
+        'sueldo_base',
     ];
 
     /**
@@ -44,4 +45,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function NotasCosmes()
+    {
+        return $this->hasMany(NotasCosmes::class, 'id_user');
+    }
 }

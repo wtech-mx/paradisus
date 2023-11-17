@@ -6,6 +6,7 @@ use App\Models\Caja;
 use App\Models\Client;
 use App\Models\Configuracion;
 use App\Models\Productos;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use DateTime;
 
@@ -76,7 +77,9 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
 
-            $view->with(['configuracion' => $configuracion,'productos' => $productos, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
+            $user_pagos = User::where('puesto', '=', 'Cosme')->get();
+
+            $view->with(['user_pagos' => $user_pagos,'configuracion' => $configuracion,'productos' => $productos, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
         });
     }
 }
