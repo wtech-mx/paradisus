@@ -19,26 +19,28 @@
           </a>
         </li>
 
-        <a data-bs-toggle="collapse" href="#pagesPaquetes" class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" aria-controls="pagesPaquetes" role="button" aria-expanded="false">
-            <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-              <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
-            </div>
-            <span class="nav-link-text ms-1">Cosmes</span>
-          </a>
-          <div class="collapse " id="pagesPaquetes">
-            <ul class="nav ms-4">
-                <li class="nav-item ">
-                    <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'show' : '') }}" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes">
-                        <span class="sidenav-mini-icon"> P </span>
-                        <span class="sidenav-normal">Asistencia</span>
-                    </a>
+        @can('sueldo_cosmes')
+            <a data-bs-toggle="collapse" href="#pagesPaquetes" class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" aria-controls="pagesPaquetes" role="button" aria-expanded="false">
+                <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+                </div>
+                <span class="nav-link-text ms-1">Cosmes</span>
+            </a>
+            <div class="collapse " id="pagesPaquetes">
+                <ul class="nav ms-4">
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'show' : '') }}" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes">
+                            <span class="sidenav-mini-icon"> P </span>
+                            <span class="sidenav-normal">Asistencia</span>
+                        </a>
 
-                    <a class="nav-link {{ (Request::is('pagos*') ? 'active' : '') }}" href="{{ route('pagos.index') }}" target="">
-                        <span class="nav-link-text ms-1">Sueldo Cosmes</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+                        <a class="nav-link {{ (Request::is('pagos*') ? 'active' : '') }}" href="{{ route('pagos.index') }}" target="">
+                            <span class="nav-link-text ms-1">Sueldo Cosmes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        @endcan
 
         <li class="nav-item">
           <a class="nav-link {{ (Request::is('clients*') ? 'active' : '') }}" href="{{ route('clients.index') }}" target="">
