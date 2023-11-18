@@ -19,7 +19,7 @@
           </a>
         </li>
 
-        @can('sueldo_cosmes')
+        @can('sueldo-cosmes')
             <a data-bs-toggle="collapse" href="#pagesPaquetes" class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" aria-controls="pagesPaquetes" role="button" aria-expanded="false">
                 <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                 <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
