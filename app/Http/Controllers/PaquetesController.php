@@ -299,6 +299,7 @@ class PaquetesController extends Controller
 
         $paquete = new Paquetes;
         $paquete->id_client = $request->get('id_client');
+        $paquete->id_cosme = $request->get('id_cosme');
         $paquete->num_paquete = $request->get('num_paquete');
         $paquete->id_servicio = $request->get('id_servicio');
         $paquete->fecha_inicial = $request->get('fecha_inicial');
