@@ -201,7 +201,14 @@ class CajaController extends Controller
 
         // Suma los precios de las notas para obtener el total de ventas del día
         foreach ($notasCosmes as $notaCosme) {
-            $totalNotas += $notaCosme->Notas->precio;
+            $pagos = $notaCosme->Notas->Pagos;
+            if ($pagos->isNotEmpty()) {
+                // Suma los montos de los pagos
+                $totalPagos = $pagos->sum('pago');
+
+                // Ahora puedes utilizar $totalPagos en tus cálculos
+                $totalNotas += $totalPagos;
+            }
         }
         foreach ($pedidoCosmes as $pedidoCosme) {
             $totalPedido += $pedidoCosme->total;
@@ -282,13 +289,20 @@ class CajaController extends Controller
         $nota->update();
 
         $user_pagos = User::where('puesto', '=', 'Cosme')->get();
+        $cosmetologosConAumento = [3, 6, 4];
 
         foreach ($user_pagos as $cosme) {
             // Obtén el total de ventas del día para el cosmetólogo
             $ventasDelDia = $this->obtenerVentasDelDia($cosme->id, $diaActual);
 
             // Calcula el monto de pago según las reglas
-            $montoPago = ($ventasDelDia >= 5000) ? 1000 : $cosme->sueldo_base;
+            if (in_array($cosme->id, $cosmetologosConAumento)) {
+                // Aplica la regla de aumentar el sueldo a 1000 si las ventas son mayores o iguales a 5000
+                $montoPago = ($ventasDelDia >= 5000) ? 1000 : $cosme->sueldo_base;
+            } else {
+                // Si no es uno de los cosmetólogos específicos, aplica la regla normal
+                $montoPago = $cosme->sueldo_base;
+            }
 
             // Busca el registro correspondiente en la tabla de registros semanales
             $registro = RegistroSemanal::where('cosmetologo_id', $cosme->id)

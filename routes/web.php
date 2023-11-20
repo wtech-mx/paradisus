@@ -57,6 +57,8 @@ Route::get('signout', [App\Http\Controllers\CustomAuthController::class, 'signOu
 // =============== M O D U L O   P A G O S  C O S M E S ===============================
 Route::get('/pagos/cosmes', [App\Http\Controllers\RegistroSemanalController::class, 'index'])->name('pagos.index');
 Route::post('/pagos/create', [App\Http\Controllers\RegistroSemanalController::class, 'store'])->name('pagos.store');
+Route::post('/pagos/adicional/create', [App\Http\Controllers\RegistroSemanalController::class, 'adicional'])->name('pagos.adicional');
+Route::get('/pagos/cosmes/pdf', [App\Http\Controllers\RegistroSemanalController::class, 'pdf'])->name('pagos.pdf');
 
 // =============== M O D U L O   login custom ===============================
 

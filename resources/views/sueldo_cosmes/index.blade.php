@@ -17,6 +17,9 @@
                     Asistencia del dia
                 </a>
 
+                <a type="button" class="btn btn-outline-warning" href="{{ route('pagos.pdf') }}">
+                    <img src="{{ asset('assets/icons/presupuesto.png') }}" alt="" width="35px"> Precorte
+                </a>
             </div>
         </div>
 
@@ -27,6 +30,10 @@
 
                         <div class="card-header pb-0 px-3">
                         <h6 class="mb-0">{{$user_pago->name}}</h6>
+
+                        <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes{{$user_pago->id}}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                            Agregar
+                        </a>
                         </div>
 
                         <div class="card-body pt-4 p-3">
@@ -46,6 +53,7 @@
                                             $totalNotas = 0;
                                             $totalPaquetes = 0;
                                             $totalGeneral = 0;
+                                            $totalcosmessum = 0;
                                         @endphp
                                         @foreach ($registros_puntualidad as $puntualidad)
                                             @if ($user_pago->id == $puntualidad->cosmetologo_id)
@@ -95,7 +103,7 @@
                                             @php
                                                 // Calcula la cantidad de despedidas vendidas por el cosmetólogo actual
                                                 $ventasDespedidas = $notasDespedidas->count();
-                                                
+
                                                 // Calcula la suma total de comisiones por despedida para este cosmetólogo
                                                 $totalComisionDespedida = $ventasDespedidas * $user_pago->comision_despedida;
 
@@ -121,10 +129,22 @@
                                                 </tr>
                                             @endif
                                         @endforeach
+                                        @foreach ($regcosmessum as $cosmessum)
+                                            @if ($user_pago->id == $cosmessum->id_cosme)
+                                            @php
+                                                $totalcosmessum += $cosmessum->monto;
+                                            @endphp
+                                                <tr>
+                                                    <td>{{$cosmessum->fecha}}</td>
+                                                    <td>{{$cosmessum->concepto}}</td>
+                                                    <td>${{$cosmessum->monto}}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                         <tr>
                                             <td>Total:</td>
                                             <td></td>
-                                            <td><b>${{$totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral}}</b></td>
+                                            <td><b>${{$totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum}}</b></td>
                                         </tr>
                                     </tbody>
                             </table>
@@ -132,6 +152,7 @@
 
                     </div>
                 </div>
+                @include('sueldo_cosmes.agregar')
             @endforeach
         </div>
       </div>
