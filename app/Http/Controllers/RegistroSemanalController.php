@@ -36,6 +36,14 @@ class RegistroSemanalController extends Controller
         return view('sueldo_cosmes.index', compact('registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'notasDespedidas', 'regcosmessum'));
     }
 
+    public function index_sueldo($id){
+
+        $cosme = User::where('id', '=', $id)->first();
+
+        return view('sueldo_cosmes.firma_sueldos',compact('cosme'));
+
+    }
+
     public function pdf(){
         $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
         $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();

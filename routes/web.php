@@ -243,6 +243,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 });
 
+Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');
+
+
 Route::get('/encuesta/faciales', [App\Http\Controllers\EncuestasController::class, 'index_faciales'])->name('index.faciales');
 Route::get('/encuesta/corporal', [App\Http\Controllers\EncuestasController::class, 'index_corporal'])->name('index.corporal');
 Route::get('/encuesta/facial/corporal', [App\Http\Controllers\EncuestasController::class, 'index_facorpo'])->name('index.facorpo');

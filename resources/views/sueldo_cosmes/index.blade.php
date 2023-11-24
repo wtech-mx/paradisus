@@ -29,11 +29,20 @@
                     <div class="card">
 
                         <div class="card-header pb-0 px-3">
-                        <h6 class="mb-0">{{$user_pago->name}}</h6>
 
-                        <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes{{$user_pago->id}}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                            Agregar
-                        </a>
+                            <h6 class="mb-3">{{$user_pago->name}}</h6>
+
+
+                            <div class="d-flex justify-content-between">
+                                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes{{$user_pago->id}}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    Agregar
+                                </a>
+
+                                <a type="button" class="btn bg-primary" href="{{ route('index.sueldos', $user_pago->id) }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    Firma
+                                </a>
+                            </div>
+
                         </div>
 
                         <div class="card-body pt-4 p-3">
