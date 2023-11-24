@@ -112,6 +112,7 @@
 
         <div class="col-12 mb-3">
             <div class="card p-2 ">
+                <h5 class="mb-3 mt-3">Registros de de sueldos </h5>
                 <table class="table table-flush" id="example">
                     <thead>
                         <tr>
