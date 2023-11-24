@@ -128,7 +128,12 @@
                             <td>2011-04-25</td>
                             <td> SI</td>
                             <td>$3,444.0</td>
-                            <td></td>
+                            <td>
+                                <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                   Ver Detalles
+                                </a>
+                            </td>
+                            @include('sueldo_cosmes.modal_desglose')
                         </tr>
                     </tbody>
                 </table>
@@ -140,27 +145,122 @@
                 <div class="row">
 
                     <div class="col-12 mb-3 mt-3">
-                        <h5 class="">Tabla de Sueldo</h5>
+                        <h5 class="">Tabla de Sueldo de la semana</h5>
                     </div>
 
                     <div class="col-12">
                         <table class="table table-flush" id="historial">
-                            <thead>
+                            <thead class="thead">
                                 <tr>
-                                    <th>id</th>
                                     <th>Fecha</th>
                                     <th>Concepto</th>
-                                    <th>Comisiones</th>
+                                    <th>Comision</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>23</td>
-                                    <td>2011-04-25</td>
-                                    <td>$30,444.0</td>
-                                    <td>$6,444.0</td>
-                                </tr>
-                            </tbody>
+                                <tbody>
+                                    @php
+                                        $totalBono = 0;
+                                        $totalSueldo = 0;
+                                        $totalCubierta = 0;
+                                        $totalNotas = 0;
+                                        $totalPaquetes = 0;
+                                        $totalGeneral = 0;
+                                        $totalcosmessum = 0;
+                                    @endphp
+                                    @foreach ($registros_puntualidad as $puntualidad)
+                                        @if ($cosme->id == $puntualidad->cosmetologo_id)
+                                        @php
+                                            $totalBono += 150;
+                                        @endphp
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                <td>Bono de puntualidad</td>
+                                                <td>$150</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($registros_sueldo as $sueldo_base)
+                                        @if ($cosme->id == $sueldo_base->cosmetologo_id)
+                                        @php
+                                            $totalSueldo += $sueldo_base->monto_pago;
+                                        @endphp
+
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                @if ($sueldo_base->monto_pago == '1000')
+                                                    <td>Sueldo base <br> + Comision</td>
+                                                @else
+                                                    <td>Sueldo base</td>
+                                                @endif
+                                                <td>${{$sueldo_base->monto_pago}}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($paquetes_vendidos as $paquete_vendido)
+                                        @if ($cosme->id == $paquete_vendido->id_cosme)
+                                            @php
+                                                $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $cosme->id)->count() * 350;
+
+                                                $totalPaquetes = $sumaPaquetes;
+                                            @endphp
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($paquete_vendido->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+
+                                                 <td>Paquete Vendido</td>
+                                                <td>$350</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($notasDespedidas as $notaDespedida)
+                                        @if ($cosme->id == $notaDespedida->Notas->NotasCosmes->id_user)
+                                        @php
+                                            // Calcula la cantidad de despedidas vendidas por el cosmetólogo actual
+                                            $ventasDespedidas = $notasDespedidas->count();
+
+                                            // Calcula la suma total de comisiones por despedida para este cosmetólogo
+                                            $totalComisionDespedida = $ventasDespedidas * $cosme->comision_despedida;
+
+                                            // Suma esta cantidad a tu total general
+                                            $totalGeneral += $totalComisionDespedida;
+                                        @endphp
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($notaDespedida->Notas->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                <td>Despedida Soltera</td>
+                                                <td>${{$cosme->comision_despedida}}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($registros_cubriendose as $cubierta)
+                                        @if ($cosme->id == $cubierta->cosmetologo_id)
+                                        @php
+                                            $totalCubierta += $cubierta->cosmetologoCubriendo->sueldo_base;
+                                        @endphp
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($cubierta->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
+                                                <td>${{$cubierta->cosmetologoCubriendo->sueldo_base}}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($regcosmessum as $cosmessum)
+                                        @if ($cosme->id == $cosmessum->id_cosme)
+                                        @php
+                                            $totalcosmessum += $cosmessum->monto;
+                                        @endphp
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+
+                                                <td>{{$cosmessum->concepto}}</td>
+                                                <td>${{$cosmessum->monto}}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    <tr>
+                                        <td><strong>Total:</strong></td>
+                                        <td></td>
+                                        <td><b>${{$totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum}}</b></td>
+                                    </tr>
+                                </tbody>
                         </table>
                     </div>
 
