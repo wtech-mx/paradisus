@@ -234,19 +234,16 @@ class NotasPedidoController extends Controller
         // Calcula el monto de la comisión
         if ($escalaActual) {
             $montoComision = $notaTotal * $escalaActual['porcentaje'];
-        } else {
-            $montoComision = 0; // No hay comisión para esta venta
+            // Ahora puedes usar $montoComision en tu código
+            $registroSemanal = new RegCosmesSum;
+            $registroSemanal->id_cosme = $request->get('id_user');
+            $registroSemanal->tipo = 'Ingreso';
+            $registroSemanal->concepto = 'Bono Venta Producto en nota: ' . $nota->id;
+            $registroSemanal->id_nota = $nota->id;
+            $registroSemanal->fecha = $fecha;
+            $registroSemanal->monto = $montoComision;
+            $registroSemanal->save();
         }
-
-        // Ahora puedes usar $montoComision en tu código
-        $registroSemanal = new RegCosmesSum;
-        $registroSemanal->id_cosme = $request->get('id_user');
-        $registroSemanal->tipo = 'Ingreso';
-        $registroSemanal->concepto = 'Bono Venta Producto en nota: ' . $nota->id;
-        $registroSemanal->id_nota = $nota->id;
-        $registroSemanal->fecha = $fecha;
-        $registroSemanal->monto = $montoComision;
-        $registroSemanal->save();
 
         // Devuelve los datos en formato JSON
         return response()->json(['success' => true, 'recibo' => $recibo]);
