@@ -17,12 +17,16 @@
                     Asistencia del dia
                 </a>
 
+                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#corteAsistenciaCosmes" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                    Corte Sueldos
+                </a>
+
                 <a type="button" class="btn btn-outline-warning" href="{{ route('pagos.pdf') }}">
-                    <img src="{{ asset('assets/icons/presupuesto.png') }}" alt="" width="35px"> Precorte
+                    <img src="{{ asset('assets/icons/presupuesto.png') }}" alt="" width="35px"> Reporte PDF
                 </a>
             </div>
         </div>
-
+        @include('sueldo_cosmes.corte')
         <div class="row">
             @foreach ($user_pagos as $user_pago)
                 <div class="col-md-6 mt-3">
@@ -64,10 +68,10 @@
                                             $totalGeneral = 0;
                                             $totalcosmessum = 0;
                                         @endphp
-                                        @foreach ($registros_puntualidad as $puntualidad)
-                                            @if ($user_pago->id == $puntualidad->cosmetologo_id)
+                                        @foreach ($registroSueldoSemanal as $puntualidad)
+                                            @if ($user_pago->id == $puntualidad->id_cosme)
                                             @php
-                                                $totalBono += 150;
+                                                $totalBono = 150;
                                             @endphp
                                                 <tr>
                                                     <td>{{$puntualidad->fecha}}</td>

@@ -184,41 +184,6 @@ class CajaController extends Controller
             ->with('success', 'caja created successfully.');
     }
 
-    private function obtenerVentasDelDia($cosmetologoId, $fecha){
-        // Inicializa el total de ventas del día
-        $totalVentas = 0;
-        $totalNotas = 0;
-        $totalPedido = 0;
-
-        // Obtén las notasCosmes para el cosmetólogo y la fecha específica
-        $notasCosmes = NotasCosmes::whereHas('Notas', function ($query) use ($cosmetologoId, $fecha) {
-            $query->where('id_user', $cosmetologoId)
-                ->whereDate('fecha', $fecha);
-        })->get();
-
-        $pedidoCosmes = NotasPedidos::where('id_user', $cosmetologoId)->whereDate('fecha', $fecha)->get();
-        //$paquetesCosmes = Paquetes::where('id_user1', $cosmetologoId)->get();
-
-        // Suma los precios de las notas para obtener el total de ventas del día
-        foreach ($notasCosmes as $notaCosme) {
-            $pagos = $notaCosme->Notas->Pagos;
-            if ($pagos->isNotEmpty()) {
-                // Suma los montos de los pagos
-                $totalPagos = $pagos->sum('pago');
-
-                // Ahora puedes utilizar $totalPagos en tus cálculos
-                $totalNotas += $totalPagos;
-            }
-        }
-        foreach ($pedidoCosmes as $pedidoCosme) {
-            $totalPedido += $pedidoCosme->total;
-        }
-
-        $totalVentas = $totalNotas + $totalPedido;
-
-        return $totalVentas;
-    }
-
     public function corte(){
         $diaActual = date('Y-m-d');
         $today =  date('d-m-Y');
@@ -287,34 +252,6 @@ class CajaController extends Controller
         $nota->egresos = $caja_egre;
         $nota->total = $total_egresos;
         $nota->update();
-
-        $user_pagos = User::where('puesto', '=', 'Cosme')->get();
-        $cosmetologosConAumento = [3, 6, 4];
-
-        foreach ($user_pagos as $cosme) {
-            // Obtén el total de ventas del día para el cosmetólogo
-            $ventasDelDia = $this->obtenerVentasDelDia($cosme->id, $diaActual);
-
-            // Calcula el monto de pago según las reglas
-            if (in_array($cosme->id, $cosmetologosConAumento)) {
-                // Aplica la regla de aumentar el sueldo a 1000 si las ventas son mayores o iguales a 5000
-                $montoPago = ($ventasDelDia >= 5000) ? 1000 : $cosme->sueldo_base;
-            } else {
-                // Si no es uno de los cosmetólogos específicos, aplica la regla normal
-                $montoPago = $cosme->sueldo_base;
-            }
-
-            // Busca el registro correspondiente en la tabla de registros semanales
-            $registro = RegistroSemanal::where('cosmetologo_id', $cosme->id)
-                ->where('fecha', $diaActual)
-                ->first();
-
-            // Actualiza el monto de pago en el registro
-            if ($registro) {
-                $registro->monto_pago = $montoPago;
-                $registro->save();
-            }
-        }
 
         Alert::success('El corte de caja se ha realizado');
 

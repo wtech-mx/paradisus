@@ -59,6 +59,7 @@ Route::get('/pagos/cosmes', [App\Http\Controllers\RegistroSemanalController::cla
 Route::post('/pagos/create', [App\Http\Controllers\RegistroSemanalController::class, 'store'])->name('pagos.store');
 Route::post('/pagos/adicional/create', [App\Http\Controllers\RegistroSemanalController::class, 'adicional'])->name('pagos.adicional');
 Route::get('/pagos/cosmes/pdf', [App\Http\Controllers\RegistroSemanalController::class, 'pdf'])->name('pagos.pdf');
+Route::post('/pagos/cosmes/corte', [App\Http\Controllers\RegistroSemanalController::class, 'corte'])->name('pagos.corte');
 
 // =============== M O D U L O   login custom ===============================
 

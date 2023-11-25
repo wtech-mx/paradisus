@@ -35,6 +35,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="hora_inicio">Hora de entrada:</label>
+                            <input class="form-control" type="time" id="hora_inicio" name="hora_inicio" value="10:00">
+                        </div>
+
+                        <div class="form-group">
                             <label for="cosmetologo_cubriendo">Cosmetóloga Cubriendo:</label>
                             <select name="cosmetologo_cubriendo" id="cosmetologo_cubriendo" class="form-control">
                                 <option value="">Seleccionar en caso de cubrir</option>
