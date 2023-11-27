@@ -302,7 +302,7 @@
                                 <button class="btn btn-sm btn-success">Guardar</button>
                             </form>
                         @else
-
+                            <img src="{{asset('firmaCosme/'. $registroSueldoSemanalActual->firma)}}" alt="">
                         @endif
 
                     </div>

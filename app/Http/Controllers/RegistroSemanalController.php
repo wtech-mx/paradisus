@@ -119,7 +119,7 @@ class RegistroSemanalController extends Controller
 
             // Save in your data in database here.
             $firma = RegistroSueldoSemanal::where('id', '=', $request->id)->first();
-            $firma->firma = $signature;
+            $firma->firma = $file;
             $firma->monto = $request->monto;
             $firma->update();
         }
