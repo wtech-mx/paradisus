@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bitacora de Sueldos - </title>
+    <title>Bitacora de Sueldo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
@@ -21,51 +21,51 @@
         }
 
         .kbw-signature { width: 100%; height: 200px;}
-    #sig canvas{ width: 100% !important; height: auto;}
+        #sig canvas{ width: 100% !important; height: auto;}
 
-    .tab-pane{
-        padding: 15px 15px 15px 15px;
-    }
-    .custom_col{
+        .tab-pane{
+            padding: 15px 15px 15px 15px;
+        }
+        .custom_col{
 
-    }
-    .icon-bar {
-    position: fixed;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    z-index: 10;
-    right: 0;
-    }
+        }
+        .icon-bar {
+        position: fixed;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        z-index: 10;
+        right: 0;
+        }
 
-    .icon-bar a {
-    display: block;
-    text-align: center;
-    padding: 16px;
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 20px;
-    }
+        .icon-bar a {
+        display: block;
+        text-align: center;
+        padding: 16px;
+        transition: all 0.3s ease;
+        color: white;
+        font-size: 20px;
+        }
 
-    .icon-bar a:hover {
-    background-color: #000;
-    }
-    .content {
-    margin-left: 75px;
-    font-size: 30px;
-    }
+        .icon-bar a:hover {
+        background-color: #000;
+        }
+        .content {
+        margin-left: 75px;
+        font-size: 30px;
+        }
 
-    .facebook {
-    background: #D7819D;
-    color: white;
-    }
+        .facebook {
+        background: #D7819D;
+        color: white;
+        }
 
-    @media only screen and (max-width: 450px) {
-        .text-res {
-        font-size: 12px
-    }
-    }
+        @media only screen and (max-width: 450px) {
+            .text-res {
+            font-size: 12px
+        }
+        }
 
     </style>
 
@@ -77,7 +77,7 @@
 
         <div class="col-12 mb-3">
             <div class="card">
-                <form action="" method="GET" >
+                <form action="{{ route('pagos.advance_search', $cosme->id) }}" method="GET" >
                     <div class="card-body" style="padding-left: 1.5rem; padding-top: 1rem;">
                         <h6>Filtros</h6>
                             <div class="row">
@@ -110,36 +110,45 @@
             </div>
         </div>
 
-        <div class="col-12 mb-3">
-            <div class="card p-2 ">
-                <h5 class="mb-3 mt-3">Registros de de sueldos </h5>
-                <table class="table table-flush" id="example">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Fecha</th>
-                            <th>Firma</th>
-                            <th>Sueldo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>23</td>
-                            <td>2011-04-25</td>
-                            <td> SI</td>
-                            <td>$3,444.0</td>
-                            <td>
-                                <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                   Ver Detalles
-                                </a>
-                            </td>
-                            @include('sueldo_cosmes.modal_desglose')
-                        </tr>
-                    </tbody>
-                </table>
+        @if(Route::currentRouteName() != 'index.sueldos')
+            <div class="col-12 mb-3">
+                <div class="card p-2 ">
+                    <h5 class="mb-3 mt-3">Registros de de sueldos </h5>
+                    <table class="table table-flush" id="example">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Firma</th>
+                                <th>Sueldo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pagos as $pago)
+                                <tr>
+                                    <td>{{$pago->fecha}}</td>
+                                    <td>
+                                        @if ($pago->firma == NULL)
+                                            NO
+                                        @else
+                                            SI
+                                        @endif
+                                    </td>
+                                    <td>${{$pago->monto}}</td>
+                                    <td>
+                                        <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Ver Detalles
+                                        </a>
+                                    </td>
+                                    @include('sueldo_cosmes.modal_desglose')
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        @endif
 
         <div class="col-12">
             <div class="card p-3">
@@ -168,13 +177,13 @@
                                         $totalGeneral = 0;
                                         $totalcosmessum = 0;
                                     @endphp
-                                    @foreach ($registros_puntualidad as $puntualidad)
-                                        @if ($cosme->id == $puntualidad->cosmetologo_id)
+                                    @foreach ($registroSueldoSemanal as $puntualidad)
+                                        @if ($cosme->id == $puntualidad->id_cosme)
                                         @php
-                                            $totalBono += 150;
+                                            $totalBono = 150;
                                         @endphp
                                             <tr>
-                                                <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                <td>{{$puntualidad->fecha}}</td>
                                                 <td>Bono de puntualidad</td>
                                                 <td>$150</td>
                                             </tr>
@@ -276,14 +285,26 @@
                         </p>
                         <h6 class="text-left">Firma:  </h6>
 
-                        <div id="sig"></div>
+                        @if ($registroSueldoSemanalActual->firma == NULL)
+                            <form method="POST" action="{{ route('pagos.firma', $cosme->id) }}" enctype="multipart/form-data" role="form">
+                                @csrf
+                                <input type="hidden" name="_method" value="PATCH">
+                                <div id="sig"></div>
+                                @php
+                                $monto = $totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum;
+                                @endphp
+                                <textarea id="signed" name="signed" style="display: none"></textarea>
 
-                        <textarea id="signed" name="signed" style="display: none"></textarea>
+                                <h6 class="text-left mt-3 mb-3">Nombre: <br> {{ $cosme->name }}  </h6>
+                                <input type="text" name="monto" value="{{$monto}}" style="display: none">
+                                <input type="text" name="id" value="{{$registroSueldoSemanalActual->id}}" style="display: none">
+                                <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
+                                <button class="btn btn-sm btn-success">Guardar</button>
+                            </form>
+                        @else
 
-                        <h6 class="text-left mt-3 mb-3">Nombre: <br> {{ $cosme->name }}  </h6>
+                        @endif
 
-                        <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
-                        <button class="btn btn-sm btn-success">Guardar</button>
                     </div>
 
                 </div>

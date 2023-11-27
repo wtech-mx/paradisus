@@ -13,6 +13,7 @@ use App\Models\Servicios;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DB;
 
 class RegistroSemanalController extends Controller
 {
@@ -56,6 +57,7 @@ class RegistroSemanalController extends Controller
         $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
         $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
+        $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
 
         $despedidas = Servicios::whereIn('nombre', ['Day Spa Despedida de Soltera', 'Despedida de Soltera 4 personas', 'Despedida de soltera 6 personas', 'Day despedida de Soltera 8 personas', 'DESPEDIDA DE SOLTERA 3 PERSONAS', 'DESPEDIDA DE SOLTERA 1 PERSONA'])->get();
         $notasDespedidas = NotasPaquetes::whereIn('id_servicio', $despedidas->pluck('id')->toArray())
@@ -64,8 +66,65 @@ class RegistroSemanalController extends Controller
         })
         ->get();
 
-        return view('sueldo_cosmes.firma_sueldos', compact('registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'notasDespedidas', 'regcosmessum'));
+        return view('sueldo_cosmes.firma_sueldos', compact('registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'notasDespedidas', 'regcosmessum'));
 
+    }
+
+    public function advance(Request $request, $id) {
+        $cosme = User::where('id', '=', $id)->first();
+
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+        $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
+
+        $registros_puntualidad = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where('puntualidad', '1')->get();
+        $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where('cosmetologo_cubriendo', '!=', NULL)->get();
+        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
+        $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
+        $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
+
+        $despedidas = Servicios::whereIn('nombre', ['Day Spa Despedida de Soltera', 'Despedida de Soltera 4 personas', 'Despedida de soltera 6 personas', 'Day despedida de Soltera 8 personas', 'DESPEDIDA DE SOLTERA 3 PERSONAS', 'DESPEDIDA DE SOLTERA 1 PERSONA'])->get();
+        $notasDespedidas = NotasPaquetes::whereIn('id_servicio', $despedidas->pluck('id')->toArray())
+        ->whereHas('Notas', function ($query) use ($fechaInicioSemana, $fechaFinSemana) {
+            $query->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana]);
+        })
+        ->get();
+
+        $pagos = DB::table('registro_sueldo_semanal');
+        if( $request->fecha && $request->fecha2 ){
+            $pagos = $pagos->where('id_cosme', '=', $id)
+            ->where('fecha', '>=', $request->fecha)
+            ->where('fecha', '<=', $request->fecha2);
+        }
+        $pagos = $pagos->get();
+
+        return view('sueldo_cosmes.firma_sueldos', compact('registroSueldoSemanalActual','pagos','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'notasDespedidas', 'regcosmessum'));
+    }
+
+    public function firma(Request $request, $id){
+
+        if($request->signed != NULL){
+            $folderPath = public_path('firmaCosme/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed);
+            $image_type_aux = explode("firmaCosme/", $image_parts[0]);
+            $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : null;
+
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+            file_put_contents($file, $image_base64);
+
+            // Save in your data in database here.
+            $firma = RegistroSueldoSemanal::where('id', '=', $request->id)->first();
+            $firma->firma = $signature;
+            $firma->monto = $request->monto;
+            $firma->update();
+        }
+
+        return back()->with('success', 'Firma guardada con exito');
     }
 
     public function pdf(){
