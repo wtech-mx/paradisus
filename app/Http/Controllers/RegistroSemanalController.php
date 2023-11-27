@@ -113,13 +113,13 @@ class RegistroSemanalController extends Controller
             $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : null;
 
             $image_base64 = base64_decode($image_parts[1]);
-            $signature = uniqid() . '.'.$image_type;
+            $signature = uniqid() . '.png' ;
             $file = $folderPath . $signature;
             file_put_contents($file, $image_base64);
 
             // Save in your data in database here.
             $firma = RegistroSueldoSemanal::where('id', '=', $request->id)->first();
-            $firma->firma = $file;
+            $firma->firma = $signature;
             $firma->monto = $request->monto;
             $firma->update();
         }
