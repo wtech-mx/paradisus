@@ -16,15 +16,15 @@
                         @csrf
                         <input type="text" id="id_cosme" name="id_cosme" value="{{$user_pago->id}}" style="display: none">
                         <!-- Campos para seleccionar la cosmetóloga y la información de asistencia -->
-                        <div class="col-6 form-group"  style="display: none">
-                            <label for="name">Retiro o Ingreso *</label>
+                        <div class="col-6 form-group">
+                            <label for="name">Descuento o Extra *</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">
                                     <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="25px">
                                 </span>
                                 <select class="form-control" data-toggle="select" id="tipo" name="tipo">
-                                    <option value="Ingreso" selected>Ingreso</option>
-                                    <option value="Retiro">Retiro</option>
+                                    <option value="Extra" selected>Extra</option>
+                                    <option value="Descuento">Descuento</option>
                                 </select>
                             </div>
                         </div>

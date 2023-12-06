@@ -50,7 +50,7 @@ class RegistroSemanalController extends Controller
             }
         }
 
-        return view('sueldo_cosmes.index', compact('registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.index', compact('fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
     }
 
     public function index_sueldo($id){
@@ -93,18 +93,12 @@ class RegistroSemanalController extends Controller
 
         $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
         $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
+        $fechaLunes = Carbon::now()->startOfWeek()->format('Y-m-d');
 
-        $registros_puntualidad = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where('puntualidad', '1')->get();
-        $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where('cosmetologo_cubriendo', '!=', NULL)->get();
-        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
-        $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
-        $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
+        $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
+        $regcosmessum = RegCosmesSum::where('id_cosme', '=', $id)->get();
 
-        return view('sueldo_cosmes.firma_recepcion', compact('registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.firma_recepcion', compact('registroSueldoSemanal', 'cosme', 'regcosmessum', 'fechaLunes', 'fechaInicioSemana', 'fechaFinSemana'));
 
     }
 

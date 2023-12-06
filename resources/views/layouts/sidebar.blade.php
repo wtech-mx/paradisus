@@ -20,22 +20,26 @@
         </li>
 
         @can('sueldo-cosmes')
-            <a data-bs-toggle="collapse" href="#pagesPaquetes" class="nav-link {{ (Request::is('paquetes/servicios*') ? 'active' : '') }}" aria-controls="pagesPaquetes" role="button" aria-expanded="false">
+            <a data-bs-toggle="collapse" href="#pagesPagos" class="nav-link {{ (Request::is('Pagos/servicios*') ? 'active' : '') }}" aria-controls="pagesPagos" role="button" aria-expanded="false">
                 <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                <i class="fa fa-file text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
+                <i class="fa fa-money text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
                 </div>
-                <span class="nav-link-text ms-1">Cosmes</span>
+                <span class="nav-link-text ms-1">Sueldos</span>
             </a>
-            <div class="collapse " id="pagesPaquetes">
+            <div class="collapse " id="pagesPagos">
                 <ul class="nav ms-4">
                     <li class="nav-item ">
-                        <a class="nav-link {{ (Request::is('paquetes/servicios*') ? 'show' : '') }}" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes">
+                        <a class="nav-link {{ (Request::is('pagos*') ? 'show' : '') }}" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes">
                             <span class="sidenav-mini-icon"> P </span>
-                            <span class="sidenav-normal">Asistencia</span>
+                            <span class="sidenav-normal">Asistencias</span>
                         </a>
 
-                        <a class="nav-link {{ (Request::is('pagos*') ? 'active' : '') }}" href="{{ route('pagos.index') }}" target="">
-                            <span class="nav-link-text ms-1">Sueldo Cosmes</span>
+                        <a class="nav-link {{ (Request::is('pagos/cosmes*') ? 'active' : '') }}" href="{{ route('pagos.index') }}" target="">
+                            <span class="nav-link-text ms-1">Sueldos Cosmes</span>
+                        </a>
+
+                        <a class="nav-link {{ (Request::is('pagos/recepcion*') ? 'active' : '') }}" href="{{ route('pagos.index_recepcion') }}" target="">
+                            <span class="nav-link-text ms-1">Sueldos Recepcion</span>
                         </a>
                     </li>
                 </ul>

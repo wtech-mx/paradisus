@@ -67,6 +67,8 @@
                                             $totalPaquetes = 0;
                                             $totalGeneral = 0;
                                             $totalcosmessum = 0;
+                                            $totalIngresos = 0;
+                                            $totalDescuentos = 0;
                                         @endphp
                                         @foreach ($registroSueldoSemanal as $puntualidad)
                                             @if ($user_pago->id == $puntualidad->id_cosme)
@@ -125,20 +127,23 @@
                                         @endforeach
                                         @foreach ($regcosmessum as $cosmessum)
                                             @if ($user_pago->id == $cosmessum->id_cosme)
-                                            @php
-                                                $totalcosmessum += $cosmessum->monto;
-                                            @endphp
-                                                <tr>
-                                                    <td>{{$cosmessum->fecha}}</td>
+                                                @php
+                                                    $totalIngresos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Extra')->sum('monto');
+                                                    $totalDescuentos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Descuento')->sum('monto');
+                                                    $color = $cosmessum->tipo === 'Extra' ? 'green' : 'red';
+                                                @endphp
+                                                <tr style="color: {{$color}}">
+                                                    <td>{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     <td>{{$cosmessum->concepto}}</td>
                                                     <td>${{$cosmessum->monto}}</td>
+                                                    <td>{{$cosmessum->tipo}}</td>
                                                 </tr>
                                             @endif
                                         @endforeach
                                         <tr>
                                             <td>Total:</td>
                                             <td></td>
-                                            <td><b>${{$totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum}}</b></td>
+                                            <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos) - $totalDescuentos}}</b></td>
                                         </tr>
                                     </tbody>
                             </table>

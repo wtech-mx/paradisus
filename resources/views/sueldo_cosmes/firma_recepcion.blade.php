@@ -72,12 +72,12 @@
     <section class="row">
 
         <div class="col-12 mb-3">
-            <h3 class="text-white"> <strong>Cosmetologa:</strong> <br> {{ $cosme->name }} </h3>
+            <h3 class="text-white"> <strong>Recepcionista:</strong> <br> {{ $cosme->name }} </h3>
         </div>
 
         <div class="col-12 mb-3">
             <div class="card">
-                <form action="{{ route('pagos.advance_search', $cosme->id) }}" method="GET" >
+                <form action="{{ route('pagos.advance_recepcion', $cosme->id) }}" method="GET" >
                     <div class="card-body" style="padding-left: 1.5rem; padding-top: 1rem;">
                         <h6>Filtros</h6>
                             <div class="row">
@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        @if(Route::currentRouteName() != 'index.sueldos')
+        @if(Route::currentRouteName() != 'index_recepcion.sueldos')
             <div class="col-12 mb-3">
                 <div class="card p-2 ">
                     <h5 class="mb-3 mt-3">Registros de de sueldos </h5>
@@ -169,91 +169,35 @@
                             </thead>
                                 <tbody>
                                     @php
-                                        $totalBono = 0;
-                                        $totalSueldo = 0;
-                                        $totalCubierta = 0;
-                                        $totalNotas = 0;
-                                        $totalPaquetes = 0;
-                                        $totalGeneral = 0;
-                                        $totalcosmessum = 0;
                                         $totalIngresos = 0;
                                         $totalDescuentos = 0;
                                     @endphp
-                                    @foreach ($registroSueldoSemanal as $puntualidad)
-                                        @if ($cosme->id == $puntualidad->id_cosme)
-                                        @php
-                                            $totalBono = 150;
-                                        @endphp
-                                            <tr>
-                                                <td>{{$puntualidad->fecha}}</td>
-                                                <td>Bono de puntualidad</td>
-                                                <td>$150</td>
-                                            </tr>
+                                    <tr>
+                                        <td>{{$fechaLunes}}</td>
+                                        @if ($cosme->id == 16)
+                                            <td>Sueldo Fin de semana</td>
+                                        @else
+                                            <td>Sueldo Semanal</td>
                                         @endif
-                                    @endforeach
-                                    @foreach ($registros_sueldo as $sueldo_base)
-                                        @if ($cosme->id == $sueldo_base->cosmetologo_id)
-                                        @php
-                                            $totalSueldo += $sueldo_base->monto_pago;
-                                        @endphp
-
-                                            <tr>
-                                                <td>{{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                @if ($sueldo_base->monto_pago == '1000')
-                                                    <td>Sueldo base <br> + Comision</td>
-                                                @else
-                                                    <td>Sueldo base</td>
-                                                @endif
-                                                <td>${{$sueldo_base->monto_pago}}</td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                    @foreach ($paquetes_vendidos as $paquete_vendido)
-                                        @if ($cosme->id == $paquete_vendido->id_cosme)
+                                        <td>${{$cosme->sueldo_base}}</td>
+                                    </tr>
+                                    @foreach ($regcosmessum as $item)
                                             @php
-                                                $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $cosme->id)->count() * 350;
-
-                                                $totalPaquetes = $sumaPaquetes;
+                                                $totalIngresos = $item->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $item->id_cosme)->where('tipo', 'Extra')->sum('monto');
+                                                $totalDescuentos = $item->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $item->id_cosme)->where('tipo', 'Descuento')->sum('monto');
+                                                $color = $item->tipo === 'Extra' ? 'green' : 'red';
                                             @endphp
-                                            <tr>
-                                                <td>{{ \Carbon\Carbon::parse($paquete_vendido->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-
-                                                 <td>Paquete Vendido</td>
-                                                <td>$350</td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                    @foreach ($registros_cubriendose as $cubierta)
-                                        @if ($cosme->id == $cubierta->cosmetologo_id)
-                                        @php
-                                            $totalCubierta += $cubierta->cosmetologoCubriendo->sueldo_base;
-                                        @endphp
-                                            <tr>
-                                                <td>{{ \Carbon\Carbon::parse($cubierta->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
-                                                <td>${{$cubierta->cosmetologoCubriendo->sueldo_base}}</td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                    @foreach ($regcosmessum as $cosmessum)
-                                        @if ($cosme->id == $cosmessum->id_cosme)
-                                        @php
-                                            $totalIngresos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Extra')->sum('monto');
-                                            $totalDescuentos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Descuento')->sum('monto');
-                                            $color = $item->tipo === 'Extra' ? 'green' : 'red';
-                                        @endphp
                                             <tr style="color: {{$color}}">
-                                                <td>{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                <td>{{$cosmessum->concepto}}</td>
-                                                <td>${{$cosmessum->monto}}</td>
-                                                <td>{{$cosmessum->tipo}}</td>
+                                                <td>{{$item->fecha}}</td>
+                                                <td>{{$item->concepto}}</td>
+                                                <td>${{$item->monto}}</td>
+                                                <td>{{$item->tipo}}</td>
                                             </tr>
-                                        @endif
                                     @endforeach
                                     <tr>
-                                        <td><strong>Total:</strong></td>
+                                        <td>Total:</td>
                                         <td></td>
-                                        <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos) - $totalDescuentos}}</b></td>
+                                        <td><b>${{($cosme->sueldo_base + $totalIngresos) - $totalDescuentos}}</b></td>
                                     </tr>
                                 </tbody>
                         </table>
@@ -270,24 +214,24 @@
                         </p>
                         <h6 class="text-left">Firma:  </h6>
 
-                        @if ($registroSueldoSemanalActual->firma == NULL)
+                        @if ($registroSueldoSemanal->firma == NULL)
                             <form method="POST" action="{{ route('pagos.firma', $cosme->id) }}" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div id="sig"></div>
                                 @php
-                                $monto = $totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum;
+                                $monto = ($cosme->sueldo_base + $totalIngresos) - $totalDescuentos;
                                 @endphp
                                 <textarea id="signed" name="signed" style="display: none"></textarea>
 
                                 <h6 class="text-left mt-3 mb-3">Nombre: <br> {{ $cosme->name }}  </h6>
                                 <input type="text" name="monto" value="{{$monto}}" style="display: none">
-                                <input type="text" name="id" value="{{$registroSueldoSemanalActual->id}}" style="display: none">
+                                <input type="text" name="id" value="{{$registroSueldoSemanal->id}}" style="display: none">
                                 <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
                                 <button class="btn btn-sm btn-success">Guardar</button>
                             </form>
                         @else
-                            <img src="{{asset('firmaCosme/'. $registroSueldoSemanalActual->firma)}}" alt="">
+                            <img src="{{asset('firmaCosme/'. $registroSueldoSemanal->firma)}}" alt="">
                         @endif
 
                     </div>

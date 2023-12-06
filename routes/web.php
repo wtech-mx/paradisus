@@ -63,6 +63,10 @@ Route::post('/pagos/cosmes/corte', [App\Http\Controllers\RegistroSemanalControll
 
 Route::get('/pagos/cosmes/advance/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'advance'])->name('pagos.advance_search');
 Route::patch('/pagos/cosmes/firma/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'firma'])->name('pagos.firma');
+
+Route::get('/pagos/recepcion', [App\Http\Controllers\RegistroSemanalController::class, 'index_recepcion'])->name('pagos.index_recepcion');
+Route::get('/firma_sueldo/recepcion/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_firma_recepcion'])->name('index_recepcion.sueldos');
+Route::get('/pagos/recepcion/advance/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'advance2'])->name('pagos.advance_recepcion');
 // =============== M O D U L O   login custom ===============================
 
 // Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');

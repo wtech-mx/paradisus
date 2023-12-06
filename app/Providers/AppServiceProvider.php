@@ -78,10 +78,8 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $user_pagos = User::where('puesto', 'Cosme')
-            ->orWhere('puesto', 'Recepcionista')
+            ->orderby('name', 'ASC')
             ->get();
-
-
 
             $view->with(['user_pagos' => $user_pagos,'configuracion' => $configuracion,'productos' => $productos, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
         });
