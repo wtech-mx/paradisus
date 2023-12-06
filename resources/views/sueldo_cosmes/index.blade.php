@@ -111,25 +111,6 @@
                                                 </tr>
                                             @endif
                                         @endforeach
-                                        @foreach ($notasDespedidas as $notaDespedida)
-                                            @if ($user_pago->id == $notaDespedida->Notas->NotasCosmes->id_user)
-                                            @php
-                                                // Calcula la cantidad de despedidas vendidas por el cosmetólogo actual
-                                                $ventasDespedidas = $notasDespedidas->count();
-
-                                                // Calcula la suma total de comisiones por despedida para este cosmetólogo
-                                                $totalComisionDespedida = $ventasDespedidas * $user_pago->comision_despedida;
-
-                                                // Suma esta cantidad a tu total general
-                                                $totalGeneral += $totalComisionDespedida;
-                                            @endphp
-                                                <tr>
-                                                    <td>{{$notaDespedida->Notas->fecha}}</td>
-                                                    <td>Despedida Soltera</td>
-                                                    <td>${{$user_pago->comision_despedida}}</td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
                                         @foreach ($registros_cubriendose as $cubierta)
                                             @if ($user_pago->id == $cubierta->cosmetologo_id)
                                             @php
