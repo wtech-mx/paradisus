@@ -240,7 +240,7 @@
                                         @php
                                             $totalIngresos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Extra')->sum('monto');
                                             $totalDescuentos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Descuento')->sum('monto');
-                                            $color = $item->tipo === 'Extra' ? 'green' : 'red';
+                                            $color = $cosmessum->tipo === 'Extra' ? 'green' : 'red';
                                         @endphp
                                             <tr style="color: {{$color}}">
                                                 <td>{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F \d\e\l Y') }}</td>
