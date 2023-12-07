@@ -13,11 +13,15 @@
             <div class="d-flex justify-content-between">
                 <h3 class="mb-3">Pagos</h3>
 
-                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                <a type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes">
                     Asistencia del dia
                 </a>
 
-                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#corteAsistenciaCosmes" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                <a type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#showComida">
+                    Hora de Comida
+                </a>
+
+                <a type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#corteAsistenciaCosmes">
                     Corte Sueldos
                 </a>
 
@@ -27,6 +31,7 @@
             </div>
         </div>
         @include('sueldo_cosmes.corte')
+        @include('sueldo_cosmes.modal_comida')
         <div class="row">
             @foreach ($user_pagos as $user_pago)
                 <div class="col-md-6 mt-3">

@@ -363,4 +363,47 @@ class RegistroSemanalController extends Controller
 
         return $totalVentas;
     }
+
+    public function comida(Request $request, $id){
+        $fecha = date('Y-m-d');
+        $registros_hoy = RegistroSemanal::where('fecha', '=', $fecha)->get();
+
+        foreach ($registros_hoy as $registro_hoy) {
+            $cosmetologoId = $registro_hoy->cosmetologo->id;
+            $sueldo_horas = $registro_hoy->cosmetologo->sueldo_hora;
+            $horaInicio = $registro_hoy->hora_inicio;
+            $horaFin = $request->input('hora_fin_' . $cosmetologoId);
+
+            // Calcula las horas trabajadas utilizando Carbon
+            $horaInicio = trim($registro_hoy->hora_inicio);
+            $carbonInicio = Carbon::createFromFormat('H:i:s', $horaInicio);
+            $carbonFin = trim($registro_hoy->hora_fin);
+            $carbonFin = Carbon::createFromFormat('H:i', $horaFin);
+            $horasTrabajadas = $carbonInicio->diffInHours($carbonFin);
+
+            // Calcula sueldo
+            $sueldo = $horasTrabajadas * $sueldo_horas;
+
+            // Obtén el total de ventas del día para el cosmetólogo
+            $ventasDelDia = $this->obtenerVentasDelDia($cosmetologoId, $fecha);
+
+            // Cosmetólogos específicos con regla de aumentar sueldo a 1000 si las ventas son mayores o iguales a 5000
+            $cosmetologosConAumento = [3, 6, 4];
+
+            // Aplica la regla de aumentar el sueldo a 1000 si las ventas son mayores o iguales a 5000
+            if (in_array($cosmetologoId, $cosmetologosConAumento) && $ventasDelDia >= 5000) {
+                $sueldo = 1000;
+            }
+
+            // Actualiza el registro en la base de datos
+            $registro_hoy->hora_fin = $horaFin;
+            $registro_hoy->monto_pago = $sueldo;
+            $registro_hoy->horas_trabajadas = $horasTrabajadas;
+            $registro_hoy->save();
+        }
+
+        return redirect()->back()
+        ->with('edit','Corte de Sueldo con exito.');
+    }
+
 }
