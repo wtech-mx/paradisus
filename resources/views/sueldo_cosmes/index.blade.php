@@ -69,6 +69,32 @@
                                             $totalcosmessum = 0;
                                             $totalIngresos = 0;
                                             $totalDescuentos = 0;
+                                            $sumaTotales = 0;
+                                            $comision = 0;
+
+                                            // Calcular la suma de totales
+                                            foreach ($notasPedidos as $notaPedido) {
+                                                if ($user_pago->id == $notaPedido->id_user) {
+                                                    $sumaTotales += $notaPedido->total;
+                                                }
+                                            }
+
+                                            // Calcular la comisión según la lógica proporcionada
+                                            if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
+                                                $comision = $sumaTotales * 0.03;
+                                            } elseif ($sumaTotales >= 3000 && $sumaTotales < 4000) {
+                                                $comision = $sumaTotales * 0.05;
+                                            } elseif ($sumaTotales >= 4000 && $sumaTotales < 7000) {
+                                                $comision = $sumaTotales * 0.06;
+                                            } elseif ($sumaTotales >= 7000 && $sumaTotales < 8000) {
+                                                $comision = $sumaTotales * 0.07;
+                                            } elseif ($sumaTotales >= 8000 && $sumaTotales < 9000) {
+                                                $comision = $sumaTotales * 0.08;
+                                            } elseif ($sumaTotales >= 9000 && $sumaTotales < 10000) {
+                                                $comision = $sumaTotales * 0.09;
+                                            } elseif ($sumaTotales >= 10000) {
+                                                $comision = $sumaTotales * 0.10;
+                                            }
                                         @endphp
                                         @foreach ($registroSueldoSemanal as $puntualidad)
                                             @if ($user_pago->id == $puntualidad->id_cosme)
@@ -76,7 +102,7 @@
                                                 $totalBono = 150;
                                             @endphp
                                                 <tr>
-                                                    <td>{{$puntualidad->fecha}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     <td>Bono de puntualidad</td>
                                                     <td>$150</td>
                                                 </tr>
@@ -89,7 +115,7 @@
                                             @endphp
 
                                                 <tr>
-                                                    <td>{{$sueldo_base->fecha}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     @if ($sueldo_base->monto_pago == '1000')
                                                         <td>Sueldo base <br> + Comision</td>
                                                     @else
@@ -107,7 +133,7 @@
                                                     $totalPaquetes = $sumaPaquetes;
                                                 @endphp
                                                 <tr>
-                                                    <td>{{$paquete_vendido->fecha_inicial}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($paquete_vendido->fecha_inicial)->format('d \d\e F \d\e\l Y') }}</td>
                                                      <td>Paquete Vendido</td>
                                                     <td>$350</td>
                                                 </tr>
@@ -119,7 +145,7 @@
                                                 $totalCubierta += $cubierta->cosmetologoCubriendo->sueldo_base;
                                             @endphp
                                                 <tr>
-                                                    <td>{{$cubierta->fecha}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($cubierta->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
                                                     <td>${{$cubierta->cosmetologoCubriendo->sueldo_base}}</td>
                                                 </tr>
@@ -141,9 +167,16 @@
                                             @endif
                                         @endforeach
                                         <tr>
+                                            <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
+                                            <td>Total vendido en productos: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
+                                            <td>${{ $comision }}</td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Total:</td>
                                             <td></td>
-                                            <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos) - $totalDescuentos}}</b></td>
+                                            <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision) - $totalDescuentos}}</b></td>
                                         </tr>
                                     </tbody>
                             </table>

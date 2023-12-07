@@ -165,6 +165,7 @@
                                     <th>Fecha</th>
                                     <th>Concepto</th>
                                     <th>Comision</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                                 <tbody>
@@ -178,6 +179,32 @@
                                         $totalcosmessum = 0;
                                         $totalIngresos = 0;
                                         $totalDescuentos = 0;
+                                        $sumaTotales = 0;
+                                        $comision = 0;
+
+                                        // Calcular la suma de totales
+                                        foreach ($notasPedidos as $notaPedido) {
+                                            if ($cosme->id == $notaPedido->id_user) {
+                                                $sumaTotales += $notaPedido->total;
+                                            }
+                                        }
+
+                                        // Calcular la comisión según la lógica proporcionada
+                                        if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
+                                            $comision = $sumaTotales * 0.03;
+                                        } elseif ($sumaTotales >= 3000 && $sumaTotales < 4000) {
+                                            $comision = $sumaTotales * 0.05;
+                                        } elseif ($sumaTotales >= 4000 && $sumaTotales < 7000) {
+                                            $comision = $sumaTotales * 0.06;
+                                        } elseif ($sumaTotales >= 7000 && $sumaTotales < 8000) {
+                                            $comision = $sumaTotales * 0.07;
+                                        } elseif ($sumaTotales >= 8000 && $sumaTotales < 9000) {
+                                            $comision = $sumaTotales * 0.08;
+                                        } elseif ($sumaTotales >= 9000 && $sumaTotales < 10000) {
+                                            $comision = $sumaTotales * 0.09;
+                                        } elseif ($sumaTotales >= 10000) {
+                                            $comision = $sumaTotales * 0.10;
+                                        }
                                     @endphp
                                     @foreach ($registroSueldoSemanal as $puntualidad)
                                         @if ($cosme->id == $puntualidad->id_cosme)
@@ -185,9 +212,10 @@
                                             $totalBono = 150;
                                         @endphp
                                             <tr>
-                                                <td>{{$puntualidad->fecha}}</td>
+                                                <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                 <td>Bono de puntualidad</td>
                                                 <td>$150</td>
+                                                <td></td>
                                             </tr>
                                         @endif
                                     @endforeach
@@ -205,6 +233,10 @@
                                                     <td>Sueldo base</td>
                                                 @endif
                                                 <td>${{$sueldo_base->monto_pago}}</td>
+                                                <td>Hora Entrada: {{ \Carbon\Carbon::parse($sueldo_base->hora_inicio)->format('h:i A') }} <br>
+                                                    Hora Salida: {{ \Carbon\Carbon::parse($sueldo_base->hora_fin)->format('h:i A') }} <br>
+                                                   <b> Horas Trabajadas: {{$sueldo_base->horas_trabajadas}}</b>
+                                                </td>
                                             </tr>
                                         @endif
                                     @endforeach
@@ -220,6 +252,7 @@
 
                                                  <td>Paquete Vendido</td>
                                                 <td>$350</td>
+                                                <td></td>
                                             </tr>
                                         @endif
                                     @endforeach
@@ -232,6 +265,7 @@
                                                 <td>{{ \Carbon\Carbon::parse($cubierta->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                 <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
                                                 <td>${{$cubierta->cosmetologoCubriendo->sueldo_base}}</td>
+                                                <td></td>
                                             </tr>
                                         @endif
                                     @endforeach
@@ -246,14 +280,25 @@
                                                 <td>{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                 <td>{{$cosmessum->concepto}}</td>
                                                 <td>${{$cosmessum->monto}}</td>
-                                                <td>{{$cosmessum->tipo}}</td>
+                                                <td><b>{{$cosmessum->tipo}}</b></td>
                                             </tr>
                                         @endif
                                     @endforeach
                                     <tr>
+                                        <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
+                                        <td>Total vendido en productos: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
+                                        <td>${{ $comision }}</td>
+                                        <td>
+                                            <a type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#productoModal-{{$cosme->id}}">
+                                                Ver Detalles
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Total:</strong></td>
                                         <td></td>
-                                        <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos) - $totalDescuentos}}</b></td>
+                                        <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision) - $totalDescuentos}}</b></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                         </table>
@@ -261,7 +306,7 @@
 
                     <div class="col-12 mt-5">
                         <h4 class="text-left">CARTA DE CONFORMIDAD</h4>
-                        <h6 class="text-left">Fecha:  {{$fechaActual}}</h6>
+                        <h6 class="text-left">Fecha:  {{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</h6>
                         <p class="text-left">
                             Por medio de la presente, declaro que me encuentro en buenos términos con la empresa en la que laboro “Instituto Mexicano Naturales Ain Spa”. <br>
                             También declaro que leí mi contrato y el reglamento interno de la empresa, así externo también mi conformidad con recibir mi seguro social y estoy de acuerdo con lo estipulado en dichos documentos. <br><br>
@@ -297,7 +342,7 @@
 
             </div>
         </div>
-
+        @include('sueldo_cosmes.modal_productos')
     </section>
 
 
