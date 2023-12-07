@@ -57,10 +57,9 @@ class RegistroSemanalController extends Controller
 
         $cosme = User::where('id', '=', $id)->first();
 
-        // $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
-        // $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
-        $fechaInicioSemana = '2023-11-27';
-        $fechaFinSemana = '2023-12-03';
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+        $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
+
         $registros_puntualidad = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where('puntualidad', '1')->get();
         $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
