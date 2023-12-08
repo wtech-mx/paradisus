@@ -247,7 +247,15 @@
         </table>
 
         <h1 style="text-align: center;">Total a Pagar: <br>
-            ${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos}}
+            @php
+                $resultadoFormateado = number_format(
+                    ($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
+                    2, // Número de decimales
+                    '.', // Separador decimal
+                    ',' // Separador de miles
+                );
+            @endphp
+            ${{$resultadoFormateado}}
         </h1>
 
 

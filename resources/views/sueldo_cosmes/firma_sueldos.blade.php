@@ -311,7 +311,16 @@
                                     <tr>
                                         <td><strong>Total:</strong></td>
                                         <td></td>
-                                        <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos}}</b></td>
+                                        <td>
+                                            @php
+                                                $resultadoFormateado = number_format(
+                                                    ($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
+                                                    2, // Número de decimales
+                                                    '.', // Separador decimal
+                                                    ',' // Separador de miles
+                                                );
+                                            @endphp
+                                       <b> ${{$resultadoFormateado}}</b></td>
                                         <td></td>
                                     </tr>
                                 </tbody>
