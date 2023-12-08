@@ -76,6 +76,7 @@
                                             $totalDescuentos = 0;
                                             $sumaTotales = 0;
                                             $comision = 0;
+                                            $totalBonoComida = 0;
 
                                             // Calcular la suma de totales
                                             foreach ($notasPedidos as $notaPedido) {
@@ -101,6 +102,18 @@
                                                 $comision = $sumaTotales * 0.10;
                                             }
                                         @endphp
+                                        @foreach ($paquetes as $paquete)
+                                            @if ($user_pago->id == $paquete->id_cosme)
+                                            @php
+                                                $totalBonoComida = 130;
+                                            @endphp
+                                                <tr>
+                                                    <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                    <td>Bono de comida</td>
+                                                    <td>$130</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                         @foreach ($registroSueldoSemanal as $puntualidad)
                                             @if ($user_pago->id == $puntualidad->id_cosme)
                                             @php
@@ -181,7 +194,7 @@
                                         <tr>
                                             <td>Total:</td>
                                             <td></td>
-                                            <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision) - $totalDescuentos}}</b></td>
+                                            <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos}}</b></td>
                                         </tr>
                                     </tbody>
                             </table>
