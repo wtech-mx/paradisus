@@ -94,9 +94,13 @@ class RegistroSemanalController extends Controller
 
         $cosme = User::where('id', '=', $id)->first();
 
-        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
-        $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
-        $fechaLunes = Carbon::now()->startOfWeek()->format('Y-m-d');
+        // $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+        // $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
+        // $fechaLunes = Carbon::now()->startOfWeek()->format('Y-m-d');
+
+        $fechaInicioSemana = '2023-11-27';
+        $fechaFinSemana = '20233-12-03';
+        $fechaLunes = '2023-11-27';
 
         $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
         $regcosmessum = RegCosmesSum::where('id_cosme', '=', $id)->get();
