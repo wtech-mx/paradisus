@@ -243,14 +243,13 @@
                         <td>
                         </td>
                     </tr>
-                    <tr style="background: #ca87a6d3; color: #fff">
-                        <td><strong>Total Sueldo:</strong></td>
-                        <td></td>
-                        <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos}}</b></td>
-                        <td></td>
-                    </tr>
                 </tbody>
         </table>
+
+        <h1 style="text-align: center;">Total a Pagar: <br>
+            ${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos}}
+        </h1>
+
 
         <div class="col-12 mb-3 mt-3">
             <h3 class="">Hora de comida</h3>
