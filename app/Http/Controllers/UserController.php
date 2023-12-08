@@ -130,6 +130,7 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->puesto = $request->get('puesto');
+        $user->photo = $request->get('photo');
         $user->sueldo_base = $request->get('sueldo_base');
         $user->comision_despedida = $request->get('comision_despedida');
         $user->sueldo_hora = $request->get('sueldo_hora');

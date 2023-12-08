@@ -41,6 +41,10 @@
                         <a class="nav-link {{ (Request::is('pagos/recepcion*') ? 'active' : '') }}" href="{{ route('pagos.index_recepcion') }}" target="">
                             <span class="nav-link-text ms-1">Sueldos Recepcion</span>
                         </a>
+
+                        <a class="nav-link {{ (Request::is('pagos/terminos*') ? 'active' : '') }}" href="{{ route('terminos.index') }}" target="">
+                            <span class="nav-link-text ms-1">Terminos Personalizados</span>
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -44,6 +44,12 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
+                            <label class="form-control-label">phone:</label>
+                            {!! Form::text('photo', null, array('placeholder' => 'WhatasApp','class' => 'form-control')) !!}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
                             <label class="form-control-label">Puesto:</label>
                             {!! Form::text('puesto', null, array('placeholder' => 'Puesto','class' => 'form-control')) !!}
                         </div>

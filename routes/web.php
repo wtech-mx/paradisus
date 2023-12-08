@@ -68,6 +68,12 @@ Route::get('/pagos/recepcion', [App\Http\Controllers\RegistroSemanalController::
 Route::get('/firma_sueldo/recepcion/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_firma_recepcion'])->name('index_recepcion.sueldos');
 Route::get('/pagos/recepcion/advance/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'advance2'])->name('pagos.advance_recepcion');
 
+Route::get('/pagos/terminos', [App\Http\Controllers\CustomtermsController::class, 'index'])->name('terminos.index');
+Route::get('/firma_custom/terminos/{id}', [App\Http\Controllers\CustomtermsController::class, 'edit'])->name('terminos.edit');
+Route::post('/pagos/terminos/create', [App\Http\Controllers\CustomtermsController::class, 'store'])->name('terminos.store');
+Route::patch('/firma_custom/{id}', [App\Http\Controllers\CustomtermsController::class, 'firma'])->name('terminos.firma');
+
+
 Route::patch('/pagos/comida/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'comida'])->name('pagos.comida');
 // =============== M O D U L O   login custom ===============================
 
