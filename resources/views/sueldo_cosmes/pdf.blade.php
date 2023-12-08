@@ -300,6 +300,8 @@
                         </tbody>
                 </table>
         @endif
+        <img src="{{asset('firmaCosme/'. $registroSueldoSemanalActual->firma)}}" style="text-align: center;">
+        <h4 style="text-align: center;">Firma <br>{{$cosme->name}}</h4>
     </div>
   </div>
 </body>
