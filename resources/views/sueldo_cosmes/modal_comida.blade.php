@@ -14,6 +14,7 @@
                     @foreach ($registros_hoy as $registro_hoy)
                         <form method="post" action="{{ route('pagos.comida', $registro_hoy->cosmetologo_id) }}">
                             @csrf
+                            <input type="hidden" name="_method" value="PATCH">
                             <div class="row">
                                 <div class="col-12 form-group">
                                     <p></p>
@@ -22,13 +23,13 @@
 
                                 <div class="col-4 form-group">
                                     <label for="descuento">Hora Ida</label>
-                                    <input class="form-control" type="time" id="hora_ida" name="hora_ida"
+                                    <input class="form-control" type="time" id="hora_inicio_comida" name="hora_inicio_comida"
                                     value="{{ $registro_hoy->hora_inicio_comida ? $registro_hoy->hora_inicio_comida : date('H:00') }}">
                                 </div>
 
                                 <div class="col-4 form-group">
                                     <label for="descuento">Hora Regreso</label>
-                                    <input class="form-control" type="time" id="hora_reg" name="hora_reg"
+                                    <input class="form-control" type="time" id="hora_fin_comida" name="hora_fin_comida"
                                     value="{{ $registro_hoy->hora_fin_comida ? $registro_hoy->hora_fin_comida : date('H:00') }}">
                                 </div>
 
