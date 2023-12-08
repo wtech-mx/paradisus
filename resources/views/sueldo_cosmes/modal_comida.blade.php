@@ -24,7 +24,7 @@
                                 <div class="col-4 form-group">
                                     <label for="descuento">Hora Ida</label>
                                     <input class="form-control" type="time" id="hora_inicio_comida" name="hora_inicio_comida"
-                                    value="{{ $registro_hoy->hora_inicio_comida ? $registro_hoy->hora_inicio_comida : date('H:00') }}">
+                                    value="{{ $registro_hoy->hora_inicio_comida ? $registro_hoy->hora_inicio_comida : date('15:00') }}">
                                 </div>
 
                                 <div class="col-4 form-group">

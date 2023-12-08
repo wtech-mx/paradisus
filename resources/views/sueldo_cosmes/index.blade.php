@@ -25,9 +25,6 @@
                     Corte Sueldos
                 </a>
 
-                <a type="button" class="btn btn-outline-warning" href="{{ route('pagos.pdf') }}">
-                    <img src="{{ asset('assets/icons/presupuesto.png') }}" alt="" width="35px"> Reporte PDF
-                </a>
             </div>
         </div>
         @include('sueldo_cosmes.corte')
@@ -39,17 +36,28 @@
 
                         <div class="card-header pb-0 px-3">
 
-                            <h6 class="mb-3">{{$user_pago->name}}</h6>
+                            <div class="row">
+                                <div class="col-3">
+                                    <h6 class="mb-3">{{$user_pago->name}}</h6>
+                                </div>
 
+                                <div class="col-3">
+                                    <a type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes{{$user_pago->id}}">
+                                        Agregar
+                                    </a>
+                                </div>
 
-                            <div class="d-flex justify-content-between">
-                                <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#showAsistenciaCosmes{{$user_pago->id}}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    Agregar
-                                </a>
+                                <div class="col-3">
+                                    <a type="button" class="btn btn-outline-danger" href="{{ route('index.sueldos', $user_pago->id) }}">
+                                        Firma
+                                    </a>
+                                </div>
 
-                                <a type="button" class="btn bg-primary" href="{{ route('index.sueldos', $user_pago->id) }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    Firma
-                                </a>
+                                <div class="col-3">
+                                    <a type="button" class="btn btn-outline-dark" href="{{ route('pagos.pdf', $user_pago->id) }}">
+                                        Reporte Sueldo
+                                    </a>
+                                </div>
                             </div>
 
                         </div>

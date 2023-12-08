@@ -196,7 +196,9 @@ class RegistroSemanalController extends Controller
         return back()->with('success', 'Firma guardada con exito');
     }
 
-    public function pdf(){
+    public function pdf($id){
+        $cosme = User::where('id', '=', $id)->first();
+
         $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
         $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
 
@@ -204,21 +206,17 @@ class RegistroSemanalController extends Controller
         ->where('puntualidad', '1')->get();
         $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where('cosmetologo_cubriendo', '!=', NULL)->get();
-        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('cosmetologo_id', '=', $id)->get();
         $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
         $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
+        $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
+        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
+        $notasPedidos = NotasPedidos::where('total', '<', 2000)->where('id_user', '=', $id)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
 
-        $despedidas = Servicios::whereIn('nombre', ['Day Spa Despedida de Soltera', 'Despedida de Soltera 4 personas', 'Despedida de soltera 6 personas', 'Day despedida de Soltera 8 personas', 'DESPEDIDA DE SOLTERA 3 PERSONAS', 'DESPEDIDA DE SOLTERA 1 PERSONA'])->get();
-        $notasDespedidas = NotasPaquetes::whereIn('id_servicio', $despedidas->pluck('id')->toArray())
-        ->whereHas('Notas', function ($query) use ($fechaInicioSemana, $fechaFinSemana) {
-            $query->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana]);
-        })
-        ->get();
-
-        $pdf = \PDF::loadView('sueldo_cosmes.pdf', compact('registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'notasDespedidas', 'regcosmessum'));
-        return $pdf->stream();
-       // return $pdf->download('Sueldo Cosmes '.$fechaInicioSemana.'.pdf');
+        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        // return $pdf->stream();
+        return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
 
     public function store(Request $request){

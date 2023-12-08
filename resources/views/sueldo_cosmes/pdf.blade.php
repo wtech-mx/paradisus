@@ -76,7 +76,7 @@
   </style>
 <body>
   <header>
-    <h1>Sueldos Cosmes</h1>
+    <h1>Sueldo <br> {{$cosme->name}}</h1>
   </header>
 
   <footer>
@@ -94,101 +94,214 @@
   </footer>
 
   <div id="content">
-    @foreach ($user_pagos as $user_pago)
-        <h2 style="text-align: center;">{{$user_pago->name}}</h2>
-        <table class="table text-center">
-            <thead style="background-color: #E74C3C; color: #fff">
-                <tr>
+    <div class="row">
+
+        <div class="col-12 mb-3 mt-3">
+            <h3 class="">Tabla de Sueldo de la semana - {{ \Carbon\Carbon::parse($fechaInicioSemana)->format('d \d\e F \d\e\l Y') }}</h3>
+        </div>
+        <table class="table table-flush" id="historial">
+            <thead class="thead">
+                <tr style="background: #CA87A6; color: #fff">
                     <th>Fecha</th>
                     <th>Concepto</th>
                     <th>Comision</th>
+                    <th></th>
                 </tr>
             </thead>
-            <tbody>
-                @php
-                    $totalBono = 0;
-                    $totalSueldo = 0;
-                    $totalCubierta = 0;
-                    $totalNotas = 0;
-                    $totalPaquetes = 0;
-                    $totalGeneral = 0;
-                    $totalcosmessum = 0;
-                @endphp
-                @foreach ($registros_puntualidad as $puntualidad)
-                    @if ($user_pago->id == $puntualidad->cosmetologo_id)
+                <tbody>
                     @php
-                        $totalBono += 150;
-                    @endphp
-                        <tr>
-                            <td>{{$puntualidad->fecha}}</td>
-                            <td>Bono de puntualidad</td>
-                            <td>$150</td>
-                        </tr>
-                    @endif
-                @endforeach
-                @foreach ($registros_sueldo as $sueldo_base)
-                    @if ($user_pago->id == $sueldo_base->cosmetologo_id)
-                    @php
-                        $totalSueldo += $sueldo_base->monto_pago;
-                    @endphp
+                        $totalBono = 0;
+                        $totalSueldo = 0;
+                        $totalCubierta = 0;
+                        $totalNotas = 0;
+                        $totalPaquetes = 0;
+                        $totalGeneral = 0;
+                        $totalcosmessum = 0;
+                        $totalIngresos = 0;
+                        $totalDescuentos = 0;
+                        $sumaTotales = 0;
+                        $comision = 0;
+                        $totalBonoComida = 0;
 
-                        <tr>
-                            <td>{{$sueldo_base->fecha}}</td>
-                            @if ($sueldo_base->monto_pago == '1000')
-                                <td>Sueldo base <br> + Comision</td>
-                            @else
-                                <td>Sueldo base</td>
-                            @endif
-                            <td>${{$sueldo_base->monto_pago}}</td>
-                        </tr>
-                    @endif
-                @endforeach
-                @foreach ($paquetes_vendidos as $paquete_vendido)
-                    @if ($user_pago->id == $paquete_vendido->id_cosme)
+                        // Calcular la suma de totales
+                        foreach ($notasPedidos as $notaPedido) {
+                            if ($cosme->id == $notaPedido->id_user) {
+                                $sumaTotales += $notaPedido->total;
+                            }
+                        }
+
+                        // Calcular la comisión según la lógica proporcionada
+                        if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
+                            $comision = $sumaTotales * 0.03;
+                        } elseif ($sumaTotales >= 3000 && $sumaTotales < 4000) {
+                            $comision = $sumaTotales * 0.05;
+                        } elseif ($sumaTotales >= 4000 && $sumaTotales < 7000) {
+                            $comision = $sumaTotales * 0.06;
+                        } elseif ($sumaTotales >= 7000 && $sumaTotales < 8000) {
+                            $comision = $sumaTotales * 0.07;
+                        } elseif ($sumaTotales >= 8000 && $sumaTotales < 9000) {
+                            $comision = $sumaTotales * 0.08;
+                        } elseif ($sumaTotales >= 9000 && $sumaTotales < 10000) {
+                            $comision = $sumaTotales * 0.09;
+                        } elseif ($sumaTotales >= 10000) {
+                            $comision = $sumaTotales * 0.10;
+                        }
+                    @endphp
+                    @foreach ($paquetes as $paquete)
+                        @if ($cosme->id == $paquete->id_cosme)
                         @php
-                            $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $user_pago->id)->count() * 350;
-
-                            $totalPaquetes = $sumaPaquetes;
+                            $totalBonoComida = 130;
                         @endphp
-                        <tr>
-                            <td>{{$paquete_vendido->fecha_inicial}}</td>
-                            <td>Paquete Vendido</td>
-                            <td>$350</td>
-                        </tr>
-                    @endif
-                @endforeach
-                @foreach ($registros_cubriendose as $cubierta)
-                    @if ($user_pago->id == $cubierta->cosmetologo_id)
-                    @php
-                        $totalCubierta += $cubierta->cosmetologoCubriendo->sueldo_base;
-                    @endphp
-                        <tr>
-                            <td>{{$cubierta->fecha}}</td>
-                            <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
-                            <td>${{$cubierta->cosmetologoCubriendo->sueldo_base}}</td>
-                        </tr>
-                    @endif
-                @endforeach
-                @foreach ($regcosmessum as $cosmessum)
-                    @if ($user_pago->id == $cosmessum->id_cosme)
-                    @php
-                        $totalcosmessum += $cosmessum->monto;
-                    @endphp
-                        <tr>
-                            <td>{{$cosmessum->fecha}}</td>
-                            <td>{{$cosmessum->concepto}}</td>
-                            <td>${{$cosmessum->monto}}</td>
-                        </tr>
-                    @endif
-                @endforeach
-                <tr>
-                    <td>Total:</td>
-                    <td></td>
-                    <td><b>${{$totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum}}</b></td>
-                </tr>
-            </tbody>
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                <td>Bono de comida</td>
+                                <td>$130</td>
+                                <td></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    @foreach ($registroSueldoSemanal as $puntualidad)
+                        @if ($cosme->id == $puntualidad->id_cosme)
+                        @php
+                            $totalBono = 150;
+                        @endphp
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                <td>Bono de puntualidad</td>
+                                <td>$150</td>
+                                <td></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    @foreach ($registros_sueldo as $sueldo_base)
+                        @php
+                            $totalSueldo += $sueldo_base->monto_pago;
+                        @endphp
+
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                @if ($sueldo_base->monto_pago == '1000')
+                                    <td>Sueldo base <br> + Comision</td>
+                                @else
+                                    <td>Sueldo base</td>
+                                @endif
+                                <td>${{$sueldo_base->monto_pago}}</td>
+                                <td>Hr Entrada: {{ \Carbon\Carbon::parse($sueldo_base->hora_inicio)->format('h A') }} <br>
+                                    Hr Salida: {{ \Carbon\Carbon::parse($sueldo_base->hora_fin)->format('h A') }} <br>
+                                <b> Hrs Trabajadas: {{$sueldo_base->horas_trabajadas}}</b>
+                                </td>
+                            </tr>
+                    @endforeach
+                    @foreach ($paquetes_vendidos as $paquete_vendido)
+                        @if ($cosme->id == $paquete_vendido->id_cosme)
+                            @php
+                                $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $cosme->id)->count() * 350;
+
+                                $totalPaquetes = $sumaPaquetes;
+                            @endphp
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($paquete_vendido->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+
+                                <td>Paquete Vendido</td>
+                                <td>$350</td>
+                                <td></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    @foreach ($registros_cubriendose as $cubierta)
+                        @if ($cosme->id == $cubierta->cosmetologo_id)
+                        @php
+                            $totalCubierta += $cubierta->cosmetologoCubriendo->sueldo_base;
+                        @endphp
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($cubierta->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
+                                <td>${{$cubierta->cosmetologoCubriendo->sueldo_base}}</td>
+                                <td></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    @foreach ($regcosmessum as $cosmessum)
+                        @if ($cosme->id == $cosmessum->id_cosme)
+                        @php
+                            $totalIngresos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Extra')->sum('monto');
+                            $totalDescuentos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Descuento')->sum('monto');
+                            $color = $cosmessum->tipo === 'Extra' ? 'green' : 'red';
+                        @endphp
+                            <tr style="color: {{$color}}">
+                                <td>{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                <td>{{$cosmessum->concepto}}</td>
+                                <td>${{$cosmessum->monto}}</td>
+                                <td><b>{{$cosmessum->tipo}}</b></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
+                        <td>Total vendido en productos: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
+                        <td>${{ $comision }}</td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr style="background: #ca87a6d3; color: #fff">
+                        <td><strong>Total Sueldo:</strong></td>
+                        <td></td>
+                        <td><b>${{($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos}}</b></td>
+                        <td></td>
+                    </tr>
+                </tbody>
         </table>
-    @endforeach
+
+        <div class="col-12 mb-3 mt-3">
+            <h3 class="">Hora de comida</h3>
+        </div>
+        <table class="table table-flush" id="historial">
+            <thead class="thead">
+                <tr style="background: #CA87A6; color: #fff">
+                    <th>Fecha</th>
+                    <th>Hora comida Ida</th>
+                    <th>Hora comida Regreso</th>
+                    <th></th>
+                </tr>
+            </thead>
+                <tbody>
+                    @foreach ($registros_sueldo as $sueldo_base)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                            <td>{{$sueldo_base->hora_inicio_comida}}</td>
+                            <td>{{$sueldo_base->hora_fin_comida}}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+        </table>
+
+        @if ($notasPedidosVacia)
+        @else
+            <div class="col-12 mb-3 mt-3">
+                <h3 class="">Productos Vendidos de la semana - {{ \Carbon\Carbon::parse($fechaInicioSemana)->format('d \d\e F \d\e\l Y') }}</h3>
+            </div>
+                <table class="table table-flush" id="historial">
+                    <thead class="thead">
+                        <tr style="background: #CA87A6; color: #fff">
+                            <th>Fecha</th>
+                            <th>Numero de nota</th>
+                            <th>Total vendido</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            @foreach ($notasPedidos as $notaPedido)
+                                <tr>
+                                    <td>{{ \Carbon\Carbon::parse($notaPedido->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                    <td>{{$notaPedido->id}}</td>
+                                    <td>${{$notaPedido->total}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                </table>
+        @endif
+    </div>
   </div>
 </body>
 </html>
