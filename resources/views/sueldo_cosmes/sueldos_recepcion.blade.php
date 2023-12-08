@@ -12,10 +12,6 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <h3 class="mb-3">Pagos</h3>
-
-                <a type="button" class="btn btn-outline-warning" href="{{ route('pagos.pdf') }}">
-                    <img src="{{ asset('assets/icons/presupuesto.png') }}" alt="" width="35px"> Reporte PDF
-                </a>
             </div>
         </div>
 
@@ -54,6 +50,7 @@
                                         @php
                                             $totalIngresos = 0;
                                             $totalDescuentos = 0;
+                                            $totalBonoComida = 0;
                                         @endphp
                                         <tr>
                                             <td>{{$fechaLunes}}</td>
@@ -63,7 +60,28 @@
                                                 <td>Sueldo Semanal</td>
                                             @endif
                                             <td>${{$user_pago->sueldo_base}}</td>
+                                            <td></td>
                                         </tr>
+                                        @foreach ($paquetes as $paquete)
+                                            @if ($user_pago->id == $paquete->id_cosme)
+                                            @php
+                                                $totalBonoComida = 130;
+                                            @endphp
+                                                <tr>
+                                                    <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                    <td>Bono de comida</td>
+                                                    <td>$130</td>
+                                                    <td>
+                                                        <form method="POST" action="{{ route('pagos.quitar', $user_pago->id) }}" enctype="multipart/form-data" role="form">
+                                                            @csrf
+                                                            <input type="hidden" name="_method" value="PATCH">
+                                                            <input type="text" id="paquetes" name="paquetes" value="0" style="display: none">
+                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas quitarlo?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                         @foreach ($regcosmessum as $item)
                                             @if ($user_pago->id == $item->id_cosme)
                                                 @php
@@ -82,7 +100,16 @@
                                         <tr>
                                             <td>Total:</td>
                                             <td></td>
-                                            <td><b>${{($user_pago->sueldo_base + $totalIngresos) - $totalDescuentos;}}</b></td>
+                                            <td>
+                                                @php
+                                                    $resultadoFormateado = number_format(
+                                                        ($user_pago->sueldo_base + $totalIngresos + $totalBonoComida) - $totalDescuentos,
+                                                        2, // Número de decimales
+                                                        '.', // Separador decimal
+                                                        ',' // Separador de miles
+                                                    );
+                                                @endphp
+                                                <b>${{$resultadoFormateado}}</b></td>
                                         </tr>
                                     </tbody>
                             </table>
