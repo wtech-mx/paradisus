@@ -171,6 +171,7 @@
                                     @php
                                         $totalIngresos = 0;
                                         $totalDescuentos = 0;
+                                        $totalBonoComida = 0;
                                     @endphp
                                     <tr>
                                         <td>{{$fechaLunes}}</td>
@@ -181,6 +182,16 @@
                                         @endif
                                         <td>${{$cosme->sueldo_base}}</td>
                                     </tr>
+                                    @if ($registroSueldoSemanal->paquetes == '1')
+                                        @php
+                                            $totalBonoComida = 130;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ \Carbon\Carbon::parse($registroSueldoSemanal->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                            <td>Bono de comida</td>
+                                            <td>$130</td>
+                                        </tr>
+                                    @endif
                                     @foreach ($regcosmessum as $item)
                                             @php
                                                 $totalIngresos = $item->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $item->id_cosme)->where('tipo', 'Extra')->sum('monto');
@@ -197,7 +208,7 @@
                                     <tr>
                                         <td>Total:</td>
                                         <td></td>
-                                        <td><b>${{($cosme->sueldo_base + $totalIngresos) - $totalDescuentos}}</b></td>
+                                        <td><b>${{($cosme->sueldo_base + $totalIngresos + $totalBonoComida) - $totalDescuentos}}</b></td>
                                     </tr>
                                 </tbody>
                         </table>
