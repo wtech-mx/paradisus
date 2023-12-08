@@ -48,6 +48,7 @@ class RegistroSemanalController extends Controller
                     'id_cosme' => $recepcionista->id,
                     'fecha' => $fechaLunes,
                     'puntualidad' => 0,
+                    'paquetes' => 1,
                 ]);
             }
         }
@@ -86,8 +87,9 @@ class RegistroSemanalController extends Controller
         $recepcion_pagos = User::where('puesto', 'Recepcionista')->get();
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $regcosmessum = RegCosmesSum::get();
+        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
 
-        return view('sueldo_cosmes.sueldos_recepcion', compact('fechaFinSemana','fechaInicioSemana','recepcion_pagos','registroSueldoSemanal', 'regcosmessum', 'fechaLunes'));
+        return view('sueldo_cosmes.sueldos_recepcion', compact('fechaFinSemana','fechaInicioSemana','recepcion_pagos','registroSueldoSemanal', 'regcosmessum', 'fechaLunes', 'paquetes'));
     }
 
     public function index_firma_recepcion($id){
@@ -100,8 +102,9 @@ class RegistroSemanalController extends Controller
 
         $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
         $regcosmessum = RegCosmesSum::where('id_cosme', '=', $id)->get();
+        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
 
-        return view('sueldo_cosmes.firma_recepcion', compact('registroSueldoSemanal', 'cosme', 'regcosmessum', 'fechaLunes', 'fechaInicioSemana', 'fechaFinSemana'));
+        return view('sueldo_cosmes.firma_recepcion', compact('registroSueldoSemanal', 'cosme', 'regcosmessum', 'fechaLunes', 'fechaInicioSemana', 'fechaFinSemana', 'paquetes'));
 
     }
 
@@ -171,6 +174,16 @@ class RegistroSemanalController extends Controller
         $pagos = $pagos->get();
 
         return view('sueldo_cosmes.firma_sueldos', compact('registroSueldoSemanalActual','pagos','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'notasDespedidas', 'regcosmessum'));
+    }
+
+    public function quitar(Request $request, $id){
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+
+        $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
+        $registroSueldoSemanal->paquetes = $request->paquetes;
+        $registroSueldoSemanal->update();
+
+        return back()->with('success', 'Se quito con exito');
     }
 
     public function firma(Request $request, $id){
