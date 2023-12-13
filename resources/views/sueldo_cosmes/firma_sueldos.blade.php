@@ -287,12 +287,12 @@
                                     @foreach ($registros_cubriendose as $cubierta)
                                         @if ($cosme->id == $cubierta->cosmetologo_id)
                                         @php
-                                            $totalCubierta += $cubierta->cosmetologoCubriendo->sueldo_base;
+                                            $totalCubierta += $sueldo_base->monto_pago;
                                         @endphp
                                             <tr>
                                                 <td>{{ \Carbon\Carbon::parse($cubierta->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                 <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
-                                                <td>${{$cubierta->cosmetologoCubriendo->sueldo_base}}</td>
+                                                <td>${{$sueldo_base->monto_pago}}</td>
                                                 <td></td>
                                             </tr>
                                         @endif
