@@ -25,10 +25,18 @@
                             {{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}
                         </div>
                         <div class="col-4">
-                            {{ \Carbon\Carbon::parse($sueldo_base->hora_inicio_comida)->format('h:i A') }}
+                            @if ($sueldo_base->hora_inicio_comida == NULL)
+                                Sin Registro
+                            @else
+                                {{ \Carbon\Carbon::parse($sueldo_base->hora_inicio_comida)->format('h:i A') }}
+                            @endif
                         </div>
                         <div class="col-4">
-                        {{ \Carbon\Carbon::parse($sueldo_base->hora_fin_comida)->format('h:i A') }}
+                            @if ($sueldo_base->hora_fin_comida == NULL)
+                                Sin Registro
+                            @else
+                                {{ \Carbon\Carbon::parse($sueldo_base->hora_fin_comida)->format('h:i A') }}
+                            @endif
                         </div>
                     </div>
                 @endif
