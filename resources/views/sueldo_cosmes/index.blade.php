@@ -83,16 +83,25 @@
                                             $totalIngresos = 0;
                                             $totalDescuentos = 0;
                                             $sumaTotales = 0;
+                                            $sumaServicios = 0;
+                                            $sumaPedidos = 0;
                                             $comision = 0;
                                             $totalBonoComida = 0;
 
-                                            // Calcular la suma de totales
+                                            // Calcular la suma de Pedidos
                                             foreach ($notasPedidos as $notaPedido) {
                                                 if ($user_pago->id == $notaPedido->id_user) {
-                                                    $sumaTotales += $notaPedido->total;
+                                                    $sumaPedidos += $notaPedido->total;
                                                 }
                                             }
 
+                                            foreach ($notasServicios as $notaServicio) {
+                                                if ($user_pago->id == $notaServicio->NotasCosmes->id_user) {
+                                                    $sumaServicios += $notaServicio->precio;
+                                                }
+                                            }
+
+                                            $sumaTotales = $sumaPedidos + $sumaServicios;
                                             // Calcular la comisión según la lógica proporcionada
                                             if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
                                                 $comision = $sumaTotales * 0.03;
@@ -194,7 +203,7 @@
                                         @endforeach
                                         <tr>
                                             <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
-                                            <td>Total vendido en productos: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
+                                            <td>Total vendido: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
                                             <td>${{ $comision }}</td>
                                             <td>
                                             </td>

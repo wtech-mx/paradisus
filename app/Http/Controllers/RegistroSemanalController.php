@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notas;
 use App\Models\NotasCosmes;
 use App\Models\NotasPaquetes;
 use App\Models\NotasPedidos;
@@ -33,6 +34,7 @@ class RegistroSemanalController extends Controller
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
         $registros_hoy = RegistroSemanal::where('fecha', '=', $fecha)->get();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasServicios = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
 
         //Agregar sueldo de recepcion
         $recepcionistas = User::where('puesto', 'Recepcionista')->get();
@@ -53,7 +55,7 @@ class RegistroSemanalController extends Controller
             }
         }
 
-        return view('sueldo_cosmes.index', compact('paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.index', compact('notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
     }
 
     public function index_sueldo($id){
@@ -72,10 +74,11 @@ class RegistroSemanalController extends Controller
         $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
         $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
-        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
+        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasServicios = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
 
-        return view('sueldo_cosmes.firma_sueldos', compact('paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.firma_sueldos', compact('notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
     }
 

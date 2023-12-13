@@ -180,16 +180,25 @@
                                         $totalIngresos = 0;
                                         $totalDescuentos = 0;
                                         $sumaTotales = 0;
+                                        $sumaServicios = 0;
+                                        $sumaPedidos = 0;
                                         $comision = 0;
                                         $totalBonoComida = 0;
 
                                         // Calcular la suma de totales
                                         foreach ($notasPedidos as $notaPedido) {
                                             if ($cosme->id == $notaPedido->id_user) {
-                                                $sumaTotales += $notaPedido->total;
+                                                $sumaPedidos += $notaPedido->total;
                                             }
                                         }
 
+                                        foreach ($notasServicios as $notaServicio) {
+                                                if ($cosme->id == $notaServicio->NotasCosmes->id_user) {
+                                                    $sumaServicios += $notaServicio->precio;
+                                                }
+                                            }
+
+                                        $sumaTotales = $sumaPedidos + $sumaServicios;
                                         // Calcular la comisión según la lógica proporcionada
                                         if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
                                             $comision = $sumaTotales * 0.03;
@@ -206,29 +215,34 @@
                                         } elseif ($sumaTotales >= 10000) {
                                             $comision = $sumaTotales * 0.10;
                                         }
-                                    @endphp
-                                    @foreach ($paquetes as $paquete)
-                                        @if ($cosme->id == $paquete->id_cosme)
-                                        @php
+
+                                        if($paquetes->paquetes == 1){
                                             $totalBonoComida = 130;
-                                        @endphp
-                                            <tr>
-                                                <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                <td>Bono de comida</td>
-                                                <td>$130</td>
-                                                <td></td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
+                                        }elseif ($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5) {
+                                            $totalBonoComida = 0;
+                                        }else{
+                                            $totalBonoComida = 0;
+                                        }
+                                    @endphp
                                     @foreach ($registroSueldoSemanal as $puntualidad)
                                         @if ($cosme->id == $puntualidad->id_cosme)
                                         @php
-                                            $totalBono = 150;
+                                            if($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5){
+                                                $totalBono = 80;
+                                            }else{
+                                                $totalBono = 150;
+                                            }
                                         @endphp
                                             <tr>
                                                 <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                 <td>Bono de puntualidad</td>
-                                                <td>$150</td>
+                                                <td>
+                                                    @if($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5)
+                                                        $80
+                                                        @else
+                                                        $150
+                                                    @endif
+                                                </td>
                                                 <td></td>
                                             </tr>
                                         @endif
@@ -300,7 +314,7 @@
                                     @endforeach
                                     <tr>
                                         <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
-                                        <td>Total vendido en productos: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
+                                        <td>Total vendido: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
                                         <td>${{ $comision }}</td>
                                         <td>
                                             <a type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#productoModal-{{$cosme->id}}">
@@ -308,6 +322,26 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    @if ($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5)
+                                    @else
+                                        <tr>
+                                            <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
+                                            <td>Bono de comida</td>
+                                            <td>
+                                                @if($paquetes->paquetes == 1)
+                                                    $130
+                                                @else
+                                                    $0
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#comidaModal-{{$cosme->id}}">
+                                                    Ver Detalles
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endif
+
                                     <tr>
                                         <td><strong>Total:</strong></td>
                                         <td></td>
@@ -366,6 +400,7 @@
             </div>
         </div>
         @include('sueldo_cosmes.modal_productos')
+        @include('sueldo_cosmes.modal_ver_comida')
     </section>
 
 

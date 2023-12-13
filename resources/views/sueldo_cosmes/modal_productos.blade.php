@@ -7,6 +7,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+            <h3><b>Productos</b></h3>
             @foreach ($notasPedidos as $notaPedido)
                 @if ($cosme->id == $notaPedido->id_user)
                     <div class="row">
@@ -18,6 +19,22 @@
                         </div>
                         <div class="col-4">
                            <b>${{$notaPedido->total}}</b>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+            <h3><b>Servicios</b></h3>
+            @foreach ($notasServicios as $notaServicio)
+                @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
+                    <div class="row">
+                        <div class="col-4">
+                            {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
+                        </div>
+                        <div class="col-4">
+                            Numero de nota: {{$notaServicio->id}}
+                        </div>
+                        <div class="col-4">
+                        <b>${{$notaServicio->precio}}</b>
                         </div>
                     </div>
                 @endif
