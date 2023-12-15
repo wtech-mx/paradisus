@@ -134,12 +134,16 @@
                                         @foreach ($registroSueldoSemanal as $puntualidad)
                                             @if ($user_pago->id == $puntualidad->id_cosme)
                                             @php
-                                                $totalBono = 150;
+                                                if($puntualidad->id_cosme == 23 || $puntualidad->id_cosme == 5 || $puntualidad->id_cosme == 22 ){
+                                                    $totalBono = 80;
+                                                }else{
+                                                    $totalBono = 150;
+                                                }
                                             @endphp
                                                 <tr>
                                                     <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     <td>Bono de puntualidad</td>
-                                                    <td>$150</td>
+                                                    <td>${{$totalBono}}</td>
                                                 </tr>
                                             @endif
                                         @endforeach
