@@ -121,14 +121,31 @@
                                         @endphp
                                         @foreach ($paquetes as $paquete)
                                             @if ($user_pago->id == $paquete->id_cosme)
-                                            @php
-                                                $totalBonoComida = 130;
-                                            @endphp
-                                                <tr>
-                                                    <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                    <td>Bono de comida</td>
-                                                    <td>$130</td>
-                                                </tr>
+                                                @php
+                                                    if($paquete->paquetes == 1){
+                                                        $totalBonoComida = 130;
+                                                    }elseif ($user_pago->id == 22 || $user_pago->id == 23 || $user_pago->id == 5) {
+                                                        $totalBonoComida = 0;
+                                                    }else{
+                                                        $totalBonoComida = 0;
+                                                    }
+                                                @endphp
+                                                @if ($user_pago->id == 22 || $user_pago->id == 23 || $user_pago->id == 5)
+                                                @else
+                                                    <tr>
+                                                        <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
+                                                        <td>Bono de comida</td>
+                                                        <td>
+                                                            @if($paquete->paquetes == 1)
+                                                                $130
+                                                            @else
+                                                                $0
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endif
                                         @endforeach
                                         @foreach ($registroSueldoSemanal as $puntualidad)
