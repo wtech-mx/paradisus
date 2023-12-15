@@ -124,9 +124,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pagos as $pago)
+                            @foreach ($todosPagos as $pago)
+                            @php
+                                $resultadoFormateado = number_format($pago->monto,2,'.',',');
+                            @endphp
                                 <tr>
-                                    <td>{{$pago->fecha}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($pago->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                     <td>
                                         @if ($pago->firma == NULL)
                                             NO
@@ -134,7 +137,9 @@
                                             SI
                                         @endif
                                     </td>
-                                    <td>${{$pago->monto}}</td>
+                                    <td>
+
+                                        ${{$resultadoFormateado}}</td>
                                     <td>
                                         <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Ver Detalles

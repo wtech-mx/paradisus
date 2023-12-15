@@ -155,28 +155,22 @@ class RegistroSemanalController extends Controller
         ->where('puntualidad', '1')->get();
         $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where('cosmetologo_cubriendo', '!=', NULL)->get();
-        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('cosmetologo_id', '=', $id)->get();
         $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
         $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
         $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
+        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
+        $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasServicios = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
 
-        $despedidas = Servicios::whereIn('nombre', ['Day Spa Despedida de Soltera', 'Despedida de Soltera 4 personas', 'Despedida de soltera 6 personas', 'Day despedida de Soltera 8 personas', 'DESPEDIDA DE SOLTERA 3 PERSONAS', 'DESPEDIDA DE SOLTERA 1 PERSONA'])->get();
-        $notasDespedidas = NotasPaquetes::whereIn('id_servicio', $despedidas->pluck('id')->toArray())
-        ->whereHas('Notas', function ($query) use ($fechaInicioSemana, $fechaFinSemana) {
-            $query->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana]);
-        })
-        ->get();
+        //Buscador
+        $fecha = $request->get('fecha');
+        $fecha2 = $request->get('fecha2');
 
-        $pagos = DB::table('registro_sueldo_semanal');
-        if( $request->fecha && $request->fecha2 ){
-            $pagos = $pagos->where('id_cosme', '=', $id)
-            ->where('fecha', '>=', $request->fecha)
-            ->where('fecha', '<=', $request->fecha2);
-        }
-        $pagos = $pagos->get();
+        $todosPagos = RegistroSueldoSemanal::whereBetween('fecha', [$fecha, $fecha2])->where('id_cosme', '=', $id)->get();
 
-        return view('sueldo_cosmes.firma_sueldos', compact('registroSueldoSemanalActual','pagos','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'notasDespedidas', 'regcosmessum'));
+        return view('sueldo_cosmes.firma_sueldos', compact('todosPagos','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
     }
 
     public function quitar(Request $request, $id){
