@@ -229,6 +229,23 @@ class RegistroSemanalController extends Controller
         return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
 
+    public function recepcion_pdf($id){
+
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+        $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
+        $fechaLunes = Carbon::now()->startOfWeek()->format('Y-m-d');
+
+        $recepcion_pagos = User::where('id', $id)->first();
+        $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $regcosmessum = RegCosmesSum::get();
+        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
+
+        $pdf = \PDF::loadView('sueldo_cosmes.pdf_recepcion',compact('fechaFinSemana','fechaInicioSemana','recepcion_pagos','registroSueldoSemanal', 'regcosmessum', 'fechaLunes', 'paquetes'));
+
+        return $pdf->download('Sueldo_recepcion'.$recepcion_pagos->name.'-'.$fechaInicioSemana.'.pdf');
+
+    }
+
     public function store(Request $request){
         $fecha = date('Y-m-d');
         $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
