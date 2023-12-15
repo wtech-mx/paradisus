@@ -69,7 +69,7 @@ class RegistroSemanalController extends Controller
         ->where('puntualidad', '1')->get();
         $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where('cosmetologo_cubriendo', '!=', NULL)->get();
-        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('cosmetologo_id', '=', $id)->get();
         $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
         $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
@@ -77,6 +77,7 @@ class RegistroSemanalController extends Controller
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $notasServicios = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+
 
         return view('sueldo_cosmes.firma_sueldos', compact('notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
@@ -265,7 +266,6 @@ class RegistroSemanalController extends Controller
             if ($registroExistente->puntualidad == 0) {
                 // Si ya es 0, no permite actualizar
             } else {
-                // Verifica si la puntualidad en RegistroSemanal es 0
                 if ($registroSemanal->puntualidad == 0) {
                     $registroExistente->puntualidad = 0;
                     $registroExistente->save();
@@ -273,6 +273,17 @@ class RegistroSemanalController extends Controller
 
                 }
             }
+        }
+
+        //Quitar privilegios a la que falto
+        if($registroSemanal->cosmetologo_cubriendo != NULL){
+            $registroExistente = RegistroSueldoSemanal::where('id_cosme', $registroSemanal->cosmetologo_cubriendo)
+            ->where('fecha', $fechaInicioSemana)
+            ->first();
+
+            $registroExistente->puntualidad = 0;
+            $registroExistente->paquetes = 0;
+            $registroExistente->save();
         }
 
         return redirect()->route('pagos.index')

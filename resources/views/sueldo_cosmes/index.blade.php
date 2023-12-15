@@ -148,14 +148,16 @@
                                             @php
                                                 $totalSueldo += $sueldo_base->monto_pago;
                                             @endphp
-
                                                 <tr>
                                                     <td>{{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     @if ($sueldo_base->monto_pago == '1000')
                                                         <td>Sueldo base <br> + Comision</td>
+                                                    @elseif($sueldo_base->cosmetologo_cubriendo != NULL)
+                                                        <td>Se cubrio a: <br> {{$sueldo_base->cosmetologoCubriendo->name}}</td>
                                                     @else
                                                         <td>Sueldo base</td>
                                                     @endif
+
                                                     <td>${{$sueldo_base->monto_pago}}</td>
                                                 </tr>
                                             @endif
@@ -171,18 +173,6 @@
                                                     <td>{{ \Carbon\Carbon::parse($paquete_vendido->fecha_inicial)->format('d \d\e F \d\e\l Y') }}</td>
                                                      <td>Paquete Vendido</td>
                                                     <td>$350</td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
-                                        @foreach ($registros_cubriendose as $cubierta)
-                                            @if ($user_pago->id == $cubierta->cosmetologo_id)
-                                            @php
-                                                $totalCubierta += $sueldo_base->monto_pago;
-                                            @endphp
-                                                <tr>
-                                                    <td>{{ \Carbon\Carbon::parse($cubierta->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                    <td>Se cubrio a: <br> {{$cubierta->cosmetologoCubriendo->name}}</td>
-                                                    <td>${{$sueldo_base->monto_pago}}</td>
                                                 </tr>
                                             @endif
                                         @endforeach

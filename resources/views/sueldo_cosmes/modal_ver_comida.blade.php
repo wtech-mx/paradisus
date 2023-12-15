@@ -19,7 +19,6 @@
                 </div>
             </div>
             @foreach ($registros_sueldo as $sueldo_base)
-                @if ($cosme->id == $sueldo_base->cosmetologo_id)
                     <div class="row">
                         <div class="col-4">
                             {{ \Carbon\Carbon::parse($sueldo_base->fecha)->format('d \d\e F \d\e\l Y') }}
@@ -39,7 +38,6 @@
                             @endif
                         </div>
                     </div>
-                @endif
             @endforeach
         </div>
         <div class="modal-footer">
