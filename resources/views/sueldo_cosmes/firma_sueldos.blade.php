@@ -199,10 +199,10 @@
                                         }
 
                                         foreach ($notasServicios as $notaServicio) {
-                                                if ($cosme->id == $notaServicio->NotasCosmes->id_user) {
-                                                    $sumaServicios += $notaServicio->precio;
-                                                }
+                                            if ($cosme->id == $notaServicio->NotasCosmes->id_user) {
+                                                $sumaServicios += $notaServicio->precio;
                                             }
+                                        }
 
                                         $sumaTotales = $sumaPedidos + $sumaServicios;
                                         // Calcular la comisión según la lógica proporcionada
@@ -232,15 +232,17 @@
                                     @endphp
                                     @foreach ($paquetesFaciales as $notaServicio)
                                         @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
-                                        @php
-                                           $paqueteFac = 350;
-                                        @endphp
-                                        <tr>
-                                            <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                            <td>Paquete Facial Vendido: #{{$notaServicio->id}}</td>
-                                            <td>$350</td>
-                                            <td></td>
-                                        </tr>
+                                            @if ($cosme->id != 9)
+                                            @php
+                                            $paqueteFac = 350;
+                                            @endphp
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                <td>Paquete Facial Vendido: #{{$notaServicio->id}}</td>
+                                                <td>$350</td>
+                                                <td></td>
+                                            </tr>
+                                            @endif
                                         @endif
                                     @endforeach
                                     @foreach ($registroSueldoSemanal as $puntualidad)
