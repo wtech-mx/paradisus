@@ -34,7 +34,27 @@ class RegistroSemanalController extends Controller
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
         $registros_hoy = RegistroSemanal::where('fecha', '=', $fecha)->get();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $notasServicios = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasServicios = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function($query) {
+            $query->whereNotIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        })
+        ->select('notas.*') // Selecciona las columnas de la tabla 'notas' que necesitas
+        ->get();
+
+        $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function($query) {
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        })
+        ->select('notas.*')
+        ->get();
 
         //Agregar sueldo de recepcion
         $recepcionistas = User::where('puesto', 'Recepcionista')->get();
@@ -55,7 +75,7 @@ class RegistroSemanalController extends Controller
             }
         }
 
-        return view('sueldo_cosmes.index', compact('notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.index', compact('paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
     }
 
     public function index_sueldo($id){
@@ -76,10 +96,30 @@ class RegistroSemanalController extends Controller
         $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $notasServicios = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasServicios = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function($query) {
+            $query->whereNotIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        })
+        ->select('notas.*')
+        ->get();
+
+        $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function($query) {
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        })
+        ->select('notas.*')
+        ->get();
 
 
-        return view('sueldo_cosmes.firma_sueldos', compact('notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.firma_sueldos', compact('paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
     }
 
