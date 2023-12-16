@@ -58,7 +58,10 @@ Route::get('signout', [App\Http\Controllers\CustomAuthController::class, 'signOu
 Route::get('/pagos/cosmes', [App\Http\Controllers\RegistroSemanalController::class, 'index'])->name('pagos.index');
 Route::post('/pagos/create', [App\Http\Controllers\RegistroSemanalController::class, 'store'])->name('pagos.store');
 Route::post('/pagos/adicional/create', [App\Http\Controllers\RegistroSemanalController::class, 'adicional'])->name('pagos.adicional');
+
 Route::get('/pagos/cosmes/pdf/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'pdf'])->name('pagos.pdf');
+Route::get('/pagos/recepcion/pdf/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'recepcion_pdf'])->name('pagos_recepcion.pdf');
+
 Route::post('/pagos/cosmes/corte', [App\Http\Controllers\RegistroSemanalController::class, 'corte'])->name('pagos.corte');
 
 Route::get('/pagos/cosmes/advance/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'advance'])->name('pagos.advance_search');

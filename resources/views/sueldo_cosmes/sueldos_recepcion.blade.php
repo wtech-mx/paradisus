@@ -33,6 +33,10 @@
                                 <a type="button" class="btn bg-primary" href="{{ route('index_recepcion.sueldos', $user_pago->id) }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
                                     Firma
                                 </a>
+
+                                <a type="button" class="btn bg-warning" href="{{ route('pagos_recepcion.pdf', $user_pago->id) }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                    Reporte  de sueldos
+                                </a>
                             </div>
 
                         </div>
@@ -52,8 +56,10 @@
                                             $totalDescuentos = 0;
                                             $totalBonoComida = 0;
                                         @endphp
+
                                         <tr>
                                             <td>{{$fechaLunes}}</td>
+
                                             @if ($user_pago->id == 16)
                                                 <td>Sueldo Fin de semana</td>
                                             @else
@@ -62,6 +68,7 @@
                                             <td>${{$user_pago->sueldo_base}}</td>
                                             <td></td>
                                         </tr>
+
                                         @foreach ($paquetes as $paquete)
                                             @if ($user_pago->id == $paquete->id_cosme)
                                             @php
@@ -82,6 +89,7 @@
                                                 </tr>
                                             @endif
                                         @endforeach
+
                                         @foreach ($regcosmessum as $item)
                                             @if ($user_pago->id == $item->id_cosme)
                                                 @php
