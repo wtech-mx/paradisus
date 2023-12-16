@@ -263,10 +263,31 @@ class RegistroSemanalController extends Controller
         $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->where('id_user', '=', $id)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasServicios = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function($query) {
+            $query->whereNotIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
+                  ->orWhereNotIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        })
+        ->select('notas.*') // Selecciona las columnas de la tabla 'notas' que necesitas
+        ->get();
 
-        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
-        // return $pdf->stream();
-        return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
+        $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function($query) {
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        })
+        ->select('notas.*')
+        ->get();
+
+        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return $pdf->stream();
+        // return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
 
     public function recepcion_pdf($id){

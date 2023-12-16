@@ -238,7 +238,7 @@
                                         <tr>
                                             <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                             <td>Paquete Facial Vendido: #{{$notaServicio->id}}</td>
-                                            <td><b>$350</b></td>
+                                            <td>$350</td>
                                             <td></td>
                                         </tr>
                                         @endif

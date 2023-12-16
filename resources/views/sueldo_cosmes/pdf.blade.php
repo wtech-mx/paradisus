@@ -120,15 +120,26 @@
                         $totalIngresos = 0;
                         $totalDescuentos = 0;
                         $sumaTotales = 0;
+                        $sumaServicios = 0;
+                        $sumaPedidos = 0;
                         $comision = 0;
                         $totalBonoComida = 0;
+                        $paqueteFac = 0;
 
                         // Calcular la suma de totales
                         foreach ($notasPedidos as $notaPedido) {
                             if ($cosme->id == $notaPedido->id_user) {
-                                $sumaTotales += $notaPedido->total;
+                                $sumaPedidos += $notaPedido->total;
                             }
                         }
+
+                        foreach ($notasServicios as $notaServicio) {
+                            if ($cosme->id == $notaServicio->NotasCosmes->id_user) {
+                                $sumaServicios += $notaServicio->precio;
+                            }
+                        }
+
+                        $sumaTotales = $sumaPedidos + $sumaServicios;
 
                         // Calcular la comisión según la lógica proporcionada
                         if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
@@ -147,6 +158,19 @@
                             $comision = $sumaTotales * 0.10;
                         }
                     @endphp
+                    @foreach ($paquetesFaciales as $notaServicio)
+                        @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
+                        @php
+                            $paqueteFac = 350;
+                        @endphp
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                            <td>Paquete Facial Vendido: #{{$notaServicio->id}}</td>
+                            <td><b>$350</b></td>
+                            <td></td>
+                        </tr>
+                        @endif
+                    @endforeach
                     @foreach ($paquetes as $paquete)
                         @if ($cosme->id == $paquete->id_cosme)
                         @php
@@ -227,7 +251,7 @@
                     @endforeach
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
-                        <td>Total vendido en productos: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
+                        <td>Total vendido: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
                         <td>${{ $comision }}</td>
                         <td>
                         </td>
@@ -238,7 +262,7 @@
         <h1 style="text-align: center;">Total a Pagar: <br>
             @php
                 $resultadoFormateado = number_format(
-                    ($totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
+                    ($paqueteFac + $totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
                     2, // Número de decimales
                     '.', // Separador decimal
                     ',' // Separador de miles
