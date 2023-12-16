@@ -34,7 +34,7 @@
                             Numero de nota: {{$notaServicio->id}}
                         </div>
                         <div class="col-4">
-                        <b>${{$notaServicio->precio}}</b>
+                        <b>${{$notaServicio->primer_pago}}</b>
                         </div>
                     </div>
                 @endif

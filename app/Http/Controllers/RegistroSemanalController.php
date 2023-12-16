@@ -34,15 +34,21 @@ class RegistroSemanalController extends Controller
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
         $registros_hoy = RegistroSemanal::where('fecha', '=', $fecha)->get();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $notasServicios = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where(function($query) {
-            $query->whereNotIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        ->where(function ($query) {
+            $query->whereNotIn('notas.id', function ($subquery) {
+                $subquery->select('id_nota')
+                    ->from('notas_paquetes')
+                    ->whereIn('id_servicio', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142]);
+            });
         })
-        ->select('notas.*') // Selecciona las columnas de la tabla 'notas' que necesitas
+        ->groupBy('notas.id')
+        ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
@@ -96,15 +102,21 @@ class RegistroSemanalController extends Controller
         $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $notasServicios = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where(function($query) {
-            $query->whereNotIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        ->where(function ($query) {
+            $query->whereNotIn('notas.id', function ($subquery) {
+                $subquery->select('id_nota')
+                    ->from('notas_paquetes')
+                    ->whereIn('id_servicio', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142]);
+            });
         })
-        ->select('notas.*')
+        ->groupBy('notas.id')
+        ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
@@ -263,15 +275,21 @@ class RegistroSemanalController extends Controller
         $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->where('id_user', '=', $id)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $notasServicios = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where(function($query) {
-            $query->whereNotIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
-                  ->orWhereNotIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        ->where(function ($query) {
+            $query->whereNotIn('notas.id', function ($subquery) {
+                $subquery->select('id_nota')
+                    ->from('notas_paquetes')
+                    ->whereIn('id_servicio', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142]);
+            });
         })
-        ->select('notas.*') // Selecciona las columnas de la tabla 'notas' que necesitas
+        ->groupBy('notas.id')
+        ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')

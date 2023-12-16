@@ -98,7 +98,7 @@
 
                                             foreach ($notasServicios as $notaServicio) {
                                                 if ($user_pago->id == $notaServicio->NotasCosmes->id_user) {
-                                                    $sumaServicios += $notaServicio->precio;
+                                                    $sumaServicios += $notaServicio->primer_pago;
                                                 }
                                             }
 
