@@ -300,8 +300,9 @@ class RegistroSemanalController extends Controller
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $regcosmessum = RegCosmesSum::get();
         $paquete = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->where('paquetes', '=', '1')->first();
+        $firma = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
 
-        $pdf = \PDF::loadView('sueldo_cosmes.pdf_recepcion',compact('fechaFinSemana','fechaInicioSemana','recepcion_pagos','registroSueldoSemanal', 'regcosmessum', 'fechaLunes', 'paquete'));
+        $pdf = \PDF::loadView('sueldo_cosmes.pdf_recepcion',compact('firma','fechaFinSemana','fechaInicioSemana','recepcion_pagos','registroSueldoSemanal', 'regcosmessum', 'fechaLunes', 'paquete'));
 
         return $pdf->download('Sueldo_recepcion'.$recepcion_pagos->name.'-'.$fechaInicioSemana.'.pdf');
 
