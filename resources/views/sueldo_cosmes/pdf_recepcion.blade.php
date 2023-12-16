@@ -126,8 +126,6 @@
                         <td></td>
                     </tr>
 
-                    @foreach ($paquetes as $paquete)
-                        @if ($recepcion_pagos->id == $paquete->id_cosme)
                         @php
                             $totalBonoComida = 130;
                         @endphp
@@ -144,8 +142,6 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endif
-                    @endforeach
 
                     @foreach ($regcosmessum as $item)
                         @if ($recepcion_pagos->id == $item->id_cosme)
@@ -178,7 +174,8 @@
                     </tr>
                 </tbody>
         </table>
-
+        <img src="{{asset('firmaCosme/'. $paquete->firma)}}" style="text-align: center;">
+        <h4 style="text-align: center;">Firma <br>{{$recepcion_pagos->name}}</h4>
     </div>
   </div>
 </body>
