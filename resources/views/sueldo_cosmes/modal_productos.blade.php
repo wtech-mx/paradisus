@@ -15,7 +15,7 @@
                             {{ \Carbon\Carbon::parse($notaPedido->fecha)->format('d \d\e F \d\e\l Y') }}
                         </div>
                         <div class="col-4">
-                            Numero de nota: {{$notaPedido->id}}
+                            <a href="{{ route('notas.edit',$notaPedido->id) }}">Numero de nota: {{$notaPedido->id}}</a>
                         </div>
                         <div class="col-4">
                            <b>${{$notaPedido->total}}</b>
@@ -31,7 +31,7 @@
                             {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
                         </div>
                         <div class="col-4">
-                            Numero de nota: {{$notaServicio->id}}
+                            <a href="{{ route('notas.edit',$notaServicio->id) }}">Numero de nota: {{$notaServicio->id}}</a>
                         </div>
                         <div class="col-4">
                         <b>${{$notaServicio->primer_pago}}</b>

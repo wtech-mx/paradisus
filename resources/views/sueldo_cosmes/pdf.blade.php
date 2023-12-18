@@ -125,6 +125,7 @@
                         $comision = 0;
                         $totalBonoComida = 0;
                         $paqueteFac = 0;
+                        $propinaCosme = 0;
 
                         // Calcular la suma de totales
                         foreach ($notasPedidos as $notaPedido) {
@@ -161,7 +162,7 @@
                     @foreach ($paquetesFaciales as $notaServicio)
                         @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
                         @php
-                            $paqueteFac = 350;
+                            $paqueteFac += 350;
                         @endphp
                         <tr>
                             <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
@@ -249,6 +250,19 @@
                             </tr>
                         @endif
                     @endforeach
+                    @foreach ($propinas as $propina)
+                        @if ($cosme->id == $propina->id_user)
+                            @php
+                                $propinaCosme += $propina->propina;
+                            @endphp
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($propina->created_at)->format('d \d\e F ') }}</td>
+                                <td>Propina en nota: #{{$propina->id_nota}}</td>
+                                <td>${{$propina->propina}}</td>
+                                <td></td>
+                            </tr>
+                        @endif
+                    @endforeach
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
                         <td>Total vendido: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
@@ -262,7 +276,7 @@
         <h1 style="text-align: center;">Total a Pagar: <br>
             @php
                 $resultadoFormateado = number_format(
-                    ($paqueteFac + $totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
+                    ($propinaCosme + $paqueteFac + $totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
                     2, // Número de decimales
                     '.', // Separador decimal
                     ',' // Separador de miles

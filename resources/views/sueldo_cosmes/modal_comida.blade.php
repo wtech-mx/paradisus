@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="row">
                     @foreach ($registros_hoy as $registro_hoy)
-                        @if ($registro_hoy->hora_fin_comida == NULL)
+                        @if ($registro_hoy->hora_inicio_comida == $registro_hoy->hora_fin_comida)
                             <form method="post" action="{{ route('pagos.comida', $registro_hoy->cosmetologo_id) }}">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">

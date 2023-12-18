@@ -190,6 +190,7 @@
                                         $comision = 0;
                                         $totalBonoComida = 0;
                                         $paqueteFac = 0;
+                                        $propinaCosme = 0;
 
                                         // Calcular la suma de totales
                                         foreach ($notasPedidos as $notaPedido) {
@@ -234,11 +235,11 @@
                                         @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
                                             @if ($cosme->id != 9)
                                             @php
-                                            $paqueteFac = 350;
+                                                $paqueteFac += 350;
                                             @endphp
                                             <tr>
                                                 <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                <td>Paquete Facial Vendido: #{{$notaServicio->id}}</td>
+                                                <td><a href="{{ route('notas.edit',$notaServicio->id) }}">Paquete Facial Vendido: #{{$notaServicio->id}}</a></td>
                                                 <td>$350</td>
                                                 <td></td>
                                             </tr>
@@ -320,6 +321,17 @@
                                             </tr>
                                         @endif
                                     @endforeach
+                                    @foreach ($propinas as $propina)
+                                        @php
+                                            $propinaCosme += $propina->propina;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ \Carbon\Carbon::parse($propina->created_at)->format('d \d\e F ') }}</td>
+                                            <td><a href="{{ route('notas.edit',$propina->id_nota) }}"> Propina en nota: #{{$propina->id_nota}}</a></td>
+                                            <td>${{$propina->propina}}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
                                     <tr>
                                         <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
                                         <td>Total vendido: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
@@ -356,7 +368,7 @@
                                         <td>
                                             @php
                                                 $resultadoFormateado = number_format(
-                                                    ($paqueteFac + $totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
+                                                    ($propinaCosme + $paqueteFac + $totalBono + $totalSueldo + $totalCubierta + $totalPaquetes + $totalGeneral + $totalcosmessum + $totalIngresos + $comision + $totalBonoComida) - $totalDescuentos,
                                                     2, // Número de decimales
                                                     '.', // Separador decimal
                                                     ',' // Separador de miles

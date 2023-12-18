@@ -6,6 +6,7 @@ use App\Models\Notas;
 use App\Models\NotasCosmes;
 use App\Models\NotasPaquetes;
 use App\Models\NotasPedidos;
+use App\Models\NotasPropinas;
 use App\Models\Paquetes;
 use App\Models\RegCosmesSum;
 use App\Models\RegistroSemanal;
@@ -62,6 +63,8 @@ class RegistroSemanalController extends Controller
         ->select('notas.*')
         ->get();
 
+        $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->get();
+
         //Agregar sueldo de recepcion
         $recepcionistas = User::where('puesto', 'Recepcionista')->get();
         $fechaLunes = Carbon::now()->startOfWeek()->format('Y-m-d');
@@ -81,7 +84,7 @@ class RegistroSemanalController extends Controller
             }
         }
 
-        return view('sueldo_cosmes.index', compact('paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.index', compact('propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
     }
 
     public function index_sueldo($id){
@@ -130,9 +133,63 @@ class RegistroSemanalController extends Controller
         ->select('notas.*')
         ->get();
 
+        $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
-        return view('sueldo_cosmes.firma_sueldos', compact('paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
+        return view('sueldo_cosmes.firma_sueldos', compact('propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+
+    }
+    
+    public function pdf($id){
+        $cosme = User::where('id', '=', $id)->first();
+
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+        $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
+
+        $registros_puntualidad = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where('puntualidad', '1')->get();
+        $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where('cosmetologo_cubriendo', '!=', NULL)->get();
+        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('cosmetologo_id', '=', $id)->get();
+        $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
+        $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
+        $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
+        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
+        $notasPedidos = NotasPedidos::where('total', '<', 2000)->where('id_user', '=', $id)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function ($query) {
+            $query->whereNotIn('notas.id', function ($subquery) {
+                $subquery->select('id_nota')
+                    ->from('notas_paquetes')
+                    ->whereIn('id_servicio', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142])
+                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142]);
+            });
+        })
+        ->groupBy('notas.id')
+        ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
+        ->get();
+
+        $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where(function($query) {
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
+        })
+        ->select('notas.*')
+        ->get();
+
+        $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
+
+        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        // return $pdf->stream();
+        return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
 
     public function index_recepcion(){
@@ -256,56 +313,6 @@ class RegistroSemanalController extends Controller
         }
 
         return back()->with('success', 'Firma guardada con exito');
-    }
-
-    public function pdf($id){
-        $cosme = User::where('id', '=', $id)->first();
-
-        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
-        $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
-
-        $registros_puntualidad = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where('puntualidad', '1')->get();
-        $registros_cubriendose = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where('cosmetologo_cubriendo', '!=', NULL)->get();
-        $registros_sueldo = RegistroSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('cosmetologo_id', '=', $id)->get();
-        $paquetes_vendidos = Paquetes::whereBetween('fecha_inicial', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '!=', NULL)->get();
-        $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
-        $registroSueldoSemanalActual = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
-        $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
-        $notasPedidos = NotasPedidos::where('total', '<', 2000)->where('id_user', '=', $id)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
-        ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
-        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where(function ($query) {
-            $query->whereNotIn('notas.id', function ($subquery) {
-                $subquery->select('id_nota')
-                    ->from('notas_paquetes')
-                    ->whereIn('id_servicio', [138, 139, 140, 141, 142])
-                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142])
-                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142])
-                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142]);
-            });
-        })
-        ->groupBy('notas.id')
-        ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
-        ->get();
-
-        $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
-        ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
-        ->where(function($query) {
-            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
-                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142])
-                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
-                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
-        })
-        ->select('notas.*')
-        ->get();
-
-        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
-        // return $pdf->stream();
-        return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
 
     public function recepcion_pdf($id){
