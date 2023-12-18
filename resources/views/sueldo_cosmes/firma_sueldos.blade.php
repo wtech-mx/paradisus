@@ -223,10 +223,10 @@
                                             $comision = $sumaTotales * 0.10;
                                         }
 
-                                        if($paquetes->paquetes == 1){
-                                            $totalBonoComida = 130;
-                                        }elseif ($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5) {
+                                        if($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5){
                                             $totalBonoComida = 0;
+                                        }elseif ($paquetes->paquetes == 1) {
+                                            $totalBonoComida = 130;
                                         }else{
                                             $totalBonoComida = 0;
                                         }

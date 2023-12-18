@@ -131,10 +131,10 @@
                                 @foreach ($paquetes as $paquete)
                                     @if ($user_pago->id == $paquete->id_cosme)
                                             @php
-                                                if($paquete->paquetes == 1){
-                                                    $totalBonoComida = 130;
-                                                }elseif ($user_pago->id == 22 || $user_pago->id == 23 || $user_pago->id == 5) {
+                                                if($user_pago->id == 22 || $user_pago->id == 23 || $user_pago->id == 5){
                                                     $totalBonoComida = 0;
+                                                }elseif ($paquetes->paquetes == 1) {
+                                                    $totalBonoComida = 130;
                                                 }else{
                                                     $totalBonoComida = 0;
                                                 }
