@@ -133,7 +133,7 @@
                                             @php
                                                 if($user_pago->id == 22 || $user_pago->id == 23 || $user_pago->id == 5){
                                                     $totalBonoComida = 0;
-                                                }elseif ($paquetes->paquetes == 1) {
+                                                }elseif ($paquete->paquetes == 1) {
                                                     $totalBonoComida = 130;
                                                 }else{
                                                     $totalBonoComida = 0;
