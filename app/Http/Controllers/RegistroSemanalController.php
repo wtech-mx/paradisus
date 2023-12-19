@@ -69,6 +69,8 @@ class RegistroSemanalController extends Controller
         $recepcionistas = User::where('puesto', 'Recepcionista')->get();
         $fechaLunes = Carbon::now()->startOfWeek()->format('Y-m-d');
         foreach ($recepcionistas as $recepcionista) {
+            $paquetes2 = ($recepcionista->id == 26) ? 0 : 1;
+
             $registroExistente = RegistroSueldoSemanal::where('id_cosme', $recepcionista->id)
                 ->where('fecha', $fechaLunes)
                 ->exists();
@@ -79,7 +81,7 @@ class RegistroSemanalController extends Controller
                     'id_cosme' => $recepcionista->id,
                     'fecha' => $fechaLunes,
                     'puntualidad' => 0,
-                    'paquetes' => 1,
+                    'paquetes' => $paquetes2,
                 ]);
             }
         }
@@ -139,7 +141,7 @@ class RegistroSemanalController extends Controller
         return view('sueldo_cosmes.firma_sueldos', compact('propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
     }
-    
+
     public function pdf($id){
         $cosme = User::where('id', '=', $id)->first();
 
