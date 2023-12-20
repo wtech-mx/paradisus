@@ -52,6 +52,8 @@ class RegistroSemanalController extends Controller
         ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
+        $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
@@ -86,7 +88,7 @@ class RegistroSemanalController extends Controller
             }
         }
 
-        return view('sueldo_cosmes.index', compact('propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.index', compact('notasMaFer','propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
     }
 
     public function index_sueldo($id){
@@ -124,6 +126,8 @@ class RegistroSemanalController extends Controller
         ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
+        $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
@@ -138,7 +142,7 @@ class RegistroSemanalController extends Controller
         $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
 
-        return view('sueldo_cosmes.firma_sueldos', compact('propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.firma_sueldos', compact('notasMaFer','propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
     }
 
@@ -176,6 +180,8 @@ class RegistroSemanalController extends Controller
         ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
+        $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
@@ -189,7 +195,7 @@ class RegistroSemanalController extends Controller
 
         $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
-        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasMaFer','propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
         // return $pdf->stream();
         return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
@@ -499,17 +505,22 @@ class RegistroSemanalController extends Controller
         $registro_hoy->hora_fin_comida = $request->get('hora_fin_comida');
         $registro_hoy->update();
 
-        $horaInicioComida = Carbon::parse($registro_hoy->hora_inicio_comida);
-        $horaFinComida = Carbon::parse($registro_hoy->hora_fin_comida);
-        $diferenciaEnMinutos = $horaInicioComida->diffInMinutes($horaFinComida);
-        $limiteMinutos = 5;
+        if($registro_hoy->hora_inicio_comida != $registro_hoy->hora_fin_comida){
+            $horaInicioComida = Carbon::parse($registro_hoy->hora_inicio_comida);
+            $horaFinComida = Carbon::parse($registro_hoy->hora_fin_comida);
+            $diferenciaEnMinutos = $horaInicioComida->diffInMinutes($horaFinComida);
+            $limiteMinutos = 55;
 
-        $registro = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', '=', $fechaInicioSemana)->first();
-        if ($diferenciaEnMinutos < $limiteMinutos  && $registro->paquetes !== 0) {
-            $registro->paquetes = 1;
-            $registro->update();
-        } else {
-            $registro->paquetes = 0;
+            $registro = RegistroSueldoSemanal::where('id_cosme', $id)
+                ->where('fecha', $fechaInicioSemana)
+                ->first();
+
+            if ($diferenciaEnMinutos <= $limiteMinutos && $registro->paquetes !== 0) {
+                $registro->paquetes = 1;
+            } else {
+                $registro->paquetes = 0;
+            }
+
             $registro->update();
         }
 

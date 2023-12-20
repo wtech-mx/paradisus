@@ -80,6 +80,7 @@
                                     $totalDescuentos = 0;
                                     $sumaTotales = 0;
                                     $sumaServicios = 0;
+                                    $sumaServicios2 = 0;
                                     $sumaPedidos = 0;
                                     $comision = 0;
                                     $totalBonoComida = 0;
@@ -93,11 +94,22 @@
                                         }
                                     }
 
-                                    foreach ($notasServicios as $notaServicio) {
-                                        if ($user_pago->id == $notaServicio->NotasCosmes->id_user) {
-                                            $sumaServicios += $notaServicio->primer_pago;
+                                    if($user_pago->id == 9){
+                                        $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $user_pago->id)->sum('monto');
+                                        foreach ($notasMaFer as $notaServicio) {
+                                            if ($user_pago->id == $notaServicio->NotasCosmes->id_user) {
+                                                $sumaServicios2 += $notaServicio->precio;
+                                            }
+                                        }
+                                        $sumaServicios = $sumaPaquetes + $sumaServicios2;
+                                    }else{
+                                        foreach ($notasServicios as $notaServicio) {
+                                            if ($user_pago->id == $notaServicio->NotasCosmes->id_user) {
+                                                $sumaServicios += $notaServicio->primer_pago;
+                                            }
                                         }
                                     }
+
 
                                     $sumaTotales = $sumaPedidos + $sumaServicios;
                                     // Calcular la comisión según la lógica proporcionada
@@ -117,17 +129,19 @@
                                         $comision = $sumaTotales * 0.10;
                                     }
                                 @endphp
-                                @foreach ($paquetesFaciales as $notaServicio)
-                                    @if ($user_pago->id == $notaServicio->NotasCosmes->id_user)
-                                    @php
-                                        $paqueteFac += 350;
-                                    @endphp
-                                        <div class="col-3">{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F ') }}</div>
-                                        <div class="col-5"><a href="{{ route('notas.edit',$notaServicio->id) }}"> Paquete Facial Vendido: #{{$notaServicio->id}} </a></div>
-                                        <div class="col-3"><b>$350</b></div>
-                                        <div class="col-1"></div>
-                                    @endif
-                                @endforeach
+                                @if ($user_pago->id != 9)
+                                    @foreach ($paquetesFaciales as $notaServicio)
+                                        @if ($user_pago->id == $notaServicio->NotasCosmes->id_user)
+                                        @php
+                                            $paqueteFac += 350;
+                                        @endphp
+                                            <div class="col-3">{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F ') }}</div>
+                                            <div class="col-5"><a href="{{ route('notas.edit',$notaServicio->id) }}"> Paquete Facial Vendido: #{{$notaServicio->id}} </a></div>
+                                            <div class="col-3"><b>$350</b></div>
+                                            <div class="col-1"></div>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @foreach ($paquetes as $paquete)
                                     @if ($user_pago->id == $paquete->id_cosme)
                                             @php
@@ -188,19 +202,21 @@
                                         <div class="col-1"></div>
                                     @endif
                                 @endforeach
-                                @foreach ($paquetes_vendidos as $paquete_vendido)
-                                    @if ($user_pago->id == $paquete_vendido->id_cosme)
-                                        @php
-                                            $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $user_pago->id)->count() * 350;
+                                @if ($user_pago->id != 9)
+                                    @foreach ($paquetes_vendidos as $paquete_vendido)
+                                        @if ($user_pago->id == $paquete_vendido->id_cosme)
+                                            @php
+                                                $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $user_pago->id)->count() * 350;
 
-                                            $totalPaquetes = $sumaPaquetes;
-                                        @endphp
-                                        <div class="col-3">{{ \Carbon\Carbon::parse($paquete_vendido->fecha_inicial)->format('d \d\e F ') }}</div>
-                                        <div class="col-5">Paquete Vendido #{{$paquete_vendido->id}}</div>
-                                        <div class="col-3"><b>$350</b></div>
-                                        <div class="col-1"></div>
-                                    @endif
-                                @endforeach
+                                                $totalPaquetes = $sumaPaquetes;
+                                            @endphp
+                                            <div class="col-3">{{ \Carbon\Carbon::parse($paquete_vendido->fecha_inicial)->format('d \d\e F ') }}</div>
+                                            <div class="col-5">Paquete Vendido #{{$paquete_vendido->id}}</div>
+                                            <div class="col-3"><b>$350</b></div>
+                                            <div class="col-1"></div>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @foreach ($regcosmessum as $cosmessum)
                                     @if ($user_pago->id == $cosmessum->id_cosme)
                                         @php
@@ -208,10 +224,10 @@
                                             $totalDescuentos = $cosmessum->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $cosmessum->id_cosme)->where('tipo', 'Descuento')->sum('monto');
                                             $color = $cosmessum->tipo === 'Extra' ? 'green' : 'red';
                                         @endphp
-                                        <div class="col-3">{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F ') }}</div>
-                                        <div class="col-5">{{$cosmessum->concepto}}</div>
-                                        <div class="col-3">${{$cosmessum->monto}}</div>
-                                        <div class="col-1">{{$cosmessum->tipo}}</div>
+                                        <div class="col-3" style="color: {{$color}}">{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F ') }}</div>
+                                        <div class="col-5" style="color: {{$color}}">{{$cosmessum->concepto}}</div>
+                                        <div class="col-3" style="color: {{$color}}">${{$cosmessum->monto}}</div>
+                                        <div class="col-1" style="color: {{$color}}">{{$cosmessum->tipo}}</div>
                                     @endif
                                 @endforeach
                                 @foreach ($propinas as $propina)

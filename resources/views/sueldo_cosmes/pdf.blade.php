@@ -121,6 +121,7 @@
                         $totalDescuentos = 0;
                         $sumaTotales = 0;
                         $sumaServicios = 0;
+                        $sumaServicios2 = 0;
                         $sumaPedidos = 0;
                         $comision = 0;
                         $totalBonoComida = 0;
@@ -134,9 +135,20 @@
                             }
                         }
 
-                        foreach ($notasServicios as $notaServicio) {
-                            if ($cosme->id == $notaServicio->NotasCosmes->id_user) {
-                                $sumaServicios += $notaServicio->primer_pago;
+                        if($cosme->id == 9){
+                            $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $cosme->id)->sum('monto');
+                            foreach ($notasMaFer as $notaServicio) {
+                                if ($cosme->id == $notaServicio->NotasCosmes->id_user) {
+                                    $sumaServicios2 += $notaServicio->precio;
+                                }
+                            }
+                            $sumaServicios = $sumaPaquetes + $sumaServicios2;
+                        }else{
+
+                            foreach ($notasServicios as $notaServicio) {
+                                if ($cosme->id == $notaServicio->NotasCosmes->id_user) {
+                                    $sumaServicios += $notaServicio->primer_pago;
+                                }
                             }
                         }
 
@@ -159,19 +171,21 @@
                             $comision = $sumaTotales * 0.10;
                         }
                     @endphp
-                    @foreach ($paquetesFaciales as $notaServicio)
-                        @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
-                        @php
-                            $paqueteFac += 350;
-                        @endphp
-                        <tr>
-                            <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                            <td>Paquete Facial Vendido: #{{$notaServicio->id}}</td>
-                            <td><b>$350</b></td>
-                            <td></td>
-                        </tr>
-                        @endif
-                    @endforeach
+                    @if ($cosme->id != 9)
+                        @foreach ($paquetesFaciales as $notaServicio)
+                            @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
+                            @php
+                                $paqueteFac += 350;
+                            @endphp
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                <td>Paquete Facial Vendido: #{{$notaServicio->id}}</td>
+                                <td><b>$350</b></td>
+                                <td></td>
+                            </tr>
+                            @endif
+                        @endforeach
+                    @endif
                     @foreach ($paquetes as $paquete)
                         @if ($cosme->id == $paquete->id_cosme)
                         @php
@@ -219,22 +233,24 @@
                                 </td>
                             </tr>
                     @endforeach
-                    @foreach ($paquetes_vendidos as $paquete_vendido)
-                        @if ($cosme->id == $paquete_vendido->id_cosme)
-                            @php
-                                $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $cosme->id)->count() * 350;
+                    @if ($cosme->id != 9)
+                        @foreach ($paquetes_vendidos as $paquete_vendido)
+                            @if ($cosme->id == $paquete_vendido->id_cosme)
+                                @php
+                                    $sumaPaquetes = $paquetes_vendidos->where('id_cosme', $cosme->id)->count() * 350;
 
-                                $totalPaquetes = $sumaPaquetes;
-                            @endphp
-                            <tr>
-                                <td>{{ \Carbon\Carbon::parse($paquete_vendido->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                    $totalPaquetes = $sumaPaquetes;
+                                @endphp
+                                <tr>
+                                    <td>{{ \Carbon\Carbon::parse($paquete_vendido->fecha)->format('d \d\e F \d\e\l Y') }}</td>
 
-                                <td>Paquete Vendido</td>
-                                <td>$350</td>
-                                <td></td>
-                            </tr>
-                        @endif
-                    @endforeach
+                                    <td>Paquete Vendido</td>
+                                    <td>$350</td>
+                                    <td></td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    @endif
                     @foreach ($regcosmessum as $cosmessum)
                         @if ($cosme->id == $cosmessum->id_cosme)
                         @php

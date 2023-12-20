@@ -24,21 +24,50 @@
                 @endif
             @endforeach
             <h3><b>Servicios</b></h3>
-            @foreach ($notasServicios as $notaServicio)
-                @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
-                    <div class="row">
-                        <div class="col-4">
-                            {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
+            @if ($cosme->id == 9)
+                @foreach ($notasMaFer as $notaServicio)
+                    @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
+                        <div class="row">
+                            <div class="col-4">
+                                {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
+                            </div>
+                            <div class="col-4">
+                                <a href="{{ route('notas.edit',$notaServicio->id) }}">Numero de nota: {{$notaServicio->id}}</a>
+                            </div>
+                            <div class="col-4">
+                            <b>${{$notaServicio->precio}}</b>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <a href="{{ route('notas.edit',$notaServicio->id) }}">Numero de nota: {{$notaServicio->id}}</a>
+                    @endif
+                @endforeach
+                @foreach ($paquetes_vendidos as $paquete_vendido)
+                    @if ($cosme->id == $paquete_vendido->id_cosme)
+                        <div class="row">
+                            <div class="col-4">{{ \Carbon\Carbon::parse($paquete_vendido->fecha)->format('d \d\e F \d\e\l Y') }}</div>
+                            <div class="col-4">Paquete Vendido</div>
+                            <div class="col-4"><b>${{$paquete_vendido->monto}}</b></div>
+                            <div></div>
                         </div>
-                        <div class="col-4">
-                        <b>${{$notaServicio->primer_pago}}</b>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($notasServicios as $notaServicio)
+                    @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
+                        <div class="row">
+                            <div class="col-4">
+                                {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
+                            </div>
+                            <div class="col-4">
+                                <a href="{{ route('notas.edit',$notaServicio->id) }}">Numero de nota: {{$notaServicio->id}}</a>
+                            </div>
+                            <div class="col-4">
+                            <b>${{$notaServicio->primer_pago}}</b>
+                            </div>
                         </div>
-                    </div>
-                @endif
-            @endforeach
+                    @endif
+                @endforeach
+            @endif
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
