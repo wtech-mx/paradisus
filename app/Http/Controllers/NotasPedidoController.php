@@ -205,6 +205,49 @@ class NotasPedidoController extends Controller
             // Agrega cualquier otro dato necesario para el recibo
         ];
 
+        //==============================COMISIONES POR VENTA ==================================================
+        if($request->get('id_user') == 14 || $request->get('id_user') == 16 || $request->get('id_user') == 21 || $request->get('id_user') == 26){
+        }else{
+            $notaTotal = $nota->total;
+
+            // Define las escalas y porcentajes de comisión
+            $escalasComision = [
+                ['min' => 2000, 'max' => 2999, 'porcentaje' => 0.03],
+                ['min' => 3000, 'max' => 3999, 'porcentaje' => 0.05],
+                ['min' => 4000, 'max' => 6999, 'porcentaje' => 0.06],
+                ['min' => 7000, 'max' => 7999, 'porcentaje' => 0.07],
+                ['min' => 8000, 'max' => 8999, 'porcentaje' => 0.08],
+                ['min' => 9000, 'max' => 9999, 'porcentaje' => 0.09],
+                ['min' => 10000, 'porcentaje' => 0.10],
+            ];
+            $fecha = date('Y-m-d');
+            // Encuentra la escala correspondiente
+            $escalaActual = null;
+            foreach ($escalasComision as $escala) {
+                if (isset($escala['max']) && $notaTotal >= $escala['min'] && $notaTotal <= $escala['max']) {
+                    $escalaActual = $escala;
+                    break;
+                } elseif (!isset($escala['max']) && $notaTotal >= $escala['min']) {
+                    $escalaActual = $escala;
+                    break;
+                }
+            }
+
+            // Calcula el monto de la comisión
+            if ($escalaActual) {
+                $montoComision = $notaTotal * $escalaActual['porcentaje'];
+                // Ahora puedes usar $montoComision en tu código
+                $registroSemanal = new RegCosmesSum;
+                $registroSemanal->id_cosme = $request->get('id_user');
+                $registroSemanal->tipo = 'Extra';
+                $registroSemanal->concepto = 'Bono Venta Producto en nota: ' . $nota->id;
+                $registroSemanal->id_nota = $nota->id;
+                $registroSemanal->fecha = $fecha;
+                $registroSemanal->monto = $montoComision;
+                $registroSemanal->save();
+            }
+        }
+
         // Devuelve los datos en formato JSON
         return response()->json(['success' => true, 'recibo' => $recibo]);
 
