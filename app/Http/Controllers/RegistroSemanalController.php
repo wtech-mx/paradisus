@@ -34,7 +34,7 @@ class RegistroSemanalController extends Controller
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('puntualidad', '=', '1')->get();
         $paquetes = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('paquetes', '=', '1')->get();
         $registros_hoy = RegistroSemanal::where('fecha', '=', $fecha)->get();
-        $notasPedidos = NotasPedidos::where('total', '<', 2000)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasPedidos = NotasPedidos::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
