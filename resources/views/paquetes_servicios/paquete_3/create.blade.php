@@ -80,7 +80,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="precio">Fecha</label><br>
@@ -106,8 +106,8 @@
                                                                     </a>
                                                                 <p class="card-description mb-4" style="font-size:12px;">
                                                                     - Reductivo Colombiano <br>
-                                                                    - Maderoterapia <br>
-                                                                    - Mesoterapia Corporal <br>
+                                                                    - Vacumterapia <br>
+                                                                    - Electroestimulacion <br>
                                                                 </p>
                                                             </div>
                                                             <div class="col-12">
@@ -212,8 +212,8 @@
                                                                     </a>
                                                                 <p class="card-description mb-4" style="font-size:12px;">
                                                                     - Reductivo Colombiano <br>
-                                                                    - Maderoterapia <br>
-                                                                    - Mesoterapia Corporal <br>
+                                                                    - Vacumterapia <br>
+                                                                    - Electroestimulacion <br>
                                                                 </p>
                                                             </div>
                                                             <div class="col-12">
@@ -318,8 +318,8 @@
                                                                     </a>
                                                                 <p class="card-description mb-4" style="font-size:12px;">
                                                                     - Reductivo Colombiano <br>
-                                                                    - Maderoterapia <br>
-                                                                    - Mesoterapia Corporal <br>
+                                                                    - Vacumterapia <br>
+                                                                    - Electroestimulacion <br>
                                                                 </p>
                                                             </div>
                                                             <div class="col-12">
@@ -424,8 +424,8 @@
                                                                     </a>
                                                                 <p class="card-description mb-4" style="font-size:12px;">
                                                                     - Reductivo Colombiano <br>
-                                                                    - Maderoterapia <br>
-                                                                    - Mesoterapia Corporal <br>
+                                                                    - Vacumterapia <br>
+                                                                    - Electroestimulacion <br>
                                                                 </p>
                                                             </div>
                                                             <div class="col-12">
@@ -530,8 +530,8 @@
                                                                     </a>
                                                                 <p class="card-description mb-4" style="font-size:12px;">
                                                                     - Reductivo Colombiano <br>
-                                                                    - Maderoterapia <br>
-                                                                    - Mesoterapia Corporal <br>
+                                                                    - Vacumterapia <br>
+                                                                    - Electroestimulacion <br>
                                                                 </p>
                                                             </div>
                                                             <div class="col-12">
@@ -636,8 +636,8 @@
                                                                     </a>
                                                                 <p class="card-description mb-4" style="font-size:12px;">
                                                                     - Reductivo Colombiano <br>
-                                                                    - Maderoterapia <br>
-                                                                    - Mesoterapia Corporal <br>
+                                                                    - Vacumterapia <br>
+                                                                    - Electroestimulacion <br>
                                                                 </p>
                                                             </div>
                                                             <div class="col-12">

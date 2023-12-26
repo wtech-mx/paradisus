@@ -139,6 +139,30 @@ class PaquetesController extends Controller
         return view('paquetes_servicios.paquete_5.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
     }
 
+    public function firma_seis($id){
+
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+
+        return view('paquetes_servicios.paquete_6.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
+
+    public function firma_siete($id){
+
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+
+        return view('paquetes_servicios.paquete_7.firma_1',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
+
     public function create_dos()
     {
         $client = Client::orderBy('name','ASC')->get();
@@ -285,6 +309,80 @@ class PaquetesController extends Controller
         $pdf->setPaper([0, 0, 165, 500], 'portrait');
 
         return $pdf->download('Recibo_paquete_5'.$id.'.pdf');
+    }
+
+    public function create_seis()
+    {
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+        $servicio = Servicios::find(276);
+
+        return view('paquetes_servicios.paquete_6.create',compact('client', 'user', 'servicio'));
+    }
+
+    public function edit_seis($id)
+    {
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+
+        return view('paquetes_servicios.paquete_6.edit',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
+
+    public function print_seis($id)
+    {
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+
+        $pdf = PDF::loadView('paquetes_servicios.paquete_6.recibo_pdf_print',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+
+        $pdf->setPaper([0, 0, 165, 500], 'portrait');
+
+        return $pdf->download('Recibo_paquete_6'.$id.'.pdf');
+    }
+
+    public function create_siete()
+    {
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+        $servicio = Servicios::find(154);
+
+        return view('paquetes_servicios.paquete_7.create',compact('client', 'user', 'servicio'));
+    }
+
+    public function edit_siete($id)
+    {
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+
+        return view('paquetes_servicios.paquete_7.edit',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+    }
+
+    public function print_siete($id)
+    {
+        $paquete = Paquetes::find($id);
+        $paquete2 = Paquete2::where('id_paquete', '=', $id)->first();
+        $paquete3 = Paquete3::where('id_paquete', '=', $id)->first();
+        $pago = PaquetesPago::where('id_paquete', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+
+        $pdf = PDF::loadView('paquetes_servicios.paquete_7.recibo_pdf_print',compact('paquete', 'paquete2', 'paquete3', 'client', 'user', 'pago'));
+
+        $pdf->setPaper([0, 0, 165, 500], 'portrait');
+
+        return $pdf->download('Recibo_paquete_7'.$id.'.pdf');
     }
 
     public function store(Request $request)
@@ -1085,7 +1183,7 @@ class PaquetesController extends Controller
         $reporte->save();
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->route('paquetes_servicios.index')
+        return redirect()->back()
             ->with('success', 'Paquete created successfully.');
     }
 }

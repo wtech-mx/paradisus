@@ -44,6 +44,8 @@ Route::get('/paquetes/servicios/edit/lipoescultura/print/{id}', [App\Http\Contro
 Route::get('/paquetes/servicios/edit/moldeante/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_tres'])->name('print_paquete_tres.print_tres');
 Route::get('/paquetes/servicios/edit/drenante/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_cuatro'])->name('print_paquete_cuatro.print_cuatro');
 Route::get('/paquetes/servicios/edit/gluteos/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_cinco'])->name('print_paquete_cinco.print_cinco');
+Route::get('/paquetes/servicios/edit/piernas/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_seis'])->name('print_paquete_seis.print_seis');
+Route::get('/paquetes/servicios/edit/brazos/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_siete'])->name('print_paquete_siete.print_siete');
 
 // =============== M O D U L O   login custom ===============================
 
@@ -88,6 +90,8 @@ Route::get('/paquetes/servicios/edit/lipoescultura/firma/{id}', [App\Http\Contro
 Route::get('/paquetes/servicios/edit/moldeante/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_tres'])->name('firma_paquete_tres.firma_edit_tres');
 Route::get('/paquetes/servicios/edit/drenante/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cuatro'])->name('firma_paquete_cuatro.firma_edit_cuatro');
 Route::get('/paquetes/servicios/edit/gluteos/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_cinco'])->name('firma_paquete_cinco.firma_edit_cinco');
+Route::get('/paquetes/servicios/edit/piernas/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_seis'])->name('firma_paquete_seis.firma_edit_seis');
+Route::get('/paquetes/servicios/edit/brazos/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'firma_siete'])->name('firma_paquete_siete.firma_edit_siete');
 
 Route::post('/paquete/usuario/firma/{id}', [App\Http\Controllers\PaquetesController::class, 'store_firma'])->name('paquetes_firma.store_firma');
 
@@ -188,6 +192,12 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/paquetes/servicios/create/gluteos', [App\Http\Controllers\PaquetesController::class, 'create_cinco'])->name('create_paquete_cinco.create_cinco');
     Route::get('/paquetes/servicios/edit/gluteos/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_cinco'])->name('edit_paquete_cinco.edit_cinco');
+
+    Route::get('/paquetes/servicios/create/piernas', [App\Http\Controllers\PaquetesController::class, 'create_seis'])->name('create_paquete_seis.create_seis');
+    Route::get('/paquetes/servicios/edit/piernas/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_seis'])->name('edit_paquete_seis.edit_seis');
+
+    Route::get('/paquetes/servicios/create/brazos', [App\Http\Controllers\PaquetesController::class, 'create_siete'])->name('create_paquete_siete.create_siete');
+    Route::get('/paquetes/servicios/edit/brazos/{id}', [App\Http\Controllers\PaquetesController::class, 'edit_siete'])->name('edit_paquete_siete.edit_siete');
 
     Route::post('/paquetes/servicios/store', [App\Http\Controllers\PaquetesController::class, 'store'])->name('paquetes_servicios.store');
     Route::patch('/paquetes/servicios/update/{id}', [App\Http\Controllers\PaquetesController::class, 'update'])->name('paquetes_servicios.update');

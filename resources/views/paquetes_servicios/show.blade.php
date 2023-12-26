@@ -15,7 +15,6 @@
             <div class="modal-body">
                     <div class="row">
 
-
                             <div class="col-12">
                                 <div class="d-flex justify-content-center">
                                     <a class="btn primary text-center" href="{{ route('create_paquete_uno.create_uno') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
@@ -55,6 +54,22 @@
                                 </a>
                                  </div>
                               </div>
+
+                              <div class="col-12">
+                                <div class="d-flex justify-content-center">
+                                <a class="btn primary" href="{{ route('create_paquete_seis.create_seis') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                    Piernas de 10
+                                </a>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="d-flex justify-content-center">
+                                <a class="btn primary" href="{{ route('create_paquete_siete.create_siete') }}" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                    Brazos definidos
+                                </a>
+                                </div>
+                            </div>
                     </div>
             </div>
         </div>
