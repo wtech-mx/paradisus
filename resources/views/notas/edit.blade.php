@@ -317,7 +317,19 @@
                                         </div>
 
                                         <div class="tab-pane fade" id="pagoedit{{$notas->id}}" >
-                                            <div class="row text-center">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label for="editarCampos">Editar Campos</label>
+
+                                                    <input type="radio" id="editarCamposNo" name="editarsi" checked>
+                                                    <label for="editarCamposNo">No</label>
+
+                                                    <input type="radio" id="editarCamposSi" name="editarno">
+                                                    <label for="editarCamposSi">Sí</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row text-center container_pagos">
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Usuario</div>
                                                 <div class="col-1" style="background-color: #bb546c; color: #fff;">Pago</div>
@@ -325,7 +337,6 @@
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
                                                 <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
                                                 <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
-
 
                                                 <p style="display: none">{{ $resultado = 0; }}</p>
 
@@ -373,9 +384,12 @@
                                                         </div>
                                                     @endif
 
+
+
                                                 @endforeach
 
                                             </div>
+
                                             <div class="mt-4">
                                                 <div class="row">
                                                     <div class="col-3">
@@ -714,6 +728,30 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
 
     <script>
+
+            // Obtiene los radio buttons de editar campos
+            var radioEditarNo = document.getElementById('editarCamposNo');
+            var radioEditarSi = document.getElementById('editarCamposSi');
+
+            // Escucha el evento de cambio en el radio button
+            radioEditarNo.addEventListener('change', toggleCampos);
+            radioEditarSi.addEventListener('change', toggleCampos);
+
+            // Función para cambiar el estado de los campos
+            function toggleCampos() {
+                // Obtiene todos los elementos de tipo input, select y textarea dentro de la fila
+                var campos = document.querySelectorAll('.container_pagos input, .container_pagos select, .container_pagos textarea');
+
+                // Itera sobre los campos y cambia el estado disabled según el estado del radio button
+                campos.forEach(function(campo) {
+                    campo.disabled = !radioEditarSi.checked; // Habilita/deshabilita según el estado del radio button 'Sí'
+                });
+            }
+
+            // Llama a la función al cargar la página para aplicar el estado inicial
+            toggleCampos();
+
+
             $(document).ready(function() {
                 $('.user').select2();
                 $('.servicio_search').select2();
