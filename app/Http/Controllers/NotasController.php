@@ -379,6 +379,81 @@ class NotasController extends Controller
         $nota->restante = $request->get('restante_paquetes');
         $nota->update();
 
+        if ($request->has('editarsi')) {
+
+            $usuario = auth()->user()->name;
+
+            $pago_ids = $request->get('pago_id_edit');
+            $fechas_pago = $request->get('fecha_pago_edit');
+            $cosmetologas = $request->get('cosmetologa_edit');
+            $pagos = $request->get('pago_edit');
+            $dineros_recibidos = $request->get('dinero_recibido_edit');
+            $formas_pago = $request->get('forma_pago_edit');
+            $notas = $request->get('nota_edit');
+
+            // Iterar sobre los datos y guardar en la base de datos
+            foreach ($pago_ids as $key => $pago_id) {
+                $pago = Pagos::find($pago_id);
+
+                // Guardar los valores actuales antes de la actualización para este registro
+                $antes = $pago->getAttributes(); // Obtiene los atributos actuales
+
+                // Actualizar el registro
+                $pago->id_nota = $id;
+                $pago->fecha = $fechas_pago[$key];
+                $pago->cosmetologa = $cosmetologas[$key];
+                $pago->pago = $pagos[$key];
+                $pago->dinero_recibido = $dineros_recibidos[$key];
+                $pago->forma_pago = $formas_pago[$key];
+                $pago->nota = $notas[$key];
+                // Calcular cambio si dinero_recibido es mayor que pago
+                    if ($pago->dinero_recibido > $pago->pago) {
+                        $pago->cambio = $pago->dinero_recibido - $pago->pago;
+                    } else {
+                        $pago->cambio = 0; // No hay cambio si dinero_recibido no es mayor que pago
+                    }
+                $pago->save();
+
+                if ($pago->cambio > 0 && $pago->forma_pago == 'Efectivo') {
+                    $fechaActual = date('Y-m-d');
+                    $concepto = 'Cambio nota servicio: ' . $id;
+
+                    // Buscar el registro existente en CajaDia
+                    $cajaExistente = CajaDia::where('concepto', $concepto)
+                        ->where('fecha', $fechaActual)
+                        ->first();
+
+                    if ($cajaExistente) {
+                        // Actualizar el registro existente
+                        $cajaExistente->egresos = $pago->cambio;
+                        $cajaExistente->update();
+                    } else {
+                        // Crear un nuevo registro
+                        $caja = new CajaDia;
+                        $caja->motivo = 'Cambio nota servicio: ' . $id;
+                        $caja->egresos = $pago->cambio;
+                        $caja->concepto = $concepto;
+                        $caja->fecha = $fechaActual;
+                        $caja->save();
+                    }
+                }
+
+                // Guardar los cambios en la bitácora después de la actualización
+                $despues = $pago->getAttributes(); // Obtiene los nuevos atributos
+
+                Bitacora::create([
+                    'id_nota' => $pago->id_nota,
+                    'id_pago' => $pago->id,
+                    'usuario' => $usuario,
+                    'tipo' => 'Actualizacion',
+                    'antes' => json_encode($antes),
+                    'despues' => json_encode($despues),
+                    'fecha' => now()
+                ]);
+            }
+
+        }
+        
         $cambio = $request->get('dinero_recibido') - $request->get('pago');
 
         // G U A R D A R  C A M B I O
@@ -435,24 +510,10 @@ class NotasController extends Controller
 
         $nota_paquete = NotasPaquetes::find($id_notas_paquetes);
 
-        if($nota_paquete->id_servicio == $request->get('id_servicio')){
-            $nota_paquete->id_servicio = $request->get('id_servicio');
-            $nota_paquete->num = $request->get('num1_paquetes');
-            $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
+        // G U A R D A R  S E R V I C I O
+            $id_notas_paquetes = $request->get('id_notas_paquetes');
 
-            $nota_paquete->id_servicio2 = $request->get('id_servicio2');
-            $nota_paquete->num2 = $request->get('num2_paquetes');
-            $nota_paquete->descuento2 = $request->get('descuento-adicional2_paquetes');
-
-            $nota_paquete->id_servicio3 = $request->get('id_servicio3');
-            $nota_paquete->num3 = $request->get('num3_paquetes');
-            $nota_paquete->descuento3 = $request->get('descuento-adicional3_paquetes');
-
-            $nota_paquete->id_servicio4 = $request->get('id_servicio4');
-            $nota_paquete->num4 = $request->get('num4_paquetes');
-            $nota_paquete->descuento4 = $request->get('descuento-adicional4_paquetes');
-            $nota_paquete->update();
-        }else{
+            $nota_paquete = NotasPaquetes::find($id_notas_paquetes);
             $nota_paquete->id_servicio = $request->get('id_servicio');
             $nota_paquete->num = $request->get('num1_paquetes');
             $nota_paquete->descuento = $request->get('descuento-adicional1_paquetes');
@@ -503,55 +564,7 @@ class NotasController extends Controller
             $nota->precio = $totalSuma;
             $nota->restante = $restante;
             $nota->update();
-        }
-
-        if ($request->has('editarsi')) {
-
-            $usuario = auth()->user()->name;
-
-            $pago_ids = $request->get('pago_id_edit');
-            $fechas_pago = $request->get('fecha_pago_edit');
-            $cosmetologas = $request->get('cosmetologa_edit');
-            $pagos = $request->get('pago_edit');
-            $dineros_recibidos = $request->get('dinero_recibido_edit');
-            $formas_pago = $request->get('forma_pago_edit');
-            $notas = $request->get('nota_edit');
-
-            // Iterar sobre los datos y guardar en la base de datos
-            foreach ($pago_ids as $key => $pago_id) {
-                $pago = Pagos::find($pago_id);
-
-                // Guardar los valores actuales antes de la actualización para este registro
-                $antes = $pago->getAttributes(); // Obtiene los atributos actuales
-
-                // Actualizar el registro
-                $pago->id_nota = $id;
-                $pago->fecha = $fechas_pago[$key];
-                $pago->cosmetologa = $cosmetologas[$key];
-                $pago->pago = $pagos[$key];
-                $pago->dinero_recibido = $dineros_recibidos[$key];
-                $pago->forma_pago = $formas_pago[$key];
-                $pago->nota = $notas[$key];
-                $pago->save();
-
-                // Guardar los cambios en la bitácora después de la actualización
-                $despues = $pago->getAttributes(); // Obtiene los nuevos atributos
-
-
-
-                Bitacora::create([
-                    'id_nota' => $pago->id_nota,
-                    'id_pago' => $pago->id,
-                    'usuario' => $usuario,
-                    'tipo' => 'Actualizacion',
-                    'antes' => json_encode($antes),
-                    'despues' => json_encode($despues),
-                    'fecha' => now()
-                ]);
-            }
-
-        }
-
+        // E N D  G U A R D A R  S E R V I C I O
 
         if($request->get('sesion') != NULL){
             $nota_sesion = new NotasSesion;
