@@ -369,6 +369,7 @@ class NotasController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $nota = Notas::find($id);
         $nota->anular = $request->get('anular');
         $nota->id_client = $request->get('id_client');
@@ -502,6 +503,30 @@ class NotasController extends Controller
             $nota->restante = $restante;
             $nota->update();
         }
+
+        if ($request->has('editarsi')) {
+            $pago_ids = $request->get('pago_id_edit');
+            $fechas_pago = $request->get('fecha_pago_edit');
+            $cosmetologas = $request->get('cosmetologa_edit');
+            $pagos = $request->get('pago_edit');
+            $dineros_recibidos = $request->get('dinero_recibido_edit');
+            $formas_pago = $request->get('forma_pago_edit');
+            $notas = $request->get('nota_edit');
+
+            // Iterar sobre los datos y guardar en la base de datos
+            foreach ($pago_ids as $key => $pago_id) {
+                $pago = Pagos::find($pago_id);
+                $pago->id_nota = $id;
+                $pago->fecha = $fechas_pago[$key];
+                $pago->cosmetologa = $cosmetologas[$key];
+                $pago->pago = $pagos[$key];
+                $pago->dinero_recibido = $dineros_recibidos[$key];
+                $pago->forma_pago = $formas_pago[$key];
+                $pago->nota = $notas[$key];
+                $pago->save();
+            }
+        }
+
 
         if($request->get('sesion') != NULL){
             $nota_sesion = new NotasSesion;

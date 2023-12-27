@@ -319,13 +319,13 @@
                                         <div class="tab-pane fade" id="pagoedit{{$notas->id}}" >
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <label for="editarCampos">Editar Campos</label>
+                                                    <label for="editarCampos">Editar Campos de pago</label>
 
-                                                    <input type="radio" id="editarCamposNo" name="editarsi" checked>
-                                                    <label for="editarCamposNo">No</label>
+                                                    <input class="form-check-input" type="radio" id="editarCamposNo" name="editarsi"  value="no">
+                                                    <label  class="form-check-label" for="editarCamposNo">No</label>
 
-                                                    <input type="radio" id="editarCamposSi" name="editarno">
-                                                    <label for="editarCamposSi">Sí</label>
+                                                    <input class="form-check-input" type="radio" id="editarCamposSi" name="editarsi" value="si">
+                                                    <label  class="form-check-label" for="editarCamposSi">Sí</label>
                                                 </div>
                                             </div>
 
@@ -342,16 +342,17 @@
 
                                                 @foreach ($pago as $item)
 
-                                                    <input id="pago_{{ $item->id }}" name="pago_id" type="hidden" class="form-control" value="{{ $item->id }}">
+                                                    <input id="pago_{{ $item->id }}" name="pago_id_edit[]" type="hidden" class="form-control" value="{{ $item->id }}">
+
 
                                                     <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <input name="fecha_pago" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" disabled>
+                                                        <input name="fecha_pago_edit[]" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" disabled>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa_edit[]" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                             data-on="Active" data-off="InActive">
                                                             <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
                                                             @foreach ($user as $cosmes)
@@ -361,19 +362,26 @@
                                                     </div>
 
                                                     <div class="col-1 py-2 p-1" >
-                                                        <input name="pago" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" disabled>
+                                                        <input name="pago_edit[]" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" disabled>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <input name="pago" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" disabled>
+                                                        <input name="dinero_recibido_edit[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" disabled>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <input name="" type="text" class="form-control text-center" id="" value="{{$item->forma_pago}}" disabled>
+                                                        <select class="form-control toggle-class" id="cosmetologa" name="forma_pago_edit[]" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                            data-on="Active" data-off="InActive">
+                                                            <option value="{{$item->forma_pago}}">{{$item->forma_pago}}</option>
+                                                            <option value="Efectivo">Efectivo</option>
+                                                            <option value="Transferencia">Transferencia</option>
+                                                            <option value="Mercado Pago">Mercado Pago</option>
+                                                            <option value="Tarjeta">Tarjeta</option>
+                                                        </select>
                                                     </div>
 
                                                     <div class="col-2 py-2 p-1" >
-                                                        <textarea class="form-control text-center" name="nota[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
+                                                        <textarea class="form-control text-center" name="nota_edit[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
                                                     </div>
 
                                                     @if ($item->foto == NULL)
@@ -383,8 +391,6 @@
                                                             <a target="_blank" href="{{asset('foto_servicios/'.$item->foto)}}">Ver</a>
                                                         </div>
                                                     @endif
-
-
 
                                                 @endforeach
 
@@ -459,7 +465,6 @@
                                                             <input  id="dinero-recibido-edit" name="dinero_recibido" type="number" class="form-control" >
                                                         </div>
                                                     </div>
-
 
                                                     <div class="col-2">
                                                         <div class="form-group">
@@ -729,6 +734,17 @@
 
     <script>
 
+
+
+            $(document).ready(function() {
+                $('.user').select2();
+                $('.servicio_search').select2();
+                $('.cliente').select2();
+                $('.servicio2').select2();
+                $('.servicio3').select2();
+                $('.servicio4').select2();
+
+
             // Obtiene los radio buttons de editar campos
             var radioEditarNo = document.getElementById('editarCamposNo');
             var radioEditarSi = document.getElementById('editarCamposSi');
@@ -750,15 +766,6 @@
 
             // Llama a la función al cargar la página para aplicar el estado inicial
             toggleCampos();
-
-
-            $(document).ready(function() {
-                $('.user').select2();
-                $('.servicio_search').select2();
-                $('.cliente').select2();
-                $('.servicio2').select2();
-                $('.servicio3').select2();
-                $('.servicio4').select2();
         });
         // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
         var inputNuevoPago = $('#nuevo-pago');
