@@ -20,6 +20,7 @@ use App\Models\NotasCosmes;
 use App\Models\RegistroSemanal;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\Bitacora;
 
 class CajaController extends Controller
 {
@@ -262,6 +263,8 @@ class CajaController extends Controller
     public function imprimir_caja(){
         $diaActual = date('Y-m-d');
         $today =  date('d-m-Y');
+
+        $bitacora = Bitacora::where('fecha','=',$diaActual)->get();
 
         //====================================== LLAMADO DE LA CAJA ======================================
         $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->where('motivo', '=', 'Retiro')->get();
@@ -516,7 +519,7 @@ class CajaController extends Controller
         $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
-        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta'));
+        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora'));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
@@ -524,6 +527,8 @@ class CajaController extends Controller
     public function imprimir_precorte(){
         $diaActual = date('Y-m-d');
         $today =  date('d-m-Y');
+
+        $bitacora = Bitacora::where('fecha','=',$diaActual)->get();
 
         Carbon::setLocale('es');
         $fechaYHoraActual = Carbon::now();
@@ -772,7 +777,7 @@ class CajaController extends Controller
         $pdf = \PDF::loadView('caja.precorte', compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
         'suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'caja_final','suma_filas_trans','propinasHoy','total_ing','caja_egre','total_egresos','paquetes',
         'fechaYHoraFormateada', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes','total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta',
-        'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta'));
+        'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora'));
         // return $pdf->stream();
         return $pdf->download('Precorte '.$fechaYHoraFormateada.'.pdf');
     }

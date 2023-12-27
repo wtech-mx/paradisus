@@ -16,6 +16,7 @@ use App\Models\NotasSesion;
 use App\Models\Pagos;
 use App\Models\Reporte;
 use App\Models\Servicios;
+use App\Models\Bitacora;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -505,6 +506,9 @@ class NotasController extends Controller
         }
 
         if ($request->has('editarsi')) {
+
+            $usuario = auth()->user()->name;
+
             $pago_ids = $request->get('pago_id_edit');
             $fechas_pago = $request->get('fecha_pago_edit');
             $cosmetologas = $request->get('cosmetologa_edit');
@@ -516,6 +520,11 @@ class NotasController extends Controller
             // Iterar sobre los datos y guardar en la base de datos
             foreach ($pago_ids as $key => $pago_id) {
                 $pago = Pagos::find($pago_id);
+
+                // Guardar los valores actuales antes de la actualización para este registro
+                $antes = $pago->getAttributes(); // Obtiene los atributos actuales
+
+                // Actualizar el registro
                 $pago->id_nota = $id;
                 $pago->fecha = $fechas_pago[$key];
                 $pago->cosmetologa = $cosmetologas[$key];
@@ -524,7 +533,23 @@ class NotasController extends Controller
                 $pago->forma_pago = $formas_pago[$key];
                 $pago->nota = $notas[$key];
                 $pago->save();
+
+                // Guardar los cambios en la bitácora después de la actualización
+                $despues = $pago->getAttributes(); // Obtiene los nuevos atributos
+
+
+
+                Bitacora::create([
+                    'id_nota' => $pago->id_nota,
+                    'id_pago' => $pago->id,
+                    'usuario' => $usuario,
+                    'tipo' => 'Actualizacion',
+                    'antes' => json_encode($antes),
+                    'despues' => json_encode($despues),
+                    'fecha' => now()
+                ]);
             }
+
         }
 
 

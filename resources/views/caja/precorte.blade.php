@@ -285,6 +285,7 @@
         </tbody>
     </table>
 
+
     <h2 style="text-align: center;">Transferencia <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #E74C3C; color: #fff">
@@ -720,6 +721,54 @@
             @endforeach
         </tbody>
     </table>
+
+    <h2 style="text-align: center;">Bitácora de Cambios <img src="{{ asset('assets/icons/simbolos.png') }}" alt="" width="35px"></h2>
+
+    <table class="table table-bordered">
+        <tbody>
+            @php
+                $contador = 1;
+            @endphp
+            @foreach($bitacora as $registro)
+                <tr>
+                    <td colspan="4"><strong>Modificación {{ $contador++ }}</strong></td>
+                </tr>
+                <tr>
+                    <td>ID Nota:</td>
+                    <td>Usuario:</td>
+                    <td>Tipo:</td>
+                    <td>Fecha:</td>
+                </tr>
+                <tr>
+                    <td>{{ $registro->id_nota }}</td>
+                    <td>{{ $registro->usuario }}</td>
+                    <td>{{ $registro->tipo }}</td>
+                    <td>{{ $registro->fecha }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: left;">
+                        <strong>Antes:</strong><br>
+                        @php
+                            $antes = json_decode($registro->antes, true);
+                            foreach ($antes as $key => $value) {
+                                echo $key . ': ' . $value . '<br>';
+                            }
+                        @endphp
+                    </td>
+                    <td colspan="2" style="text-align: left;">
+                        <strong>Después:</strong><br>
+                        @php
+                            $despues = json_decode($registro->despues, true);
+                            foreach ($despues as $key => $value) {
+                                echo $key . ': ' . $value . '<br>';
+                            }
+                        @endphp
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
   </div>
 </body>
 </html>
