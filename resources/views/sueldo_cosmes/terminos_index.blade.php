@@ -53,6 +53,9 @@
                             style="background: #00BB2D; color: #ffff">
                             <i class="fa fa-whatsapp"></i>
                             </a>
+                            <a type="button" class="btn btn-outline-dark" href="{{ route('treminos.pdf', $item->id) }}">
+                                PDF
+                            </a>
                         </td>
                     </tr>
                     @endforeach

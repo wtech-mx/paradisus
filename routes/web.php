@@ -269,6 +269,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/encuestas/index', [App\Http\Controllers\EncuestasController::class, 'index'])->name('index.encuestas');
     Route::get('/encuestas/buscador/index', [App\Http\Controllers\EncuestasController::class, 'advance'])->name('advance_search.encuestas');
 
+    Route::get('/treminos/cosmes/pdf/{id}', [App\Http\Controllers\CustomtermsController::class, 'pdf'])->name('treminos.pdf');
+
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');

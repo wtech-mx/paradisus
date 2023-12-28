@@ -68,5 +68,14 @@ class CustomtermsController extends Controller
         return back()->with('success', 'Firma guardada con exito');
     }
 
+    public function pdf($id){
+        $cosme = CustomTerms::find($id);
 
+        $user = User::find($cosme->id_user);
+        $fecha = date('Y-m-d');
+
+        $pdf = \PDF::loadView('sueldo_cosmes.terminos_pdf',compact('cosme','user'));
+        // return $pdf->stream();
+        return $pdf->download('Terminos '.$user->name.'-'.$fecha.'.pdf');
+    }
 }
