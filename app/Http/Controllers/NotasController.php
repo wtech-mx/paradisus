@@ -375,7 +375,6 @@ class NotasController extends Controller
         $nota->anular = $request->get('anular');
         $nota->id_client = $request->get('id_client');
         $nota->nota = $request->get('nota');
-        $nota->precio = $request->get('total-suma');
         $nota->restante = $request->get('restante_paquetes');
         $nota->update();
 
@@ -453,7 +452,7 @@ class NotasController extends Controller
             }
 
         }
-        
+
         $cambio = $request->get('dinero_recibido') - $request->get('pago');
 
         // G U A R D A R  C A M B I O
@@ -478,6 +477,25 @@ class NotasController extends Controller
             );
             $insert_data2[] = $data;
             NotasCosmes::find($id_notas_cosmes)->update($data);
+        }
+
+        // G U A R D A R  E X T R A S
+        if($request->get('concepto') != NULL){
+            $notas_extra = new NotasExtras;
+            $notas_extra->id_nota = $nota->id;
+            $notas_extra->concepto = $request->get('concepto');
+            $notas_extra->precio = $request->get('precio');
+            $notas_extra->save();
+        }
+
+        // G U A R D A R   P R O P I N A S
+        if($request->get('propina') != NULL){
+            $notas_propinas = new NotasPropinas;
+            $notas_propinas->id_nota = $nota->id;
+            $notas_propinas->id_user = $request->get('id_user_propina');
+            $notas_propinas->propina = $request->get('propina');
+            $notas_propinas->metdodo_pago = $request->get('forma_pago_propina');
+            $notas_propinas->save();
         }
 
         // G U A R D A R  P A G O S
@@ -538,30 +556,57 @@ class NotasController extends Controller
                 $request->get('id_servicio3'),
                 $request->get('id_servicio4'),
             ];
+            $notasExtras = NotasExtras::where('id_nota', $id)->get();
+            $notasPropinas = NotasPropinas::where('id_nota', $id)->get();
 
             $totalSuma = 0;
-            foreach ($servicioIds as $servicioId) {
+            $precio = 0;
+            $extras = 0;
+            $propinas = 0;
+            foreach ($servicioIds as $index => $servicioId) {
                 if ($servicioId) {
                     $servicio = Servicios::find($servicioId);
+                    $descuentoAdicionalCampo = "descuento-adicional" . ($index + 1) . "_paquetes";
+                    $descuentoAdicional = $request->get($descuentoAdicionalCampo);
 
                     // Verifica si el servicio tiene descuento
                     if ($servicio->act_descuento === 1) {
                         // Si tiene descuento, usa el precio de la columna "descuento"
-                        $totalSuma += $servicio->descuento;
+                        $precio = $servicio->descuento;
+                    }elseif(!is_null($descuentoAdicional) && is_numeric($descuentoAdicional)){
+                        // Aplica el descuento adicional en porcentaje
+                        $descuentoPorcentaje = $descuentoAdicional / 100;
+                        $precio = ($servicio->precio * (1 - $descuentoPorcentaje));
                     } else {
                         // Si no tiene descuento o es NULL, usa el precio de la columna "precio"
-                        $totalSuma += $servicio->precio;
+                        $precio = $servicio->precio;
                     }
+
+                    // Obtén el número de paquetes para este servicio
+                    $numPaquetesCampo = "num" . ($index + 1) . "_paquetes";
+                    $numPaquetes = $request->get($numPaquetesCampo);
+
+                    // Multiplica el precio por la cantidad de paquetes
+                    $totalSuma += $precio * $numPaquetes;
                 }
             }
+            // Sumar los precios de las NotasExtras
+            foreach ($notasExtras as $notaExtra) {
+                $extras += $notaExtra->precio;
+            }
+            // Sumar los precios de las notasPropinas
+            foreach ($notasPropinas as $notaPropina) {
+                $propinas += $notaPropina->precio;
+            }
+            $sum = $totalSuma + $extras + $propinas;
 
             $pagos = Pagos::where('id_nota', $id)->get();
             $totalPagos = $pagos->sum('pago');
 
-            $restante =  $totalSuma - $totalPagos;
+            $restante =  $sum - $totalPagos;
 
             $nota = Notas::find($id);
-            $nota->precio = $totalSuma;
+            $nota->precio = $sum;
             $nota->restante = $restante;
             $nota->update();
         // E N D  G U A R D A R  S E R V I C I O
@@ -621,25 +666,6 @@ class NotasController extends Controller
             }
             //dd($datosEvento);
             $datosEvento->save();
-        }
-
-        // G U A R D A R  E X T R A S
-        if($request->get('concepto') != NULL){
-            $notas_extra = new NotasExtras;
-            $notas_extra->id_nota = $nota->id;
-            $notas_extra->concepto = $request->get('concepto');
-            $notas_extra->precio = $request->get('precio');
-            $notas_extra->save();
-        }
-
-        // G U A R D A R   P R O P I N A S
-        if($request->get('propina') != NULL){
-            $notas_propinas = new NotasPropinas;
-            $notas_propinas->id_nota = $nota->id;
-            $notas_propinas->id_user = $request->get('id_user_propina');
-            $notas_propinas->propina = $request->get('propina');
-            $notas_propinas->metdodo_pago = $request->get('forma_pago_propina');
-            $notas_propinas->save();
         }
 
         $pago_reciente = Pagos::where('id_nota', '=', $nota->id)->orderBy('id','DESC')->first();
