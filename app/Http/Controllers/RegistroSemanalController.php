@@ -38,6 +38,7 @@ class RegistroSemanalController extends Controller
         $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where('notas.anular', '=', NULL)
         ->where(function ($query) {
             $query->whereNotIn('notas.id', function ($subquery) {
                 $subquery->select('id_nota')
@@ -112,6 +113,7 @@ class RegistroSemanalController extends Controller
         $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->where('notas.anular', '=', NULL)
         ->where(function ($query) {
             $query->whereNotIn('notas.id', function ($subquery) {
                 $subquery->select('id_nota')
@@ -180,6 +182,7 @@ class RegistroSemanalController extends Controller
         $notasPedidos = NotasPedidos::where('total', '<', 2000)->where('id_user', '=', $id)->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
+        ->where('notas.anular', '=', NULL)
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function ($query) {
             $query->whereNotIn('notas.id', function ($subquery) {
