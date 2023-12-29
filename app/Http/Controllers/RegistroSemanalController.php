@@ -53,7 +53,7 @@ class RegistroSemanalController extends Controller
         ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
-        $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasMaFer = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
@@ -143,7 +143,7 @@ class RegistroSemanalController extends Controller
         ->get();
 
 
-        $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasMaFer = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
@@ -198,7 +198,7 @@ class RegistroSemanalController extends Controller
         ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
-        $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
