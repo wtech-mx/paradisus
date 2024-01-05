@@ -184,12 +184,16 @@
                                     </tr>
                                     @if ($registroSueldoSemanal->paquetes == '1')
                                         @php
-                                            $totalBonoComida = 130;
+                                            if($registroSueldoSemanal->id_cosme == 16){
+                                                $totalBonoComida = 80;
+                                            }else{
+                                                $totalBonoComida = 130;
+                                            }
                                         @endphp
                                         <tr>
                                             <td>{{ \Carbon\Carbon::parse($registroSueldoSemanal->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                             <td>Bono de comida</td>
-                                            <td>$130</td>
+                                            <td>${{$totalBonoComida}}</td>
                                         </tr>
                                     @endif
                                     @foreach ($regcosmessum as $item)

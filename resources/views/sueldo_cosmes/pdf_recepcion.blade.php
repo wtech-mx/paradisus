@@ -128,12 +128,16 @@
 
                     @if ($paquete != NULL)
                         @php
-                            $totalBonoComida = 130;
+                            if($paquete->id_cosme == 16){
+                                $totalBonoComida = 80;
+                            }else{
+                                $totalBonoComida = 130;
+                            }
                         @endphp
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                 <td>Bono de comida</td>
-                                <td>$130</td>
+                                <td>${{$totalBonoComida}}</td>
                                 <td></td>
                             </tr>
                     @endif
