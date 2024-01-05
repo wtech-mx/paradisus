@@ -240,7 +240,7 @@ class RegistroSemanalController extends Controller
         $fechaLunes = Carbon::now()->startOfWeek()->format('Y-m-d');
 
         $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
-        $regcosmessum = RegCosmesSum::where('id_cosme', '=', $id)->get();
+        $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->get();
 
         return view('sueldo_cosmes.firma_recepcion', compact('registroSueldoSemanal', 'cosme', 'regcosmessum', 'fechaLunes', 'fechaInicioSemana', 'fechaFinSemana'));
 
