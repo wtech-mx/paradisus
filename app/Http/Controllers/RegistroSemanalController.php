@@ -339,7 +339,7 @@ class RegistroSemanalController extends Controller
 
         $recepcion_pagos = User::where('id', $id)->first();
         $registroSueldoSemanal = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
-        $regcosmessum = RegCosmesSum::get();
+        $regcosmessum = RegCosmesSum::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
         $paquete = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->where('paquetes', '=', '1')->first();
         $firma = RegistroSueldoSemanal::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_cosme', '=', $id)->first();
 
