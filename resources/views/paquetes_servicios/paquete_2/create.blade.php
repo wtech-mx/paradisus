@@ -68,11 +68,11 @@
                                     </div>
                                     <input  id="num_paquete" name="num_paquete" type="text" value="2" style="display: none">
                                     <input  id="id_servicio" name="id_servicio" type="text" value="156" style="display: none">
-                                    
+
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="precio">Comision Cosme</label><br>
-                                            <select class="form-control"  data-toggle="select" id="id_cosme" name="id_cosme" value="{{ old('id_cosme') }}">
+                                            <select class="form-control" id="id_cosme" name="id_cosme">
                                                 <option>Seleccionar cosme</option>
                                                 @foreach ($user_pagos as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>

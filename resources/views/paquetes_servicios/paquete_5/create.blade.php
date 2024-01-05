@@ -72,7 +72,7 @@
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="precio">Comision Cosme</label><br>
-                                            <select class="form-control"  data-toggle="select" id="id_cosme" name="id_cosme" value="{{ old('id_cosme') }}">
+                                            <select class="form-control" id="id_cosme" name="id_cosme">
                                                 <option>Seleccionar cosme</option>
                                                 @foreach ($user_pagos as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -80,7 +80,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="precio">Fecha</label><br>
