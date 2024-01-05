@@ -134,14 +134,7 @@
                                 <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                 <td>Bono de comida</td>
                                 <td>$130</td>
-                                <td>
-                                    <form method="POST" action="{{ route('pagos.quitar', $recepcion_pagos->id) }}" enctype="multipart/form-data" role="form">
-                                        @csrf
-                                        <input type="hidden" name="_method" value="PATCH">
-                                        <input type="text" id="paquetes" name="paquetes" value="0" style="display: none">
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas quitarlo?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </form>
-                                </td>
+                                <td></td>
                             </tr>
                     @endif
 

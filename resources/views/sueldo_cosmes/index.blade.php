@@ -164,7 +164,14 @@
                                                 $0
                                             @endif
                                      </b></div>
-                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <form method="POST" action="{{ route('pagos.quitar_comida', $user_pago->id) }}" enctype="multipart/form-data" role="form">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="PATCH">
+                                                <input type="text" id="paquetes" name="paquetes" value="0" style="display: none">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas quitar_comidalo?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </form>
+                                        </div>
                                         @endif
                                     @endif
                                 @endforeach
@@ -180,7 +187,14 @@
                                         <div class="col-3">{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F ') }}</div>
                                         <div class="col-5">Bono de puntualidad</div>
                                         <div class="col-3"><b>${{$totalBono}}</b></div>
-                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <form method="POST" action="{{ route('pagos.quitar_puntualidad', $user_pago->id) }}" enctype="multipart/form-data" role="form">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="PATCH">
+                                                <input type="text" id="puntualidad" name="puntualidad" value="0" style="display: none">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas quitarlo?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </form>
+                                        </div>
                                     @endif
                                 @endforeach
                                 @foreach ($registros_sueldo as $sueldo_base)

@@ -72,14 +72,18 @@
                                         @foreach ($paquetes as $paquete)
                                             @if ($user_pago->id == $paquete->id_cosme)
                                             @php
-                                                $totalBonoComida = 130;
+                                                if($paquete->id_cosme == 16){
+                                                    $totalBonoComida = 80;
+                                                }else{
+                                                    $totalBonoComida = 130;
+                                                }
                                             @endphp
                                                 <tr>
                                                     <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     <td>Bono de comida</td>
-                                                    <td>$130</td>
+                                                    <td>${{$totalBonoComida}}</td>
                                                     <td>
-                                                        <form method="POST" action="{{ route('pagos.quitar', $user_pago->id) }}" enctype="multipart/form-data" role="form">
+                                                        <form method="POST" action="{{ route('pagos.quitar_comida', $user_pago->id) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
                                                             <input type="hidden" name="_method" value="PATCH">
                                                             <input type="text" id="paquetes" name="paquetes" value="0" style="display: none">

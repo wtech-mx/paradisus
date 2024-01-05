@@ -308,16 +308,6 @@ class RegistroSemanalController extends Controller
         return view('sueldo_cosmes.firma_sueldos', compact('todosPagos','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
     }
 
-    public function quitar(Request $request, $id){
-        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
-
-        $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
-        $registroSueldoSemanal->paquetes = $request->paquetes;
-        $registroSueldoSemanal->update();
-
-        return back()->with('success', 'Se quito con exito');
-    }
-
     public function firma(Request $request, $id){
 
         if($request->signed != NULL){
@@ -399,7 +389,7 @@ class RegistroSemanalController extends Controller
             }
         }
 
-        //Quitar privilegios a la que falto
+        //quitar_comida privilegios a la que falto
         if($registroSemanal->cosmetologo_cubriendo != NULL){
             $registroExistente = RegistroSueldoSemanal::where('id_cosme', $registroSemanal->cosmetologo_cubriendo)
             ->where('fecha', $fechaInicioSemana)
@@ -512,6 +502,26 @@ class RegistroSemanalController extends Controller
         $totalVentas = $totalNotas + $totalPedido;
 
         return $totalVentas;
+    }
+
+    public function quitar_comida(Request $request, $id){
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+
+        $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
+        $registroSueldoSemanal->paquetes = $request->paquetes;
+        $registroSueldoSemanal->update();
+
+        return back()->with('success', 'Se quito con exito');
+    }
+
+    public function quitar_puntualidad(Request $request, $id){
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+
+        $registroSueldoSemanal = RegistroSueldoSemanal::where('id_cosme', '=', $id)->where('fecha', $fechaInicioSemana)->first();
+        $registroSueldoSemanal->puntualidad = $request->puntualidad;
+        $registroSueldoSemanal->update();
+
+        return back()->with('success', 'Se quito con exito');
     }
 
     public function comida(Request $request, $id){
