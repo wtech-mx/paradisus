@@ -75,9 +75,14 @@ class EncuestasController extends Controller
 
         $reportes_exp = $reportes_exp->get();
 
+        $pdf = \PDF::loadView('encuestas.vista_admin.pdf_enceustas',compact('reportes','rango_fechas','reportes_brow','reportes_exp_ja','reportes_exp'));
+        // return $pdf->stream();
+        return $pdf->download('reporte de encuestas '.$fecha1.'a.pdf');
 
-        return view('encuestas.vista_admin.index', compact('reportes','rango_fechas','reportes_brow','reportes_exp_ja','reportes_exp'));
+        //return view('encuestas.vista_admin.index', compact('reportes','rango_fechas','reportes_brow','reportes_exp_ja','reportes_exp'));
     }
+
+
 
     public function index_faciales(){
         $cosme = User::where('id', '!=', 1)->Orderby('name','ASC')->get();
