@@ -158,7 +158,7 @@
     <div class="container">
         <h5 class=""> Brow Bar & Lash Lifting</h5>
         @foreach ($reportes_brow as $item)
-            <div class="card" style="background: #ebe9fd!important;">>
+            <div class="card" style="background: #ebe9fd!important;">
                 <div class="info">
                     <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong></p>
                 </div>
@@ -198,7 +198,7 @@
     <div class="container">
         <h5 class=""> Experiencias</h5>
         @foreach ($reportes_brow as $item)
-            <div class="card" style="background: #f9f3d4!important;">>
+            <div class="card" style="background: #f9f3d4!important;">
                 <div class="info">
                     <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong></p>
                 </div>
