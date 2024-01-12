@@ -87,7 +87,7 @@
                             </div>
 
                             <div>
-                                <h4>Insumos extras</h4>
+                                {{-- <h4>Insumos extras</h4>
                                 <div class="form-group col-12">
                                     <div id="formulario6" class="mt-4">
 
@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">

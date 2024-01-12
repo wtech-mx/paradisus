@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Session;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DB;
 
 class CabinaInvetarioController extends Controller
 {
@@ -87,26 +88,26 @@ class CabinaInvetarioController extends Controller
 
         ProductosInventario::insert($insert_data);
 
-        if($request->get('cantidad_extra') != NULL){
+        // if($request->get('cantidad_extra') != NULL){
 
-            $producto_extra = $request->get('producto_extra');
-            $cantidad_extra = $request->get('cantidad_extra');
-            $extra = $request->get('extra');
+        //     $producto_extra = $request->get('producto_extra');
+        //     $cantidad_extra = $request->get('cantidad_extra');
+        //     $extra = $request->get('extra');
 
-            for ($count2 = 0; $count2 < count($producto_extra); $count2++) {
-                $data2 = array(
-                    'id_cabina_inv' => $cabina->id,
-                    'id_producto' => $producto_extra[$count2],
-                    'num_semana' => $cabina->num_semana,
-                    'extra' => $extra,
-                    'created_at' => $today,
-                    'cantidad' => $cantidad_extra[$count2]
-                );
-                $insert_data2[] = $data2;
-            }
+        //     for ($count2 = 0; $count2 < count($producto_extra); $count2++) {
+        //         $data2 = array(
+        //             'id_cabina_inv' => $cabina->id,
+        //             'id_producto' => $producto_extra[$count2],
+        //             'num_semana' => $cabina->num_semana,
+        //             'extra' => $extra,
+        //             'created_at' => $today,
+        //             'cantidad' => $cantidad_extra[$count2]
+        //         );
+        //         $insert_data2[] = $data2;
+        //     }
 
-            ProductosInventario::insert($insert_data2);
-        }
+        //     ProductosInventario::insert($insert_data2);
+        // }
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->back()->with('success','Nota Productos Creado.');
@@ -230,4 +231,100 @@ class CabinaInvetarioController extends Controller
         return $pdf->download('reporte-productos.pdf');
     }
 
+    public function reporte_inv(Request $request){
+        $inicioMes = now()->firstOfMonth();
+        $hoy = Carbon::now();
+        // Obtener la fecha de inicio de la semana (lunes)
+        $inicioSemana = $hoy->startOfWeek();
+
+        $productos_cabina1 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '1')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.estatus',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $productos_cabina2 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '2')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.estatus',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $productos_cabina3 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '3')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.estatus',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $productos_cabina4 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '4')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.estatus',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $productos_cabina5 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '5')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.estatus',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        // Consulta para obtener los productos de la semana actual y su estatus
+        $productos_sem_cambios = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioSemana)
+        ->where('productos_inventario.estatus', '=', 'Se cambio')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.estatus',
+            'cabina_inventario.num_cabina'
+        )
+        ->get();
+
+        // Consulta para obtener los productos de la semana actual y su estatus
+        $productos_sem_termino = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioSemana)
+        ->where('productos_inventario.estatus', '=', 'Por Terminar')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.estatus',
+            'cabina_inventario.num_cabina'
+        )
+        ->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_new',compact('inicioMes', 'productos_sem_cambios', 'productos_sem_termino', 'productos_cabina1', 'productos_cabina2', 'productos_cabina3', 'productos_cabina4', 'productos_cabina5', 'hoy'));
+        return $pdf->stream();
+        // return $pdf->download('reporte-productos.pdf');
+    }
 }
