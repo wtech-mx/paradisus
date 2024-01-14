@@ -25,6 +25,11 @@
                     Corte Sueldos
                 </a>
 
+                @can('reportecosmes')
+                    <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('reporte.index_cosmes') }}">Imprimir 2</a>
+                @endcan
+
+
             </div>
         </div>
         @include('sueldo_cosmes.corte')

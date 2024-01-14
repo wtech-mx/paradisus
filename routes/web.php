@@ -240,6 +240,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte/imprimir/prod', [App\Http\Controllers\ReporteController::class, 'imprimir_prod'])->name('reporte.print_prod');
     Route::get('/reporte/advance', [App\Http\Controllers\ReporteController::class, 'advance'])->name('advance_search');
 
+        // =============== M O D U L O   R E P O R T E S ===============================
+        Route::get('/reporte/ventas/cosmes', [App\Http\Controllers\ReporteController::class, 'index_cosmes'])->name('reporte.index_cosmes');
+
     // =============== M O D U L O   P R O D U C T O S ===============================
     Route::get('/productos/reporte', [App\Http\Controllers\ProductosController::class, 'reporte'])->name('productos.reporte');
 

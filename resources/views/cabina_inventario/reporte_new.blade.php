@@ -200,6 +200,85 @@
         </tbody>
     </table>
 
+    <h2 style="text-align: center;">Resumen de la semana</h2>
+    <table class="table text-center">
+        <thead style="background-color: #8b87ca; color: #fff">
+            <tr>
+                <th>Productos</th>
+                <th>Cabina 1</th>
+                <th>Cabina 2</th>
+                <th>Cabina 3</th>
+                <th>Cabina 4</th>
+                <th>Cabina 5</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+                $productosPorCabinaTerm = collect();
+            @endphp
+
+            @foreach ($productos_sem as $producto)
+                @php
+                    $nombreProducto = str_slug($producto->nombre);
+                    $numCabina = $producto->num_cabina;
+                    $estatus = $producto->estatus;
+
+                    // Obtener o inicializar la colección para el producto
+                    $productoCollection = $productosPorCabinaTerm->get($nombreProducto, collect([
+                        1 => '',
+                        2 => '',
+                        3 => '',
+                        4 => '',
+                        5 => '',
+                    ]));
+
+                    // Actualizar el estatus
+                    if ($estatus == 'Por Terminar') {
+                        $productoCollection->put($numCabina, 'Por Terminar');
+                    }elseif($estatus == 'Se cambio'){
+                        $productoCollection->put($numCabina, 'Se cambio');
+                    }else{
+                        $productoCollection->put($numCabina, 'En stock');
+                    }
+
+                    // Actualizar la colección principal
+                    $productosPorCabinaTerm->put($nombreProducto, $productoCollection);
+                @endphp
+            @endforeach
+
+            @foreach ($productosPorCabinaTerm as $nombreProducto => $estatusPorCabina)
+                <tr>
+                    <td>{{$nombreProducto}}</td>
+                    @if($estatusPorCabina[1] == "")
+                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
+                    @else
+                        <td> {{$estatusPorCabina[1]}} </td>
+                    @endif
+                    @if($estatusPorCabina[2] == "")
+                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
+                    @else
+                        <td> {{$estatusPorCabina[2]}} </td>
+                    @endif
+                    @if($estatusPorCabina[3] == "")
+                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
+                    @else
+                        <td> {{$estatusPorCabina[3]}} </td>
+                    @endif
+                    @if($estatusPorCabina[4] == "")
+                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
+                    @else
+                        <td> {{$estatusPorCabina[4]}} </td>
+                    @endif
+                    @if($estatusPorCabina[5] == "")
+                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
+                    @else
+                        <td> {{$estatusPorCabina[5]}} </td>
+                    @endif
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
     <div class="page-break"></div>
 
     <div style="background-color: #b06a9e; color:#fff; text-align: center;">

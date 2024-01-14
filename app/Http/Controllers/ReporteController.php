@@ -10,6 +10,8 @@ use App\Models\Client;
 use App\Models\Notas;
 use App\Models\NotasCosmes;
 use App\Models\NotasPedidos;
+use App\Models\Paquetes;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
@@ -20,6 +22,43 @@ class ReporteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function index_cosmes()
+     {
+         $añoActual = date('Y');
+         $diaActual = date('d');
+         $infoUsuarios = NotasCosmes::join('notas', 'notas_cosmes.id_nota', '=', 'notas.id')
+         ->select('notas_cosmes.id_user', DB::raw('SUM(notas.precio) as total_precio'),
+         DB::raw('COUNT(notas.id) as cantidad_notas'))
+         ->groupBy('notas_cosmes.id_user')
+         ->orderBy('total_precio', 'desc')
+         ->get();
+
+         $infoUsuarios_productos = NotasPedidos::select('id_user', DB::raw('SUM(total) as total_precio'),
+         DB::raw('COUNT(id) as cantidad_notas'))
+         ->groupBy('id_user')
+         ->orderBy('total_precio', 'desc')
+         ->get();
+
+         $infoUsuarios_paquetes = Paquetes::select('id_user1', DB::raw('SUM(monto) as total_precio'),
+         DB::raw('COUNT(id) as cantidad_notas'))
+         ->groupBy('id_user1')
+         ->orderBy('total_precio', 'desc')
+         ->get();
+
+         $seisMesesAtras = Carbon::now()->subMonths(6);
+
+        $infoUsuarios_seismeses = NotasCosmes::join('notas', 'notas_cosmes.id_nota', '=', 'notas.id')
+            ->select('notas_cosmes.id_user', DB::raw('SUM(notas.precio) as total_precio'), DB::raw('COUNT(notas.id) as cantidad_notas'))
+            ->where('notas.fecha', '>=', $seisMesesAtras)  // Filtra las notas de los últimos 6 meses
+            ->groupBy('notas_cosmes.id_user')
+            ->orderBy('total_precio', 'desc')  // Ordena por total_precio de manera descendente
+            ->get();
+
+         $pdf = \PDF::loadView('reportes.pdf_cosmes', compact('diaActual', 'infoUsuarios_productos', 'infoUsuarios_paquetes','infoUsuarios_seismeses', 'infoUsuarios'));
+         return $pdf->stream();
+
+     }
+
     public function index()
     {
         $añoActual = date('Y');
