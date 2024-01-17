@@ -253,8 +253,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/producto/reporte/print', [App\Http\Controllers\CabinaInvetarioController::class, 'imprimir'])->name('productos_reporte.imprimir');
 
     Route::get('/inventario/cabina1', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index1');
+    Route::get('/inventario/cabinas', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista');
     Route::get('/inventario/cabina1/create', [App\Http\Controllers\ProductosController::class, 'create_cabina1'])->name('inventario.create_cabina1');
-    Route::get('/inventario/cabina1/edit/{id}', [App\Http\Controllers\ProductosController::class, 'edit_cabina1'])->name('inventario.edit_cabina1');
+    Route::get('/inventario/cabina/edit/{id}', [App\Http\Controllers\ProductosController::class, 'edit_cabina1'])->name('inventario.edit_cabina1');
     Route::patch('inventario/cabina1/update/{id}', [App\Http\Controllers\CabinaInvetarioController::class, 'update_cabina1'])->name('cabina1.update_cabina1');
 
     Route::get('/inventario/cabina2', [App\Http\Controllers\CabinaInvetarioController::class, 'index1'])->name('inventario.index2');

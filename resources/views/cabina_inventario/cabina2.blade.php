@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Invetario Cabina 2
+    Inventario Cabina 2
 @endsection
 
 @section('content')
@@ -15,10 +15,10 @@
                         @endif
 
                         <div class="d-flex justify-content-between">
-                            <h3 class="mb-3">Invetario Cabina 2</h3>
+                            <h3 class="mb-3">Inventario Cabina 2</h3>
 
                             @can('notas-pedido-create')
-                            <a class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#cabinamodal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                            <a class="btn"  href="{{ route('inventario.create_vista') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                                 <i class="fa fa-fw fa-edit"></i> Crear
                             </a>
                             @endcan
@@ -60,6 +60,5 @@
             </div>
         </div>
     </div>
-    @include('cabina_inventario.modal_cabina')
 @endsection
 

@@ -64,6 +64,13 @@ class CabinaInvetarioController extends Controller
         return view('cabina_inventario.cabina5',compact('cabinas','productos'));
     }
 
+    public function create(){
+
+        $productos = Productos::orderBy('nombre','ASC')->get();
+
+        return view('cabina_inventario.modal_cabina', compact('productos'));
+    }
+
     public function store(Request $request){
         $today =  date('Y-m-d H:i:s');
         $cabina = new CabinaInvetario;
@@ -75,42 +82,24 @@ class CabinaInvetarioController extends Controller
         $producto = $request->get('producto');
         $estatus = $request->get('estatus');
 
-        for ($count = 0; $count < count($producto); $count++) {
-            $data = array(
-                'id_cabina_inv' => $cabina->id,
-                'id_producto' => $producto[$count],
-                'num_semana' => $cabina->num_semana,
-                'created_at' => $today,
-                'estatus' => $estatus[$count]
-            );
-            $insert_data[] = $data;
-        }
+        for ($count = 0; $count < count($estatus); $count++) {
+            if($estatus[$count] == null){
 
+            }else{
+                $data = array(
+                    'id_cabina_inv' => $cabina->id,
+                    'id_producto' => $producto[$count],
+                    'num_semana' => $cabina->num_semana,
+                    'created_at' => $today,
+                    'estatus' => $estatus[$count]
+                );
+                $insert_data[] = $data;
+            }
+        }
         ProductosInventario::insert($insert_data);
 
-        // if($request->get('cantidad_extra') != NULL){
-
-        //     $producto_extra = $request->get('producto_extra');
-        //     $cantidad_extra = $request->get('cantidad_extra');
-        //     $extra = $request->get('extra');
-
-        //     for ($count2 = 0; $count2 < count($producto_extra); $count2++) {
-        //         $data2 = array(
-        //             'id_cabina_inv' => $cabina->id,
-        //             'id_producto' => $producto_extra[$count2],
-        //             'num_semana' => $cabina->num_semana,
-        //             'extra' => $extra,
-        //             'created_at' => $today,
-        //             'cantidad' => $cantidad_extra[$count2]
-        //         );
-        //         $insert_data2[] = $data2;
-        //     }
-
-        //     ProductosInventario::insert($insert_data2);
-        // }
-
         Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->back()->with('success','Nota Productos Creado.');
+        return redirect()->back()->with('success','Invemtario creado con exito.');
     }
 
     public function update_cabina1(Request $request, $id){
@@ -125,7 +114,7 @@ class CabinaInvetarioController extends Controller
             $insert_data = [];
             $update_data = [];
 
-            for ($count = 0; $count < count($producto); $count++) {
+            for ($count = 0; $count < count($estatus); $count++) {
                 // Verificar si el 'estatus' actual está vacío
                 if (empty($estatus[$count])) {
                     continue; // Saltar esta iteración y pasar a la siguiente

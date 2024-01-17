@@ -170,10 +170,14 @@ class ProductosController extends Controller
         }
 
         $product_inv = ProductosInventario::where('id_cabina_inv', '=', $id)->first();
-        $products_invs = ProductosInventario::where('id_cabina_inv', '=', $id)->get();
+        $products_invs1 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '1')->get();
+        $products_invs2 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '2')->get();
+        $products_invs3 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '3')->get();
+        $products_invs4 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '4')->get();
+        $products_invs5 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '5')->get();
         $productos = Productos::orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.edit', compact('productos', 'contadorMiercoles', 'product_inv', 'products_invs'));
+        return view('cabina_inventario.edit', compact('productos', 'contadorMiercoles', 'product_inv', 'products_invs1', 'products_invs2', 'products_invs3', 'products_invs4', 'products_invs5'));
     }
 
     public function imprimir(Request $request, $id){

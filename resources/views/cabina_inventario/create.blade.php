@@ -21,7 +21,6 @@
                         </div>
                     </div>
 
-
                         <div class="form-group col-6">
                             <label for="">Num de Cabina</label>
                             <input class="form-control" type="text" name="cabina" id="cabina" value="Cabina 1" readonly>

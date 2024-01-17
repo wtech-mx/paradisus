@@ -75,35 +75,59 @@
 
                                         <div class="form-group col-12">
                                             <h3>Insumos</h3>
-                                            @foreach ($products_invs as $productoInventario)
-                                                @if ($productoInventario->num_semana == '1' && $productoInventario->cantidad == NULL)
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            <div class="form-group">
-                                                                <label for="producto[]">producto</label><br>
-                                                                <select class="form-select" id="producto[]" name="producto[]" disabled>
-                                                                    <option value="">Seleciona el producto</option>
+                                            @if ($products_invs1->isEmpty())
+                                                <table class="table table-flush" id="datatable-search">
+                                                    <thead class="thead">
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Estatus</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($productos as $index => $producto)
+                                                                <td>
+                                                                    <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
+                                                                    {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                        <option value="">Con stock</option>
+                                                                        <option value="Por Terminar">Por Terminar</option>
+                                                                        <option value="Se cambio">Se cambio</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                @foreach ($products_invs1 as $productoInventario)
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                <div class="form-group">
+                                                                    <label for="producto[]">producto</label><br>
+                                                                    <select class="form-select" id="producto[]" name="producto[]" disabled>
+                                                                        <option value="">Seleciona el producto</option>
 
-                                                                    @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                                        @foreach ($productos as $producto)
+                                                                            <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <label for="estatus[]">estatus</label>
+                                                                    <select class="form-select" id="estatus[]" name="estatus[]" disabled>
+                                                                        <option value="">Selecionar</option>
+                                                                        <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
+                                                                        <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="col-4">
-                                                            <div class="form-group">
-                                                                <label for="estatus[]">estatus</label>
-                                                                <select class="form-select" id="estatus[]" name="estatus[]" disabled>
-                                                                    <option value="">Selecionar</option>
-                                                                    <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
-                                                                    <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         </div>
 
                                         {{-- <div class="form-group col-6">
@@ -140,47 +164,48 @@
 
                                             <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
                                             <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="1">
+                                            @if ($products_invs1->isEmpty())
+                                            @else
+                                                <div class="form-group col-12">
+                                                    <div id="formulario" class="mt-4">
 
-                                            <div class="form-group col-12">
-                                                <div id="formulario" class="mt-4">
-
-                                                    <button type="button" class="clonar btn btn-secondary btn-sm">Agregar</button>
-                                                    <div class="clonars">
-                                                        <div class="row">
-
-                                                            <div class="col-6">
-                                                                <div class="form-group">
-                                                                    <label for="descripcion">producto</label><br>
-                                                                    <select class="form-select"  id="producto[]" name="producto[]">
-                                                                        <option value="">Seleciona el producto</option>
-                                                                        @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                        <button type="button" class="clonar btn btn-secondary btn-sm">Agregar</button>
+                                                        <div class="clonars">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label for="descripcion">producto</label><br>
+                                                                        <select class="form-select"  id="producto[]" name="producto[]">
+                                                                            <option value="">Seleciona el producto</option>
+                                                                            @foreach ($productos as $producto)
+                                                                            <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label for="num_sesion">estatus</label>
-                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                        <option value="">Selecionar</option>
-                                                                        <option value="Por Terminar">Por Terminar</option>
-                                                                        <option value="Se cambio">Se cambio</option>
-                                                                    </select>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">estatus</label>
+                                                                        <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                            <option value="">Selecionar</option>
+                                                                            <option value="Por Terminar">Por Terminar</option>
+                                                                            <option value="Se cambio">Se cambio</option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label for="num_sesion">-</label><br>
-                                                                    <button type="button" class="eliminar btn btn-danger btn-sm">Eliminar</button>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">-</label><br>
+                                                                        <button type="button" class="eliminar btn btn-danger btn-sm">Eliminar</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
 
                                             {{-- <div>
                                                 <h4>Insumos extras</h4>
@@ -251,87 +276,115 @@
 
                                         <div class="form-group col-6">
                                             <h3>Insumos</h3>
-                                            @foreach ($products_invs as $productoInventario)
-                                                @if ($productoInventario->num_semana == '2' && $productoInventario->cantidad == NULL)
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            <div class="form-group">
-                                                                <label for="producto[]">producto</label><br>
-                                                                <select class="form-select" id="producto[]" name="producto[]" disabled>
-                                                                    <option value="">Seleciona el producto</option>
-
-                                                                    @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-4">
-                                                            <div class="form-group">
-                                                                <label for="estatus[]">estatus</label>
-                                                                <select class="form-select" id="estatus[]" name="estatus[]" disabled>
-                                                                    <option value="">Selecionar</option>
-                                                                    <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
-                                                                    <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-4">
-                                                <label for="">Fecha</label>
-                                                <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
-                                            </div>
-
-                                            <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
-                                            <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="2">
-
-                                            <div class="form-group col-12">
-                                                <div id="formulario2" class="mt-4">
-
-                                                    <button type="button" class="clonar2 btn btn-secondary btn-sm">Agregar</button>
-                                                    <div class="clonars2">
+                                            @if ($products_invs2->isEmpty())
+                                                <table class="table table-flush" id="datatable-search">
+                                                    <thead class="thead">
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Estatus</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($productos as $index => $producto)
+                                                                <td>
+                                                                    <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
+                                                                    {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                        <option value="">Con stock</option>
+                                                                        <option value="Por Terminar">Por Terminar</option>
+                                                                        <option value="Se cambio">Se cambio</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                @foreach ($products_invs2 as $productoInventario)
                                                         <div class="row">
-
-                                                            <div class="col-6">
+                                                            <div class="col-8">
                                                                 <div class="form-group">
-                                                                    <label for="descripcion">producto</label><br>
-                                                                    <select class="form-select"  id="producto[]" name="producto[]">
+                                                                    <label for="producto[]">producto</label><br>
+                                                                    <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
+
                                                                         @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-2">
+                                                            <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="num_sesion">estatus</label>
-                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                    <label for="estatus[]">estatus</label>
+                                                                    <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Por Terminar">Por Terminar</option>
-                                                                        <option value="Se cambio">Se cambio</option>
+                                                                        <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
+                                                                        <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                @endforeach
+                                            @endif
 
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label for="num_sesion">-</label><br>
-                                                                    <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                        </div>
+
+                                        @if ($products_invs2->isEmpty())
+                                        @else
+                                            <div class="row">
+                                                <div class="form-group col-4">
+                                                    <label for="">Fecha</label>
+                                                    <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
+                                                </div>
+
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="2">
+
+                                                <div class="form-group col-12">
+                                                    <div id="formulario2" class="mt-4">
+
+                                                        <button type="button" class="clonar2 btn btn-secondary btn-sm">Agregar</button>
+                                                        <div class="clonars2">
+                                                            <div class="row">
+
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label for="descripcion">producto</label><br>
+                                                                        <select class="form-select"  id="producto[]" name="producto[]">
+                                                                            <option value="">Seleciona el producto</option>
+                                                                            @foreach ($productos as $producto)
+                                                                            <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">estatus</label>
+                                                                        <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                            <option value="">Selecionar</option>
+                                                                            <option value="Por Terminar">Por Terminar</option>
+                                                                            <option value="Se cambio">Se cambio</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">-</label><br>
+                                                                        <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
@@ -359,87 +412,114 @@
 
                                         <div class="form-group col-6">
                                             <h3>Insumos</h3>
-                                            @foreach ($products_invs as $productoInventario)
-                                                @if ($productoInventario->num_semana == '3' && $productoInventario->cantidad == NULL)
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            <div class="form-group">
-                                                                <label for="producto[]">producto</label><br>
-                                                                <select class="form-select" id="producto[]" name="producto[]" disabled>
-                                                                    <option value="">Seleciona el producto</option>
-
-                                                                    @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-4">
-                                                            <div class="form-group">
-                                                                <label for="estatus[]">estatus</label>
-                                                                <select class="form-select" id="estatus[]" name="estatus[]" disabled>
-                                                                    <option value="">Selecionar</option>
-                                                                    <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
-                                                                    <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-4">
-                                                <label for="">Fecha</label>
-                                                <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
-                                            </div>
-
-                                            <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
-                                            <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="3">
-
-                                            <div class="form-group col-12">
-                                                <div id="formulario3" class="mt-4">
-
-                                                    <button type="button" class="clonar3 btn btn-secondary btn-sm">Agregar</button>
-                                                    <div class="clonars3">
+                                            @if ($products_invs3->isEmpty())
+                                                <table class="table table-flush" id="datatable-search">
+                                                    <thead class="thead">
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Estatus</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($productos as $index => $producto)
+                                                                <td>
+                                                                    <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
+                                                                    {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                        <option value="">Con stock</option>
+                                                                        <option value="Por Terminar">Por Terminar</option>
+                                                                        <option value="Se cambio">Se cambio</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                @foreach ($products_invs3 as $productoInventario)
                                                         <div class="row">
-
-                                                            <div class="col-6">
+                                                            <div class="col-8">
                                                                 <div class="form-group">
-                                                                    <label for="descripcion">producto</label><br>
-                                                                    <select class="form-select"  id="producto[]" name="producto[]">
+                                                                    <label for="producto[]">producto</label><br>
+                                                                    <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
+
                                                                         @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-2">
+                                                            <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="num_sesion">estatus</label>
-                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                    <label for="estatus[]">estatus</label>
+                                                                    <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Por Terminar">Por Terminar</option>
-                                                                        <option value="Se cambio">Se cambio</option>
+                                                                        <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
+                                                                        <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
 
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label for="num_sesion">-</label><br>
-                                                                    <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                        @if ($products_invs3->isEmpty())
+                                        @else
+                                            <div class="row">
+                                                <div class="form-group col-4">
+                                                    <label for="">Fecha</label>
+                                                    <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
+                                                </div>
+
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="3">
+
+                                                <div class="form-group col-12">
+                                                    <div id="formulario3" class="mt-4">
+
+                                                        <button type="button" class="clonar3 btn btn-secondary btn-sm">Agregar</button>
+                                                        <div class="clonars3">
+                                                            <div class="row">
+
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label for="descripcion">producto</label><br>
+                                                                        <select class="form-select"  id="producto[]" name="producto[]">
+                                                                            <option value="">Seleciona el producto</option>
+                                                                            @foreach ($productos as $producto)
+                                                                            <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">estatus</label>
+                                                                        <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                            <option value="">Selecionar</option>
+                                                                            <option value="Por Terminar">Por Terminar</option>
+                                                                            <option value="Se cambio">Se cambio</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">-</label><br>
+                                                                        <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
@@ -467,88 +547,115 @@
 
                                         <div class="form-group col-6">
                                             <h3>Insumos</h3>
-                                            @foreach ($products_invs as $productoInventario)
-                                                @if ($productoInventario->num_semana == '4' && $productoInventario->cantidad == NULL)
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            <div class="form-group">
-                                                                <label for="producto[]">producto</label><br>
-                                                                <select class="form-select" id="producto[]" name="producto[]" disabled>
-                                                                    <option value="">Seleciona el producto</option>
-
-                                                                    @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-4">
-                                                            <div class="form-group">
-                                                                <label for="estatus[]">estatus</label>
-                                                                <select class="form-select" id="estatus[]" name="estatus[]" disabled>
-                                                                    <option value="">Selecionar</option>
-                                                                    <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
-                                                                    <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-4">
-                                                <label for="">Fecha</label>
-                                                <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
-                                            </div>
-
-                                            <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
-                                            <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="4">
-
-                                            <div class="form-group col-12">
-                                                <div id="formulario4" class="mt-4">
-
-                                                    <button type="button" class="clonar4 btn btn-secondary btn-sm">Agregar</button>
-                                                    <div class="clonars4">
+                                            @if ($products_invs4->isEmpty())
+                                                <table class="table table-flush" id="datatable-search">
+                                                    <thead class="thead">
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Estatus</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($productos as $index => $producto)
+                                                                <td>
+                                                                    <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
+                                                                    {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                        <option value="">Con stock</option>
+                                                                        <option value="Por Terminar">Por Terminar</option>
+                                                                        <option value="Se cambio">Se cambio</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                @foreach ($products_invs4 as $productoInventario)
                                                         <div class="row">
-
-                                                            <div class="col-6">
+                                                            <div class="col-8">
                                                                 <div class="form-group">
-                                                                    <label for="descripcion">producto</label><br>
-                                                                    <select class="form-select"  id="producto[]" name="producto[]">
+                                                                    <label for="producto[]">producto</label><br>
+                                                                    <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
+
                                                                         @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-2">
+                                                            <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="num_sesion">estatus</label>
-                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                    <label for="estatus[]">estatus</label>
+                                                                    <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Por Terminar">Por Terminar</option>
-                                                                        <option value="Se cambio">Se cambio</option>
+                                                                        <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
+                                                                        <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
 
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label for="num_sesion">-</label><br>
-                                                                    <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                        @if ($products_invs4->isEmpty())
+                                        @else
+                                            <div class="row">
+                                                <div class="form-group col-4">
+                                                    <label for="">Fecha</label>
+                                                    <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
+                                                </div>
+
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="4">
+
+                                                <div class="form-group col-12">
+                                                    <div id="formulario4" class="mt-4">
+
+                                                        <button type="button" class="clonar4 btn btn-secondary btn-sm">Agregar</button>
+                                                        <div class="clonars4">
+                                                            <div class="row">
+
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label for="descripcion">producto</label><br>
+                                                                        <select class="form-select"  id="producto[]" name="producto[]">
+                                                                            <option value="">Seleciona el producto</option>
+                                                                            @foreach ($productos as $producto)
+                                                                            <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">estatus</label>
+                                                                        <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                            <option value="">Selecionar</option>
+                                                                            <option value="Por Terminar">Por Terminar</option>
+                                                                            <option value="Se cambio">Se cambio</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">-</label><br>
+                                                                        <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                        </div>
+                                            </div>
+                                        @endif
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
@@ -562,7 +669,7 @@
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="row">
 
-                                        <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="4">
+                                        <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="5">
 
                                         <div class="form-group col-6">
                                             <label for="">Num de Cabina</label>
@@ -576,87 +683,114 @@
 
                                         <div class="form-group col-6">
                                             <h3>Insumos</h3>
-                                            @foreach ($products_invs as $productoInventario)
-                                                @if ($productoInventario->num_semana == '4' && $productoInventario->cantidad == NULL)
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            <div class="form-group">
-                                                                <label for="producto[]">producto</label><br>
-                                                                <select class="form-select" id="producto[]" name="producto[]" disabled>
-                                                                    <option value="">Seleciona el producto</option>
-
-                                                                    @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-4">
-                                                            <div class="form-group">
-                                                                <label for="estatus[]">estatus</label>
-                                                                <select class="form-select" id="estatus[]" name="estatus[]" disabled>
-                                                                    <option value="">Selecionar</option>
-                                                                    <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
-                                                                    <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-4">
-                                                <label for="">Fecha</label>
-                                                <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
-                                            </div>
-
-                                            <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
-                                            <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="4">
-
-                                            <div class="form-group col-12">
-                                                <div id="formulario4" class="mt-4">
-
-                                                    <button type="button" class="clonar4 btn btn-secondary btn-sm">Agregar</button>
-                                                    <div class="clonars4">
+                                            @if ($products_invs5->isEmpty())
+                                                <table class="table table-flush" id="datatable-search">
+                                                    <thead class="thead">
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Estatus</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($productos as $index => $producto)
+                                                                <td>
+                                                                    <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
+                                                                    {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                        <option value="">Con stock</option>
+                                                                        <option value="Por Terminar">Por Terminar</option>
+                                                                        <option value="Se cambio">Se cambio</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                @foreach ($products_invs5 as $productoInventario)
                                                         <div class="row">
-
-                                                            <div class="col-6">
+                                                            <div class="col-8">
                                                                 <div class="form-group">
-                                                                    <label for="descripcion">producto</label><br>
-                                                                    <select class="form-select"  id="producto[]" name="producto[]">
+                                                                    <label for="producto[]">producto</label><br>
+                                                                    <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
+
                                                                         @foreach ($productos as $producto)
-                                                                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-2">
+                                                            <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="num_sesion">estatus</label>
-                                                                    <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                    <label for="estatus[]">estatus</label>
+                                                                    <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Por Terminar">Por Terminar</option>
-                                                                        <option value="Se cambio">Se cambio</option>
+                                                                        <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
+                                                                        <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
 
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label for="num_sesion">-</label><br>
-                                                                    <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                        @if ($products_invs5->isEmpty())
+                                        @else
+                                            <div class="row">
+                                                <div class="form-group col-4">
+                                                    <label for="">Fecha</label>
+                                                    <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
+                                                </div>
+
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="4">
+
+                                                <div class="form-group col-12">
+                                                    <div id="formulario4" class="mt-4">
+
+                                                        <button type="button" class="clonar4 btn btn-secondary btn-sm">Agregar</button>
+                                                        <div class="clonars4">
+                                                            <div class="row">
+
+                                                                <div class="col-6">
+                                                                    <div class="form-group">
+                                                                        <label for="descripcion">producto</label><br>
+                                                                        <select class="form-select"  id="producto[]" name="producto[]">
+                                                                            <option value="">Seleciona el producto</option>
+                                                                            @foreach ($productos as $producto)
+                                                                            <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">estatus</label>
+                                                                        <select class="form-select"  id="estatus[]" name="estatus[]">
+                                                                            <option value="">Selecionar</option>
+                                                                            <option value="Por Terminar">Por Terminar</option>
+                                                                            <option value="Se cambio">Se cambio</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">-</label><br>
+                                                                        <button type="button" class="eliminar2 btn btn-danger btn-sm">Eliminar</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
