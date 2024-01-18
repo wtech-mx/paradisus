@@ -84,7 +84,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($productos as $index => $producto)
+                                                        @foreach ($productos_cabinas as $index => $producto)
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
@@ -108,7 +108,7 @@
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
 
-                                                                        @foreach ($productos as $producto)
+                                                                        @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
@@ -141,7 +141,7 @@
                                                                 <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                     <option value="">Seleciona el producto</option>
 
-                                                                    @foreach ($productos as $producto)
+                                                                    @foreach ($productos_cabinas as $producto)
                                                                         <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                     @endforeach
                                                                 </select>
@@ -177,7 +177,7 @@
                                                                         <label for="descripcion">producto</label><br>
                                                                         <select class="form-select"  id="producto[]" name="producto[]">
                                                                             <option value="">Seleciona el producto</option>
-                                                                            @foreach ($productos as $producto)
+                                                                            @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
                                                                             @endforeach
                                                                         </select>
@@ -221,7 +221,7 @@
                                                                         <label for="descripcion">producto</label><br>
                                                                         <select class="form-select"  id="producto_extra[]" name="producto_extra[]">
                                                                             <option value="">Seleciona el producto</option>
-                                                                            @foreach ($productos as $producto)
+                                                                            @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
                                                                             @endforeach
                                                                         </select>
@@ -285,7 +285,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($productos as $index => $producto)
+                                                        @foreach ($productos_cabinas as $index => $producto)
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
@@ -309,7 +309,7 @@
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
 
-                                                                        @foreach ($productos as $producto)
+                                                                        @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
@@ -355,7 +355,7 @@
                                                                         <label for="descripcion">producto</label><br>
                                                                         <select class="form-select"  id="producto[]" name="producto[]">
                                                                             <option value="">Seleciona el producto</option>
-                                                                            @foreach ($productos as $producto)
+                                                                            @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
                                                                             @endforeach
                                                                         </select>
@@ -421,7 +421,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($productos as $index => $producto)
+                                                        @foreach ($productos_cabinas as $index => $producto)
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
@@ -445,7 +445,7 @@
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
 
-                                                                        @foreach ($productos as $producto)
+                                                                        @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
@@ -490,7 +490,7 @@
                                                                         <label for="descripcion">producto</label><br>
                                                                         <select class="form-select"  id="producto[]" name="producto[]">
                                                                             <option value="">Seleciona el producto</option>
-                                                                            @foreach ($productos as $producto)
+                                                                            @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
                                                                             @endforeach
                                                                         </select>
@@ -556,7 +556,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($productos as $index => $producto)
+                                                        @foreach ($productos_cabinas as $index => $producto)
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
@@ -580,7 +580,7 @@
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
 
-                                                                        @foreach ($productos as $producto)
+                                                                        @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
@@ -625,7 +625,7 @@
                                                                         <label for="descripcion">producto</label><br>
                                                                         <select class="form-select"  id="producto[]" name="producto[]">
                                                                             <option value="">Seleciona el producto</option>
-                                                                            @foreach ($productos as $producto)
+                                                                            @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
                                                                             @endforeach
                                                                         </select>
@@ -692,7 +692,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($productos as $index => $producto)
+                                                        @foreach ($productos_cabinas as $index => $producto)
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
@@ -716,7 +716,7 @@
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
 
-                                                                        @foreach ($productos as $producto)
+                                                                        @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
                                                                         @endforeach
                                                                     </select>
@@ -761,7 +761,7 @@
                                                                         <label for="descripcion">producto</label><br>
                                                                         <select class="form-select"  id="producto[]" name="producto[]">
                                                                             <option value="">Seleciona el producto</option>
-                                                                            @foreach ($productos as $producto)
+                                                                            @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
                                                                             @endforeach
                                                                         </select>

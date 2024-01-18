@@ -85,7 +85,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($productos as $index => $producto)
+                                                                @foreach ($productos_cabinas as $index => $producto)
                                                                         <td>
                                                                             <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                             {{ $producto->nombre }}</td>
@@ -144,7 +144,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($productos as $index => $producto)
+                                                                @foreach ($productos_cabinas as $index => $producto)
                                                                         <td>
                                                                             <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                             {{ $producto->nombre }}</td>
@@ -205,7 +205,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($productos as $index => $producto)
+                                                                @foreach ($productos_cabinas as $index => $producto)
                                                                         <td>
                                                                             <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                             {{ $producto->nombre }}</td>
@@ -266,7 +266,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($productos as $index => $producto)
+                                                                @foreach ($productos_cabinas as $index => $producto)
                                                                         <td>
                                                                             <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                             {{ $producto->nombre }}</td>
@@ -327,7 +327,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($productos as $index => $producto)
+                                                                @foreach ($productos_cabinas as $index => $producto)
                                                                         <td>
                                                                             <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                             {{ $producto->nombre }}</td>

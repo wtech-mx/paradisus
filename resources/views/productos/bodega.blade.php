@@ -38,7 +38,7 @@
                                     </thead>
 
                                         <tbody>
-                                            @foreach ($productos as $producto)
+                                            @foreach ($productos_bodega as $producto)
                                                 <tr>
                                                     @if ($producto->cantidad == 0)
                                                     <td>

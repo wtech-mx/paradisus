@@ -27,48 +27,48 @@ class CabinaInvetarioController extends Controller
             $cabinas = CabinaInvetario::where('num_cabina','=', '5')->get();
         }
 
-        $productos = Productos::orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.cabina1',compact('cabinas','productos'));
+        return view('cabina_inventario.cabina1',compact('cabinas','productos_cabinas'));
     }
 
     public function index2()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '2')->get();
-        $productos = Productos::orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.cabina2',compact('cabinas','productos'));
+        return view('cabina_inventario.cabina2',compact('cabinas','productos_cabinas'));
     }
 
     public function index3()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '3')->get();
-        $productos = Productos::orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.cabina3',compact('cabinas','productos'));
+        return view('cabina_inventario.cabina3',compact('cabinas','productos_cabinas'));
     }
 
     public function index4()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '4')->get();
-        $productos = Productos::orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.cabina4',compact('cabinas','productos'));
+        return view('cabina_inventario.cabina4',compact('cabinas','productos_cabinas'));
     }
 
     public function index5()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '5')->get();
-        $productos = Productos::orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.cabina5',compact('cabinas','productos'));
+        return view('cabina_inventario.cabina5',compact('cabinas','productos_cabinas'));
     }
 
     public function create(){
 
-        $productos = Productos::orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.modal_cabina', compact('productos'));
+        return view('cabina_inventario.modal_cabina', compact('productos_cabinas'));
     }
 
     public function store(Request $request){
