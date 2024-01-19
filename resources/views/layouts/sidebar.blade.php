@@ -272,12 +272,12 @@
                     <span class="sidenav-normal">Cabina 1</span>
                 </a>
               </li>
-              <li class="nav-item ">
+              {{-- <li class="nav-item ">
                 <a class="nav-link {{ (Request::is('inventario/cabina2*') ? 'show' : '') }}" href="{{ route('inventario.index2') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Cabina 2</span>
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item ">
                 <a class="nav-link {{ (Request::is('inventario/cabina3*') ? 'show' : '') }}" href="{{ route('inventario.index3') }}">
                     <span class="sidenav-mini-icon"> P </span>

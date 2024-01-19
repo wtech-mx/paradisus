@@ -30,6 +30,10 @@ class ProductosController extends Controller
         $productos->cabinas = $request->get('cabinas');
         $productos->cantidad = $request->get('cantidad');
         $productos->categoria = "Sin Categoria";
+        $productos->cabina1 = $request->get('cabina1');
+        $productos->cabina3 = $request->get('cabina3');
+        $productos->cabina4 = $request->get('cabina4');
+        $productos->cabina5 = $request->get('cabina5');
         $productos->save();
 
         return redirect()->back()->with('success','Producto creado.');

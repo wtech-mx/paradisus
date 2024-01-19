@@ -46,7 +46,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4 form-group">
+                    {{-- <div class="col-4 form-group">
                         <label for="name">Cabina 2</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">
@@ -57,7 +57,7 @@
                                 <option value="1">Si</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-4 form-group">
                         <label for="name">Cabina 3</label>
