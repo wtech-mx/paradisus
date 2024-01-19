@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="col-3 form-group">
-                        <label for="name">Cantidad *</label>
+                        <label for="name">Cantidad</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">
                                 <img src="{{ asset('assets/icons/hashtag.png') }}" alt="" width="25px">
