@@ -65,6 +65,10 @@
                                         <select class="form-control" id="selectp17" name="p17" value="{{ old('p17') }}" required>
                                             <option value="">Seleccione una opción</option>
                                             <option value="Amigas">Amigas</option>
+                                            <option value="Amigas trío">Amigas trío</option>
+                                            <option value="Individual ">Individual </option>
+                                            <option value="Day spa aniversario">Day spa aniversario</option>
+                                            <option value="Mamá e hija">Mamá e hija</option>
                                             <option value="Pareja">Pareja</option>
                                         </select>
                                     </div>
