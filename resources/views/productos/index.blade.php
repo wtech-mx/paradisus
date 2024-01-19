@@ -34,7 +34,6 @@
                                             <th>Nombre</th>
                                             <th>Cantidad</th>
                                             <th>Cabina 1</th>
-                                            <th>Cabina 2</th>
                                             <th>Cabina 3</th>
                                             <th>Cabina 4</th>
                                             <th>Cabina 5</th>
@@ -50,13 +49,6 @@
 
                                                     <td>
                                                         @if ($producto->cabina1 == 1)
-                                                            Si
-                                                        @else
-                                                            No
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($producto->cabina2 == 1)
                                                             Si
                                                         @else
                                                             No
