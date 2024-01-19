@@ -248,6 +248,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/productos/inventarios', [App\Http\Controllers\ProductosController::class, 'index_productos'])->name('productos.inventarios');
     Route::post('/productos/inventarios/store', [App\Http\Controllers\ProductosController::class, 'store_productos'])->name('productos.store');
 
+    Route::patch('/productos/inventarios/update/{id}', [App\Http\Controllers\ProductosController::class, 'update_productos'])->name('productos.update');
+
+
     Route::get('/productos/bodega', [App\Http\Controllers\ProductosController::class, 'index'])->name('productos.index');
     Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
     Route::get('/producto/sku/print/{id}', [App\Http\Controllers\ProductosController::class, 'imprimir'])->name('productos.imprimir');

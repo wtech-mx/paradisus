@@ -19,7 +19,8 @@
 
                             @can('notas-pedido-create')
                             <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createDataModal" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                <i class="fa fa-fw fa-edit"></i> Crear </a>
+                                <i class="fa fa-fw fa-edit"></i> Crear
+                            </a>
                             @endcan
                         </div>
                     </div>
@@ -31,7 +32,12 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>¿Cabina?</th>
+                                            <th>Cantidad</th>
+                                            <th>Cabina 1</th>
+                                            <th>Cabina 2</th>
+                                            <th>Cabina 3</th>
+                                            <th>Cabina 4</th>
+                                            <th>Cabina 5</th>
                                         </tr>
                                     </thead>
 
@@ -39,14 +45,52 @@
                                             @foreach ($productos_inventarios as $producto)
                                                 <tr>
                                                     <td>{{ $producto->nombre }}</td>
+
+                                                    <td>{{ $producto->cantidad }}</td>
+
                                                     <td>
-                                                        @if ($producto->cabinas == 1)
+                                                        @if ($producto->cabina1 == 1)
                                                             Si
                                                         @else
                                                             No
                                                         @endif
                                                     </td>
+                                                    <td>
+                                                        @if ($producto->cabina2 == 1)
+                                                            Si
+                                                        @else
+                                                            No
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($producto->cabina3 == 1)
+                                                            Si
+                                                        @else
+                                                            No
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($producto->cabina4 == 1)
+                                                            Si
+                                                        @else
+                                                            No
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($producto->cabina5 == 1)
+                                                            Si
+                                                        @else
+                                                            No
+                                                        @endif
+                                                    </td>
+
+                                                    <th>
+                                                        <a type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditProductsDataModal_{{ $producto->id }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                                            <i class="fa fa-fw fa-pencil"></i> Editar
+                                                        </a>
+                                                    </th>
                                                 </tr>
+                                                @include('productos.modal_edit')
                                             @endforeach
                                         </tbody>
 

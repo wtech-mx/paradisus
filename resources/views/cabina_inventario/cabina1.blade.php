@@ -22,12 +22,13 @@
                             <a class="btn"  href="{{ route('inventario.create_vista') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                                 <i class="fa fa-fw fa-edit"></i> Crear
                             </a>
+
                             @endcan
                         </div>
                     </div>
 
                     @can('notas-pedido-list')
-                        <div class="card-body">
+                        <div class="card-body ">
                             <div class="table-responsive">
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">

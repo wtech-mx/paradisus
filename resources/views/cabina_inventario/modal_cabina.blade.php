@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                            <div class="modal-body">
+                            <div class="modal-body p-3">
                                 <ul class="nav nav-pills nav-fill p-1" id="pills-tab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-Info1" id="semana1" role="tab" aria-controls="pills-1" aria-selected="true">
@@ -102,6 +102,7 @@
                                                         </table>
                                                     </div>
                                                 </div>
+
                                             </div>
                                             <div class="d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary">Guardar</button>

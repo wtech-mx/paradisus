@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CabinaInvetario;
 use App\Models\Productos;
 use App\Models\ProductosInventario;
 use Illuminate\Http\Request;
@@ -27,6 +28,22 @@ class ProductosController extends Controller
         $productos = new Productos;
         $productos->nombre = $request->get('nombre');
         $productos->cabinas = $request->get('cabinas');
+        $productos->cantidad = $request->get('cantidad');
+        $productos->categoria = "Sin Categoria";
+        $productos->save();
+
+        return redirect()->back()->with('success','Producto creado.');
+    }
+
+    public function update_productos(Request $request, $id)
+    {
+        $productos = Productos::find($id);
+        $productos->nombre = $request->get('nombre');
+        $productos->cabina1 = $request->get('cabina1');
+        $productos->cabina2 = $request->get('cabina2');
+        $productos->cabina3 = $request->get('cabina3');
+        $productos->cabina4 = $request->get('cabina4');
+        $productos->cabina5 = $request->get('cabina5');
         $productos->cantidad = $request->get('cantidad');
         $productos->categoria = "Sin Categoria";
         $productos->save();
@@ -178,6 +195,8 @@ class ProductosController extends Controller
         // Contador de miércoles
         $contadorMiercoles = 0;
 
+        $cabinaInventario =  CabinaInvetario::find($id);
+
         // Iterar desde el primer día hasta el último día del mes
         while ($primerDiaMes <= $ultimoDiaMes) {
             // Verificar si el día actual es miércoles (formato 'N': 1 para lunes, 2 para martes, etc.)
@@ -190,6 +209,8 @@ class ProductosController extends Controller
         }
 
         $product_inv = ProductosInventario::where('id_cabina_inv', '=', $id)->first();
+
+
         $products_invs1 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '1')->get();
         $products_invs2 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '2')->get();
         $products_invs3 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '3')->get();
@@ -197,7 +218,7 @@ class ProductosController extends Controller
         $products_invs5 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '5')->get();
         $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
-        return view('cabina_inventario.edit', compact('productos_cabinas', 'contadorMiercoles', 'product_inv', 'products_invs1', 'products_invs2', 'products_invs3', 'products_invs4', 'products_invs5'));
+        return view('cabina_inventario.edit', compact('productos_cabinas', 'contadorMiercoles', 'product_inv', 'products_invs1', 'products_invs2', 'products_invs3', 'products_invs4', 'products_invs5','cabinaInventario'));
     }
 
     public function imprimir(Request $request, $id){

@@ -56,7 +56,7 @@
                     <div class="tab-content" id="pills-tabContent">
 
                         <div class="tab-pane fade show active" id="pills-Info1" role="tabpanel" aria-labelledby="semana1" tabindex="0">
-                            <form method="POST" action="{{ route('cabina1.update_cabina1', $product_inv->CabinaInvetario->id) }}" enctype="multipart/form-data" role="form">
+                            <form method="POST" action="{{ route('cabina1.update_cabina1', $cabinaInventario->id) }}" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="row">
@@ -65,12 +65,12 @@
 
                                         <div class="form-group col-6">
                                             <label for="">Num de Cabina</label>
-                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}" readonly>
+                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
                                             <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$product_inv->CabinaInvetario->fecha}}" readonly>
+                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
                                         </div>
 
                                         <div class="form-group col-12">
@@ -106,7 +106,7 @@
                                                                 <div class="form-group">
                                                                     <label for="producto[]">producto</label><br>
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
-                                                                        <option value="">Seleciona el producto</option>
+                                                                        <option value="">{{ $productoInventario->Productos->nombre }}</td></option>
 
                                                                         @foreach ($productos_cabinas as $producto)
                                                                             <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
@@ -162,7 +162,7 @@
 
                                         <div class="row">
 
-                                            <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                            <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}">
                                             <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="1">
                                             @if ($products_invs1->isEmpty())
                                             @else
@@ -257,7 +257,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-Info2" role="tabpanel" aria-labelledby="semana2" tabindex="0">
-                            <form method="POST" action="{{ route('cabina1.update_cabina1', $product_inv->CabinaInvetario->id) }}" enctype="multipart/form-data" role="form">
+                            <form method="POST" action="{{ route('cabina1.update_cabina1', $cabinaInventario->id) }}" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="row">
@@ -266,12 +266,12 @@
 
                                         <div class="form-group col-6">
                                             <label for="">Num de Cabina</label>
-                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}" readonly>
+                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
                                             <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$product_inv->CabinaInvetario->fecha}}" readonly>
+                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
@@ -340,7 +340,7 @@
                                                     <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
                                                 </div>
 
-                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}">
                                                 <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="2">
 
                                                 <div class="form-group col-12">
@@ -393,7 +393,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-Info3" role="tabpanel" aria-labelledby="semana3" tabindex="0">
-                            <form method="POST" action="{{ route('cabina1.update_cabina1', $product_inv->CabinaInvetario->id) }}" enctype="multipart/form-data" role="form">
+                            <form method="POST" action="{{ route('cabina1.update_cabina1', $cabinaInventario->id) }}" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="row">
@@ -402,12 +402,12 @@
 
                                         <div class="form-group col-6">
                                             <label for="">Num de Cabina</label>
-                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}" readonly>
+                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
                                             <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$product_inv->CabinaInvetario->fecha}}" readonly>
+                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
@@ -475,7 +475,7 @@
                                                     <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
                                                 </div>
 
-                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}">
                                                 <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="3">
 
                                                 <div class="form-group col-12">
@@ -528,7 +528,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-Info4" role="tabpanel" aria-labelledby="semana4" tabindex="0">
-                            <form method="POST" action="{{ route('cabina1.update_cabina1', $product_inv->CabinaInvetario->id) }}" enctype="multipart/form-data" role="form">
+                            <form method="POST" action="{{ route('cabina1.update_cabina1', $cabinaInventario->id) }}" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="row">
@@ -537,12 +537,12 @@
 
                                         <div class="form-group col-6">
                                             <label for="">Num de Cabina</label>
-                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}" readonly>
+                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
                                             <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$product_inv->CabinaInvetario->fecha}}" readonly>
+                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
@@ -610,7 +610,7 @@
                                                     <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
                                                 </div>
 
-                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}">
                                                 <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="4">
 
                                                 <div class="form-group col-12">
@@ -664,7 +664,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-Info5" role="tabpanel" aria-labelledby="semana5" tabindex="0">
-                            <form method="POST" action="{{ route('cabina1.update_cabina1', $product_inv->CabinaInvetario->id) }}" enctype="multipart/form-data" role="form">
+                            <form method="POST" action="{{ route('cabina1.update_cabina1', $cabinaInventario->id) }}" enctype="multipart/form-data" role="form">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <div class="row">
@@ -673,12 +673,12 @@
 
                                         <div class="form-group col-6">
                                             <label for="">Num de Cabina</label>
-                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}" readonly>
+                                            <input class="form-control" type="text" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
                                             <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$product_inv->CabinaInvetario->fecha}}" readonly>
+                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
                                         </div>
 
                                         <div class="form-group col-6">
@@ -746,7 +746,7 @@
                                                     <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{ $fechaActual }}" readonly>
                                                 </div>
 
-                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$product_inv->CabinaInvetario->num_cabina}}">
+                                                <input class="form-control" type="hidden" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}">
                                                 <input class="form-control" type="hidden" name="num_semana" id="num_semana" value="4">
 
                                                 <div class="form-group col-12">

@@ -27,6 +27,7 @@ class CabinaInvetarioController extends Controller
             $cabinas = CabinaInvetario::where('num_cabina','=', '5')->get();
         }
 
+
         $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
 
         return view('cabina_inventario.cabina1',compact('cabinas','productos_cabinas'));
@@ -66,7 +67,26 @@ class CabinaInvetarioController extends Controller
 
     public function create(){
 
-        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
+        if(request()->is('inventario/cabinas')){
+
+            $productos_cabinas = Productos::where('cabina1','=', 1)->orderBy('nombre','ASC')->get();
+
+        }elseif(request()->is('inventario/cabina2')){
+
+            $productos_cabinas = Productos::where('cabina2','=', 1)->orderBy('nombre','ASC')->get();
+
+        }elseif(request()->is('inventario/cabina3')){
+
+            $productos_cabinas = Productos::where('cabina3','=', 1)->orderBy('nombre','ASC')->get();
+
+        }elseif(request()->is('inventario/cabina4')){
+
+            $productos_cabinas = Productos::where('cabina4','=', 1)->orderBy('nombre','ASC')->get();
+
+        }elseif(request()->is('inventario/cabina5')){
+
+            $productos_cabinas = Productos::where('cabina5','=', 1)->orderBy('nombre','ASC')->get();
+        }
 
         return view('cabina_inventario.modal_cabina', compact('productos_cabinas'));
     }
@@ -82,21 +102,29 @@ class CabinaInvetarioController extends Controller
         $producto = $request->get('producto');
         $estatus = $request->get('estatus');
 
-        for ($count = 0; $count < count($estatus); $count++) {
-            if($estatus[$count] == null){
+        // Verificar si hay al menos un valor en $estatus
+        if (!empty(array_filter($estatus))) {
+            $insert_data = [];
 
-            }else{
-                $data = array(
-                    'id_cabina_inv' => $cabina->id,
-                    'id_producto' => $producto[$count],
-                    'num_semana' => $cabina->num_semana,
-                    'created_at' => $today,
-                    'estatus' => $estatus[$count]
-                );
-                $insert_data[] = $data;
+            for ($count = 0; $count < count($estatus); $count++) {
+                if ($estatus[$count] != null) {
+                    $data = array(
+                        'id_cabina_inv' => $cabina->id,
+                        'id_producto' => $producto[$count],
+                        'num_semana' => $cabina->num_semana,
+                        'created_at' => $today,
+                        'estatus' => $estatus[$count]
+                    );
+                    $insert_data[] = $data;
+                }
+            }
+
+            // Verificar si hay datos para insertar
+            if (!empty($insert_data)) {
+                ProductosInventario::insert($insert_data);
             }
         }
-        ProductosInventario::insert($insert_data);
+
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->back()->with('success','Invemtario creado con exito.');
