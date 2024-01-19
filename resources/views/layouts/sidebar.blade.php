@@ -322,6 +322,11 @@
         <div class="collapse mb-3" id="pagesExamples1">
         <ul class="nav ms-4">
             <li class="nav-item ">
+                <a class="nav-link {{ (Request::is('productos*') ? 'show' : '') }}" href="{{ route('productos.inventarios') }}">
+                    <span class="sidenav-mini-icon"> P </span>
+                    <span class="sidenav-normal">Productos</span>
+                </a>
+
                 <a class="nav-link {{ (Request::is('servicio*') ? 'show' : '') }}" href="{{ route('servicio.index') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Servicio</span>

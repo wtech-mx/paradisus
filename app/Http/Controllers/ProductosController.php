@@ -14,6 +14,26 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductosController extends Controller
 {
+
+    public function index_productos()
+    {
+        $productos_inventarios = Productos::orderBy('nombre','ASC')->get();
+
+        return view('productos.index', compact('productos_inventarios'));
+    }
+
+    public function store_productos(Request $request)
+    {
+        $productos = new Productos;
+        $productos->nombre = $request->get('nombre');
+        $productos->cabinas = $request->get('cabinas');
+        $productos->cantidad = $request->get('cantidad');
+        $productos->categoria = "Sin Categoria";
+        $productos->save();
+
+        return redirect()->back()->with('success','Producto creado.');
+    }
+
     public function reporte()
     {
         $productos_por_agotar = Productos::where('cantidad','<=', 2)->where('cantidad','>=', 1)->count();
