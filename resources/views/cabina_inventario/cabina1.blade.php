@@ -15,7 +15,7 @@
                         @endif
 
                         <div class="d-flex justify-content-between">
-                            <h3 class="mb-3">Inventario Cabina</h3>
+                            <h3 class="mb-3">Inventario Cabina 1</h3>
 
                             @can('notas-pedido-create')
 

@@ -216,7 +216,18 @@ class ProductosController extends Controller
         $products_invs3 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '3')->get();
         $products_invs4 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '4')->get();
         $products_invs5 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '5')->get();
-        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
+
+        if(request()->is('inventario/cabina1/edit/'.$id)){
+            $productos_cabinas = Productos::where('cabina1','=', 1)->orderBy('nombre','ASC')->get();
+        }elseif(request()->is('inventario/cabina2/edit/'.$id)){
+            $productos_cabinas = Productos::where('cabina2','=', 1)->orderBy('nombre','ASC')->get();
+        }elseif(request()->is('inventario/cabina3/edit/'.$id)){
+            $productos_cabinas = Productos::where('cabina3','=', 1)->orderBy('nombre','ASC')->get();
+        }elseif(request()->is('inventario/cabina4/edit/'.$id)){
+            $productos_cabinas = Productos::where('cabina4','=', 1)->orderBy('nombre','ASC')->get();
+        }elseif(request()->is('inventario/cabina5/edit/'.$id)){
+            $productos_cabinas = Productos::where('cabina5','=', 1)->orderBy('nombre','ASC')->get();
+        }
 
         return view('cabina_inventario.edit', compact('productos_cabinas', 'contadorMiercoles', 'product_inv', 'products_invs1', 'products_invs2', 'products_invs3', 'products_invs4', 'products_invs5','cabinaInventario'));
     }

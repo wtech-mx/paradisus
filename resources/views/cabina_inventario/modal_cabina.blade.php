@@ -66,12 +66,12 @@
 
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
-                                                    <select class="form-select" name="cabina" id="cabina" readonly>
-                                                        <option  {{ (Request::is('inventario/cabina1') ? 'selected ' : '') }} value="1">Cabina 1</option>
-                                                        <option  {{ (Request::is('inventario/cabina2') ? 'selected ' : '') }} value="2">Cabina 2</option>
-                                                        <option  {{ (Request::is('inventario/cabina3') ? 'selected ' : '') }} value="3">Cabina 3</option>
-                                                        <option  {{ (Request::is('inventario/cabina4') ? 'selected ' : '') }} value="4">Cabina 4</option>
-                                                        <option  {{ (Request::is('inventario/cabina5') ? 'selected ' : '') }} value="5">Cabina 5</option>
+                                                    <select class="form-select" name="cabina" id="cabina">
+                                                        <option  {{ (Request::is('inventario/cabinas/create') ? 'selected ' : '') }} value="1">Cabina 1</option>
+                                                        <option  {{ (Request::is('inventario/cabina2/create') ? 'selected ' : '') }} value="2">Cabina 2</option>
+                                                        <option  {{ (Request::is('inventario/cabina3/create') ? 'selected ' : '') }} value="3">Cabina 3</option>
+                                                        <option  {{ (Request::is('inventario/cabina4/create') ? 'selected ' : '') }} value="4">Cabina 4</option>
+                                                        <option  {{ (Request::is('inventario/cabina5/create') ? 'selected ' : '') }} value="5">Cabina 5</option>
                                                     </select>
                                                 </div>
 
@@ -126,12 +126,12 @@
 
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
-                                                    <select class="form-select" name="cabina" id="cabina" readonly>
-                                                        <option  {{ (Request::is('inventario/cabina1') ? 'selected ' : '') }} value="1">Cabina 1</option>
-                                                        <option  {{ (Request::is('inventario/cabina2') ? 'selected ' : '') }} value="2">Cabina 2</option>
-                                                        <option  {{ (Request::is('inventario/cabina3') ? 'selected ' : '') }} value="3">Cabina 3</option>
-                                                        <option  {{ (Request::is('inventario/cabina4') ? 'selected ' : '') }} value="4">Cabina 4</option>
-                                                        <option  {{ (Request::is('inventario/cabina5') ? 'selected ' : '') }} value="5">Cabina 5</option>
+                                                    <select class="form-select" name="cabina" id="cabina">
+                                                        <option  {{ (Request::is('inventario/cabinas/create') ? 'selected ' : '') }} value="1">Cabina 1</option>
+                                                        <option  {{ (Request::is('inventario/cabina2/create') ? 'selected ' : '') }} value="2">Cabina 2</option>
+                                                        <option  {{ (Request::is('inventario/cabina3/create') ? 'selected ' : '') }} value="3">Cabina 3</option>
+                                                        <option  {{ (Request::is('inventario/cabina4/create') ? 'selected ' : '') }} value="4">Cabina 4</option>
+                                                        <option  {{ (Request::is('inventario/cabina5/create') ? 'selected ' : '') }} value="5">Cabina 5</option>
                                                     </select>
                                                 </div>
 
@@ -187,12 +187,12 @@
 
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
-                                                    <select class="form-select" name="cabina" id="cabina" readonly>
-                                                        <option  {{ (Request::is('inventario/cabina1') ? 'selected ' : '') }} value="1">Cabina 1</option>
-                                                        <option  {{ (Request::is('inventario/cabina2') ? 'selected ' : '') }} value="2">Cabina 2</option>
-                                                        <option  {{ (Request::is('inventario/cabina3') ? 'selected ' : '') }} value="3">Cabina 3</option>
-                                                        <option  {{ (Request::is('inventario/cabina4') ? 'selected ' : '') }} value="4">Cabina 4</option>
-                                                        <option  {{ (Request::is('inventario/cabina5') ? 'selected ' : '') }} value="5">Cabina 5</option>
+                                                    <select class="form-select" name="cabina" id="cabina">
+                                                        <option  {{ (Request::is('inventario/cabinas/create') ? 'selected ' : '') }} value="1">Cabina 1</option>
+                                                        <option  {{ (Request::is('inventario/cabina2/create') ? 'selected ' : '') }} value="2">Cabina 2</option>
+                                                        <option  {{ (Request::is('inventario/cabina3/create') ? 'selected ' : '') }} value="3">Cabina 3</option>
+                                                        <option  {{ (Request::is('inventario/cabina4/create') ? 'selected ' : '') }} value="4">Cabina 4</option>
+                                                        <option  {{ (Request::is('inventario/cabina5/create') ? 'selected ' : '') }} value="5">Cabina 5</option>
                                                     </select>
                                                 </div>
 
@@ -248,12 +248,12 @@
 
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
-                                                    <select class="form-select" name="cabina" id="cabina" readonly>
-                                                        <option  {{ (Request::is('inventario/cabina1') ? 'selected ' : '') }} value="1">Cabina 1</option>
-                                                        <option  {{ (Request::is('inventario/cabina2') ? 'selected ' : '') }} value="2">Cabina 2</option>
-                                                        <option  {{ (Request::is('inventario/cabina3') ? 'selected ' : '') }} value="3">Cabina 3</option>
-                                                        <option  {{ (Request::is('inventario/cabina4') ? 'selected ' : '') }} value="4">Cabina 4</option>
-                                                        <option  {{ (Request::is('inventario/cabina5') ? 'selected ' : '') }} value="5">Cabina 5</option>
+                                                    <select class="form-select" name="cabina" id="cabina">
+                                                        <option  {{ (Request::is('inventario/cabinas/create') ? 'selected ' : '') }} value="1">Cabina 1</option>
+                                                        <option  {{ (Request::is('inventario/cabina2/create') ? 'selected ' : '') }} value="2">Cabina 2</option>
+                                                        <option  {{ (Request::is('inventario/cabina3/create') ? 'selected ' : '') }} value="3">Cabina 3</option>
+                                                        <option  {{ (Request::is('inventario/cabina4/create') ? 'selected ' : '') }} value="4">Cabina 4</option>
+                                                        <option  {{ (Request::is('inventario/cabina5/create') ? 'selected ' : '') }} value="5">Cabina 5</option>
                                                     </select>
                                                 </div>
 
@@ -309,12 +309,12 @@
 
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
-                                                    <select class="form-select" name="cabina" id="cabina" readonly>
-                                                        <option  {{ (Request::is('inventario/cabina1') ? 'selected ' : '') }} value="1">Cabina 1</option>
-                                                        <option  {{ (Request::is('inventario/cabina2') ? 'selected ' : '') }} value="2">Cabina 2</option>
-                                                        <option  {{ (Request::is('inventario/cabina3') ? 'selected ' : '') }} value="3">Cabina 3</option>
-                                                        <option  {{ (Request::is('inventario/cabina4') ? 'selected ' : '') }} value="4">Cabina 4</option>
-                                                        <option  {{ (Request::is('inventario/cabina5') ? 'selected ' : '') }} value="5">Cabina 5</option>
+                                                    <select class="form-select" name="cabina" id="cabina">
+                                                        <option  {{ (Request::is('inventario/cabinas/create') ? 'selected ' : '') }} value="1">Cabina 1</option>
+                                                        <option  {{ (Request::is('inventario/cabina2/create') ? 'selected ' : '') }} value="2">Cabina 2</option>
+                                                        <option  {{ (Request::is('inventario/cabina3/create') ? 'selected ' : '') }} value="3">Cabina 3</option>
+                                                        <option  {{ (Request::is('inventario/cabina4/create') ? 'selected ' : '') }} value="4">Cabina 4</option>
+                                                        <option  {{ (Request::is('inventario/cabina5/create') ? 'selected ' : '') }} value="5">Cabina 5</option>
                                                     </select>
                                                 </div>
 

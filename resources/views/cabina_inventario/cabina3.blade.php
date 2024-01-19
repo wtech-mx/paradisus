@@ -18,35 +18,51 @@
                             <h3 class="mb-3">Inventario Cabina 3</h3>
 
                             @can('notas-pedido-create')
+
                             <a class="btn"  href="{{ route('inventario.create_vista') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                                 <i class="fa fa-fw fa-edit"></i> Crear
                             </a>
+
                             @endcan
                         </div>
                     </div>
 
                     @can('notas-pedido-list')
-                        <div class="card-body">
+                        <div class="card-body ">
                             <div class="table-responsive">
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>No</th>
-                                            <th>Num Semana</th>
-                                            <th>Num Cabina</th>
+                                            <th>Mes</th>
+                                            <th>Semana</th>
                                             <th>Fecha Edit</th>
-                                            <th>fecha</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
 
                                         <tbody>
                                             @foreach ($cabinas as $cabina)
-                                                <tr>
+                                                <tr class="text-center">
                                                     <td>{{ $cabina->id }}</td>
-                                                    <td>{{ $cabina->num_semana }}</td>
-                                                    <td>{{ $cabina->num_cabina }}</td>
-                                                    <td>{{ $cabina->fecha }}</td>
-                                                    <td>Ver</td>
+                                                    <td>
+                                                        @php
+                                                            $fechaCarbon = \Carbon\Carbon::createFromFormat('Y-m-d', $cabina->fecha);
+                                                            $nombreMes = $fechaCarbon->locale('es')->monthName;
+                                                            echo $nombreMes;
+                                                        @endphp
+                                                    </td>
+                                                    <td>Semana {{ $cabina->num_semana }}</td>
+                                                    <td>
+                                                        @php
+                                                            $fechaCarbon = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $cabina->updated_at);
+                                                            $fechaActualizada = $fechaCarbon->format('Y-m-d');
+                                                            echo $fechaActualizada;
+                                                        @endphp
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-sm btn-success" href="{{ route('inventario.edit_cabina3',$cabina->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

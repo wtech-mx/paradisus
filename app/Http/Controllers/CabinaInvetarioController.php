@@ -67,23 +67,23 @@ class CabinaInvetarioController extends Controller
 
     public function create(){
 
-        if(request()->is('inventario/cabinas')){
+        if(request()->is('inventario/cabinas/create')){
 
             $productos_cabinas = Productos::where('cabina1','=', 1)->orderBy('nombre','ASC')->get();
 
-        }elseif(request()->is('inventario/cabina2')){
+        }elseif(request()->is('inventario/cabina2/create')){
 
             $productos_cabinas = Productos::where('cabina2','=', 1)->orderBy('nombre','ASC')->get();
 
-        }elseif(request()->is('inventario/cabina3')){
+        }elseif(request()->is('inventario/cabina3/create')){
 
             $productos_cabinas = Productos::where('cabina3','=', 1)->orderBy('nombre','ASC')->get();
 
-        }elseif(request()->is('inventario/cabina4')){
+        }elseif(request()->is('inventario/cabina4/create')){
 
             $productos_cabinas = Productos::where('cabina4','=', 1)->orderBy('nombre','ASC')->get();
 
-        }elseif(request()->is('inventario/cabina5')){
+        }elseif(request()->is('inventario/cabina5/create')){
 
             $productos_cabinas = Productos::where('cabina5','=', 1)->orderBy('nombre','ASC')->get();
         }
@@ -127,7 +127,18 @@ class CabinaInvetarioController extends Controller
 
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->back()->with('success','Invemtario creado con exito.');
+        if($request->get('cabina') == 1){
+            return redirect()->route('inventario.index1')->with('success', 'Corte con exito.');
+        }elseif($request->get('cabina') == 2){
+            return redirect()->route('inventario.index2')->with('success', 'Corte con exito.');
+        }elseif($request->get('cabina') == 3){
+            return redirect()->route('inventario.index3')->with('success', 'Corte con exito.');
+        }elseif($request->get('cabina') == 4){
+            return redirect()->route('inventario.index4')->with('success', 'Corte con exito.');
+        }elseif($request->get('cabina') == 5){
+            return redirect()->route('inventario.index5')->with('success', 'Corte con exito.');
+        }
+
     }
 
     public function update_cabina1(Request $request, $id){
