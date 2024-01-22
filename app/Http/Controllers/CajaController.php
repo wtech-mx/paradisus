@@ -323,7 +323,12 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
-            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total;
+            $propinasTrans = NotasPropinas::whereDate('created_at', $diaActual)
+            ->where('metdodo_pago', '=', 'Transferencia')
+            ->select(DB::raw('SUM(propina) as total'))
+            ->first();
+
+            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total + $propinasTrans->total;
             $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas;
 
             $total_servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
@@ -370,7 +375,12 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
-            $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total;
+            $propinasEfect = NotasPropinas::whereDate('created_at', $diaActual)
+            ->where('metdodo_pago', '=', 'Efectivo')
+            ->select(DB::raw('SUM(propina) as total'))
+            ->first();
+
+            $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total + $propinasEfect->total;
 
             $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas;
 
