@@ -28,7 +28,7 @@ class CabinaInvetarioController extends Controller
         }
 
 
-        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->get();
 
         return view('cabina_inventario.cabina1',compact('cabinas','productos_cabinas'));
     }
@@ -36,7 +36,7 @@ class CabinaInvetarioController extends Controller
     public function index2()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '2')->get();
-        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->get();
 
         return view('cabina_inventario.cabina2',compact('cabinas','productos_cabinas'));
     }
@@ -44,7 +44,7 @@ class CabinaInvetarioController extends Controller
     public function index3()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '3')->get();
-        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->get();
 
         return view('cabina_inventario.cabina3',compact('cabinas','productos_cabinas'));
     }
@@ -52,7 +52,7 @@ class CabinaInvetarioController extends Controller
     public function index4()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '4')->get();
-        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->get();
 
         return view('cabina_inventario.cabina4',compact('cabinas','productos_cabinas'));
     }
@@ -60,7 +60,7 @@ class CabinaInvetarioController extends Controller
     public function index5()
     {
         $cabinas = CabinaInvetario::where('num_cabina','=', '5')->get();
-        $productos_cabinas = Productos::where('cabinas','=', 1)->orderBy('nombre','ASC')->get();
+        $productos_cabinas = Productos::where('cabinas','=', 1)->get();
 
         return view('cabina_inventario.cabina5',compact('cabinas','productos_cabinas'));
     }
@@ -69,23 +69,23 @@ class CabinaInvetarioController extends Controller
 
         if(request()->is('inventario/cabinas/create')){
 
-            $productos_cabinas = Productos::where('cabina1','=', 1)->orderBy('nombre','ASC')->get();
+            $productos_cabinas = Productos::where('cabina1','=', 1)->get();
 
         }elseif(request()->is('inventario/cabina2/create')){
 
-            $productos_cabinas = Productos::where('cabina2','=', 1)->orderBy('nombre','ASC')->get();
+            $productos_cabinas = Productos::where('cabina2','=', 1)->get();
 
         }elseif(request()->is('inventario/cabina3/create')){
 
-            $productos_cabinas = Productos::where('cabina3','=', 1)->orderBy('nombre','ASC')->get();
+            $productos_cabinas = Productos::where('cabina3','=', 1)->get();
 
         }elseif(request()->is('inventario/cabina4/create')){
 
-            $productos_cabinas = Productos::where('cabina4','=', 1)->orderBy('nombre','ASC')->get();
+            $productos_cabinas = Productos::where('cabina4','=', 1)->get();
 
         }elseif(request()->is('inventario/cabina5/create')){
 
-            $productos_cabinas = Productos::where('cabina5','=', 1)->orderBy('nombre','ASC')->get();
+            $productos_cabinas = Productos::where('cabina5','=', 1)->get();
         }
 
         return view('cabina_inventario.modal_cabina', compact('productos_cabinas'));
