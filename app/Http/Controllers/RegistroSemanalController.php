@@ -430,10 +430,14 @@ class RegistroSemanalController extends Controller
     public function corte(Request $request){
         $fecha = date('Y-m-d');
         $registros_hoy = RegistroSemanal::where('fecha', '=', $fecha)->get();
-
+        $fecha_domingo = date("w", strtotime($fecha));
         foreach ($registros_hoy as $registro_hoy) {
             $cosmetologoId = $registro_hoy->cosmetologo->id;
-            $sueldo_horas = $registro_hoy->cosmetologo->sueldo_hora;
+            if($fecha_domingo == 0){
+                $sueldo_horas = $registro_hoy->cosmetologo->comision_despedida;
+            }else{
+                $sueldo_horas = $registro_hoy->cosmetologo->sueldo_hora;
+            }
             $horaInicio = $registro_hoy->hora_inicio;
             $horaFin = $request->input('hora_fin_' . $cosmetologoId);
 

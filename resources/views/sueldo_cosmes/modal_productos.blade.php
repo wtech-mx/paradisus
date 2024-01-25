@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Venta de productos vendidos</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Venta de productos/servicios vendidos</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -15,7 +15,7 @@
                             {{ \Carbon\Carbon::parse($notaPedido->fecha)->format('d \d\e F \d\e\l Y') }}
                         </div>
                         <div class="col-4">
-                            <a href="{{ route('notas.edit',$notaPedido->id) }}">Numero de nota: {{$notaPedido->id}}</a>
+                            <a href="{{ route('notas_pedidos.edit',$notaPedido->id) }}" target="_blank">Numero de nota producto: {{$notaPedido->id}}</a>
                         </div>
                         <div class="col-4">
                            <b>${{$notaPedido->total}}</b>
@@ -32,7 +32,7 @@
                                 {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
                             </div>
                             <div class="col-4">
-                                <a href="{{ route('notas.edit',$notaServicio->id) }}">Numero de nota: {{$notaServicio->id}}</a>
+                                <a href="{{ route('notas.edit',$notaServicio->id) }}" target="_blank">Numero de nota: {{$notaServicio->id}}</a>
                             </div>
                             <div class="col-4">
                             <b>${{$notaServicio->precio}}</b>
@@ -58,7 +58,7 @@
                                 {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
                             </div>
                             <div class="col-4">
-                                <a href="{{ route('notas.edit',$notaServicio->id) }}">Numero de nota: {{$notaServicio->id}}</a>
+                                <a href="{{ route('notas.edit',$notaServicio->id) }}" target="_blank">Numero de nota: {{$notaServicio->id}}</a>
                             </div>
                             <div class="col-4">
                             <b>${{$notaServicio->primer_pago}}</b>
