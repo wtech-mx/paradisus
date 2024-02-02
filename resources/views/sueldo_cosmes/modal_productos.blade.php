@@ -66,6 +66,36 @@
                         </div>
                     @endif
                 @endforeach
+
+                    @foreach ($paquetesFaciales as $notaServicio)
+                        @if ($cosme->id == $notaServicio->NotasCosmes->id_user)
+                            @php
+                                $servicios = array_filter([
+                                    $notaServicio->id_servicio,
+                                    $notaServicio->id_servicio2,
+                                    $notaServicio->id_servicio3,
+                                    $notaServicio->id_servicio4,
+                                ]);
+                            @endphp
+
+                            @if (count(array_intersect($servicios, [138, 139, 140, 141, 142])) > 0)
+                                @if (count(array_diff($servicios, [138, 139, 140, 141, 142])) > 0)
+                                    <div class="row">
+                                        <div class="col-4">
+                                            {{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F \d\e\l Y') }}
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="{{ route('notas.edit',$notaServicio->id) }}" target="_blank">Numero de nota: {{$notaServicio->id}}</a>
+                                        </div>
+                                        <div class="col-4">
+                                        <b>${{$notaServicio->primer_pago}}</b>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
+
+                        @endif
+                    @endforeach
             @endif
 
         </div>

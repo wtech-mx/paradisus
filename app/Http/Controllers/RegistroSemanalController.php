@@ -56,6 +56,7 @@ class RegistroSemanalController extends Controller
         $notasMaFer = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->Join('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
             $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
@@ -63,7 +64,8 @@ class RegistroSemanalController extends Controller
                 ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
                 ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
         })
-        ->select('notas.*')
+        ->select('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4', DB::raw('MIN(pagos.pago) as primer_pago'))
+        ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
         ->get();
 
         $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->get();
@@ -146,6 +148,7 @@ class RegistroSemanalController extends Controller
         $notasMaFer = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->Join('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
             $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
@@ -153,7 +156,8 @@ class RegistroSemanalController extends Controller
                 ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
                 ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
         })
-        ->select('notas.*')
+        ->select('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4', DB::raw('MIN(pagos.pago) as primer_pago'))
+        ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
         ->get();
 
         $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
@@ -201,6 +205,7 @@ class RegistroSemanalController extends Controller
         $notasMaFer = Notas::whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
 
         $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->Join('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
             $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142])
@@ -208,14 +213,15 @@ class RegistroSemanalController extends Controller
                 ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142])
                 ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142]);
         })
-        ->select('notas.*')
+        ->select('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4', DB::raw('MIN(pagos.pago) as primer_pago'))
+        ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
         ->get();
 
         $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
         $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasMaFer','propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
-        //return $pdf->stream();
-        return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
+        return $pdf->stream();
+       // return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
 
     public function index_recepcion(){

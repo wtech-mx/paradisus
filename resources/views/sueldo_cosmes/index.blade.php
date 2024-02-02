@@ -91,6 +91,7 @@
                                     $totalBonoComida = 0;
                                     $paqueteFac = 0;
                                     $propinaCosme = 0;
+                                    $sumaPancho = 0;
 
                                     // Calcular la suma de Pedidos
                                     foreach ($notasPedidos as $notaPedido) {
@@ -113,10 +114,33 @@
                                                 $sumaServicios += $notaServicio->primer_pago;
                                             }
                                         }
+
+                                        foreach ($paquetesFaciales as $notaServicio) {
+                                            if ($user_pago->id == $notaServicio->NotasCosmes->id_user) {
+                                                $servicios = array_filter([
+                                                    $notaServicio->id_servicio,
+                                                    $notaServicio->id_servicio2,
+                                                    $notaServicio->id_servicio3,
+                                                    $notaServicio->id_servicio4,
+                                                ]);
+
+                                                $intersect = array_intersect($servicios, [138, 139, 140, 141, 142]);
+                                                $diff = array_diff($servicios, [138, 139, 140, 141, 142]);
+
+                                                // Verificar si al menos un servicio contiene un valor deseado
+                                                if (count($intersect) > 0) {
+                                                    // Verificar si al menos un servicio es diferente de los valores deseados
+                                                    if (count($diff) > 0 || count($intersect) > 1) {
+                                                        $primerPago = $notaServicio->primer_pago;
+                                                        $sumaPancho += $primerPago;
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
 
 
-                                    $sumaTotales = $sumaPedidos + $sumaServicios;
+                                    $sumaTotales = $sumaPedidos + $sumaServicios + $sumaPancho;
                                     // Calcular la comisión según la lógica proporcionada
                                     if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
                                         $comision = $sumaTotales * 0.03;
