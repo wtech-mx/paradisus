@@ -115,6 +115,7 @@
                         <thead class="thead">
                             <tr>
                                 <th>Producto</th>
+                                <th>Cantidad</th>
                                 <th>Estatus</th>
                             </tr>
                         </thead>
@@ -124,12 +125,8 @@
                                         <td>
                                             {{ $producto->Productos->nombre }}
                                         </td>
-
-                                        @if ($producto->estatus == NULL)
-                                            <td>{{ $producto->cantidad }}</td>
-                                        @else
-                                            <td>{{ $producto->estatus }}</td>
-                                        @endif
+                                        <td>{{ $producto->cantidad }}</td>
+                                        <td>{{ $producto->estatus }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -187,7 +184,8 @@
                         <thead class="thead">
                             <tr>
                                 <th>Producto</th>
-                                <th>Estatus/Cantidad</th>
+                                <th>Cantidad</th>
+                                <th>Estatus</th>
                             </tr>
                         </thead>
                             <tbody>
@@ -196,12 +194,8 @@
                                         <td>
                                             {{ $producto->Productos->nombre }}
                                         </td>
-
-                                        @if ($producto->estatus == NULL)
-                                            <td>{{ $producto->cantidad }}</td>
-                                        @else
-                                            <td>{{ $producto->estatus }}</td>
-                                        @endif
+                                        <td>{{ $producto->cantidad }}</td>
+                                        <td>{{ $producto->estatus }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -223,7 +217,8 @@
                         <thead class="thead">
                             <tr>
                                 <th>Producto</th>
-                                <th>Estatus/Cantidad</th>
+                                <th>Cantidad</th>
+                                <th>Estatus</th>
                             </tr>
                         </thead>
                             <tbody>
@@ -232,12 +227,8 @@
                                         <td>
                                             {{ $producto->Productos->nombre }}
                                         </td>
-
-                                        @if ($producto->estatus == NULL)
-                                            <td>{{ $producto->cantidad }}</td>
-                                        @else
-                                            <td>{{ $producto->estatus }}</td>
-                                        @endif
+                                        <td>{{ $producto->cantidad }}</td>
+                                        <td>{{ $producto->estatus }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -259,7 +250,8 @@
                         <thead class="thead">
                             <tr>
                                 <th>Producto</th>
-                                <th>Estatus/Cantidad</th>
+                                <th>Cantidad</th>
+                                <th>Estatus</th>
                             </tr>
                         </thead>
                             <tbody>
@@ -268,12 +260,8 @@
                                         <td>
                                             {{ $producto->Productos->nombre }}
                                         </td>
-
-                                        @if ($producto->estatus == NULL)
-                                            <td>{{ $producto->cantidad }}</td>
-                                        @else
-                                            <td>{{ $producto->estatus }}</td>
-                                        @endif
+                                        <td>{{ $producto->cantidad }}</td>
+                                        <td>{{ $producto->estatus }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

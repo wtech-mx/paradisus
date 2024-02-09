@@ -80,6 +80,7 @@
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>Producto</th>
+                                                            <th>Cantidad</th>
                                                             <th>Estatus</th>
                                                         </tr>
                                                     </thead>
@@ -88,6 +89,9 @@
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
                                                                         <option value="">Con stock</option>
@@ -102,9 +106,9 @@
                                             @else
                                                 @foreach ($products_invs1 as $productoInventario)
                                                         <div class="row">
-                                                            <div class="col-8">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
-                                                                    <label for="producto[]">producto</label><br>
+                                                                    <label for="producto[]">Producto</label><br>
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">{{ $productoInventario->Productos->nombre }}</td></option>
 
@@ -115,11 +119,19 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label for="producto[]">Cantidad</label><br>
+                                                                        <input class="form-control" type="text" value="{{ $productoInventario->cantidad }}" name="stock[]" readonly>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="estatus[]">estatus</label>
+                                                                    <label for="estatus[]">Estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
+                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -129,36 +141,6 @@
                                                 @endforeach
                                             @endif
                                         </div>
-
-                                        {{-- <div class="form-group col-6">
-                                            <h3>Insumos extras</h3>
-                                            @foreach ($products_invs as $productoInventario)
-                                                @if ($productoInventario->num_semana == '1' && $productoInventario->estatus == NULL)
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            <div class="form-group">
-                                                                <label for="producto[]">producto</label><br>
-                                                                <select class="form-select" id="producto[]" name="producto[]" disabled>
-                                                                    <option value="">Seleciona el producto</option>
-
-                                                                    @foreach ($productos_cabinas as $producto)
-                                                                        <option value="{{ $producto->id }}" @if ($producto->id == $productoInventario->id_producto) selected @endif>{{ $producto->nombre }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-4">
-                                                            <div class="form-group">
-                                                                <label for="estatus[]">cantidad</label>
-                                                                <input id="cantidad_extra_[]" name="cantidad_extra_[]" type="number" class="form-control" value="{{$productoInventario->cantidad}}" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div> --}}
-
 
                                         <div class="row">
 
@@ -186,9 +168,16 @@
 
                                                                 <div class="col-2">
                                                                     <div class="form-group">
+                                                                        <label for="producto[]">Cantidad</label><br>
+                                                                            <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Selecionar</option>
+                                                                            <option value="">Con Stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -206,46 +195,6 @@
                                                     </div>
                                                 </div>
                                             @endif
-
-                                            {{-- <div>
-                                                <h4>Insumos extras</h4>
-                                                <div class="form-group col-12">
-                                                    <div id="formulario6" class="mt-4">
-
-                                                        <button type="button" class="clonar6 btn btn-secondary btn-sm">Agregar</button>
-                                                        <div class="clonars6">
-                                                            <div class="row">
-
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label for="descripcion">producto</label><br>
-                                                                        <select class="form-select"  id="producto_extra[]" name="producto_extra[]">
-                                                                            <option value="">Seleciona el producto</option>
-                                                                            @foreach ($productos_cabinas as $producto)
-                                                                            <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-2">
-                                                                    <div class="form-group">
-                                                                        <label for="cantidad[]">Cantidad</label>
-                                                                        <input id="cantidad_extra[]" name="cantidad_extra[]" type="number" class="form-control" value="1">
-                                                                    </div>
-                                                                </div>
-                                                                <input id="extra" name="extra" type="hidden" class="form-control" value="1">
-                                                                <div class="col-2">
-                                                                    <div class="form-group">
-                                                                        <label for="num_sesion">-</label><br>
-                                                                        <button type="button" class="eliminar6 btn btn-danger btn-sm">Eliminar</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -254,7 +203,7 @@
 
                                 </div>
                             </form>
-                        </div>
+                            </div>
 
                         <div class="tab-pane fade" id="pills-Info2" role="tabpanel" aria-labelledby="semana2" tabindex="0">
                             <form method="POST" action="{{ route('cabina1.update_cabina1', $cabinaInventario->id) }}" enctype="multipart/form-data" role="form">
@@ -281,6 +230,7 @@
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>Producto</th>
+                                                            <th>Cantitdad</th>
                                                             <th>Estatus</th>
                                                         </tr>
                                                     </thead>
@@ -289,6 +239,9 @@
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
                                                                         <option value="">Con stock</option>
@@ -303,9 +256,9 @@
                                             @else
                                                 @foreach ($products_invs2 as $productoInventario)
                                                         <div class="row">
-                                                            <div class="col-8">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
-                                                                    <label for="producto[]">producto</label><br>
+                                                                    <label for="producto[]">Producto</label><br>
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
 
@@ -316,11 +269,19 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label for="producto[]">Cantidad</label><br>
+                                                                        <input class="form-control" type="text" value="{{ $productoInventario->cantidad }}" name="stock[]" readonly>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="estatus[]">estatus</label>
+                                                                    <label for="estatus[]">Estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
+                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -352,7 +313,7 @@
 
                                                                 <div class="col-6">
                                                                     <div class="form-group">
-                                                                        <label for="descripcion">producto</label><br>
+                                                                        <label for="descripcion">Producto</label><br>
                                                                         <select class="form-select"  id="producto[]" name="producto[]">
                                                                             <option value="">Seleciona el producto</option>
                                                                             @foreach ($productos_cabinas as $producto)
@@ -364,9 +325,16 @@
 
                                                                 <div class="col-2">
                                                                     <div class="form-group">
-                                                                        <label for="num_sesion">estatus</label>
+                                                                        <label for="producto[]">Cantidad</label><br>
+                                                                            <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label for="num_sesion">Estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Selecionar</option>
+                                                                            <option value="">Con Stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -417,14 +385,19 @@
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>Producto</th>
+                                                            <th>Cantitdad</th>
                                                             <th>Estatus</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($productos_cabinas as $index => $producto)
                                                                 <td>
-                                                                    <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
-                                                                    {{ $producto->nombre }}</td>
+                                                                <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
+                                                                {{ $producto->nombre }}
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
                                                                         <option value="">Con stock</option>
@@ -439,9 +412,9 @@
                                             @else
                                                 @foreach ($products_invs3 as $productoInventario)
                                                         <div class="row">
-                                                            <div class="col-8">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
-                                                                    <label for="producto[]">producto</label><br>
+                                                                    <label for="producto[]">Producto</label><br>
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
                                                                         <option value="">Seleciona el producto</option>
 
@@ -452,11 +425,19 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label for="producto[]">Cantidad</label><br>
+                                                                        <input class="form-control" type="text" value="{{ $productoInventario->cantidad }}" name="stock[]" readonly>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="estatus[]">estatus</label>
+                                                                    <label for="estatus[]">Estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
+                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -499,9 +480,16 @@
 
                                                                 <div class="col-2">
                                                                     <div class="form-group">
+                                                                        <label for="producto[]">Cantidad</label><br>
+                                                                            <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Selecionar</option>
+                                                                            <option value="">Con Stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -552,6 +540,7 @@
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>Producto</th>
+                                                            <th>Cantitdad</th>
                                                             <th>Estatus</th>
                                                         </tr>
                                                     </thead>
@@ -559,7 +548,11 @@
                                                         @foreach ($productos_cabinas as $index => $producto)
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
-                                                                    {{ $producto->nombre }}</td>
+                                                                    {{ $producto->nombre }}
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
                                                                         <option value="">Con stock</option>
@@ -574,7 +567,7 @@
                                             @else
                                                 @foreach ($products_invs4 as $productoInventario)
                                                         <div class="row">
-                                                            <div class="col-8">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label for="producto[]">producto</label><br>
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
@@ -587,11 +580,19 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label for="producto[]">Cantidad</label><br>
+                                                                        <input class="form-control" type="text" value="{{ $productoInventario->cantidad }}" name="stock[]" readonly>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label for="estatus[]">estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
+                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -634,9 +635,16 @@
 
                                                                 <div class="col-2">
                                                                     <div class="form-group">
+                                                                        <label for="producto[]">Cantidad</label><br>
+                                                                            <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Selecionar</option>
+                                                                            <option value="">Con Stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -688,6 +696,7 @@
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>Producto</th>
+                                                            <th>Cantitdad</th>
                                                             <th>Estatus</th>
                                                         </tr>
                                                     </thead>
@@ -696,6 +705,9 @@
                                                                 <td>
                                                                     <p style="display: none"><input type="text" value="{{ $producto->id }}" name="producto[]" readonly> </p>
                                                                     {{ $producto->nombre }}</td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
                                                                         <option value="">Con stock</option>
@@ -710,7 +722,7 @@
                                             @else
                                                 @foreach ($products_invs5 as $productoInventario)
                                                         <div class="row">
-                                                            <div class="col-8">
+                                                            <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label for="producto[]">producto</label><br>
                                                                     <select class="form-select" id="producto[]" name="producto[]" disabled>
@@ -723,11 +735,19 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label for="producto[]">Cantidad</label><br>
+                                                                        <input class="form-control" type="text" value="{{ $productoInventario->cantidad }}" name="stock[]" readonly>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label for="estatus[]">estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
+                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -770,9 +790,16 @@
 
                                                                 <div class="col-2">
                                                                     <div class="form-group">
+                                                                        <label for="producto[]">Cantidad</label><br>
+                                                                            <input class="form-control" type="text" value="{{ $producto->cantidad }}" name="stock[]">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Selecionar</option>
+                                                                            <option value="">Con Stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>

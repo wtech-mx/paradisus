@@ -19,7 +19,7 @@
 
                             @can('notas-pedido-create')
 
-                            <a class="btn"  href="{{ route('inventario.create_vista') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
+                            <a class="btn"  href="{{ route('inventario.create_vista5') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                                 <i class="fa fa-fw fa-edit"></i> Crear
                             </a>
 

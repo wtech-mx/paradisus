@@ -18,7 +18,13 @@ class ProductosController extends Controller
 
     public function index_productos()
     {
-        $productos_inventarios = Productos::orderBy('nombre','ASC')->get();
+        $productos_inventarios = Productos::orderBy('nombre','ASC')
+        ->where('cabina1', '=', null)
+        ->where('cabina2', '=', null)
+        ->where('cabina3', '=', null)
+        ->where('cabina4', '=', null)
+        ->where('cabina5', '=', null)
+        ->get();
 
         return view('productos.index', compact('productos_inventarios'));
     }
@@ -88,7 +94,13 @@ class ProductosController extends Controller
         // Obtener la fecha de inicio de la semana (lunes)
         $inicioSemana = $hoy->startOfWeek();
         // Obtener los productos editados en la semana
-        $productosSemana = Productos::where('updated_at', '>=', $inicioSemana)->get();
+        $productosSemana = Productos::where('updated_at', '>=', $inicioSemana)
+        ->where('cabina1', '=', null)
+        ->where('cabina2', '=', null)
+        ->where('cabina3', '=', null)
+        ->where('cabina4', '=', null)
+        ->where('cabina5', '=', null)
+        ->get();
 
         $productosinvSemana1 = ProductosInventario::join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
             ->where('cabina_inventario.num_cabina', '=', '1')

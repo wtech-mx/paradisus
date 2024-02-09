@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-   Crear Inventario
+   Crear Inventario 4
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3 class="mb-3">Crear Inventario</h3>
+                            <h3 class="mb-3">Crear Inventario 4</h3>
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
                                                     <select class="form-select" name="cabina" id="cabina">
-                                                        <option value="1">Cabina 1</option>
+                                                        <option value="4">Cabina 4</option>
                                                     </select>
                                                 </div>
 
@@ -127,7 +127,7 @@
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
                                                     <select class="form-select" name="cabina" id="cabina">
-                                                        <option value="1">Cabina 1</option>
+                                                        <option value="4">Cabina 4</option>
                                                     </select>
                                                 </div>
 
@@ -188,7 +188,7 @@
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
                                                     <select class="form-select" name="cabina" id="cabina">
-                                                        <option value="1">Cabina 1</option>
+                                                        <option value="4">Cabina 4</option>
                                                     </select>
                                                 </div>
 
@@ -249,7 +249,7 @@
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
                                                     <select class="form-select" name="cabina" id="cabina">
-                                                        <option value="1">Cabina 1</option>
+                                                        <option value="4">Cabina 4</option>
                                                     </select>
                                                 </div>
 
@@ -310,7 +310,7 @@
                                                 <div class="form-group col-4">
                                                     <label for="">Num de Cabina</label>
                                                     <select class="form-select" name="cabina" id="cabina">
-                                                        <option value="1">Cabina 1</option>
+                                                        <option value="4">Cabina 4</option>
                                                     </select>
                                                 </div>
 

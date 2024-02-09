@@ -259,9 +259,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/inventario/cabinas/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista');
     Route::get('/inventario/cabina2/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista2');
-    Route::get('/inventario/cabina3/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista3');
-    Route::get('/inventario/cabina4/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista4');
-    Route::get('/inventario/cabina5/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista5');
+    Route::get('/inventario/cabina3/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create3'])->name('inventario.create_vista3');
+    Route::get('/inventario/cabina4/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create4'])->name('inventario.create_vista4');
+    Route::get('/inventario/cabina5/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create5'])->name('inventario.create_vista5');
 
     Route::get('/inventario/cabina1/edit/{id}', [App\Http\Controllers\ProductosController::class, 'edit_cabina1'])->name('inventario.edit_cabina1');
     Route::get('/inventario/cabina2/edit/{id}', [App\Http\Controllers\ProductosController::class, 'edit_cabina1'])->name('inventario.edit_cabina2');
