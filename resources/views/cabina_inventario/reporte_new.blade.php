@@ -222,58 +222,68 @@
                     $nombreProducto = str_slug($producto->nombre);
                     $numCabina = $producto->num_cabina;
                     $estatus = $producto->estatus;
+                    $cantidad = $producto->cantidad;
 
                     // Obtener o inicializar la colección para el producto
                     $productoCollection = $productosPorCabinaTerm->get($nombreProducto, collect([
-                        1 => '',
-                        2 => '',
-                        3 => '',
-                        4 => '',
-                        5 => '',
+                        'estatus' => collect([
+                            1 => '',
+                            2 => '',
+                            3 => '',
+                            4 => '',
+                            5 => '',
+                        ]),
+                        'cantidad' => collect([
+                            1 => '',
+                            2 => '',
+                            3 => '',
+                            4 => '',
+                            5 => '',
+                        ]),
                     ]));
 
-                    // Actualizar el estatus
+                    // Actualizar el estatus y la cantidad
                     if ($estatus == 'Por Terminar') {
-                        $productoCollection->put($numCabina, 'Por Terminar');
-                    }elseif($estatus == 'Se cambio'){
-                        $productoCollection->put($numCabina, 'Se cambio');
-                    }else{
-                        $productoCollection->put($numCabina, 'En stock');
+                        $productoCollection['estatus'] = $productoCollection['estatus']->put($numCabina, 'Por Terminar');
+                    } elseif ($estatus == 'Se cambio') {
+                        $productoCollection['estatus'] = $productoCollection['estatus']->put($numCabina, 'Se cambio');
+                    } else {
+                        $productoCollection['estatus'] = $productoCollection['estatus']->put($numCabina, 'En stock');
                     }
+
+                    $productoCollection['cantidad'] = $productoCollection['cantidad']->put($numCabina, $cantidad);
 
                     // Actualizar la colección principal
                     $productosPorCabinaTerm->put($nombreProducto, $productoCollection);
                 @endphp
             @endforeach
 
-            @foreach ($productosPorCabinaTerm as $nombreProducto => $estatusPorCabina)
+            @foreach ($productosPorCabinaTerm as $nombreProducto => $data)
                 <tr>
                     <td>{{$nombreProducto}}</td>
-                    @if($estatusPorCabina[1] == "")
-                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
-                    @else
-                        <td> {{$estatusPorCabina[1]}} </td>
-                    @endif
-                    @if($estatusPorCabina[2] == "")
-                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
-                    @else
-                        <td> {{$estatusPorCabina[2]}} </td>
-                    @endif
-                    @if($estatusPorCabina[3] == "")
-                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
-                    @else
-                        <td> {{$estatusPorCabina[3]}} </td>
-                    @endif
-                    @if($estatusPorCabina[4] == "")
-                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
-                    @else
-                        <td> {{$estatusPorCabina[4]}} </td>
-                    @endif
-                    @if($estatusPorCabina[5] == "")
-                        <td style="background-color: #87caa1; color: #fff">  Con Stock </td>
-                    @else
-                        <td> {{$estatusPorCabina[5]}} </td>
-                    @endif
+                    @foreach ($data['estatus'] as $estatus)
+                        <td style="background-color:
+                            @if ($estatus == 'Por Terminar')
+                                #FFA500; /* Naranja */
+                            @elseif ($estatus == 'Se cambio')
+                                #FBD38D; /* Amarillo */
+                            @else
+                                #87caa1; /* Verde (En stock) */
+                            @endif
+                            ; color: #fff">
+                            @if ($estatus == "" || $estatus == "En stock")
+                                En stock
+                            @else
+                                {{$estatus}}
+                            @endif
+                        </td>
+                    @endforeach
+                </tr>
+                <tr>
+                    <td></td>
+                    @foreach ($data['cantidad'] as $cantidad)
+                        <td>{{$cantidad}}</td>
+                    @endforeach
                 </tr>
             @endforeach
         </tbody>

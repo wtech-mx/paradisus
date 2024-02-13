@@ -33,7 +33,7 @@
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
                     <h6 class="text-center mb-0">Total</h6>
-                    <span class="text-xs">Productos con stock</span>
+                    <span class="text-xs">Productos En stock</span>
                     <hr class="horizontal dark my-3">
                     <h5 class="mb-0">{{$productos_stock}}</h5>
                   </div>

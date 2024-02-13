@@ -87,7 +87,7 @@
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
                 <th>Productos por agotar</th>
-                <th>Productos con stock</th>
+                <th>Productos En stock</th>
                 <th>Agotados</th>
             </tr>
         </thead>

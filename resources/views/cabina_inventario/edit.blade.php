@@ -94,7 +94,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                        <option value="">Con stock</option>
+                                                                        <option value="">En stock</option>
                                                                         <option value="Por Terminar">Por Terminar</option>
                                                                         <option value="Se cambio">Se cambio</option>
                                                                     </select>
@@ -131,7 +131,7 @@
                                                                     <label for="estatus[]">Estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
+                                                                        <option value="En stock" @if ($productoInventario->estatus == "En stock") selected @endif>En stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -177,7 +177,7 @@
                                                                     <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Con Stock</option>
+                                                                            <option value="">En stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -244,7 +244,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                        <option value="">Con stock</option>
+                                                                        <option value="">En stock</option>
                                                                         <option value="Por Terminar">Por Terminar</option>
                                                                         <option value="Se cambio">Se cambio</option>
                                                                     </select>
@@ -281,7 +281,7 @@
                                                                     <label for="estatus[]">Estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
+                                                                        <option value="En stock" @if ($productoInventario->estatus == "En stock") selected @endif>En stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -334,7 +334,7 @@
                                                                     <div class="form-group">
                                                                         <label for="num_sesion">Estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Con Stock</option>
+                                                                            <option value="">En stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -400,7 +400,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                        <option value="">Con stock</option>
+                                                                        <option value="">En stock</option>
                                                                         <option value="Por Terminar">Por Terminar</option>
                                                                         <option value="Se cambio">Se cambio</option>
                                                                     </select>
@@ -437,7 +437,7 @@
                                                                     <label for="estatus[]">Estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
+                                                                        <option value="En stock" @if ($productoInventario->estatus == "En stock") selected @endif>En stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -489,7 +489,7 @@
                                                                     <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Con Stock</option>
+                                                                            <option value="">En stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -555,7 +555,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                        <option value="">Con stock</option>
+                                                                        <option value="">En stock</option>
                                                                         <option value="Por Terminar">Por Terminar</option>
                                                                         <option value="Se cambio">Se cambio</option>
                                                                     </select>
@@ -592,7 +592,7 @@
                                                                     <label for="estatus[]">estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
+                                                                        <option value="En stock" @if ($productoInventario->estatus == "En stock") selected @endif>En stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -644,7 +644,7 @@
                                                                     <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Con Stock</option>
+                                                                            <option value="">En stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>
@@ -710,7 +710,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                        <option value="">Con stock</option>
+                                                                        <option value="">En stock</option>
                                                                         <option value="Por Terminar">Por Terminar</option>
                                                                         <option value="Se cambio">Se cambio</option>
                                                                     </select>
@@ -747,7 +747,7 @@
                                                                     <label for="estatus[]">estatus</label>
                                                                     <select class="form-select" id="estatus[]" name="estatus[]" disabled>
                                                                         <option value="">Selecionar</option>
-                                                                        <option value="Con Stock" @if ($productoInventario->estatus == "Con Stock") selected @endif>Con Stock</option>
+                                                                        <option value="En stock" @if ($productoInventario->estatus == "En stock") selected @endif>En stock</option>
                                                                         <option value="Por Terminar" @if ($productoInventario->estatus == "Por Terminar") selected @endif>Por Terminar</option>
                                                                         <option value="Se cambio" @if ($productoInventario->estatus == "Se cambio") selected @endif>Se cambio</option>
                                                                     </select>
@@ -799,7 +799,7 @@
                                                                     <div class="form-group">
                                                                         <label for="num_sesion">estatus</label>
                                                                         <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                            <option value="">Con Stock</option>
+                                                                            <option value="">En stock</option>
                                                                             <option value="Por Terminar">Por Terminar</option>
                                                                             <option value="Se cambio">Se cambio</option>
                                                                         </select>

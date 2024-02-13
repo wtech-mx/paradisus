@@ -114,7 +114,7 @@ class CabinaInvetarioController extends Controller
                 $producto_db->cantidad = $cantidad[$count];
                 $producto_db->update();
 
-                $estatus_value = ($estatus[$count] == null) ? 'Con Stock' : $estatus[$count];
+                $estatus_value = ($estatus[$count] == null) ? 'En stock' : $estatus[$count];
 
                 $data = [
                     'id_cabina_inv' => $cabina->id,
@@ -166,7 +166,7 @@ class CabinaInvetarioController extends Controller
                     $producto_db->cantidad = $cantidad[$count];
                     $producto_db->update();
 
-                    $estatus_value = ($estatus[$count] == null) ? 'Con Stock' : $estatus[$count];
+                    $estatus_value = ($estatus[$count] == null) ? 'En stock' : $estatus[$count];
 
                     $data = [
                         'id_cabina_inv' => $id,
@@ -337,12 +337,13 @@ class CabinaInvetarioController extends Controller
         ->select(
             'productos.nombre',
             'productos_inventario.estatus',
-            'cabina_inventario.num_cabina'
+            'cabina_inventario.num_cabina',
+            'productos_inventario.cantidad'
         )
         ->get();
 
         $pdf = PDF::loadView('cabina_inventario.reporte_new',compact('productos_sem', 'inicioMes', 'productos_sem_cambios', 'productos_sem_termino', 'productos_cabina1', 'productos_cabina2', 'productos_cabina3', 'productos_cabina4', 'productos_cabina5', 'hoy'));
         return $pdf->stream();
-        // return $pdf->download('reporte-productos.pdf');
+        // return $pdf->download('reporte-general.pdf');
     }
 }

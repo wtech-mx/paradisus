@@ -91,7 +91,7 @@
                                                                         </td>
                                                                         <td>
                                                                             <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                                <option value="">Con stock</option>
+                                                                                <option value="">En stock</option>
                                                                                 <option value="Por Terminar">Por Terminar</option>
                                                                                 <option value="Se cambio">Se cambio</option>
                                                                             </select>
@@ -151,7 +151,7 @@
                                                                             </td>
                                                                         <td>
                                                                             <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                                <option value="">Con stock</option>
+                                                                                <option value="">En stock</option>
                                                                                 <option value="Por Terminar">Por Terminar</option>
                                                                                 <option value="Se cambio">Se cambio</option>
                                                                             </select>
@@ -212,7 +212,7 @@
                                                                             </td>
                                                                         <td>
                                                                             <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                                <option value="">Con stock</option>
+                                                                                <option value="">En stock</option>
                                                                                 <option value="Por Terminar">Por Terminar</option>
                                                                                 <option value="Se cambio">Se cambio</option>
                                                                             </select>
@@ -273,7 +273,7 @@
                                                                             </td>
                                                                         <td>
                                                                             <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                                <option value="">Con stock</option>
+                                                                                <option value="">En stock</option>
                                                                                 <option value="Por Terminar">Por Terminar</option>
                                                                                 <option value="Se cambio">Se cambio</option>
                                                                             </select>
@@ -334,7 +334,7 @@
                                                                             </td>
                                                                         <td>
                                                                             <select class="form-select"  id="estatus[]" name="estatus[]">
-                                                                                <option value="">Con stock</option>
+                                                                                <option value="">En stock</option>
                                                                                 <option value="Por Terminar">Por Terminar</option>
                                                                                 <option value="Se cambio">Se cambio</option>
                                                                             </select>
