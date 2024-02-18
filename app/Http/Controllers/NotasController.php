@@ -121,7 +121,7 @@ class NotasController extends Controller
            $client->name = $request->get('name');
            $client->last_name = $request->get('last_name');
            $client->phone = $request->get('phone');
-           $client->email = $request->get('email');
+           //$client->email = $request->get('email');
            $client->save();
         }
 

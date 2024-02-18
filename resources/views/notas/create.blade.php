@@ -142,7 +142,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-4">
+                                                            {{-- <div class="col-4">
                                                                 <label for="name">Correo (Opcional)</label>
                                                                 <div class="input-group mb-3">
                                                                     <span class="input-group-text" id="basic-addon1">
@@ -150,7 +150,7 @@
                                                                     </span>
                                                                     <input  id="email" name="email" type="email" class="form-control" placeholder="correo@correo.com">
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
 
                                                         </div>
                                                     </div>
