@@ -252,7 +252,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     Route::get('/productos/bodega', [App\Http\Controllers\ProductosController::class, 'index'])->name('productos.index');
-    Route::post('/actualizar-cantidad', [App\Http\Controllers\ProductosController::class, 'actualizarCantidad']);
+    Route::post('/productos/bodega/create', [App\Http\Controllers\ProductosController::class, 'create'])->name('productos.create_bodega');
     Route::get('/producto/sku/print/{id}', [App\Http\Controllers\ProductosController::class, 'imprimir'])->name('productos.imprimir');
 
     Route::get('/producto/reporte/print', [App\Http\Controllers\CabinaInvetarioController::class, 'imprimir'])->name('productos_reporte.imprimir');
@@ -279,6 +279,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/inventario/cabina/store', [App\Http\Controllers\CabinaInvetarioController::class, 'store'])->name('cabina_inventario.store');
 
     Route::get('/inventario/imprimir/reporte', [App\Http\Controllers\CabinaInvetarioController::class, 'reporte_inv'])->name('reporte_inv.pdf');
+    Route::get('/inventario/imprimir/reporte/bodega', [App\Http\Controllers\CabinaInvetarioController::class, 'reporte_bodega'])->name('reporte_bodega.pdf');
+    Route::get('/inventario/imprimir/reporte/cabina1', [App\Http\Controllers\CabinaInvetarioController::class, 'reporte_cabina1'])->name('reporte_cabina1.pdf');
+    Route::get('/inventario/imprimir/reporte/cabina3', [App\Http\Controllers\CabinaInvetarioController::class, 'reporte_cabina3'])->name('reporte_cabina3.pdf');
+    Route::get('/inventario/imprimir/reporte/cabina4', [App\Http\Controllers\CabinaInvetarioController::class, 'reporte_cabina4'])->name('reporte_cabina4.pdf');
+    Route::get('/inventario/imprimir/reporte/cabina5', [App\Http\Controllers\CabinaInvetarioController::class, 'reporte_cabina5'])->name('reporte_cabina5.pdf');
     // =============== M O D U L O   B U S C A D O R ===============================
     Route::get('/buscador/index', [App\Http\Controllers\BuscadorController::class, 'index'])->name('index.buscador');
     Route::get('/buscador', [App\Http\Controllers\BuscadorController::class, 'advance'])->name('advance_search.buscador');

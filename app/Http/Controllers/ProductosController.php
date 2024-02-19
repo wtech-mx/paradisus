@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\CabinaInvetario;
 use App\Models\Productos;
+use App\Models\ProductosBodega;
+use App\Models\ProductosBodegaInv;
 use App\Models\ProductosInventario;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DateTime;
+use Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -137,7 +140,13 @@ class ProductosController extends Controller
 
     public function index()
     {
-        $productos_bodega = Productos::where('cabinas','=', NULL)->orderBy('nombre','ASC')->get();
+        $productos_bodega = Productos::orderBy('nombre', 'ASC')
+        ->whereNull('cabina1')
+        ->whereNull('cabina2')
+        ->whereNull('cabina3')
+        ->whereNull('cabina4')
+        ->whereNull('cabina5')
+        ->get();
 
         $productosSinSku = Productos::where('cabinas','=', NULL)->whereNull('sku')->get();
 
@@ -151,16 +160,48 @@ class ProductosController extends Controller
         return view('productos.bodega', compact('productos_bodega'));
     }
 
-    public function actualizarCantidad(Request $request)
-    {
-        $id = $request->input('id');
-        $cantidad = $request->input('cantidad');
+    public function create(Request $request){
 
-        $producto = Productos::find($id);
-        $producto->cantidad = $cantidad;
-        $producto->save();
+        $productos_bodega = new ProductosBodega;
+        $productos_bodega->nombre = 'Inventario bodega '. date('d-m-Y');
+        $productos_bodega->fecha = date('Y-m-d');
+        $productos_bodega->save();
 
-        return response()->json(['success' => true]);
+        $id_producto = $request->get('id_producto');
+        $cantidad = $request->get('cantidad');
+        $comentario = $request->get('comentario');
+
+        // Eliminar elementos nulos del arreglo $comentario
+        $comentario = array_filter($comentario, function ($value) {
+            return $value !== null;
+        });
+
+        foreach ($comentario as $key => $valor) {
+            $producto_db = Productos::where('id', $id_producto[$key])->first();
+            if ($cantidad[$key] == $producto_db->cantidad) {
+                $diferencia = 'No se modificó la cantidad';
+            } else {
+                $diferencia = 'De: ' . $producto_db->cantidad . ' A: ' . $cantidad[$key];
+            }
+            $producto_db->cantidad = $cantidad[$key];
+            $producto_db->update();
+
+            $data = array(
+                'id_productos_bodega' => $productos_bodega->id,
+                'id_producto' => $id_producto[$key],
+                'cantidad' => $cantidad[$key],
+                'diferencia' => $diferencia,
+                'comentario' => $valor,
+                'fecha' => date('Y-m-d'),
+            );
+            $insert_data[] = $data;
+        }
+
+        ProductosBodegaInv::insert($insert_data);
+
+        Session::flash('success', 'Se ha guardado sus datos con exito');
+        return redirect()->route('productos.index')
+            ->with('success', 'Inventario Bodega Creado.');
     }
 
     public function create_cabina1(){

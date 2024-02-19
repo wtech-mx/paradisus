@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CabinaInvetario;
 use App\Models\Productos;
+use App\Models\ProductosBodega;
+use App\Models\ProductosBodegaInv;
 use App\Models\ProductosInventario;
 use Illuminate\Http\Request;
 use Session;
@@ -152,6 +154,10 @@ class CabinaInvetarioController extends Controller
 
     public function update_cabina1(Request $request, $id){
         $today =  date('Y-m-d H:i:s');
+        $cabina_inv = CabinaInvetario::where('id', '=', $id)->first();
+        $cabina_inv->num_semana = $request->get('num_semana');
+        $cabina_inv->update();
+
             $producto = $request->get('producto');
             $estatus = $request->get('estatus');
             $cantidad = $request->get('stock');
@@ -343,6 +349,120 @@ class CabinaInvetarioController extends Controller
         ->get();
 
         $pdf = PDF::loadView('cabina_inventario.reporte_new',compact('productos_sem', 'inicioMes', 'productos_sem_cambios', 'productos_sem_termino', 'productos_cabina1', 'productos_cabina2', 'productos_cabina3', 'productos_cabina4', 'productos_cabina5', 'hoy'));
+        return $pdf->stream();
+        // return $pdf->download('reporte-general.pdf');
+    }
+
+    public function reporte_bodega(Request $request){
+        $inicioMes = now()->firstOfMonth();
+        $hoy = Carbon::now();
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+        $fechaFinSemana = Carbon::now()->endOfWeek()->toDateString();
+
+        $producto_bodega = ProductosBodega::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->first();
+        $productos_bodega_inv = ProductosBodegaInv::where('id_productos_bodega', '=', $producto_bodega->id)->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_bodega',compact('inicioMes','producto_bodega', 'productos_bodega_inv','hoy'));
+        return $pdf->stream();
+        // return $pdf->download('reporte-general.pdf');
+    }
+
+    public function reporte_cabina1(Request $request){
+        $inicioMes = now()->firstOfMonth();
+        $hoy = Carbon::now();
+        // Obtener la fecha de inicio de la semana (lunes)
+        $inicioSemana = $hoy->startOfWeek();
+
+        $productos_cabina1 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '1')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina1',compact('inicioMes','productos_cabina1','hoy'));
+        return $pdf->stream();
+        // return $pdf->download('reporte-general.pdf');
+    }
+
+    public function reporte_cabina3(Request $request){
+        $inicioMes = now()->firstOfMonth();
+        $hoy = Carbon::now();
+        // Obtener la fecha de inicio de la semana (lunes)
+        $inicioSemana = $hoy->startOfWeek();
+
+        $productos_cabina1 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '3')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina3',compact('inicioMes','productos_cabina1','hoy'));
+        return $pdf->stream();
+        // return $pdf->download('reporte-general.pdf');
+    }
+
+    public function reporte_cabina4(Request $request){
+        $inicioMes = now()->firstOfMonth();
+        $hoy = Carbon::now();
+        // Obtener la fecha de inicio de la semana (lunes)
+        $inicioSemana = $hoy->startOfWeek();
+
+        $productos_cabina1 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '4')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina4',compact('inicioMes','productos_cabina1','hoy'));
+        return $pdf->stream();
+        // return $pdf->download('reporte-general.pdf');
+    }
+
+    public function reporte_cabina5(Request $request){
+        $inicioMes = now()->firstOfMonth();
+        $hoy = Carbon::now();
+        // Obtener la fecha de inicio de la semana (lunes)
+        $inicioSemana = $hoy->startOfWeek();
+
+        $productos_cabina1 = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->join('productos', 'productos_inventario.id_producto', '=', 'productos.id')
+        ->where('productos_inventario.created_at', '>=', $inicioMes)
+        ->where('cabina_inventario.num_cabina', '=', '5')
+        ->select(
+            'productos.nombre',
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.num_semana'
+        )
+        ->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina5',compact('inicioMes','productos_cabina1','hoy'));
         return $pdf->stream();
         // return $pdf->download('reporte-general.pdf');
     }

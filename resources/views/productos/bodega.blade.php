@@ -16,58 +16,52 @@
 
                         <div class="d-flex justify-content-between">
                             <h3 class="mb-3">Inventario Bodega</h3>
-
-                            @can('notas-pedido-create')
-                            <a class="btn btn-sm btn-success" href="{{ route('notas_pedidos.create') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                <i class="fa fa-fw fa-edit"></i> Crear </a>
-                            @endcan
                         </div>
                     </div>
 
-                    @can('notas-pedido-list')
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-flush" id="datatable-search">
-                                    <thead class="thead">
-                                        <tr>
-                                            <th>Cantidad</th>
-                                            <th>SKU</th>
-                                            <th>Producto</th>
-                                            <th>Fecha Edit</th>
-                                        </tr>
-                                    </thead>
+                                <form method="POST" action="{{ route('productos.create_bodega') }}" enctype="multipart/form-data" role="form">
+                                    @csrf
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                    <table class="table table-flush">
+                                        <thead class="thead">
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </thead>
 
-                                        <tbody>
-                                            @foreach ($productos_bodega as $producto)
-                                                <tr>
-                                                    @if ($producto->cantidad == 0)
-                                                    <td>
-                                                        <input type="text" class="form-control input-cantidad" style="color: #e30000;background-color: #e3000040;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}">
-                                                    </td>
-                                                    @elseif ($producto->cantidad <= 2 && $producto->cantidad >= 0)
-                                                    <td>
-                                                        <input type="text" class="form-control input-cantidad" style="color: #c54003;background-color: #c764023b;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}">
-                                                    </td>
-                                                    @else
-                                                    <td>
-                                                        <input type="text" class="form-control input-cantidad" style="color: #70b06a;background-color: #6ab06d61;" data-id="{{ $producto->id }}" value="{{ $producto->cantidad }}">
-                                                    </td>
-                                                    @endif
-                                                    <td>
-                                                        <a type="button" class="btn btn-primary btn-sm" href="{{route('productos.imprimir', $producto->id)}}">
-                                                            {{ $producto->sku }}
-                                                        </a>
-                                                    </td>
-                                                    <td>{{ $producto->nombre }}</td>
-                                                    <td>{{ $producto->updated_at }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
+                                            <tbody>
+                                                @foreach ($productos_bodega as $producto)
+                                                    <tr>
+                                                        <input type="number" class="form-control" id="id_producto[]" name="id_producto[]" value="{{ $producto->id }}" style="display: none">
+                                                        <td>{{ $producto->nombre }}</td>
+                                                        @if ($producto->cantidad == 0)
+                                                        <td>
+                                                            <input type="text" class="form-control" style="color: #e30000;background-color: #e3000040;" id="cantidad[]" name="cantidad[]" value="{{ $producto->cantidad }}">
+                                                        </td>
+                                                        @elseif ($producto->cantidad <= 2 && $producto->cantidad >= 0)
+                                                        <td>
+                                                            <input type="text" class="form-control" style="color: #c54003;background-color: #c764023b;" id="cantidad[]" name="cantidad[]" value="{{ $producto->cantidad }}">
+                                                        </td>
+                                                        @else
+                                                        <td>
+                                                            <input type="text" class="form-control" style="color: #70b06a;background-color: #6ab06d61;" id="cantidad[]" name="cantidad[]" value="{{ $producto->cantidad }}">
+                                                        </td>
+                                                        @endif
+                                                        <td><textarea name="comentario[]" id="comentario[]" cols="50" rows="3"></textarea></td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
 
-                                </table>
+                                    </table>
+                                </form>
                             </div>
                         </div>
-                    @endcan
                 </div>
 
             </div>
@@ -83,39 +77,4 @@
     });
 
 </script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        // Usamos el elemento padre estático '.table-responsive' para delegar el evento
-        $('.table-responsive').on('change', '.input-cantidad', function() {
-            var id = $(this).data('id');
-            var cantidad = $(this).val();
-
-            $.ajax({
-                url: '/actualizar-cantidad',
-                method: 'POST',
-                data: {
-                    id: id,
-                    cantidad: cantidad
-                },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-    });
-    </script>
-
-
 @endsection

@@ -96,7 +96,6 @@
             <tr>
                 <th>Productos</th>
                 <th>Cabina 1</th>
-                <th>Cabina 2</th>
                 <th>Cabina 3</th>
                 <th>Cabina 4</th>
                 <th>Cabina 5</th>
@@ -116,7 +115,6 @@
                     // Obtener o inicializar la colección para el producto
                     $productoCollection = $productosPorCabina->get($nombreProducto, collect([
                         1 => '',
-                        2 => '',
                         3 => '',
                         4 => '',
                         5 => '',
@@ -136,7 +134,6 @@
                 <tr>
                     <td>{{$nombreProducto}}</td>
                     <td>{{$estatusPorCabina[1]}}</td>
-                    <td>{{$estatusPorCabina[2]}}</td>
                     <td>{{$estatusPorCabina[3]}}</td>
                     <td>{{$estatusPorCabina[4]}}</td>
                     <td>{{$estatusPorCabina[5]}}</td>
@@ -151,7 +148,6 @@
             <tr>
                 <th>Productos</th>
                 <th>Cabina 1</th>
-                <th>Cabina 2</th>
                 <th>Cabina 3</th>
                 <th>Cabina 4</th>
                 <th>Cabina 5</th>
@@ -171,7 +167,6 @@
                     // Obtener o inicializar la colección para el producto
                     $productoCollection = $productosPorCabinaTerm->get($nombreProducto, collect([
                         1 => '',
-                        2 => '',
                         3 => '',
                         4 => '',
                         5 => '',
@@ -191,7 +186,6 @@
                 <tr>
                     <td>{{$nombreProducto}}</td>
                     <td>{{$estatusPorCabina[1]}}</td>
-                    <td>{{$estatusPorCabina[2]}}</td>
                     <td>{{$estatusPorCabina[3]}}</td>
                     <td>{{$estatusPorCabina[4]}}</td>
                     <td>{{$estatusPorCabina[5]}}</td>
@@ -206,7 +200,6 @@
             <tr>
                 <th>Productos</th>
                 <th>Cabina 1</th>
-                <th>Cabina 2</th>
                 <th>Cabina 3</th>
                 <th>Cabina 4</th>
                 <th>Cabina 5</th>
@@ -228,14 +221,12 @@
                     $productoCollection = $productosPorCabinaTerm->get($nombreProducto, collect([
                         'estatus' => collect([
                             1 => '',
-                            2 => '',
                             3 => '',
                             4 => '',
                             5 => '',
                         ]),
                         'cantidad' => collect([
                             1 => '',
-                            2 => '',
                             3 => '',
                             4 => '',
                             5 => '',
@@ -313,63 +304,6 @@
             @endphp
 
             @foreach ($productos_cabina1 as $producto)
-                @php
-                    $nombreProducto = str_slug($producto->nombre);
-                    $numCabina = $producto->num_semana;
-                    $estatus = $producto->estatus;
-
-                    // Obtener o inicializar la colección para el producto
-                    $productoCollection = $productosPorCabinaTerm->get($nombreProducto, collect([
-                        1 => '',
-                        2 => '',
-                        3 => '',
-                        4 => '',
-                        5 => '',
-                    ]));
-
-                    // Actualizar el estatus solo si es 'Por Terminar'
-                    if ($estatus == 'Por Terminar') {
-                        $productoCollection->put($numCabina, 'Por Terminar');
-                    }elseif($estatus == 'Se cambio'){
-                        $productoCollection->put($numCabina, 'Se cambio');
-                    }
-
-                    // Actualizar la colección principal
-                    $productosPorCabinaTerm->put($nombreProducto, $productoCollection);
-                @endphp
-            @endforeach
-
-            @foreach ($productosPorCabinaTerm as $nombreProducto => $estatusPorCabina)
-                <tr>
-                    <td>{{$nombreProducto}}</td>
-                    <td>{{$estatusPorCabina[1]}}</td>
-                    <td>{{$estatusPorCabina[2]}}</td>
-                    <td>{{$estatusPorCabina[3]}}</td>
-                    <td>{{$estatusPorCabina[4]}}</td>
-                    <td>{{$estatusPorCabina[5]}}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <h2 style="text-align: center;">Cabina 2</h2>
-    <table class="table text-center">
-        <thead style="background-color: #87cab9; color: #fff">
-            <tr>
-                <th>Productos</th>
-                <th>Semana <br> 1</th>
-                <th>Semana <br> 2</th>
-                <th>Semana <br> 3</th>
-                <th>Semana <br> 4</th>
-                <th>Semana <br> 5</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $productosPorCabinaTerm = collect();
-            @endphp
-
-            @foreach ($productos_cabina2 as $producto)
                 @php
                     $nombreProducto = str_slug($producto->nombre);
                     $numCabina = $producto->num_semana;
