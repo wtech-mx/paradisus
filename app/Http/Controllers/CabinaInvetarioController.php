@@ -109,7 +109,7 @@ class CabinaInvetarioController extends Controller
 
         $insert_data = [];
 
-        for ($count = 0; $count < count($estatus); $count++) {
+        for ($count = 0; $count < count($cantidad); $count++) {
             $producto_db = Productos::where('id', $producto[$count])->first();
 
             if ($estatus[$count] != null || $producto_db->cantidad != $cantidad[$count]) {
