@@ -47,7 +47,7 @@ class RegistroSemanalController extends Controller
         ->select('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
         ->get();
-        
+
         $notasServicios = Notas::leftJoin('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
         ->leftJoin('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
@@ -62,8 +62,8 @@ class RegistroSemanalController extends Controller
                     ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142]);
             });
         })
-        ->groupBy('notas.id')
         ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
+        ->groupBy('notas.id')
         ->get();
 
         $notasMaFer = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
