@@ -49,8 +49,8 @@ class RegistroSemanalController extends Controller
                     ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142]);
             });
         })
-        ->groupBy('notas.id')
-        ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
+        ->groupBy('notas.id', 'notas.id_servicio')
+        ->select('notas.*', 'notas.id_servicio', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->get();
 
         $notasMaFer = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
