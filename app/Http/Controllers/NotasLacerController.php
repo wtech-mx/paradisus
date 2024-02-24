@@ -25,9 +25,15 @@ class NotasLacerController extends Controller
     public function index_sesiones(){
 
 
-
-
         return view('notas_lacer.index_laser');
+
+    }
+
+
+    public function index_consentimiento(){
+
+
+        return view('notas_lacer.index_consentimiento');
 
     }
 }

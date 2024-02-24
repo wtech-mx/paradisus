@@ -84,7 +84,7 @@
                                                               <tr>
 
                                                                 <td>
-                                                                    <input type="date" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                                                                    <input type="date" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                                                                 </td>
 
                                                                 <td>

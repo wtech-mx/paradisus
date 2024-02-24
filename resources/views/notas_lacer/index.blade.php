@@ -25,6 +25,10 @@
                                 <i class="fa fa-fw fa-edit"></i> Vista de sesiones
                             </a>
 
+                            <a class="btn btn-sm btn-success" href="{{ route('index_consentimiento.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <i class="fa fa-fw fa-edit"></i> Vista de Concentiemiento
+                            </a>
+
                         </div>
                     </div>
                     @can('notas-list')
