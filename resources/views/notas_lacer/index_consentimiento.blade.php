@@ -71,14 +71,14 @@
 
 <main class="main-content main-content-bg mt-0">
     <div class="page-header min-vh-100" style="backgorund:#000;">
-      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container">
+      <span class="mask bg-gradient-dark opacity-6" style="    background: #ccc;"></span>
+      <div class="container" style="    background: #ccc;">
         <div class="row justify-content-center">
 
-          <div class="col-12 col-md-9">
+          <div class="col-12 col-md-9 p-3">
             <div class="card border-0 mb-0">
 
-                <h5 class="text-dark text-center mt-2 mb-3">
+                <h5 class=" text-center mt-5 mb-3" style="color:#C45584;font-weight: 800;font-size: 30px;">
                     Consentimiento Informado  para el tratamiento de <br> Depilación mediante Láser de Diodo
                 </h5>
 
