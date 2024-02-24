@@ -17,8 +17,14 @@
 
                             @can('notas-create')
                                 <a class="btn btn-sm btn-success" href="{{ route('crear.lacer') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                    <i class="fa fa-fw fa-edit"></i> Crear </a>
+                                    <i class="fa fa-fw fa-edit"></i> Crear
+                                </a>
                             @endcan
+
+                            <a class="btn btn-sm btn-success" href="{{ route('index_sesiones.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <i class="fa fa-fw fa-edit"></i> Vista de sesiones
+                            </a>
+
                         </div>
                     </div>
                     @can('notas-list')

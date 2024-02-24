@@ -21,4 +21,13 @@ class NotasLacerController extends Controller
 
         return view('notas_lacer.crear',compact('client', 'user'));
     }
+
+    public function index_sesiones(){
+
+
+
+
+        return view('notas_lacer.index_laser');
+
+    }
 }
