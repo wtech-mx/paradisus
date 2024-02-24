@@ -123,6 +123,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('permisos', PermisosController::class);
     Route::resource('users', UserController::class);
 
+    // =============== M O D U L O  L A C E R ===============================
+    Route::get('/notas/lacer/index', [App\Http\Controllers\NotasLacerController::class, 'index'])->name('index.lacer');
+    Route::get('/notas/lacer/crear', [App\Http\Controllers\NotasLacerController::class, 'crear'])->name('crear.lacer');
+
     // =============== M O D U L O   C L I E N T S ===============================
     Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
 
