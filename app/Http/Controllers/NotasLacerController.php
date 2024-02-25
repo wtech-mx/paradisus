@@ -16,6 +16,16 @@ class NotasLacerController extends Controller
         return view('notas_lacer.index', compact('nota_lacer'));
     }
 
+    public function getZonasByTipoZona($tipoZona){
+        try {
+            $data = Laser::where('tipo_zona', $tipoZona)->get(['zona', 'costo_paquete']);
+
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error en el servidor'], 500);
+        }
+    }
+
     public function crear(){
         $zonas = Laser::get();
         $client = Client::orderBy('name','ASC')->get();

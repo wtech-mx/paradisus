@@ -159,10 +159,10 @@
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="precio">Zona 1</label><br>
-                                                            <select class="form-control zona" data-toggle="select" id="zona_select_1" name="zona_select_1" required>
+                                                            <select class="form-control zona_select_1" data-toggle="select" id="zona_select_1" name="zona_sesiones_1" required>
                                                                 <option value="">Seleccionar zona</option>
                                                                 @foreach ($zonas as $zona)
-                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -174,7 +174,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="cantidad_1" name="cantidad_1" class="form-control">
+                                                            <input type="number" id="cantidad_1" name="cantidad_1" class="form-control" value="1">
                                                         </div>
                                                     </div>
 
@@ -184,17 +184,17 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="text" id="subtotal_1" name="subtotal_1" class="form-control">
+                                                            <input type="number" id="subtotal_1" name="subtotal_1" class="form-control">
                                                         </div>
                                                     </div>
                                                     {{-- ============ Zona 2 --}}
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="precio">Zona 2</label><br>
-                                                            <select class="form-control zona" data-toggle="select" id="zona_select_2" name="zona_select_2" required>
+                                                            <select class="form-control zona_select_2" data-toggle="select" id="zona_select_2" name="zona_select_2" required>
                                                                 <option value="">Seleccionar zona</option>
                                                                 @foreach ($zonas as $zona)
-                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -206,7 +206,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="cantidad_2" name="cantidad_2" class="form-control">
+                                                            <input type="number" id="cantidad_2" name="cantidad_2" class="form-control" value="1">
                                                         </div>
                                                     </div>
 
@@ -216,17 +216,17 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="text" id="subtotal_2" name="subtotal_2" class="form-control">
+                                                            <input type="number" id="subtotal_2" name="subtotal_2" class="form-control">
                                                         </div>
                                                     </div>
                                                             {{-- ============ Zona 3 --}}
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="precio">Zona 3</label><br>
-                                                            <select class="form-control zona" data-toggle="select" id="zona_select_3" name="zona_select_3" required>
+                                                            <select class="form-control zona_select_3" data-toggle="select" id="zona_select_3" name="zona_select_3" required>
                                                                 <option value="">Seleccionar zona</option>
                                                                 @foreach ($zonas as $zona)
-                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -238,7 +238,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="cantidad_3" name="cantidad_3" class="form-control">
+                                                            <input type="number" id="cantidad_3" name="cantidad_3" class="form-control" value="1">
                                                         </div>
                                                     </div>
 
@@ -248,17 +248,17 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="text" id="subtotal_3" name="subtotal_3" class="form-control">
+                                                            <input type="number" id="subtotal_3" name="subtotal_3" class="form-control">
                                                         </div>
                                                     </div>
                                                         {{-- ============ Zona 4 --}}
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="precio">Zona 4</label><br>
-                                                            <select class="form-control zona" data-toggle="select" id="zona_select_4" name="zona_select_4" required>
+                                                            <select class="form-control zona_select_4" data-toggle="select" id="zona_select_4" name="zona_select_4" required>
                                                                 <option value="">Seleccionar zona</option>
                                                                 @foreach ($zonas as $zona)
-                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -270,7 +270,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="cantidad_4" name="cantidad_4" class="form-control">
+                                                            <input type="number" id="cantidad_4" name="cantidad_4" class="form-control" value="1">
                                                         </div>
                                                     </div>
 
@@ -280,7 +280,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="text" id="subtotal_4" name="subtotal_4" class="form-control">
+                                                            <input type="number" id="subtotal_4" name="subtotal_4" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -472,12 +472,13 @@
         $(document).ready(function() {
             $('.user').select2();
             $('.cliente').select2();
-            $('.zona').select2();
+            $('.zona_select_1').select2();
             $('.zona_paquete').select2();
             $('.zona_paquete2').select2();
         });
 
     </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var sesionSelect = document.getElementById('sesionSelect');
@@ -486,20 +487,6 @@
         var paqueteSelectElement = $('#paquete_select');
         var zonaSelect = document.getElementById('zona_paquete');
         var totalSumaInput = $('#total_suma');
-        var zonasSelect1 = $('#zona_select_1');
-        var zonasSelect2 = $('#zona_select_2');
-        var zonasSelect3 = $('#zona_select_3');
-        var zonasSelect4 = $('#zona_select_4');
-
-        var totalSumaInput1 = $('#subtotal_1');
-        var totalSumaInput2 = $('#subtotal_2');
-        var totalSumaInput3 = $('#subtotal_3');
-        var totalSumaInput4 = $('#subtotal_4');
-
-        var cantidadInput1 = $('#cantidad_1');
-        var cantidadInput2 = $('#cantidad_2');
-        var cantidadInput3 = $('#cantidad_3');
-        var cantidadInput4 = $('#cantidad_4');
 
         var pagoInput = $('#pago');
         var restanteInput = $('#restante');
@@ -507,202 +494,181 @@
         var cambioInput = $('#cambio');
 
         // Agrega un evento al campo de pago para realizar la resta
-        pagoInput.on('input', function () {
-            updateRestante();
-        });
+            pagoInput.on('input', function () {
+                updateRestante();
+            });
 
         // Agrega un evento al campo de dinero_recibido para realizar la resta
-        dineroRecibidoInput.on('input', function () {
-            updateCambio();
-        });
+            dineroRecibidoInput.on('input', function () {
+                updateCambio();
+            });
 
-        // Inicializar las cantidades a 1 por defecto
-        cantidadInput1.val(1);
-        cantidadInput2.val(1);
-        cantidadInput3.val(1);
-        cantidadInput4.val(1);
-
-        function updateZonasSelect(tipoZona) {
-            // Limpiar las opciones anteriores
-            $('#zona_paquete, #zona_paquete_2').empty();
-
-            // Realizar solicitud AJAX para obtener datos del servidor
-            $.ajax({
-                url: `/notas/laser/get-zonas/${tipoZona}`,
-                method: 'GET',
-                success: function (data) {
-                    // Agregar nuevas opciones según los datos obtenidos
-                    addOptionsToSelect(data);
-
-                    // Actualizar el select usando Bootstrap Select
-                    $('.zona_paquete').selectpicker('refresh');
-                },
-                error: function (error) {
-                    console.error(error);
+        // ============================== Radio tipo de servicio PAQUETES ==============================
+            $('input[name="tipo_servicio"]').on('change', function () {
+                if ($('#sesion').prop('checked')) {
+                    sesionSelect.style.display = 'block';
+                    paqueteSelect.style.display = 'none';
+                    zonasSelect.style.display = 'none';
+                    totalSumaInput.val('');
+                } else if ($('#paquete').prop('checked')) {
+                    sesionSelect.style.display = 'none';
+                    paqueteSelect.style.display = 'block';
+                    zonasSelect.style.display = 'block';
+                    // Lógica para llenar el segundo select según la selección de paquete
+                    updateZonasSelect(paqueteSelectElement.val());
                 }
             });
-        }
 
 
-        paqueteSelectElement.change(function () {
-            if ($('#paquete').prop('checked')) {
-                // Obtener el tipo de zona desde el valor seleccionado
-                var tipoZona = paqueteSelectElement.val();
+        // ============================== Radio tipo de servicio SESIONES ==============================
+           $('.zona_select_1, #cantidad_1').change(function() {
+                var selectedService = $('.zona_select_1 option:selected');
+                var precio = selectedService.data('precio');
+                var cantidad = parseInt($('#cantidad_1').val());
 
-                // Lógica para llenar el segundo select y establecer el valor del input según la selección de paquete
-                updateZonasSelect(tipoZona);
-            }
-        });
+                // Calcular el subtotal usando el precio
+                var subtotal = cantidad * precio;
 
-        function addOptionsToSelect(values) {
-            var zonaPaqueteSelect = $('#zona_paquete');
-            var zonaPaquete2Select = $('#zona_paquete_2');
-
-            // Limpiar las opciones anteriores
-            zonaPaqueteSelect.empty();
-            zonaPaquete2Select.empty();
-
-            values.forEach(function (item) {
-                var option = $('<option>').text(item.zona);
-                zonaPaqueteSelect.append(option);
-
-                var clonedOption = option.clone();
-                zonaPaquete2Select.append(clonedOption);
-                $('#total_suma').val(item.costo_paquete);
+                $('#subtotal_1').val(subtotal);
             });
 
-            // Actualizar los select usando Bootstrap Select
-            $('.zona_paquete').selectpicker('refresh');
-        }
+            $('.zona_select_2, #cantidad_2').change(function() {
+                var selectedService = $('.zona_select_2 option:selected');
+                var precio = selectedService.data('precio');
+                var cantidad = parseInt($('#cantidad_2').val());
 
-        $('input[name="tipo_servicio"]').on('change', function () {
-            if ($('#sesion').prop('checked')) {
-                sesionSelect.style.display = 'block';
-                paqueteSelect.style.display = 'none';
-                zonasSelect.style.display = 'none';
-                totalSumaInput.val('');
-            } else if ($('#paquete').prop('checked')) {
-                sesionSelect.style.display = 'none';
-                paqueteSelect.style.display = 'block';
-                zonasSelect.style.display = 'block';
-                // Lógica para llenar el segundo select según la selección de paquete
-                updateZonasSelect(paqueteSelectElement.val());
+                // Calcular el subtotal usando el precio2
+                var subtotal = cantidad * precio;
+
+                $('#subtotal_2').val(subtotal);
+            });
+
+            $('.zona_select_3, #cantidad_3').change(function() {
+                var selectedService = $('.zona_select_3 option:selected');
+                var precio = selectedService3.data('precio');
+                var cantidad = parseInt($('#cantidad_3').val());
+
+                // Calcular el subtotal usando el precio
+                var subtotal3 = cantidad * precio;
+
+                $('#subtotal_3').val(subtotal);
+            });
+
+            $('.zona_select_4, #cantidad_4').change(function() {
+                var selectedService = $('.zona_select_4 option:selected');
+                var precio = selectedService4.data('precio');
+                var cantidad = parseInt($('#cantidad_4').val());
+
+                // Calcular el subtotal usando el precio
+                var subtotal = cantidad * precio;
+
+                $('#subtotal_4').val(subtotal);
+            });
+
+            function calcularTotal() {
+                var totalSumaInput = 0;
+
+                for (var i = 1; i <= 4; i++) {
+                    var selectedService = $('.zona_select_' + i + ' option:selected');
+                    var precio = selectedService.data('precio');
+                    var cantidad = parseInt($('#cantidad_' + i).val());
+
+                    if (!isNaN(cantidad)) {
+                            subtotal = cantidad * precio;
+                            console.log(precio);
+                            console.log(subtotal);
+                            console.log(cantidad);
+
+                        $('#subtotal_' + i).val(subtotal);
+
+                        if (!isNaN(subtotal)) {
+                            totalSumaInput += subtotal;
+                        }
+                    }
+                }
             }
-        });
+            $('.zona_select_1, #cantidad_1').change(function() {
+                calcularTotal();
+            });
+        // ============================== Paquetes ==============================
+            function updateZonasSelect(tipoZona) {
+                // Limpiar las opciones anteriores
+                $('#zona_paquete, #zona_paquete_2').empty();
 
-        zonasSelect1.on('change', function () {
-            // Lógica para calcular subtotal y cantidad según la selección de zona
-            updateSubtotalAndCantidad(zonasSelect1.val(), totalSumaInput1, cantidadInput1);
-        });
+                // Realizar solicitud AJAX para obtener datos del servidor
+                $.ajax({
+                    url: `/notas/laser/get-zonas/${tipoZona}`,
+                    method: 'GET',
+                    success: function (data) {
+                        // Agregar nuevas opciones según los datos obtenidos
+                        addOptionsToSelect(data);
 
-        zonasSelect2.on('change', function () {
-            // Lógica para calcular subtotal y cantidad según la selección de zona
-            updateSubtotalAndCantidad(zonasSelect2.val(), totalSumaInput2, cantidadInput2);
-        });
-
-        zonasSelect3.on('change', function () {
-            // Lógica para calcular subtotal y cantidad según la selección de zona
-            updateSubtotalAndCantidad(zonasSelect3.val(), totalSumaInput3, cantidadInput3);
-        });
-
-        zonasSelect4.on('change', function () {
-            // Lógica para calcular subtotal y cantidad según la selección de zona
-            updateSubtotalAndCantidad(zonasSelect4.val(), totalSumaInput4, cantidadInput4);
-        });
-
-        cantidadInput1.on('input', function () {
-            updateSubtotalAndCantidad(zonasSelect1.val(), totalSumaInput1, cantidadInput1);
-            updateTotalSesiones();
-        });
-
-        cantidadInput2.on('input', function () {
-            updateSubtotalAndCantidad(zonasSelect2.val(), totalSumaInput2, cantidadInput2);
-            updateTotalSesiones();
-        });
-
-        cantidadInput3.on('input', function () {
-            updateSubtotalAndCantidad(zonasSelect3.val(), totalSumaInput3, cantidadInput3);
-            updateTotalSesiones();
-        });
-
-        cantidadInput4.on('input', function () {
-            updateSubtotalAndCantidad(zonasSelect4.val(), totalSumaInput4, cantidadInput4);
-            updateTotalSesiones();
-        });
-
-        function updateTotalSesiones() {
-            var totalSesiones = parseInt(totalSumaInput1.val()) || 0;
-            totalSesiones += parseInt(totalSumaInput2.val()) || 0;
-            totalSesiones += parseInt(totalSumaInput3.val()) || 0;
-            totalSesiones += parseInt(totalSumaInput4.val()) || 0;
-
-            $('#total_suma').val(totalSesiones);
-        }
-
-        function updateSubtotalAndCantidad(selectedZona, totalSumaInput, cantidadInput) {
-            var subtotal = 0;
-            var cantidad = parseInt(cantidadInput.val()) || 1;
-
-            switch (selectedZona) {
-                case 'zona1':
-                case 'zona2':
-                case 'zona3':
-                    subtotal = 200 * cantidad;
-                    break;
-                case 'zona4':
-                case 'zona5':
-                case 'zona6':
-                    subtotal = 400 * cantidad;
-                    break;
-                case 'zona7':
-                case 'zona8':
-                case 'zona9':
-                    subtotal = 900 * cantidad;
-                    break;
-                case 'zona10':
-                case 'zona11':
-                case 'zona12':
-                    subtotal = 1200 * cantidad;
-                    break;
-                default:
-                    subtotal = 0;
-                    break;
+                        // Actualizar el select usando Bootstrap Select
+                        $('.zona_paquete').selectpicker('refresh');
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
             }
 
-            totalSumaInput.val(subtotal);
-            updateTotalSesiones();
-        }
+            paqueteSelectElement.change(function () {
+                if ($('#paquete').prop('checked')) {
+                    // Obtener el tipo de zona desde el valor seleccionado
+                    var tipoZona = paqueteSelectElement.val();
 
-        // Inicializar los selects de Bootstrap
-        $('.zona_paquete').selectpicker();
+                    // Lógica para llenar el segundo select y establecer el valor del input según la selección de paquete
+                    updateZonasSelect(tipoZona);
+                }
+            });
 
-        // Inicializar los select de Bootstrap
-        $(zonaSelect).selectpicker();
+            function addOptionsToSelect(values) {
+                var zonaPaqueteSelect = $('#zona_paquete');
+                var zonaPaquete2Select = $('#zona_paquete_2');
 
-        function updateRestante() {
-            var totalSuma = parseInt(totalSumaInput.val()) || 0;
-            var pago = parseInt(pagoInput.val()) || 0;
+                // Limpiar las opciones anteriores
+                zonaPaqueteSelect.empty();
+                zonaPaquete2Select.empty();
 
-            var restante = totalSuma - pago;
+                values.forEach(function (item) {
+                    var option = $('<option>').text(item.zona);
+                    zonaPaqueteSelect.append(option);
 
-            // Asegurarse de que el restante no sea negativo
-            restante = restante < 0 ? 0 : restante;
+                    var clonedOption = option.clone();
+                    zonaPaquete2Select.append(clonedOption);
+                    $('#total_suma').val(item.costo_paquete);
+                });
 
-            restanteInput.val(restante);
-        }
+                // Actualizar los select usando Bootstrap Select
+                $('.zona_paquete').selectpicker('refresh');
+            }
 
-        function updateCambio() {
-            var pago = parseInt(pagoInput.val()) || 0;
-            var dineroRecibido = parseInt(dineroRecibidoInput.val()) || 0;
+        // ============================== Pagos ==============================
+            function updateRestante() {
+                var totalSuma = parseInt(totalSumaInput.val()) || 0;
+                var pago = parseInt(pagoInput.val()) || 0;
 
-            var cambio = dineroRecibido - pago;
+                var restante = totalSuma - pago;
 
-            // Asegurarse de que el cambio no sea negativo
-            cambio = cambio < 0 ? 0 : cambio;
+                // Asegurarse de que el restante no sea negativo
+                restante = restante < 0 ? 0 : restante;
 
-            cambioInput.val(cambio);
-        }
+                restanteInput.val(restante);
+            }
+
+            function updateCambio() {
+                var pago = parseInt(pagoInput.val()) || 0;
+                var dineroRecibido = parseInt(dineroRecibidoInput.val()) || 0;
+
+                var cambio = dineroRecibido - pago;
+
+                // Asegurarse de que el cambio no sea negativo
+                cambio = cambio < 0 ? 0 : cambio;
+
+                cambioInput.val(cambio);
+            }
     });
 </script>
+
 
 @endsection
