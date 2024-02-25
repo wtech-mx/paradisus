@@ -583,12 +583,13 @@
 
                         if (!isNaN(subtotal)) {
                             totalSumaInput += subtotal;
+                            $('#total_suma').val(totalSumaInput);
                             console.log(totalSumaInput);
                         }
                     }
                 }
             }
-            $('.zona_select_1, #cantidad_1').change(function() {
+            $('.zona_select_1, #cantidad_1,.zona_select_2, #cantidad_2,.zona_select_3, #cantidad_3,.zona_select_4, #cantidad_4').change(function() {
                 calcularTotal();
             });
         // ============================== Paquetes ==============================
