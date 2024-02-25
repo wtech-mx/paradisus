@@ -123,9 +123,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('permisos', PermisosController::class);
     Route::resource('users', UserController::class);
 
-    // =============== M O D U L O  L A C E R ===============================
-    Route::get('/notas/lacer/index', [App\Http\Controllers\NotasLacerController::class, 'index'])->name('index.lacer');
-    Route::get('/notas/lacer/crear', [App\Http\Controllers\NotasLacerController::class, 'crear'])->name('crear.lacer');
+    // =============== M O D U L O  L A S E R ===============================
+    Route::get('/notas/laser/index', [App\Http\Controllers\NotasLacerController::class, 'index'])->name('index.lacer');
+    Route::get('/notas/laser/crear', [App\Http\Controllers\NotasLacerController::class, 'crear'])->name('crear.lacer');
+    Route::get('/notas/laser/get-zonas/{tipoZona}', [App\Http\Controllers\NotasLacerController::class, 'getZonasByTipoZona'])->name('get-zonas');
 
     Route::get('/notas/laser/index/sesiones', [App\Http\Controllers\NotasLacerController::class, 'index_sesiones'])->name('index_sesiones.laser');
     Route::get('/notas/laser/index/consntimietno', [App\Http\Controllers\NotasLacerController::class, 'index_consentimiento'])->name('index_consentimiento.laser');

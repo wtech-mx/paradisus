@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class NotasLacer extends Model
 {
     use HasFactory;
-    protected $table = 'nota_lacer';
+    protected $table = 'nota_laser';
 
     protected $fillable = [
         'id_user',

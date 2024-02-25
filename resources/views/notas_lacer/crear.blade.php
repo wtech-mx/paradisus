@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3 class="mb-3">Crear Nota Lacer</h3>
+                            <h3 class="mb-3">Crear Nota Laser</h3>
 
                             <a class="btn"  href="{{ route('index.lacer') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
                                 Regresar
@@ -142,7 +142,7 @@
 
                                         <div class="row">
 
-                                            <div class="form-group">
+                                            <div class="form-group col-12">
                                                 <label>Tipo de servicio:</label>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="tipo_servicio" id="sesion" value="sesion">
@@ -155,167 +155,133 @@
                                             </div>
 
                                             <div class="form-group" id="sesionSelect" style="display:none;">
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="precio">Zona 1</label><br>
-                                                        <select class="form-control zona" data-toggle="select" id="zona_select_1" name="zona_select_1" required>
-                                                            <option value="">Seleccionar zona</option>
-                                                            <option value="zona1">zona1</option>
-                                                            <option value="zona2">zona2</option>
-                                                            <option value="zona3">zona3</option>
-                                                            <option value="zona4">zona4</option>
-                                                            <option value="zona5">zona5</option>
-                                                            <option value="zona6">zona6</option>
-                                                            <option value="zona7">zona7</option>
-                                                            <option value="zona8">zona8</option>
-                                                            <option value="zona9">zona9</option>
-                                                            <option value="zona10">zona10</option>
-                                                            <option value="zona11">zona11</option>
-                                                            <option value="zona112">zona12</option>
-                                                        </select>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 1</label><br>
+                                                            <select class="form-control zona" data-toggle="select" id="zona_select_1" name="zona_select_1" required>
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Cantidad 1</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="number" id="cantidad_1" name="cantidad_1" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Cantidad 1</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="cantidad_1" name="cantidad_1" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Subtotal 1</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="text" id="subtotal_1" name="subtotal_1" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Subtotal 1</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" id="subtotal_1" name="subtotal_1" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="precio">Zona 2</label><br>
-                                                        <select class="form-control zona" data-toggle="select" id="zona_select_2" name="zona_select_2" required>
-                                                            <option value="">Seleccionar zona</option>
-                                                            <option value="zona1">zona1</option>
-                                                            <option value="zona2">zona2</option>
-                                                            <option value="zona3">zona3</option>
-                                                            <option value="zona4">zona4</option>
-                                                            <option value="zona5">zona5</option>
-                                                            <option value="zona6">zona6</option>
-                                                            <option value="zona7">zona7</option>
-                                                            <option value="zona8">zona8</option>
-                                                            <option value="zona9">zona9</option>
-                                                            <option value="zona10">zona10</option>
-                                                            <option value="zona11">zona11</option>
-                                                            <option value="zona112">zona12</option>
-                                                        </select>
+                                                    {{-- ============ Zona 2 --}}
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 2</label><br>
+                                                            <select class="form-control zona" data-toggle="select" id="zona_select_2" name="zona_select_2" required>
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Cantidad 2</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="number" id="cantidad_2" name="cantidad_2" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Cantidad 2</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="cantidad_2" name="cantidad_2" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Subtotal 2</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="text" id="subtotal_2" name="subtotal_2" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Subtotal 2</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" id="subtotal_2" name="subtotal_2" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="precio">Zona 3</label><br>
-                                                        <select class="form-control zona" data-toggle="select" id="zona_select_3" name="zona_select_3" required>
-                                                            <option value="">Seleccionar zona</option>
-                                                            <option value="zona1">zona1</option>
-                                                            <option value="zona2">zona2</option>
-                                                            <option value="zona3">zona3</option>
-                                                            <option value="zona4">zona4</option>
-                                                            <option value="zona5">zona5</option>
-                                                            <option value="zona6">zona6</option>
-                                                            <option value="zona7">zona7</option>
-                                                            <option value="zona8">zona8</option>
-                                                            <option value="zona9">zona9</option>
-                                                            <option value="zona10">zona10</option>
-                                                            <option value="zona11">zona11</option>
-                                                            <option value="zona112">zona12</option>
-                                                        </select>
+                                                            {{-- ============ Zona 3 --}}
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 3</label><br>
+                                                            <select class="form-control zona" data-toggle="select" id="zona_select_3" name="zona_select_3" required>
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Cantidad 3</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="number" id="cantidad_3" name="cantidad_3" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Cantidad 3</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="cantidad_3" name="cantidad_3" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Subtotal 3</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="text" id="subtotal_3" name="subtotal_3" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Subtotal 3</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" id="subtotal_3" name="subtotal_3" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="precio">Zona 4</label><br>
-                                                        <select class="form-control zona" data-toggle="select" id="zona_select_4" name="zona_select_4" required>
-                                                            <option value="">Seleccionar zona</option>
-                                                            <option value="zona1">zona1</option>
-                                                            <option value="zona2">zona2</option>
-                                                            <option value="zona3">zona3</option>
-                                                            <option value="zona4">zona4</option>
-                                                            <option value="zona5">zona5</option>
-                                                            <option value="zona6">zona6</option>
-                                                            <option value="zona7">zona7</option>
-                                                            <option value="zona8">zona8</option>
-                                                            <option value="zona9">zona9</option>
-                                                            <option value="zona10">zona10</option>
-                                                            <option value="zona11">zona11</option>
-                                                            <option value="zona112">zona12</option>
-                                                        </select>
+                                                        {{-- ============ Zona 4 --}}
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 4</label><br>
+                                                            <select class="form-control zona" data-toggle="select" id="zona_select_4" name="zona_select_4" required>
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Cantidad 3</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="number" id="cantidad_4" name="cantidad_4" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Cantidad 4</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="cantidad_4" name="cantidad_4" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-3">
-                                                    <label for="total-suma">Subtotal 3</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input type="text" id="subtotal_4" name="subtotal_4" class="form-control">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Subtotal 4</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" id="subtotal_4" name="subtotal_4" class="form-control">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -324,12 +290,12 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label for="precio">Tipo paquete</label><br>
-                                                        <select class="form-control" data-toggle="select" id="paquete_select" name="paquete_select" required>
+                                                        <select class="form-control" data-toggle="select" id="paquete_select" name="paquete_select">
                                                             <option value="">Seleccionar servicio</option>
-                                                            <option value="1">Paquete 1</option>
-                                                            <option value="2">Paquete 2</option>
-                                                            <option value="3">Paquete 3</option>
-                                                            <option value="4">Paquete 4</option>
+                                                            <option value="Zona Mini">Zona Mini</option>
+                                                            <option value="Zonas Pequeñas">Zonas Pequeñas</option>
+                                                            <option value="Zonas Medianas">Zonas Medianas</option>
+                                                            <option value="Zonas Grandes">Zonas Grandes</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -360,7 +326,7 @@
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                     </span>
-                                                    <input type="text" id="total_suma" name="total_suma" class="form-control" readonly>
+                                                    <input type="number" id="total_suma" name="total_suma" class="form-control" readonly>
                                                 </div>
 
                                             </div>
@@ -535,44 +501,78 @@
         var cantidadInput3 = $('#cantidad_3');
         var cantidadInput4 = $('#cantidad_4');
 
+        var pagoInput = $('#pago');
+        var restanteInput = $('#restante');
+        var dineroRecibidoInput = $('#dinero_recibido');
+        var cambioInput = $('#cambio');
+
+        // Agrega un evento al campo de pago para realizar la resta
+        pagoInput.on('input', function () {
+            updateRestante();
+        });
+
+        // Agrega un evento al campo de dinero_recibido para realizar la resta
+        dineroRecibidoInput.on('input', function () {
+            updateCambio();
+        });
+
         // Inicializar las cantidades a 1 por defecto
         cantidadInput1.val(1);
         cantidadInput2.val(1);
         cantidadInput3.val(1);
         cantidadInput4.val(1);
 
-        function updateZonasSelect(paqueteValue) {
+        function updateZonasSelect(tipoZona) {
             // Limpiar las opciones anteriores
             $('#zona_paquete, #zona_paquete_2').empty();
 
-            // Agregar nuevas opciones según el paquete seleccionado
-            if (paqueteValue === '1') {
-                addOptionsToSelect('Zona 1', 'Zona 2', 'Zona 3');
-                totalSumaInput.val(2160);
-            } else if (paqueteValue === '2') {
-                addOptionsToSelect('Zona 4', 'Zona 5', 'Zona 6');
-                totalSumaInput.val(3690);
-            } else if (paqueteValue === '3') {
-                addOptionsToSelect('Zona 7', 'Zona 8', 'Zona 9');
-                totalSumaInput.val(12000);
-            } else if (paqueteValue === '4') {
-                addOptionsToSelect('Zona 10', 'Zona 11', 'Zona 12');
-                totalSumaInput.val(15000);
+            // Realizar solicitud AJAX para obtener datos del servidor
+            $.ajax({
+                url: `/notas/laser/get-zonas/${tipoZona}`,
+                method: 'GET',
+                success: function (data) {
+                    // Agregar nuevas opciones según los datos obtenidos
+                    addOptionsToSelect(data);
+
+                    // Actualizar el select usando Bootstrap Select
+                    $('.zona_paquete').selectpicker('refresh');
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+
+        paqueteSelectElement.change(function () {
+            if ($('#paquete').prop('checked')) {
+                // Obtener el tipo de zona desde el valor seleccionado
+                var tipoZona = paqueteSelectElement.val();
+
+                // Lógica para llenar el segundo select y establecer el valor del input según la selección de paquete
+                updateZonasSelect(tipoZona);
             }
+        });
+
+        function addOptionsToSelect(values) {
+            var zonaPaqueteSelect = $('#zona_paquete');
+            var zonaPaquete2Select = $('#zona_paquete_2');
+
+            // Limpiar las opciones anteriores
+            zonaPaqueteSelect.empty();
+            zonaPaquete2Select.empty();
+
+            values.forEach(function (item) {
+                var option = $('<option>').text(item.zona);
+                zonaPaqueteSelect.append(option);
+
+                var clonedOption = option.clone();
+                zonaPaquete2Select.append(clonedOption);
+                $('#total_suma').val(item.costo_paquete);
+            });
 
             // Actualizar los select usando Bootstrap Select
             $('.zona_paquete').selectpicker('refresh');
-        }
-
-        function addOptionsToSelect(value1, value2, value3) {
-            var options = [value1, value2, value3];
-
-            options.forEach(function (value) {
-                var option = document.createElement('option');
-                option.text = value;
-                $('#zona_paquete').append(option);
-                $('#zona_paquete_2').append(option.cloneNode(true));
-            });
         }
 
         $('input[name="tipo_servicio"]').on('change', function () {
@@ -586,13 +586,6 @@
                 paqueteSelect.style.display = 'block';
                 zonasSelect.style.display = 'block';
                 // Lógica para llenar el segundo select según la selección de paquete
-                updateZonasSelect(paqueteSelectElement.val());
-            }
-        });
-
-        paqueteSelectElement.change(function () {
-            if ($('#paquete').prop('checked')) {
-                // Lógica para llenar el segundo select y establecer el valor del input según la selección de paquete
                 updateZonasSelect(paqueteSelectElement.val());
             }
         });
@@ -677,6 +670,7 @@
             }
 
             totalSumaInput.val(subtotal);
+            updateTotalSesiones();
         }
 
         // Inicializar los selects de Bootstrap
@@ -684,6 +678,30 @@
 
         // Inicializar los select de Bootstrap
         $(zonaSelect).selectpicker();
+
+        function updateRestante() {
+            var totalSuma = parseInt(totalSumaInput.val()) || 0;
+            var pago = parseInt(pagoInput.val()) || 0;
+
+            var restante = totalSuma - pago;
+
+            // Asegurarse de que el restante no sea negativo
+            restante = restante < 0 ? 0 : restante;
+
+            restanteInput.val(restante);
+        }
+
+        function updateCambio() {
+            var pago = parseInt(pagoInput.val()) || 0;
+            var dineroRecibido = parseInt(dineroRecibidoInput.val()) || 0;
+
+            var cambio = dineroRecibido - pago;
+
+            // Asegurarse de que el cambio no sea negativo
+            cambio = cambio < 0 ? 0 : cambio;
+
+            cambioInput.val(cambio);
+        }
     });
 </script>
 
