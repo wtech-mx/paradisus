@@ -549,7 +549,7 @@
                 var cantidad = parseInt($('#cantidad_3').val());
 
                 // Calcular el subtotal usando el precio
-                var subtotal3 = cantidad * precio;
+                var subtotal = cantidad * precio;
 
                 $('#subtotal_3').val(subtotal);
             });
