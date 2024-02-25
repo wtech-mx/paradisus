@@ -545,7 +545,7 @@
 
             $('.zona_select_3, #cantidad_3').change(function() {
                 var selectedService = $('.zona_select_3 option:selected');
-                var precio = selectedService3.data('precio');
+                var precio = selectedService.data('precio');
                 var cantidad = parseInt($('#cantidad_3').val());
 
                 // Calcular el subtotal usando el precio
@@ -556,7 +556,7 @@
 
             $('.zona_select_4, #cantidad_4').change(function() {
                 var selectedService = $('.zona_select_4 option:selected');
-                var precio = selectedService4.data('precio');
+                var precio = selectedService.data('precio');
                 var cantidad = parseInt($('#cantidad_4').val());
 
                 // Calcular el subtotal usando el precio
@@ -583,6 +583,7 @@
 
                         if (!isNaN(subtotal)) {
                             totalSumaInput += subtotal;
+                            console.log(totalSumaInput);
                         }
                     }
                 }
