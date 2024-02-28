@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Notas Lacer
+    Notas Laser
 @endsection
 
 @section('content')
@@ -51,7 +51,7 @@
                                                     <td>{{ $notas->id }}</td>
                                                     <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br> {{ $notas->Client->phone }}</td>
                                                     <td>
-                                                        {{$notas->servicio}}
+                                                        {{$notas->tipo}}
                                                     </td>
                                                     <td>{{ \Carbon\Carbon::parse($notas->fecha)->format('d \d\e F \d\e\l Y') }}</td>
 
@@ -62,6 +62,8 @@
                                                     @endif
 
                                                     <td>
+                                                        <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+
                                                             <a type="button" class="btn btn-primary btn-sm" href=""style="color: #ffff">
                                                                 <i class="fa fa-print"></i>
                                                             </a>

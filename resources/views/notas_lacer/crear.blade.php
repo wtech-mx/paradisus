@@ -38,7 +38,7 @@
 
                             </ul>
 
-                        <form method="POST" action="{{ route('notas.store') }}" id="miFormulario" enctype="multipart/form-data" role="form">
+                        <form method="POST" action="{{ route('store.lacer') }}" id="miFormulario" enctype="multipart/form-data" role="form">
                             @csrf
                             <div class="modal-body">
                                 <div class="tab-content" id="pills-tabContent">
@@ -48,7 +48,7 @@
 
                                             <div class="col-6 form-group ">
                                                 <label for="nombre">Seleccione Cosmetologa</label>
-                                                <select class="form-control user" id="id_user[]" name="id_user[]" value="{{ old('submarca') }}" required>
+                                                <select class="form-control user" id="id_user" name="id_user" value="{{ old('id_user') }}" >
                                                     @foreach ($user as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                     @endforeach
@@ -159,7 +159,7 @@
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="precio">Zona 1</label><br>
-                                                            <select class="form-control zona_select_1" data-toggle="select" id="zona_select_1" name="zona_sesiones_1" required>
+                                                            <select class="form-control zona_select_1" data-toggle="select" id="zona_select_1" name="zona_select_1" >
                                                                 <option value="">Seleccionar zona</option>
                                                                 @foreach ($zonas as $zona)
                                                                     <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
@@ -303,12 +303,12 @@
 
                                             <div class="form-group" id="zonasSelect" style="display:none;">
                                                 <label for="zona_select">Selecciona una zona:</label>
-                                                <select class="form-control zona_paquete" id="zona_paquete" name="zona_paquete">
+                                                <select class="form-control zona_paquete_1" id="zona_paquete_1" name="zona_paquete_1">
                                                     <!-- Opciones para las zonas -->
                                                 </select>
 
                                                 <label for="zona_paquete_2">Selecciona otra zona:</label>
-                                                <select class="form-control zona_paquete2" id="zona_paquete_2" name="zona_paquete_2" style="margin-top: 10px;">
+                                                <select class="form-control zona_paquete_2" id="zona_paquete_2" name="zona_paquete_2" style="margin-top: 10px;">
                                                     <!-- Opciones para las zonas -->
                                                 </select>
                                             </div>
@@ -371,7 +371,7 @@
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="25px">
                                                     </span>
-                                                    <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" required>
+                                                    <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" >
                                                         <option value="">Seleccionar cosme</option>
                                                         @foreach ($user as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
@@ -387,7 +387,7 @@
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/cash-machine.png') }}" alt="" width="25px">
                                                     </span>
-                                                    <input  id="pago" name="pago" type="number" class="form-control" required>
+                                                    <input  id="pago" name="pago" type="number" class="form-control" >
                                                 </div>
                                             </div>
 
@@ -397,7 +397,7 @@
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
                                                     </span>
-                                                    <input  id="dinero_recibido" name="dinero_recibido" type="number" class="form-control" required>
+                                                    <input  id="dinero_recibido" name="dinero_recibido" type="number" class="form-control" >
                                                 </div>
                                             </div>
 
@@ -473,8 +473,8 @@
             $('.user').select2();
             $('.cliente').select2();
             $('.zona_select_1').select2();
-            $('.zona_paquete').select2();
-            $('.zona_paquete2').select2();
+            $('.zona_paquete_1').select2();
+            $('.zona_paquete_2').select2();
         });
 
     </script>
@@ -485,7 +485,7 @@
         var paqueteSelect = document.getElementById('paqueteSelect');
         var zonasSelect = document.getElementById('zonasSelect');
         var paqueteSelectElement = $('#paquete_select');
-        var zonaSelect = document.getElementById('zona_paquete');
+        var zonaSelect = document.getElementById('zona_paquete_1');
         var totalSumaInput = $('#total_suma');
 
         var pagoInput = $('#pago');
@@ -521,7 +521,7 @@
 
 
         // ============================== Radio tipo de servicio SESIONES ==============================
-           $('.zona_select_1, #cantidad_1').change(function() {
+            $('.zona_select_1, #cantidad_1').change(function() {
                 var selectedService = $('.zona_select_1 option:selected');
                 var precio = selectedService.data('precio');
                 var cantidad = parseInt($('#cantidad_1').val());
@@ -595,7 +595,7 @@
         // ============================== Paquetes ==============================
             function updateZonasSelect(tipoZona) {
                 // Limpiar las opciones anteriores
-                $('#zona_paquete, #zona_paquete_2').empty();
+                $('#zona_paquete_1, #zona_paquete_2').empty();
 
                 // Realizar solicitud AJAX para obtener datos del servidor
                 $.ajax({
@@ -606,7 +606,7 @@
                         addOptionsToSelect(data);
 
                         // Actualizar el select usando Bootstrap Select
-                        $('.zona_paquete').selectpicker('refresh');
+                        $('.zona_paquete_1').selectpicker('refresh');
                     },
                     error: function (error) {
                         console.error(error);
@@ -625,7 +625,7 @@
             });
 
             function addOptionsToSelect(values) {
-                var zonaPaqueteSelect = $('#zona_paquete');
+                var zonaPaqueteSelect = $('#zona_paquete_1');
                 var zonaPaquete2Select = $('#zona_paquete_2');
 
                 // Limpiar las opciones anteriores
@@ -633,7 +633,7 @@
                 zonaPaquete2Select.empty();
 
                 values.forEach(function (item) {
-                    var option = $('<option>').text(item.zona);
+                    var option = $('<option>').text(item.zona).attr('value', item.id);
                     zonaPaqueteSelect.append(option);
 
                     var clonedOption = option.clone();
@@ -642,7 +642,7 @@
                 });
 
                 // Actualizar los select usando Bootstrap Select
-                $('.zona_paquete').selectpicker('refresh');
+                $('.zona_paquete_1').selectpicker('refresh');
             }
 
         // ============================== Pagos ==============================
@@ -804,7 +804,7 @@
                                     text: 'Impresion de ticket',
                                 }).then(() => {
                                     // Recarga la página
-                                    window.location.href = '/notas/servicios/edit/' + recibo.id;
+                                    window.location.href = '/notas/laser/edit/' + recibo.id;
                                 });
                             }
 
@@ -813,7 +813,7 @@
                         // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
                         alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
                         setTimeout(function() {
-                            window.location.href = '/notas/servicios/edit/' + recibo.id;
+                            window.location.href = '/notas/laser/edit/' + recibo.id;
                         }, 1000);
                     }
             }

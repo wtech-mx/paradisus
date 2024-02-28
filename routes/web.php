@@ -126,6 +126,10 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O  L A S E R ===============================
     Route::get('/notas/laser/index', [App\Http\Controllers\NotasLacerController::class, 'index'])->name('index.lacer');
     Route::get('/notas/laser/crear', [App\Http\Controllers\NotasLacerController::class, 'crear'])->name('crear.lacer');
+    Route::post('/notas/laser/store', [App\Http\Controllers\NotasLacerController::class, 'store'])->name('store.lacer');
+    Route::get('/notas/laser/edit/{id}', [App\Http\Controllers\NotasLacerController::class, 'edit'])->name('edit.lacer');
+    Route::patch('/notas/laser/update/{id}', [App\Http\Controllers\NotasLacerController::class, 'update'])->name('update.lacer');
+    Route::post('/nota/laser/sesion/store', [App\Http\Controllers\NotasLacerController::class, 'store_sesion'])->name('store_sesion.lacer');
     Route::get('/notas/laser/get-zonas/{tipoZona}', [App\Http\Controllers\NotasLacerController::class, 'getZonasByTipoZona'])->name('get-zonas');
 
     Route::get('/notas/laser/index/sesiones', [App\Http\Controllers\NotasLacerController::class, 'index_sesiones'])->name('index_sesiones.laser');

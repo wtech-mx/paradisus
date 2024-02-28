@@ -14,15 +14,6 @@ class ZonasLaser extends Model
     protected $fillable = [
         'id_nota',
         'id_zona',
-        'num',
-        'zona_sesiones_1',
-        'zona_sesiones_2',
-        'zona_sesiones_3',
-        'zona_sesiones_4',
-        'cantidad_1',
-        'cantidad_2',
-        'cantidad_3',
-        'cantidad_4',
         'sesiones_compradas',
         'sesiones_restantes',
         'subtotal',
@@ -31,6 +22,11 @@ class ZonasLaser extends Model
     public function NotasLacer()
     {
         return $this->belongsTo(NotasLacer::class, 'id_nota');
+    }
+
+    public function Zona()
+    {
+        return $this->belongsTo(Laser::class, 'id_zona');
     }
 
 }

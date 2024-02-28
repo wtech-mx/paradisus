@@ -29,6 +29,7 @@ return new class extends Migration
             $table->float('pago');
             $table->float('cambio')->nullable();
             $table->string('forma_pago');
+            $table->float('dinero_recibido');
             $table->string('nota')->nullable();
             $table->text('foto')->nullable();
             $table->timestamps();

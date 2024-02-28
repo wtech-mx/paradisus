@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('zonas_laser', function (Blueprint $table) {
+        Schema::create('registro_zonas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_nota');
             $table->foreign('id_nota')
@@ -25,9 +25,11 @@ return new class extends Migration
                 ->references('id')->on('laser')
                 ->inDelete('set null');
 
-            $table->integer('sesiones_compradas')->nullable();
-            $table->integer('sesiones_restantes')->nullable();
-            $table->integer('subtotal')->nullable();
+            $table->integer('sesion');
+            $table->text('parametros')->nullable();
+            $table->text('nota')->nullable();
+            $table->date('fecha');
+
             $table->timestamps();
         });
     }
@@ -39,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zonas_laser');
+        Schema::dropIfExists('registro_zonas');
     }
 };
