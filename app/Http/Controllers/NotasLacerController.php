@@ -52,6 +52,13 @@ class NotasLacerController extends Controller
 
     }
 
+    public function index_hoja_salud(){
+
+
+        return view('notas_lacer.hoja_salud');
+
+    }
+
     public function store(Request $request){
 
         $validator = Validator::make($request->all(), [
