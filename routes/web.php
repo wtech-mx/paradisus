@@ -134,6 +134,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/notas/laser/index/sesiones', [App\Http\Controllers\NotasLacerController::class, 'index_sesiones'])->name('index_sesiones.laser');
     Route::get('/notas/laser/index/consntimietno', [App\Http\Controllers\NotasLacerController::class, 'index_consentimiento'])->name('index_consentimiento.laser');
+    Route::get('/notas/laser/hoja_salud', [App\Http\Controllers\NotasLacerController::class, 'index_hoja_salud'])->name('hoja_salud.laser');
 
 
     // =============== M O D U L O   C L I E N T S ===============================

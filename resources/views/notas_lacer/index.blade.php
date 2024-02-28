@@ -29,6 +29,10 @@
                                 <i class="fa fa-fw fa-edit"></i> Vista de Concentiemiento
                             </a>
 
+                            <a class="btn btn-sm btn-success" href="{{ route('hoja_salud.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <i class="fa fa-fw fa-edit"></i> Hoja de Salud
+                            </a>
+
                         </div>
                     </div>
                     @can('notas-list')
