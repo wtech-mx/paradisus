@@ -117,6 +117,12 @@ class NotasLacerController extends Controller
 
     }
 
+    public function imagen_depiladora(){
+
+        return view('notas_lacer.imagen_depiladora');
+
+    }
+
     public function index_hoja_salud(){
 
 
