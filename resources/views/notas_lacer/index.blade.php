@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Notas Laser
+    Notas Lacer
 @endsection
 
 @section('content')
@@ -27,6 +27,10 @@
 
                             <a class="btn btn-sm btn-success" href="{{ route('index_consentimiento.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
                                 <i class="fa fa-fw fa-edit"></i> Vista de Concentiemiento
+                            </a>
+
+                            <a class="btn btn-sm btn-success" href="{{ route('imagen_depiladora.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <i class="fa fa-fw fa-edit"></i>Imagen deiladora
                             </a>
 
                             <a class="btn btn-sm btn-success" href="{{ route('hoja_salud.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
@@ -55,7 +59,7 @@
                                                     <td>{{ $notas->id }}</td>
                                                     <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br> {{ $notas->Client->phone }}</td>
                                                     <td>
-                                                        {{$notas->tipo}}
+                                                        {{$notas->servicio}}
                                                     </td>
                                                     <td>{{ \Carbon\Carbon::parse($notas->fecha)->format('d \d\e F \d\e\l Y') }}</td>
 
@@ -66,8 +70,6 @@
                                                     @endif
 
                                                     <td>
-                                                        <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
-
                                                             <a type="button" class="btn btn-primary btn-sm" href=""style="color: #ffff">
                                                                 <i class="fa fa-print"></i>
                                                             </a>
