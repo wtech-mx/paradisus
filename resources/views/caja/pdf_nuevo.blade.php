@@ -452,6 +452,54 @@
     </table>
 
     <h2 style="text-align: center;">
+        Laser <img src="{{ asset('assets/icons/nuevo-producto.png') }}" alt="" width="35px"></h2>
+    <table class="table text-center">
+        <thead style="background-color: #F39C12; color: #fff">
+            <tr>
+                <th>Cliente</th>
+                <th>Paquete</th>
+                <th>Total</th>
+                <th>Abono</th>
+                <th>Dinero Recibido</th>
+                <th>Cambio</th>
+                <th>Restante</th>
+                <th>For. Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($paquetes as $item)
+                <tr style="font-size: 14px">
+                    <td>
+                        {{ $item->NotasLacer->Client->name }} <br> {{ $item->NotasLacer->Client->last_name }} <br>
+                        <a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                    </td>
+                    <td>
+                        {{ $item->NotasLacer->tipo }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->NotasLacer->total, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->NotasLacer->restante, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        {{ $item->forma_pago }}
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <h2 style="text-align: center;">
         Productos <img src="{{ asset('assets/icons/productos.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">
         <thead style="background-color: #27AE60; color: #fff">

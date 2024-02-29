@@ -21,6 +21,8 @@ use App\Models\RegistroSemanal;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Models\Bitacora;
+use App\Models\NotasLacer;
+use App\Models\PagosLaser;
 
 class CajaController extends Controller
 {
@@ -78,6 +80,12 @@ class CajaController extends Controller
         ) AS total'))
         ->first();
 
+        $pago_laser = PagosLaser::where('fecha', $fechaActual)->where('forma_pago', 'Efectivo')->get();
+        $pago_laser_suma = PagosLaser::where('fecha', '=', $fechaActual)
+        ->where('forma_pago', '=', 'Efectivo')
+        ->select(DB::raw('SUM(dinero_recibido) as total'))
+        ->first();
+
         $pago_paquete = PaquetesPago::where('fecha', '=', $fechaActual)->where('forma_pago', '=', 'Efectivo')->get();
         $pago_paquete_suma = PaquetesPago::where('fecha', '=', $fechaActual)
         ->where('forma_pago', '=', 'Efectivo')
@@ -91,7 +99,7 @@ class CajaController extends Controller
 
         $notas_paquetes = NotasPaquetes::get();
 
-        return view('caja.index', compact('caja_dia_suma_Ingreso','caja_vista','caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja', 'pago_paquete', 'pago_paquete_suma'));
+        return view('caja.index', compact('pago_laser','pago_laser_suma','caja_dia_suma_Ingreso','caja_vista','caja', 'pago', 'pago_suma', 'caja_dia', 'caja_dia_suma','pago_pedidos', 'pago_pedidos_suma', 'diaActual', 'notas_paquetes', 'caja', 'pago_paquete', 'pago_paquete_suma'));
     }
 
     /**
@@ -231,13 +239,18 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
 
+        $pago_laser_suma = PagosLaser::where('fecha', '=', $diaActual)
+        ->where('forma_pago', '=', 'Efectivo')
+        ->select(DB::raw('SUM(dinero_recibido) as total'))
+        ->first();
+
         $caja_dia_resta = CajaDia::where('fecha', '=', $diaActual)
         ->where('motivo', '=', 'Retiro')
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
 
         $total_ing = 0;
-        $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final->ingresos;
+        $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos;
 
         $total_egresos = 0;
         $total_egresos = $total_ing - $caja_dia_resta->total;
@@ -285,6 +298,9 @@ class CajaController extends Controller
         $paquetes = PaquetesPago::where(DB::raw('fecha'), '=', $diaActual)
         ->get();
 
+        $notas_laser = PagosLaser::where(DB::raw('fecha'), '=', $diaActual)
+        ->get();
+
         $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
@@ -299,6 +315,11 @@ class CajaController extends Controller
             ->where('pagos.forma_pago', '=', 'Transferencia')
             ->where('notas.anular', '=', NULL)
             ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+            ->first();
+
+            $laser_trans = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Transferencia')
+            ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
             $productos_trans = NotasPedidos::where('fecha', $diaActual)
@@ -328,8 +349,8 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(propina) as total'))
             ->first();
 
-            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total;
-            $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas;
+            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total + $laser_trans->total;
+            $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas + $laser_trans->filas;
 
             $total_servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)->where('pagos.forma_pago', '=', 'Transferencia')->where('notas.anular', '=', NULL)->get();
@@ -342,6 +363,7 @@ class CajaController extends Controller
             ->with('Pedido')
             ->get();
 
+            $total_laser_trans = PagosLaser::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Transferencia')->get();
             $total_paquetes_trans = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Transferencia')->get();
         //====================================== END TOTALES PARA TRANSFERENCIA ======================================
 
@@ -375,14 +397,19 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
+            $laser_mercado = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Efectivo')
+            ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
+            ->first();
+
             $propinasEfect = NotasPropinas::whereDate('created_at', $diaActual)
             ->where('metdodo_pago', '=', 'Efectivo')
             ->select(DB::raw('SUM(propina) as total'))
             ->first();
 
-            $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total;
+            $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total + $laser_mercado->total;
 
-            $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas;
+            $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas + $laser_mercado->filas;
 
             $total_servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)->where('pagos.forma_pago', '=', 'Efectivo')->where('notas.anular', '=', NULL)->get();
@@ -403,6 +430,7 @@ class CajaController extends Controller
             ->get();
 
             $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
+            $total_laser_mercado = PagosLaser::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Mercado Pago')->get();
 
         //====================================== END TOTALES PARA MERCADO PAGO ======================================
 
@@ -436,6 +464,11 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
+            $laser_tarjeta = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Tarjeta')
+            ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
+            ->first();
+
             $propinasTarjeta = NotasPropinas::whereDate('created_at', $diaActual)
             ->where('metdodo_pago', '=', 'Tarjeta')
             ->select(DB::raw('SUM(propina) as total'))
@@ -456,6 +489,8 @@ class CajaController extends Controller
             ->get();
 
             $total_paquetes_tarjeta = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Tarjeta')->get();
+            $total_laser_tarjeta = PagosLaser::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Tarjeta')->get();
+
         //====================================== END TOTALES PARA TARJETA ======================================
 
         //====================================== GRAFICAS ======================================
@@ -534,7 +569,7 @@ class CajaController extends Controller
         $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
-        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora'));
+        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta',));
         // return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
@@ -588,6 +623,11 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(dinero_recibido) as total'))
             ->first();
 
+            $pago_laser_suma = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Efectivo')
+            ->select(DB::raw('SUM(dinero_recibido) as total'))
+            ->first();
+
             $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
             ->where('motivo', '=', 'Ingreso')
             ->select(DB::raw('SUM(egresos) as total'))
@@ -604,7 +644,7 @@ class CajaController extends Controller
             ->first();
 
             $total_ing = 0;
-            $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_final->ingresos;
+            $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos;
 
             $total_egresos = 0;
             $total_egresos = $total_ing - $caja_dia_resta->total;
@@ -629,6 +669,9 @@ class CajaController extends Controller
             $paquetes = PaquetesPago::where(DB::raw('fecha'), '=', $diaActual)
             ->get();
 
+            $pago_laser = PagosLaser::where('fecha', $diaActual)->get();
+            $notas_laser = NotasLacer::where('fecha', $diaActual)->get();
+
             $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
             ->select(DB::raw('SUM(egresos) as total'))
             ->first();
@@ -644,6 +687,11 @@ class CajaController extends Controller
             ->where('pagos.forma_pago', '=', 'Transferencia')
             ->where('notas.anular', '=', NULL)
             ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+            ->first();
+
+            $laser_trans = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Transferencia')
+            ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
             $productos_trans = NotasPedidos::where('fecha', $diaActual)
@@ -673,11 +721,14 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(propina) as total'))
             ->first();
 
-            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total;
-            $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas;
+            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total + $laser_trans->total;
+            $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas + $laser_trans->filas;
 
             $total_servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)->where('pagos.forma_pago', '=', 'Transferencia')->where('notas.anular', '=', NULL)->get();
+
+            $total_laser_trans = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Transferencia')->get();
 
             $total_producto_trans = NotasPedidos::where('fecha', $diaActual)
             ->where(function ($query) {
@@ -690,12 +741,17 @@ class CajaController extends Controller
             $total_paquetes_trans = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Transferencia')->get();
         //====================================== END TOTALES PARA TRANSFERENCIA ======================================
 
-        //====================================== TOTALES PARA MERCADO PAGO ======================================
+        //====================================== TOTALES PARA EFECTIVO ======================================
             $servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)
             ->where('pagos.forma_pago', '=', 'Efectivo')
             ->where('notas.anular', '=', NULL)
             ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+            ->first();
+
+            $laser_mercado = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Efectivo')
+            ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
             $productos_mercado = NotasPedidos::where('fecha', $diaActual)
@@ -725,9 +781,9 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(propina) as total'))
             ->first();
 
-            $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total;
+            $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total + $laser_mercado->total;
 
-            $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas;
+            $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas + $laser_mercado->filas;
 
             $total_servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)->where('pagos.forma_pago', '=', 'Efectivo')->where('notas.anular', '=', NULL)->get();
@@ -747,6 +803,8 @@ class CajaController extends Controller
             ->with('Pedido')
             ->get();
 
+            $total_laser_mercado = PagosLaser::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Efectivo')->get();
+
             $total_paquetes_mercado = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Efectivo')->get();
 
         //====================================== END TOTALES PARA MERCADO PAGO ======================================
@@ -757,6 +815,11 @@ class CajaController extends Controller
             ->where('pagos.forma_pago', '=', 'Tarjeta')
             ->where('notas.anular', '=', NULL)
             ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+            ->first();
+
+            $laser_tarjeta = PagosLaser::where('fecha', '=', $diaActual)
+            ->where('forma_pago', '=', 'Tarjeta')
+            ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
             $productos_tarjeta = NotasPedidos::where('fecha', $diaActual)
@@ -786,8 +849,8 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(propina) as total'))
             ->first();
 
-            $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total + $paquete_tarjeta->total;
-            $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas + $paquete_tarjeta->filas;
+            $suma_pago_tarjeta = $servicios_tarjeta->total + $productos_tarjeta->total + $paquete_tarjeta->total + $laser_tarjeta->total;
+            $suma_filas_tarjeta = $servicios_tarjeta->filas + $productos_tarjeta->filas + $paquete_tarjeta->filas + $laser_tarjeta->filas;
 
             $total_servicios_tarjeta = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)->where('pagos.forma_pago', '=', 'Tarjeta')->where('notas.anular', '=', NULL)->get();
@@ -800,11 +863,12 @@ class CajaController extends Controller
             ->with('Pedido')
             ->get();
 
+            $total_laser_tarjeta = PagosLaser::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Tarjeta')->get();
             $total_paquetes_tarjeta = PaquetesPago::where('fecha', '=', $diaActual)->where('forma_pago', '=', 'Tarjeta')->get();
         //====================================== END TOTALES PARA TARJETA ======================================
 
 
-        $pdf = \PDF::loadView('caja.precorte', compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
+        $pdf = \PDF::loadView('caja.precorte', compact('notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
         'suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'caja_final','suma_filas_trans','propinasHoy','total_ing','caja_egre','total_egresos','paquetes',
         'fechaYHoraFormateada', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes','total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta',
         'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora'));

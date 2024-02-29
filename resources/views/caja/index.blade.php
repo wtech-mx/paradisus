@@ -11,7 +11,7 @@
             @php
                 $total_ing = 0;
 
-                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_vista->inicio + $caja_dia_suma_Ingreso->total;
+                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_vista->inicio + $caja_dia_suma_Ingreso->total + $pago_laser_suma->total;
 
                 $total_egresos = 0;
                 $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -177,6 +177,17 @@
                                                 <td>{{ $item->id_nota }}</td>
                                                 <td>${{ number_format($item->pago, 1, '.', ',') }}</td>
                                                 <td>${{ number_format($item->dinero_recibido, 1, '.', ',') }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                        @foreach ($pago_laser as $item)
+                                            <tr>
+                                                <td>{{ $item->fecha }}</td>
+                                                <td> <label class="badge" style="color: #0075e3;background-color: #00e3d06c;">Nota Laser</label> </td>
+                                                <td>{{ $item->id_nota }}</td>
+                                                <td>${{ $item->pago }}</td>
+                                                <td>${{ number_format($item->dinero_recibido, 1, '.', ',') }}</td>
+                                                <td></td>
                                             </tr>
                                         @endforeach
 

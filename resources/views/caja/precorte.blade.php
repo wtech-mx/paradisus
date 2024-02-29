@@ -426,6 +426,37 @@
                     </td>
                 </tr>
             @endforeach
+
+            @foreach ($total_laser_trans as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->NotasLacer->Client->name }} <br> {{ $item->NotasLacer->Client->last_name }} <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                         {{$item->NotasLacer->tipo}}
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Laser
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -576,6 +607,39 @@
                     </td>
                 </tr>
             @endforeach
+
+            @foreach ($total_laser_mercado as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->NotasLacer->Client->name }} <br> {{ $item->NotasLacer->Client->last_name }} <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                        {{$item->NotasLacer->tipo}}
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                            ${{ number_format($item->cambio, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                            Laser
+                        </p>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -716,6 +780,37 @@
                     </td>
                     <td>
                         Paquete
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_laser_tarjeta as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->Notas->Client->name }} <br> {{ $item->Notas->Client->last_name }} <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                        {{$item->NotasLacer->tipo}}
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Laser
                     </td>
                 </tr>
             @endforeach
