@@ -13,7 +13,13 @@
                     <div class="card-header">
                         <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link  active" data-bs-toggle="tab" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
+                                <a class="nav-link  active" data-bs-toggle="tab" href="#pills-config" role="tab" aria-controls="pills-config" aria-selected="true" id="pills-config-tab">
+                                    <i class="ni ni-folder-17 text-sm me-2"></i> Configuración
+                                </a>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" id="pills-home-tab">
                                     <i class="ni ni-folder-17 text-sm me-2"></i> Ficha de Pacientes
                                 </a>
                             </li>
@@ -30,7 +36,12 @@
                     <div class="card-body">
                         <div class="tab-content" id="pills-tabContent">
 
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="tab-pane fade show active" id="pills-config" role="tabpanel" aria-labelledby="pills-config-tab">
+                                @include('notas_lacer.config_laser')
+                                @include('notas_lacer.imagen_depiladora')
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                 <div class="row">
 
                                     <div class="col-12">
@@ -51,14 +62,6 @@
                                             </p>
                                             <input type="text" value="{{$nota_laser->Client->phone}}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
 
-                                        </div>
-
-                                        <div class="col-6 mt-3">
-                                            <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                                                DNI :
-                                            </p>
-
-                                            <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                                         </div>
 
                                         @foreach ($zonas_lacer as $zona_lacer)
@@ -117,9 +120,16 @@
 
                                                                     <td>
                                                                         @if ($registro)
-                                                                            <input type="text" class="form-control" name="parametros" value="{{ $registro->parametros }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
+                                                                            <input type="text" value="{{$registro->parametros}}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
                                                                         @else
-                                                                            <input type="text" class="form-control" name="parametros" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                                                                            <select class="form-control" name="parametros" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                                                                                <option value="75">75</option>
+                                                                                <option value="80">80</option>
+                                                                                <option value="85">85</option>
+                                                                                <option value="90">90</option>
+                                                                                <option value="95">95</option>
+                                                                                <option value="100">100</option>
+                                                                            </select>
                                                                         @endif
                                                                     </td>
 

@@ -152,6 +152,10 @@
                                                     <input class="form-check-input" type="radio" name="tipo_servicio" id="paquete" value="paquete">
                                                     <label class="form-check-label" for="paquete">Paquete</label>
                                                 </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="tipo_servicio" id="perzonalizado" value="perzonalizado">
+                                                    <label class="form-check-label" for="paquete">Perozanlizado</label>
+                                                </div>
                                             </div>
 
                                             <div class="form-group" id="sesionSelect" style="display:none;">
@@ -313,6 +317,33 @@
                                                 </select>
                                             </div>
 
+                                            <div class="form-group" id="personalizadoSelect" style="display:none;">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 1</label><br>
+                                                            <select class="form-control zona_perzonalizado_1" id="zona_perzonalizado_1" name="zona_perzonalizado_1" >
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 2</label><br>
+                                                            <select class="form-control zona_perzonalizado_2" id="zona_perzonalizado_2" name="zona_perzonalizado_2" >
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -475,6 +506,8 @@
             $('.zona_select_1').select2();
             $('.zona_paquete_1').select2();
             $('.zona_paquete_2').select2();
+            $('.zona_perzonalizado_1').select2();
+            $('.zona_perzonalizado_2').select2();
         });
 
     </script>
@@ -516,6 +549,10 @@
                     zonasSelect.style.display = 'block';
                     // Lógica para llenar el segundo select según la selección de paquete
                     updateZonasSelect(paqueteSelectElement.val());
+                } else if ($('#personalizado').prop('checked')) {
+                    $('#sesionSelect').hide();
+                    $('#paqueteSelect').hide();
+                    $('#perzonalizadoSelect').show();
                 }
             });
 

@@ -4,18 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\CajaDia;
 use App\Models\Client;
+use App\Models\ConfiguracionLaser;
 use App\Models\Laser;
 use App\Models\NotasLacer;
 use App\Models\User;
 use App\Models\ZonasLaser;
 use App\Models\PagosLaser;
 use App\Models\RegistroZonas;
+Use Alert;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
 class NotasLacerController extends Controller
 {
+    public function index_consentimiento(){
+        return view('notas_lacer.index_consentimiento');
+    }
+
+    public function imagen_depiladora(){
+        return view('notas_lacer.imagen_depiladora');
+    }
+
+    public function index_hoja_salud(){
+        return view('notas_lacer.hoja_salud');
+    }
+
     public function index(){
         $nota_lacer = NotasLacer::orderBy('id','DESC')->get();
 
@@ -38,96 +52,6 @@ class NotasLacerController extends Controller
         $user = User::where('puesto', '=', 'Cosme')->orwhere('puesto', '=', 'Recepcionista')->get();
 
         return view('notas_lacer.crear',compact('client', 'user', 'zonas'));
-    }
-
-    public function edit($id){
-        $zonas = Laser::get();
-        $nota_laser = NotasLacer::find($id);
-        $pago = PagosLaser::where('id_nota', '=', $id)->get();
-        $zonas_lacer = ZonasLaser::where('id_nota', '=', $id)->get();
-
-        $registrosZonas  = RegistroZonas::where('id_nota', '=', $id)->get();
-
-        $zonas = Laser::get();
-        $client = Client::orderBy('name','ASC')->get();
-        $user = User::where('puesto', '=', 'Cosme')->orwhere('puesto', '=', 'Recepcionista')->get();
-
-        return view('notas_lacer.index_laser',compact('client', 'user', 'zonas', 'nota_laser', 'pago', 'zonas_lacer', 'registrosZonas'));
-    }
-
-    public function update(Request $request, $id)
-    {
-
-        // G U A R D A R  P A G O S
-        if($request->get('pago') != NULL){
-            $pago = new PagosLaser;
-            $pago->id_nota = $id;
-            $pago->fecha = $request->get('fecha_pago');
-            $pago->id_user = $request->get('cosmetologa');
-            $pago->pago = $request->get('pago');
-            $pago->dinero_recibido = $request->get('dinero_recibido');
-            $pago->forma_pago = $request->get('forma_pago');
-            $pago->nota = $request->get('nota2');
-            $pago->cambio = $request->get('cambio');
-
-            if ($request->hasFile("foto")) {
-                $file = $request->file('foto');
-                $path = public_path() . '/foto_laser';
-                $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move($path, $fileName);
-                $pago->foto = $fileName;
-            }
-
-            $pago->save();
-        }else{
-            $pago = '';
-        }
-
-            $pagos = PagosLaser::where('id_nota', $id)->get();
-            $totalPagos = $pagos->sum('pago');
-            $restante =  $pago->pago - $totalPagos;
-
-            $nota = NotasLacer::find($id);
-            $nota->restante = $restante;
-            $nota->update();
-
-
-        $recibo = [
-            "id" => $nota->id,
-            "Cliente" => $nota->Client->name,
-            "Total" => $nota->total,
-            "Restante" => $nota->restante,
-            "nombreImpresora" => "ZJ-58",
-            'pago' => [$pago],
-            // Agrega cualquier otro dato necesario para el recibo
-        ];
-        // Devuelve los datos en formato JSON
-        return response()->json(['success' => true, 'recibo' => $recibo]);
-
-
-        Alert::success('Actualizado con exito ');
-
-        return redirect()->back()->with('edit','Nota Laser Pago Actualizado.');
-    }
-
-    public function index_consentimiento(){
-
-
-        return view('notas_lacer.index_consentimiento');
-
-    }
-
-    public function imagen_depiladora(){
-
-        return view('notas_lacer.imagen_depiladora');
-
-    }
-
-    public function index_hoja_salud(){
-
-
-        return view('notas_lacer.hoja_salud');
-
     }
 
     public function store(Request $request){
@@ -277,43 +201,150 @@ class NotasLacerController extends Controller
 
         $validator = Validator::make($request->all(), [
             'parametros' => 'required',
-            'nota' => 'required',
         ]);
 
         if ($validator->fails()) {
-            dd($validator);
             return back()
-            ->withErrors($validator)
-            ->withInput();
+                ->withErrors($validator)
+                ->withInput()
+                ->with('error', 'Faltan campos. Por favor, completa todos los campos correctamente.');
         }
+
+        try {
+            // G U A R D A R  N O T A  P R I N C I P A L
+            $fechaActual = date('Y-m-d');
+            $registrosZonas = new RegistroZonas;
+            $registrosZonas->id_nota = $request->get('id_nota');
+            $registrosZonas->id_zona = $request->get('id_zona');
+            $registrosZonas->sesion = $request->get('sesion');
+            $registrosZonas->parametros = $request->get('parametros');
+            $registrosZonas->nota = $request->get('nota');
+            $registrosZonas->fecha = $fechaActual;
+            $registrosZonas->save();
+
+            alert()->success('Creado con éxito', 'Operación exitosa');
+            return back();
+        } catch (\Exception $e) {
+            // En caso de error, regresa con un mensaje de error
+            return back()
+                ->with('error', 'Se produjo un error al procesar la solicitud. Por favor, inténtalo de nuevo.');
+        }
+
+    }
+
+    public function edit($id){
+        $zonas = Laser::get();
+        $nota_laser = NotasLacer::find($id);
+        $pago = PagosLaser::where('id_nota', '=', $id)->get();
+        $zonas_lacer = ZonasLaser::where('id_nota', '=', $id)->get();
+        $configuraciones_laser = ConfiguracionLaser::where('id_cliente', '=', $nota_laser->id_client)->get();
+
+        $registrosZonas  = RegistroZonas::where('id_nota', '=', $id)->get();
+
+        $zonas = Laser::get();
+        $user = User::where('puesto', '=', 'Cosme')->orwhere('puesto', '=', 'Recepcionista')->get();
+
+        return view('notas_lacer.index_laser',compact('user', 'zonas', 'nota_laser', 'pago', 'zonas_lacer', 'registrosZonas', 'configuraciones_laser'));
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        // G U A R D A R  P A G O S
+        if($request->get('pago') != NULL){
+            $pago = new PagosLaser;
+            $pago->id_nota = $id;
+            $pago->fecha = $request->get('fecha_pago');
+            $pago->id_user = $request->get('cosmetologa');
+            $pago->pago = $request->get('pago');
+            $pago->dinero_recibido = $request->get('dinero_recibido');
+            $pago->forma_pago = $request->get('forma_pago');
+            $pago->nota = $request->get('nota2');
+            $pago->cambio = $request->get('cambio');
+
+            if ($request->hasFile("foto")) {
+                $file = $request->file('foto');
+                $path = public_path() . '/foto_laser';
+                $fileName = uniqid() . $file->getClientOriginalName();
+                $file->move($path, $fileName);
+                $pago->foto = $fileName;
+            }
+
+            $pago->save();
+        }else{
+            $pago = '';
+        }
+
+            $pagos = PagosLaser::where('id_nota', $id)->get();
+            $totalPagos = $pagos->sum('pago');
+            $restante =  $pago->pago - $totalPagos;
+
+            $nota = NotasLacer::find($id);
+            $nota->restante = $restante;
+            $nota->update();
+
+
+        $recibo = [
+            "id" => $nota->id,
+            "Cliente" => $nota->Client->name,
+            "Total" => $nota->total,
+            "Restante" => $nota->restante,
+            "nombreImpresora" => "ZJ-58",
+            'pago' => [$pago],
+            // Agrega cualquier otro dato necesario para el recibo
+        ];
+        // Devuelve los datos en formato JSON
+        return response()->json(['success' => true, 'recibo' => $recibo]);
+
+
+        Alert::success('Actualizado con exito ');
+
+        return redirect()->back()->with('edit','Nota Laser Pago Actualizado.');
+    }
+
+    public function store_config(Request $request){
+        $validator = Validator::make($request->all(), [
+            'area' => 'required',
+            'skyn_type' => 'required',
+            'hair_type' => 'required',
+            'hair_density' => 'required',
+            'hair_tickness' => 'required',
+        ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('error', 'Faltan campos. Por favor, completa todos los campos correctamente.');
         }
 
-        // G U A R D A R  N O T A  P R I N C I P A L
-        $fechaActual = date('Y-m-d');
-        $registrosZonas = new RegistroZonas;
-        $registrosZonas->id_nota = $request->get('id_nota');
-        $registrosZonas->id_zona = $request->get('id_zona');
-        $registrosZonas->sesion = $request->get('sesion');
-        $registrosZonas->parametros = $request->get('parametros');
-        $registrosZonas->nota = $request->get('nota');
-        $registrosZonas->fecha = $fechaActual;
-        $registrosZonas->save();
+        try {
+            $area = $request->get('area');
+            $skyn_type = $request->get('skyn_type');
+            $hair_type = $request->get('hair_type');
+            $hair_density = $request->get('hair_density');
+            $hair_tickness = $request->get('hair_tickness');
 
-    /*    $recibo = [
-            "id" => $registrosZonas->id,
-            "Cliente" => $registrosZonas->Client->name,
-            "Total" => $registrosZonas->precio,
-            "Restante" => $registrosZonas->restante,
-            "nombreImpresora" => "ZJ-58",
-            // Agrega cualquier otro dato necesario para el recibo
-        ];*/
+            for ($count = 0; $count < count($area); $count++) {
+                $data = array(
+                    'id_cliente' => $request->get('id_client'),
+                    'area' => $area[$count],
+                    'skyn_type' => $skyn_type[$count],
+                    'hair_type' => $hair_type[$count],
+                    'hair_density' => $hair_density[$count],
+                    'hair_tickness' => $hair_tickness[$count],
+                );
+                $insert_data[] = $data;
+            }
 
-        // Devuelve los datos en formato JSON
-        //return response()->json(['success' => true, 'recibo' => $recibo]);
+            ConfiguracionLaser::insert($insert_data);
 
-
+            alert()->success('Creado con éxito', 'Operación exitosa');
+            return back();
+        } catch (\Exception $e) {
+            // En caso de error, regresa con un mensaje de error
+            return back()
+                ->with('error', 'Se produjo un error al procesar la solicitud. Por favor, inténtalo de nuevo.');
+        }
     }
 }

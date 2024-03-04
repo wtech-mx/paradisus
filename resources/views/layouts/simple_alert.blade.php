@@ -28,7 +28,7 @@
 
 @if (Session::has('error'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <span class="alert-text" style="color: #fff"><strong>Éxito!</strong> {{ session('error') }}</span>
+        <span class="alert-text" style="color: #fff"><strong>Error!</strong> {{ session('error') }}</span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

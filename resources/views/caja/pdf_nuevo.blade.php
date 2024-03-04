@@ -467,7 +467,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($paquetes as $item)
+            @foreach ($notas_laser as $item)
                 <tr style="font-size: 14px">
                     <td>
                         {{ $item->NotasLacer->Client->name }} <br> {{ $item->NotasLacer->Client->last_name }} <br>
@@ -732,6 +732,30 @@
                     </td>
                 </tr>
             @endforeach
+
+            @foreach ($total_laser_trans as $item)
+                <tr>
+                    <td>
+                        {{ $item->NotasLacer->Client->name }} <br> {{ $item->NotasLacer->Client->last_name }} <br>
+                        <a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                    </td>
+                    <td>
+                        {{ $item->NotasLacer->tipo }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Laser
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -882,6 +906,30 @@
                     </td>
                 </tr>
             @endforeach
+
+            @foreach ($total_laser_mercado as $item)
+                <tr>
+                    <td>
+                        {{ $item->NotasLacer->Client->name }} <br> {{ $item->NotasLacer->Client->last_name }} <br>
+                        <a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                    </td>
+                    <td>
+                        {{ $item->NotasLacer->tipo }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Laser
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -1022,6 +1070,30 @@
                     </td>
                     <td>
                         Paquete
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_laser_tarjeta as $item)
+                <tr>
+                    <td>
+                        {{ $item->NotasLacer->Client->name }} <br> {{ $item->NotasLacer->Client->last_name }} <br>
+                        <a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                    </td>
+                    <td>
+                        {{ $item->NotasLacer->tipo }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        ${{ number_format($item->cambio, 1, '.', ',') }}
+                    </td>
+                    <td>
+                        Laser
                     </td>
                 </tr>
             @endforeach
