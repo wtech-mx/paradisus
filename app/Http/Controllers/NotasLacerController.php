@@ -223,6 +223,11 @@ class NotasLacerController extends Controller
             $registrosZonas->fecha = $fechaActual;
             $registrosZonas->save();
 
+            $zona_lacer = ZonasLaser::where('id_nota', '=', $request->get('id_nota'))->where('id_zona', '=', $request->get('id_zona'))->first();
+            $sesiones_restantes = $zona_lacer->sesiones_restantes - 1;
+            $zona_lacer->sesiones_restantes = $sesiones_restantes;
+            $zona_lacer->update();
+
             alert()->success('Creado con éxito', 'Operación exitosa');
             return back();
         } catch (\Exception $e) {
@@ -357,7 +362,7 @@ class NotasLacerController extends Controller
         $zonas_laser = ZonasLaser::where('id_nota', '=', $id)->get();
 
         $pdf = \PDF::loadView('notas_lacer.recibo_pdf', compact('nota_laser', 'pagos', 'zonas_laser'));
-        return $pdf->stream();
-        // return $pdf->download('Recibo Nota Laser '.$today.'.pdf');
+        // return $pdf->stream();
+        return $pdf->download('Recibo Nota Laser '.$today.'.pdf');
     }
 }
