@@ -707,9 +707,7 @@
                 cambioInput.val(cambio);
             }
 
-
             // Funcion AJAX
-
 
             $("#miFormulario").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
@@ -773,7 +771,8 @@
                                 .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
                                 .EscribirTexto("Total: $" + recibo.Total + "\n")
                                 .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
+                                .EscribirTexto("Servicio Laser")
+
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
 
@@ -799,7 +798,7 @@
                                     text: 'Impresion de ticket y apertura de caja',
                                 }).then(() => {
                                     // Recarga la página
-                                   window.location.href = '/notas/servicios/edit/' + recibo.id;
+                                   window.location.href = '/notas/laser/pdf/' + recibo.id;
                                 });
                             }
 
@@ -815,7 +814,7 @@
                                 .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
                                 .EscribirTexto("Total: $" + recibo.Total + "\n")
                                 .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
+                                .EscribirTexto("Servicio Laser")
                                 .EscribirTexto("-------------------------")
                                 .Feed(1);
 

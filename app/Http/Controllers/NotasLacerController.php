@@ -184,7 +184,7 @@ class NotasLacerController extends Controller
         $recibo = [
             "id" => $nota_laser->id,
             "Cliente" => $nota_laser->Client->name,
-            "Total" => $nota_laser->precio,
+            "Total" => $nota_laser->total,
             "Restante" => $nota_laser->restante,
             "nombreImpresora" => "ZJ-58",
             'pago' => [$pago],
