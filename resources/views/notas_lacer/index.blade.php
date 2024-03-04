@@ -62,6 +62,9 @@
                                                     @endif
 
                                                     <td>
+                                                        <a type="button" class="btn btn-primary btn-sm" href="{{route('laser.pdf_laser', $notas->id)}}"style="color: #ffff">
+                                                            <i class="fa fa-print"></i>
+                                                        </a>
                                                         <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                     </td>
                                                 </tr>

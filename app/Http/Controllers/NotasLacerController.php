@@ -13,6 +13,7 @@ use App\Models\PagosLaser;
 use App\Models\RegistroZonas;
 Use Alert;
 use Illuminate\Support\Facades\Validator;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Http\Request;
 
@@ -232,6 +233,52 @@ class NotasLacerController extends Controller
 
     }
 
+    public function store_config(Request $request){
+        $validator = Validator::make($request->all(), [
+            'area' => 'required',
+            'skyn_type' => 'required',
+            'hair_type' => 'required',
+            'hair_density' => 'required',
+            'hair_tickness' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('error', 'Faltan campos. Por favor, completa todos los campos correctamente.');
+        }
+
+        try {
+            $area = $request->get('area');
+            $skyn_type = $request->get('skyn_type');
+            $hair_type = $request->get('hair_type');
+            $hair_density = $request->get('hair_density');
+            $hair_tickness = $request->get('hair_tickness');
+
+            for ($count = 0; $count < count($area); $count++) {
+                $data = array(
+                    'id_cliente' => $request->get('id_client'),
+                    'area' => $area[$count],
+                    'skyn_type' => $skyn_type[$count],
+                    'hair_type' => $hair_type[$count],
+                    'hair_density' => $hair_density[$count],
+                    'hair_tickness' => $hair_tickness[$count],
+                );
+                $insert_data[] = $data;
+            }
+
+            ConfiguracionLaser::insert($insert_data);
+
+            alert()->success('Creado con éxito', 'Operación exitosa');
+            return back();
+        } catch (\Exception $e) {
+            // En caso de error, regresa con un mensaje de error
+            return back()
+                ->with('error', 'Se produjo un error al procesar la solicitud. Por favor, inténtalo de nuevo.');
+        }
+    }
+
     public function edit($id){
         $zonas = Laser::get();
         $nota_laser = NotasLacer::find($id);
@@ -302,49 +349,15 @@ class NotasLacerController extends Controller
         return redirect()->back()->with('edit','Nota Laser Pago Actualizado.');
     }
 
-    public function store_config(Request $request){
-        $validator = Validator::make($request->all(), [
-            'area' => 'required',
-            'skyn_type' => 'required',
-            'hair_type' => 'required',
-            'hair_density' => 'required',
-            'hair_tickness' => 'required',
-        ]);
+    public function pdf_laser($id){
+        $today =  date('d-m-Y');
 
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput()
-                ->with('error', 'Faltan campos. Por favor, completa todos los campos correctamente.');
-        }
+        $nota_laser = NotasLacer::find($id);
+        $pagos = PagosLaser::where('id_nota', '=', $id)->get();
+        $zonas_laser = ZonasLaser::where('id_nota', '=', $id)->get();
 
-        try {
-            $area = $request->get('area');
-            $skyn_type = $request->get('skyn_type');
-            $hair_type = $request->get('hair_type');
-            $hair_density = $request->get('hair_density');
-            $hair_tickness = $request->get('hair_tickness');
-
-            for ($count = 0; $count < count($area); $count++) {
-                $data = array(
-                    'id_cliente' => $request->get('id_client'),
-                    'area' => $area[$count],
-                    'skyn_type' => $skyn_type[$count],
-                    'hair_type' => $hair_type[$count],
-                    'hair_density' => $hair_density[$count],
-                    'hair_tickness' => $hair_tickness[$count],
-                );
-                $insert_data[] = $data;
-            }
-
-            ConfiguracionLaser::insert($insert_data);
-
-            alert()->success('Creado con éxito', 'Operación exitosa');
-            return back();
-        } catch (\Exception $e) {
-            // En caso de error, regresa con un mensaje de error
-            return back()
-                ->with('error', 'Se produjo un error al procesar la solicitud. Por favor, inténtalo de nuevo.');
-        }
+        $pdf = \PDF::loadView('notas_lacer.recibo_pdf', compact('nota_laser', 'pagos', 'zonas_laser'));
+        return $pdf->stream();
+        // return $pdf->download('Recibo Nota Laser '.$today.'.pdf');
     }
 }

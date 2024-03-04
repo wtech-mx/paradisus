@@ -137,6 +137,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/notas/laser/hoja_salud', [App\Http\Controllers\NotasLacerController::class, 'index_hoja_salud'])->name('hoja_salud.laser');
 
     Route::post('/notas/laser/config/store', [App\Http\Controllers\NotasLacerController::class, 'store_config'])->name('store_config.laser');
+    Route::get('/notas/laser/pdf/{id}', [App\Http\Controllers\NotasLacerController::class, 'pdf_laser'])->name('laser.pdf_laser');
 
     // =============== M O D U L O   C L I E N T S ===============================
     Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
