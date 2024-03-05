@@ -111,19 +111,6 @@ class NotasLacerController extends Controller
         $nota_laser->fecha = $fechaActual;
         $nota_laser->save();
 
-        $cambio = $request->get('dinero_recibido') - $request->get('pago');
-
-        // G U A R D A R  C A M B I O
-            if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
-                $fechaActual = date('Y-m-d');
-                $caja = new CajaDia;
-                $caja->egresos = $request->get('cambio');
-                $caja->motivo = 'Retiro';
-                $caja->concepto = 'Cambio nota laser: ' . $nota_laser->id;
-                $caja->fecha = $fechaActual;
-                $caja->save();
-            }
-
         // G U A R D A R  S E R V I C I O  Y  C O M I S I O N  C O S M E
 
         if($request->get('tipo_servicio') == 'sesion'){
@@ -228,7 +215,6 @@ class NotasLacerController extends Controller
             }
         }
 
-
         // G U A R D A R  P A G O
         if($request->get('pago') != NULL){
 
@@ -250,6 +236,19 @@ class NotasLacerController extends Controller
                 $pago->foto = $fileName;
             }
             $pago->save();
+        }
+
+        $cambio = $request->get('dinero_recibido') - $request->get('pago');
+
+        // G U A R D A R  C A M B I O
+        if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->egresos = $request->get('cambio');
+            $caja->motivo = 'Retiro';
+            $caja->concepto = 'Cambio nota laser: ' . $nota_laser->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
         }
 
         $recibo = [
@@ -370,8 +369,7 @@ class NotasLacerController extends Controller
         return view('notas_lacer.index_laser',compact('user', 'zonas', 'nota_laser', 'pago', 'zonas_lacer', 'registrosZonas', 'configuraciones_laser'));
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
 
         // G U A R D A R  P A G O S
         if($request->get('pago') != NULL){
