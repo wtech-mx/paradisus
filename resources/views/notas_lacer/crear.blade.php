@@ -153,8 +153,8 @@
                                                     <label class="form-check-label" for="paquete">Paquete</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="tipo_servicio" id="perzonalizado" value="perzonalizado">
-                                                    <label class="form-check-label" for="paquete">Perozanlizado</label>
+                                                    <input class="form-check-input" type="radio" name="tipo_servicio" id="personalizado" value="personalizado">
+                                                    <label class="form-check-label" for="personalizado">Personalizado</label>
                                                 </div>
                                             </div>
 
@@ -188,7 +188,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="subtotal_1" name="subtotal_1" class="form-control">
+                                                            <input type="number" id="subtotal_1" name="subtotal_1" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                     {{-- ============ Zona 2 --}}
@@ -220,7 +220,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="subtotal_2" name="subtotal_2" class="form-control">
+                                                            <input type="number" id="subtotal_2" name="subtotal_2" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                             {{-- ============ Zona 3 --}}
@@ -252,7 +252,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="subtotal_3" name="subtotal_3" class="form-control">
+                                                            <input type="number" id="subtotal_3" name="subtotal_3" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                         {{-- ============ Zona 4 --}}
@@ -284,7 +284,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="number" id="subtotal_4" name="subtotal_4" class="form-control">
+                                                            <input type="number" id="subtotal_4" name="subtotal_4" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -319,13 +319,34 @@
 
                                             <div class="form-group" id="personalizadoSelect" style="display:none;">
                                                 <div class="row">
+
+                                                    <div class="col-6">
+                                                        <label for="total-suma">Precio</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" class="form-control" id="precio_sugerido" name="precio_sugerido" readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        {{-- <label for="total-suma">Precio Final</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" class="form-control" id="precio_personalizado" name="precio_personalizado" >
+                                                        </div> --}}
+                                                    </div>
+
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="precio">Zona 1</label><br>
-                                                            <select class="form-control zona_perzonalizado_1" id="zona_perzonalizado_1" name="zona_perzonalizado_1" >
+                                                            <select class="form-control zona_personalizado_1" id="zona_personalizado_1" name="zona_personalizado_1" >
                                                                 <option value="">Seleccionar zona</option>
                                                                 @foreach ($zonas as $zona)
-                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
+                                                                    <option value="{{$zona->id}}" data-precio-paquete="{{ $zona->costo_paquete }}">{{$zona->zona}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -334,10 +355,34 @@
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="precio">Zona 2</label><br>
-                                                            <select class="form-control zona_perzonalizado_2" id="zona_perzonalizado_2" name="zona_perzonalizado_2" >
+                                                            <select class="form-control zona_personalizado_2" id="zona_personalizado_2" name="zona_personalizado_2" >
                                                                 <option value="">Seleccionar zona</option>
                                                                 @foreach ($zonas as $zona)
-                                                                    <option value="{{$zona->id}}" data-precio="{{ $zona->precio_sesion }}">{{$zona->zona}}</option>
+                                                                    <option value="{{$zona->id}}" data-precio-paquete="{{ $zona->costo_paquete }}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 3</label><br>
+                                                            <select class="form-control zona_personalizado_3" id="zona_personalizado_3" name="zona_personalizado_3" >
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}" data-precio-paquete="{{ $zona->costo_paquete }}">{{$zona->zona}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="precio">Zona 4</label><br>
+                                                            <select class="form-control zona_personalizado_4" id="zona_personalizado_4" name="zona_personalizado_4" >
+                                                                <option value="">Seleccionar zona</option>
+                                                                @foreach ($zonas as $zona)
+                                                                    <option value="{{$zona->id}}" data-precio-paquete="{{ $zona->costo_paquete }}">{{$zona->zona}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -474,9 +519,6 @@
                             </div>
 
                             <div class="modal-footer">
-                                <a class="btn"  href="{{ route('notas.index') }}" style="background: {{$configuracion->color_boton_close}}; color: #ffff;margin-right: 3rem;">
-                                    Cancelar
-                                </a>
                                 <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Guardar
                                 </button>
@@ -506,8 +548,10 @@
             $('.zona_select_1').select2();
             $('.zona_paquete_1').select2();
             $('.zona_paquete_2').select2();
-            $('.zona_perzonalizado_1').select2();
-            $('.zona_perzonalizado_2').select2();
+            $('.zona_personalizado_1').select2();
+            $('.zona_personalizado_2').select2();
+            $('.zona_personalizado_3').select2();
+            $('.zona_personalizado_4').select2();
         });
 
     </script>
@@ -517,6 +561,7 @@
         var sesionSelect = document.getElementById('sesionSelect');
         var paqueteSelect = document.getElementById('paqueteSelect');
         var zonasSelect = document.getElementById('zonasSelect');
+        var personalizadoSelect = document.getElementById('personalizadoSelect');
         var paqueteSelectElement = $('#paquete_select');
         var zonaSelect = document.getElementById('zona_paquete_1');
         var totalSumaInput = $('#total_suma');
@@ -526,6 +571,8 @@
         var dineroRecibidoInput = $('#dinero_recibido');
         var cambioInput = $('#cambio');
 
+        var precioSugeridoInput = document.getElementById('precio_sugerido');
+
         // Agrega un evento al campo de pago para realizar la resta
             pagoInput.on('input', function () {
                 updateRestante();
@@ -534,6 +581,40 @@
         // Agrega un evento al campo de dinero_recibido para realizar la resta
             dineroRecibidoInput.on('input', function () {
                 updateCambio();
+            });
+
+        // ============================== Radio tipo de servicio Personalizado ==============================
+            $('#zona_personalizado_1, #zona_personalizado_2, #zona_personalizado_3, #zona_personalizado_4').change(function() {
+                var select1 = $('#zona_personalizado_1')[0];
+                var select2 = $('#zona_personalizado_2')[0];
+                var select3 = $('#zona_personalizado_3')[0];
+                var select4 = $('#zona_personalizado_4')[0];
+
+                var precioTotal = 0;
+
+                // Función para calcular la suma de las opciones seleccionadas
+                function calcularSuma(select) {
+                    for (var i = 0; i < select.selectedOptions.length; i++) {
+                        var selectedOption = select.selectedOptions[i];
+                        var precioPaquete = parseFloat(selectedOption.getAttribute('data-precio-paquete'));
+                        if (!isNaN(precioPaquete)) {
+                            precioTotal += precioPaquete / 2;
+                        }
+                    }
+                }
+
+                // Calcular la suma para ambos selectores
+                calcularSuma(select1);
+                calcularSuma(select2);
+                calcularSuma(select3);
+                calcularSuma(select4);
+
+                // Actualizar el valor del input de precio sugerido
+                var precioSugerido = precioTotal.toFixed(2);
+                $('#precio_sugerido').val(precioSugerido);
+
+                // Actualizar el valor del input total_suma
+                $('#total_suma').val(precioSugerido);
             });
 
         // ============================== Radio tipo de servicio PAQUETES ==============================
@@ -550,9 +631,10 @@
                     // Lógica para llenar el segundo select según la selección de paquete
                     updateZonasSelect(paqueteSelectElement.val());
                 } else if ($('#personalizado').prop('checked')) {
-                    $('#sesionSelect').hide();
-                    $('#paqueteSelect').hide();
-                    $('#perzonalizadoSelect').show();
+                    sesionSelect.style.display = 'none';
+                    paqueteSelect.style.display = 'none';
+                    zonasSelect.style.display = 'none';
+                    personalizadoSelect.style.display = 'block';
                 }
             });
 

@@ -12,6 +12,7 @@ use App\Models\ZonasLaser;
 use App\Models\PagosLaser;
 use App\Models\RegistroZonas;
 Use Alert;
+use App\Models\RegCosmesSum;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -98,8 +99,10 @@ class NotasLacerController extends Controller
 
         if($request->get('tipo_servicio') == 'paquete'){
             $tipo = $request->get('paquete_select');
-        }else{
+        }else if($request->get('tipo_servicio') == 'sesion'){
             $tipo = 'Sesiones';
+        }else{
+            $tipo = 'Personalizado';
         }
 
         $nota_laser->total =  $request->get('total_suma');
@@ -121,7 +124,7 @@ class NotasLacerController extends Controller
                 $caja->save();
             }
 
-        // G U A R D A R  S E R V I C I O
+        // G U A R D A R  S E R V I C I O  Y  C O M I S I O N  C O S M E
 
         if($request->get('tipo_servicio') == 'sesion'){
 
@@ -139,7 +142,7 @@ class NotasLacerController extends Controller
                 }
             }
 
-        }else{
+        }else if($request->get('tipo_servicio') == 'paquete'){
             if($request->get('paquete_select') == 'Zona Mini' || $request->get('paquete_select') == 'Zonas Pequeñas'){
                 $sesiones = 12;
             }else if($request->get('paquete_select') == 'Zonas Medianas' || $request->get('paquete_select') == 'Zonas Grandes'){
@@ -154,6 +157,74 @@ class NotasLacerController extends Controller
                 $zona_laser->sesiones_compradas = $sesiones;
                 $zona_laser->sesiones_restantes = $sesiones;
                 $zona_laser->save();
+            }
+
+            // G U A R D A R  C O M I S I O N  C O S M E
+            if($request->get('id_user') == 6 || $request->get('id_user') == 3 || $request->get('id_user') == 5){
+                if($request->get('paquete_select') == 'Zona Mini'){
+                    $montoComision = 400;
+                }else if($request->get('paquete_select') == 'Zonas Pequeñas'){
+                    $montoComision = 500;
+                }else if($request->get('paquete_select') == 'Zonas Medianas'){
+                    $sesiones = 700;
+                }else if($request->get('paquete_select') == 'Zonas Grandes'){
+                    $sesiones = 1000;
+                }
+
+                $registroSemanal = new RegCosmesSum;
+                $registroSemanal->id_cosme = $request->get('id_user');
+                $registroSemanal->tipo = 'Extra';
+                $registroSemanal->concepto = 'Bono Venta Laser en nota: ' . $nota_laser->id;
+                $registroSemanal->id_nota = $nota_laser->id;
+                $registroSemanal->fecha = $fechaActual;
+                $registroSemanal->monto = $montoComision;
+                $registroSemanal->save();
+            }
+        }else{
+            $zonasSeleccionadas = array_filter($request->only(['zona_personalizado_1', 'zona_personalizado_2', 'zona_personalizado_3', 'zona_personalizado_4']));
+            $comisionTotal = 0;
+            foreach ($zonasSeleccionadas as $zonaSelect) {
+                // Verifica si la zonaSelect es diferente de NULL
+                if ($zonaSelect !== NULL) {
+                    // Busca la zona en la base de datos
+                    $zona = Laser::find($zonaSelect);
+
+                    // Verifica si la zona fue encontrada
+                    if ($zona) {
+                        if ($zona->tipo_zona == 'Zona Mini') {
+                            $comisionTotal += 200;
+                            $sesiones = 12;
+                        } elseif ($zona->tipo_zona == 'Zonas Pequeñas') {
+                            $comisionTotal += 250;
+                            $sesiones = 12;
+                        } elseif ($zona->tipo_zona == 'Zonas Medianas') {
+                            $comisionTotal += 350;
+                            $sesiones = 15;
+                        } elseif ($zona->tipo_zona == 'Zonas Grandes') {
+                            $comisionTotal += 500;
+                            $sesiones = 15;
+                        }
+
+                        // Crea y guarda el registro en la tabla ZonasLaser
+                        $zona_laser = new ZonasLaser;
+                        $zona_laser->id_nota = $nota_laser->id;
+                        $zona_laser->id_zona = $zonaSelect;
+                        $zona_laser->sesiones_compradas = $sesiones;
+                        $zona_laser->sesiones_restantes = $sesiones;
+                        $zona_laser->save();
+                    }
+                }
+            }
+            // G U A R D A R  C O M I S I O N  C O S M E
+            if($request->get('id_user') == 6 || $request->get('id_user') == 3 || $request->get('id_user') == 5){
+                $registroSemanal = new RegCosmesSum;
+                $registroSemanal->id_cosme = $request->get('id_user');
+                $registroSemanal->tipo = 'Extra';
+                $registroSemanal->concepto = 'Bono Venta Laser en nota: ' . $nota_laser->id;
+                $registroSemanal->id_nota = $nota_laser->id;
+                $registroSemanal->fecha = $fechaActual;
+                $registroSemanal->monto = $comisionTotal;
+                $registroSemanal->save();
             }
         }
 
