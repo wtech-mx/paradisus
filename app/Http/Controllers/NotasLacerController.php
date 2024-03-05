@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\ZonasLaser;
 use App\Models\PagosLaser;
 use App\Models\RegistroZonas;
+use App\Models\HojaSaludLaser;
+
 Use Alert;
 use App\Models\RegCosmesSum;
 use Illuminate\Support\Facades\Validator;
@@ -250,6 +252,11 @@ class NotasLacerController extends Controller
             $caja->fecha = $fechaActual;
             $caja->save();
         }
+
+
+        $hoja_salud = new HojaSaludLaser;
+        $hoja_salud->id_cliente = $nota_laser->id_client;
+        $hoja_salud->save();
 
         $recibo = [
             "id" => $nota_laser->id,

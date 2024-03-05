@@ -79,7 +79,7 @@
             <div class="card border-0 mb-0">
 
                 <h5 class=" text-center mt-5 mb-3" style="color:#C45584;font-weight: 800;font-size: 30px;">
-                    Hoja de Salud para el tratamiento de <br> Deoilacion Mediante Láser de Diodo
+                    Hoja de Salud para el tratamiento de <br> Depilacion Mediante Láser de Diodo
                 </h5>
 
                 <div class="row p-3">
@@ -94,7 +94,7 @@
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             FECHA :
                         </p>
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" name="" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-8 mt-3">
@@ -121,13 +121,13 @@
                         <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
-                    <div class="col-12 mt-3">
+                    {{-- <div class="col-12 mt-3">
                         <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             COSMETÓLOGA :
                         </p>
 
                         <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                    </div>
+                    </div> --}}
 
 
                     <div class="col-12 mt-3">
@@ -136,15 +136,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p1" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p1" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -156,15 +156,15 @@
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p2" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p2" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -175,7 +175,7 @@
                             Cual :
                         </p>
 
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" name="p3" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-6 mt-3">
@@ -184,15 +184,15 @@
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p4" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p4" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -203,7 +203,7 @@
                             Cual :
                         </p>
 
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control" name="p5" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-6 mt-3">
@@ -212,22 +212,22 @@
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p6" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p6" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" name="p7" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
@@ -240,22 +240,22 @@
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p8" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p8" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" name="p9" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
@@ -268,22 +268,22 @@
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p10" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p10" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" name="p11" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
@@ -296,36 +296,36 @@
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p12" id="">
+                            <label class="form-check-label" for="">
                                 Hirsutismo
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p12" id="" >
+                            <label class="form-check-label" for="">
                                 Hipertricosis
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
-                            <label class="form-check-label" for="flexRadioDefault3">
+                            <input class="form-check-input" type="radio" name="p12" id="3" >
+                            <label class="form-check-label" for="3">
                                 Alopecia
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
-                            <label class="form-check-label" for="flexRadioDefault4">
+                            <input class="form-check-input" type="radio" name="p12" id="4" >
+                            <label class="form-check-label" for="4">
                                 Alteraciones menstruales
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked>
-                            <label class="form-check-label" for="flexRadioDefault5">
+                            <input class="form-check-input" type="radio" name="p12" id="5" >
+                            <label class="form-check-label" for="5">
                                 Otros
                             </label>
                           </div>
@@ -337,15 +337,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p13" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p13" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -358,15 +358,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p14" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p14" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -378,15 +378,15 @@
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p15" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p15" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -398,15 +398,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p16" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p16" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -418,15 +418,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p17" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p17" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -438,22 +438,22 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p18" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p18" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" name="p19" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
@@ -466,22 +466,22 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p20" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p20" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" name="p21" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
@@ -494,15 +494,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p22" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p22" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -514,15 +514,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p23" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p23" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -534,15 +534,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p24" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p24" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -554,15 +554,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p25" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p25" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -574,15 +574,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p26" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p26" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -594,15 +594,15 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p27" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p27" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>
@@ -615,15 +615,15 @@ Tipo de láser en el último mes?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="p28" id="">
+                            <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="p28" id="" >
+                            <label class="form-check-label" for="">
                               No
                             </label>
                           </div>

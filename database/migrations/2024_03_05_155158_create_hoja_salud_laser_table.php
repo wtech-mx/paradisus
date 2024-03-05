@@ -41,10 +41,20 @@ return new class extends Migration
                 $table->text('p19')->nullable();
                 $table->text('p20')->nullable();
                 $table->text('p21')->nullable();
-
+                $table->text('p22')->nullable();
+                $table->text('p23')->nullable();
+                $table->text('p24')->nullable();
+                $table->text('p25')->nullable();
+                $table->text('p26')->nullable();
+                $table->text('p27')->nullable();
+                $table->text('p28')->nullable();
+                $table->text('p29')->nullable();
+                $table->text('p30')->nullable();
+                $table->text('p31')->nullable();
+                $table->text('p32')->nullable();
                 $table->text('firma')->nullable();
-                $table->text('cosmetologa')->nullable();
-            $table->timestamps();
+                $table->text('firma2')->nullable();
+                $table->timestamps();
         });
     }
 
