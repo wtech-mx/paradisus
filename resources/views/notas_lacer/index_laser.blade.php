@@ -6,7 +6,6 @@
 
 @section('content')
 
-    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -83,6 +82,7 @@
                                                         @for ($i = 1; $i <= $zona_lacer->sesiones_compradas; $i++)
                                                             <form method="POST" action="{{ route('store_sesion.lacer') }}" id="miFormularioEdit" enctype="multipart/form-data" role="form">
                                                                 @csrf
+                                                                <input type="hidden" name="_method" value="PATCH">
                                                                 @php
                                                                     $registro = $registrosZonas->where('id_zona', '=', $zona_lacer->id_zona)->firstWhere('sesion', $i);
 
@@ -350,7 +350,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 @endsection
 
@@ -454,8 +453,151 @@
 
             });
 
+            $("#miFormularioEditLaser").on("submit", function (event) {
+                event.preventDefault(); // Evita el envío predeterminado del formulario
+
+                // Realiza la solicitud POST usando AJAX
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: async function(response) { // Agrega "async" aquí
+                        // El formulario se ha enviado correctamente, ahora realiza la impresión
+                        imprimirRecibopago(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                            var errors = xhr.responseJSON.errors;
+                            var errorMessage = '';
+
+                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
+                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                                }
+                            }
+                            console.log(errorMessage);
+                            // Muestra el mensaje de error en una SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Faltan Campos',
+                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
+                            });
+                    }
+                });
+
+            });
+
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
+                const userAgent = navigator.userAgent;
+                // Obtén los datos del recibo de la respuesta AJAX
+                const recibo = response.recibo;
+                // Empezar a usar el plugin
+                const formaPago = $("#forma_pago").val();
+                if (/Windows/i.test(userAgent)) {
+
+                    if(formaPago === 'Efectivo'){
+
+                        const conector = new ConectorPluginV3();
+                        console.log(recibo);
+
+                        conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+
+                        conector
+                            .EscribirTexto("Paradisus\n")
+                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                            .EscribirTexto("Total: $" + recibo.Total + "\n")
+                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                            .EscribirTexto("Servicio Laser")
+
+                            .EscribirTexto("-------------------------")
+                            .Feed(1);
+
+                        for (const pago of recibo.pago) {
+                            conector
+                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                            .EscribirTexto("-------------------------")
+                            conector.Feed(1);
+                        }
+
+                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                        if (!respuesta) {
+                            alert("Error al imprimir ticket: " + respuesta);
+                        } else {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Guardado con exito',
+                                text: 'Impresion de ticket y apertura de caja',
+                            }).then(() => {
+                                // Recarga la página
+                                window.location.href = '/notas/laser/pdf/' + recibo.id;
+                            });
+                        }
+
+                    }else{
+
+                        const conector = new ConectorPluginV3();
+                        console.log(recibo);
+
+                        conector
+                            .EscribirTexto("Paradisus\n")
+                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                            .EscribirTexto("Total: $" + recibo.Total + "\n")
+                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                            .EscribirTexto("Servicio Laser")
+                            .EscribirTexto("-------------------------")
+                            .Feed(1);
+
+                        for (const pago of recibo.pago) {
+                            conector
+                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                            .EscribirTexto("-------------------------")
+                            conector.Feed(1);
+                        }
+
+                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                        if (!respuesta) {
+                            alert("Error al imprimir ticket: " + respuesta);
+                        } else {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Guardado con exito',
+                                text: 'Impresion de ticket',
+                            }).then(() => {
+                                // Recarga la página
+                                window.location.href = '/notas/laser/edit/' + recibo.id;
+                            });
+                        }
+
+                    }
+                } else if (/Macintosh/i.test(userAgent)) {
+                    // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                    alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                    setTimeout(function() {
+                        window.location.href = '/notas/laser/edit/' + recibo.id;
+                    }, 1000);
+                }
+            }
+
+            async function imprimirRecibopago(response) {
                 const userAgent = navigator.userAgent;
                 // Obtén los datos del recibo de la respuesta AJAX
                 const recibo = response.recibo;

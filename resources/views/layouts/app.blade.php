@@ -59,7 +59,7 @@
     @include('sueldo_cosmes.crear')
     @include('paquetes_servicios.show')
 
-    <div class="container-fluid py-4">
+    <div class="container-fluid">
 
         {{-- @include('layouts.header') --}}
         @include('layouts.simple_alert')
