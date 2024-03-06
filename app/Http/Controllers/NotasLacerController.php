@@ -376,6 +376,86 @@ class NotasLacerController extends Controller
         return view('notas_lacer.index_laser',compact('user', 'zonas', 'nota_laser', 'pago', 'zonas_lacer', 'registrosZonas', 'configuraciones_laser'));
     }
 
+    public function hoja_salud($id){
+
+        $client =  Client::where('id','=',$id)->first();
+
+        $hoja_salud = HojaSaludLaser::where('id_cliente','=',$id)->first();
+
+        return view('notas_lacer.hoja_salud',compact('client','hoja_salud'));
+    }
+
+    public function update_hoja_salud(Request $request,$id){
+
+        $hoja_salud = HojaSaludLaser::find($id);
+        $hoja_salud->p1 = $request->get('p1');
+        $hoja_salud->p2 = $request->get('p2');
+        $hoja_salud->p3 = $request->get('p3');
+        $hoja_salud->p4 = $request->get('p4');
+        $hoja_salud->p5 = $request->get('p5');
+        $hoja_salud->p6 = $request->get('p6');
+        $hoja_salud->p7 = $request->get('p7');
+        $hoja_salud->p8 = $request->get('p8');
+        $hoja_salud->p9 = $request->get('p9');
+        $hoja_salud->p10 = $request->get('p10');
+        $hoja_salud->p11 = $request->get('p11');
+        $hoja_salud->p12 = $request->get('p12');
+        $hoja_salud->p13 = $request->get('p13');
+        $hoja_salud->p14 = $request->get('p14');
+        $hoja_salud->p15 = $request->get('p15');
+        $hoja_salud->p16 = $request->get('p16');
+        $hoja_salud->p17 = $request->get('p17');
+        $hoja_salud->p18 = $request->get('p18');
+        $hoja_salud->p19 = $request->get('p19');
+        $hoja_salud->p20 = $request->get('p20');
+        $hoja_salud->p21 = $request->get('p21');
+        $hoja_salud->p22 = $request->get('p22');
+        $hoja_salud->p23 = $request->get('p23');
+        $hoja_salud->p24 = $request->get('p24');
+        $hoja_salud->p25 = $request->get('p25');
+        $hoja_salud->p26 = $request->get('p26');
+        $hoja_salud->p27 = $request->get('p27');
+        $hoja_salud->p28 = $request->get('p28');
+        $hoja_salud->p29 = $request->get('p29');
+        $hoja_salud->p30 = $request->get('p30');
+        $hoja_salud->p31 = $request->get('p31');
+        $hoja_salud->p32 = $request->get('p32');
+
+            if($request->firma != NULL){
+                $folderPath = public_path('firmaCosme/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->firma);
+                $image_type_aux = explode("firmaCosme/", $image_parts[0]);
+                $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : null;
+
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.png' ;
+                $file = $folderPath . $signature;
+                file_put_contents($file, $image_base64);
+
+                $hoja_salud->firma = $signature;
+            }
+
+            if($request->firma2 != NULL){
+                $folderPath = public_path('firmaCosme/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->firma2);
+                $image_type_aux = explode("firmaCosme/", $image_parts[0]);
+                $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : null;
+
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.png' ;
+                $file = $folderPath . $signature;
+                file_put_contents($file, $image_base64);
+
+                $hoja_salud->firma2 = $signature;
+            }
+
+        $hoja_salud->update();
+
+
+        return redirect()->back();
+
+    }
+
     public function update(Request $request, $id){
 
         // G U A R D A R  P A G O S

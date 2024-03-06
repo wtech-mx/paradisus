@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Notas Lacer
+    Notas Laser
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
-                            <h3 class="mb-3">Notas Lacer</h3>
+                            <h3 class="mb-3">Notas Laser</h3>
 
                             @can('notas-create')
                                 <a class="btn btn-sm btn-success" href="{{ route('crear.lacer') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
@@ -65,6 +65,9 @@
                                                         <a type="button" class="btn btn-primary btn-sm" href="{{route('laser.pdf_laser', $notas->id)}}"style="color: #ffff">
                                                             <i class="fa fa-print"></i>
                                                         </a>
+
+                                                        <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('edit_hoja_laser.lacer', $notas->Client->id) }}"><i class="fa fa-fw fa-pencil"></i> </a>
+
                                                         <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                     </td>
                                                 </tr>

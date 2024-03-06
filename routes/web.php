@@ -129,6 +129,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/notas/laser/store', [App\Http\Controllers\NotasLacerController::class, 'store'])->name('store.lacer');
     Route::get('/notas/laser/edit/{id}', [App\Http\Controllers\NotasLacerController::class, 'edit'])->name('edit.lacer');
     Route::patch('/notas/laser/update/{id}', [App\Http\Controllers\NotasLacerController::class, 'update'])->name('update.lacer');
+
+    Route::get('/laser/hoja_salud/{id}', [App\Http\Controllers\NotasLacerController::class, 'hoja_salud'])->name('edit_hoja_laser.lacer');
+    Route::patch('/laser/hoja_salud/update/{id}', [App\Http\Controllers\NotasLacerController::class, 'update_hoja_salud'])->name('update_hoja_salud.lacer');
+
     Route::post('/nota/laser/sesion/store', [App\Http\Controllers\NotasLacerController::class, 'store_sesion'])->name('store_sesion.lacer');
     Route::get('/notas/laser/get-zonas/{tipoZona}', [App\Http\Controllers\NotasLacerController::class, 'getZonasByTipoZona'])->name('get-zonas');
 

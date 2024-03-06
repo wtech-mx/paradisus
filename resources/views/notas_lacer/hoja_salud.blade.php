@@ -82,26 +82,30 @@
                     Hoja de Salud para el tratamiento de <br> Depilacion Mediante Láser de Diodo
                 </h5>
 
+            <form method="POST" action="{{ route('update_hoja_salud.lacer', $hoja_salud->id) }}" id="" enctype="multipart/form-data" role="form">
+                @csrf
+                <input type="hidden" name="_method" value="PATCH">
+
                 <div class="row p-3">
                     <div class="col-8 mt-3">
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             NOMBRE COMPLETO :
                         </p>
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control" value="{{ $client->name }} {{ $client->last_name }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-4 mt-3">
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             FECHA :
                         </p>
-                        <input type="text" name="" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="date" name="" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-8 mt-3">
                         <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             FECHA DE NACIMIENTO :
                         </p>
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control" value="{{ $client->birth_date }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
 
                     </div>
 
@@ -110,7 +114,7 @@
                             TELÉFONO :
                         </p>
 
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" value="{{ $client->phone }}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-12 mt-3">
@@ -118,278 +122,276 @@
                             DIRECCIÓN :
                         </p>
 
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" value="{{ $client->direction }}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
-                    {{-- <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            COSMETÓLOGA :
-                        </p>
-
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                    </div> --}}
-
-
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Se considera sano?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p1" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p1" id="p1_si" value="si" {{ $hoja_salud->p1 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p1_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p1" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p1" id="p1_no" value="no" {{ $hoja_salud->p1 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p1_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
+
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Está actualmente bajo tratamiento médico?
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p2" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p2" id="p2_si" value="si" {{ $hoja_salud->p2 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p2_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p2" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p2" id="p2_no" value="no" {{ $hoja_salud->p2 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p2_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
+
 
                     <div class="col-6 mt-3">
                         <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
-                        <input type="text" name="p3" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" name="p3" value="{{ $hoja_salud->p3 }}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Toma alguna medicación?
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p4" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p4" id="p4_si" value="si" {{ $hoja_salud->p4 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p4_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p4" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p4" id="p4_no" value="no" {{ $hoja_salud->p4 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p4_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
+
 
                     <div class="col-6 mt-3">
                         <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
-                        <input type="text" class="form-control" name="p5" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control" value="{{ $hoja_salud->p5 }}" name="p5" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Está Ud. Embarazada o desea quedarse?
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p6" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p6" id="p6_si" value="si" {{ $hoja_salud->p6 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p6_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p6" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p6" id="p6_no" value="no" {{ $hoja_salud->p6 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p6_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
+
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5" name="p7" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control" name="p7" value="{{ $hoja_salud->p7 }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            -¿Toma algún tipo de anticonceptivo o sustitutivoHormonal?
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                            -¿Toma algún tipo de anticonceptivo o sustitutivo Hormonal?
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p8" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p8" id="p8_si" value="si" {{ $hoja_salud->p8 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p8_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p8" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p8" id="p8_no" value="no" {{ $hoja_salud->p8 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p8_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
-                    <div class="col-6 mt-3">
-                        <p class="d-inline mr-5" name="p9" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            Cual :
-                        </p>
-
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                    </div>
 
                     <div class="col-6 mt-3">
                         <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                            Cual :
+                        </p>
+
+                        <input type="text" class="form-control" name="p9" value="{{ $hoja_salud->p9 }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                    </div>
+
+                    <div class="col-6 mt-3">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Padece algún tipo de trastorno hormonal?
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p10" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p10" id="p10_si" value="si" {{ $hoja_salud->p10 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p10_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p10" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p10" id="p10_no" value="no" {{ $hoja_salud->p10 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p10_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
+
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5" name="p11" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control" name="p11" value="{{ $hoja_salud->p11 }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Padece alguno de los siguientes:
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p12" id="">
-                            <label class="form-check-label" for="">
+                            <input class="form-check-input" type="radio" name="p12" id="p12_Hirsutismo" value="Hirsutismo" {{ $hoja_salud->p12 === 'Hirsutismo' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p12_Hirsutismo">
                                 Hirsutismo
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p12" id="" >
-                            <label class="form-check-label" for="">
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p12" id="p12_Hipertricosis" value="Hipertricosis" {{ $hoja_salud->p12 === 'Hipertricosis' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p12_Hipertricosis">
                                 Hipertricosis
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p12" id="3" >
-                            <label class="form-check-label" for="3">
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p12" id="p12_Alopecia" value="Alopecia" {{ $hoja_salud->p12 === 'Alopecia' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p12_Alopecia">
                                 Alopecia
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p12" id="4" >
-                            <label class="form-check-label" for="4">
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p12" id="p12_Alteraciones_menstruales" value="Alteraciones menstruales" {{ $hoja_salud->p12 === 'Alteraciones menstruales' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p12_Alteraciones_menstruales">
                                 Alteraciones menstruales
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p12" id="5" >
-                            <label class="form-check-label" for="5">
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p12" id="p12_Otros" value="Otros" {{ $hoja_salud->p12 === 'Otros' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p12_Otros">
                                 Otros
                             </label>
-                          </div>
+                        </div>
                     </div>
 
+
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Está o ha estado en tratamiento para alguna de las afecciones anteriores? <br>
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p13" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p13" id="p13_si" value="si" {{ $hoja_salud->p13 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p13_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p13" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p13" id="p13_no" value="no" {{ $hoja_salud->p13 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p13_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Tiene alguna enfermedad relacionada a Fotosensibilidad como la Porfiria, Eritema,
                             Polimorfo, Urticaria solar o Lupus?<br>
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p14" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p14" id="p14_si" value="si" {{ $hoja_salud->p14 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p14_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p14" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p14" id="p14_no" value="no" {{ $hoja_salud->p14 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p14_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Tiene Ud. Epilepsia?
                         </p> <br>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p15" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p15" id="p15_si" value="si" {{ $hoja_salud->p15 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p15_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p15" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p15" id="p15_no" value="no" {{ $hoja_salud->p15 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p15_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-12 mt-3">
@@ -398,14 +400,14 @@
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p16" id="">
+                            <input class="form-check-input" type="radio" name="p16" id=""  value="si" {{ $hoja_salud->p16 === 'si' ? 'checked' : '' }}>
                             <label class="form-check-label" for="">
                               Si
                             </label>
                           </div>
 
                           <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p16" id="" >
+                            <input class="form-check-input" type="radio" name="p16" id=""  value="no" {{ $hoja_salud->p16 === 'no' ? 'checked' : '' }}>
                             <label class="form-check-label" for="">
                               No
                             </label>
@@ -413,221 +415,225 @@
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Tiene algún implante metálico?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p17" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p17" id="p17_si" value="si" {{ $hoja_salud->p17 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p17_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p17" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p17" id="p17_no" value="no" {{ $hoja_salud->p17 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p17_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Padece alguna alergia? <br>
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p18" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p18" id="p18_si" value="si" {{ $hoja_salud->p18 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p18_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p18" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p18" id="p18_no" value="no" {{ $hoja_salud->p18 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p18_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
-                    <div class="col-6 mt-3">
-                        <p class="d-inline mr-5" name="p19" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            Cual :
-                        </p>
-
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                    </div>
 
                     <div class="col-6 mt-3">
                         <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                            Cual :
+                        </p>
+
+                        <input type="text" class="form-control" name="p19" value="{{ $hoja_salud->p19 }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                    </div>
+
+                    <div class="col-6 mt-3">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Está en tratamiento para ello?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p20" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p20" id="p20_si" value="si" {{ $hoja_salud->p20 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p20_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p20" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p20" id="p20_no" value="no" {{ $hoja_salud->p20 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p20_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
+
                     <div class="col-6 mt-3">
-                        <p class="d-inline mr-5" name="p21" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Cual :
                         </p>
 
-                        <input type="text" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control"  name="p21" value="{{ $hoja_salud->p21 }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            -¿Tiene o ha tenido cáncer o alguna lesión Pre cancerosa?
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                            -¿Tiene o ha tenido cáncer o alguna lesión pre cancerosa?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p22" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p22" id="p22_si" value="si" {{ $hoja_salud->p22 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p22_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p22" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p22" id="p22_no" value="no" {{ $hoja_salud->p22 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p22_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Su piel se inflama o irrita con facilidad?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p23" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p23" id="p23_si" value="si" {{ $hoja_salud->p23 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p23_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p23" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p23" id="p23_no" value="no" {{ $hoja_salud->p23 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p23_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
+
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Ha tenido problemas de cicatrización?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p24" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p24" id="p24_si" value="si" {{ $hoja_salud->p24 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p24_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p24" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p24" id="p24_no" value="no" {{ $hoja_salud->p24 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p24_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            -¿Su piel ha cambiado de color tras formarseuna cicatriz?
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                            -¿Su piel ha cambiado de color tras formarse una cicatriz?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p25" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p25" id="p25_si" value="si" {{ $hoja_salud->p25 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p25_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p25" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p25" id="p25_no" value="no" {{ $hoja_salud->p25 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p25_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Hace Ud. deporte?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p26" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p26" id="p26_si" value="si" {{ $hoja_salud->p26 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p26_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p26" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p26" id="p26_no" value="no" {{ $hoja_salud->p26 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p26_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
+
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             -¿Tiene algún tatuaje o maquillaje permanente?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p27" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p27" id="p27_si" value="si" {{ $hoja_salud->p27 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p27_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p27" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p27" id="p27_no" value="no" {{ $hoja_salud->p27 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p27_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            -¿Se ha practicado algún tipo de peeling, Dermoabrasión, tratamientos con ácido u otro
-Tipo de láser en el último mes?
+                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                            -¿Se ha practicado algún tipo de peeling, dermoabrasión, tratamientos con ácido u otro tipo de láser en el último mes?
                         </p>
 
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="radio" name="p28" id="">
-                            <label class="form-check-label" for="">
-                              Si
+                            <input class="form-check-input" type="radio" name="p28" id="p28_si" value="si" {{ $hoja_salud->p28 === 'si' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p28_si">
+                                Si
                             </label>
-                          </div>
+                        </div>
 
-                          <div class="form-check" style="display: inline-block; margin-left:1rem;">
-                            <input class="form-check-input" type="radio" name="p28" id="" >
-                            <label class="form-check-label" for="">
-                              No
+                        <div class="form-check" style="display: inline-block; margin-left:1rem;">
+                            <input class="form-check-input" type="radio" name="p28" id="p28_no" value="no" {{ $hoja_salud->p28 === 'no' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="p28_no">
+                                No
                             </label>
-                          </div>
+                        </div>
                     </div>
+
 
                     <div class="col-12">
                         <p> <br><br>
@@ -636,46 +642,43 @@ Tipo de láser en el último mes?
                         </p>
                     </div>
 
-
                     <div class="col-6 mt-3">
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Firma :
                         </p>
 
-
-                        <form method="POST" action="" enctype="multipart/form-data" role="form">
-                            @csrf
-                            <input type="hidden" name="_method" value="PATCH">
                             <div id="sig"></div>
 
-                            <textarea id="signed" name="signed" style="display: none"></textarea>
+                            <textarea id="signed" name="firma" style="display: none"></textarea>
 
                             <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
-                            <button class="btn btn-sm btn-success">Guardar</button>
-                        </form>
+
+                            <img src="{{asset('firmaCosme/'. $hoja_salud->firma)}}" alt="">
 
                     </div>
 
+
+
                     <div class="col-6 mt-3">
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Firma :
                         </p>
-
-
-                        <form method="POST" action="" enctype="multipart/form-data" role="form">
-                            @csrf
-                            <input type="hidden" name="_method" value="PATCH">
                             <div id="sig2"></div>
 
-                            <textarea id="signed2" name="signed2" style="display: none"></textarea>
+                            <textarea id="signed2" name="firma2" style="display: none"></textarea>
 
                             <button id="clear2" class="btn btn-sm btn-danger ">Repetir</button>
-                            <button class="btn btn-sm btn-success">Guardar</button>
-                        </form>
+                            <img src="{{asset('firmaCosme/'. $hoja_salud->firma2)}}" alt="">
 
                     </div>
 
               </div>
+
+              <button type="submit" class="btn " style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                Guardar
+            </button>
+
+            </form>
 
             </div>
           </div>
