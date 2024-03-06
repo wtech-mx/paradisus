@@ -659,7 +659,7 @@
 
 
 
-                    <div class="col-6 mt-3">
+                    {{-- <div class="col-6 mt-3">
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             Firma :
                         </p>
@@ -670,7 +670,7 @@
                             <button id="clear2" class="btn btn-sm btn-danger ">Repetir</button>
                             <img src="{{asset('firmaCosme/'. $hoja_salud->firma2)}}" alt="">
 
-                    </div>
+                    </div> --}}
 
               </div>
 

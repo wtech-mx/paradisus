@@ -137,7 +137,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/notas/laser/get-zonas/{tipoZona}', [App\Http\Controllers\NotasLacerController::class, 'getZonasByTipoZona'])->name('get-zonas');
 
     Route::get('/notas/laser/index/sesiones', [App\Http\Controllers\NotasLacerController::class, 'index_sesiones'])->name('index_sesiones.laser');
-    Route::get('/notas/laser/index/consntimietno', [App\Http\Controllers\NotasLacerController::class, 'index_consentimiento'])->name('index_consentimiento.laser');
+    Route::get('/notas/laser/index/consntimietno/{id}', [App\Http\Controllers\NotasLacerController::class, 'index_consentimiento'])->name('index_consentimiento.laser');
+    Route::patch('/notas/laser/update/consntimietno/{id}', [App\Http\Controllers\NotasLacerController::class, 'update_consentimiento'])->name('update_consentimiento.lacer');
     Route::get('/notas/laser/hoja_salud', [App\Http\Controllers\NotasLacerController::class, 'index_hoja_salud'])->name('hoja_salud.laser');
 
     Route::post('/notas/laser/config/store', [App\Http\Controllers\NotasLacerController::class, 'store_config'])->name('store_config.laser');
