@@ -389,6 +389,7 @@ class NotasLacerController extends Controller
     public function update_hoja_salud(Request $request,$id){
 
         $hoja_salud = HojaSaludLaser::find($id);
+        $hoja_salud->fecha = $request->get('fecha');
         $hoja_salud->p1 = $request->get('p1');
         $hoja_salud->p2 = $request->get('p2');
         $hoja_salud->p3 = $request->get('p3');

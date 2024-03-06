@@ -91,22 +91,14 @@
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             NOMBRE COMPLETO :
                         </p>
-                        <input type="text" class="form-control" value="{{ $client->name }} {{ $client->last_name }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" class="form-control" value="{{ $client->name }} {{ $client->last_name }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" disabled>
                     </div>
 
                     <div class="col-4 mt-3">
                         <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
                             FECHA :
                         </p>
-                        <input type="date" name="" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                    </div>
-
-                    <div class="col-8 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            FECHA DE NACIMIENTO :
-                        </p>
-                        <input type="text" class="form-control" value="{{ $client->birth_date }}" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-
+                        <input type="date" name="fecha" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                     </div>
 
                     <div class="col-4 mt-3">
@@ -114,15 +106,7 @@
                             TELÉFONO :
                         </p>
 
-                        <input type="text" value="{{ $client->phone }}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                    </div>
-
-                    <div class="col-12 mt-3">
-                        <p class="d-inline mr-5"  style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            DIRECCIÓN :
-                        </p>
-
-                        <input type="text" value="{{ $client->direction }}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                        <input type="text" value="{{ $client->phone }}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" disabled>
                     </div>
 
                     <div class="col-12 mt-3">
