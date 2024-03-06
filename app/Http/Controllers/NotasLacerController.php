@@ -402,32 +402,41 @@ class NotasLacerController extends Controller
         }else{
             $pago = '';
         }
-
+            $nota_laser = NotasLacer::find($id);
             $pagos = PagosLaser::where('id_nota', $id)->get();
             $totalPagos = $pagos->sum('pago');
-            $restante =  $pago->pago - $totalPagos;
+            $restante =  $nota_laser->total - $totalPagos;
 
-            $nota = NotasLacer::find($id);
-            $nota->restante = $restante;
-            $nota->update();
+            $nota_laser->restante = $restante;
+            $nota_laser->update();
+
+            if ($pago->cambio > 0 && $pago->forma_pago == 'Efectivo') {
+                $fechaActual = date('Y-m-d');
+                $concepto = 'Cambio nota laser: ' . $id;
+
+                // Crear un nuevo registro
+                $caja = new CajaDia;
+                $caja->motivo = 'Retiro';
+                $caja->egresos = $pago->cambio;
+                $caja->concepto = $concepto;
+                $caja->fecha = $fechaActual;
+                $caja->save();
+            }
 
 
-        $recibo = [
-            "id" => $nota->id,
-            "Cliente" => $nota->Client->name,
-            "Total" => $nota->total,
-            "Restante" => $nota->restante,
-            "nombreImpresora" => "ZJ-58",
-            'pago' => [$pago],
-            // Agrega cualquier otro dato necesario para el recibo
-        ];
-        // Devuelve los datos en formato JSON
-        return response()->json(['success' => true, 'recibo' => $recibo]);
+            $recibo = [
+                "id" => $nota_laser->id,
+                "Cliente" => $nota_laser->Client->name,
+                "Total" => $nota_laser->total,
+                "Restante" => $nota_laser->restante,
+                "nombreImpresora" => "ZJ-58",
+                'pago' => [$pago],
+                'cosmetologa' => $nota_laser->User->name,
+                // Agrega cualquier otro dato necesario para el recibo
+            ];
 
-
-        Alert::success('Actualizado con exito ');
-
-        return redirect()->back()->with('edit','Nota Laser Pago Actualizado.');
+            // Devuelve los datos en formato JSON
+            return response()->json(['success' => true, 'recibo' => $recibo]);
     }
 
     public function pdf_laser($id){

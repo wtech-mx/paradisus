@@ -81,16 +81,18 @@
                                                         </thead>
                                                         <tbody>
                                                         @for ($i = 1; $i <= $zona_lacer->sesiones_compradas; $i++)
-                                                            <form method="POST" action="{{ route('store_sesion.lacer') }}" id="miFormulario" enctype="multipart/form-data" role="form">
+                                                            <form method="POST" action="{{ route('store_sesion.lacer') }}" id="miFormularioEdit" enctype="multipart/form-data" role="form">
                                                                 @csrf
                                                                 @php
                                                                     $registro = $registrosZonas->where('id_zona', '=', $zona_lacer->id_zona)->firstWhere('sesion', $i);
 
                                                                     // Verificar si la fila debería estar habilitada
                                                                     $filaHabilitada = true;
-                                                                    if (($nota_laser->tipo === 'Zona Mini' || $nota_laser->tipo === 'Zonas Pequeñas') && $i > 2) {
-                                                                        $filaHabilitada = false;
-                                                                    } elseif (($nota_laser->tipo === 'Zonas Medianas' || $nota_laser->tipo === 'Zonas Grandes') && $i > 4) {
+                                                                    if (
+                                                                        ($nota_laser->tipo === 'Zona Mini' || $nota_laser->tipo === 'Zonas Pequeñas') && $i > 2 ||
+                                                                        ($nota_laser->tipo === 'Zonas Medianas' || $nota_laser->tipo === 'Zonas Grandes') && $i > 4 ||
+                                                                        ($nota_laser->tipo === 'Personalizado' && $i > 4)
+                                                                    ) {
                                                                         $filaHabilitada = false;
                                                                     }
 
@@ -142,15 +144,13 @@
                                                                     </td>
 
                                                                     <td>
-                                                                        @if ($registro)@else
-                                                                            @if (!$hayRestante || !$filaHabilitada)
 
-                                                                            @else
-                                                                                <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                                                                                    G
-                                                                                </button>
-                                                                            @endif
+                                                                        @if (!$hayRestante || $filaHabilitada)
+                                                                            <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                                                                G
+                                                                            </button>
                                                                         @endif
+
                                                                     </td>
 
                                                                 </tr>
@@ -415,7 +415,8 @@
         calcularRestante();
 
         document.addEventListener('DOMContentLoaded', function () {
-            $("#miFormularioEditLaser").on("submit", function (event) {
+            // Funcion AJAX
+            $("#miFormularioEdit").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
                 // Realiza la solicitud POST usando AJAX
@@ -431,23 +432,23 @@
 
                     },
                     error: function (xhr, status, error) {
-                        var errors = xhr.responseJSON.errors;
-                        var errorMessage = '';
+                            var errors = xhr.responseJSON.errors;
+                            var errorMessage = '';
 
-                        // Itera a través de los errores y agrega cada mensaje de error al mensaje final
-                        for (var key in errors) {
-                            if (errors.hasOwnProperty(key)) {
-                                var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
-                                errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
+                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                                }
                             }
-                        }
-                        console.log(errorMessage);
-                        // Muestra el mensaje de error en una SweetAlert
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Faltan Campos',
-                            html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
-                        });
+                            console.log(errorMessage);
+                            // Muestra el mensaje de error en una SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Faltan Campos',
+                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
+                            });
                     }
                 });
 
@@ -455,104 +456,108 @@
 
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
+                const userAgent = navigator.userAgent;
+                // Obtén los datos del recibo de la respuesta AJAX
+                const recibo = response.recibo;
+                // Empezar a usar el plugin
+                const formaPago = $("#forma_pago").val();
+                if (/Windows/i.test(userAgent)) {
 
-                        const userAgent = navigator.userAgent;
-                        // Obtén los datos del recibo de la respuesta AJAX
-                        const recibo = response.recibo;
-                        // Empezar a usar el plugin
-                        const formaPago = $("#forma_pago").val();
-                    if (/Windows/i.test(userAgent)) {
+                    if(formaPago === 'Efectivo'){
 
-                        if(formaPago === 'Efectivo'){
+                        const conector = new ConectorPluginV3();
+                        console.log(recibo);
 
-                            const conector = new ConectorPluginV3();
-                            console.log(recibo);
+                        conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
 
-                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+                        conector
+                            .EscribirTexto("Paradisus\n")
+                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                            .EscribirTexto("Total: $" + recibo.Total + "\n")
+                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                            .EscribirTexto("Servicio Laser")
 
+                            .EscribirTexto("-------------------------")
+                            .Feed(1);
+
+                        for (const pago of recibo.pago) {
                             conector
-                                .EscribirTexto("Paradisus\n")
-                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                                .EscribirTexto("Total: $" + recibo.Total + "\n")
-                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                                .EscribirTexto("-------------------------")
-                                .Feed(1);
-
-                            for (const pago of recibo.pago) {
-                                conector
-                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                                .EscribirTexto("-------------------------")
-                                conector.Feed(1);
-                            }
-
-                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
-
-                            if (!respuesta) {
-                                alert("Error al imprimir ticket: " + respuesta);
-                            } else {
-
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Guardado con exito',
-                                    text: 'Impresion de ticket y apertura de caja',
-                                }).then(() => {
-                                    // Recarga la página
-                                   window.location.href = '/notas/servicios/edit/' + recibo.id;
-                                });
-                            }
-
-                        }else{
-
-                            const conector = new ConectorPluginV3();
-                            console.log(recibo);
-
-                            conector
-                                .EscribirTexto("Paradisus\n")
-                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                                .EscribirTexto("Total: $" + recibo.Total + "\n")
-                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                                .EscribirTexto("-------------------------")
-                                .Feed(1);
-
-                            for (const pago of recibo.pago) {
-                                conector
-                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                                .EscribirTexto("-------------------------")
-                                conector.Feed(1);
-                            }
-
-                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
-
-                            if (!respuesta) {
-                                alert("Error al imprimir ticket: " + respuesta);
-                            } else {
-
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Guardado con exito',
-                                    text: 'Impresion de ticket',
-                                }).then(() => {
-                                    // Recarga la página
-                                    window.location.href = '/notas/laser/edit/' + recibo.id;
-                                });
-                            }
-
+                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                            .EscribirTexto("-------------------------")
+                            conector.Feed(1);
                         }
-                    } else if (/Macintosh/i.test(userAgent)) {
-                        // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
-                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
-                        setTimeout(function() {
-                            window.location.href = '/notas/laser/edit/' + recibo.id;
-                        }, 1000);
+
+                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                        if (!respuesta) {
+                            alert("Error al imprimir ticket: " + respuesta);
+                        } else {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Guardado con exito',
+                                text: 'Impresion de ticket y apertura de caja',
+                            }).then(() => {
+                                // Recarga la página
+                                window.location.href = '/notas/laser/pdf/' + recibo.id;
+                            });
+                        }
+
+                    }else{
+
+                        const conector = new ConectorPluginV3();
+                        console.log(recibo);
+
+                        conector
+                            .EscribirTexto("Paradisus\n")
+                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                            .EscribirTexto("Total: $" + recibo.Total + "\n")
+                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                            .EscribirTexto("Servicio Laser")
+                            .EscribirTexto("-------------------------")
+                            .Feed(1);
+
+                        for (const pago of recibo.pago) {
+                            conector
+                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                            .EscribirTexto("-------------------------")
+                            conector.Feed(1);
+                        }
+
+                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                        if (!respuesta) {
+                            alert("Error al imprimir ticket: " + respuesta);
+                        } else {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Guardado con exito',
+                                text: 'Impresion de ticket',
+                            }).then(() => {
+                                // Recarga la página
+                                window.location.href = '/notas/laser/edit/' + recibo.id;
+                            });
+                        }
+
                     }
+                } else if (/Macintosh/i.test(userAgent)) {
+                    // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                    alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                    setTimeout(function() {
+                        window.location.href = '/notas/laser/edit/' + recibo.id;
+                    }, 1000);
+                }
             }
         });
 </script>
