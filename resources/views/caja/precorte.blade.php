@@ -788,7 +788,7 @@
                 <tr>
                     <td>
                         <p class="text-sm">
-                        {{ $item->Notas->Client->name }} <br> {{ $item->Notas->Client->last_name }} <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                         <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
                         </p>
                     </td>
                     <td >
