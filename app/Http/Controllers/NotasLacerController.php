@@ -14,6 +14,7 @@ use App\Models\RegistroZonas;
 use App\Models\HojaSaludLaser;
 
 Use Alert;
+use App\Models\ConsentimientoLaser;
 use App\Models\RegCosmesSum;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -22,16 +23,10 @@ use Illuminate\Http\Request;
 
 class NotasLacerController extends Controller
 {
-    public function index_consentimiento(){
-        return view('notas_lacer.index_consentimiento');
-    }
+    public function index_consentimiento($id){
+        $consentimiento = ConsentimientoLaser::where('id_cliente', '=', $id)->first();
 
-    public function imagen_depiladora(){
-        return view('notas_lacer.imagen_depiladora');
-    }
-
-    public function index_hoja_salud(){
-        return view('notas_lacer.hoja_salud');
+        return view('notas_lacer.index_consentimiento', compact('consentimiento'));
     }
 
     public function index(){
@@ -254,9 +249,15 @@ class NotasLacerController extends Controller
         }
 
 
+        // G U A R D A R  H O J A  S A L U D
         $hoja_salud = new HojaSaludLaser;
         $hoja_salud->id_cliente = $nota_laser->id_client;
         $hoja_salud->save();
+
+        // G U A R D A R  C O N S E N T I M I E N T O
+        $consentimiento = new ConsentimientoLaser;
+        $consentimiento->id_cliente = $nota_laser->id_client;
+        $consentimiento->save();
 
         $recibo = [
             "id" => $nota_laser->id,
@@ -388,6 +389,7 @@ class NotasLacerController extends Controller
     public function update_hoja_salud(Request $request,$id){
 
         $hoja_salud = HojaSaludLaser::find($id);
+        $hoja_salud->fecha = $request->get('fecha');
         $hoja_salud->p1 = $request->get('p1');
         $hoja_salud->p2 = $request->get('p2');
         $hoja_salud->p3 = $request->get('p3');
@@ -529,5 +531,32 @@ class NotasLacerController extends Controller
         $pdf = \PDF::loadView('notas_lacer.recibo_pdf', compact('nota_laser', 'pagos', 'zonas_laser'));
         // return $pdf->stream();
         return $pdf->download('Recibo Nota Laser '.$today.'.pdf');
+    }
+
+    public function update_consentimiento(Request $request,$id){
+
+        $consentimiento = ConsentimientoLaser::where('id_cliente', '=', $id)->first();
+        $consentimiento->edad = $request->get('edad');
+        $consentimiento->domicilio = $request->get('domicilio');
+
+            if($request->firma != NULL){
+                $folderPath = public_path('firmaCosme/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->firma);
+                $image_type_aux = explode("firmaCosme/", $image_parts[0]);
+                $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : null;
+
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.png' ;
+                $file = $folderPath . $signature;
+                file_put_contents($file, $image_base64);
+
+                $consentimiento->firma = $signature;
+            }
+
+        $consentimiento->update();
+
+
+        return redirect()->back();
+
     }
 }

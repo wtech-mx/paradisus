@@ -21,14 +21,6 @@
                                 </a>
                             @endcan
 
-                            <a class="btn btn-sm btn-success" href="{{ route('index_consentimiento.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                <i class="fa fa-fw fa-edit"></i> Vista de Concentiemiento
-                            </a>
-
-                            <a class="btn btn-sm btn-success" href="{{ route('hoja_salud.laser') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                <i class="fa fa-fw fa-edit"></i> Hoja de Salud
-                            </a>
-
                         </div>
                     </div>
                     @can('notas-list')
@@ -66,9 +58,10 @@
                                                             <i class="fa fa-print"></i>
                                                         </a>
 
-                                                        <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('edit_hoja_laser.lacer', $notas->Client->id) }}"><i class="fa fa-fw fa-pencil"></i> </a>
-
                                                         <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+
+                                                        <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('edit_hoja_laser.lacer', $notas->Client->id) }}"><i class="fa fa-fw fa-pencil"></i> </a>
+                                                        <a class="btn btn-sm btn-danger" target="_blank" href="{{ route('index_consentimiento.laser', $notas->Client->id) }}"><i class="fa fa-fw fa-file-text-o"></i> </a>
                                                     </td>
                                                 </tr>
                                             @endforeach
