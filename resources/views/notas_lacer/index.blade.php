@@ -41,7 +41,7 @@
                                             @foreach ($nota_lacer as $notas)
                                             <tr>
                                                     <td>{{ $notas->id }}</td>
-                                                    <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br> {{ $notas->Client->phone }}</td>
+                                                    <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br>@can('client-list') {{ $notas->Client->phone }} @endcan</td>
                                                     <td>
                                                         {{$notas->tipo}}
                                                     </td>
@@ -54,14 +54,18 @@
                                                     @endif
 
                                                     <td>
-                                                        <a type="button" class="btn btn-primary btn-sm" href="{{route('laser.pdf_laser', $notas->id)}}"style="color: #ffff">
-                                                            <i class="fa fa-print"></i>
-                                                        </a>
-
+                                                        @can('client-list')
+                                                            <a type="button" class="btn btn-primary btn-sm" href="{{route('laser.pdf_laser', $notas->id)}}"style="color: #ffff">
+                                                                <i class="fa fa-print"></i>
+                                                            </a>
+                                                        @endcan
+                                                        
                                                         <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$notas->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
 
+                                                        @can('client-list')
                                                         <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('edit_hoja_laser.lacer', $notas->Client->id) }}"><i class="fa fa-fw fa-pencil"></i> </a>
                                                         <a class="btn btn-sm btn-danger" target="_blank" href="{{ route('index_consentimiento.laser', $notas->Client->id) }}"><i class="fa fa-fw fa-file-text-o"></i> </a>
+                                                        @endcan
                                                     </td>
                                                 </tr>
                                             @endforeach

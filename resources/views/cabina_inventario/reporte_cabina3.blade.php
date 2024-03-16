@@ -178,6 +178,40 @@
 
     <div class="page-break"></div>
 
+    @foreach ($registros_por_producto as $id_producto => $registros)
+        @php
+            $producto = $productos->where('id', $id_producto)->first();
+        @endphp
+        <div style="background-color: #b06a9e; color:#fff; text-align: center;">
+            <h3>Tabla Producto: <br> <b> {{ $producto->nombre }} </b></h3>
+        </div>
+
+        <table class="table text-center">
+            <thead style="background-color: #87b7ca; color: #fff">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Estatus </th>
+                    <th>Cantidad en cabina</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($registros as $registro)
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($registro->created_at)->format('d/M/Y') }}</td>
+                        <td style="background-color:
+                            @if($registro->estatus == 'En stock') green
+                            @elseif($registro->estatus == 'Por Terminar') orange
+                            @elseif($registro->estatus == 'Se cambio') red
+                            @endif">
+                            {{ $registro->estatus }}
+                        </td>
+                        <td>{{ $registro->cantidad }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endforeach
+
   </div>
 </body>
 </html>

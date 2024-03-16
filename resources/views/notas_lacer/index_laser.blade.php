@@ -23,12 +23,13 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link " data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true" id="pills-profile-tab">
-                                    <i class="ni ni-credit-card text-sm me-2"></i> Pago
-                                </a>
-                            </li>
-
+                            @can('client-list')
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link " data-bs-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true" id="pills-profile-tab">
+                                        <i class="ni ni-credit-card text-sm me-2"></i> Pago
+                                    </a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
 

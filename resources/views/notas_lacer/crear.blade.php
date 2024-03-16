@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-   Crear Nota Lacer
+   Crear Nota Laser
 @endsection
 
 @section('content')

@@ -349,8 +349,8 @@ class CabinaInvetarioController extends Controller
         ->get();
 
         $pdf = PDF::loadView('cabina_inventario.reporte_new',compact('productos_sem', 'inicioMes', 'productos_sem_cambios', 'productos_sem_termino', 'productos_cabina1', 'productos_cabina2', 'productos_cabina3', 'productos_cabina4', 'productos_cabina5', 'hoy'));
-        return $pdf->stream();
-        // return $pdf->download('reporte-general.pdf');
+       // return $pdf->stream();
+        return $pdf->download('reporte-general.pdf');
     }
 
     public function reporte_bodega(Request $request){
@@ -387,7 +387,23 @@ class CabinaInvetarioController extends Controller
         )
         ->get();
 
-        $pdf = PDF::loadView('cabina_inventario.reporte_cabina1',compact('inicioMes','productos_cabina1','hoy'));
+        $registros_por_producto = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->where('cabina_inventario.num_cabina', '=', '1')
+        ->orderBy('id_producto')
+        ->select(
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.created_at'
+        )
+        ->get()
+        ->groupBy('id_producto');
+
+
+        $productos = Productos::whereIn('id', $registros_por_producto->keys())->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina1',compact('inicioMes','productos_cabina1','hoy', 'registros_por_producto', 'productos'));
         return $pdf->stream();
         // return $pdf->download('reporte-general.pdf');
     }
@@ -412,7 +428,22 @@ class CabinaInvetarioController extends Controller
         )
         ->get();
 
-        $pdf = PDF::loadView('cabina_inventario.reporte_cabina3',compact('inicioMes','productos_cabina1','hoy'));
+        $registros_por_producto = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->where('cabina_inventario.num_cabina', '=', '3')
+        ->orderBy('id_producto')
+        ->select(
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.created_at'
+        )
+        ->get()
+        ->groupBy('id_producto');
+
+        $productos = Productos::whereIn('id', $registros_por_producto->keys())->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina3',compact('inicioMes','productos_cabina1','hoy', 'registros_por_producto', 'productos'));
         return $pdf->stream();
         // return $pdf->download('reporte-general.pdf');
     }
@@ -437,7 +468,22 @@ class CabinaInvetarioController extends Controller
         )
         ->get();
 
-        $pdf = PDF::loadView('cabina_inventario.reporte_cabina4',compact('inicioMes','productos_cabina1','hoy'));
+        $registros_por_producto = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->where('cabina_inventario.num_cabina', '=', '4')
+        ->orderBy('id_producto')
+        ->select(
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.created_at'
+        )
+        ->get()
+        ->groupBy('id_producto');
+
+        $productos = Productos::whereIn('id', $registros_por_producto->keys())->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina4',compact('inicioMes','productos_cabina1','hoy', 'registros_por_producto', 'productos'));
         return $pdf->stream();
         // return $pdf->download('reporte-general.pdf');
     }
@@ -462,7 +508,22 @@ class CabinaInvetarioController extends Controller
         )
         ->get();
 
-        $pdf = PDF::loadView('cabina_inventario.reporte_cabina5',compact('inicioMes','productos_cabina1','hoy'));
+        $registros_por_producto = DB::table('productos_inventario')
+        ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
+        ->where('cabina_inventario.num_cabina', '=', '5')
+        ->orderBy('id_producto')
+        ->select(
+            'productos_inventario.id_producto',
+            'productos_inventario.estatus',
+            'productos_inventario.cantidad',
+            'productos_inventario.created_at'
+        )
+        ->get()
+        ->groupBy('id_producto');
+
+        $productos = Productos::whereIn('id', $registros_por_producto->keys())->get();
+
+        $pdf = PDF::loadView('cabina_inventario.reporte_cabina5',compact('inicioMes','productos_cabina1','hoy', 'registros_por_producto', 'productos'));
         return $pdf->stream();
         // return $pdf->download('reporte-general.pdf');
     }
