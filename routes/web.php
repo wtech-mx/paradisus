@@ -130,6 +130,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/notas/laser/edit/{id}', [App\Http\Controllers\NotasLacerController::class, 'edit'])->name('edit.lacer');
     Route::patch('/notas/laser/update/{id}', [App\Http\Controllers\NotasLacerController::class, 'update'])->name('update.lacer');
 
+    Route::get('/recomendaciones', [App\Http\Controllers\NotasLacerController::class, 'recomendaciones'])->name('index.recomendaciones');
+
     Route::get('/laser/hoja_salud/{id}', [App\Http\Controllers\NotasLacerController::class, 'hoja_salud'])->name('edit_hoja_laser.lacer');
     Route::patch('/laser/hoja_salud/update/{id}', [App\Http\Controllers\NotasLacerController::class, 'update_hoja_salud'])->name('update_hoja_salud.lacer');
 

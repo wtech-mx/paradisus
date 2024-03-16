@@ -559,4 +559,11 @@ class NotasLacerController extends Controller
         return redirect()->back();
 
     }
+
+    public function recomendaciones(){
+
+
+        return view('notas_lacer.recomendaciones');
+
+    }
 }

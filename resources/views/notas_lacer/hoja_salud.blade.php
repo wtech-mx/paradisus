@@ -626,41 +626,36 @@
                         </p>
                     </div>
 
-                    <div class="col-6 mt-3">
-                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            Firma :
-                        </p>
+                    @if($hoja_salud->firma != NULL )
 
-                            <div id="sig"></div>
+                        <div class="col-12">
+                            <img class="mx-auto" src="{{asset('firmaCosme/'. $hoja_salud->firma)}}" alt="">
+                        </div>
 
-                            <textarea id="signed" name="firma" style="display: none"></textarea>
+                    @else
 
-                            <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
+                        <div class="col-12 mt-3">
+                            <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                                Firma :
+                            </p>
 
-                            <img src="{{asset('firmaCosme/'. $hoja_salud->firma)}}" alt="">
+                                <div id="sig"></div>
 
-                    </div>
+                                <textarea id="signed" name="firma" style="display: none"></textarea>
 
+                                <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
 
+                                <img src="{{asset('firmaCosme/'. $hoja_salud->firma)}}" alt="">
 
-                    {{-- <div class="col-6 mt-3">
-                        <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                            Firma :
-                        </p>
-                            <div id="sig2"></div>
+                                <button type="submit" class="btn " style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                    Guardar
+                                </button>
+                        </div>
 
-                            <textarea id="signed2" name="firma2" style="display: none"></textarea>
+                    @endif
 
-                            <button id="clear2" class="btn btn-sm btn-danger ">Repetir</button>
-                            <img src="{{asset('firmaCosme/'. $hoja_salud->firma2)}}" alt="">
-
-                    </div> --}}
 
               </div>
-
-              <button type="submit" class="btn " style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                Guardar
-            </button>
 
             </form>
 
