@@ -21,14 +21,9 @@
                                 </a>
                             @endcan
 
-                            <a target="_blank" class="btn btn-sm btn-success" href="{{ route('index.recomendaciones') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
-                                <i class="fa fa-fw fa-eye"></i> recomendaciones
-                            </a>
-
-
                         </div>
                     </div>
-                    @can('notas-list')
+                    
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-flush" id="datatable-search">
@@ -82,7 +77,6 @@
                                 </table>
                             </div>
                         </div>
-                    @endcan
                 </div>
 
             </div>
