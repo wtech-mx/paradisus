@@ -119,41 +119,36 @@
                         <div class="col-12 mt-3">
                             <p>
                                 Autorizo a realizarme la depilación con láser. El láser sólo es efectivo en un porcentaje de pelos
-                                por lo queexistirá la necesidad de efectuar varias sesiones para completar todo el
-                                tratamiento, el número desesiones necesarias para la eliminación de la mayor parte del
+                                por lo que existirá la necesidad de efectuar varias sesiones para completar todo el
+                                tratamiento, el número de sesiones necesarias para la eliminación de la mayor parte del
                                 pelo (nunca se elimina la totalidad del pelo) se sitúa entre 5 y 8, pudiendo ser mayor en algunas
                                 ocasiones. <br><br>
 
                                 La depilación de la cara en las personas de entre 18 y 35 años puede ser especialmente
                                 resistente al tratamienpor el hecho de que el hirsutismo que afecta a esta región hace surgir pelo
-                                nuevo a mayor velocidad del que elláser es capaz de eliminarlo. En estos casos las personas
-                                que se someten a este procedimiento debenadvertir de este hecho antes de comenzar con
+                                nuevo a mayor velocidad del que el láser es capaz de eliminarlo. En estos casos las personas
+                                que se someten a este procedimiento deben advertir de este hecho antes de comenzar con
                                 el proceso de la depilación, y deben asumir que el númerode sesiones necesarias para la
-                                eliminación del pelo de esta región puede llegar a ser superior a lasrequeridas en
+                                eliminación del pelo de esta región puede llegar a ser superior a las requeridas en
                                 circunstancias normales o en otras regiones del cuerpo. <br><br>
 
                                 Es importante tener en cuenta que la eliminación de pelo podría ser prolongada e incluso
-                                permanente. Sinembargo, algunos pacientes podrían no completar la pérdida de pelo, incluso
-                                con varios tratamientos láser. <br><br>
-
-                                Es importante tener en cuenta que la eliminación de pelo podría ser prolongada e incluso
-                                permanente. Sinembargo, algunos pacient es podrían no completar la pérdida de pelo, incluso
+                                permanente. Sin embargo, algunos pacientes podrían no completar la pérdida de pelo, incluso
                                 con varios tratamientos láser. <br><br>
 
                                 Los siguientes puntos han sido tratados conmigo:<br><br>
                                 ·El beneficio potencial del procedimiento propuesto.<br>
                                 ·La probabilidad de éxito.<br>
-                                ·Las consecuencias anticipadas son razonables si no se siguen las instrucciones pre y post<br>
-                                tratamiento.<br>
+                                ·Las consecuencias anticipadas son razonables si no se siguen las instrucciones pre y post tratamiento.<br>
                                 ·Las complicaciones/riesgos más comunes, con el procedimiento propuesto y período de
                                 curaconsecuente; incluyendo (pero no únicamente) infección, cicatrización, recurrencia de pelo,
                                 ampollas y cambiosde pigmentación.<br><br>
 
                                 Acepto los siguientes posibles riesgos/experiencias derivados del tratamiento con el Láser: <br><br>
 
-                                <strong style="color:#E14C86;">Incomodidad:</strong> Se podría experimentar alguna incomodidaddurante el tratamiento. Doy mi
-                                permiso para laadministración de Anestesia si lo consideran apropiado. Me han advertido que los
-                                efectos secundarios queocasionalmente podrían surgir son: el enrojecimiento de la zona
+                                <strong style="color:#E14C86;">Incomodidad:</strong> Se podría experimentar alguna incomodidad durante el tratamiento. Doy mi
+                                permiso para la administración de Anestesia si lo consideran apropiado. Me han advertido que los
+                                efectos secundarios que ocasionalmente podrían surgir son: el enrojecimiento de la zona
                                 después de la sesión, hipopigmentación, hiperpigmentación o raramente aparición de
                                 pequeñas ampollas o vesículas en las zonas tratadas. <br><br>
 
@@ -194,32 +189,40 @@
 
                             <strong>
                                 ENTIENDO QUE TODOS LOS PAGOS PARA EL PROCEDIMIENTO ARRIBA MENCIONADO NO SON
-                                REEMBOLSABLES UNA VEZ REALIZADO EL TRATAMIENTO. ABAJO FIGURA MÍ FIRMA YCERTIFICO
+                                REEMBOLSABLES UNA VEZ REALIZADO EL TRATAMIENTO. ABAJO FIGURA MÍ FIRMA Y CERTIFICO
                                 QUE HE LEÍDO Y ENTENDIDO PERFECTAMENTE LOS CONTENIDOS DE ESTA AUTORIZACIÓN:
                             </strong>
 
                             </p>
                         </div>
 
-                        <div class="col-12 mt-3">
-                            <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
-                                Firma :
-                            </p>
+                        @if($consentimiento->firma != NULL )
+
+                            <div class="col-12">
+                                <img class="mx-auto" src="{{asset('firmaCosme/'. $consentimiento->firma)}}" alt="">
+                            </div>
+
+                        @else
+
+                            <div class="col-12 mt-3">
+                                <p class="d-inline mr-5" style="color:#C45584;font-weight: 600;margin-right: 2rem;">
+                                    Firma :
+                                </p>
+
+                                    <div id="sig"></div>
+                                    <textarea id="signed" name="firma" style="display: none"></textarea>
+                                    <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
 
 
-                                <div id="sig"></div>
+                                <button type="submit" class="btn mx-auto" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                    Guardar
+                                </button>
+                            </div>
 
-                                <textarea id="signed" name="firma" style="display: none"></textarea>
+                        @endif
 
-                                <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
-
-                                <img src="{{asset('firmaCosme/'. $consentimiento->firma)}}" alt="">
-
-                        </div>
                     </div>
-                    <button type="submit" class="btn " style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                        Guardar
-                    </button>
+
                 </form>
 
             </div>

@@ -21,6 +21,11 @@
                                 </a>
                             @endcan
 
+                            <a target="_blank" class="btn btn-sm btn-success" href="{{ route('index.recomendaciones') }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                <i class="fa fa-fw fa-eye"></i> recomendaciones
+                            </a>
+
+
                         </div>
                     </div>
                     @can('notas-list')
@@ -54,6 +59,10 @@
                                                     @endif
 
                                                     <td>
+                                                        <a type="button" class="btn btn-success btn-sm" href="{{route('index.recomendaciones')}}" target="_blank" style="color: #ffff">
+                                                            <i class="fa fa-whatsapp"></i>
+                                                        </a>
+
                                                         <a type="button" class="btn btn-primary btn-sm" href="{{route('laser.pdf_laser', $notas->id)}}"style="color: #ffff">
                                                             <i class="fa fa-print"></i>
                                                         </a>
