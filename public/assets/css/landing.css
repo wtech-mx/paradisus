@@ -76,7 +76,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgb(244 178 191 / 48%);    z-index: -1;
+    background: rgb(182 93 110 / 50%);
+    z-index: -1;
     transform: translateZ(-1px) scale(2);
     will-change: transform;
 }
@@ -94,7 +95,7 @@
 .tittle_paradisus_section{
     color: #AA6675;
     font-family: Playfair_italic;
-    font-size: 60px;
+    font-size: 80px;
 }
 
 .tittle_section_para{
@@ -131,6 +132,7 @@
 .footer_tittle{
     color: #fff;
     font-family: Playfair;
+    font-size: 20px;
 }
 
 .footer_paradisus{
@@ -139,4 +141,8 @@
 
 .img_icono_footer{
     width: 40px;
+}
+
+.logo_democosmetic{
+    width: 300px;
 }

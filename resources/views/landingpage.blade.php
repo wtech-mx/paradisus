@@ -183,12 +183,12 @@
 
 <section class="row mt-5">
 
-    <div class="col-6">
-        <img src="{{ asset('assets/landing/logo_democosmetics.png') }}" class="d-block m-auto" alt="..." style="width:200px">
+    <div class="col-5">
+        <img src="{{ asset('assets/landing/logo_democosmetics.png') }}" class="d-block m-auto logo_democosmetic" alt="...">
 
     </div>
 
-    <div class="col-6 my-auto">
+    <div class="col-7 my-auto">
         <div class="container">
             <p class="text-center text_subfooter">
                 Trabajamos de la mano con los productos de: <br>
