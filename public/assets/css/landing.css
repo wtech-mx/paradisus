@@ -3,8 +3,29 @@
     src: url('/assets/fonts/PlayfairDisplay-VariableFont_wght.ttf');
  }
 
+ @font-face {
+    font-family: 'Playfair_bold';
+    src: url('/assets/fonts/static/PlayfairDisplay-Bold.ttf');
+ }
+
+ @font-face {
+    font-family: 'Playfair_medium';
+    src: url('/assets/fonts/static/PlayfairDisplay-Medium.ttf');
+ }
+
+ @font-face {
+    font-family: 'Playfair_regular';
+    src: url('/assets/fonts/static/PlayfairDisplay-Regular.ttf');
+ }
+
+ @font-face {
+    font-family: 'Playfair_italic';
+    src: url('/assets/fonts/static/PlayfairDisplay-MediumItalic.ttf');
+ }
+
 .navbar_paradisus{
     background-color: #B16878;
+    box-shadow: 0px 6px 16px 0px rgb(0 0 0 / 60%);
 }
 
 .navbar_li_color{
@@ -20,6 +41,13 @@
     background-color: #9D626E;
     color: #fff!important;
     font-family: Playfair;
+    padding: 0 30px 0 30px;
+}
+
+.text_subfooter{
+    color: #9D626E;
+    font-family: Playfair_regular;
+
 }
 
 .parallax{
@@ -51,4 +79,64 @@
     background: rgb(244 178 191 / 48%);    z-index: -1;
     transform: translateZ(-1px) scale(2);
     will-change: transform;
+}
+
+.tittle_hero{
+    color: #fff;
+    font-family: Playfair;
+}
+
+.text_hero{
+    color: #fff;
+    font-family: Playfair;
+}
+
+.tittle_paradisus_section{
+    color: #AA6675;
+    font-family: Playfair_italic;
+    font-size: 60px;
+}
+
+.tittle_section_para{
+    color: #fff;
+    font-family: Playfair_italic;
+    font-size: 70px;
+}
+
+.text_section_para{
+    color: #fff;
+    font-family: Playfair_regular;
+}
+
+.subtext_paradisus{
+    color: #AA6675;
+    font-family: Playfair_regular;
+
+}
+
+.btn_cta{
+    background-color: #9F586A;
+    color: #fff;
+    font-family: Playfair;
+    box-shadow: 0px 6px 0px 0px rgb(0 0 0 / 60%);
+}
+
+.btn_cta:hover{
+    transition: 0.3s;
+    background-color: #fff;
+    font-family: Playfair;
+    color: #9F586A;
+}
+
+.footer_tittle{
+    color: #fff;
+    font-family: Playfair;
+}
+
+.footer_paradisus{
+    background-color: #B67689!important;
+}
+
+.img_icono_footer{
+    width: 40px;
 }

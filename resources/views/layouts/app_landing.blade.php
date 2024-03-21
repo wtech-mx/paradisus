@@ -105,43 +105,60 @@
 
     @yield('content')
 
-    <footer class="py-5">
+    <footer class="py-5 footer_paradisus" style="background-color: #B9758A!important;">
         <div class="row">
 
           <div class="col-4">
             <div class="d-flex justify-content-center">
+                <h5 class="footer_tittle"><strong>UBICACION</strong></h5>
+            </div>
 
-                <h5>Section</h5>
+            <div class="d-flex justify-content-center">
                 <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                    <li class="nav-item mb-2">
+                        <a href="https://maps.app.goo.gl/YEweZXrJjaEBa3Zr6" target="_blank" class="nav-link p-0 footer_tittle text-center">
+                            Castilla 136, Álamos, Benito Juárez, 03400 Ciudad de México <br>
+                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/UBICACION.webp') }}" alt="Logo paradisus">
+                        </a>
+                    </li>
                 </ul>
             </div>
           </div>
 
           <div class="col-4">
-                <h5>Section</h5>
+            <div class="d-flex justify-content-center">
+                <h5 class="footer_tittle"><strong>CONTACTO</strong></h5>
+            </div>
+
+            <div class="d-flex justify-content-center">
                 <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                    <li class="nav-item mb-2">
+                        <a href="#" class="nav-link p-0 footer_tittle text-center">
+                            5549204641 <br>
+                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/WHATSAPP-01.webp') }}" alt="Logo paradisus">
+                        </a>
+                    </li>
                 </ul>
+            </div>
           </div>
 
           <div class="col-4">
-            <h5>Section</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-            </ul>
+            <div class="d-flex justify-content-center">
+                <h5 class="footer_tittle"><strong>REDES SOCIALES</strong></h5>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a href="#" class="nav-link p-0 footer_tittle text-center">
+                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/FACEBOOK-01.webp') }}" alt="Logo paradisus">
+                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/TIKTOK-01.webp') }}" alt="Logo paradisus">
+                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/INSTAGRAM-01.webp') }}" alt="Logo paradisus">
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
           </div>
 
         </div>
