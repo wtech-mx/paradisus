@@ -31,6 +31,9 @@ Route::get('iniciar_sesion', function () {
     return view('auth.iniciar_sesion');
 });
 
+Route::get('/inicio', [App\Http\Controllers\LandingPageController::class, 'index'])->name('index.landingpage');
+
+
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
 
 Route::get('/nota/usuario/servicio/print/{id}', [App\Http\Controllers\NotasController::class, 'imprimir'])->name('notas.usuario_imprimir');
