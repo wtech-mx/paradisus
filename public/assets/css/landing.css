@@ -92,6 +92,11 @@
     font-family: Playfair;
 }
 
+.service_title{
+    color: #AA6675;
+    font-family: Playfair_italic;
+}
+
 .tittle_paradisus_section{
     color: #AA6675;
     font-family: Playfair_italic;
@@ -106,6 +111,11 @@
 
 .text_section_para{
     color: #fff;
+    font-family: Playfair_regular;
+}
+
+.texo_services_icons{
+    color: #AA6675;
     font-family: Playfair_regular;
 }
 

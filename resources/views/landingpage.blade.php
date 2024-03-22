@@ -45,6 +45,59 @@
                     de Vanguardia, siempre pensando en el bienestar
                     y comodidad de nuestros clientes.
                 </p>
+
+                <h4 class="service_title text-center">Nuestros Servicios :</h4>
+
+                <div class="row">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-2">
+                            <p class="text-center">
+                                <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="d-block w-100" alt="...">
+                                <a href="" class="texo_services_icons">
+                                    titulo
+                                </a>
+                            </p>
+                        </div>
+
+                        <div class="col-2">
+                            <p class="text-center">
+                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_DEPILACION_LASER.png') }}" class="d-block w-100" alt="...">
+                                <a href="" class="texo_services_icons">
+                                    titulo
+                                </a>
+                            </p>
+                        </div>
+
+                        <div class="col-2">
+                            <p class="text-center">
+                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_FACIALES.png') }}" class="d-block w-100" alt="...">
+                                <a href="" class="texo_services_icons">
+                                    titulo
+                                </a>
+                            </p>
+                        </div>
+
+                        <div class="col-2">
+                            <p class="text-center">
+                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="d-block w-100" alt="...">
+                                <a href="" class="texo_services_icons">
+                                    titulo
+                                </a>
+                            </p>
+                        </div>
+
+                        <div class="col-2">
+                            <p class="text-center">
+                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="d-block w-100" alt="...">
+                                <a href="" class="texo_services_icons">
+                                    titulo
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
