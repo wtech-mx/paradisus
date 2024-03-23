@@ -390,7 +390,7 @@ class CabinaInvetarioController extends Controller
         $registros_por_producto = DB::table('productos_inventario')
         ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
         ->where('cabina_inventario.num_cabina', '=', '1')
-        ->orderBy('id_producto')
+        ->orderBy('created_at')
         ->select(
             'productos_inventario.id_producto',
             'productos_inventario.estatus',
@@ -431,7 +431,7 @@ class CabinaInvetarioController extends Controller
         $registros_por_producto = DB::table('productos_inventario')
         ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
         ->where('cabina_inventario.num_cabina', '=', '3')
-        ->orderBy('id_producto')
+        ->orderBy('created_at')
         ->select(
             'productos_inventario.id_producto',
             'productos_inventario.estatus',
@@ -471,7 +471,7 @@ class CabinaInvetarioController extends Controller
         $registros_por_producto = DB::table('productos_inventario')
         ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
         ->where('cabina_inventario.num_cabina', '=', '4')
-        ->orderBy('id_producto')
+        ->orderBy('created_at')
         ->select(
             'productos_inventario.id_producto',
             'productos_inventario.estatus',
@@ -511,7 +511,7 @@ class CabinaInvetarioController extends Controller
         $registros_por_producto = DB::table('productos_inventario')
         ->join('cabina_inventario', 'productos_inventario.id_cabina_inv', '=', 'cabina_inventario.id')
         ->where('cabina_inventario.num_cabina', '=', '5')
-        ->orderBy('id_producto')
+        ->orderBy('created_at')
         ->select(
             'productos_inventario.id_producto',
             'productos_inventario.estatus',

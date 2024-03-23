@@ -126,6 +126,7 @@
                                                                             <input type="text" value="{{$registro->parametros}}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
                                                                         @else
                                                                             <select class="form-control" name="parametros" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                                                                                <option value="70">70</option>
                                                                                 <option value="75">75</option>
                                                                                 <option value="80">80</option>
                                                                                 <option value="85">85</option>

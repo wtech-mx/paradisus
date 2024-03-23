@@ -108,7 +108,7 @@
 
             @foreach ($productos_sem_cambios as $producto)
                 @php
-                    $nombreProducto = str_slug($producto->nombre);
+                    $nombreProducto = $producto->nombre;
                     $numCabina = $producto->num_cabina;
                     $estatus = $producto->estatus;
 
@@ -160,7 +160,7 @@
 
             @foreach ($productos_sem_termino as $producto)
                 @php
-                    $nombreProducto = str_slug($producto->nombre);
+                    $nombreProducto = $producto->nombre;
                     $numCabina = $producto->num_cabina;
                     $estatus = $producto->estatus;
 
@@ -212,7 +212,7 @@
 
             @foreach ($productos_sem as $producto)
                 @php
-                    $nombreProducto = str_slug($producto->nombre);
+                    $nombreProducto = $producto->nombre;
                     $numCabina = $producto->num_cabina;
                     $estatus = $producto->estatus;
                     $cantidad = $producto->cantidad;
@@ -305,7 +305,7 @@
 
             @foreach ($productos_cabina1 as $producto)
                 @php
-                    $nombreProducto = str_slug($producto->nombre);
+                    $nombreProducto = $producto->nombre;
                     $numCabina = $producto->num_semana;
                     $estatus = $producto->estatus;
 
@@ -362,7 +362,7 @@
 
             @foreach ($productos_cabina3 as $producto)
                 @php
-                    $nombreProducto = str_slug($producto->nombre);
+                    $nombreProducto = $producto->nombre;
                     $numCabina = $producto->num_semana;
                     $estatus = $producto->estatus;
 
@@ -419,7 +419,7 @@
 
             @foreach ($productos_cabina4 as $producto)
                 @php
-                    $nombreProducto = str_slug($producto->nombre);
+                    $nombreProducto = $producto->nombre;
                     $numCabina = $producto->num_semana;
                     $estatus = $producto->estatus;
 
@@ -476,7 +476,7 @@
 
             @foreach ($productos_cabina5 as $producto)
                 @php
-                    $nombreProducto = str_slug($producto->nombre);
+                    $nombreProducto = $producto->nombre;
                     $numCabina = $producto->num_semana;
                     $estatus = $producto->estatus;
 
