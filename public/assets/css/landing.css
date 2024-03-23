@@ -122,7 +122,12 @@
 .subtext_paradisus{
     color: #AA6675;
     font-family: Playfair_regular;
+}
 
+.mini_subtext_paradisus{
+    color: #AA6675;
+    font-family: Playfair_regular;
+    font-size: 13px;
 }
 
 .btn_cta{
@@ -156,3 +161,78 @@
 .logo_democosmetic{
     width: 300px;
 }
+
+
+.img_tab_lase{
+    width: 85%;
+    position: relative;
+    top: -90px;
+}
+
+.precio_laser{
+    font-size: 30px;
+    color: #fff;
+    display: inline-block;
+    background: #9F586A;
+    padding: 5px 30px 5px 30px;
+    border-radius: 30px;
+    font-family: Playfair;
+
+}
+
+.btn_comprar_paquete{
+    font-size: 15px;
+    color: #fff;
+    display: inline-block;
+    background: #9F586A;
+    padding: 5px 30px 5px 30px;
+    border-radius: 30px;
+    font-family: Playfair;
+}
+
+.subtext_lase {
+    color: #AA6675;
+    font-family: Playfair_regular;
+    font-size: 20px;
+}
+
+.img_equipo_laser{
+    width: 80%;
+}
+
+.img_icon__estrella{
+    width: 30px;
+}
+
+.section_equipo_laser{
+background-color: #eed1d5;
+}
+
+.li_estresllas_texto{
+    color: #AA6675;
+    font-family: Playfair_regular;
+    font-size: 20px;
+}
+
+.container_img_equi{
+    position: relative;
+}
+
+.estrellas_flotantes{
+    position: absolute;
+    width: 60px;
+    left: 30px;
+    top: 150px;
+}
+
+.estrellas_flotantes_r{
+    position: absolute;
+    width: 60px;
+    right: 30px;
+    top: 250px;
+}
+
+.img_seziones{
+    width:40%;
+}
+

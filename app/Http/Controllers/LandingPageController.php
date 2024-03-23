@@ -8,6 +8,11 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        return view('landingpage');
+        return view('landing.landingpage');
+    }
+
+    public function index_laser()
+    {
+        return view('landing.laser');
     }
 }
