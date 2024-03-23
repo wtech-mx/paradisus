@@ -29,7 +29,7 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4')}}" rel="stylesheet" />
 
-  <link rel="stylesheet" href="{{ asset('assets/css/preloader.css')}}">
+  {{-- <link rel="stylesheet" href="{{ asset('assets/css/preloader.css')}}"> --}}
 
   <link rel="stylesheet" href="{{ asset('assets/css/landing.css')}}">
 
@@ -101,7 +101,7 @@
 
 <body class="">
 
-  <div id="page-loader"><span class="preloader-interior"></span></div>
+  {{-- <div id="page-loader"><span class="preloader-interior"></span></div> --}}
 
     @yield('content')
 
@@ -186,7 +186,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-  <script src="{{ asset('assets/js/preloader.js')}}"></script>
+  {{-- <script src="{{ asset('assets/js/preloader.js')}}"></script> --}}
 
   @yield('datatable')
 
