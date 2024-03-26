@@ -18,6 +18,7 @@ use App\Models\ConsentimientoLaser;
 use App\Models\RegCosmesSum;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Session;
 
 use Illuminate\Http\Request;
 
@@ -278,41 +279,25 @@ class NotasLacerController extends Controller
 
     public function store_sesion(Request $request){
 
-        $validator = Validator::make($request->all(), [
-            'parametros' => 'required',
-        ]);
+        // G U A R D A R  N O T A  P R I N C I P A L
+        $fechaActual = date('Y-m-d');
+        $registrosZonas = new RegistroZonas;
+        $registrosZonas->id_nota = $request->get('id_nota');
+        $registrosZonas->id_zona = $request->get('id_zona');
+        $registrosZonas->sesion = $request->get('sesion');
+        $registrosZonas->parametros = $request->get('parametros');
+        $registrosZonas->nota = $request->get('nota');
+        $registrosZonas->fecha = $fechaActual;
+        $registrosZonas->save();
 
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput()
-                ->with('error', 'Faltan campos. Por favor, completa todos los campos correctamente.');
-        }
+        $zona_lacer = ZonasLaser::where('id_nota', '=', $request->get('id_nota'))->where('id_zona', '=', $request->get('id_zona'))->first();
+        $sesiones_restantes = $zona_lacer->sesiones_restantes - 1;
+        $zona_lacer->sesiones_restantes = $sesiones_restantes;
+        $zona_lacer->update();
 
-        try {
-            // G U A R D A R  N O T A  P R I N C I P A L
-            $fechaActual = date('Y-m-d');
-            $registrosZonas = new RegistroZonas;
-            $registrosZonas->id_nota = $request->get('id_nota');
-            $registrosZonas->id_zona = $request->get('id_zona');
-            $registrosZonas->sesion = $request->get('sesion');
-            $registrosZonas->parametros = $request->get('parametros');
-            $registrosZonas->nota = $request->get('nota');
-            $registrosZonas->fecha = $fechaActual;
-            $registrosZonas->save();
-
-            $zona_lacer = ZonasLaser::where('id_nota', '=', $request->get('id_nota'))->where('id_zona', '=', $request->get('id_zona'))->first();
-            $sesiones_restantes = $zona_lacer->sesiones_restantes - 1;
-            $zona_lacer->sesiones_restantes = $sesiones_restantes;
-            $zona_lacer->update();
-
-            alert()->success('Creado con éxito', 'Operación exitosa');
-            return back();
-        } catch (\Exception $e) {
-            // En caso de error, regresa con un mensaje de error
-            return back()
-                ->with('error', 'Se produjo un error al procesar la solicitud. Por favor, inténtalo de nuevo.');
-        }
+        Session::flash('success', 'Se registro exitosamente');
+        return redirect()->back()
+        ->with('success', 'Se registro exitosamente.');
 
     }
 

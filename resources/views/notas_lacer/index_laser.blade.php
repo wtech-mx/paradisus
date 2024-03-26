@@ -81,9 +81,8 @@
                                                         </thead>
                                                         <tbody>
                                                         @for ($i = 1; $i <= $zona_lacer->sesiones_compradas; $i++)
-                                                            <form method="POST" action="{{ route('store_sesion.lacer') }}" id="miFormularioEdit" enctype="multipart/form-data" role="form">
+                                                            <form method="POST" action="{{ route('store_sesion.lacer') }}" enctype="multipart/form-data" role="form">
                                                                 @csrf
-                                                                <input type="hidden" name="_method" value="PATCH">
                                                                 @php
                                                                     $registro = $registrosZonas->where('id_zona', '=', $zona_lacer->id_zona)->firstWhere('sesion', $i);
 
@@ -355,7 +354,7 @@
 
 @endsection
 
-@section('datatable')
+@section('select2')
 
 <script>
         // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
@@ -417,43 +416,6 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             // Funcion AJAX
-            $("#miFormularioEdit").on("submit", function (event) {
-                event.preventDefault(); // Evita el envío predeterminado del formulario
-
-                // Realiza la solicitud POST usando AJAX
-                $.ajax({
-                    url: $(this).attr("action"),
-                    type: "POST",
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    success: async function(response) { // Agrega "async" aquí
-                        // El formulario se ha enviado correctamente, ahora realiza la impresión
-                        imprimirRecibo(response);
-
-                    },
-                    error: function (xhr, status, error) {
-                            var errors = xhr.responseJSON.errors;
-                            var errorMessage = '';
-
-                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
-                            for (var key in errors) {
-                                if (errors.hasOwnProperty(key)) {
-                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
-                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
-                                }
-                            }
-                            console.log(errorMessage);
-                            // Muestra el mensaje de error en una SweetAlert
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Faltan Campos',
-                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
-                            });
-                    }
-                });
-
-            });
 
             $("#miFormularioEditLaser").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
