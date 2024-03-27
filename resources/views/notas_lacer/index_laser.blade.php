@@ -238,7 +238,7 @@
 
                                 </div>
 
-                                <form method="POST" action="{{ route('update.lacer', $nota_laser->id) }}" enctype="multipart/form-data" id="miFormularioEditLaser" role="form">
+                                <form method="POST" action="{{ route('update.lacer', $nota_laser->id) }}" enctype="multipart/form-data" id="miFormulario" role="form">
                                     @csrf
                                     <input type="hidden" name="_method" value="PATCH">
                                     <div class="mt-4">
@@ -356,7 +356,12 @@
 
 @section('select2')
 
-<script>
+  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
         // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
         var inputNuevoPago = $('#nuevo-pago');
         var inputCambioEdit = $('#cambio-edit');
@@ -414,10 +419,7 @@
         calcularCambio();
         calcularRestante();
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Funcion AJAX
-
-            $("#miFormularioEditLaser").on("submit", function (event) {
+        $("#miFormulario").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
                 // Realiza la solicitud POST usando AJAX
@@ -429,7 +431,7 @@
                     processData: false,
                     success: async function(response) { // Agrega "async" aquí
                         // El formulario se ha enviado correctamente, ahora realiza la impresión
-                        imprimirRecibopago(response);
+                        imprimirRecibo(response);
 
                     },
                     error: function (xhr, status, error) {
@@ -457,215 +459,110 @@
 
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
-                const userAgent = navigator.userAgent;
-                // Obtén los datos del recibo de la respuesta AJAX
-                const recibo = response.recibo;
-                // Empezar a usar el plugin
-                const formaPago = $("#forma_pago").val();
-                if (/Windows/i.test(userAgent)) {
 
-                    if(formaPago === 'Efectivo'){
+                        const userAgent = navigator.userAgent;
+                        // Obtén los datos del recibo de la respuesta AJAX
+                        const recibo = response.recibo;
+                        // Empezar a usar el plugin
+                        const formaPago = $("#forma_pago").val();
+                    if (/Windows/i.test(userAgent)) {
 
-                        const conector = new ConectorPluginV3();
-                        console.log(recibo);
+                        if(formaPago === 'Efectivo'){
 
-                        conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+                            const conector = new ConectorPluginV3();
+                            console.log(recibo);
 
-                        conector
-                            .EscribirTexto("Paradisus\n")
-                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                            .EscribirTexto("Total: $" + recibo.Total + "\n")
-                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                            .EscribirTexto("Servicio Laser")
+                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
 
-                            .EscribirTexto("-------------------------")
-                            .Feed(1);
-
-                        for (const pago of recibo.pago) {
                             conector
-                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                            .EscribirTexto("-------------------------")
-                            conector.Feed(1);
-                        }
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("Servicio Laser")
 
-                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
 
-                        if (!respuesta) {
-                            alert("Error al imprimir ticket: " + respuesta);
-                        } else {
+                            for (const pago of recibo.pago) {
+                                conector
+                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                .EscribirTexto("-------------------------")
+                                conector.Feed(1);
+                            }
 
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Guardado con exito',
-                                text: 'Impresion de ticket y apertura de caja',
-                            }).then(() => {
-                                // Recarga la página
-                                window.location.href = '/notas/laser/pdf/' + recibo.id;
-                            });
-                        }
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
 
-                    }else{
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
 
-                        const conector = new ConectorPluginV3();
-                        console.log(recibo);
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket y apertura de caja',
+                                }).then(() => {
+                                    // Recarga la página
+                                   window.location.href = '/notas/laser/pdf/' + recibo.id;
+                                });
+                            }
 
-                        conector
-                            .EscribirTexto("Paradisus\n")
-                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                            .EscribirTexto("Total: $" + recibo.Total + "\n")
-                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                            .EscribirTexto("Servicio Laser")
-                            .EscribirTexto("-------------------------")
-                            .Feed(1);
+                        }else{
 
-                        for (const pago of recibo.pago) {
+                            const conector = new ConectorPluginV3();
+                            console.log(recibo);
+
                             conector
-                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                            .EscribirTexto("-------------------------")
-                            conector.Feed(1);
+                                .EscribirTexto("Paradisus\n")
+                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                .EscribirTexto("Servicio Laser")
+                                .EscribirTexto("-------------------------")
+                                .Feed(1);
+
+                            for (const pago of recibo.pago) {
+                                conector
+                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                .EscribirTexto("-------------------------")
+                                conector.Feed(1);
+                            }
+
+                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                            if (!respuesta) {
+                                alert("Error al imprimir ticket: " + respuesta);
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Guardado con exito',
+                                    text: 'Impresion de ticket',
+                                }).then(() => {
+                                    // Recarga la página
+                                    window.location.href = '/notas/laser/edit/' + recibo.id;
+                                });
+                            }
+
                         }
-
-                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
-
-                        if (!respuesta) {
-                            alert("Error al imprimir ticket: " + respuesta);
-                        } else {
-
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Guardado con exito',
-                                text: 'Impresion de ticket',
-                            }).then(() => {
-                                // Recarga la página
-                                window.location.href = '/notas/laser/edit/' + recibo.id;
-                            });
-                        }
-
+                    } else if (/Macintosh/i.test(userAgent)) {
+                        // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                        setTimeout(function() {
+                            window.location.href = '/notas/laser/edit/' + recibo.id;
+                        }, 1000);
                     }
-                } else if (/Macintosh/i.test(userAgent)) {
-                    // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
-                    alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
-                    setTimeout(function() {
-                        window.location.href = '/notas/laser/edit/' + recibo.id;
-                    }, 1000);
-                }
             }
-
-            async function imprimirRecibopago(response) {
-                const userAgent = navigator.userAgent;
-                // Obtén los datos del recibo de la respuesta AJAX
-                const recibo = response.recibo;
-                // Empezar a usar el plugin
-                const formaPago = $("#forma_pago").val();
-                if (/Windows/i.test(userAgent)) {
-
-                    if(formaPago === 'Efectivo'){
-
-                        const conector = new ConectorPluginV3();
-                        console.log(recibo);
-
-                        conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
-
-                        conector
-                            .EscribirTexto("Paradisus\n")
-                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                            .EscribirTexto("Total: $" + recibo.Total + "\n")
-                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                            .EscribirTexto("Servicio Laser")
-
-                            .EscribirTexto("-------------------------")
-                            .Feed(1);
-
-                        for (const pago of recibo.pago) {
-                            conector
-                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                            .EscribirTexto("-------------------------")
-                            conector.Feed(1);
-                        }
-
-                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
-
-                        if (!respuesta) {
-                            alert("Error al imprimir ticket: " + respuesta);
-                        } else {
-
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Guardado con exito',
-                                text: 'Impresion de ticket y apertura de caja',
-                            }).then(() => {
-                                // Recarga la página
-                                window.location.href = '/notas/laser/pdf/' + recibo.id;
-                            });
-                        }
-
-                    }else{
-
-                        const conector = new ConectorPluginV3();
-                        console.log(recibo);
-
-                        conector
-                            .EscribirTexto("Paradisus\n")
-                            .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                            .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                            .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                            .EscribirTexto("Total: $" + recibo.Total + "\n")
-                            .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                            .EscribirTexto("Servicio Laser")
-                            .EscribirTexto("-------------------------")
-                            .Feed(1);
-
-                        for (const pago of recibo.pago) {
-                            conector
-                            .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                            .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                            .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                            .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                            .EscribirTexto("-------------------------")
-                            conector.Feed(1);
-                        }
-
-                        const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
-
-                        if (!respuesta) {
-                            alert("Error al imprimir ticket: " + respuesta);
-                        } else {
-
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Guardado con exito',
-                                text: 'Impresion de ticket',
-                            }).then(() => {
-                                // Recarga la página
-                                window.location.href = '/notas/laser/edit/' + recibo.id;
-                            });
-                        }
-
-                    }
-                } else if (/Macintosh/i.test(userAgent)) {
-                    // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
-                    alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
-                    setTimeout(function() {
-                        window.location.href = '/notas/laser/edit/' + recibo.id;
-                    }, 1000);
-                }
-            }
-        });
 </script>
 
 @endsection

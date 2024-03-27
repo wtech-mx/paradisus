@@ -502,6 +502,7 @@ class NotasLacerController extends Controller
                 // Agrega cualquier otro dato necesario para el recibo
             ];
 
+
             // Devuelve los datos en formato JSON
             return response()->json(['success' => true, 'recibo' => $recibo]);
     }
