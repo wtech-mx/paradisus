@@ -221,7 +221,7 @@ class RegistroSemanalController extends Controller
 
         $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasMaFer','propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
-        return $pdf->download('sueldo_cosmes'.$cosme->name'_'.$id.);
+        return $pdf->download('sueldo_cosmes'.$cosme->name.'_'.$id.);
 
         // return $pdf->stream();
        // return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
