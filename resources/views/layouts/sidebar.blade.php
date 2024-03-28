@@ -150,7 +150,7 @@
                         <span class="sidenav-normal">Jacuzzi</span>
                     </a>
 
-                    <a class="nav-link {{ (Request::is('/encuesta*') ? 'show' : '') }}" href="{{ route('index.brow') }}">
+                    {{-- <a class="nav-link {{ (Request::is('/encuesta*') ? 'show' : '') }}" href="{{ route('index.brow') }}">
                         <span class="sidenav-mini-icon"> P </span>
                         <span class="sidenav-normal">Brow Bar</span>
                     </a>
@@ -158,7 +158,7 @@
                     <a class="nav-link {{ (Request::is('/encuesta*') ? 'show' : '') }}" href="{{ route('index.nailbar') }}">
                         <span class="sidenav-mini-icon"> P </span>
                         <span class="sidenav-normal">Hair Lab</span>
-                    </a>
+                    </a> --}}
                 </li>
                 </ul>
             </div>

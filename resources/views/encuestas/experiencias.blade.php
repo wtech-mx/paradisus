@@ -70,6 +70,7 @@
                                             <option value="Day spa aniversario">Day spa aniversario</option>
                                             <option value="Mamá e hija">Mamá e hija</option>
                                             <option value="Pareja">Pareja</option>
+                                            <option value="Hermanas">Hermanas</option>
                                         </select>
                                     </div>
                                 </div>
