@@ -72,9 +72,9 @@
                                                         {{ $notas->id }} <br>
 
                                                             @if ($notas->Encuesta)
-                                                                <img src="{{ asset('assets/Icons/topografo.png') }}" alt="" width="30px">
+                                                                <img src="{{ asset('assets/icons/topografo.png') }}" alt="" width="30px">
                                                             @else
-                                                                <img src="{{ asset('assets/Icons/esperar.png') }}" alt="" width="30px">
+                                                                <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
                                                             @endif
 
                                                     </td>
