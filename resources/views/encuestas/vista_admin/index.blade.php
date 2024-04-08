@@ -7,29 +7,30 @@
     .carousel-text {
     overflow: hidden;
     height: 1.5em; /* Altura máxima para mostrar un párrafo a la vez */
-}
+    }
 
-.carousel-text p {
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    transition: opacity 1s;
-    display: none;
-}
+    .carousel-text p {
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        transition: opacity 1s;
+        display: none;
+    }
 
-.carousel-text p.active {
-    opacity: 1;
-    display: block;
-}
+    .carousel-text p.active {
+        opacity: 1;
+        display: block;
+    }
 
-.carousel-badge .badge {
-    display: none;
-}
+    .carousel-badge .badge {
+        display: none;
+    }
 
-.carousel-badge .badge.active {
-    display: inline-block;
-}
+    .carousel-badge .badge.active {
+        display: inline-block;
+    }
 </style>
+
 @section('content')
 <div class="container-fluid">
     <div class="row">

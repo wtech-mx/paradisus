@@ -60,7 +60,7 @@
         @foreach ($reportes as $item)
             <div class="card">
                 <div class="info">
-                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong></p>
+                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong> ID Nota <strong>{{ $item->id_nota }}</strong></p>
                 </div>
                 <ul>
                     <li>
@@ -83,48 +83,13 @@
         @endforeach
     </div>
 
-    <div class="container">
-        <h5>Experiencia + Jacuzzi</h5>
-        @foreach ($reportes as $item)
-            <div class="card" style="background: #f6e9fd!important;">
-                <div class="info">
-                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong></p>
-                </div>
-                <ul>
-                    <li>
-                        1- ¿Qué tan probable es <br> que nos recomiendes? <strong style="color: #6b0020;">{{ $item->p1 }}</strong></li>
-                    <li>
-                        2- ¿Qué tan buena fue <br> la atención? <strong style="color: #6b0020;">{{ $item->p2 }}</strong></li> </li>
-                    <li>
-                        3- ¿Cómo calificas la atención <br> en Redes Sociales? <strong style="color: #6b0020;">{{ $item->p3 }}</strong></li> </li>
-                    <li>
-                        4- ¿Respondieron todas <br> tus dudas? <strong style="color: #6b0020;">{{ $item->p4 }}</strong></li> </li>
-                    <li>
-                        5- ¿Cómo calificas el profesionalismo <br> y presentación del equipo de trabajo? <strong style="color: #6b0020;">{{ $item->p7 }}</strong></li> </li>
-                    <li>
-                        6- ¿Se cumplió el tiempo <br> de sesión? <strong style="color: #6b0020;">{{ $item->p14 }} {{ $item->p15 }}</strong></li> </li>
-                    <li>
-                        7- ¿Te exfoliaron los pies con Sugar Honey? <strong style="color: #6b0020;">{{ $item->p10 }}</strong></li> </li>
-                    <li>
-                        8- ¿Te ofrecieron <br> Vino y chocolates? <strong style="color: #6b0020;">{{ $item->p11 }}</strong></li> </li>
-                    <li>
-                        9- ¿Te exfoliaron las manos con Sugar Honey? <strong style="color: #6b0020;">{{ $item->p12 }}</strong></li> </li>
-                    <li>
-                        10- ¿Te dieron cuarzo <br> de amistad o amor? <strong style="color: #6b0020;">{{ $item->p13 }}</strong></li> </li>
-                        <br>
-                       <strong style="color: #6b0020;">{{  $item->comentario}}</strong>
-                    </li>
-                </ul>
-            </div>
-        @endforeach
-    </div>
 
     <div class="container">
         <h5>Experiencia + Jacuzzi</h5>
         @foreach ($reportes_exp_ja as $item)
             <div class="card" style="background: #f6e9fd!important;">
                 <div class="info">
-                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong></p>
+                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong> ID Nota <strong>{{ $item->id_nota }}</strong></p>
                 </div>
                 <ul>
                     <li>
@@ -155,12 +120,12 @@
         @endforeach
     </div>
 
-    <div class="container">
+    {{-- <div class="container">
         <h5 class=""> Brow Bar & Lash Lifting</h5>
         @foreach ($reportes_brow as $item)
             <div class="card" style="background: #ebe9fd!important;">
                 <div class="info">
-                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong></p>
+                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong> ID Nota <strong>{{ $item->id_nota }}</strong></p>
                 </div>
                 <ul>
                     <li>
@@ -193,14 +158,14 @@
                 </ul>
             </div>
         @endforeach
-    </div>
+    </div> --}}
 
     <div class="container">
         <h5 class=""> Experiencias</h5>
         @foreach ($reportes_brow as $item)
             <div class="card" style="background: #f9f3d4!important;">
                 <div class="info">
-                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong></p>
+                    <p>Cliente: <strong>{{ $item->nombre }}</strong> - Telefono: <strong>{{ $item->telefono }}</strong> - Cosmetologa: <strong>{{ $item->User->name }}</strong> ID Nota <strong>{{ $item->id_nota }}</strong></p>
                 </div>
                 <ul>
                     <li>

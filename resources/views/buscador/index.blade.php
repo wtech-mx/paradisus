@@ -73,7 +73,16 @@
                                                 @else
                                                     <tr>
                                                 @endif
-                                                    <td>{{ $notas->id }}</td>
+                                                <td>
+                                                    {{ $notas->id }} <br>
+
+                                                        @if ($notas->Encuesta)
+                                                            <img src="{{ asset('assets/Icons/topografo.png') }}" alt="" width="30px">
+                                                        @else
+                                                            <img src="{{ asset('assets/Icons/esperar.png') }}" alt="" width="30px">
+                                                        @endif
+
+                                                </td>
                                                     <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br> {{ $notas->Client->phone }}</td>
                                                     <td>
 

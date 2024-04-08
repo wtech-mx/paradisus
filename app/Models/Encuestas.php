@@ -12,6 +12,7 @@ class Encuestas extends Model
 
     protected $fillable = [
         'id_user',
+        'id_nota',
         'fecha',
         'tipo',
         'p1',
@@ -39,5 +40,10 @@ class Encuestas extends Model
     public function User()
     {
         return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function Notas()
+    {
+        return $this->belongsTo(Notas::class, 'id_nota');
     }
 }

@@ -83,7 +83,6 @@ class EncuestasController extends Controller
     }
 
 
-
     public function index_faciales(){
         $cosme = User::where('id', '!=', 1)->Orderby('name','ASC')->get();
 
@@ -137,6 +136,7 @@ class EncuestasController extends Controller
         $fechaActual = date('Y-m-d');
         $paquete = new Encuestas;
         $paquete->id_user = $request->get('id_user');
+        $paquete->id_nota = $request->get('id_nota');
         $paquete->fecha = $fechaActual;
         $paquete->tipo = $request->get('tipo');
         $paquete->p1 = $request->get('p1');
