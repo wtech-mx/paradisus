@@ -76,12 +76,24 @@
                                                 <td>
                                                     {{ $notas->id }} <br>
 
-                                                        @if ($notas->Encuesta)
-                                                            <img src="{{ asset('assets/icons/topografo.png') }}" alt="" width="30px">
+                                                    @if ($notas->Encuesta)
+                                                        @php
+                                                            // Obtener el número de ocurrencias del id_nota actual
+                                                            $count = $notas->Encuesta()->count();
+                                                        @endphp
+
+                                                        {{-- Mostrar la imagen repetida si hay más de una ocurrencia del id_nota --}}
+                                                        @if ($count > 1)
+                                                            @for ($i = 0; $i < $count; $i++)
+                                                                <img src="{{ asset('assets/icons/topografo.png') }}" alt="" width="30px">
+                                                            @endfor
                                                         @else
-                                                            <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                                                            <img src="{{ asset('assets/icons/topografo.png') }}" alt="" width="30px">
                                                         @endif
 
+                                                    @else
+                                                        <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                                                    @endif
                                                 </td>
                                                     <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}<br> {{ $notas->Client->phone }}</td>
                                                     <td>

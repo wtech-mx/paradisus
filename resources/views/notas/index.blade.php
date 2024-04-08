@@ -68,16 +68,29 @@
                                             <tr>
                                             @endif
 
-                                                    <td>
-                                                        {{ $notas->id }} <br>
+                                            <td>
+                                                {{ $notas->id }} <br>
 
-                                                            @if ($notas->Encuesta)
-                                                                <img src="{{ asset('assets/icons/topografo.png') }}" alt="" width="30px">
-                                                            @else
-                                                                <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
-                                                            @endif
+                                                @if ($notas->Encuesta)
+                                                    @php
+                                                        // Obtener el número de ocurrencias del id_nota actual
+                                                        $count = $notas->Encuesta()->count();
+                                                    @endphp
 
-                                                    </td>
+                                                    {{-- Mostrar la imagen repetida si hay más de una ocurrencia del id_nota --}}
+                                                    @if ($count > 1)
+                                                        @for ($i = 0; $i < $count; $i++)
+                                                            <img src="{{ asset('assets/icons/topografo.png') }}" alt="" width="30px">
+                                                        @endfor
+                                                    @else
+                                                        <img src="{{ asset('assets/icons/topografo.png') }}" alt="" width="30px">
+                                                    @endif
+
+                                                @else
+                                                    <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                                                @endif
+                                            </td>
+
                                                     {{-- <td>
                                                         @foreach($nota_cosme as $item)
                                                             @if ($item->id_nota == $notas->id)
