@@ -71,12 +71,13 @@
                                         @foreach ($zonas_lacer as $zona_lacer)
 
                                             <div class="col-12 mt-5">
+                                                <h4>{{$zona_lacer->Zona->zona}}</h4>
                                                 <div class="table-responsive">
                                                     <table class="table align-items-left mb-0">
                                                         <thead>
                                                         <tr>
+                                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Num. Sesion</th>
                                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>
-                                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Zona______________</th>
                                                             <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parametros</th>
                                                             <th class="text-secondary opacity-7">Observaciones</th>
                                                             <th class="text-secondary opacity-7">IMG Antes</th>
@@ -112,7 +113,7 @@
                                                                 @endphp
                                                                 <tr>
                                                                     <input type="text" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" style="display: none">
-
+                                                                    <input type="text" class="form-control" name="id_zona" value="{{$zona_lacer->id_zona}}" style="display: none">
                                                                     <td>
                                                                         <input type="number" value="{{$i}}" name="sesion" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
                                                                     </td>
@@ -123,12 +124,6 @@
                                                                         @else
                                                                             <input type="date" name="fecha" value="{{$fechaActual}}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                                                                         @endif
-                                                                    </td>
-
-                                                                    <td>
-                                                                        <select class="form-control" name="id_zona" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
-                                                                            <option value="{{$zona_lacer->id_zona}}">{{$zona_lacer->Zona->zona}}</option>
-                                                                        </select>
                                                                     </td>
 
                                                                     <td>
@@ -173,7 +168,7 @@
 
                                                                     <td>
                                                                         @if ($registro && $registro->firma)
-                                                                        <img src="{{asset('evidencias/'.$registro->firma)}}" alt="" width="50px">
+                                                                        <img src="{{asset('image/'.$registro->firma)}}" alt="" width="50px">
                                                                         @else
 
                                                                         <div id="sig-pago3_{{ $i }}"></div>

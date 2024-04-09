@@ -279,8 +279,6 @@ class NotasLacerController extends Controller
 
     public function store_sesion(Request $request){
 
-        dd($request);
-
         // G U A R D A R  N O T A  P R I N C I P A L
         $fechaActual = date('Y-m-d');
         $registrosZonas = new RegistroZonas;
@@ -308,7 +306,7 @@ class NotasLacerController extends Controller
         }
 
         if($request->signed_pago3 != NULL){
-            $folderPath =public_path() . '/evidencias'; // create signatures folder in public directory
+            $folderPath = public_path('image/'); // create signatures folder in public directory
             $image_parts = explode(";base64,", $request->signed_pago3);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
@@ -317,7 +315,7 @@ class NotasLacerController extends Controller
             $file = $folderPath . $signature;
 
             file_put_contents($file, $image_base64);
-            $registrosZonas->firma = $file;
+            $registrosZonas->firma = $signature;
         }
 
 
