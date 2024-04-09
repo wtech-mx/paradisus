@@ -32,6 +32,7 @@
   {{-- <link rel="stylesheet" href="{{ asset('assets/css/preloader.css')}}"> --}}
 
   <link rel="stylesheet" href="{{ asset('assets/css/landing.css')}}">
+  <link href="{{asset('assets/css/btn_flotante.css')}}" rel="stylesheet" />
 
 
   <style>
@@ -100,6 +101,8 @@
   {{-- <div id="page-loader"><span class="preloader-interior"></span></div> --}}
 
     @yield('content')
+
+    @include('landing.btn_flotante')
 
     <footer class="py-5 footer_paradisus" style="background-color: #B9758A!important;">
         <div class="row">
