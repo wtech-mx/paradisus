@@ -111,14 +111,16 @@
                                                                     $hayRestante = $nota_laser->restante > 0;
                                                                 @endphp
                                                                 <tr>
-                                                                    <input type="hidden" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" >
+                                                                    <input type="text" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" style="display: none">
+
+                                                                    <td>
+                                                                        <input type="number" value="{{$i}}" name="sesion" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
+                                                                    </td>
 
                                                                     <td>
                                                                         @if ($registro)
-                                                                            ID :{{$i}} <br>
                                                                             <input type="date" value="{{ $registro->fecha }}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
                                                                         @else
-                                                                            ID :{{$i}} <br>
                                                                             <input type="date" name="fecha" value="{{$fechaActual}}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                                                                         @endif
                                                                     </td>
