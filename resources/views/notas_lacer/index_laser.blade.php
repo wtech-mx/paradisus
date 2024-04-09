@@ -170,21 +170,26 @@
                                                                     </td>
 
                                                                     <td>
+                                                                        @if ($registro && $registro->firma)
+                                                                        <img src="{{asset('evidencias/'.$registro->firma)}}" alt="" width="50px">
+                                                                        @else
+
                                                                         <div id="sig-pago3_{{ $i }}"></div>
                                                                         <br/><br/>
                                                                         <button id="clear-pago3_{{ $i }}" class="btn btn-danger btn-sm">Repetir</button>
                                                                         <textarea id="signed_pago3_{{ $i }}" name="signed_pago3" style="display: none"></textarea>
+                                                                        @endif
+
                                                                     </td>
                                                                     <script type="text/javascript">
-                                                                        var sig3 = $('#sig-pago3_{{ $i }}').signature({syncField: '#signed_pago3_{{ $i }}', syncFormat: 'PNG'});
+                                                                            var sig3 = $('#sig-pago3_{{ $i }}').signature({syncField: '#signed_pago3_{{ $i }}', syncFormat: 'PNG'});
 
-                                                                    $('#clear-pago3_{{ $i }}').click(function (e) {
-                                                                        e.preventDefault();
-                                                                        sig3.signature('clear');
-                                                                        $("#signed_pago3_{{ $i }}").val('');
-                                                                    });
-
-                                                                </script>
+                                                                        $('#clear-pago3_{{ $i }}').click(function (e) {
+                                                                            e.preventDefault();
+                                                                            sig3.signature('clear');
+                                                                            $("#signed_pago3_{{ $i }}").val('');
+                                                                        });
+                                                                    </script>
 
                                                                     <td>
 

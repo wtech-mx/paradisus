@@ -305,9 +305,9 @@ class NotasLacerController extends Controller
             $registrosZonas->foto2 = $fileNameFotDos;
         }
 
-        if($request->firmaSesion != NULL){
+        if($request->signed_pago3 != NULL){
             $folderPath =public_path() . '/evidencias'; // create signatures folder in public directory
-            $image_parts = explode(";base64,", $request->firmaSesion);
+            $image_parts = explode(";base64,", $request->signed_pago3);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
             $image_base64 = base64_decode($image_parts[1]);
@@ -315,7 +315,7 @@ class NotasLacerController extends Controller
             $file = $folderPath . $signature;
 
             file_put_contents($file, $image_base64);
-            $pago->firma = $signature;
+            $registrosZonas->firma = $fileNameFotDos;
         }
 
 
