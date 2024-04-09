@@ -35,9 +35,17 @@
 </section>
 
   <section class="row">
-        <div class="col-12 my-auto">
+        <div class="col-6 my-auto">
 
             <div class="container p-5">
+                <h3 class="tittle_paradisus_section text-center">Paradisus</h3>
+                <p class="text-center subtext_paradisus">
+                    Nuestra misión y compromiso con ustedes
+                    es, brindarles un excelente servicio, con los
+                    mejores productos, instalaciones y aparatología
+                    de Vanguardia, siempre pensando en el bienestar
+                    y comodidad de nuestros clientes.
+                </p>
 
                 <h4 class="service_title text-center">Nuestros Servicios :</h4>
 
@@ -101,146 +109,44 @@
 
         </div>
 
-  </section>
+        <div class="col-6">
+            <div id="carouselExample" class="carousel slide">
 
-  <section class="row">
-    <div class="col-12 my-auto">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{{ asset('assets/landing/CARRUSEL_FOTOS/carusel_1.webp') }}" class="d-block w-100 p-5" alt="...">
+                  </div>
 
-        <div class="container p-5">
+                  <div class="carousel-item ">
+                    <img src="{{ asset('assets/landing/CARRUSEL_FOTOS/carusel_2.webp') }}" class="d-block w-100 p-5" alt="...">
+                  </div>
 
-            <h4 class="service_title text-center mb-5">¿Que Opinan nuestros Clientes?</h4>
+                  <div class="carousel-item ">
+                    <img src="{{ asset('assets/landing/CARRUSEL_FOTOS/carusel_3.webp') }}" class="d-block w-100 p-5" alt="...">
+                  </div>
 
-            <div class="row">
-                <div class="col-12">
+                  <div class="carousel-item ">
+                    <img src="{{ asset('assets/landing/CARRUSEL_FOTOS/carusel_4.webp') }}" class="d-block w-100 p-5" alt="...">
+                  </div>
 
-                    <div id="carouselComentarios" class="carousel slide">
+                  <div class="carousel-item ">
+                    <img src="{{ asset('assets/landing/CARRUSEL_FOTOS/carusel_5.webp') }}" class="d-block w-100 p-5" alt="...">
+                  </div>
 
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 40px;"> <!-- Reemplaza 'ruta/a/tu/imagen/arrow-left.png' con la ruta a tu imagen de flecha izquierda -->
+                    <span class="visually-hidden">Antes</span>
+                </button>
 
-                        <div class="carousel-inner">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 40px;"> <!-- Reemplaza 'ruta/a/tu/imagen/arrow-left.png' con la ruta a tu imagen de flecha izquierda -->
+                    <span class="visually-hidden">Despues</span>
+                </button>
 
-                          <div class="carousel-item active">
-
-                            <div class="row">
-
-                                <div class="col-4 ">
-                                    <div class="container_comentario">
-                                        <p class="text-left text_comentario">
-                                            Excelente servicio del personal, instalaciones limpias se cumplió lo establecido en sus publicaciones de redes sociales!!! Si regreso, todo excelente
-                                        </p>
-                                        <p class="text-left text_autor">
-                                           <strong> Victoria Vargas</strong>
-                                        </p>
-                                        <p class="text-left">
-                                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/clasificacion.png') }}" class="" style="width: 100px">
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-4 ">
-                                    <div class="container_comentario">
-                                        <p class="text-left text_comentario">
-                                            La atención es genial y todas las chicas son super amables, el tratamiento estético que me hice fue super rápido y muy profesional
-                                        </p>
-                                        <p class="text-left text_autor">
-                                           <strong>Alfonso Rios</strong>
-                                        </p>
-                                        <p class="text-left">
-                                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/clasificacion.png') }}" class="" style="width: 100px">
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-4 ">
-                                    <div class="container_comentario">
-                                        <p class="text-left text_comentario">
-                                            Me gusta mucho su concepto, el trato es muy bueno, la verdad el
-                                            Personal es muy capacitado y súper eficiente
-                                        </p>
-                                        <p class="text-left text_autor">
-                                           <strong>Florencia Maguey Moreno</strong>
-                                        </p>
-                                        <p class="text-left">
-                                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/clasificacion.png') }}" class="" style="width: 100px">
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                          </div>
-
-                          <div class="carousel-item ">
-
-                            <div class="row">
-
-                                <div class="col-4 ">
-                                    <div class="container_comentario">
-                                        <p class="text-left text_comentario">
-                                            Lo recomiendo mucho, el personal es muy amable en todo momento y las instalaciones están muy limpias, el servicio 10/10 sin duda son mi nuevo lugar favorito para relajarme y siempre tienen buenas promociones superaron mis expectativas
-                                        </p>
-                                        <p class="text-left text_autor">
-                                           <strong>Eduardo Chávez</strong>
-                                        </p>
-                                        <p class="text-left">
-                                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/clasificacion.png') }}" class="" style="width: 100px">
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-4 ">
-                                    <div class="container_comentario">
-                                        <p class="text-left text_comentario">
-                                           Tomé el curso de limpieza profunda y me encantó. El trato de todos siempre fue muy amable, abiertos a preguntas, respetuosos y con mucha información valiosa. Me gustó mucho que venden productos de alta calidad y a un precio mucho más accesible que el mercado. Yo no me dedico a esto, pero creo que es una buena opción para adentrarte al mundo de la cosmetología. 100% recomendado.
-                                        </p>
-                                        <p class="text-left text_autor">
-                                           <strong>Karen Vallejo</strong>
-                                        </p>
-                                        <p class="text-left">
-                                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/clasificacion.png') }}" class="" style="width: 100px">
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-4 ">
-                                    <div class="container_comentario">
-                                        <p class="text-left text_comentario">
-                                            Me encantó el servicio una experiencia que toda mujer debe sentir
-                                        </p>
-                                        <p class="text-left text_autor">
-                                           <strong>Diana Elena Bautista González</strong>
-                                        </p>
-                                        <p class="text-left">
-                                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/clasificacion.png') }}" class="" style="width: 100px">
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselComentarios" data-bs-slide="prev">
-                            <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;"> <!-- Reemplaza 'ruta/a/tu/imagen/arrow-left.png' con la ruta a tu imagen de flecha izquierda -->
-                            <span class="visually-hidden">Antes</span>
-                        </button>
-
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselComentarios" data-bs-slide="next">
-                            <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;"> <!-- Reemplaza 'ruta/a/tu/imagen/arrow-left.png' con la ruta a tu imagen de flecha izquierda -->
-                            <span class="visually-hidden">Despues</span>
-                        </button>
-
-                      </div>
-
-                </div>
-            </div>
-
+              </div>
         </div>
 
-    </div>
-
-</section>
+  </section>
 
   <section class="parallax" style="background-image: url('{{ asset('assets/landing/bg2.webp') }}');">
     <div class="parallax-content">
@@ -330,6 +236,7 @@
             </button>
 
           </div>
+
     </div>
 
 </section>

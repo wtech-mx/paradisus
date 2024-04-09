@@ -103,6 +103,16 @@
     font-size: 80px;
 }
 
+.tittle_lase_section{
+    color: #AA6675;
+    font-family: Playfair_italic;
+    font-size: 45px;
+}
+
+.color_blanco{
+    color: #fff!important;
+}
+
 .tittle_section_para{
     color: #fff;
     font-family: Playfair_italic;
@@ -165,8 +175,7 @@
 
 .img_tab_lase{
     width: 85%;
-    position: relative;
-    top: -90px;
+
 }
 
 .precio_laser{
@@ -180,11 +189,32 @@
 
 }
 
+.precio_laser_negative{
+    font-size: 30px;
+    color: #9F586A;
+    display: inline-block;
+    background: #fff;
+    padding: 5px 30px 5px 30px;
+    border-radius: 30px;
+    font-family: Playfair;
+
+}
+
 .btn_comprar_paquete{
     font-size: 15px;
     color: #fff;
     display: inline-block;
     background: #9F586A;
+    padding: 5px 30px 5px 30px;
+    border-radius: 30px;
+    font-family: Playfair;
+}
+
+.btn_comprar_paquete_negative{
+    font-size: 15px;
+    color: #9F586A;
+    display: inline-block;
+    background: #fff;
     padding: 5px 30px 5px 30px;
     border-radius: 30px;
     font-family: Playfair;
@@ -236,3 +266,21 @@ background-color: #eed1d5;
     width:40%;
 }
 
+.container_comentario{
+    padding: 15px;
+    border-radius: 9px;
+    background-color: #9F586A;
+}
+
+.text_comentario{
+    font-size: 12px;
+    font-family: Playfair;
+    color: #fff;
+
+}
+
+.text_autor{
+    font-size: 9px;
+    font-family: Playfair;
+    color: #fff;
+}

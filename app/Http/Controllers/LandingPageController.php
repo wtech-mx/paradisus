@@ -15,4 +15,9 @@ class LandingPageController extends Controller
     {
         return view('landing.laser');
     }
+
+    public function index_contacto()
+    {
+        return view('landing.contacto');
+    }
 }

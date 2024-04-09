@@ -53,45 +53,41 @@
         <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link navbar_li_color active" href="{{ route('index.landingpage') }}">Inicio</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Inicio</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('index_laser.landingpage') }}">Depilacion LASER</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Depilacion LASER</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Corporales</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Corporales</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Faciales</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Faciales</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">
+                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">
                         <img class="img_logo" src="{{ asset('assets/landing/paradisus.webp') }}" alt="Logo paradisus">
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Paquetes</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Paquetes</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Experiencias</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Experiencias</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Nutricion</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Nutricion</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="#">Productos</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Productos</a>
                 </li>
 
         </ul>
