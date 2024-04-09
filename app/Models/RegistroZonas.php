@@ -17,6 +17,9 @@ class RegistroZonas extends Model
         'parametros',
         'nota',
         'fecha',
+        'foto1',
+        'foto2',
+        'firma',
     ];
 
     public function NotasLacer()

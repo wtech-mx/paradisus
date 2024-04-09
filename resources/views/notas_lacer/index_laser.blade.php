@@ -4,6 +4,10 @@
     Notas Laser
 @endsection
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
+@endsection
+
 @section('content')
 
         <div class="row">
@@ -71,11 +75,14 @@
                                                     <table class="table align-items-left mb-0">
                                                         <thead>
                                                         <tr>
-                                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Session</th>
                                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>
                                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Zona______________</th>
                                                             <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parametros</th>
                                                             <th class="text-secondary opacity-7">Observaciones</th>
+                                                            <th class="text-secondary opacity-7">IMG Antes</th>
+                                                            <th class="text-secondary opacity-7">IMG Despues</th>
+                                                            <th class="text-secondary opacity-7">Firma</th>
+
                                                             <th class="text-secondary opacity-7">Guardar</th>
                                                         </tr>
                                                         </thead>
@@ -100,16 +107,14 @@
                                                                     $hayRestante = $nota_laser->restante > 0;
                                                                 @endphp
                                                                 <tr>
-                                                                    <input type="text" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" style="display: none">
-
-                                                                    <td>
-                                                                        <input type="number" value="{{$i}}" name="sesion" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
-                                                                    </td>
+                                                                    <input type="hidden" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" >
 
                                                                     <td>
                                                                         @if ($registro)
+                                                                            ID :{{$i}} <br>
                                                                             <input type="date" value="{{ $registro->fecha }}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
                                                                         @else
+                                                                            ID :{{$i}} <br>
                                                                             <input type="date" name="fecha" value="{{$fechaActual}}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
                                                                         @endif
                                                                     </td>
@@ -142,6 +147,29 @@
                                                                         @else
                                                                             <textarea class="form-control" cols="10" rows="1" name="nota"></textarea>
                                                                         @endif
+                                                                    </td>
+
+                                                                    <td>
+                                                                        @if ($registro && $registro->foto1)
+                                                                            <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
+                                                                        @else
+                                                                            <input type="file" name="foto1" class="form-control">
+                                                                        @endif
+                                                                    </td>
+
+                                                                    <td>
+                                                                        @if ($registro && $registro->foto2)
+                                                                            <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
+                                                                        @else
+                                                                            <input type="file" name="foto2" class="form-control">
+                                                                        @endif
+                                                                    </td>
+
+                                                                    <td>
+                                                                            <div id="firma_sesion_laser"></div>
+                                                                            <br/><br/>
+                                                                            <button id="clear_firma_sesion" class="btn btn-danger btn-sm">Repetir</button>
+                                                                            <textarea id="firmaSesion" name="firmaSesion" style="display: none"></textarea>
                                                                     </td>
 
                                                                     <td>
@@ -566,5 +594,20 @@
 </script>
 
 @endsection
+@section('js_custom')
+{{-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> --}}
+<script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 
+<script type="text/javascript">
+    var sig3 = $('#firma_sesion_laser').signature({syncField: '#firmaSesion', syncFormat: 'PNG'});
+
+    $('#clear_firma_sesion').click(function (e) {
+        e.preventDefault();
+        sig3.signature('clear');
+        $("#firmaSesion").val('');
+    });
+</script>
+@endsection
 

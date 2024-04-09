@@ -288,6 +288,37 @@ class NotasLacerController extends Controller
         $registrosZonas->parametros = $request->get('parametros');
         $registrosZonas->nota = $request->get('nota');
         $registrosZonas->fecha = $fechaActual;
+
+        if ($request->hasFile('foto1')) {
+                $foto1 = $request->file('foto1');
+                $path = public_path() . '/evidencias';
+                $fileNameFotouno = uniqid() . $foto1->getClientOriginalName();
+                $foto1->move($path, $fileNameFotouno);
+                $registrosZonas->foto1 = $fileNameFotouno;
+        }
+
+        if ($request->hasFile('foto2')) {
+            $foto2 = $request->file('foto2');
+            $path = public_path() . '/evidencias';
+            $fileNameFotDos = uniqid() . $foto2->getClientOriginalName();
+            $foto2->move($path, $fileNameFotDos);
+            $registrosZonas->foto2 = $fileNameFotDos;
+        }
+
+        if($request->firmaSesion != NULL){
+            $folderPath =public_path() . '/evidencias'; // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->firmaSesion);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $pago->firma = $signature;
+        }
+
+
         $registrosZonas->save();
 
         $zona_lacer = ZonasLaser::where('id_nota', '=', $request->get('id_nota'))->where('id_zona', '=', $request->get('id_zona'))->first();

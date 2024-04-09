@@ -3,7 +3,7 @@
         <label for="example-text-input" class="form-control-label">ID NOTA SERVICIO: </label>
         <div class="input-group mb-4">
         <span class="input-group-text"><i class="fa fa-user"></i></span>
-        <input class="form-control" type="number" id="id_nota" name="id_nota">
+        <input class="form-control" type="number" id="id_nota" name="id_nota" required>
         </div>
     </div>
 </div>
