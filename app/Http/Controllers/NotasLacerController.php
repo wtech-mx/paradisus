@@ -279,6 +279,8 @@ class NotasLacerController extends Controller
 
     public function store_sesion(Request $request){
 
+        dd($request);
+
         // G U A R D A R  N O T A  P R I N C I P A L
         $fechaActual = date('Y-m-d');
         $registrosZonas = new RegistroZonas;
@@ -315,7 +317,7 @@ class NotasLacerController extends Controller
             $file = $folderPath . $signature;
 
             file_put_contents($file, $image_base64);
-            $registrosZonas->firma = $fileNameFotDos;
+            $registrosZonas->firma = $file;
         }
 
 
