@@ -827,6 +827,16 @@
     </div>
 </div>
 @endsection
+
+@section('select2')
+
+  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+
+  @include('paquetes_servicios.script_edit')
+
+@endsection
+
 @section('js_custom')
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -850,12 +860,4 @@
         $("#signed_pago3").val('');
     });
 </script>
-@endsection
-@section('select2')
-
-  <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
-  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
-
-  @include('paquetes_servicios.script_edit')
-
 @endsection

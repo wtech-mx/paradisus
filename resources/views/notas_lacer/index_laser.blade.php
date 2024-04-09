@@ -87,6 +87,10 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                                                            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+                                                            <script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+                                                            <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
                                                         @for ($i = 1; $i <= $zona_lacer->sesiones_compradas; $i++)
                                                             <form method="POST" action="{{ route('store_sesion.lacer') }}" enctype="multipart/form-data" role="form">
                                                                 @csrf
@@ -166,11 +170,21 @@
                                                                     </td>
 
                                                                     <td>
-                                                                            <div id="firma_sesion_laser"></div>
-                                                                            <br/><br/>
-                                                                            <button id="clear_firma_sesion" class="btn btn-danger btn-sm">Repetir</button>
-                                                                            <textarea id="firmaSesion" name="firmaSesion" style="display: none"></textarea>
+                                                                        <div id="sig-pago3_{{ $i }}"></div>
+                                                                        <br/><br/>
+                                                                        <button id="clear-pago3_{{ $i }}" class="btn btn-danger btn-sm">Repetir</button>
+                                                                        <textarea id="signed_pago3_{{ $i }}" name="signed_pago3" style="display: none"></textarea>
                                                                     </td>
+                                                                    <script type="text/javascript">
+                                                                        var sig3 = $('#sig-pago3_{{ $i }}').signature({syncField: '#signed_pago3_{{ $i }}', syncFormat: 'PNG'});
+
+                                                                    $('#clear-pago3_{{ $i }}').click(function (e) {
+                                                                        e.preventDefault();
+                                                                        sig3.signature('clear');
+                                                                        $("#signed_pago3_{{ $i }}").val('');
+                                                                    });
+
+                                                                </script>
 
                                                                     <td>
 
@@ -382,12 +396,18 @@
 
 @endsection
 
+
+@section('js_custom')
+
+
 @section('select2')
 
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
+
+
 
     <script type="text/javascript">
         // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
@@ -591,23 +611,6 @@
                         }, 1000);
                     }
             }
-</script>
-
-@endsection
-@section('js_custom')
-{{-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> --}}
-<script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
-
-<script type="text/javascript">
-    var sig3 = $('#firma_sesion_laser').signature({syncField: '#firmaSesion', syncFormat: 'PNG'});
-
-    $('#clear_firma_sesion').click(function (e) {
-        e.preventDefault();
-        sig3.signature('clear');
-        $("#firmaSesion").val('');
-    });
 </script>
 @endsection
 
