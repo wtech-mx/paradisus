@@ -85,7 +85,7 @@ Route::patch('/firma_custom/{id}', [App\Http\Controllers\CustomtermsController::
 
 Route::patch('/pagos/quitar/comida/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'quitar_comida'])->name('pagos.quitar_comida');
 Route::patch('/pagos/quitar/puntualidad/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'quitar_puntualidad'])->name('pagos.quitar_puntualidad');
-Route::patch('/pagos/comida/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'comida'])->name('pagos.comida');
+Route::patch('/pagos/comida', [App\Http\Controllers\RegistroSemanalController::class, 'comida'])->name('pagos.comida');
 // =============== M O D U L O   login custom ===============================
 
 // Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');

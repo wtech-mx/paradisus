@@ -482,6 +482,48 @@ class RegistroSemanalController extends Controller
         ->with('edit','Corte de Sueldo con exito.');
     }
 
+    public function comida(Request $request){
+        $fecha = date('Y-m-d');
+        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
+
+        // Obtener todos los registros de la semana actual para todos los cosmetólogos
+        $id_cosme = $request->get('id_cosme');
+        $hora_inicio_comida = $request->get('hora_inicio_comida');
+        $hora_fin_comida = $request->get('hora_fin_comida');
+
+        for ($count = 0; $count < count($id_cosme); $count++) {
+            $cosmetologoId = $id_cosme[$count];
+            $registro_update = RegistroSemanal::where('cosmetologo_id', $cosmetologoId)
+            ->where('fecha', '=', $fecha)->first();
+            $registro_update->hora_inicio_comida = $hora_inicio_comida[$count];
+            $registro_update->hora_fin_comida = $hora_fin_comida[$count];
+            $registro_update->update();
+
+            if($hora_inicio_comida != $hora_fin_comida){
+                $horaInicioComida = Carbon::parse($registro_update->hora_inicio_comida);
+                $horaFinComida = Carbon::parse($registro_update->hora_fin_comida);
+                $diferenciaEnMinutos = $horaInicioComida->diffInMinutes($horaFinComida);
+                $limiteMinutos = 55;
+
+                $registro = RegistroSueldoSemanal::where('id_cosme', $cosmetologoId)
+                    ->where('fecha', $fechaInicioSemana)
+                    ->first();
+
+                if ($diferenciaEnMinutos <= $limiteMinutos && $registro->paquetes !== 0) {
+                    $registro->paquetes = 1;
+                } else {
+                    $registro->paquetes = 0;
+                }
+
+                $registro->update();
+            }
+        }
+
+
+        return redirect()->back()
+        ->with('edit','Registro de comida con exito.');
+    }
+
     private function obtenerVentasDelDia($cosmetologoId, $fecha){
         // Inicializa el total de ventas del día
         $totalVentas = 0;
@@ -535,38 +577,6 @@ class RegistroSemanalController extends Controller
         $registroSueldoSemanal->update();
 
         return back()->with('success', 'Se quito con exito');
-    }
-
-    public function comida(Request $request, $id){
-        $fecha = date('Y-m-d');
-        $fechaInicioSemana = Carbon::now()->startOfWeek()->toDateString();
-
-        $registro_hoy = RegistroSemanal::where('cosmetologo_id', '=', $id)->where('fecha', '=', $fecha)->first();
-        $registro_hoy->hora_inicio_comida = $request->get('hora_inicio_comida');
-        $registro_hoy->hora_fin_comida = $request->get('hora_fin_comida');
-        $registro_hoy->update();
-
-        if($registro_hoy->hora_inicio_comida != $registro_hoy->hora_fin_comida){
-            $horaInicioComida = Carbon::parse($registro_hoy->hora_inicio_comida);
-            $horaFinComida = Carbon::parse($registro_hoy->hora_fin_comida);
-            $diferenciaEnMinutos = $horaInicioComida->diffInMinutes($horaFinComida);
-            $limiteMinutos = 55;
-
-            $registro = RegistroSueldoSemanal::where('id_cosme', $id)
-                ->where('fecha', $fechaInicioSemana)
-                ->first();
-
-            if ($diferenciaEnMinutos <= $limiteMinutos && $registro->paquetes !== 0) {
-                $registro->paquetes = 1;
-            } else {
-                $registro->paquetes = 0;
-            }
-
-            $registro->update();
-        }
-
-        return redirect()->back()
-        ->with('edit','Corte de Sueldo con exito.');
     }
 
 }
