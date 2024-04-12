@@ -168,7 +168,7 @@
                                     if (count($intersect) > 0) {
                                         // Verificar si al menos un servicio es diferente de los valores deseados
                                         if (count($diff) > 0 || count($intersect) > 1) {
-                                            $primerPago = $notaServicio->primer_pago;
+                                            $primerPago = $notaServicio->primer_pago / 2;
                                             $sumaPancho += $primerPago;
                                         }
                                     }

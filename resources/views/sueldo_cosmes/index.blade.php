@@ -131,7 +131,7 @@
                                                 if (count($intersect) > 0) {
                                                     // Verificar si al menos un servicio es diferente de los valores deseados
                                                     if (count($diff) > 0 || count($intersect) > 1) {
-                                                        $primerPago = $notaServicio->primer_pago;
+                                                        $primerPago = $notaServicio->primer_pago  / 2;
                                                         $sumaPancho += $primerPago;
                                                     }
                                                 }
@@ -165,7 +165,7 @@
                                             $paqueteFac += 350;
                                         @endphp
                                             <div class="col-3">{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F ') }}</div>
-                                            <div class="col-5"><a href="{{ route('notas.edit',$notaServicio->id) }}"> Paquete Facial Vendido: #{{$notaServicio->id}} </a></div>
+                                            <div class="col-5"><a class="btn btn-sm btn-primary" href="{{ route('notas.edit',$notaServicio->id) }}"> Paquete Facial Vendido: #{{$notaServicio->id}} </a></div>
                                             <div class="col-3"><b>$350</b></div>
                                             <div class="col-1"></div>
                                         @endif
@@ -254,7 +254,23 @@
                                                 $totalPaquetes = $sumaPaquetes;
                                             @endphp
                                             <div class="col-3">{{ \Carbon\Carbon::parse($paquete_vendido->fecha_inicial)->format('d \d\e F ') }}</div>
-                                            <div class="col-5">Paquete Vendido #{{$paquete_vendido->id}}</div>
+                                            <div class="col-5">
+                                                @if ($paquete_vendido->num_paquete == 1)
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_uno.edit_uno',$paquete_vendido->id) }}">Paquete Vendido #{{$paquete_vendido->id}}</a>
+                                                @elseif ($paquete_vendido->num_paquete == 2)
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_dos.edit_dos',$paquete_vendido->id) }}">Paquete Vendido #{{$paquete_vendido->id}}</a>
+                                                @elseif ($paquete_vendido->num_paquete == 3)
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_tres.edit_tres',$paquete_vendido->id) }}">Paquete Vendido #{{$paquete_vendido->id}}</a>
+                                                @elseif ($paquete_vendido->num_paquete == 4)
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_cuatro.edit_cuatro',$paquete_vendido->id) }}">Paquete Vendido #{{$paquete_vendido->id}}</a>
+                                                @elseif ($paquete_vendido->num_paquete == 5)
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_cinco.edit_cinco',$paquete_vendido->id) }}">Paquete Vendido #{{$paquete_vendido->id}}</a>
+                                                @elseif ($paquete_vendido->num_paquete == 6)
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_seis.edit_seis',$paquete_vendido->id) }}">Paquete Vendido #{{$paquete_vendido->id}}</a>
+                                                @elseif ($paquete_vendido->num_paquete == 7)
+                                                    <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_siete.edit_siete',$paquete_vendido->id) }}">Paquete Vendido #{{$paquete_vendido->id}}</a>
+                                                @endif
+                                            </div>
                                             <div class="col-3"><b>$350</b></div>
                                             <div class="col-1"></div>
                                         @endif
@@ -268,7 +284,13 @@
                                             $color = $cosmessum->tipo === 'Extra' ? 'green' : 'red';
                                         @endphp
                                         <div class="col-3" style="color: {{$color}}">{{ \Carbon\Carbon::parse($cosmessum->fecha)->format('d \d\e F ') }}</div>
-                                        <div class="col-5" style="color: {{$color}}">{{$cosmessum->concepto}}</div>
+                                        <div class="col-5" style="color: {{$color}}">
+                                            @if (str_contains($cosmessum->concepto, 'Bono Venta Laser en nota:'))
+                                                <a class="btn btn-sm btn-secondary" href="{{ route('edit.lacer',$cosmessum->id_nota) }}">{{$cosmessum->concepto}}</a>
+                                            @else
+                                                {{$cosmessum->concepto}}</a>
+                                            @endif
+                                        </div>
                                         <div class="col-3" style="color: {{$color}}">${{$cosmessum->monto}}</div>
                                         <div class="col-1" style="color: {{$color}}">{{$cosmessum->tipo}}</div>
                                     @endif

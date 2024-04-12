@@ -88,7 +88,7 @@
                                             <a href="{{ route('notas.edit',$notaServicio->id) }}" target="_blank">Numero de nota: {{$notaServicio->id}}</a>
                                         </div>
                                         <div class="col-4">
-                                        <b>${{$notaServicio->primer_pago}}</b>
+                                        <b>${{$primerPago}}</b>
                                         </div>
                                     </div>
                                 @endif
