@@ -111,7 +111,6 @@
                     @php
                         $totalIngresos = 0;
                         $totalDescuentos = 0;
-                        $totalBonoComida = 0;
                     @endphp
 
                     <tr>
@@ -127,17 +126,10 @@
                     </tr>
 
                     @if ($paquete != NULL)
-                        @php
-                            if($paquete->id_cosme == 16){
-                                $totalBonoComida = 80;
-                            }else{
-                                $totalBonoComida = 130;
-                            }
-                        @endphp
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                 <td>Bono de comida</td>
-                                <td>${{$totalBonoComida}}</td>
+                                <td>${{$recepcion_pagos->bono_comida}}</td>
                                 <td></td>
                             </tr>
                     @endif
@@ -164,7 +156,7 @@
                         <td>
                             @php
                                 $resultadoFormateado = number_format(
-                                    ($recepcion_pagos->sueldo_base + $totalIngresos + $totalBonoComida) - $totalDescuentos,
+                                    ($recepcion_pagos->sueldo_base + $totalIngresos + $recepcion_pagos->bono_comida) - $totalDescuentos,
                                     2, // Número de decimales
                                     '.', // Separador decimal
                                     ',' // Separador de miles

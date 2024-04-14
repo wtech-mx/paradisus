@@ -174,10 +174,8 @@
                                 @foreach ($paquetes as $paquete)
                                     @if ($user_pago->id == $paquete->id_cosme)
                                             @php
-                                                if($user_pago->id == 22 || $user_pago->id == 23 || $user_pago->id == 5){
-                                                    $totalBonoComida = 0;
-                                                }elseif ($paquete->paquetes == 1) {
-                                                    $totalBonoComida = 130;
+                                                if ($paquete->paquetes == 1) {
+                                                    $totalBonoComida = $user_pago->bono_comida;
                                                 }else{
                                                     $totalBonoComida = 0;
                                                 }
@@ -188,7 +186,7 @@
                                         <div class="col-5">Bono de comida</div>
                                         <div class="col-3"><b>
                                             @if($paquete->paquetes == 1)
-                                                $130
+                                                {{$user_pago->bono_comida}}
                                             @else
                                                 $0
                                             @endif
@@ -207,11 +205,7 @@
                                 @foreach ($registroSueldoSemanal as $puntualidad)
                                     @if ($user_pago->id == $puntualidad->id_cosme)
                                         @php
-                                            if($puntualidad->id_cosme == 23 || $puntualidad->id_cosme == 5 || $puntualidad->id_cosme == 22 ){
-                                                $totalBono = 80;
-                                            }else{
-                                                $totalBono = 150;
-                                            }
+                                            $totalBono = $user_pago->bono_puntualidad;
                                         @endphp
                                         <div class="col-3">{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F ') }}</div>
                                         <div class="col-5">Bono de puntualidad</div>

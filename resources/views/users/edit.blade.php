@@ -51,25 +51,41 @@
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
                             <label class="form-control-label">Puesto:</label>
-                            {!! Form::text('puesto', null, array('placeholder' => 'Puesto','class' => 'form-control')) !!}
+                            <select class="form-select cliente d-inline-block"  data-toggle="select" id="puesto" name="puesto" value="{{ old('puesto') }}">
+                                <option value="{{$user->puesto}}">{{$user->puesto}}</option>
+                                <option value="Recepcionista">Recepcionista</option>
+                                <option value="Cosme">Cosme</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label class="form-control-label">Sueldo Base:</label>
-                            {!! Form::text('sueldo_base', null, array('placeholder' => 'Sueldo Base','class' => 'form-control')) !!}
+                            <label class="form-control-label">Sueldo base por dia:</label>
+                            <input  id="sueldo_base" name="sueldo_base" type="number" class="form-control" value="{{$user->sueldo_base}}">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label class="form-control-label">Comision Despedida:</label>
-                            {!! Form::text('comision_despedida', null, array('placeholder' => 'Comision Despedida','class' => 'form-control')) !!}
+                            <label class="form-control-label">Bono comida:</label>
+                            <input  id="bono_comida" name="bono_comida" type="text" class="form-control" value="{{$user->bono_comida}}">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Bono puntualidad:</label>
+                            <input  id="bono_puntualidad" name="bono_puntualidad" type="text" class="form-control" value="{{$user->bono_puntualidad}}">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Sueldo por hora domingo:</label>
+                            <input  id="comision_despedida" name="comision_despedida" type="text" class="form-control" value="{{$user->comision_despedida}}" readonly>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
                             <label class="form-control-label">Sueldo por hora:</label>
-                            {!! Form::text('sueldo_hora', null, array('placeholder' => 'Sueldo por hora','class' => 'form-control')) !!}
+                            <input  id="sueldo_hora" name="sueldo_hora" type="text" class="form-control" value="{{$user->sueldo_hora}}" readonly>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
@@ -192,4 +208,33 @@
         </div>
       </div>
 
+@endsection
+
+@section('select2')
+<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script>
+    document.getElementById('sueldo_base').oninput = function() {
+        calcularSueldo();
+    };
+
+    function calcularSueldo() {
+        // Obtener el valor de sueldo_base
+        var sueldoBase = document.getElementById('sueldo_base').value;
+
+        // Verificar si sueldoBase es un número válido
+        if (!isNaN(sueldoBase)) {
+            // Calcular sueldo por hora y comisión de despido
+            var sueldoHora = sueldoBase / 9;
+            var comisionDespedida = sueldoBase / 8;
+
+            // Mostrar los resultados en los inputs correspondientes
+            document.getElementById('sueldo_hora').value = sueldoHora.toFixed(2);
+            document.getElementById('comision_despedida').value = comisionDespedida.toFixed(2);
+        } else {
+            // Si el valor ingresado no es un número válido, establecer los inputs en blanco
+            document.getElementById('sueldo_hora').value = '';
+            document.getElementById('comision_despedida').value = '';
+        }
+    }
+</script>
 @endsection

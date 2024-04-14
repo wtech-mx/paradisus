@@ -74,6 +74,8 @@ class UserController extends Controller
         $user->sueldo_hora = $request->get('sueldo_hora');
         $user->password = Hash::make($request->get('password'));
         $user->assignRole($request->input('roles'));
+        $user->bono_comida = $request->get('bono_comida');
+        $user->bono_puntualidad = $request->get('bono_puntualidad');
         $user->save();
 
         $horario = new Horario;
@@ -148,6 +150,8 @@ class UserController extends Controller
         $user->sueldo_base = $request->get('sueldo_base');
         $user->comision_despedida = $request->get('comision_despedida');
         $user->sueldo_hora = $request->get('sueldo_hora');
+        $user->bono_comida = $request->get('bono_comida');
+        $user->bono_puntualidad = $request->get('bono_puntualidad');
         if(!empty($request->get('password'))){
             $user->password = Hash::make($request->get('password'));
         }else{

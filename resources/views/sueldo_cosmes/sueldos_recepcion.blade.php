@@ -54,7 +54,6 @@
                                         @php
                                             $totalIngresos = 0;
                                             $totalDescuentos = 0;
-                                            $totalBonoComida = 0;
                                         @endphp
 
                                         <tr>
@@ -71,17 +70,10 @@
 
                                         @foreach ($paquetes as $paquete)
                                             @if ($user_pago->id == $paquete->id_cosme)
-                                            @php
-                                                if($paquete->id_cosme == 16){
-                                                    $totalBonoComida = 80;
-                                                }else{
-                                                    $totalBonoComida = 130;
-                                                }
-                                            @endphp
                                                 <tr>
                                                     <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                                     <td>Bono de comida</td>
-                                                    <td>${{$totalBonoComida}}</td>
+                                                    <td>${{$user_pago->bono_comida}}</td>
                                                     <td>
                                                         <form method="POST" action="{{ route('pagos.quitar_comida', $user_pago->id) }}" enctype="multipart/form-data" role="form">
                                                             @csrf
@@ -115,7 +107,7 @@
                                             <td>
                                                 @php
                                                     $resultadoFormateado = number_format(
-                                                        ($user_pago->sueldo_base + $totalIngresos + $totalBonoComida) - $totalDescuentos,
+                                                        ($user_pago->sueldo_base + $totalIngresos + $user_pago->bono_comida) - $totalDescuentos,
                                                         2, // Número de decimales
                                                         '.', // Separador decimal
                                                         ',' // Separador de miles

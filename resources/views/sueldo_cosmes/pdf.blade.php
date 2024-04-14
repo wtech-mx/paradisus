@@ -195,10 +195,8 @@
                             $comision = $sumaTotales * 0.10;
                         }
 
-                        if($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5){
-                            $totalBonoComida = 0;
-                        }elseif ($paquetes->paquetes == 1) {
-                            $totalBonoComida = 130;
+                        if ($paquetes->paquetes == 1) {
+                            $totalBonoComida = $cosme->bono_comida;
                         }else{
                             $totalBonoComida = 0;
                         }
@@ -221,21 +219,13 @@
                     @foreach ($registroSueldoSemanal as $puntualidad)
                         @if ($cosme->id == $puntualidad->id_cosme)
                             @php
-                                if($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5){
-                                    $totalBono = 80;
-                                }else{
-                                    $totalBono = 150;
-                                }
+                                $totalBono = $cosme->bono_puntualidad;
                             @endphp
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($puntualidad->fecha)->format('d \d\e F \d\e\l Y') }}</td>
                                 <td>Bono de puntualidad</td>
                                 <td>
-                                    @if($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5)
-                                        $80
-                                        @else
-                                        $150
-                                    @endif
+                                    {{$totalBono}}
                                 </td>
                                 <td></td>
                             </tr>
@@ -308,20 +298,17 @@
                             </tr>
                         @endif
                     @endforeach
-                    @if ($cosme->id == 22 || $cosme->id == 23 || $cosme->id == 5)
-                    @else
-                        <tr>
-                            <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
-                            <td>Bono de comida</td>
-                            <td>
-                                @if($paquetes->paquetes == 1)
-                                    $130
-                                @else
-                                    $0
-                                @endif
-                            </td>
-                        </tr>
-                    @endif
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
+                        <td>Bono de comida</td>
+                        <td>
+                            @if($paquetes->paquetes == 1)
+                                {{$cosme->bono_comida}}
+                            @else
+                                $0
+                            @endif
+                        </td>
+                    </tr>
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F \d\e\l Y') }}</td>
                         <td>Total vendido: <b>${{ number_format($sumaTotales, 2) }}</b> </td>
