@@ -334,6 +334,15 @@
             </li>
         @endcan
 
+        <li class="nav-item">
+            <a class="nav-link {{ (Request::is('clip*') ? 'active' : '') }}" href="{{ route('clip.index') }}" target="">
+                <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
+                    <img src="{{ asset('assets/img/clip.png') }}" alt="" style="width: 20px">
+                </div>
+                <span class="nav-link-text ms-1">Clip</span>
+            </a>
+            </li>
+
         @can('encuestas')
             <li class="nav-item mt-3">
             <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administrativo</h6>

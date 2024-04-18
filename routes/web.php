@@ -324,6 +324,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/treminos/cosmes/pdf/{id}', [App\Http\Controllers\CustomtermsController::class, 'pdf'])->name('treminos.pdf');
 
+    Route::get('/clip', [App\Http\Controllers\ClipController::class, 'index'])->name('clip.index');
+
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');
