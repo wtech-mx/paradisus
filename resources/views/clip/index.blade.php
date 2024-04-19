@@ -34,11 +34,12 @@
                                     <tbody>
                                         @foreach ($data['results'] as $index => $result)
                                             <tr>
-                                                <td>{{ $result['created_at'] }}</td>
-                                                <td>{{ $result['receipt_no'] }}</td>
+                                                <td>
+                                                   <strong> {{ date('d/m/Y', strtotime($result['created_at'])) }}</strong> <br>
+                                                    {{ date('h:i:s A', strtotime($result['created_at'])) }}
+                                                </td>                                                <td>{{ $result['receipt_no'] }}</td>
                                                 <td>
                                                     <ul>
-                                                        <li><strong>Bin:</strong> {{ $result['payment_method']['card']['bin'] }}</li>
                                                         <li><strong>Emisor:</strong> {{ $result['payment_method']['card']['issuer'] }}</li>
                                                         <li><strong>País:</strong> {{ $result['payment_method']['card']['country'] }}</li>
                                                         <li><strong>Últimos dígitos:</strong> {{ $result['payment_method']['card']['last_digits'] }}</li>
