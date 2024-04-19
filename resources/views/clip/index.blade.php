@@ -25,18 +25,33 @@
                                 <table class="table table-flush" id="datatable-search">
                                     <thead class="thead">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Cliente</th>
-                                            <th>Servicio</th>
                                             <th>Fecha</th>
-                                            <th>Estatus</th>
-                                            <th>Acciones</th>
+                                            <th>No. recibo</th>
+                                            <th>Método de pago</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
-                                        <tbody>
+                                    <tbody>
+                                        @foreach ($data['results'] as $index => $result)
+                                            <tr>
+                                                <td>{{ $result['created_at'] }}</td>
+                                                <td>{{ $result['receipt_no'] }}</td>
+                                                <td>
+                                                    <ul>
+                                                        <li><strong>Bin:</strong> {{ $result['payment_method']['card']['bin'] }}</li>
+                                                        <li><strong>Emisor:</strong> {{ $result['payment_method']['card']['issuer'] }}</li>
+                                                        <li><strong>País:</strong> {{ $result['payment_method']['card']['country'] }}</li>
+                                                        <li><strong>Últimos dígitos:</strong> {{ $result['payment_method']['card']['last_digits'] }}</li>
+                                                        <li><strong>Expiración:</strong> {{ $result['payment_method']['card']['exp_month'] }}/{{ $result['payment_method']['card']['exp_year'] }}</li>
+                                                    </ul>
+                                                </td>
+                                                <td>{{ $result['amount'] }}</td>
 
-                                        </tbody>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
+
                             </div>
                         </div>
                     @endcan
