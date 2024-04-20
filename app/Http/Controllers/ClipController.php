@@ -87,4 +87,66 @@ class ClipController extends Controller
 
         return view('clip.index', ['data' => $data]);
     }
+
+    public function punto_venta(Request $request){
+
+                // Define las credenciales de la API
+                $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
+                $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+
+                // Genera el token de autorización
+                $token = base64_encode($apiKey . ':' . $clave);
+
+                $amount = $request->get('amount');
+                $assigned_user = $request->get('assigned_user');
+                $reference = $request->get('reference');
+                $message = $request->get('message');
+
+                // Realiza la solicitud GET a la API de Clip
+                $client = new Client();
+
+                // Formatear los datos como JSON
+                $data_items = [
+                    'amount' => (int)$amount,
+                    'assigned_user' => $assigned_user,
+                    'reference' => $reference,
+                    'message' => $message
+                ];
+
+                $jsonData = json_encode($data_items);
+
+                $response = $client->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
+                    'body' => $jsonData,
+                    'headers' => [
+                        'accept' => 'application/vnd.com.payclip.v1+json',
+                        'content-type' => 'application/json; charset=UTF-8',
+                        'x-api-key' => 'Basic ' . $token,
+                      ],
+
+                ]);
+
+                $body = $response->getBody()->getContents();
+
+                // Decodificar el cuerpo si es JSON
+                $data = json_decode($body, true);
+
+
+                // Supongamos que $data contiene la respuesta de la API
+                $code = $data['code'];
+                $description = $data['description'];
+
+                // Mensaje personalizado dependiendo del código y la descripción
+                $mensaje = '';
+                if ($code == 100) {
+                    $mensaje = 'La transacción se ha guardado exitosamente.';
+                } elseif ($code == 101 && $description == 'Reference Already Exists') {
+                    $mensaje = 'El código de referencia ya existe.';
+                } else {
+                    $mensaje = 'Se ha producido un error en la transacción.';
+                }
+                dd($mensaje);
+
+                // Luego, puedes pasar el mensaje a la vista
+                return view('clip.index', ['mensaje' => $mensaje]);
+    }
 }

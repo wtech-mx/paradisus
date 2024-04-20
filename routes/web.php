@@ -326,6 +326,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/clip', [App\Http\Controllers\ClipController::class, 'index'])->name('clip.index');
     Route::get('/clip/buscador', [App\Http\Controllers\ClipController::class, 'buscador'])->name('buscador.clip');
+    Route::post('/clip/punto_venta', [App\Http\Controllers\ClipController::class, 'punto_venta'])->name('punto_venta.clip');
 
 });
 

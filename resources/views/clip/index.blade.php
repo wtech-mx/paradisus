@@ -15,6 +15,15 @@
 
                             <h3 class="mb-3">Clip</h3>
 
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Probar envio de datos a la terminal
+                              </button>
+
+                              @if (!empty($mensaje))
+                                <div class="alert alert-info" role="alert">
+                                    {{ $mensaje }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                     @can('notas-list')
@@ -160,6 +169,9 @@
             </div>
         </div>
     </div>
+
+@include('clip.modal_clip')
+
 @endsection
 
 @section('datatable')
