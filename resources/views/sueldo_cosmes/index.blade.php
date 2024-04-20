@@ -180,7 +180,7 @@
                                                     $totalBonoComida = 0;
                                                 }
                                             @endphp
-                                            @if ($user_pago->id == 22 || $user_pago->id == 23 || $user_pago->id == 5)
+                                            @if ($user_pago->id == 22 || $user_pago->id == 5)
                                             @else
                                         <div class="col-3">{{ \Carbon\Carbon::parse($fechaActual)->format('d \d\e F ') }}</div>
                                         <div class="col-5">Bono de comida</div>
