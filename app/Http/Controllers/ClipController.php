@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as GuzzleClient;
 
 class ClipController extends Controller
 {
@@ -22,7 +22,7 @@ class ClipController extends Controller
         $lastDayOfWeek = date('Y-m-d', strtotime('sunday this week')) . 'T23:59:59Z';
 
         // Realiza la solicitud GET a la API de Clip
-        $client = new Client();
+        $client = new GuzzleClient();
 
         $response = $client->request('GET', 'https://api.payclip.com/payments', [
             'headers' => [
@@ -62,7 +62,7 @@ class ClipController extends Controller
         $to = $request->get('fecha_fin').'T23:59:59Z';
 
         // Realiza la solicitud GET a la API de Clip
-        $client = new Client();
+        $client = new GuzzleClient();
 
         $response = $client->request('GET', 'https://api.payclip.com/payments', [
             'headers' => [
@@ -90,9 +90,14 @@ class ClipController extends Controller
 
     public function punto_venta(Request $request){
 
-                // Define las credenciales de la API
-                $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
-                $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+                // Define las credenciales de la API Vendexa
+                // $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
+                // $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+
+                // Define las credenciales de la API Paradisus
+
+                $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
+                $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
 
                 // Genera el token de autorización
                 $token = base64_encode($apiKey . ':' . $clave);
@@ -103,7 +108,7 @@ class ClipController extends Controller
                 $message = $request->get('message');
 
                 // Realiza la solicitud GET a la API de Clip
-                $client = new Client();
+                $client = new GuzzleClient();
 
                 // Formatear los datos como JSON
                 $data_items = [
