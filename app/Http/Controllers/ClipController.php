@@ -144,7 +144,6 @@ class ClipController extends Controller
                 } else {
                     $mensaje = 'Se ha producido un error en la transacción.';
                 }
-                dd($mensaje);
 
                 // Luego, puedes pasar el mensaje a la vista
                 return view('clip.index', ['mensaje' => $mensaje]);
