@@ -672,11 +672,11 @@
                                 <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Guardar
                                 </button>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="spinner-border" role="status" id="preloader" style="display:none">
-                                             <span class="visually-hidden">Loading...</span>
-                                         </div>
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status" id="preloader" style="display:none">
+                                         <span class="visually-hidden">Loading...</span>
                                      </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -687,7 +687,6 @@
 @endsection
 
 @section('select2')
-
   <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">

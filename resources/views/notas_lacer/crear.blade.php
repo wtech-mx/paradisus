@@ -522,6 +522,11 @@
                                 <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                     Guardar
                                 </button>
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status" id="preloader" style="display:none">
+                                         <span class="visually-hidden">Loading...</span>
+                                     </div>
+                                </div>
                             </div>
                         </form>
 
@@ -794,6 +799,10 @@
             $("#miFormulario").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
+                // Deshabilitar el botón de enviar y mostrar el preloader
+                $("#miFormulario button[type=submit]").prop("disabled", true);
+                $("#preloader").show(); // Asegúrate de tener un elemento con id "preloader" en tu HTML para mostrar el preloader
+
                 // Realiza la solicitud POST usando AJAX
                 $.ajax({
                     url: $(this).attr("action"),
@@ -807,6 +816,10 @@
 
                     },
                     error: function (xhr, status, error) {
+                            // Habilitar el botón de enviar y ocultar el preloader en caso de error
+                            $("#miFormulario button[type=submit]").prop("disabled", false);
+                            $("#preloader").hide();
+
                             var errors = xhr.responseJSON.errors;
                             var errorMessage = '';
 

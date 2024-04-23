@@ -18,6 +18,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use GuzzleHttp\Client as GuzzleClient;
 
 // use Automattic\WooCommerce\Client;
 
@@ -56,7 +57,6 @@ class NotasPedidoController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
             'phone' => [
@@ -130,8 +130,62 @@ class NotasPedidoController extends Controller
             $nota->cambio = '0';
         }
 
-
         $nota->save();
+
+        if($request->get('metodo_pago') == 'Tarjeta' or $request->get('metodo_pago2')){
+
+
+            // Define las credenciales de la API
+            $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
+            $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+            // Genera el token de autorización
+            $token = base64_encode($apiKey . ':' . $clave);
+
+            if($request->get('name') != NULL){
+               $nombre_cliente = $request->get('name');
+            }else{
+                $client =  Client::find($request->get('id_client'));
+                $nombre_cliente = $client->name;
+            }
+
+            $cajera_id =  User::find($nota->id_user);
+            $cajera = $cajera_id->name;
+
+
+            $amount = $nota->total;
+            $assigned_user = 'karlamarian9@gmail.com';
+            $reference = $nota->id;
+            $message = 'Nota Product :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
+
+            // Realiza la solicitud GET a la API de Clip
+            $client = new GuzzleClient();
+
+            // Formatear los datos como JSON
+            $data_items = [
+                'amount' => (int)$amount,
+                'assigned_user' => $assigned_user,
+                'reference' => $reference,
+                'message' => $message
+            ];
+
+            $jsonData = json_encode($data_items);
+
+            $response = $client->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
+                'body' => $jsonData,
+                'headers' => [
+                    'accept' => 'application/vnd.com.payclip.v1+json',
+                    'content-type' => 'application/json; charset=UTF-8',
+                    'x-api-key' => 'Basic ' . $token,
+                  ],
+
+            ]);
+
+            $body = $response->getBody()->getContents();
+
+            // Decodificar el cuerpo si es JSON
+            $data = json_decode($body, true);
+
+        }
 
         // G U A R D A R  C A M B I O
         $suma_pagos = $request->get('dinero_recibido') + $request->get('dinero_recibido2');
