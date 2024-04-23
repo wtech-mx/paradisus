@@ -26,12 +26,12 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-7">
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">Paquete Mini</h3>
                     <h3 class="service_title mb-3">24 Sesiones 2 Zonas Mini a elegir: </h3>
                     <div class="row">
-                        <div class="col-6 my-auto">
+                        <div class="col-12 my-auto">
                             <p class="subtext_lase">
                                 1. Manos 5. Bigote <br>
                                 2. Frente   6. Mentón <br>
@@ -39,7 +39,7 @@
                                 4. Mejilla  8. Pies
                             </p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12">
                             <h5 class="precio_laser mb-4"> $2,160 </h5>
                             <a href="" class="btn_comprar_paquete">Comprar Paquete</a>
                         </div>
@@ -53,7 +53,7 @@
 
     </div>
 
-    <div class="col-5 py-auto">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5 my-auto">
         <div id="carouselMini" class="carousel slide">
 
 
@@ -84,36 +84,37 @@
 </section>
 
 <section class="row p-2" style="background:#bc7988;">
-    <div class="col-6">
-        <div class="container">
-            <h3 class="tittle_lase_section text-left color_blanco">Paquete Pequeño</h3>
-            <h3 class="service_title mb-3 color_blanco">24 Sesiones 2 Zonas Pequeñas a elegir:
-            </h3>
-            <div class="row">
-                <div class="col-6 my-auto">
-                    <p class="subtext_lase color_blanco">
-                        1. Ante brazos 6. Axilas <br>
-                        2. Brazos Sup   7. Brazos Sup <br>
-                        3. Nuca  8. Zona Íntima <br>
-                        4. Hombros  9. Línea Interglútea <br>
-                        5. Escote
-                    </p>
-                </div>
-                <div class="col-6">
-                    <h5 class="precio_laser_negative mb-4"> $3,690 </h5>
-                    <a href="" class="btn_comprar_paquete_negative">Comprar Paquete</a>
-                </div>
-            </div>
-            <p class="mini_subtext_paradisus mt-3 color_blanco">
-                Te aseguramos que NO tendrás que pagar más sesiones, te brindamos resultados reales,
-                al terminar tu tratamiento.
-                Tú pagas las 12 sesiones de una zona y te damos otras 12 sesiones en otra zona, dando un total de 24 sesiones.
-            </p>
-        </div>
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7">
+            <div class="container">
+                <h3 class="tittle_lase_section text-left color_blanco">Paquete Pequeño</h3>
+                <h3 class="service_title mb-3 color_blanco">24 Sesiones 2 Zonas Pequeñas a elegir:
+                </h3>
+                <div class="row">
+                    <div class="col-12 my-auto">
+                        <p class="subtext_lase color_blanco">
+                            1. Ante brazos 6. Axilas <br>
+                            2. Brazos Sup   7. Brazos Sup <br>
+                            3. Nuca  8. Zona Íntima <br>
+                            4. Hombros  9. Línea Interglútea <br>
+                            5. Escote
+                        </p>
+                    </div>
 
+                    <div class="col-12 col-sm-6 col-md-7 col-lg-7">
+                        <h5 class="precio_laser_negative mb-4"> $3,690 </h5>
+                        <a href="" class="btn_comprar_paquete_negative">Comprar Paquete</a>
+                    </div>
+                </div>
+                <p class="mini_subtext_paradisus mt-3 color_blanco">
+                    Te aseguramos que NO tendrás que pagar más sesiones, te brindamos resultados reales,
+                    al terminar tu tratamiento.
+                    Tú pagas las 12 sesiones de una zona y te damos otras 12 sesiones en otra zona, dando un total de 24 sesiones.
+                </p>
+            </div>
     </div>
 
-    <div class="col-6 py-auto">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5 my-auto">
+
         <div id="carouselPeque" class="carousel slide">
 
             <div class="carousel-inner">
@@ -143,13 +144,13 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-7">
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7">
         <div class="container">
             <h3 class="tittle_lase_section text-left">Paquete Mediano</h3>
             <h3 class="service_title mb-3">30 Sesiones 2 Zonas Mediano a elegir:
             </h3>
             <div class="row">
-                <div class="col-6 my-auto">
+                <div class="col-12 my-auto">
                     <p class="subtext_lase">
                         1. Brazos Completos 6. Glúteos <br>
                         2. Espalda alta   7. Piernas sup <br>
@@ -158,21 +159,20 @@
                         5. Abdomen
                     </p>
                 </div>
-                <div class="col-6">
-                    <h5 class="precio_laser mb-4"> $12,000 </h5>
-                    <a href="" class="btn_comprar_paquete">Comprar Paquete</a>
+                <div class="col-12 col-sm-12 col-md-5 col-lg-5 my-auto">
+                        <h5 class="precio_laser mb-4"> $12,000 </h5>
+                        <a href="" class="btn_comprar_paquete">Comprar Paquete</a>
                 </div>
+                <p class="mini_subtext_paradisus mt-3">
+                    Te aseguramos que NO tendrás que pagar más sesiones, te brindamos resultados reales,
+                    al terminar tu tratamiento.
+                    Tú pagas las 12 sesiones de una zona y te damos otras 12 sesiones en otra zona, dando un total de 24 sesiones.
+                </p>
             </div>
-            <p class="mini_subtext_paradisus mt-3">
-                Te aseguramos que NO tendrás que pagar más sesiones, te brindamos resultados reales,
-                al terminar tu tratamiento.
-                Tú pagas las 12 sesiones de una zona y te damos otras 12 sesiones en otra zona, dando un total de 24 sesiones.
-            </p>
         </div>
-
     </div>
 
-    <div class="col-5 py-auto">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5 my-auto">
         <div id="carouselMediano" class="carousel slide">
 
             <div class="carousel-inner">
@@ -202,7 +202,8 @@
 </section>
 
 <section class="row p-2"style="background:#bc7988;">
-    <div class="col-6">
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7">
+
         <div class="container">
             <h2 class="tittle_lase_section text-left color_blanco">Paquete Grande</h2>
             <h3 class="service_title mb-3 color_blanco">30 Sesiones 2 Zonas Grandes:</h3>
@@ -213,7 +214,8 @@
                         2. Espalda Completa <br>
                     </p>
                 </div>
-                <div class="col-6">
+        <div class="col-12 col-sm-6 col-md-7 col-lg-7">
+
                     <h5 class="precio_laser_negative mb-4"> $15,000</h5>
                     <a href="" class="btn_comprar_paquete_negative">Comprar Paquete</a>
                 </div>
@@ -226,7 +228,7 @@
         </div>
     </div>
 
-    <div class="col-6 py-auto">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5 my-auto">
         <div id="carouselGrande" class="carousel slide">
 
             <div class="carousel-inner">
@@ -256,12 +258,12 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-6">
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7">
         <div class="container">
             <h2 class="tittle_lase_section text-left">Paquete ¡Adiós Vello!</h2>
             <h3 class="service_title mb-3">Cuerpo Completo:</h3>
             <div class="row">
-                <div class="col-6 my-auto">
+                <div class="col-12 my-auto">
                     <p class="subtext_lase">
                         1. Todas las zonas mini <br>
                         2. Todas las zonas pequeñas <br>
@@ -269,7 +271,8 @@
                         4. Todas las zonas grandes <br>
                     </p>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6 col-md-7 col-lg-7">
+
                     <h5 class="precio_laser mb-4"> $60,000
                     </h5>
                     <a href="" class="btn_comprar_paquete">Comprar Paquete</a>
@@ -282,8 +285,13 @@
             </p>
         </div>
     </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="col-6 py-auto">
+
+
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5 my-auto">
         <div id="carouselCompleto" class="carousel slide">
 
             <div class="carousel-inner">
@@ -332,7 +340,8 @@
 
 <section class="row section_equipo_laser">
 
-    <div class="col-6">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+
         <div class="container_img_equi">
             <img src="{{ asset('assets/landing/DEPILACION_LASER/EQUIPO_LASER.webp') }}" alt="" class="img_equipo_laser">
             <img src="{{ asset('assets/landing/DEPILACION_LASER/DESTELLO-01.webp') }}" alt="" class="estrellas_flotantes">
@@ -341,7 +350,7 @@
         </div>
     </div>
 
-    <div class="col-6 my-auto">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
 
         <div class="d-flex justify-content-evenly">
             <h3 class="box_tittle mt-5 mb-5">Vita Laser 3000w</h3>
@@ -366,6 +375,5 @@
     </div>
 
 </section>
-
 
 @endsection
