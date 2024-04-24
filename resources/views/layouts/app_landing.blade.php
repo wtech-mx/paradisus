@@ -66,7 +66,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Corporales</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('tratamientos_corporales.landingpage') }}">Corporales</a>
                 </li>
 
                 <li class="nav-item">

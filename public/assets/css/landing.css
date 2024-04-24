@@ -294,6 +294,10 @@ background-color: #eed1d5;
     width: 200px;
 }
 
+.img_corporales{
+    width: 60%;
+}
+
 @media only screen and (min-width:769px) {
     .logo_ocultar{
         display: none;

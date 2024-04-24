@@ -20,4 +20,9 @@ class LandingPageController extends Controller
     {
         return view('landing.contacto');
     }
+
+    public function tratamientos_corporales(){
+        return view('landing.tratamientos_corporales');
+
+    }
 }
