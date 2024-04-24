@@ -35,7 +35,7 @@ Route::get('/inicio', [App\Http\Controllers\LandingPageController::class, 'index
 Route::get('/inicio/laser', [App\Http\Controllers\LandingPageController::class, 'index_laser'])->name('index_laser.landingpage');
 Route::get('/inicio/contacto', [App\Http\Controllers\LandingPageController::class, 'index_contacto'])->name('index_contacto.landingpage');
 Route::get('/tratamientos/corporales', [App\Http\Controllers\LandingPageController::class, 'tratamientos_corporales'])->name('tratamientos_corporales.landingpage');
-
+Route::get('/tratamientos/faciales', [App\Http\Controllers\LandingPageController::class, 'tratamientos_faciales'])->name('tratamientos_faciales.landingpage');
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
 

@@ -70,7 +70,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Faciales</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('tratamientos_faciales.landingpage') }}">Faciales</a>
                 </li>
 
                 <li class="nav-item logo_ocultar_menu">
