@@ -39,12 +39,11 @@
 
             <div class="container p-0 p-sm-0 p-md-3 p-lg-5">
 
-                <h4 class="service_title text-center">Nuestros Servicios :</h4>
+                <h4 class="service_title text-center mt-3">Nuestros Servicios :</h4>
 
-                <div class="row">
-                    <div class="d-flex justify-content-between">
+                <div class="row d-flex justify-content-between">
 
-                        <div class="col-4 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-6 col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="{{ route('index_laser.landingpage') }}">
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_DEPILACION_LASER.png') }}" class="d-block w-100" alt="...">
@@ -55,7 +54,7 @@
                             </p>
                         </div>
 
-                        <div class="col-4 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-6 col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="">
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="w-100" alt="...">
@@ -66,7 +65,7 @@
                             </p>
                         </div>
 
-                        <div class="col-4 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-6 col-md-2 col-lg-2">
                             <p class="text-center">
                             <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_FACIALES.png') }}" class="w-100" alt="...">
                                 <a href="" class="texo_services_icons">
@@ -75,7 +74,7 @@
                             </p>
                         </div>
 
-                        <div class="col-4 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-6 col-md-2 col-lg-2">
                             <p class="text-center">
                             <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="w-100" alt="...">
                                 <a href="" class="texo_services_icons">
@@ -84,7 +83,7 @@
                             </p>
                         </div>
 
-                        <div class="col-4 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-6 col-md-2 col-lg-2">
                             <p class="text-center">
                             <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="w-100" alt="...">
                                 <a href="" class="texo_services_icons">
@@ -92,8 +91,6 @@
                                 </a>
                             </p>
                         </div>
-
-                    </div>
 
                 </div>
 
