@@ -153,7 +153,7 @@ class NotasPedidoController extends Controller
 
 
             $amount = $nota->total;
-            $assigned_user = 'karlamarian9@gmail.com';
+            $assigned_user = 'ventas@paradisus.com.mx';
             $reference = $nota->id;
             $message = 'Nota Product :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 

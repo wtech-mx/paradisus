@@ -255,7 +255,7 @@ class NotasLacerController extends Controller
 
 
                 $amount = $request->get('pago');
-                $assigned_user = 'karlamarian9@gmail.com';
+                $assigned_user = 'ventas@paradisus.com.mx';
                 $reference = $nota_laser->id;
                 $message = 'N Laser :#'.$nota_laser->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
@@ -570,7 +570,7 @@ class NotasLacerController extends Controller
 
 
                 $amount = $pago->pago;
-                $assigned_user = 'karlamarian9@gmail.com';
+                $assigned_user = 'ventas@paradisus.com.mx';
                 $reference = $pago->id_nota;
                 $message = 'N Laser :#'.$pago->id_nota.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 

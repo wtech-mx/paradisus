@@ -288,7 +288,7 @@ class NotasController extends Controller
 
 
                 $amount = $request->get('pago');
-                $assigned_user = 'karlamarian9@gmail.com';
+                $assigned_user = 'ventas@paradisus.com.mx';
                 $reference = $nota->id;
                 $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
@@ -597,7 +597,7 @@ class NotasController extends Controller
 
 
                 $amount = $request->get('pago');
-                $assigned_user = 'karlamarian9@gmail.com';
+                $assigned_user = 'ventas@paradisus.com.mx';
                 $reference = $nota->id;
                 $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 

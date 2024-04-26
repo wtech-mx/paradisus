@@ -664,7 +664,7 @@ class PaquetesController extends Controller
 
 
                 $amount = $request->get('pago');
-                $assigned_user = 'karlamarian9@gmail.com';
+                $assigned_user = 'ventas@paradisus.com.mx';
                 $reference = $paquete->id;
                 $message = 'Paquete :#'.$paquete->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
