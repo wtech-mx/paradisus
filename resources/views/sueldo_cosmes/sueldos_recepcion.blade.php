@@ -54,7 +54,6 @@
                                         @php
                                             $totalIngresos = 0;
                                             $totalDescuentos = 0;
-                                            $totalBonoComida = 0;
 
                                             if($user_pago->paquetes == '1'){
                                                 $totalBonoComida = $user_pago->bono_comida;
@@ -75,23 +74,25 @@
                                             <td></td>
                                         </tr>
 
-                                        @foreach ($paquetes as $paquete)
-                                            @if ($user_pago->id == $paquete->id_cosme)
-                                                <tr>
-                                                    <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
-                                                    <td>Bono de comida</td>
-                                                    <td>${{$user_pago->bono_comida}}</td>
-                                                    <td>
-                                                        <form method="POST" action="{{ route('pagos.quitar_comida', $user_pago->id) }}" enctype="multipart/form-data" role="form">
-                                                            @csrf
-                                                            <input type="hidden" name="_method" value="PATCH">
-                                                            <input type="text" id="paquetes" name="paquetes" value="0" style="display: none">
-                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas quitarlo?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
+                                        @if ($user_pago->paquetes == '1')
+                                            @foreach ($paquetes as $paquete)
+                                                @if ($user_pago->id == $paquete->id_cosme)
+                                                    <tr>
+                                                        <td>{{ \Carbon\Carbon::parse($paquete->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+                                                        <td>Bono de comida</td>
+                                                        <td>${{$user_pago->bono_comida}}</td>
+                                                        <td>
+                                                            <form method="POST" action="{{ route('pagos.quitar_comida', $user_pago->id) }}" enctype="multipart/form-data" role="form">
+                                                                @csrf
+                                                                <input type="hidden" name="_method" value="PATCH">
+                                                                <input type="text" id="paquetes" name="paquetes" value="0" style="display: none">
+                                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas quitarlo?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        @endif
 
                                         @foreach ($regcosmessum as $item)
                                             @if ($user_pago->id == $item->id_cosme)
