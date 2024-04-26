@@ -43,7 +43,7 @@
 
                 <div class="row d-flex justify-content-between">
 
-                        <div class="col-6 col-md-2 col-lg-2">
+                        <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="{{ route('index_laser.landingpage') }}">
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_DEPILACION_LASER.png') }}" class="d-block w-100" alt="...">
@@ -54,27 +54,27 @@
                             </p>
                         </div>
 
-                        <div class="col-6 col-md-2 col-lg-2">
+                        <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="">
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="w-100" alt="...">
                                 </a>
-                                <a href="" class="texo_services_icons">
-                                    titulo
-                                </a>
-                            </p>
-                        </div>
-
-                        <div class="col-6 col-md-2 col-lg-2">
-                            <p class="text-center">
-                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_FACIALES.png') }}" class="w-100" alt="...">
-                                <a href="" class="texo_services_icons">
+                                <a href="{{ route('tratamientos_corporales.landingpage') }}" class="texo_services_icons">
                                     Corporales
                                 </a>
                             </p>
                         </div>
 
-                        <div class="col-6 col-md-2 col-lg-2">
+                        <div class="col-6  col-md-2 col-lg-2">
+                            <p class="text-center">
+                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_FACIALES.png') }}" class="w-100" alt="...">
+                                <a href="{{ route('tratamientos_faciales.landingpage') }}" class="texo_services_icons">
+                                    Faciales
+                                </a>
+                            </p>
+                        </div>
+
+                        <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
                             <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="w-100" alt="...">
                                 <a href="" class="texo_services_icons">
@@ -83,7 +83,7 @@
                             </p>
                         </div>
 
-                        <div class="col-6 col-md-2 col-lg-2">
+                        <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
                             <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="w-100" alt="...">
                                 <a href="" class="texo_services_icons">
