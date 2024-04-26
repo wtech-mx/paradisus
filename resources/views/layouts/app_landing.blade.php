@@ -46,10 +46,14 @@
 </head>
 
 <nav class="navbar navbar-expand-md bg-body-tertiary navbar_paradisus">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <a class="navbar-brand" href="#">
+        <a class="nav-link navbar_li_color logo_ocultar" href="{{ route('index.landingpage') }}">
+            <img class="img_logo" src="{{ asset('assets/landing/paradisus.webp') }}" alt="Logo paradisus">
+        </a>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #fff">
+      <span class="navbar-toggler-icon"></span>
+    </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
 
@@ -62,14 +66,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Corporales</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('tratamientos_corporales.landingpage') }}">Corporales</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Faciales</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('tratamientos_faciales.landingpage') }}">Faciales</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item logo_ocultar_menu">
                     <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">
                         <img class="img_logo" src="{{ asset('assets/landing/paradisus.webp') }}" alt="Logo paradisus">
                     </a>
@@ -94,7 +98,7 @@
         </ul>
       </div>
     </div>
-  </nav>
+</nav>
 
 <body class="">
 

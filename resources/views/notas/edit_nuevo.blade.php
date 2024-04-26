@@ -717,8 +717,13 @@
                                                 Cancelar
                                             </a>
                                             <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                                                Actualizar
+                                                Guardar
                                             </button>
+                                            <div class="d-flex justify-content-center">
+                                                <div class="spinner-border" role="status" id="preloader" style="display:none">
+                                                     <span class="visually-hidden">Loading...</span>
+                                                 </div>
+                                            </div>
                                         </div>
                                 </div>
                             </form>
@@ -745,6 +750,9 @@
                 $('.servicio3').select2();
                 $('.servicio4').select2();
         });
+    </script>
+
+<script>
         // Obtén la referencia a los elementos de nuevo-pago, cambio-edit, dinero-recibido-edit y restante-edit
         var inputNuevoPago = $('#nuevo-pago');
         var inputCambioEdit = $('#cambio-edit');
@@ -958,6 +966,10 @@
             $("#miFormulario").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
+                // Deshabilitar el botón de enviar y mostrar el preloader
+                $("#miFormulario button[type=submit]").prop("disabled", true);
+                $("#preloader").show(); // Asegúrate de tener un elemento con id "preloader" en tu HTML para mostrar el preloader
+
                 // Realiza la solicitud POST usando AJAX
                 $.ajax({
                     url: $(this).attr("action"),
@@ -970,7 +982,27 @@
                         imprimirRecibo(response);
                     },
                     error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                            // Habilitar el botón de enviar y ocultar el preloader en caso de error
+                            $("#miFormulario button[type=submit]").prop("disabled", false);
+                            $("#preloader").hide();
+
+                            var errors = xhr.responseJSON.errors;
+                            var errorMessage = '';
+
+                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
+                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                                }
+                            }
+                            console.log(errorMessage);
+                            // Muestra el mensaje de error en una SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Faltan Campos',
+                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
+                            });
                     }
                 });
 

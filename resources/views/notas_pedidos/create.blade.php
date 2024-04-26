@@ -272,7 +272,14 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: {{$configuracion->color_boton_close}}; color: #ffff">Cancelar</button>
-                            <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Guardar</button>
+                            <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                Guardar
+                            </button>
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status" id="preloader" style="display:none">
+                                     <span class="visually-hidden">Loading...</span>
+                                 </div>
+                            </div>
                         </div>
 
                     </form>
@@ -414,6 +421,9 @@ calcularCambioYRestante();
             $("#miFormulario").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
+                // Deshabilitar el botón de enviar y mostrar el preloader
+                $("#miFormulario button[type=submit]").prop("disabled", true);
+                $("#preloader").show(); // Asegúrate de tener un elemento con id "preloader" en tu HTML para mostrar el preloader
                 // Realiza la solicitud POST usando AJAX
                 $.ajax({
                     url: $(this).attr("action"),
@@ -426,6 +436,10 @@ calcularCambioYRestante();
                         imprimirRecibo(response);
                     },
                     error: function (xhr, status, error) {
+                            // Habilitar el botón de enviar y ocultar el preloader en caso de error
+                            $("#miFormulario button[type=submit]").prop("disabled", false);
+                            $("#preloader").hide();
+
                             var errors = xhr.responseJSON.errors;
                             var errorMessage = '';
 
@@ -440,7 +454,7 @@ calcularCambioYRestante();
                             // Muestra el mensaje de error en una SweetAlert
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Faltan Campos y/o Cliente duplicado',
+                                title: 'Faltan Campos',
                                 html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
                             });
                     }

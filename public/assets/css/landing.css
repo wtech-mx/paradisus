@@ -238,6 +238,11 @@
 background-color: #eed1d5;
 }
 
+.nav-link .navbar_li_color:hover{
+    background-color: #eed1d5!important;
+
+}
+
 .li_estresllas_texto{
     color: #AA6675;
     font-family: Playfair_regular;
@@ -284,3 +289,55 @@ background-color: #eed1d5;
     font-family: Playfair;
     color: #fff;
 }
+
+.img_productos_carousel{
+    width: 200px;
+}
+
+.img_corporales{
+    width: 60%;
+}
+
+@media only screen and (min-width:769px) {
+    .logo_ocultar{
+        display: none;
+    }
+  }
+
+  @media only screen and (max-width:769px) {
+    .logo_ocultar_menu{
+        display: none;
+    }
+  }
+
+
+  @media only screen and (max-width:450px) {
+    .tittle_hero{
+        font-size: 20px;
+    }
+
+    .tittle_hero{
+        font-size: 15px;
+    }
+
+    .tittle_section_para {
+        font-size: 30px;
+    }
+
+    .img_productos_carousel{
+        width: 100px;
+    }
+
+    .logo_democosmetic {
+        width: 150px;
+    }
+
+    .text_subfooter{
+        font-size: 10px;
+    }
+
+    .footer_tittle {
+        font-size: 12px;
+    }
+
+  }

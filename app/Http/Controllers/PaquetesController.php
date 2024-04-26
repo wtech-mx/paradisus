@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Client as GuzzleClient;
 
 
 class PaquetesController extends Controller
@@ -483,6 +484,7 @@ class PaquetesController extends Controller
             $paquete->gluteo4_d = $request->get('gluteo4_d');
             $paquete->firma4 = $request->get('firma4');
         }
+
         $paquete->save();
 
         $cambio = $request->get('dinero_recibido') - $request->get('pago');
@@ -640,7 +642,62 @@ class PaquetesController extends Controller
             }
 
             $pago->save();
+
+            if($request->get('forma_pago') == 'Tarjeta'){
+
+                // Define las credenciales de la API
+                $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
+                $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+
+                // Genera el token de autorización
+                $token = base64_encode($apiKey . ':' . $clave);
+
+                if($request->get('name') != NULL){
+                   $nombre_cliente = $request->get('name');
+                }else{
+                    $client =  Client::find($request->get('id_client'));
+                    $nombre_cliente = $client->name;
+                }
+
+                $cajera_id =  User::find($request->get('id_cosme'));
+                $cajera = $cajera_id->name;
+
+
+                $amount = $request->get('pago');
+                $assigned_user = 'ventas@paradisus.com.mx';
+                $reference = $paquete->id;
+                $message = 'Paquete :#'.$paquete->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
+
+                // Realiza la solicitud GET a la API de Clip
+                $client_gz = new GuzzleClient();
+
+                // Formatear los datos como JSON
+                $data_items = [
+                    'amount' => (int)$amount,
+                    'assigned_user' => $assigned_user,
+                    'reference' => $reference,
+                    'message' => $message
+                ];
+                $jsonData = json_encode($data_items);
+
+                $response = $client_gz->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
+                    'body' => $jsonData,
+                    'headers' => [
+                        'accept' => 'application/vnd.com.payclip.v1+json',
+                        'content-type' => 'application/json; charset=UTF-8',
+                        'x-api-key' => 'Basic ' . $token,
+                      ],
+
+                ]);
+
+                $body = $response->getBody()->getContents();
+
+                // Decodificar el cuerpo si es JSON
+                $data = json_decode($body, true);
+
+            }
         }
+
 
         // G U A R D A R  R E P O R T E
         $reporte = new Reporte;
