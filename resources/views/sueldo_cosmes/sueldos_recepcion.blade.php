@@ -54,6 +54,13 @@
                                         @php
                                             $totalIngresos = 0;
                                             $totalDescuentos = 0;
+                                            $totalBonoComida = 0;
+
+                                            if($user_pago->paquetes == '1'){
+                                                $totalBonoComida = $user_pago->bono_comida;
+                                            }else{
+                                                $totalBonoComida = 0;
+                                            }
                                         @endphp
 
                                         <tr>
@@ -107,7 +114,7 @@
                                             <td>
                                                 @php
                                                     $resultadoFormateado = number_format(
-                                                        ($user_pago->sueldo_base + $totalIngresos + $user_pago->bono_comida) - $totalDescuentos,
+                                                        ($user_pago->sueldo_base + $totalIngresos + $totalBonoComida) - $totalDescuentos,
                                                         2, // Número de decimales
                                                         '.', // Separador decimal
                                                         ',' // Separador de miles
