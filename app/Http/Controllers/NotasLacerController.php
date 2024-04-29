@@ -98,6 +98,8 @@ class NotasLacerController extends Controller
             $tipo = $request->get('paquete_select');
         }else if($request->get('tipo_servicio') == 'sesion'){
             $tipo = 'Sesiones';
+        }else if($request->get('tipo_servicio') == 'cara_completa'){
+            $tipo = 'Cara completa';
         }else{
             $tipo = 'Personalizado';
         }
@@ -144,7 +146,7 @@ class NotasLacerController extends Controller
             }
 
             // G U A R D A R  C O M I S I O N  C O S M E
-            if($request->get('id_user') == 6 || $request->get('id_user') == 3 || $request->get('id_user') == 5){
+            if($request->get('id_user') == 6 || $request->get('id_user') == 3 || $request->get('id_user') == 5 || $request->get('id_user') == 32){
                 if($request->get('paquete_select') == 'Zona Mini'){
                     $montoComision = 400;
                 }else if($request->get('paquete_select') == 'Zonas Pequeñas'){
@@ -163,6 +165,19 @@ class NotasLacerController extends Controller
                 $registroSemanal->fecha = $fechaActual;
                 $registroSemanal->monto = $montoComision;
                 $registroSemanal->save();
+            }
+        }else if($request->get('tipo_servicio') == 'cara_completa'){
+
+            $sesiones = 6;
+            $zonasIds = [2, 3, 4, 5, 6]; // IDs de las zonas fijas
+
+            foreach ($zonasIds as $zonaId) {
+                $zona_laser = new ZonasLaser;
+                $zona_laser->id_nota = $nota_laser->id;
+                $zona_laser->id_zona = $zonaId;
+                $zona_laser->sesiones_compradas = $sesiones;
+                $zona_laser->sesiones_restantes = $sesiones;
+                $zona_laser->save();
             }
         }else{
             $zonasSeleccionadas = array_filter($request->only(['zona_personalizado_1', 'zona_personalizado_2', 'zona_personalizado_3', 'zona_personalizado_4']));

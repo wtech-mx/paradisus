@@ -156,6 +156,10 @@
                                                     <input class="form-check-input" type="radio" name="tipo_servicio" id="personalizado" value="personalizado">
                                                     <label class="form-check-label" for="personalizado">Personalizado</label>
                                                 </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="tipo_servicio" id="cara_completa" value="cara_completa">
+                                                    <label class="form-check-label" for="cara_completa">Cara completa</label>
+                                                </div>
                                             </div>
 
                                             <div class="form-group" id="sesionSelect" style="display:none;">
@@ -640,6 +644,14 @@
                     paqueteSelect.style.display = 'none';
                     zonasSelect.style.display = 'none';
                     personalizadoSelect.style.display = 'block';
+                } else if ($('#cara_completa').prop('checked')) {
+                    // Cuando se selecciona "Cara Completa"
+                    sesionSelect.style.display = 'none';
+                    paqueteSelect.style.display = 'none';
+                    zonasSelect.style.display = 'none';
+                    personalizadoSelect.style.display = 'none';
+                    // Establecer el valor de total_suma como 5420
+                    totalSumaInput.val('5420');
                 }
             });
 
