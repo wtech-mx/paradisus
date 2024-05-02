@@ -163,7 +163,7 @@
      $total_efectivo_entro = $efectivo_entro;
     }else{
      $total_efectivo = 0;
-     $total_efectivo_entro = 0
+     $total_efectivo_entro = 0;
     }
  @endphp
     <h2 style="text-align: center;">Total de ingresos durante el dia  <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> <br>
