@@ -157,10 +157,13 @@
     @php
     $resta = $total_ing - $caja_final->inicio ;
     $efectivo = $resta - $caja_dia_suma_cambios->total;
+    $efectivo_entro = $resta;
     if($efectivo > 0){
      $total_efectivo = $efectivo;
+     $total_efectivo_entro = $efectivo_entro;
     }else{
      $total_efectivo = 0;
+     $total_efectivo_entro = 0
     }
  @endphp
     <h2 style="text-align: center;">Total de ingresos durante el dia  <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> <br>
@@ -213,7 +216,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($total_efectivo, 1, '.', ',') }}</strong>
+                <strong>${{ number_format($total_efectivo_entro, 1, '.', ',') }}</strong>
             </td>
 
             <td>
