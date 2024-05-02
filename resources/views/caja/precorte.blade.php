@@ -156,8 +156,9 @@
     </table>
     @php
     $resta = $total_ing - $caja_final->inicio ;
+    $resta_efectivo = $total_ing_efectivo - $caja_final->inicio ;
     $efectivo = $resta - $caja_dia_suma_cambios->total;
-    $efectivo_entro = $resta;
+    $efectivo_entro = $resta_efectivo;
     if($efectivo > 0){
      $total_efectivo = $efectivo;
      $total_efectivo_entro = $efectivo_entro;
