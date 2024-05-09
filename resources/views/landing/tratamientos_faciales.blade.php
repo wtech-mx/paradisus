@@ -25,7 +25,7 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">FACIALES</h3>
                     <h3 class="service_title mb-3">Masaje Deportivo</h3>
@@ -130,7 +130,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div class="container ">
             <h3 class="tittle_lase_section text-left color_blanco">FACIALES</h3>
             <h3 class="service_title mb-3 color_blanco">Masaje Descontracturante</h3>
@@ -170,7 +170,7 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">FACIALES</h3>
                     <h3 class="service_title mb-3">PMasaje Piedras Calientes</h3>
@@ -277,7 +277,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">FACIALES</h3>
             <h3 class="service_title mb-3 color_blanco">Masaje Relajante</h3>
@@ -318,7 +318,7 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">FACIALES</h3>
                     <h3 class="service_title mb-3">Masaje Antiestrés</h3>

@@ -25,7 +25,7 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
                     <h3 class="service_title mb-3">Brazo Firme RXZ</h3>
@@ -136,7 +136,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div class="container ">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Despigmentación Corporal</h3>
@@ -178,7 +178,7 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
                     <h3 class="service_title mb-3">Pompilevanta con Vacumterapia</h3>
@@ -286,7 +286,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Reductivo Colombiano</h3>
@@ -326,7 +326,7 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
                     <h3 class="service_title mb-3">Anticelulítico y piernas Cansadas</h3>
@@ -433,7 +433,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Maderoterapia</h3>
@@ -475,7 +475,7 @@
 </section>
 
 <section class="row p-2">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
                     <h3 class="service_title mb-3">Velo de Novia</h3>
@@ -582,7 +582,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Glúteos de 10</h3>

@@ -80,7 +80,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Paquetes</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('paquetes.landingpage') }}">Paquetes</a>
                 </li>
 
                 <li class="nav-item">

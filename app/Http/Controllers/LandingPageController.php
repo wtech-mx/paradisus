@@ -28,4 +28,8 @@ class LandingPageController extends Controller
     public function tratamientos_faciales(){
         return view('landing.tratamientos_faciales');
     }
+
+    public function paquetes(){
+        return view('landing.paquetes');
+    }
 }
