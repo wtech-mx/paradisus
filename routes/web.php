@@ -31,13 +31,18 @@ Route::get('iniciar_sesion', function () {
     return view('auth.iniciar_sesion');
 });
 
+// =============== M O D U L O   L A N D I N G  P A G E ===============================
+
+
 Route::get('/inicio', [App\Http\Controllers\LandingPageController::class, 'index'])->name('index.landingpage');
 Route::get('/inicio/laser', [App\Http\Controllers\LandingPageController::class, 'index_laser'])->name('index_laser.landingpage');
 Route::get('/inicio/contacto', [App\Http\Controllers\LandingPageController::class, 'index_contacto'])->name('index_contacto.landingpage');
 Route::get('/tratamientos/corporales', [App\Http\Controllers\LandingPageController::class, 'tratamientos_corporales'])->name('tratamientos_corporales.landingpage');
 Route::get('/tratamientos/faciales', [App\Http\Controllers\LandingPageController::class, 'tratamientos_faciales'])->name('tratamientos_faciales.landingpage');
 Route::get('/paquetes', [App\Http\Controllers\LandingPageController::class, 'paquetes'])->name('paquetes.landingpage');
-
+Route::get('/experiencias', [App\Http\Controllers\LandingPageController::class, 'experiencias'])->name('experiencias.landingpage');
+Route::get('/dayspa', [App\Http\Controllers\LandingPageController::class, 'dayspa'])->name('dayspa.landingpage');
+Route::get('/masajes', [App\Http\Controllers\LandingPageController::class, 'masajes'])->name('masajes.landingpage');
 
 Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController::class, 'usuario'])->name('notas.usuario');
 

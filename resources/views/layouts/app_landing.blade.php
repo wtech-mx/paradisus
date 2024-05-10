@@ -84,7 +84,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar_li_color" href="{{ route('index.landingpage') }}">Experiencias</a>
+                    <a class="nav-link navbar_li_color" href="{{ route('experiencias.landingpage') }}">Experiencias</a>
                 </li>
 
                 <li class="nav-item">
