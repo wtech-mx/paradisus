@@ -32,4 +32,16 @@ class LandingPageController extends Controller
     public function paquetes(){
         return view('landing.paquetes');
     }
+
+    public function experiencias(){
+        return view('landing.experiencias');
+    }
+
+    public function dayspa(){
+        return view('landing.dayspa');
+    }
+
+    public function masajes(){
+        return view('landing.masajes');
+    }
 }
