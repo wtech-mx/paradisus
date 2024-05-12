@@ -43,48 +43,84 @@
                                 <div class="tab-content">
 
                                     <div class="tab-pane fade in active show" id="notaedit{{$nota_pedido->id}}">
-                                        <div class="form-group">
-                                            <label for="nombre">Usuario</label>
-                                            <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
-                                                value="{{ old('id_user') }}" required>
-                                                <option value="{{ $nota_pedido->id_user }}">{{ $nota_pedido->User->name }}</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="descripcion">Cliente</label>
-                                            <select disabled class="form-control input-edit-car" id="id_client" name="id_client"
-                                                value="{{ old('id_client') }}" required>
-                                                <option value="{{ $nota_pedido->id_client }}">{{ $nota_pedido->Client->name }} {{ $nota_pedido->Client->last_name }}</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="fecha">Fecha</label>
-                                            <input disabled id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$nota_pedido->fecha}}" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="nota">Total</label>
-                                            <input disabled id="total" name="total" type="number" class="form-control" placeholder="total" value="{{$nota_pedido->total}}" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="num_sesion">Metodo de pago</label>
-                                            <select disabled id="metodo_pago" name="metodo_pago" class="form-control" required>
-                                                <option value="{{$nota_pedido->metodo_pago}}">{{$nota_pedido->metodo_pago}}</option>
-                                            </select>
-                                        </div>
-
-                                        @if ($nota_pedido->foto == NULL)
-                                            <a href=""></a>
-                                        @else
-                                            <div class="form-group">
-                                                <a href="javascript:abrir('{{asset('foto_producto/'.$nota_pedido->foto)}}','500','500')">
-                                                    <img src="{{asset('foto_producto/'.$nota_pedido->foto)}}" style="width: 30%">
-                                                </a>
+                                        <div class="row">
+                                            <div class="col-12 mt-3">
+                                                <h5>¿Quieres modifcar los datos?</h5>
+                                                <label>
+                                                    <input type="radio" name="opcion" value="si" onclick="habilitarInputs()"> Sí
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="opcion" value="no" onclick="deshabilitarInputs()"> No
+                                                </label>
                                             </div>
-                                        @endif
+                                            <div class="form-group col-6">
+                                                <label for="nombre">Usuario</label>
+                                                <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
+                                                    value="{{ old('id_user') }}" required>
+                                                    <option selected value="{{ $nota_pedido->id_user }}">{{ $nota_pedido->User->name }}</option>
+                                                    @foreach ($user as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label for="descripcion">Cliente</label>
+                                                <select disabled class="form-control input-edit-car" id="id_client" name="id_client"
+                                                    value="{{ old('id_client') }}" required>
+                                                    <option selected value="{{ $nota_pedido->id_client }}">{{ $nota_pedido->Client->name }} {{ $nota_pedido->Client->last_name }}</option>
+                                                    @foreach ($client as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label for="fecha">Fecha</label>
+                                                <input disabled id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$nota_pedido->fecha}}" required>
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label for="nota">Total Anterior</label>
+                                                <input disabled id="total_anterior" name="total_anterior" type="number" class="form-control" value="{{$nota_pedido->total}}" >
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label for="nota">Total Actual</label>
+                                                <input disabled id="total" name="total" type="number" class="form-control" >
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                    <label for="total-suma">Dinero recibido *</label>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1">
+                                                            <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
+                                                        </span>
+                                                        <input  id="dinero_recibido2" name="dinero_recibido2" type="number" class="form-control"  required>
+                                                    </div>
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label for="num_sesion">Metodo de pago</label>
+                                                <select disabled id="metodo_pago" name="metodo_pago" class="form-control" required>
+                                                    <option selected value="{{$nota_pedido->metodo_pago}}">{{$nota_pedido->metodo_pago}}</option>
+                                                    <option value="Efectivo">Efectivo</option>
+                                                    <option value="Transferencia">Transferencia</option>
+                                                    <option value="Mercado Pago">Mercado Pago</option>
+                                                    <option value="Tarjeta">Tarjeta</option>
+                                                </select>
+                                            </div>
+
+                                            @if ($nota_pedido->foto == NULL)
+                                                <a href=""></a>
+                                            @else
+                                                <div class="form-group">
+                                                    <a href="javascript:abrir('{{asset('foto_producto/'.$nota_pedido->foto)}}','500','500')">
+                                                        <img src="{{asset('foto_producto/'.$nota_pedido->foto)}}" style="width: 30%">
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </div>
 
                                     </div>
 
@@ -111,34 +147,37 @@
                                         </div>
 
                                         <div id="formulario" class="mt-4">
-
-                                                <label for="Material">Pedido</label>
-                                                <button type="button" class="clonar btn btn-secondary btn-sm">+</button>
-                                                <div class="clonars">
-                                                    <div class="row">
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <label for="fecha">Cantidad</label>
-                                                                <input  id="cantidad[]" name="cantidad[]" type="number" class="form-control">
-                                                            </div>
+                                            <label for="Material">Pedido</label>
+                                            <button type="button" class="clonar btn btn-secondary btn-sm" onclick="clonar()">+</button>
+                                            <div class="clonars">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <label for="fecha">Cantidad</label>
+                                                            <input id="cantidad[]" name="cantidad[]" type="number" class="form-control" onchange="calcularTotal()">
                                                         </div>
-
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <label for="pago">Concepto</label>
-                                                                <input  id="concepto[]" name="concepto[]" type="text" class="form-control">
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <label for="pago">Concepto</label>
+                                                            <input id="concepto[]" name="concepto[]" type="text" class="form-control">
                                                         </div>
-
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <label for="num_sesion">Importe</label>
-                                                                <input  id="importe[]" name="importe[]" type="number" class="form-control">
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <label for="num_sesion">Importe</label>
+                                                            <input id="importe[]" name="importe[]" type="number" class="form-control" onchange="calcularTotal()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminar(this)">Eliminar</button>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
+
 
                                     </div>
 
@@ -163,9 +202,73 @@
 
 
 <script>
+
+function clonar() {
+        // Clonar el contenedor clonars
+        var clon = document.querySelector('.clonars').cloneNode(true);
+
+        // Limpiar los valores de los inputs clonados
+        var inputs = clon.querySelectorAll('input[type="number"], input[type="text"]');
+        inputs.forEach(function(input) {
+            input.value = '';
+        });
+
+        // Agregar el botón "Eliminar"
+        var btnEliminar = clon.querySelector('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.classList.remove('btn-secondary');
+        btnEliminar.classList.add('btn-danger');
+        btnEliminar.onclick = function() {
+            eliminar(clon);
+        };
+
+        // Agregar el clon al final del contenedor formulario
+        document.getElementById('formulario').appendChild(clon);
+    }
+
+    function eliminar(elemento) {
+        elemento.remove();
+        calcularTotal(); // Llama a la función para recalcular el total cuando se elimina un elemento
+    }
+
+    function calcularTotal() {
+    var totales = document.querySelectorAll('#formulario input[id^="importe[]"]');
+    var cantidades = document.querySelectorAll('#formulario input[id^="cantidad[]"]');
+    var total = parseFloat(document.getElementById('total_anterior').value) || 0; // Obtener el total anterior
+
+    for (var i = 0; i < totales.length; i++) {
+        var importe = parseFloat(totales[i].value) || 0;
+        var cantidad = parseFloat(cantidades[i].value) || 0;
+        total += importe * cantidad;
+    }
+
+    // Asignar el total calculado al input "dinero_recibido2"
+    document.getElementById('total').value = total;
+}
+
+
         // inicio de funcion ajax impresion caja y tiket
+        function habilitarInputs() {
+            // Habilitar los inputs
+            document.getElementById('id_user').disabled = false;
+            document.getElementById('id_client').disabled = false;
+            document.getElementById('fecha').disabled = false;
+            document.getElementById('total').disabled = false;
+            document.getElementById('metodo_pago').disabled = false;
+        }
+
+        function deshabilitarInputs() {
+            // Deshabilitar los inputs
+            document.getElementById('id_user').disabled = true;
+            document.getElementById('id_client').disabled = true;
+            document.getElementById('fecha').disabled = true;
+            document.getElementById('total').disabled = true;
+            document.getElementById('metodo_pago').disabled = true;
+        }
+
 
         $(document).ready(function () {
+
             $("#miFormulario").on("submit", function (event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
@@ -303,6 +406,7 @@
                         }, 1000);
                     }
             }
+
         });
 </script>
 
