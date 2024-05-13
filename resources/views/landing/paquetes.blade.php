@@ -66,7 +66,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/ADIOS ACNE.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/ADIOS_ACNE.jpg') }}" class="img_corporales p-3" alt="">
                     </div>
                 </div>
             </div>
