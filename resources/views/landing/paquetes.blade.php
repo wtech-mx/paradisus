@@ -403,7 +403,9 @@
                         <div class="col-12 my-auto">
                             <h3 class="service_title mb-3 ">INCLUYE</h3>
                             <p class="subtext_lase ">
-
+                                · 6 Sesiones de Reductivo Colombiano <br>
+                                · 6 Sesiones de Vacumterapia <br>
+                                ·6 Sesiones de Electroestimulación <br>
                             </p>
                         </div>
                         <div class="col-6">
@@ -412,8 +414,9 @@
                             </a>
                         </div>
                         <div class="col-6">
-                            <a href="" class="btn_comprar_paquete" style="background-color: #CB95A2;color:#fff;">
-                               <strong> $.0 MN</strong>
+                            <a href="" class="btn_comprar_paquete" style="background-color: #fff;color:#CB95A2;">
+                                De : $6,000.0 <br>
+                                <strong>A : $5,400.0</strong>
                             </a>
                         </div>
 

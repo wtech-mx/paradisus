@@ -52,7 +52,7 @@
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="w-100" alt="...">
                                 </a>
                                 <a href="{{ route('masajes.landingpage') }}" class="texo_services_icons">
-                                    Masajes con tu <br> Persina favorita
+                                    Masajes con tu <br> Persona favorita
                                 </a>
                             </p>
                         </div>
@@ -61,7 +61,7 @@
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="{{ route('dayspa.landingpage') }}" class="texo_services_icons">
-                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="w-100" alt="...">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/icono-anillo.png') }}" class="w-100" alt="...">
                                 </a>
                                 <a href="{{ route('dayspa.landingpage') }}" class="texo_services_icons">
                                     Day Spa

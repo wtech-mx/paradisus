@@ -91,12 +91,12 @@
 <section class="row p-2" style="background-color: #CB95A2">
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
-        <div id="carouselMini" class="carousel slide">
+        <div id="carouselPersonaFav" class="carousel slide">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/DAY SPA CUMPLEAÑOS.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/CUMPLE CON TU PERSONA.jpg') }}" class="img_corporales p-3" alt="">
                     </div>
                 </div>
 
@@ -110,12 +110,12 @@
             </div>
 
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMini" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselPersonaFav" data-bs-slide="prev">
                 <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
                 <span class="visually-hidden">Antes</span>
             </button>
 
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselMini" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselPersonaFav" data-bs-slide="next">
                 <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
                 <span class="visually-hidden">Despues</span>
             </button>
