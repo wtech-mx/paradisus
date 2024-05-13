@@ -53,41 +53,79 @@
                                                     <input type="radio" name="opcion" value="no" onclick="deshabilitarInputs()"> No
                                                 </label>
                                             </div>
+
                                             <div class="form-group col-6">
                                                 <label for="nombre">Usuario</label>
-                                                <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/mujer.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <select disabled class="form-control input-edit-car" id="id_user" name="id_user"
                                                     value="{{ old('id_user') }}" required>
                                                     <option selected value="{{ $nota_pedido->id_user }}">{{ $nota_pedido->User->name }}</option>
                                                     @foreach ($user as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                     @endforeach
                                                 </select>
+                                                </div>
                                             </div>
 
                                             <div class="form-group col-6">
-                                                <label for="descripcion">Cliente</label>
-                                                <select disabled class="form-control input-edit-car" id="id_client" name="id_client"
+                                                <label for="nombre">Cliente</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <select disabled class="form-control input-edit-car" id="id_client" name="id_client"
                                                     value="{{ old('id_client') }}" required>
                                                     <option selected value="{{ $nota_pedido->id_client }}">{{ $nota_pedido->Client->name }} {{ $nota_pedido->Client->last_name }}</option>
                                                     @foreach ($client as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
                                                     @endforeach
                                                 </select>
+                                                </div>
                                             </div>
 
                                             <div class="form-group col-6">
                                                 <label for="fecha">Fecha</label>
-                                                <input disabled id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$nota_pedido->fecha}}" required>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <input disabled id="fecha" name="fecha" type="date" class="form-control" placeholder="fecha" value="{{$nota_pedido->fecha}}" required>
+                                                </div>
                                             </div>
+
 
                                             <div class="form-group col-6">
                                                 <label for="nota">Total Anterior</label>
-                                                <input disabled id="total_anterior" name="total_anterior" type="number" class="form-control" value="{{$nota_pedido->total}}" >
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <input disabled id="total_anterior" name="total_anterior" type="number" class="form-control" value="{{$nota_pedido->total}}" >
+                                                </div>
                                             </div>
 
                                             <div class="form-group col-6">
                                                 <label for="nota">Total Actual</label>
-                                                <input disabled id="total" name="total" type="number" class="form-control" >
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <input disabled id="total" name="total" type="number" class="form-control" >
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group col-6">
+                                                <label for="num_sesion">Descuento (%)</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <input  id="descuento_porcentaje" name="descuento_porcentaje" type="number" class="form-control"  required>
+                                                </div>
                                             </div>
 
                                             <div class="form-group col-6">
@@ -102,13 +140,18 @@
 
                                             <div class="form-group col-6">
                                                 <label for="num_sesion">Metodo de pago</label>
-                                                <select disabled id="metodo_pago" name="metodo_pago" class="form-control" required>
-                                                    <option selected value="{{$nota_pedido->metodo_pago}}">{{$nota_pedido->metodo_pago}}</option>
-                                                    <option value="Efectivo">Efectivo</option>
-                                                    <option value="Transferencia">Transferencia</option>
-                                                    <option value="Mercado Pago">Mercado Pago</option>
-                                                    <option value="Tarjeta">Tarjeta</option>
-                                                </select>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/transferir.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <select disabled id="metodo_pago" name="metodo_pago" class="form-control" required>
+                                                        <option selected value="{{$nota_pedido->metodo_pago}}">{{$nota_pedido->metodo_pago}}</option>
+                                                        <option value="Efectivo">Efectivo</option>
+                                                        <option value="Transferencia">Transferencia</option>
+                                                        <option value="Mercado Pago">Mercado Pago</option>
+                                                        <option value="Tarjeta">Tarjeta</option>
+                                                    </select>
+                                                </div>
                                             </div>
 
                                             @if ($nota_pedido->foto == NULL)
@@ -170,7 +213,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-3">
-                                                        <div class="form-group">
+                                                        <div class="form-group"> -<br>
                                                             <button type="button" class="btn btn-danger btn-sm" onclick="eliminar(this)">Eliminar</button>
                                                         </div>
                                                     </div>
@@ -203,49 +246,61 @@
 
 <script>
 
-function clonar() {
-        // Clonar el contenedor clonars
-        var clon = document.querySelector('.clonars').cloneNode(true);
+document.getElementById('descuento_porcentaje').addEventListener('change', function() {
+    calcularTotal();
+});
 
-        // Limpiar los valores de los inputs clonados
-        var inputs = clon.querySelectorAll('input[type="number"], input[type="text"]');
-        inputs.forEach(function(input) {
-            input.value = '';
-        });
 
-        // Agregar el botón "Eliminar"
-        var btnEliminar = clon.querySelector('button');
-        btnEliminar.textContent = 'Eliminar';
-        btnEliminar.classList.remove('btn-secondary');
-        btnEliminar.classList.add('btn-danger');
-        btnEliminar.onclick = function() {
-            eliminar(clon);
-        };
+        function clonar() {
+            // Clonar el contenedor clonars
+            var clon = document.querySelector('.clonars').cloneNode(true);
 
-        // Agregar el clon al final del contenedor formulario
-        document.getElementById('formulario').appendChild(clon);
-    }
+            // Limpiar los valores de los inputs clonados
+            var inputs = clon.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(function(input) {
+                input.value = '';
+            });
 
-    function eliminar(elemento) {
-        elemento.remove();
-        calcularTotal(); // Llama a la función para recalcular el total cuando se elimina un elemento
-    }
+            // Agregar el botón "Eliminar"
+            var btnEliminar = clon.querySelector('button');
+            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.classList.remove('btn-secondary');
+            btnEliminar.classList.add('btn-danger');
+            btnEliminar.onclick = function() {
+                eliminar(clon);
+            };
 
-    function calcularTotal() {
-    var totales = document.querySelectorAll('#formulario input[id^="importe[]"]');
-    var cantidades = document.querySelectorAll('#formulario input[id^="cantidad[]"]');
-    var total = parseFloat(document.getElementById('total_anterior').value) || 0; // Obtener el total anterior
+            // Agregar el clon al final del contenedor formulario
+            document.getElementById('formulario').appendChild(clon);
+        }
 
-    for (var i = 0; i < totales.length; i++) {
-        var importe = parseFloat(totales[i].value) || 0;
-        var cantidad = parseFloat(cantidades[i].value) || 0;
-        total += importe * cantidad;
-    }
+        function eliminar(elemento) {
+            elemento.remove();
+            calcularTotal(); // Llama a la función para recalcular el total cuando se elimina un elemento
+        }
 
-    // Asignar el total calculado al input "dinero_recibido2"
-    document.getElementById('total').value = total;
-}
+        function calcularTotal() {
+            var totales = document.querySelectorAll('#formulario input[id^="importe[]"]');
+            var cantidades = document.querySelectorAll('#formulario input[id^="cantidad[]"]');
+            var total = parseFloat(document.getElementById('total_anterior').value) || 0; // Obtener el total anterior
+            var descuentoPorcentaje = parseFloat(document.getElementById('descuento_porcentaje').value) || 0; // Obtener el descuento por porcentaje
 
+            // Calcular el total antes del descuento
+            for (var i = 0; i < totales.length; i++) {
+                var importe = parseFloat(totales[i].value) || 0;
+                var cantidad = parseFloat(cantidades[i].value) || 0;
+                total += importe * cantidad;
+            }
+
+            // Calcular el descuento en términos de porcentaje del total calculado
+            var descuento = (total * descuentoPorcentaje) / 100;
+
+            // Restar el descuento del total
+            total -= descuento;
+            console.log(total);
+            // Asignar el total calculado al input "dinero_recibido2"
+            document.getElementById('total').value = total;
+        }
 
         // inicio de funcion ajax impresion caja y tiket
         function habilitarInputs() {

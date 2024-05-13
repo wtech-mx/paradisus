@@ -87,7 +87,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/MASAJE MEJORES AMIGAS TRIO.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/MASAJE HERMANAS.jpg') }}" class="img_corporales p-3" alt="">
                     </div>
                 </div>
 

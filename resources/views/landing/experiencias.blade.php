@@ -37,8 +37,10 @@
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
-                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="w-100" alt="...">
-                                <a href="" class="texo_services_icons">
+                                <a href="{{ route('experiencias.landingpage') }}" class="texo_services_icons">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="w-100" alt="...">
+                                </a>
+                                <a  href="{{ route('experiencias.landingpage') }}" class="texo_services_icons">
                                     Experiencias
                                 </a>
                             </p>
@@ -46,10 +48,10 @@
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
-                                <a href="">
+                                <a href="{{ route('masajes.landingpage') }}" class="texo_services_icons">
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="w-100" alt="...">
                                 </a>
-                                <a href="{{ route('tratamientos_corporales.landingpage') }}" class="texo_services_icons">
+                                <a href="{{ route('masajes.landingpage') }}" class="texo_services_icons">
                                     Masajes con tu <br> Persina favorita
                                 </a>
                             </p>
@@ -58,8 +60,10 @@
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
-                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="w-100" alt="...">
-                                <a href="" class="texo_services_icons">
+                                <a href="{{ route('dayspa.landingpage') }}" class="texo_services_icons">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="w-100" alt="...">
+                                </a>
+                                <a href="{{ route('dayspa.landingpage') }}" class="texo_services_icons">
                                     Day Spa
                                 </a>
                             </p>
