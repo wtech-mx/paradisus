@@ -282,7 +282,14 @@ class CajaController extends Controller
         $bitacora = Bitacora::where('fecha','=',$diaActual)->get();
 
         //====================================== LLAMADO DE LA CAJA ======================================
-        $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->where('motivo', '=', 'Retiro')->get();
+        $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->get();
+
+        $caja_dia_suma_vista = CajaDia::where('fecha', '=', $diaActual)
+        ->where('concepto', 'LIKE', '%Cambio%')
+        ->where('motivo', '=', 'Ingreso')
+        ->select(DB::raw('SUM(egresos) as total'))
+        ->first();
+
         $caja_rep = Caja::where('fecha', '=', $diaActual)
         ->first();
 
@@ -572,8 +579,8 @@ class CajaController extends Controller
         $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
-        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta',));
-        // return $pdf->stream();
+        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta', 'caja_dia_suma_vista'));
+         //return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
 
