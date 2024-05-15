@@ -361,8 +361,13 @@ background-color: #eed1d5;
 
 
   @media only screen and (max-width:450px) {
+
+    .text_hero {
+        font-size: 12px;
+    }
+
     .tittle_hero{
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .tittle_hero{
