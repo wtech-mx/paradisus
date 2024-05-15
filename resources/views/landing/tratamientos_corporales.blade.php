@@ -114,7 +114,7 @@
         </path>
     </svg>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-2 order-md-1 order-lg-1 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto">
         <div id="carouselbrazo" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -150,7 +150,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-1 order-md-2 order-lg-2 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-2 order-lg-2 my-auto">
         <div class="container ">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Despigmentación Corporal</h3>
@@ -271,7 +271,7 @@
 
 <section class="row p-2" style="background:#bc7988;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,288L48,277.3C96,267,192,245,288,224C384,203,480,181,576,186.7C672,192,768,224,864,208C960,192,1056,128,1152,117.3C1248,107,1344,149,1392,170.7L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-2 order-md-1 order-lg-1 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto">
         <div id="carouselDespigmentacion" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -307,7 +307,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-1 order-md-2 order-lg-2 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-2 order-lg-2 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Reductivo Colombiano</h3>
@@ -425,7 +425,7 @@
 
 <section class="row p-2" style="background:#bc7988;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,192L48,192C96,192,192,192,288,186.7C384,181,480,171,576,165.3C672,160,768,160,864,160C960,160,1056,160,1152,133.3C1248,107,1344,53,1392,26.7L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-2 order-md-1 order-lg-1 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto">
         <div id="carouselmadero" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -461,7 +461,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-1 order-md-2 order-lg-2 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-2 order-lg-2 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Maderoterapia</h3>
@@ -581,7 +581,7 @@
 
 <section class="row p-2" style="background:#bc7988;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,186.7C672,149,768,107,864,90.7C960,75,1056,85,1152,74.7C1248,64,1344,32,1392,16L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-2 order-md-1 order-lg-1 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto">
         <div id="carouseldiez" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -617,7 +617,7 @@
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-sm-1 order-md-2 order-lg-2 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-2 order-lg-2 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Glúteos de 10</h3>
