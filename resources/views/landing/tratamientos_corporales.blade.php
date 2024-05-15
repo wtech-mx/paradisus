@@ -24,10 +24,10 @@
 
 </section>
 
-<section class="row p-2">
+<section class="row p-2 ">
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
-                    <h3 class="tittle_lase_section text-left">CORPORALES</h3>
+                    <h3 class="tittle_lase_section text-left ">CORPORALES</h3>
                     <h3 class="service_title mb-3">Brazo Firme RXZ</h3>
                     <div class="row">
                         <div class="col-12 my-auto">
@@ -44,19 +44,19 @@
                                 5. Crema modeladora con algas
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Duración :</h3>
                             <p class="subtext_lase">
                                 45 Min
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Costo : </h3>
                             <p class="subtext_lase">
                                 $825.0 MN
                             </p>
                         </div>
-                        <div class="col-4 my-auto">
+                        <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                             <a href="" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
@@ -71,17 +71,22 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselMini" class="carousel slide">
 
-            <div class="carousel-inner">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+
+            <div class="carousel-inner" style="">
+
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/BRAZO FIRME.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/BRAZO_FIRME.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/corporales/BRAZO FIRME.mp4') }}" type="video/mp4">
+                        <video width="350" controls autoplay class="ligthbox_img">
+                            <source src="{{ asset('assets/landing/corporales/BRAZO_FIRME.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -102,22 +107,31 @@
     </div>
 </section>
 
-<section class="row p-2" style="background:#bc7988;">
+<section class="row p-2 " style="background:#bc7988;" >
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;">
+        <path fill="#ffffff" fill-opacity="1" d="M0,32L48,80C96,128,192,224,288,261.3C384,299,480,277,576,266.7C672,256,768,256,864,240C960,224,1056,192,1152,186.7C1248,181,1344,203,1392,213.3L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
+        </path>
+    </svg>
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselbrazo" class="carousel slide">
 
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/DESPIGMENTACION CORPORAL.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/DESPIGMENTACION_CORPORAL.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/corporales/DESPIGMENTANTE CORPORAL NUEVO.mp4') }}" type="video/mp4">
+                        <video width="350" controls autoplay class="ligthbox_img">
+                            <source src="{{ asset('assets/landing/corporales/DESPIGMENTANTE_CORPORAL_NUEVO.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -156,19 +170,19 @@
                         Se recomiendan entre 4 a 5 sesiones para máximos resultados.
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Duración :</h3>
                     <p class="subtext_lase color_blanco">
                         50 min
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Costo : </h3>
                     <p class="subtext_lase color_blanco">
                         $1,050.0 MN
                     </p>
                 </div>
-                <div class="col-4 my-auto">
+                <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                     <a href="" class="btn_comprar_paquete color_blanco">Agendar</a>
                 </div>
             </div>
@@ -178,6 +192,7 @@
 </section>
 
 <section class="row p-2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#bc7988" fill-opacity="1" d="M0,192L48,192C96,192,192,192,288,165.3C384,139,480,85,576,74.7C672,64,768,96,864,101.3C960,107,1056,85,1152,106.7C1248,128,1344,192,1392,224L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
@@ -198,19 +213,19 @@
                                 7. Lociones criógenas <br>
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Duración :</h3>
                             <p class="subtext_lase">
                                 50 Min
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Costo : </h3>
                             <p class="subtext_lase">
                                 $1,200.0 MN
                             </p>
                         </div>
-                        <div class="col-4 my-auto">
+                        <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                             <a href="" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
@@ -220,18 +235,21 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselpompi" class="carousel slide">
 
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/POMPILEVANTA.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/POMPILEVANTA.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/corporales/POMPILEVANTA .mp4') }}" type="video/mp4">
+                        <video width="350" controls autoplay class="ligthbox_img">
+                            <source src="{{ asset('assets/landing/corporales/POMPILEVANTA.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -252,21 +270,24 @@
 </section>
 
 <section class="row p-2" style="background:#bc7988;">
-
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,288L48,277.3C96,267,192,245,288,224C384,203,480,181,576,186.7C672,192,768,224,864,208C960,192,1056,128,1152,117.3C1248,107,1344,149,1392,170.7L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselDespigmentacion" class="carousel slide">
 
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/REDUCTIVO COLOMBIANO.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/REDUCTIVO_COLOMBIANO.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
+                        <video width="350" controls autoplay class="ligthbox_img">
                             <source src="{{ asset('assets/landing/corporales/reductivo.mov') }}" type="video/mp4">
                         </video>
                     </div>
@@ -304,19 +325,19 @@
                         5. Beneficia la Circulación Sanguínea. <br>
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Duración :</h3>
                     <p class="subtext_lase color_blanco">
                         50 min
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Costo : </h3>
                     <p class="subtext_lase color_blanco">
                         $975.0 MN
                     </p>
                 </div>
-                <div class="col-4 my-auto">
+                <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                     <a href="" class="btn_comprar_paquete">Agendar</a>
                 </div>
             </div>
@@ -326,6 +347,7 @@
 </section>
 
 <section class="row p-2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#bc7988" fill-opacity="1" d="M0,32L48,58.7C96,85,192,139,288,160C384,181,480,171,576,144C672,117,768,75,864,80C960,85,1056,139,1152,144C1248,149,1344,107,1392,85.3L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
@@ -345,19 +367,19 @@
                                 6. Crema de algas marinas. <br>
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Duración :</h3>
                             <p class="subtext_lase">
                                 60 Min
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Costo : </h3>
                             <p class="subtext_lase">
                                 $1,125.0 MN
                             </p>
                         </div>
-                        <div class="col-4 my-auto">
+                        <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                             <a href="" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
@@ -367,18 +389,21 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselpompilevanta" class="carousel slide">
 
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/ANTICELULITICO PIERNAS CANSADAS.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/ANTICELULITICO.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/corporales/ANTICELULITICO NUEVO.mp4') }}" type="video/mp4">
+                        <video width="350" controls autoplay class="ligthbox_img">
+                            <source src="{{ asset('assets/landing/corporales/ANTICELULITICO_NUEVO.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -399,21 +424,24 @@
 </section>
 
 <section class="row p-2" style="background:#bc7988;">
-
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,192L48,192C96,192,192,192,288,186.7C384,181,480,171,576,165.3C672,160,768,160,864,160C960,160,1056,160,1152,133.3C1248,107,1344,53,1392,26.7L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselmadero" class="carousel slide">
 
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/MADEROTERAPIA.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/MADEROTERAPIA.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
+                        <video width="350" controls autoplay class="ligthbox_img">
                             <source src="{{ asset('assets/landing/corporales/MADEROTERAPIA.mp4') }}" type="video/mp4">
                         </video>
                     </div>
@@ -453,19 +481,19 @@
                         6. Mejora la respiración <br>
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Duración :</h3>
                     <p class="subtext_lase color_blanco">
                         60 min
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Costo : </h3>
                     <p class="subtext_lase color_blanco">
                         $900.0 MN
                     </p>
                 </div>
-                <div class="col-4 my-auto">
+                <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                     <a href="" class="btn_comprar_paquete">Agendar</a>
                 </div>
             </div>
@@ -475,6 +503,7 @@
 </section>
 
 <section class="row p-2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#bc7988" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,213.3C384,224,480,224,576,192C672,160,768,96,864,80C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
@@ -494,19 +523,19 @@
                                 5. Seda en Leche <br>
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Duración :</h3>
                             <p class="subtext_lase">
                                 80 Min
                             </p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-md-6 col-lg-4">
                             <h3 class="service_title mb-3">Costo : </h3>
                             <p class="subtext_lase">
                                 $1,650.0 MN
                             </p>
                         </div>
-                        <div class="col-4 my-auto">
+                        <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                             <a href="" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
@@ -516,18 +545,21 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselVelo" class="carousel slide">
 
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/VELO DE NOVIA.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/VELO_DE_NOVIA.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/corporales/VELO DE NOVIA.mp4') }}" type="video/mp4">
+                        <video width="350" controls autoplay class="ligthbox_img">
+                            <source src="{{ asset('assets/landing/corporales/VELO_DE_NOVIA.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -548,21 +580,24 @@
 </section>
 
 <section class="row p-2" style="background:#bc7988;">
-
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,186.7C672,149,768,107,864,90.7C960,75,1056,85,1152,74.7C1248,64,1344,32,1392,16L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouseldiez" class="carousel slide">
 
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/corporales/GLUTEOS DE 10.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/corporales/GLUTEOS_DE_10.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
+                        <video width="350" controls autoplay class="ligthbox_img">
                             <source src="{{ asset('assets/landing/corporales/GLÚTEOS DE 10 NUEVO.mp4') }}" type="video/mp4">
                         </video>
                     </div>
@@ -603,19 +638,19 @@
                         6. Lociones Criógenas <br>
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Duración :</h3>
                     <p class="subtext_lase color_blanco">
                         50 Min
                     </p>
                 </div>
-                <div class="col-4">
+                <div class="col-6 col-md-6 col-lg-4">
                     <h3 class="service_title mb-3 color_blanco">Costo : </h3>
                     <p class="subtext_lase color_blanco">
                         $1,050.0 MN
                     </p>
                 </div>
-                <div class="col-4 my-auto">
+                <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
                     <a href="" class="btn_comprar_paquete">Agendar</a>
                 </div>
             </div>
