@@ -347,6 +347,19 @@ background-color: #eed1d5;
     width: 60%;
 }
 
+.animated-slide-in {
+    opacity: 0;
+    transform: translateX(-50px); /* Empieza desplazado a la izquierda */
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-in {
+    opacity: 1;
+    transform: translateX(0); /* Termina en su posición original */
+}
+
+
+
 @media only screen and (min-width:769px) {
     .logo_ocultar{
         display: none;

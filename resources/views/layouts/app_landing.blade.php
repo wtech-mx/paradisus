@@ -191,6 +191,27 @@
 
   {{-- <script src="{{ asset('assets/js/preloader.js')}}"></script> --}}
 
+  <script>function checkSlide() {
+    const animatedItems = document.querySelectorAll('.animated-slide-in');
+    animatedItems.forEach(item => {
+        // Calcula el punto en el que el elemento debe aparecer
+        const slideInAt = (window.scrollY + window.innerHeight) - item.clientHeight / 2;
+        // Calcula la parte inferior del elemento
+        const itemBottom = item.offsetTop + item.clientHeight;
+        // Comprueba si el usuario ha desplazado lo suficiente para que aparezca el elemento
+        const isHalfShown = slideInAt > item.offsetTop;
+        const isNotScrolledPast = window.scrollY < itemBottom;
+        if (isHalfShown && isNotScrolledPast) {
+            item.classList.add('slide-in');
+        } else {
+            item.classList.remove('slide-in');
+        }
+    });
+}
+
+window.addEventListener('scroll', checkSlide);
+</script>
+
   @yield('datatable')
 
 
