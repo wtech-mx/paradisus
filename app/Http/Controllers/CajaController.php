@@ -95,7 +95,9 @@ class CajaController extends Controller
         $caja_dia = CajaDia::where('fecha', '=', $fechaActual)->get();
         $caja_dia_suma = CajaDia::where('fecha', '=', $fechaActual)->where('motivo', '=', 'Retiro')->select(DB::raw('SUM(egresos) as total'))->first();
 
-        $caja_dia_suma_Ingreso = CajaDia::where('fecha', '=', $fechaActual)->where('motivo', '=', 'Ingreso')->select(DB::raw('SUM(egresos) as total'))->first();
+        $caja_dia_suma_Ingreso = CajaDia::where('fecha', '=', $fechaActual)
+        ->where('motivo', '=', 'Ingreso')
+        ->select(DB::raw('SUM(egresos) as total'))->first();
 
         $notas_paquetes = NotasPaquetes::get();
 
@@ -280,7 +282,14 @@ class CajaController extends Controller
         $bitacora = Bitacora::where('fecha','=',$diaActual)->get();
 
         //====================================== LLAMADO DE LA CAJA ======================================
-        $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->where('motivo', '=', 'Retiro')->get();
+        $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->get();
+
+        $caja_dia_suma_vista = CajaDia::where('fecha', '=', $diaActual)
+        ->where('concepto', 'LIKE', '%Cambio%')
+        ->where('motivo', '=', 'Ingreso')
+        ->select(DB::raw('SUM(egresos) as total'))
+        ->first();
+
         $caja_rep = Caja::where('fecha', '=', $diaActual)
         ->first();
 
@@ -570,8 +579,8 @@ class CajaController extends Controller
         $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
-        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta',));
-        // return $pdf->stream();
+        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta', 'caja_dia_suma_vista'));
+         //return $pdf->stream();
         return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
 
@@ -586,7 +595,7 @@ class CajaController extends Controller
         $fechaYHoraFormateada = $fechaYHoraActual;
 
         //====================================== LLAMADO DE LA CAJA ======================================
-            $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->where('motivo', '=', 'Retiro')->get();
+            $caja = CajaDia::where(DB::raw('fecha'), '=', $diaActual)->get();
             $caja_final = Caja::where('fecha', '=', $diaActual)
             ->first();
             if($caja_final == null){
@@ -634,6 +643,12 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(egresos) as total'))
             ->first();
 
+            $caja_dia_suma_vista = CajaDia::where('fecha', '=', $diaActual)
+            ->where('concepto', 'NOT LIKE', '%Cambio%')
+            ->where('motivo', '=', 'Ingreso')
+            ->select(DB::raw('SUM(egresos) as total'))
+            ->first();
+
             $caja_dia_resta = CajaDia::where('fecha', '=', $diaActual)
             ->where('motivo', '=', 'Retiro')
             ->select(DB::raw('SUM(egresos) as total'))
@@ -647,6 +662,8 @@ class CajaController extends Controller
 
             $total_ing = 0;
             $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos;
+            $total_ing_vista = 0;
+            $total_ing_vista = $caja_dia_suma_vista->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos;
 
             $total_egresos = 0;
             $total_egresos = $total_ing - $caja_dia_resta->total;
@@ -870,7 +887,7 @@ class CajaController extends Controller
         //====================================== END TOTALES PARA TARJETA ======================================
 
 
-        $pdf = \PDF::loadView('caja.precorte', compact('notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
+        $pdf = \PDF::loadView('caja.precorte', compact('total_ing_vista','notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
         'suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'caja_final','suma_filas_trans','propinasHoy','total_ing','caja_egre','total_egresos','paquetes',
         'fechaYHoraFormateada', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes','total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta',
         'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora'));

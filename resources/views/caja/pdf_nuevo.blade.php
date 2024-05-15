@@ -159,13 +159,24 @@
         }else{
         $total_efectivo = 0;
         }
+
+        //Vista
+        $resta_vista = $caja_rep->ingresos - $caja_rep->inicio - $caja_dia_suma_vista->total;
+        $efectivo_vista = $resta_vista - $caja_dia_suma_cambios->total;
+        if($efectivo_vista > 0){
+        $total_efectivo_vista = $efectivo_vista;
+        }else{
+        $total_efectivo_vista = 0;
+        }
     @endphp
     <h2 style="text-align: center;">Total de ingresos del dia  <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> <br>
         @php
             $totalingresos =  $suma_pago_trans + $total_efectivo +  $suma_pago_tarjeta;
+
+            $totalingresos_vista =  $suma_pago_trans + $total_efectivo_vista +  $suma_pago_tarjeta;
         @endphp
 
-        <strong> ${{ number_format($totalingresos, 1, '.', ',') }}</strong>
+        <strong> ${{ number_format($totalingresos_vista, 1, '.', ',') }}</strong>
 
     </h2>
 
@@ -211,7 +222,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($total_efectivo, 1, '.', ',') }}</strong>
+                <strong>${{ number_format($total_efectivo_vista, 1, '.', ',') }}</strong>
             </td>
 
             <td>
@@ -254,7 +265,7 @@
         <thead style="background-color: #CA87A6; color: #fff">
             <tr>
                 <th>ID</th>
-                <th>Fecha</th>
+                <th>Motivo</th>
                 <th>Monto</th>
                 <th>Concepto</th>
                 <th>Ver imagen / Ir a la nota</th>
@@ -267,7 +278,7 @@
                         {{ $item->id }}
                     </td>
                     <td>
-                        {{ date('d/n/y', strtotime( $item->fecha)) }}
+                        {{ $item->motivo }}
                     </td>
                     <td>
                         ${{ number_format($item->egresos, 1, '.', ',') }}
