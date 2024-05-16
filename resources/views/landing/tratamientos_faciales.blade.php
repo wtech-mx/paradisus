@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section class="parallax" style="background-image: url('{{ asset('assets/landing/tratamientos.webp') }}');">
+<section class="parallax" style="background-image: url('{{ asset('assets/landing/bg2.webp') }}');">
     <div class="parallax-content">
 
         <div class="px-4 py-5 my-5 text-center">

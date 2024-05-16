@@ -31,17 +31,17 @@
 
             <div class="container p-0 p-sm-0 p-md-3 p-lg-5">
 
-                <h4 class="service_title text-center mt-3">¿CÓMO QUIERES RELAJARTE HOY?</h4>
+                <h4 class="service_title text-center mt-4 mb-4">¿CÓMO QUIERES RELAJARTE HOY?</h4>
 
                 <div class="row d-flex justify-content-between">
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="{{ route('experiencias.landingpage') }}" class="texo_services_icons">
-                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="w-100" alt="...">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="" alt="..." style="width: 150px">
                                 </a>
                                 <a  href="{{ route('experiencias.landingpage') }}" class="texo_services_icons">
-                                    Experiencias
+                                    <br>Experiencias
                                 </a>
                             </p>
                         </div>
@@ -49,22 +49,21 @@
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="{{ route('masajes.landingpage') }}" class="texo_services_icons">
-                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="w-100" alt="...">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="" alt="..." style="width: 150px">
                                 </a>
                                 <a href="{{ route('masajes.landingpage') }}" class="texo_services_icons">
-                                    Masajes con tu <br> Persona favorita
+                                    <br>Masajes con tu <br> Persona favorita
                                 </a>
                             </p>
                         </div>
 
-
-                        <div class="col-6  col-md-2 col-lg-2">
+                        <div class="col-12  col-md-2 col-lg-2">
                             <p class="text-center">
                                 <a href="{{ route('dayspa.landingpage') }}" class="texo_services_icons">
-                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/icono-anillo.png') }}" class="w-100" alt="...">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/icono-anillo.png') }}" class="" alt="..." style="width: 150px">
                                 </a>
                                 <a href="{{ route('dayspa.landingpage') }}" class="texo_services_icons">
-                                    Day Spa
+                                    <br>Day Spa
                                 </a>
                             </p>
                         </div>
@@ -84,7 +83,8 @@
 </section>
 
 
-<section class="row p-2" style="background-color: #CB95A2">
+<section class="row" style="background-color: #CB95A2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L48,160C96,160,192,160,288,149.3C384,139,480,117,576,106.7C672,96,768,96,864,106.7C960,117,1056,139,1152,138.7C1248,139,1344,117,1392,106.7L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left color_blanco">Mamá e Hija</h3>
@@ -101,12 +101,12 @@
                                 6. Obsequio, Cuarzo familiar. <br>
                             </p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete">
-                                Agendar Experiencia
+                                Agendar
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete" style="background-color: #fff;color:#CB95A2;">
                                <strong> $2,100.0 MN</strong>
                             </a>
@@ -122,54 +122,35 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/EXP MAMA E HIJA.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/EXP_MAMA_E_HIJA.jpg') }}" class="img_corporales ligthbox_img mb-5 mb-md-2 mb-lg-0 mt-5 mt-md-2 mt-lg-0 " alt="">
                     </div>
                 </div>
             </div>
 
-
-            {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselMini" data-bs-slide="prev">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Antes</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselMini" data-bs-slide="next">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Despues</span>
-            </button> --}}
 
           </div>
     </div>
 </section>
 
 <section class="row p-2" style="">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#CB95A2" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,213.3C384,224,480,224,576,192C672,160,768,96,864,80C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
         <div id="carouselMini" class="carousel slide">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/EXP HERMANAS.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/EXP_HERMANAS.jpg') }}" class="img_corporales ligthbox_img mb-5 mb-md-2 mb-lg-0 mt-5 mt-md-2 mt-lg-0 " alt="">
                     </div>
                 </div>
             </div>
 
 
-            {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselMini" data-bs-slide="prev">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Antes</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselMini" data-bs-slide="next">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Despues</span>
-            </button> --}}
-
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-2 order-lg-2 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left ">Hermanas</h3>
                     <div class="row">
@@ -185,12 +166,12 @@
                                 6. Obsequio, Cuarzo familiar. <br>
                             </p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete">
-                                Agendar Experiencia
+                                Agendar
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete" style="background-color: #CB95A2;color:#fff;">
                                <strong> $2,100.0 MN</strong>
                             </a>
@@ -204,6 +185,8 @@
 </section>
 
 <section class="row p-2" style="background-color: #CB95A2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,213.3C384,224,480,224,576,192C672,160,768,96,864,80C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left color_blanco">Mejores Amigas</h3>
@@ -220,12 +203,12 @@
                                 6. Obsequio, Cuarzo de amistad. <br>
                             </p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete">
-                                Agendar Experiencia
+                                Agendar
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete" style="background-color: #fff;color:#CB95A2;">
                                <strong> $2,100.0 MN</strong>
                             </a>
@@ -241,53 +224,35 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/EXP MEJORES AMIGAS.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/EXP_MEJORES_AMIGAS.jpg') }}" class="img_corporales ligthbox_img mb-5 mb-md-2 mb-lg-0 mt-5 mt-md-2 mt-lg-0 " alt="">
                     </div>
                 </div>
             </div>
 
-
-            {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselMini" data-bs-slide="prev">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Antes</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselMini" data-bs-slide="next">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Despues</span>
-            </button> --}}
 
           </div>
     </div>
 </section>
 
 <section class="row p-2" style="">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#CB95A2" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,186.7C672,149,768,107,864,90.7C960,75,1056,85,1152,74.7C1248,64,1344,32,1392,16L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
         <div id="carouselMini" class="carousel slide">
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/EXP PAREJA.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/EXP_PAREJA.jpg') }}" class="img_corporales ligthbox_img mb-5 mb-md-2 mb-lg-0 mt-5 mt-md-2 mt-lg-0 " alt="">
                     </div>
                 </div>
             </div>
 
 
-            {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselMini" data-bs-slide="prev">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Antes</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselMini" data-bs-slide="next">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Despues</span>
-            </button> --}}
-
           </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-2 order-lg-2 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left ">Pareja</h3>
                     <div class="row">
@@ -303,12 +268,12 @@
                                 6. Obsequio, Cuarzo de amor. <br>
                             </p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete">
-                                Agendar Experiencia
+                                Agendar
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete" style="background-color: #CB95A2;color:#fff;">
                                <strong> $3,150.0 MN</strong>
                             </a>
@@ -319,7 +284,8 @@
     </div>
 </section>
 
-<section class="row p-2" style="background-color: #CB95A2">
+<section class="row p-2 " style="background-color: #CB95A2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,176C384,171,480,181,576,160C672,139,768,85,864,64C960,43,1056,53,1152,58.7C1248,64,1344,64,1392,64L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left color_blanco">Mejores Amigas Trío</h3>
@@ -336,12 +302,12 @@
                                 6. Obsequio, Cuarzo de amistad. <br>
                             </p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete">
-                                Agendar Experiencia
+                                Agendar
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
                             <a href="" class="btn_comprar_paquete" style="background-color: #fff;color:#CB95A2;">
                                <strong> $3,150.0 MN</strong>
                             </a>
@@ -357,27 +323,18 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/EXP MEJORES AMIGAS TRIO.jpg') }}" class="img_corporales p-3" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/EXP_MEJORES_AMIGAS_TRIO.jpg') }}" class="img_corporales ligthbox_img mb-5 mb-md-2 mb-lg-0 mt-5 mt-md-2 mt-lg-0 " alt="">
                     </div>
                 </div>
             </div>
 
-
-            {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselMini" data-bs-slide="prev">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Antes</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselMini" data-bs-slide="next">
-                <img src="{{ asset('assets/landing/btn_carousel.webp') }}" alt="Previous" style="width: 30px;">
-                <span class="visually-hidden">Despues</span>
-            </button> --}}
 
           </div>
     </div>
 </section>
 
 <section class="parallax" style="background-image: url('{{ asset('assets/landing/parallax_cuerpo.webp') }}');">
+
     <div class="parallax-content">
 
         <div class="px-4 py-2 my-2 text-center">
