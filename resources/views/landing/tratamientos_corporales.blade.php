@@ -44,13 +44,13 @@
                                 5. Crema modeladora con algas
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 45 Min
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $825.0 MN
@@ -170,14 +170,14 @@
                         Se recomiendan entre 4 a 5 sesiones para máximos resultados.
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         50 min
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $1,050.0 MN
                     </p>
@@ -213,13 +213,13 @@
                                 7. Lociones criógenas <br>
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 50 Min
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $1,200.0 MN
@@ -325,14 +325,14 @@
                         5. Beneficia la Circulación Sanguínea. <br>
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         50 min
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $975.0 MN
                     </p>
@@ -367,13 +367,13 @@
                                 6. Crema de algas marinas. <br>
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 60 Min
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $1,125.0 MN
@@ -481,14 +481,14 @@
                         6. Mejora la respiración <br>
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         60 min
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $900.0 MN
                     </p>
@@ -523,13 +523,13 @@
                                 5. Seda en Leche <br>
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 80 Min
                             </p>
                         </div>
-                        <div class="col-6 col-md-6 col-lg-4">
+                        <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $1,650.0 MN
@@ -638,14 +638,14 @@
                         6. Lociones Criógenas <br>
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         50 Min
                     </p>
                 </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
+                    <h3 class="service_title mb-3  btn_comprar_paquete_negative">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $1,050.0 MN
                     </p>
