@@ -45,13 +45,13 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración :</h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 45 Min
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo : </h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $825.0 MN
                             </p>
@@ -171,13 +171,13 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración :</h3>
+                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         50 min
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo : </h3>
+                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $1,050.0 MN
                     </p>
@@ -214,13 +214,13 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración :</h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 50 Min
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo : </h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $1,200.0 MN
                             </p>
@@ -326,13 +326,13 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración :</h3>
+                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         50 min
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo : </h3>
+                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $975.0 MN
                     </p>
@@ -368,13 +368,13 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración :</h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 60 Min
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo : </h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $1,125.0 MN
                             </p>
@@ -482,13 +482,13 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración :</h3>
+                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         60 min
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo : </h3>
+                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $900.0 MN
                     </p>
@@ -524,13 +524,13 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración :</h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
                                 80 Min
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4">
-                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo : </h3>
+                            <h3 class="service_title mb-3 btn_comprar_paquete">Costo</h3>
                             <p class="subtext_lase">
                                 $1,650.0 MN
                             </p>
@@ -639,13 +639,13 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Duración :</h3>
+                    <h3 class="service_title mb-3 color_blanco">Duración</h3>
                     <p class="subtext_lase color_blanco">
                         50 Min
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4">
-                    <h3 class="service_title mb-3 color_blanco">Costo : </h3>
+                    <h3 class="service_title mb-3 color_blanco">Costo</h3>
                     <p class="subtext_lase color_blanco">
                         $1,050.0 MN
                     </p>
