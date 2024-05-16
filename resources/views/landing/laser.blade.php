@@ -26,6 +26,7 @@
 </section>
 
 <section class="row p-2">
+
     <div class="col-12 col-sm-12 col-md-7 col-lg-7">
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">Paquete Mini</h3>
@@ -84,6 +85,8 @@
 </section>
 
 <section class="row p-2" style="background:#bc7988;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,213.3C384,224,480,224,576,192C672,160,768,96,864,80C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+
     <div class="col-12 col-sm-12 col-md-7 col-lg-7">
             <div class="container">
                 <h3 class="tittle_lase_section text-left color_blanco">Paquete Pequeño</h3>
@@ -144,6 +147,9 @@
 </section>
 
 <section class="row p-2">
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#BC7988" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,213.3C384,224,480,224,576,192C672,160,768,96,864,80C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+
     <div class="col-12 col-sm-12 col-md-7 col-lg-7">
         <div class="container">
             <h3 class="tittle_lase_section text-left">Paquete Mediano</h3>
@@ -202,6 +208,8 @@
 </section>
 
 <section class="row p-2"style="background:#bc7988;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,213.3C384,224,480,224,576,192C672,160,768,96,864,80C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+
     <div class="col-12 col-sm-12 col-md-7 col-lg-7">
 
         <div class="container">
@@ -258,6 +266,8 @@
 </section>
 
 <section class="row p-2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#BC7988" fill-opacity="1" d="M0,192L48,192C96,192,192,192,288,165.3C384,139,480,85,576,74.7C672,64,768,96,864,101.3C960,107,1056,85,1152,106.7C1248,128,1344,192,1392,224L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+
     <div class="col-12 col-sm-12 col-md-7 col-lg-7">
         <div class="container">
             <h2 class="tittle_lase_section text-left">Paquete ¡Adiós Vello!</h2>
@@ -343,7 +353,7 @@
         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
 
         <div class="container_img_equi">
-            <img src="{{ asset('assets/landing/DEPILACION_LASER/EQUIPO_LASER.webp') }}" alt="" class="img_equipo_laser">
+            <img src="{{ asset('assets/landing/DEPILACION_LASER/EQUIPO_LASER.webp') }}" id="movingImage"alt="" class="img_equipo_laser">
             <img src="{{ asset('assets/landing/DEPILACION_LASER/DESTELLO-01.webp') }}" alt="" class="estrellas_flotantes">
             <img src="{{ asset('assets/landing/DEPILACION_LASER/DESTELLO-01.webp') }}" alt="" class="estrellas_flotantes_r ">
 

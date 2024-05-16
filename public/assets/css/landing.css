@@ -359,6 +359,11 @@ background-color: #eed1d5;
 }
 
 
+.border_selecionador{
+    border: solid 3px #e09eb1;
+    border-radius: 13px;
+    height: 220px;
+}
 
 @media only screen and (min-width:769px) {
     .logo_ocultar{
@@ -374,6 +379,11 @@ background-color: #eed1d5;
 
 
   @media only screen and (max-width:450px) {
+
+    .border_selecionador{
+        border: solid 0px #e09eb1;
+    }
+
 
     .text_hero {
         font-size: 12px;

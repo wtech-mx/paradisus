@@ -35,7 +35,7 @@
 
                 <div class="row d-flex justify-content-between">
 
-                        <div class="col-6  col-md-2 col-lg-2">
+                        <div class="col-6  col-md-2 col-lg-2 border_selecionador" >
                             <p class="text-center">
                                 <a href="{{ route('experiencias.landingpage') }}" class="texo_services_icons">
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="" alt="..." style="width: 150px">
@@ -44,6 +44,8 @@
                                     <br>Experiencias
                                 </a>
                             </p>
+                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/click.png') }}" id="movingImage" style="position: relative;width: 90px;top: -146px;left: 80px;">
+
                         </div>
 
                         <div class="col-6  col-md-2 col-lg-2">
@@ -118,7 +120,9 @@
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselMini" class="carousel slide">
-
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
@@ -137,7 +141,9 @@
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
         <div id="carouselMini" class="carousel slide">
-
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
@@ -220,7 +226,9 @@
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselMini" class="carousel slide">
-
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
@@ -239,7 +247,9 @@
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
         <div id="carouselMini" class="carousel slide">
-
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
@@ -319,7 +329,9 @@
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div id="carouselMini" class="carousel slide">
-
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
