@@ -663,7 +663,7 @@ class CajaController extends Controller
             $total_ing = 0;
             $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos;
             $total_ing_vista = 0;
-            $total_ing_vista = $caja_dia_suma_vista->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos;
+            $total_ing_vista =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos;
 
             $total_egresos = 0;
             $total_egresos = $total_ing - $caja_dia_resta->total;
