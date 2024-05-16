@@ -90,7 +90,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/ADIOS IMPUREZAS.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/ADIOS_IMPUREZAS.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/ADIOS MANCHAS.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/ADIOS_MANCHAS.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/HIDRATACION MAXIMA.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/HIDRATACION_MAXIMA.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -263,7 +263,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/MI ROSTRO PERFECTO POST.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/MI_ROSTRO_PERFECTO.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -314,7 +314,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/BRAZOS DEFINIDOS.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/BRAZOS_DEFINIDOS.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -333,7 +333,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/MOLDEANTE Y REDUCTIVO.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/MOLDEANTE_Y_REDUCTIVO.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -410,7 +410,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/PIERNAS DE 10.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/PIERNAS_DE_10.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -429,7 +429,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/MOLDEANTE Y REDUCTIVO.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/MOLDEANTE_Y_REDUCTIVO.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
@@ -504,7 +504,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/TU FIGURA IDEAL.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/TU_FIGURA_IDEAL_CON_APARATOLOGIA.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>
