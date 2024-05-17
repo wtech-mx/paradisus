@@ -29,6 +29,16 @@
                 <div class="container">
                     <h3 class="tittle_lase_section text-left ">CORPORALES</h3>
                     <h3 class="service_title mb-3">Brazo Firme RXZ</h3>
+                    <!-- Images visible only on mobile -->
+                    <div class="d-block d-md-none">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <img src="{{ asset('assets/landing/corporales/BRAZO_FIRME.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-12 my-auto">
                             <p class="subtext_lase">
@@ -43,6 +53,16 @@
                                 4. Drenaje en brazos con vendas. <br>
                                 5. Crema modeladora con algas
                             </p>
+                        </div>
+                        <!-- Images visible only on mobile -->
+                        <div class="d-block d-md-none">
+                            <div class="col-12 mb-5">
+                                <div class="d-flex justify-content-center">
+                                    <video width="350" controls autoplay class="ligthbox_img">
+                                        <source src="{{ asset('assets/landing/corporales/BRAZO_FIRME.mp4') }}" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
@@ -60,15 +80,10 @@
                             <a href="" class="btn_comprar_paquete">Agendar</a><br>
                         </div>
                     </div>
-                    <p class="mini_subtext_paradisus mt-3">
-                        Te aseguramos que NO tendrás que pagar más sesiones, te brindamos resultados reales,
-                        al terminar tu tratamiento.
-                        Tú pagas las 12 sesiones de una zona y te damos otras 12 sesiones en otra zona, dando un total de 24 sesiones.
-                    </p>
                 </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto  animated-slide-in">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouselMini" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -114,7 +129,7 @@
         </path>
     </svg>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouselbrazo" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -154,6 +169,15 @@
         <div class="container ">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Despigmentación Corporal</h3>
+                <!-- Images visible only on mobile -->
+                <div class="d-block d-md-none">
+                        <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                        <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                        <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                    <div class="d-flex justify-content-center mt-4 mb-4">
+                        <img src="{{ asset('assets/landing/corporales/DESPIGMENTACION_CORPORAL.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-12 my-auto">
                     <p class="subtext_lase color_blanco">
@@ -170,6 +194,18 @@
                         Se recomiendan entre 4 a 5 sesiones para máximos resultados.
                     </p>
                 </div>
+
+                <!-- Video visible only on mobile -->
+                <div class="d-block d-md-none">
+                    <div class="col-12 mb-5">
+                        <div class="d-flex justify-content-center">
+                            <video width="350" controls autoplay class="ligthbox_img">
+                                <source src="{{ asset('assets/landing/corporales/DESPIGMENTANTE_CORPORAL_NUEVO.mp4') }}" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                     <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
                     <p class="subtext_lase color_blanco">
@@ -187,6 +223,8 @@
                 </div>
             </div>
 
+
+
         </div>
     </div>
 </section>
@@ -203,6 +241,15 @@
                                 Tratamiento ideal para levantar glúteos, estimular el sistema circulatorio y tonificar.
                             </p>
                             <h3 class="service_title mb-3">Procedimiento</h3>
+                            <!-- Images visible only on mobile -->
+                            <div class="d-block d-md-none">
+                                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                                <div class="d-flex justify-content-center mt-4 mb-4">
+                                    <img src="{{ asset('assets/landing/corporales/POMPILEVANTA.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                                </div>
+                            </div>
                             <p class="subtext_lase">
                                 1. Limpieza de glúteos. <br>
                                 2. Exfoliación <br>
@@ -212,6 +259,16 @@
                                 6. Masaje drenante <br>
                                 7. Lociones criógenas <br>
                             </p>
+                        </div>
+                        <!-- Images visible only on mobile -->
+                        <div class="d-block d-md-none">
+                            <div class="col-12 mb-5">
+                                <div class="d-flex justify-content-center">
+                                    <video width="350" controls autoplay class="ligthbox_img">
+                                        <source src="{{ asset('assets/landing/corporales/POMPILEVANTA.mp4') }}" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
@@ -232,7 +289,7 @@
                 </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto animated-slide-in">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouselpompi" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -271,7 +328,7 @@
 
 <section class="row p-2 " style="background:#bc7988;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,288L48,277.3C96,267,192,245,288,224C384,203,480,181,576,186.7C672,192,768,224,864,208C960,192,1056,128,1152,117.3C1248,107,1344,149,1392,170.7L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouselDespigmentacion" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -311,6 +368,15 @@
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Reductivo Colombiano</h3>
+            <!-- Images visible only on mobile -->
+            <div class="d-block d-md-none">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                <div class="d-flex justify-content-center mt-4 mb-4">
+                    <img src="{{ asset('assets/landing/corporales/REDUCTIVO_COLOMBIANO.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12 my-auto">
                     <p class="subtext_lase color_blanco">
@@ -325,6 +391,18 @@
                         5. Beneficia la Circulación Sanguínea. <br>
                     </p>
                 </div>
+
+                <!-- Images visible only on mobile -->
+                <div class="d-block d-md-none">
+                    <div class="col-12 mb-5">
+                        <div class="d-flex justify-content-center">
+                            <video width="350" controls autoplay class="ligthbox_img">
+                                <source src="{{ asset('assets/landing/corporales/reductivo.mov') }}" type="video/mp4">
+                                </video>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                     <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
                     <p class="subtext_lase color_blanco">
@@ -352,6 +430,16 @@
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
                     <h3 class="service_title mb-3">Anticelulítico y piernas Cansadas</h3>
+                    <!-- Images visible only on mobile -->
+                    <div class="d-block d-md-none">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <img src="{{ asset('assets/landing/corporales/ANTICELULITICO.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-12 my-auto">
                             <p class="subtext_lase">
@@ -366,6 +454,16 @@
                                 5. Aceite de Café y masaje drenante <br>
                                 6. Crema de algas marinas. <br>
                             </p>
+                        </div>
+                        <!-- Images visible only on mobile -->
+                        <div class="d-block d-md-none">
+                            <div class="col-12 mb-5">
+                                <div class="d-flex justify-content-center">
+                                    <video width="350" controls autoplay class="ligthbox_img">
+                                        <source src="{{ asset('assets/landing/corporales/ANTICELULITICO_NUEVO.mp4') }}" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
@@ -386,7 +484,7 @@
                 </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto animated-slide-in">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouselpompilevanta" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -425,7 +523,7 @@
 
 <section class="row p-2 " style="background:#bc7988;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,192L48,192C96,192,192,192,288,186.7C384,181,480,171,576,165.3C672,160,768,160,864,160C960,160,1056,160,1152,133.3C1248,107,1344,53,1392,26.7L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouselmadero" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -465,6 +563,17 @@
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Maderoterapia</h3>
+
+            <!-- Images visible only on mobile -->
+            <div class="d-block d-md-none">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                <div class="d-flex justify-content-center mt-4 mb-4">
+                    <img src="{{ asset('assets/landing/corporales/MADEROTERAPIA.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-12 my-auto">
                     <p class="subtext_lase color_blanco">
@@ -480,6 +589,16 @@
                         5. Combate dolores de cuello y espalda <br>
                         6. Mejora la respiración <br>
                     </p>
+                </div>
+                <!-- Images visible only on mobile -->
+                <div class="d-block d-md-none">
+                    <div class="col-12 mb-5">
+                        <div class="d-flex justify-content-center">
+                            <video width="350" controls autoplay class="ligthbox_img">
+                                <source src="{{ asset('assets/landing/corporales/MADEROTERAPIA.mp4') }}" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                     <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
@@ -508,6 +627,16 @@
                 <div class="container">
                     <h3 class="tittle_lase_section text-left">CORPORALES</h3>
                     <h3 class="service_title mb-3">Velo de Novia</h3>
+                    <!-- Images visible only on mobile -->
+                    <div class="d-block d-md-none">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                            <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <img src="{{ asset('assets/landing/corporales/VELO_DE_NOVIA.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-12 my-auto">
                             <p class="subtext_lase">
@@ -523,6 +652,18 @@
                                 5. Seda en Leche <br>
                             </p>
                         </div>
+
+                        <!-- Images visible only on mobile -->
+                        <div class="d-block d-md-none">
+                            <div class="col-12 mb-5">
+                                <div class="d-flex justify-content-center">
+                                    <video width="350" controls autoplay class="ligthbox_img">
+                                    <source src="{{ asset('assets/landing/corporales/VELO_DE_NOVIA.mp4') }}" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                             <h3 class="service_title mb-3 btn_comprar_paquete">Duración</h3>
                             <p class="subtext_lase">
@@ -542,7 +683,7 @@
                 </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouselVelo" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -581,7 +722,7 @@
 
 <section class="row p-2 " style="background:#bc7988;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,186.7C672,149,768,107,864,90.7C960,75,1056,85,1152,74.7C1248,64,1344,32,1392,16L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 order-lg-1 my-auto animated-slide-in">
+    <div class="col-12 col-md-6 my-auto d-none d-md-block animated-slide-in">
         <div id="carouseldiez" class="carousel slide">
 
             <img src="{{ asset('assets/landing/DESTELLO_WHITE.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
@@ -598,7 +739,7 @@
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
                         <video width="350" controls autoplay class="ligthbox_img">
-                            <source src="{{ asset('assets/landing/corporales/GLÚTEOS DE 10 NUEVO.mp4') }}" type="video/mp4">
+                            <source src="{{ asset('assets/landing/corporales/GLÚTEOS_DE_10_NUEVO.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -621,6 +762,16 @@
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">CORPORALES</h3>
             <h3 class="service_title mb-3 color_blanco">Glúteos de 10</h3>
+            <!-- Images visible only on mobile -->
+            <div class="d-block d-md-none">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 50px;left: 0px;">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 0px;left: -30px;">
+                    <img src="{{ asset('assets/landing/DESTELLO.webp') }}" id="movingImage" style="position: relative;width: 90px;top: 10px;left: -40px;">
+                <div class="d-flex justify-content-center mt-4 mb-4">
+                    <img src="{{ asset('assets/landing/corporales/GLUTEOS_DE_10.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-12 my-auto">
                     <p class="subtext_lase color_blanco">
@@ -637,6 +788,16 @@
                         5. Drenaje Corporal <br>
                         6. Lociones Criógenas <br>
                     </p>
+                </div>
+                <!-- Images visible only on mobile -->
+                <div class="d-block d-md-none">
+                    <div class="col-12 mb-5">
+                        <div class="d-flex justify-content-center">
+                            <video width="350" controls autoplay class="ligthbox_img">
+                                <source src="{{ asset('assets/landing/corporales/GLÚTEOS_DE_10_NUEVO.mp4') }}" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4 mb-4 mb-md-3 md-lg-0">
                     <h3 class="service_title mb-3  btn_comprar_paquete_negative">Duración</h3>
