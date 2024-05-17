@@ -103,6 +103,7 @@ class NotasPedidoController extends Controller
             $nota->foto = $fileName;
         }
 
+        $nota->descuento = $request->get('descuento_porcentaje');
         $nota->total = $request->get('totalSuma');
         $nota->restante = $request->get('restante');
         $nota->dinero_recibido = $request->get('dinero_recibido');
@@ -381,21 +382,54 @@ class NotasPedidoController extends Controller
 
         $sum = 0;
         $nota = NotasPedidos::find($nota->id);
-        $sum =array_sum($importe) + $nota->total;
+        if($request->get('descuento_porcentaje') == NULL){
+            $sum =array_sum($importe) + $nota->total;
+        }else{
+            $suma =array_sum($importe) + $nota->total;
+            $descuento = ($suma * $request->get('descuento_porcentaje')) / 100;
+            $total_final = $suma - $descuento;
+            $sum = $total_final;
+        }
         $nota->total = $sum;
+        $nota->descuento = $request->get('descuento_porcentaje');
+        $nota->metodo_pago = $request->get('metodo_pago');
+        $nota->dinero_recibido = $request->get('dinero_recibido');
+        $nota->metodo_pago2 = $request->get('metodo_pago2');
+        $nota->dinero_recibido2 = $request->get('dinero_recibido2');
+
+        if ($request->hasFile("foto")) {
+            $file = $request->file('foto');
+            $path = public_path() . '/foto_producto';
+            $fileName = uniqid() . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $nota->foto = $fileName;
+        }
         $nota->update();
 
-        $reporte = new Reporte;
-        $reporte->id_producto = $nota->id;
-        $reporte->fecha = $nota->fecha;
-        $reporte->tipo = 'NOTA PRODUCTOS';
-        $reporte->id_client = $nota->id_client;
-        $reporte->metodo_pago = $nota->forma_pago;
-        $reporte->monto = $nota->total;
-        $reporte->restante = 0;
-        $reporte->save();
+        // G U A R D A R  C A M B I O
+        $suma_pagos = $request->get('dinero_recibido') + $request->get('dinero_recibido2');
 
-        return redirect()->route('notas_pedidos.index')
+        if($request->get('dinero_recibido') > $nota->total && $request->get('metodo_pago') == 'Efectivo'){
+            $cambio = $request->get('dinero_recibido') - $nota->total;
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->motivo = 'Retiro';
+            $caja->egresos = $cambio;
+            $caja->concepto = 'Cambio nota productos: ' . $nota->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }elseif($suma_pagos > $nota->total){
+            $cambio = $suma_pagos - $nota->total;
+            $fechaActual = date('Y-m-d');
+            $caja = new CajaDia;
+            $caja->motivo = 'Retiro';
+            $caja->egresos = $cambio;
+            $caja->concepto = 'Cambio nota productos: ' . $nota->id;
+            $caja->fecha = $fechaActual;
+            $caja->save();
+        }
+
+        return redirect()->back()
         ->with('edit','Nota Productos Actualizado.');
     }
 

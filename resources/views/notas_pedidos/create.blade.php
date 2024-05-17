@@ -156,6 +156,16 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group col-3">
+                                            <label for="num_sesion">Descuento (%)</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">
+                                                    <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
+                                                </span>
+                                                <input  id="descuento_porcentaje" name="descuento_porcentaje" type="number" class="form-control"  required>
+                                            </div>
+                                        </div>
+
                                         <div class="col-3">
                                             <label for="total-suma">Dinero recibido *</label>
                                             <div class="input-group mb-3">
@@ -372,13 +382,18 @@
             totalSuma += cantidad * importe;
         });
 
-        console.log(totalSuma);
+        // Obtén el valor del descuento
+        var descuento = parseFloat($('#descuento_porcentaje').val()) || 0;
+
+        // Calcula el total después de aplicar el descuento
+        var totalConDescuento = totalSuma - (totalSuma * descuento / 100);
+
         // Actualiza el valor del campo de suma
-        $('#totalSuma').val(totalSuma);
+        $('#totalSuma').val(totalConDescuento.toFixed(2));
     }
 
-    // Escucha el evento 'input' en los campos de cantidad e importe existentes y futuros
-    $(document).on('input', 'input[name="cantidad[]"], input[name="importe[]"]', function() {
+    // Escucha el evento 'input' en los campos de cantidad, importe y descuento existentes y futuros
+    $(document).on('input', 'input[name="cantidad[]"], input[name="importe[]"], #descuento_porcentaje', function() {
         calcularSuma();
     });
 

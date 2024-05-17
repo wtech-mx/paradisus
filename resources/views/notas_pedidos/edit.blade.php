@@ -76,7 +76,7 @@
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
                                                     </span>
-                                                    <select disabled class="form-control input-edit-car" id="id_client" name="id_client"
+                                                    <select disabled class="form-control" id="id_client" name="id_client"
                                                     value="{{ old('id_client') }}" required>
                                                     <option selected value="{{ $nota_pedido->id_client }}">{{ $nota_pedido->Client->name }} {{ $nota_pedido->Client->last_name }}</option>
                                                     @foreach ($client as $item)
@@ -124,7 +124,7 @@
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
                                                     </span>
-                                                    <input  id="descuento_porcentaje" name="descuento_porcentaje" type="number" class="form-control"  required>
+                                                    <input  id="descuento_porcentaje" name="descuento_porcentaje" type="number" class="form-control"  value="{{$nota_pedido->descuento}}">
                                                 </div>
                                             </div>
 
@@ -134,7 +134,7 @@
                                                         <span class="input-group-text" id="basic-addon1">
                                                             <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
                                                         </span>
-                                                        <input  id="dinero_recibido2" name="dinero_recibido2" type="number" class="form-control"  required>
+                                                        <input  id="dinero_recibido" name="dinero_recibido" type="number" class="form-control" value="{{$nota_pedido->dinero_recibido}}" required>
                                                     </div>
                                             </div>
 
@@ -154,8 +154,36 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-3">
+                                                <label for="total-suma">Dinero recibido 2*</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <input  id="dinero_recibido2" name="dinero_recibido2" type="number" class="form-control" value="{{$nota_pedido->dinero_recibido2}}" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <label for="num_sesion">Metodo de pago 2</label>
+                                                    <select id="metodo_pago2" name="metodo_pago2" class="form-control">
+                                                        <option selected value="{{$nota_pedido->metodo_pago2}}">{{$nota_pedido->metodo_pago2}}</option>
+                                                        <option value="Efectivo">Efectivo</option>
+                                                        <option value="Transferencia">Transferencia</option>
+                                                        <option value="Mercado Pago">Mercado Pago</option>
+                                                        <option value="Tarjeta">Tarjeta</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             @if ($nota_pedido->foto == NULL)
-                                                <a href=""></a>
+                                                <div class="col-3">
+                                                    <div class="form-group">
+                                                        <label for="nota">Foto</label>
+                                                        <input type="file" id="foto" class="form-control" name="foto">
+                                                    </div>
+                                                </div>
                                             @else
                                                 <div class="form-group">
                                                     <a href="javascript:abrir('{{asset('foto_producto/'.$nota_pedido->foto)}}','500','500')">
@@ -242,9 +270,12 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
-
+<script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
 <script>
+    $(document).ready(function() {
+        $('.input-edit-car').select2();
+    });
 
 document.getElementById('descuento_porcentaje').addEventListener('change', function() {
     calcularTotal();
