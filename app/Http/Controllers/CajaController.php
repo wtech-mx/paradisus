@@ -571,7 +571,7 @@ class CajaController extends Controller
         //====================================== END GRAFICAS ======================================
 
         $caja_dia_suma_cambios = CajaDia::where('fecha', '=', $diaActual)
-        ->where('concepto', 'LIKE', '%Cambio%')
+        ->where('concepto', 'LIKE', '%Cambio nota%')
         ->where('motivo', '=', 'Retiro')
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
