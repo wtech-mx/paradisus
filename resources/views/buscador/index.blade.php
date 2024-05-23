@@ -166,6 +166,8 @@
                                                         <td>Drenante & Linfático</td>
                                                     @elseif ($paquete->num_paquete == 5)
                                                         <td>Glúteos Definido & Perfectos</td>
+                                                    @elseif ($paquete->num_paquete == 5)
+                                                        <td>Piernas de 10 Anticelulítico & Reafirmante</td>
                                                     @endif
 
                                                     <td>{{$paquete->fecha_inicial}}</td>
