@@ -206,7 +206,7 @@
                                                                 </a>
                                                             @elseif ($paquete->num_paquete == 6)
                                                                 <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_seis.firma_edit_seis', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
-                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('firma_paquete_seis.firma_edit_seis',$paquete->id)}}"style="color: #ffff">
+                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_seis.print_seis',$paquete->id)}}"style="color: #ffff">
                                                                     <i class="fa fa-print"></i>
                                                                 </a>
                                                             @endif
