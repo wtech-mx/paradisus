@@ -202,6 +202,11 @@
                                                                 <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_cinco.print_cinco',$paquete->id)}}"style="color: #ffff">
                                                                     <i class="fa fa-print"></i>
                                                                 </a>
+                                                            @elseif ($paquete->num_paquete == 6)
+                                                                <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_seis.firma_edit_seis', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+                                                                <a type="button" class="btn btn-success btn-sm" href="{{route('firma_paquete_seis.firma_edit_seis',$paquete->id)}}"style="color: #ffff">
+                                                                    <i class="fa fa-print"></i>
+                                                                </a>
                                                             @endif
                                                         @can('notas-edit')
                                                             @if ($paquete->num_paquete == 1)
@@ -214,6 +219,8 @@
                                                                 <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_cuatro.edit_cuatro',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                             @elseif ($paquete->num_paquete == 5)
                                                                 <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_cinco.edit_cinco',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                            @elseif ($paquete->num_paquete == 6)
+                                                                <a class="btn btn-sm btn-warning" href="{{ route('edit_paquete_seis.edit_seis',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                             @endif
                                                         @endcan
                                                     </td>
