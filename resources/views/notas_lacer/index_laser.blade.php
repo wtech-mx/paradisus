@@ -68,147 +68,158 @@
 
                                         </div>
 
-                                        @foreach ($zonas_lacer as $zona_lacer)
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            @foreach ($zonas_lacer as $index => $zona_lacer)
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link @if ($index === 0) active @endif" id="tab-{{ $index }}" data-bs-toggle="tab" data-bs-target="#zona-{{ $index }}" type="button" role="tab" aria-controls="zona-{{ $index }}" aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
+                                                        {{ $zona_lacer->Zona->zona }}
+                                                    </button>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent">
+                                            @foreach ($zonas_lacer as $index => $zona_lacer)
+                                            <div class="tab-pane fade @if ($index === 0) show active @endif" id="zona-{{ $index }}" role="tabpanel" aria-labelledby="tab-{{ $index }}">
+                                                <div class="col-12 mt-5">
+                                                    <h4>{{$zona_lacer->Zona->zona}}</h4>
+                                                    <div class="table-responsive">
+                                                        <table class="table align-items-left mb-0">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Num. Sesion</th>
+                                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>
+                                                                <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parametros</th>
+                                                                <th class="text-secondary opacity-7">Observaciones</th>
+                                                                <th class="text-secondary opacity-7">IMG Antes</th>
+                                                                <th class="text-secondary opacity-7">IMG Despues</th>
+                                                                <th class="text-secondary opacity-7">Firma</th>
 
-                                            <div class="col-12 mt-5">
-                                                <h4>{{$zona_lacer->Zona->zona}}</h4>
-                                                <div class="table-responsive">
-                                                    <table class="table align-items-left mb-0">
-                                                        <thead>
-                                                        <tr>
-                                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Num. Sesion</th>
-                                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>
-                                                            <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parametros</th>
-                                                            <th class="text-secondary opacity-7">Observaciones</th>
-                                                            <th class="text-secondary opacity-7">IMG Antes</th>
-                                                            <th class="text-secondary opacity-7">IMG Despues</th>
-                                                            <th class="text-secondary opacity-7">Firma</th>
+                                                                <th class="text-secondary opacity-7">Guardar</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                                                                <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+                                                                <script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+                                                                <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
+                                                            @for ($i = 1; $i <= $zona_lacer->sesiones_compradas; $i++)
+                                                                <form method="POST" action="{{ route('store_sesion.lacer') }}" enctype="multipart/form-data" role="form">
+                                                                    @csrf
+                                                                    @php
+                                                                        $registro = $registrosZonas->where('id_zona', '=', $zona_lacer->id_zona)->firstWhere('sesion', $i);
 
-                                                            <th class="text-secondary opacity-7">Guardar</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                                                            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-                                                            <script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
-                                                            <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
-                                                        @for ($i = 1; $i <= $zona_lacer->sesiones_compradas; $i++)
-                                                            <form method="POST" action="{{ route('store_sesion.lacer') }}" enctype="multipart/form-data" role="form">
-                                                                @csrf
-                                                                @php
-                                                                    $registro = $registrosZonas->where('id_zona', '=', $zona_lacer->id_zona)->firstWhere('sesion', $i);
+                                                                        // Verificar si la fila debería estar habilitada
+                                                                        $filaHabilitada = true;
+                                                                        if (
+                                                                            ($nota_laser->tipo === 'Zona Mini' || $nota_laser->tipo === 'Zonas Pequeñas') && $i > 2 ||
+                                                                            ($nota_laser->tipo === 'Zonas Medianas' || $nota_laser->tipo === 'Zonas Grandes') && $i > 4 ||
+                                                                            ($nota_laser->tipo === 'Personalizado' && $i > 4)
+                                                                        ) {
+                                                                            $filaHabilitada = false;
+                                                                        }
 
-                                                                    // Verificar si la fila debería estar habilitada
-                                                                    $filaHabilitada = true;
-                                                                    if (
-                                                                        ($nota_laser->tipo === 'Zona Mini' || $nota_laser->tipo === 'Zonas Pequeñas') && $i > 2 ||
-                                                                        ($nota_laser->tipo === 'Zonas Medianas' || $nota_laser->tipo === 'Zonas Grandes') && $i > 4 ||
-                                                                        ($nota_laser->tipo === 'Personalizado' && $i > 4)
-                                                                    ) {
-                                                                        $filaHabilitada = false;
-                                                                    }
+                                                                        // Verificar si hay restante
+                                                                        $hayRestante = $nota_laser->restante > 0;
+                                                                    @endphp
+                                                                    <tr>
+                                                                        <input type="text" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" style="display: none">
+                                                                        <input type="text" class="form-control" name="id_zona" value="{{$zona_lacer->id_zona}}" style="display: none">
+                                                                        <td>
+                                                                            <input type="number" value="{{$i}}" name="sesion" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
+                                                                        </td>
 
-                                                                    // Verificar si hay restante
-                                                                    $hayRestante = $nota_laser->restante > 0;
-                                                                @endphp
-                                                                <tr>
-                                                                    <input type="text" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" style="display: none">
-                                                                    <input type="text" class="form-control" name="id_zona" value="{{$zona_lacer->id_zona}}" style="display: none">
-                                                                    <td>
-                                                                        <input type="number" value="{{$i}}" name="sesion" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
-                                                                    </td>
+                                                                        <td>
+                                                                            @if ($registro)
+                                                                                <input type="date" value="{{ $registro->fecha }}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
+                                                                            @else
+                                                                                <input type="date" name="fecha" value="{{$fechaActual}}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                                                                            @endif
+                                                                        </td>
 
-                                                                    <td>
-                                                                        @if ($registro)
-                                                                            <input type="date" value="{{ $registro->fecha }}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
-                                                                        @else
-                                                                            <input type="date" name="fecha" value="{{$fechaActual}}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                                                                        @endif
-                                                                    </td>
+                                                                        <td>
+                                                                            @if ($registro)
+                                                                                <input type="text" value="{{$registro->parametros}}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
+                                                                            @else
+                                                                                <select class="form-control" name="parametros" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                                                                                    <option value="70">70</option>
+                                                                                    <option value="75">75</option>
+                                                                                    <option value="80">80</option>
+                                                                                    <option value="85">85</option>
+                                                                                    <option value="90">90</option>
+                                                                                    <option value="95">95</option>
+                                                                                    <option value="100">100</option>
+                                                                                </select>
+                                                                            @endif
+                                                                        </td>
 
-                                                                    <td>
-                                                                        @if ($registro)
-                                                                            <input type="text" value="{{$registro->parametros}}" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
-                                                                        @else
-                                                                            <select class="form-control" name="parametros" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
-                                                                                <option value="70">70</option>
-                                                                                <option value="75">75</option>
-                                                                                <option value="80">80</option>
-                                                                                <option value="85">85</option>
-                                                                                <option value="90">90</option>
-                                                                                <option value="95">95</option>
-                                                                                <option value="100">100</option>
-                                                                            </select>
-                                                                        @endif
-                                                                    </td>
+                                                                        <td>
+                                                                            @if ($registro)
+                                                                                <textarea class="form-control" cols="10" rows="1" readonly>{{ $registro->nota }}</textarea>
+                                                                            @else
+                                                                                <textarea class="form-control" cols="10" rows="1" name="nota"></textarea>
+                                                                            @endif
+                                                                        </td>
 
-                                                                    <td>
-                                                                        @if ($registro)
-                                                                            <textarea class="form-control" cols="10" rows="1" readonly>{{ $registro->nota }}</textarea>
-                                                                        @else
-                                                                            <textarea class="form-control" cols="10" rows="1" name="nota"></textarea>
-                                                                        @endif
-                                                                    </td>
+                                                                        <td>
+                                                                            @if ($registro && $registro->foto1)
+                                                                                <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
+                                                                            @else
+                                                                                <input type="file" name="foto1" class="form-control">
+                                                                            @endif
+                                                                        </td>
 
-                                                                    <td>
-                                                                        @if ($registro && $registro->foto1)
-                                                                            <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
-                                                                        @else
-                                                                            <input type="file" name="foto1" class="form-control">
-                                                                        @endif
-                                                                    </td>
+                                                                        <td>
+                                                                            @if ($registro && $registro->foto2)
+                                                                                <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
+                                                                            @else
+                                                                                <input type="file" name="foto2" class="form-control">
+                                                                            @endif
+                                                                        </td>
 
-                                                                    <td>
-                                                                        @if ($registro && $registro->foto2)
-                                                                            <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
-                                                                        @else
-                                                                            <input type="file" name="foto2" class="form-control">
-                                                                        @endif
-                                                                    </td>
+                                                                        <td>
+                                                                            @if ($registro && $registro->firma)
+                                                                            <img src="{{asset('image/'.$registro->firma)}}" alt="" width="50px">
+                                                                            @else
 
-                                                                    <td>
-                                                                        @if ($registro && $registro->firma)
-                                                                        <img src="{{asset('image/'.$registro->firma)}}" alt="" width="50px">
-                                                                        @else
+                                                                            <div id="sig-pago3_{{ $i }}{{$zona_lacer->id_zona}}"></div>
+                                                                            <br/><br/>
+                                                                            <button id="clear-pago3_{{ $i }}{{$zona_lacer->id_zona}}" class="btn btn-danger btn-sm">Repetir</button>
+                                                                            <textarea id="signed_pago3_{{ $i }}{{$zona_lacer->id_zona}}" name="signed_pago3" style="display: none"></textarea>
+                                                                            @endif
 
-                                                                        <div id="sig-pago3_{{ $i }}"></div>
-                                                                        <br/><br/>
-                                                                        <button id="clear-pago3_{{ $i }}" class="btn btn-danger btn-sm">Repetir</button>
-                                                                        <textarea id="signed_pago3_{{ $i }}" name="signed_pago3" style="display: none"></textarea>
-                                                                        @endif
+                                                                        </td>
+                                                                        <script type="text/javascript">
+                                                                            var sig3{{ $i }}{{$zona_lacer->id_zona}} = $('#sig-pago3_{{ $i }}{{$zona_lacer->id_zona}}').signature({syncField: '#signed_pago3_{{ $i }}{{$zona_lacer->id_zona}}', syncFormat: 'PNG'});
 
-                                                                    </td>
-                                                                    <script type="text/javascript">
-                                                                            var sig3 = $('#sig-pago3_{{ $i }}').signature({syncField: '#signed_pago3_{{ $i }}', syncFormat: 'PNG'});
+                                                                            $('#clear-pago3_{{ $i }}{{$zona_lacer->id_zona}}').click(function (e) {
+                                                                                e.preventDefault();
+                                                                                sig3{{ $i }}{{$zona_lacer->id_zona}}.signature('clear');
+                                                                                $("#signed_pago3_{{ $i }}{{$zona_lacer->id_zona}}").val('');
+                                                                            });
+                                                                        </script>
 
-                                                                        $('#clear-pago3_{{ $i }}').click(function (e) {
-                                                                            e.preventDefault();
-                                                                            sig3.signature('clear');
-                                                                            $("#signed_pago3_{{ $i }}").val('');
-                                                                        });
-                                                                    </script>
+                                                                        <td>
 
-                                                                    <td>
+                                                                            @if (!$hayRestante || $filaHabilitada)
+                                                                                <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                                                                                    G
+                                                                                </button>
+                                                                            @endif
 
-                                                                        @if (!$hayRestante || $filaHabilitada)
-                                                                            <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                                                                                G
-                                                                            </button>
-                                                                        @endif
+                                                                        </td>
 
-                                                                    </td>
+                                                                    </tr>
+                                                                </form>
+                                                            @endfor
 
-                                                                </tr>
-                                                            </form>
-                                                        @endfor
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
 
-                                                        </tbody>
-                                                    </table>
                                                 </div>
-
                                             </div>
-
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
 
                                 </div>
