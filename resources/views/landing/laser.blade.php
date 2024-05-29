@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section class="parallax" style="background-image: url('{{ asset('assets/landing/bg1.webp') }}');">
+<section class="parallax" style="background-image: url('{{ asset('assets/landing/depilacion_laser_bg.jpg') }}');">
     <div class="parallax-content">
 
         <div class="px-4 py-5 my-5 text-center">
@@ -16,7 +16,7 @@
               </p>
 
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <button type="button" class="btn px-4 btn_cta">Solicitar Informacion</button>
+                <a href="https://www.wa.link/tiys58" target="_blank" class="btn px-4 btn_cta">Solicitar Informacion</a>
               </div>
             </div>
           </div>
@@ -330,7 +330,7 @@
     </div>
 </section>
 
-<section class="parallax" style="background-image: url('{{ asset('assets/landing/bg2.webp') }}');">
+<section class="parallax" style="background-image: url('{{ asset('assets/landing/depilacion_laser.jpg') }}');">
     <div class="parallax-content">
 
         <div class="px-4 py-2 my-2 text-center">
@@ -378,7 +378,7 @@
 
         <div class="d-flex justify-content-center">
             <img src="{{ asset('assets/landing/DEPILACION_LASER/PAGINA-WEB-PARADISUS-04.webp') }}" alt="" class="img_seziones">
-            <img src="{{ asset('assets/landing/DEPILACION_LASER/PAGINA-WEB-PARADISUS-04.webp') }}" alt="" class="img_seziones">
+            <img src="{{ asset('assets/landing/DEPILACION_LASER/PAGINA-WEB-PARADS-04.webp') }}" alt="" class="img_seziones">
 
         </div>
 

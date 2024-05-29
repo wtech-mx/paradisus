@@ -299,7 +299,7 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
         <div class="container">
             <h3 class="tittle_lase_section text-left color_blanco">FACIALES</h3>
-            <h3 class="service_title mb-3 color_blanco">Masaje Antiedad</h3>
+            <h3 class="service_title mb-3 color_blanco">Antiedad</h3>
             <div class="row">
                 <div class="col-12 my-auto">
                     <p class="subtext_lase color_blanco">

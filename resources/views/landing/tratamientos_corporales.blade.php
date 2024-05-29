@@ -16,7 +16,7 @@
 
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <button type="button" class="btn px-4 btn_cta">Ver Catalogo</button>
-              </div>
+              </div>            
             </div>
           </div>
 

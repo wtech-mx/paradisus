@@ -24,7 +24,7 @@
               <p class="text_hero">Llegaste al lugar indicado!</p>
 
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <button type="button" class="btn px-4 btn_cta">Agendar una cita</button>
+                <a href="https://www.wa.link/tiys58" target="_blank" class="btn px-4 btn_cta">Agendar una cita</a>
                 <a type="button" class="btn px-4 btn_cta" href="{{ route('index_contacto.landingpage') }}">Conocenos</a>
               </div>
             </div>

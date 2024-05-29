@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section class="parallax" style="background-image: url('{{ asset('assets/landing/bg1.webp') }}');">
+<section class="parallax" style="background-image: url('{{ asset('assets/landing/paquetes/PORTADA-EXPERIENCIAS.png') }}');">
     <div class="parallax-content">
 
         <div class="px-4 py-5 my-5 text-center">
@@ -17,7 +17,7 @@
               </p>
 
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a type="button" class="btn px-4 btn_cta" href="{{ route('index_contacto.landingpage') }}">Solicitar informacion</a>
+                <a href="https://www.wa.link/tiys58" target="_blank" class="btn px-4 btn_cta" href="{{ route('index_contacto.landingpage') }}">Solicitar informacion</a>
               </div>
             </div>
           </div>

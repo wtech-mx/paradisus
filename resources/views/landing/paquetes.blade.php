@@ -17,7 +17,7 @@
               </p>
 
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <button type="button" class="btn px-4 btn_cta">Ver Catalogo</button>
+                <a href="https://www.wa.link/tiys58" target="_blank" class="btn px-4 btn_cta">Ver Catalogo</a>
               </div>
             </div>
           </div>
@@ -227,7 +227,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="margin: -10px 0px 0px 0px;padding: 0;"><path fill="#fff" fill-opacity="1" d="M0,160L60,170.7C120,181,240,203,360,202.7C480,203,600,181,720,160C840,139,960,117,1080,96C1200,75,1320,53,1380,42.7L1440,32L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 my-auto">
                 <div class="container">
-                    <h3 class="tittle_lase_section text-left color_blanco">MI ROSTRO PERFECTO POST</h3>
+                    <h3 class="tittle_lase_section text-left color_blanco">MI ROSTRO PERFECTO</h3>
                     <div class="row">
                         <div class="col-12 my-auto">
                             <h3 class="service_title mb-3 color_blanco">INCLUYE</h3>
@@ -288,7 +288,10 @@
                         <div class="col-12 my-auto">
                             <h3 class="service_title mb-3 color_blanco">INCLUYE</h3>
                             <p class="subtext_lase color_blanco">
-
+                                · 5 Sesiones de Vacumterapia <br>
+                                · 2 Sesiones de Electroestimulación <br>
+                                · 2 Sesiones de Radiofrecuencia <br>
+                                · 3 Sesiones de Maderoterpia o Manual <br>
                             </p>
                         </div>
                         <div class="col-6 mb-3">
@@ -298,7 +301,8 @@
                         </div>
                         <div class="col-6 mb-3">
                             <a href="" class="btn_comprar_paquete" style="background-color: #fff;color:#CB95A2;">
-                               <strong> $ MN</strong>
+                                De : $5,200.0 <br>
+                                <strong>A : $4,800.0</strong>
                             </a>
                         </div>
 
@@ -429,7 +433,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/paquetes/MOLDEANTE_Y_REDUCTIVO.jpg') }}" class="img_corporales ligthbox_img" alt="">
+                        <img src="{{ asset('assets/landing/paquetes/DESPIGMENTACI_N_CORPORAL.jpg') }}" class="img_corporales ligthbox_img" alt="">
                     </div>
                 </div>
             </div>

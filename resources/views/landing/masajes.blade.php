@@ -224,16 +224,12 @@
             <div class="carousel-inner">
                 <div class="carousel-item active ">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('assets/landing/experiencias/Mejores_Amigas.png') }}" class="img_corporales ligthbox_img mb-5 mb-md-2 mb-lg-0 mt-5 mt-md-2 mt-lg-0" alt="">
+                        <img src="{{ asset('assets/landing/experiencias/MASAJE_MEJORES_AMIGAS.jpg') }}" class="img_corporales ligthbox_img mb-5 mb-md-2 mb-lg-0 mt-5 mt-md-2 mt-lg-0" alt="">
                     </div>
                 </div>
 
 
             </div>
-
-
-
-
           </div>
     </div>
 

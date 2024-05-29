@@ -41,6 +41,28 @@
             display: inline-block;
             color: black;
         }
+
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 30px;
+            z-index: 99;
+            /* font-size: 18px; */
+            border: none;
+            outline: none;
+            background-color: #B16878;
+            border: solid 3px;
+            color: white;
+            cursor: pointer;
+            padding: 10px 13px 10px 13px;
+            border-radius: 54px;
+        }
+
+            #myBtn:hover {
+            background-color: #555;
+            }
+
     </style>
 
 </head>
@@ -101,6 +123,9 @@
 </nav>
 
 <body class="">
+    <button onclick="topFunction()" id="myBtn" title="Volver Arriba">
+        <img class="" src="{{ asset('assets/landing/punta-de-flecha-hacia-arriba.png') }}" style="width: 20px">
+    </button>
 
   {{-- <div id="page-loader"><span class="preloader-interior"></span></div> --}}
 
@@ -136,7 +161,7 @@
             <div class="d-flex justify-content-center">
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 footer_tittle text-center">
+                        <a href="https://www.wa.link/tiys58" class="nav-link p-0 footer_tittle text-center">
                             5549204641 <br>
                             <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/WHATSAPP-01.webp') }}" alt="Logo paradisus">
                         </a>
@@ -152,12 +177,13 @@
 
             <div class="d-flex justify-content-center">
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 footer_tittle text-center">
-                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/FACEBOOK-01.webp') }}" alt="Logo paradisus">
-                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/TIKTOK-01.webp') }}" alt="Logo paradisus">
-                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/INSTAGRAM-01.webp') }}" alt="Logo paradisus">
+                    <li class="nav-item mb-2" style="display: flex;">
 
+                        <a href="#" target="_blank" class="nav-link p-0 footer_tittle text-center">
+                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/TIKTOK-01.webp') }}" alt="Logo paradisus">
+                        </a>
+                        <a href="https://www.instagram.com/paradisus_spa/?hl=es" target="_blank" class="nav-link p-0 footer_tittle text-center">
+                            <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/INSTAGRAM-01.webp') }}" alt="Logo paradisus">
                         </a>
                     </li>
                 </ul>
@@ -190,7 +216,27 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
   {{-- <script src="{{ asset('assets/js/preloader.js')}}"></script> --}}
+  <script>
+    // Get the button
+    let mybutton = document.getElementById("myBtn");
 
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+    </script>
   <script>function checkSlide() {
     const animatedItems = document.querySelectorAll('.animated-slide-in');
     animatedItems.forEach(item => {
