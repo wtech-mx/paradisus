@@ -17,7 +17,7 @@
               </p>
 
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a href="https://www.wa.link/tiys58" target="_blank" class="btn px-4 btn_cta">Ver Catalogo</a>
+                <a href="{{ asset('assets/landing/CATALOGO_SERVICIOS_NUEVO.PDF') }}" target="_blank" class="btn px-4 btn_cta">Ver Catalogo</a>
               </div>
             </div>
           </div>
