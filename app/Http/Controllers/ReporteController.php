@@ -9,6 +9,7 @@ use DB;
 use App\Models\Client;
 use App\Models\Notas;
 use App\Models\NotasCosmes;
+use App\Models\NotasLacer;
 use App\Models\NotasPedidos;
 use App\Models\Paquetes;
 use Carbon\Carbon;
@@ -187,6 +188,27 @@ class ReporteController extends Controller
             }
 
         return view('reportes.index', compact('pedidos_total', 'servicios_total', 'reporte','totalNotaTrans','totalNotaTarjeta','totalNotaEfectivo','totalProductoTrans','totalProductoTarjeta','totalProductoEfectivo','totalPaqueteTrans','totalPaqueteTarjeta','totalPaqueteEfectivo'));
+    }
+
+
+    public function index_paquetes(){
+        $paquetesFaciales = Notas::join('notas_paquetes', 'notas.id', '=', 'notas_paquetes.id_nota')
+        ->Join('pagos', 'notas.id', '=', 'pagos.id_nota')
+        ->where(function($query) {
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142, 270])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142, 270])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142, 270])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142, 270]);
+        })
+        ->select('notas.*')
+        ->groupBy('notas.id')
+        ->get();
+
+        $paquetesCorporales = Paquetes::get();
+
+        $paquetesLaser = NotasLacer::where('tipo', '!=', 'Sesiones')->get();
+
+        return view('reportes.reporte_paquetes', compact('paquetesFaciales', 'paquetesCorporales', 'paquetesLaser'));
     }
 
     public function advance(Request $request) {

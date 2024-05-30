@@ -125,6 +125,7 @@ Route::get('/clients/cosme/cons/brow/{id}', [App\Http\Controllers\Consentimiento
 Route::get('/clients/cosme/cons/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_lash'])->name('lash_clients_consen.cosme');
 
 Route::group(['middleware' => ['auth']], function() {
+
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/show/{id}', [App\Http\Controllers\RoleController::class, 'show'])->name('roles.show');
     Route::get('/roles/create', [App\Http\Controllers\RoleController::class, 'create'])->name('roles.create');
@@ -257,6 +258,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
     Route::patch('calendar/destroy/{id}', [AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
     Route::patch('calendar/update/{id}', [AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
+    // Route::post('/buscar-disponibilidad', [AlertasController::class, 'buscarDisponibilidad'])->name('buscarDisponibilidad');
+    // Route::post('/guardarCita', [AlertasController::class, 'guardarCita'])->name('guardarCita');
+
+    // Route::post('/buscarHorariosDisponibles', [AlertasController::class, 'buscarHorariosDisponibles'])->name('buscarHorariosDisponibles');
+    // Route::post('/buscarCosmesDisponibles', [AlertasController::class, 'buscarCosmesDisponibles'])->name('buscarCosmesDisponibles');
+
 
     /*|--------------------------------------------------------------------------
     |Colores
@@ -360,3 +367,8 @@ Route::view('/especialists', 'livewire.especialists.index')->middleware('auth');
 |--------------------------------------------------------------------------*/
 Route::get('/configuracion', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('index.configuracion');
 Route::patch('/configuracion/update', [App\Http\Controllers\ConfiguracionController::class, 'update'])->name('update.configuracion');
+
+/*|--------------------------------------------------------------------------
+|Reporte paquetes
+|--------------------------------------------------------------------------*/
+Route::get('/reporte/paquetes', [App\Http\Controllers\ReporteController::class, 'index_paquetes'])->name('index.reporte_paquetes');
