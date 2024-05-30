@@ -373,6 +373,13 @@
                         <span class="sidenav-normal">Reporte</span>
                     </a>
 
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (Request::is('/reporte/paquetes*') ? 'show' : '') }}" href="{{ route('index.reporte_paquetes') }}">
+                            <span class="sidenav-mini-icon"> P </span>
+                            <span class="sidenav-normal">Reporte Paquetes</span>
+                        </a>
+                    </li>
+
                     @can('encuestas')
                         <a class="nav-link {{ (Request::is('encuestas*') ? 'show' : '') }}" href="{{ route('index.encuestas') }}">
                             <span class="sidenav-mini-icon"> P </span>
