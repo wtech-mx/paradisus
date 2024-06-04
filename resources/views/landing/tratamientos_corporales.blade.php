@@ -1,7 +1,11 @@
 @extends('layouts.app_landing')
 
-@section('content')
+@section('template_title')
+    Tratamientos Corporales
+@endsection
 
+
+@section('content')
 
 <section class="parallax" style="background-image: url('{{ asset('assets/landing/tratamientos.webp') }}');">
     <div class="parallax-content">
@@ -77,7 +81,7 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                            <a href="" class="btn_comprar_paquete">Agendar</a><br>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a><br>
                         </div>
                     </div>
                 </div>
@@ -219,7 +223,7 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                    <a href="" class="btn_comprar_paquete color_blanco">Agendar</a>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete color_blanco">Agendar</a>
                 </div>
             </div>
 
@@ -283,7 +287,7 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                            <a href="" class="btn_comprar_paquete">Agendar</a><br>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a><br>
                         </div>
                     </div>
                 </div>
@@ -416,7 +420,7 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                    <a href="" class="btn_comprar_paquete">Agendar</a><br>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a><br>
                 </div>
             </div>
 
@@ -478,7 +482,7 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                            <a href="" class="btn_comprar_paquete">Agendar</a><br>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a><br>
                         </div>
                     </div>
                 </div>
@@ -613,7 +617,7 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                    <a href="" class="btn_comprar_paquete">Agendar</a><br>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a><br>
                 </div>
             </div>
 
@@ -677,7 +681,7 @@
                             </p>
                         </div>
                         <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                            <a href="" class="btn_comprar_paquete">Agendar</a><br>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a><br>
                         </div>
                     </div>
                 </div>
@@ -812,7 +816,7 @@
                     </p>
                 </div>
                 <div class="col-6 col-md-6 col-lg-4 my-auto mb-5">
-                    <a href="" class="btn_comprar_paquete">Agendar</a><br>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a><br>
                 </div>
             </div>
         </div>

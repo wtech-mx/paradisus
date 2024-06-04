@@ -1,5 +1,10 @@
 @extends('layouts.app_landing')
 
+
+@section('template_title')
+    Paquetes
+@endsection
+
 @section('content')
 
 
@@ -48,7 +53,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -111,7 +116,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -143,7 +148,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -206,7 +211,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -241,7 +246,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -295,7 +300,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -358,7 +363,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -391,7 +396,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -453,7 +458,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>
@@ -485,7 +490,7 @@
                             </p>
                         </div>
                         <div class="col-6 mb-3">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Comprar paquete
                             </a>
                         </div>

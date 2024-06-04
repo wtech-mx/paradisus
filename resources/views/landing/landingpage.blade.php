@@ -1,5 +1,10 @@
 @extends('layouts.app_landing')
 
+@section('template_title')
+    Inicio
+@endsection
+
+
 @section('content')
 
 <style>
@@ -56,7 +61,7 @@
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
-                                <a href="">
+                                <a href="{{ route('tratamientos_corporales.landingpage') }}">
                                     <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_CORPORALES.png') }}" class="w-100" alt="...">
                                 </a>
                                 <a href="{{ route('tratamientos_corporales.landingpage') }}" class="texo_services_icons">
@@ -67,7 +72,9 @@
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
-                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_FACIALES.png') }}" class="w-100" alt="...">
+                                <a href="{{ route('tratamientos_faciales.landingpage') }}">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_FACIALES.png') }}" class="w-100" alt="...">
+                                </a>
                                 <a href="{{ route('tratamientos_faciales.landingpage') }}" class="texo_services_icons">
                                     Faciales
                                 </a>
@@ -76,8 +83,10 @@
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
-                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="w-100" alt="...">
-                                <a href="" class="texo_services_icons">
+                                <a href="{{ route('experiencias.landingpage') }}">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_EXPERIENCIAS.png') }}" class="w-100" alt="...">
+                                </a>
+                                <a href="{{ route('experiencias.landingpage') }}" class="texo_services_icons">
                                     Experiencias
                                 </a>
                             </p>
@@ -85,8 +94,10 @@
 
                         <div class="col-6  col-md-2 col-lg-2">
                             <p class="text-center">
-                            <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="w-100" alt="...">
-                                <a href="" class="texo_services_icons">
+                                <a href="{{ route('paquetes.landingpage') }}">
+                                    <img src="{{ asset('assets/landing/ICONOS_BOTONES/BOTON_PAQUETES.png') }}" class="w-100" alt="...">
+                                </a>
+                                <a href="{{ route('paquetes.landingpage') }}" class="texo_services_icons">
                                     Paquetes
                                 </a>
                             </p>

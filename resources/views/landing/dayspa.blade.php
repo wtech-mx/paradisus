@@ -1,7 +1,11 @@
 @extends('layouts.app_landing')
 
-@section('content')
+@section('template_title')
+    Day Spa
+@endsection
 
+
+@section('content')
 
 <section class="row">
     <div class="col-12 my-auto">
@@ -75,7 +79,7 @@
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 my-auto">
-                            <a href="" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
 
                             <a href="" class="btn_comprar_paquete text-center mb-4 w-100" style="color:#fff;">
                                $900.0
@@ -180,7 +184,7 @@
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 my-auto">
-                            <a href="" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
 
                             <a href="" class="btn_comprar_paquete text-center mb-4 w-100" style="color:#fff;">
                                 $1,800.0
@@ -217,7 +221,7 @@
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 my-auto">
-                            <a href="" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
 
                             <a href="" class="btn_comprar_paquete text-center mb-4 w-100" style="color:#fff;">
                                 $1,700.0
@@ -321,7 +325,7 @@
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 my-auto">
-                            <a href="" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
 
                             <a href="" class="btn_comprar_paquete text-center mb-4 w-100" style="color:#fff;">
                                 $10,125.0
@@ -355,7 +359,7 @@
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 my-auto">
-                            <a href="" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
 
                             <a href="" class="btn_comprar_paquete text-center mb-4 w-100" style="color:#fff;">
                                 $1,600.0
@@ -372,7 +376,7 @@
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 my-auto">
-                            <a href="" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete text-center w-100 mb-4 mb-md-3 mb-lg-4">Agendar</a>
 
                             <a href="" class="btn_comprar_paquete text-center mb-4 w-100" style="color:#fff;">
                                 $2,000.0

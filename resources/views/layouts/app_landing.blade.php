@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon/'. $configuracion->favicon) }}">
   <link rel="icon" type="image/png" href="{{ asset('favicon/'. $configuracion->favicon) }}">
   <title>
-    @yield('template_title') - Paradisus
+    Paradisus - @yield('template_title')
   </title>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -166,6 +166,11 @@
                             <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/WHATSAPP-01.webp') }}" alt="Logo paradisus">
                         </a>
                     </li>
+                    <li class="nav-item mb-2">
+                        <a href="sistema/login" target="_blank" class="nav-link p-0 footer_tittle text-center">
+                            Iniciar Sesion
+                        </a>
+                    </li>
                 </ul>
             </div>
           </div>
@@ -185,6 +190,7 @@
                         <a href="https://www.instagram.com/paradisus_spa/?hl=es" target="_blank" class="nav-link p-0 footer_tittle text-center">
                             <img class="img_icono_footer" src="{{ asset('assets/landing/ICONOS_BOTONES/INSTAGRAM-01.webp') }}" alt="Logo paradisus">
                         </a>
+
                     </li>
                 </ul>
             </div>

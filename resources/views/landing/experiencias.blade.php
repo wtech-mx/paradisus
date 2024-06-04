@@ -1,7 +1,11 @@
 @extends('layouts.app_landing')
 
-@section('content')
+@section('template_title')
+    Experiencias
+@endsection
 
+
+@section('content')
 
 <section class="parallax" style="background-image: url('{{ asset('assets/landing/paquetes/PORTADA-EXPERIENCIAS.png') }}');">
     <div class="parallax-content">
@@ -104,7 +108,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Agendar
                             </a>
                         </div>
@@ -173,7 +177,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Agendar
                             </a>
                         </div>
@@ -210,7 +214,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Agendar
                             </a>
                         </div>
@@ -279,7 +283,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Agendar
                             </a>
                         </div>
@@ -313,7 +317,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6 mb-4 mb-md-3 mb-lg-4">
-                            <a href="" class="btn_comprar_paquete">
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">
                                 Agendar
                             </a>
                         </div>

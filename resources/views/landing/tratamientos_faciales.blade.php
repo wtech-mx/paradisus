@@ -1,7 +1,11 @@
 @extends('layouts.app_landing')
 
-@section('content')
+@section('template_title')
+    Tratamientos Faciales
+@endsection
 
+
+@section('content')
 
 <section class="parallax" style="background-image: url('{{ asset('assets/landing/bg2.webp') }}');">
     <div class="parallax-content">
@@ -62,7 +66,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                            <a href="" class="btn_comprar_paquete">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
                 </div>
@@ -174,7 +178,7 @@
                     </p>
                 </div>
                 <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                    <a href="" class="btn_comprar_paquete color_blanco">Agendar</a>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete color_blanco">Agendar</a>
                 </div>
             </div>
 
@@ -220,7 +224,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                            <a href="" class="btn_comprar_paquete">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
                 </div>
@@ -331,7 +335,7 @@
                     </p>
                 </div>
                 <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                    <a href="" class="btn_comprar_paquete">Agendar</a>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a>
                 </div>
             </div>
 
@@ -375,7 +379,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                            <a href="" class="btn_comprar_paquete">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
                 </div>
@@ -485,7 +489,7 @@
                     </p>
                 </div>
                 <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                    <a href="" class="btn_comprar_paquete">Agendar</a>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a>
                 </div>
             </div>
 
@@ -532,7 +536,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                            <a href="" class="btn_comprar_paquete">Agendar</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a>
                         </div>
                     </div>
                 </div>
@@ -642,7 +646,7 @@
                     </p>
                 </div>
                 <div class="col-12 col-md-4 col-lg-4 mb-4 mb-md-0 mb-lg-0">
-                    <a href="" class="btn_comprar_paquete">Agendar</a>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Agendar</a>
                 </div>
             </div>
 

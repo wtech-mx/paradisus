@@ -10,6 +10,7 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\AlertasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,7 @@ use App\Http\Controllers\AlertasController;
 |
 */
 
-Route::get('/', function () {
+Route::get('sistema/login', function () {
     return view('auth.login');
 });
 
@@ -33,8 +34,7 @@ Route::get('iniciar_sesion', function () {
 
 // =============== M O D U L O   L A N D I N G  P A G E ===============================
 
-
-Route::get('/inicio', [App\Http\Controllers\LandingPageController::class, 'index'])->name('index.landingpage');
+Route::get('/', [App\Http\Controllers\LandingPageController::class, 'index'])->name('index.landingpage');
 Route::get('/inicio/laser', [App\Http\Controllers\LandingPageController::class, 'index_laser'])->name('index_laser.landingpage');
 Route::get('/inicio/contacto', [App\Http\Controllers\LandingPageController::class, 'index_contacto'])->name('index_contacto.landingpage');
 Route::get('/tratamientos/corporales', [App\Http\Controllers\LandingPageController::class, 'tratamientos_corporales'])->name('tratamientos_corporales.landingpage');

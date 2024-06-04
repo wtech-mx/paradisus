@@ -1,7 +1,11 @@
 @extends('layouts.app_landing')
 
-@section('content')
+@section('template_title')
+    Depilacion Laser
+@endsection
 
+
+@section('content')
 
 <section class="parallax" style="background-image: url('{{ asset('assets/landing/depilacion_laser_bg.jpg') }}');">
     <div class="parallax-content">
@@ -42,7 +46,7 @@
                         </div>
                         <div class="col-12">
                             <h5 class="precio_laser mb-4"> $2,160 </h5>
-                            <a href="" class="btn_comprar_paquete">Comprar Paquete</a>
+                            <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Comprar Paquete</a>
                         </div>
                     </div>
                     <p class="mini_subtext_paradisus mt-3">
@@ -105,7 +109,7 @@
 
                     <div class="col-12 col-sm-6 col-md-7 col-lg-7">
                         <h5 class="precio_laser_negative mb-4"> $3,690 </h5>
-                        <a href="" class="btn_comprar_paquete_negative">Comprar Paquete</a>
+                        <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete_negative">Comprar Paquete</a>
                     </div>
                 </div>
                 <p class="mini_subtext_paradisus mt-3 color_blanco">
@@ -167,7 +171,7 @@
                 </div>
                 <div class="col-12 col-sm-12 col-md-5 col-lg-5 my-auto">
                         <h5 class="precio_laser mb-4"> $12,000 </h5>
-                        <a href="" class="btn_comprar_paquete">Comprar Paquete</a>
+                        <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Comprar Paquete</a>
                 </div>
                 <p class="mini_subtext_paradisus mt-3">
                     Te aseguramos que NO tendrás que pagar más sesiones, te brindamos resultados reales,
@@ -225,7 +229,7 @@
         <div class="col-12 col-sm-6 col-md-7 col-lg-7">
 
                     <h5 class="precio_laser_negative mb-4"> $15,000</h5>
-                    <a href="" class="btn_comprar_paquete_negative">Comprar Paquete</a>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete_negative">Comprar Paquete</a>
                 </div>
             </div>
             <p class="mini_subtext_paradisus mt-3 color_blanco">
@@ -285,7 +289,7 @@
 
                     <h5 class="precio_laser mb-4"> $60,000
                     </h5>
-                    <a href="" class="btn_comprar_paquete">Comprar Paquete</a>
+                    <a href="https://www.wa.link/tiys58" target="_blank" class="btn_comprar_paquete">Comprar Paquete</a>
                 </div>
             </div>
             <p class="mini_subtext_paradisus mt-3">
