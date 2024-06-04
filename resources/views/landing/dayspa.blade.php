@@ -104,8 +104,8 @@
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/experiencias/DAY SPA CUMPLEAÑOS 2024.mov') }}" type="video/mp4">
+                        <video width="350" controls autoplay muted>
+                            <source src="{{ asset('assets/landing/experiencias/DAY_SPA_CUMPLEAÑOS_2024.mov') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -144,8 +144,8 @@
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/experiencias/DAY SPA CUMPLEAÑOS 2024.mov') }}" type="video/mp4">
+                        <video width="350" controls autoplay muted>
+                            <source src="{{ asset('assets/landing/experiencias/DAY_SPA_CUMPLEAÑOS_2024.mov') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -246,8 +246,8 @@
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/experiencias/DAY SPA ANIVERSARIO 2024.mov') }}" type="video/mp4">
+                        <video width="350" controls autoplay muted>
+                            <source src="{{ asset('assets/landing/experiencias/DAY_SPA_ANIVERSARIO_2024.mov') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -285,8 +285,8 @@
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/experiencias/DESPEDIDA SOLTERA.mp4') }}" type="video/mp4">
+                        <video width="350" controls autoplay muted>
+                            <source src="{{ asset('assets/landing/experiencias/DESPEDIDA_SOLTERA.mp4') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -401,8 +401,8 @@
 
                 <div class="carousel-item ">
                     <div class="d-flex justify-content-center">
-                        <video width="350" controls autoplay>
-                            <source src="{{ asset('assets/landing/experiencias/DESPEDIDA SOLTERA DOMICILIO.mov') }}" type="video/mp4">
+                        <video width="350" controls autoplay muted>
+                            <source src="{{ asset('assets/landing/experiencias/DESPEDIDA_SOLTERA_DOMICILIO.mov') }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
