@@ -114,14 +114,20 @@
                                             <td></td>
                                             <td>
                                                 @php
-                                                    $resultadoFormateado = number_format(
-                                                        ($user_pago->sueldo_base + $totalIngresos + $totalBonoComida) - $totalDescuentos,
-                                                        2, // Número de decimales
-                                                        '.', // Separador decimal
-                                                        ',' // Separador de miles
-                                                    );
-                                                @endphp
-                                                <b>${{$resultadoFormateado}}</b></td>
+                                                $sueldoBase = (float) $user_pago->sueldo_base;
+                                                $totalIngresos = (float) $totalIngresos;
+                                                $totalBonoComida = (float) $totalBonoComida;
+                                                $totalDescuentos = (float) $totalDescuentos;
+
+                                                $resultadoFormateado = number_format(
+                                                    ($sueldoBase + $totalIngresos + $totalBonoComida) - $totalDescuentos,
+                                                    2, // Número de decimales
+                                                    '.', // Separador decimal
+                                                    ',' // Separador de miles
+                                                );
+                                            @endphp
+                                            <b>${{ $resultadoFormateado }}</b>
+
                                         </tr>
                                     </tbody>
                             </table>
