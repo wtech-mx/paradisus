@@ -89,12 +89,7 @@
                                         </div>
                                         <div class="col-4">
                                         <b>
-                                            @if ($notaServicio->id == 5101)
-                                            $1000
-                                            @else
                                             ${{$primerPago}}
-                                            @endif
-
                                         </b>
                                         </div>
                                     </div>
