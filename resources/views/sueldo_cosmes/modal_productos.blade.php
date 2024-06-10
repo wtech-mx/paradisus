@@ -88,7 +88,14 @@
                                             <a href="{{ route('notas.edit',$notaServicio->id) }}" target="_blank">Numero de nota: {{$notaServicio->id}}</a>
                                         </div>
                                         <div class="col-4">
-                                        <b>${{$primerPago}}</b>
+                                        <b>
+                                            @if ($notaServicio->id == 5101)
+                                            $1000
+                                            @else
+                                            ${{$primerPago}}
+                                            @endif
+
+                                        </b>
                                         </div>
                                     </div>
                                 @endif
