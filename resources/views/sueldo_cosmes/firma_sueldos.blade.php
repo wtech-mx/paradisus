@@ -234,7 +234,7 @@
                                                     if (count($intersect) > 0) {
                                                         // Verificar si al menos un servicio es diferente de los valores deseados
                                                         if (count($diff) > 0 || count($intersect) > 1) {
-                                                            $primerPago = ($notaServicio->primer_pago / 2) + 500;
+                                                            $primerPago = $notaServicio->primer_pago / 2;
                                                             $sumaPancho += $primerPago;
                                                         }
                                                     }
@@ -242,7 +242,7 @@
                                             }
                                         }
 
-                                        $sumaTotales = $sumaPedidos + $sumaServicios + $sumaPancho;
+                                        $sumaTotales = $sumaPedidos + $sumaServicios + $sumaPancho + 500;
                                         // Calcular la comisión según la lógica proporcionada
                                         if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
                                             $comision = $sumaTotales * 0.03;
