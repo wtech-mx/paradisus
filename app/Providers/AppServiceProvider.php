@@ -35,9 +35,6 @@ class AppServiceProvider extends ServiceProvider
             $fechaActual = date('Y-m-d');
 
             $clients = Client::orderBy('id','DESC')->get();
-            $productos = Productos::orderBy('nombre','ASC')->get();
-
-
             // Obtener el mes actual
             $mesActual = date('m');
 
@@ -81,7 +78,11 @@ class AppServiceProvider extends ServiceProvider
             ->orderby('name', 'ASC')
             ->get();
 
-            $view->with(['user_pagos' => $user_pagos,'configuracion' => $configuracion,'productos' => $productos, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
+            $user_recepcion = User::where('puesto', 'Recepcionista')
+            ->orderby('name', 'ASC')
+            ->get();
+
+            $view->with(['user_pagos' => $user_pagos,'user_recepcion' => $user_recepcion,'configuracion' => $configuracion, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
         });
     }
 }

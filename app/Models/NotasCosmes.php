@@ -10,6 +10,7 @@ class NotasCosmes extends Model
     use HasFactory;
 
     protected $table = 'notas_cosmes';
+    public $timestamps = false;
 
     protected $fillable = [
         'id_nota',

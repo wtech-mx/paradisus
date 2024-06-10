@@ -258,11 +258,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
     Route::patch('calendar/destroy/{id}', [AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
     Route::patch('calendar/update/{id}', [AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
-    // Route::post('/buscar-disponibilidad', [AlertasController::class, 'buscarDisponibilidad'])->name('buscarDisponibilidad');
-    // Route::post('/guardarCita', [AlertasController::class, 'guardarCita'])->name('guardarCita');
 
-    // Route::post('/buscarHorariosDisponibles', [AlertasController::class, 'buscarHorariosDisponibles'])->name('buscarHorariosDisponibles');
-    // Route::post('/buscarCosmesDisponibles', [AlertasController::class, 'buscarCosmesDisponibles'])->name('buscarCosmesDisponibles');
+    Route::get('/buscar-disponibilidad', [AlertasController::class, 'buscarDisponibilidad'])->name('buscarDisponibilidad');
+
+    Route::post('/calendar/notas/store', [App\Http\Controllers\AlertasController::class, 'store_agenda'])->name('store_agenda.notas');
+    Route::post('/calendar/notas/manual/store', [App\Http\Controllers\AlertasController::class, 'store_agenda_manual'])->name('store_agenda_manual.notas');
 
 
     /*|--------------------------------------------------------------------------

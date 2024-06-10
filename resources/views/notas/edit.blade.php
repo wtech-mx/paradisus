@@ -588,12 +588,15 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-1">
-                                                    <div class="form-group">
-                                                        <label for="num_sesion">sesion</label>
-                                                        <input  id="sesion" name="sesion" type="number" class="form-control">
-                                                    </div>
+                                                <div class="col-6 mb-5">
+                                                    <label for="id_user" class="form-label">Cosmes</label><br>
+                                                    <select multiple class="form-control cosme_sesion_edit" id="id_user" name="id_user[]" required style="width: 300px;">
+                                                        @foreach($user_pagos as $usuario)
+                                                            <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
+
                                                 <div class="col-3">
                                                     <div class="form-group">
                                                         <label for="nota">Nota</label>
@@ -748,6 +751,7 @@
                 $('.servicio2').select2();
                 $('.servicio3').select2();
                 $('.servicio4').select2();
+                $('.cosme_sesion_edit').select2();
 
 
             // Obtiene los radio buttons de editar campos

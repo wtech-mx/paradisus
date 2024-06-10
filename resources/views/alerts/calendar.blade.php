@@ -31,7 +31,7 @@
 
 @endsection
 
-@section('js_custom')
+@section('select2')
 <script src="{{ asset('assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -40,6 +40,12 @@
 <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluir Moment.js desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Incluir el archivo de idioma de Moment.js para español -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es.min.js"></script>
         @php
         $Y = date('Y') ;
         $M = date('m');
@@ -47,6 +53,22 @@
         $Fecha = $Y."-".$M."-".$D;
 
        @endphp
+
+<script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.user').select2();
+        $('.cliente').select2();
+        $('.multi_cosme').select2();
+        $('.servicios').select2();
+
+        $('.user_manual').select2();
+        $('.cliente_manual').select2();
+        $('.multi_cosme_manual').select2();
+        $('.servicios_manual').select2();
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -89,7 +111,8 @@
 
           events:"{{ route('calendar.show_calendar') }}",
 
-            dateClick:function (info) {
+        // ======================= M O D A L  P A R A  N U E V A  C I T A =======================
+        dateClick:function (info) {
 
             limpiarFormulario();
             $("#btnAgregar").prop("disabled",false);
@@ -109,8 +132,9 @@
               }
             $('#exampleModal').modal('toggle');
           },
+        // ======================= E N D  M O D A L  P A R A  N U E V A  C I T A =======================
 
-            eventClick:function (info) {
+        eventClick:function (info) {
 
             $("#btnAgregar").prop("disabled",true);
             $("#btnModificar").prop("disabled",false);
@@ -151,14 +175,14 @@
             $('#txtHora').val(horario);
             $('#txtHorafin').val(horario2);
             $('#id_client').val(info.event.extendedProps.id_client);
-            $('#cliente_id').val(info.event.extendedProps.cliente_id);
+            $('#cliente_id').val(info.event.extendedProps.id_client);
             $('#resourceId').val(info.event._def.resourceIds);
             $('#id_especialist').val(info.event.extendedProps.id_especialist);
             $('#title').val(info.event.title);
             $('#txtNota').val(info.event.extendedProps.id_nota);
             $('#txtTelefono').val(info.event.extendedProps.telefono);
             $('#color').val(info.event.backgroundColor);
-            $('#id_color').val(info.event.extendedProps.id_color);
+            $('#id_servicio').val(info.event.extendedProps.id_servicio);
             $('#descripcion').val(info.event.extendedProps.descripcion);
             $('#id_status').val(info.event.extendedProps.id_status);
             $('#image').val(info.event.extendedProps.image);
@@ -273,7 +297,7 @@
               id_status:$('#id_status').val(),
               image:$('#image').val()+imageDefault,
               color:$('#color').val(),
-              id_color:$('#id_color').val(),
+              id_servicio:$('#id_servicio').val(),
               cliente_id:$('#cliente_id').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
@@ -295,7 +319,7 @@
               id_status:$('#id_status').val(),
               image:$('#image').val(),
               color:$('#color').val(),
-              id_color:$('#id_color').val(),
+              id_servicio:$('#id_servicio').val(),
               cliente_id:$('#cliente_id').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
@@ -346,16 +370,118 @@
             $('#txtHora').val("");
             $('#txtHorafin').val("");
             $('#color').val("");
-            $('#id_color').val("");
+            $('#id_servicio').val("");
             $('#cliente_id').val("");
             $('#descripcion').val("");
             $('#id_status').val("");
             $('#image').val("");
       }
     });
+</script>
 
-  </script>
+<script>
+$(document).ready(function() {
+    $('#buscarDisponibilidadForm').on('submit', function(e) {
+        e.preventDefault();
 
+        const servicioId = $('#servicio').val();
+        const duracion = $('#servicio option:selected').data('duracion');
+        const numPersonas = $('#numPersonas').val();
+
+        $.ajax({
+            url: '/buscar-disponibilidad',
+            method: 'GET',
+            data: {
+                servicioId: servicioId,
+                duracion: duracion,
+                numPersonas: numPersonas
+            },
+            success: function(data) {
+                let resultadosHtml = '';
+
+                if (Object.keys(data).length > 0) {
+                    for (const [fecha, horarios] of Object.entries(data)) {
+                        const fechaFormateada = moment(fecha).locale('es').format('dddd D [de] MMMM');
+                        console.log(fechaFormateada);
+                        resultadosHtml += `<div><h3>${fechaFormateada}</h3></div>`;
+                        horarios.forEach(horario => {
+                            resultadosHtml += `<div><h4>${horario.hora}</h4><ul>`;
+                            horario.cosmes.forEach(cosme => {
+                                resultadosHtml += `<li>${cosme}</li>`;
+                            });
+                            resultadosHtml += '</ul>';
+                            resultadosHtml += `<button class="seleccionarHorario btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff" data-fecha="${fecha}" data-hora="${horario.hora}" data-servicio="${servicioId}" data-numPersonas="${numPersonas}" data-cosmes='${JSON.stringify(horario.cosmes)}'>¿Agendar?</button>`;
+                            resultadosHtml += '</div>';
+                        });
+                    }
+                } else {
+                    resultadosHtml = '<p>No hay disponibilidad para el servicio seleccionado.</p>';
+                }
+
+                $('#resultadosDisponibilidad').html(resultadosHtml);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+
+    $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
+        const fechaSeleccionada = $(this).data('fecha');
+        const horaSeleccionada = $(this).data('hora');
+        const servicioIdSeleccionado = $(this).data('servicio');
+        const numPersonasSeleccionado = $(this).data('numPersonas');
+        const cosmesSeleccionados = $(this).data('cosmes');
+        console.log(cosmesSeleccionados);
+
+        $('#fechaSeleccionadaInput').val(fechaSeleccionada);
+        $('#horaSeleccionadaInput').val(horaSeleccionada);
+        $('#servicioIdInput').val(servicioIdSeleccionado);
+        $('#numPersonasInput').val(numPersonasSeleccionado);
+
+        // Preselecciona los cosmes en el multiselect
+        $('#cosmesInput').val(cosmesSeleccionados).trigger('change');
+
+        $('#formularioFechaSeleccionada').show();
+        actualizarTotalSuma();
+    });
+
+    $('#num_servicio').on('input', function() {
+        actualizarTotalSuma();
+    });
+
+    $('#pagoInput').on('input', function() {
+        actualizarRestante();
+        actualizarCambio();
+    });
+
+    $('#dineroRecibidoInput').on('input', function() {
+        actualizarCambio();
+    });
+
+    function actualizarTotalSuma() {
+        const numServicios = $('#num_servicio').val();
+        const precioServicio = parseFloat($('#servicio option:selected').data('precio'));
+        const totalSuma = precioServicio * numServicios;
+        $('#totalSumaInput').val(totalSuma);
+        actualizarRestante();
+    }
+
+    function actualizarRestante() {
+        const totalSuma = parseFloat($('#totalSumaInput').val());
+        const pago = parseFloat($('#pagoInput').val()) || 0;
+        const restante = totalSuma - pago;
+        $('#restanteInput').val(restante);
+    }
+
+    function actualizarCambio() {
+        const pago = parseFloat($('#pagoInput').val()) || 0;
+        const dineroRecibido = parseFloat($('#dineroRecibidoInput').val()) || 0;
+        const cambio = dineroRecibido - pago;
+        $('#cambioInput').val(cambio > 0 ? cambio : 0);
+    }
+});
+</script>
     @endsection
 
 

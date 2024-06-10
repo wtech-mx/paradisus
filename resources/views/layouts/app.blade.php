@@ -65,7 +65,6 @@
         @include('layouts.simple_alert')
         @yield('breadcrumb')
         @yield('content')
-
        <!-- Modal lateral Congif -->
         @include('layouts.footer')
       <!-- End Modal lateral Congif -->

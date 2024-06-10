@@ -50,4 +50,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(NotasCosmes::class, 'id_user');
     }
+
+    public function alertasCosmes()
+    {
+        return $this->hasMany(AlertasCosmes::class, 'id_user');
+    }
+    public function horario()
+    {
+        return $this->hasOne(Horario::class, 'id_user', 'id');
+    }
 }

@@ -23,6 +23,7 @@ use Session;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Barryvdh\DomPDF\Facade\Pdf;
 Use Alert;
+use App\Models\AlertasCosmes;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client as GuzzleClient;
@@ -425,8 +426,6 @@ class NotasController extends Controller
 
     public function update(Request $request, $id)
     {
-
-
         $nota = Notas::find($id);
         $nota->anular = $request->get('anular');
         $nota->id_client = $request->get('id_client');
@@ -754,7 +753,7 @@ class NotasController extends Controller
             $datosEvento->telefono = $client->phone;
             $datosEvento->resourceId = $nota_sesion->resourceId;
             $datosEvento->id_especialist = $especialista[0];
-            $datosEvento->descripcion = "Agendado desde Notas";
+            $datosEvento->descripcion = "Agendado desde Notas. " . $request->get('nota3');
             $datosEvento->image = asset('img/iconos_serv/'.$img->imagen);
 
             if ( $datosEvento->end == $datosEvento->start){

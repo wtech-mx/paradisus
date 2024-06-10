@@ -29,12 +29,6 @@ class HomeController extends Controller
     public function index()
     {
         $fechaActual = date('Y-m-d');
-        $client = Client::orderBy('name', 'asc')->get();
-        $cosme = User::get();
-        $alert = Alertas::get();
-        $cosmes_alerts = AlertasCosmes::get();
-
-        $servicios = Servicios::get();
-        return view('dashboard', compact('client', 'servicios', 'cosme', 'alert', 'cosmes_alerts'));
+        return view('dashboard');
     }
 }

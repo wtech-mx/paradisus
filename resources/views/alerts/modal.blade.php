@@ -43,10 +43,10 @@
                 <div class="form-group col-6 mb-3">
 
                    <label for="">Selecionar Paciente</label>
-                   <input class="" type="text" name="title" id="title" disabled style="background: transparent;font-size: 12px;border: 0px;padding:0px">
+                   {{-- <input class="" type="text" name="title" id="title" disabled style="background: transparent;font-size: 12px;border: 0px;padding:0px"> --}}
                         <select class="form-control mibuscador_paciente" id="cliente_id" name="cliente_id" >
                              <option value="">Seleccione Cliente</option>
-                             @foreach($client as $item)
+                             @foreach($clients as $item)
                              <option  value="{{$item->id}}">{{$item->name}} {{$item->last_name}}</option>
                           @endforeach
                         </select>
@@ -54,7 +54,7 @@
 
                 <div class="form-group col-6 mb-3">
                    <label for="">Selecionar Unidad</label>
-                        <select class="form-control" id="resourceId" name="resourceId" style="margin-top: 22px;">
+                        <select class="form-control" id="resourceId" name="resourceId">
                              <option value="">Seleccione Unidad</option>
                              @for ($i = 1; $i <= $configuracion->modulos; $i++)
                              @php
@@ -66,10 +66,10 @@
                 </div>
 
                 <div class="form-group col-12 mb-3">
-                   <label for="">Selecionar especialista</label>
+                   <label for="">Selecionar recepcionista</label>
                         <select class="form-control" id="id_especialist" name="id_especialist" >
-                             <option value="">Seleccione especialista</option>
-                             @foreach($cosme as $item)
+                             <option value="">Seleccione recepcionista</option>
+                             @foreach($user_cosmes as $item)
                              <option value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach
                         </select>
@@ -80,7 +80,7 @@
 
                 <div class="form-group col-6 mt-3">
                     <label for="">Selecciona el servicio</label>
-                    <select class="form-control" id="id_color" name="id_color" >
+                    <select class="form-control" id="id_servicio" name="id_servicio" >
                         <option value="">Selecionar servicio</option>
                         @foreach($servicios as $item)
                               <option value="{{$item->id}}">{{$item->nombre}}</option>

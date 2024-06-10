@@ -155,12 +155,12 @@
                                             </div>
 
                                             <div class="col-3">
-                                                <label for="total-suma">Dinero recibido 2*</label>
+                                                <label for="total-suma">Dinero recibido 2</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
                                                     </span>
-                                                    <input  id="dinero_recibido2" name="dinero_recibido2" type="number" class="form-control" value="{{$nota_pedido->dinero_recibido2}}" required>
+                                                    <input  id="dinero_recibido2" name="dinero_recibido2" type="number" class="form-control" value="{{$nota_pedido->dinero_recibido2}}">
                                                 </div>
                                             </div>
 
