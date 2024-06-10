@@ -242,7 +242,7 @@
                                             }
                                         }
 
-                                        $sumaTotales = $sumaPedidos + $sumaServicios + $sumaPancho + 500;
+                                        $sumaTotales = $sumaPedidos + $sumaServicios + $sumaPancho + 750;
                                         // Calcular la comisión según la lógica proporcionada
                                         if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
                                             $comision = $sumaTotales * 0.03;
