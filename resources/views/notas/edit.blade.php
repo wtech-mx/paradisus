@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-   Editar Nota
+   Editar Notas
 @endsection
 
 @section('content')
@@ -590,7 +590,7 @@
 
                                                 <div class="col-6 mb-5">
                                                     <label for="id_user" class="form-label">Cosmes</label><br>
-                                                    <select multiple class="form-control cosme_sesion_edit" id="id_user" name="id_user[]" required style="width: 300px;">
+                                                    <select multiple class="form-control cosme_sesion_edit" id="id_user" name="id_user[]"  style="width: 300px;">
                                                         @foreach($user_pagos as $usuario)
                                                             <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                                         @endforeach
