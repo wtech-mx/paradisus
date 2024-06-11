@@ -415,7 +415,9 @@ class AlertasController extends Controller
         $datosEvento->resourceId = 'A';
         $datosEvento->id_especialist = $request->id_user;
         $datosEvento->id_nota = $request->id_nota;
-        $datosEvento->descripcion = $request->nota2;
+        $datosEvento->id_paquete = $request->id_paquete;
+        $datosEvento->id_laser = $request->id_laser;
+        $datosEvento->descripcion = $request->descripcion;
         $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
 
         if ( $datosEvento->end == $datosEvento->start){

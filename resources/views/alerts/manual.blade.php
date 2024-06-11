@@ -89,13 +89,38 @@
         </div>
 
         <div class="col-4">
-            <label for="total-suma"># Nota: </label>
+            <label for="total-suma"># Nota servicio: </label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">
                     <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
                 </span>
                 <input class="form-control" type="number" id="id_nota" name="id_nota">
             </div>
+        </div>
+
+        <div class="col-4">
+            <label for="total-suma"># Nota laser: </label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
+                </span>
+                <input class="form-control" type="number" id="id_laser" name="id_laser">
+            </div>
+        </div>
+
+        <div class="col-4">
+            <label for="total-suma"># Nota paquete: </label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
+                </span>
+                <input class="form-control" type="number" id="id_paquete" name="id_paquete">
+            </div>
+        </div>
+
+        <div class="col-12" style="display: grid;">
+            <label for="cosmesInput">Descripcion:</label>
+            <textarea name="descripcion" id="descripcion" cols="10" rows="3" class="form-control"></textarea>
         </div>
 
         <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
