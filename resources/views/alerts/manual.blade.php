@@ -21,7 +21,7 @@
                 <span class="input-group-text" id="basic-addon1">
                     <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
                 </span>
-                <input  id="numPersonas" name="numPersonas" type="number" class="form-control" min="1" required>
+                <input  id="numPersonas" name="numPersonas" type="number" class="form-control" value="1" min="1" required>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
                     <img src="{{ asset('assets/icons/mujer.png') }}" alt="" width="30px">
                 </span>
                 <select class="form-control user_manual" id="id_user" name="id_user" value="{{ old('submarca') }}" required>
-                    <option value="">Seleccione una opcion</option>
+                    <option value="14" selected>Daniela Gutierrez</option>
                     @foreach ($user_cosmes as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
@@ -65,7 +65,7 @@
                 <span class="input-group-text" id="basic-addon1">
                     <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
                 </span>
-                <input id="fechaSeleccionadaInput" name="fechaSeleccionada" type="date" class="form-control">
+                <input id="fechaSeleccionadaInput" name="fechaSeleccionada" type="date" class="form-control" value="{{$fechaActual}}">
             </div>
         </div>
 
@@ -79,9 +79,9 @@
             </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-12" style="display: grid;">
             <label for="cosmesInput">Cosmes:</label>
-            <select class="form-control multi_cosme_manual" id="cosmesInput" name="cosmes[]" multiple>
+            <select class="form-control multi_cosme_manual" id="cosmesInput" name="cosmes[]" multiple >
                 @foreach($user_pagos as $cosme)
                     <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
                 @endforeach
