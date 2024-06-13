@@ -74,7 +74,7 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
 
-            $user_pagos = User::where('id', '!=', 1)
+            $user_pagos = User::where('puesto', 'Cosme')
             ->orderby('name', 'ASC')
             ->get();
 

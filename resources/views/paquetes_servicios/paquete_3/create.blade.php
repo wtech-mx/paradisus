@@ -74,7 +74,7 @@
                                             <label for="precio">Comision Cosme</label><br>
                                             <select class="form-control" id="id_cosme" name="id_cosme">
                                                 <option>Seleccionar cosme</option>
-                                                @foreach ($user_pagos as $item)
+                                                @foreach ($user as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
