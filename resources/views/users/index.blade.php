@@ -32,6 +32,8 @@
                         <th>No</th>
                         <th>Nombre</th>
                         <th>Correo</th>
+                        <th>Resourceid</th>
+                        <th>color</th>
                         <th>Puesto</th>
                         <th>Roles</th>
                         <th width="280px">Acciones</th>
@@ -43,6 +45,11 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->resourceId }}</td>
+
+                            <td>
+                                <div style="background-color: {{$user->color}};width:30px;height: 30px;"></div>
+                            </td>
                             <td>{{ $user->puesto }}</td>
                             <td>
                             @if(!empty($user->getRoleNames()))

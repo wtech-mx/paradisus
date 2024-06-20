@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'photo',
         'color',
+        'resourceId',
         'password',
         'puesto',
         'sueldo_base',

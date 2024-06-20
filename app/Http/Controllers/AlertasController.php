@@ -58,11 +58,20 @@ class AlertasController extends Controller
 
         $user_cosmes = User::get();
 
+        $user_cosmetologas = User::where('puesto', 'Cosme')
+        ->orderby('name', 'ASC')
+        ->get();
+
         $modulos = [];
 
-        for ($i = 1; $i <= $Configuracion->modulos; $i++) {
-            $letra = chr(64 + $i);
-            $modulos[] = ['id' => $letra, 'title' => 'Modulo ' . $letra];
+        // for ($i = 1; $i <= $Configuracion->modulos; $i++) {
+        //     $letra = chr(64 + $i);
+        //     $modulos[] = ['id' => $letra, 'title' => 'Modulo ' . $letra];
+        // }
+
+        // Iterar sobre los usuarios y generar los módulos
+        foreach ($user_cosmetologas as $user) {
+            $modulos[] = ['id' => $user->resourceId, 'title' => $user->name];
         }
 
         // Obtener la fecha y hora actual
@@ -378,65 +387,61 @@ class AlertasController extends Controller
 
     public function store_agenda_manual(Request $request)
     {
-        // N U E V O  U S U A R I O
         $fechaActual = date('Y-m-d');
 
-        if($request->get('name') != NULL){
-           $client = new Client;
-           $client->name = $request->get('name');
-           $client->last_name = $request->get('last_name');
-           $client->phone = $request->get('phone');
-           //$client->email = $request->get('email');
-           $client->save();
+        if ($request->get('name') != NULL) {
+            $client = new Client;
+            $client->name = $request->get('name');
+            $client->last_name = $request->get('last_name');
+            $client->phone = $request->get('phone');
+            //$client->email = $request->get('email');
+            $client->save();
         }
 
-        // Obtener el servicio para acceder a la duración
         $servicio = Servicios::find($request->servicio);
-        $duracion = $servicio->duracion; // Duración en minutos
+        $duracion = $servicio->duracion;
 
-        // Combina la fecha y la hora seleccionada
         $startDateTimeString = $request->fechaSeleccionada . ' ' . $request->horaSeleccionada;
         $startDateTime = Carbon::parse($startDateTimeString);
-
-        // Calcula la hora de finalización
         $endDateTime = $startDateTime->copy()->addMinutes($duracion);
-        $datosEvento = new Alertas;
-        $datosEvento->start = $startDateTime;
-        $datosEvento->end = $endDateTime;
-        $datosEvento->id_servicio = $request->servicio;
-        $datosEvento->id_status = 1;
-        $datosEvento->estatus = 'Agendado';
-        $datosEvento->id_client = $request->id_client;
-        $full_name = $datosEvento->Client->name.$datosEvento->Client->last_name;
-        $datosEvento->title = $full_name;
-        $datosEvento->telefono = $datosEvento->Client->phone;
-        $datosEvento->resourceId = 'A';
-        $datosEvento->id_especialist = $request->id_user;
-        $datosEvento->id_nota = $request->id_nota;
-        $datosEvento->id_paquete = $request->id_paquete;
-        $datosEvento->id_laser = $request->id_laser;
-        $datosEvento->descripcion = $request->descripcion;
-        $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
-
-        if ( $datosEvento->end == $datosEvento->start){
-            $now = date($datosEvento->end);
-            $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now))); // $now + 3 hours
-            $datosEvento->end = $new_time;
-        }
-
 
         $cosmes = $request->get('cosmes');
+
         $users = User::whereIn('id', $cosmes)->get();
-        $colors = $users->pluck('color')->filter()->all(); // Obtener los colores y filtrar los valores no nulos
+        $colors = $users->pluck('color')->filter()->all();
         $finalColor = $this->combineColors($colors);
-        $datosEvento->color = $finalColor;
-        $datosEvento->save();
 
+        foreach ($users as $user) {
+            $datosEvento = new Alertas;
+            $datosEvento->start = $startDateTime;
+            $datosEvento->end = $endDateTime;
+            $datosEvento->id_servicio = $request->servicio;
+            $datosEvento->id_status = 1;
+            $datosEvento->estatus = 'Agendado';
+            $datosEvento->id_client = $request->id_client;
+            $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
+            $datosEvento->title = $full_name;
+            $datosEvento->telefono = $datosEvento->Client->phone;
+            $datosEvento->id_especialist = $user->id;
+            $datosEvento->id_nota = $request->id_nota;
+            $datosEvento->id_paquete = $request->id_paquete;
+            $datosEvento->id_laser = $request->id_laser;
+            $datosEvento->descripcion = $request->descripcion;
+            $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+            $datosEvento->resourceId = $user->resourceId;
+            $datosEvento->color = $finalColor;
 
-        for ($count = 0; $count < count($cosmes); $count++) {
+            if ($datosEvento->end == $datosEvento->start) {
+                $now = date($datosEvento->end);
+                $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now)));
+                $datosEvento->end = $new_time;
+            }
+
+            $datosEvento->save();
+
             $data = array(
                 'id_alerta' => $datosEvento->id,
-                'id_user' => $cosmes[$count],
+                'id_user' => $user->id,
             );
             $insert_data[] = $data;
         }
@@ -444,9 +449,9 @@ class AlertasController extends Controller
         AlertasCosmes::insert($insert_data);
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->back()
-                        ->with('success','Agenda created successfully');
+        return redirect()->back()->with('success', 'Agenda created successfully');
     }
+
 
     private function combineColors(array $colors)
     {

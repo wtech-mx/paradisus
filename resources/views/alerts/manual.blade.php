@@ -4,7 +4,7 @@
         @csrf
         <h5>Agendar cita</h5>
 
-        <div class="col-4">
+        <div class="col-3">
             <label for="servicio">Servicio:</label><br>
             <select class="form-control servicios_manual" name="servicio" id="servicio">
                 @foreach($servicios as $servicio)
@@ -15,7 +15,7 @@
             </select>
         </div>
 
-        <div class="col-4">
+        <div class="col-2">
             <label for="total-suma">Número de personas:</label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">
@@ -25,7 +25,27 @@
             </div>
         </div>
 
-        <div class="col-4">
+        <div class="col-2">
+            <label for="total-suma">Fecha</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="25px">
+                </span>
+                <input id="fechaSeleccionadaInput" name="fechaSeleccionada" type="date" class="form-control" value="{{$fechaActual}}">
+            </div>
+        </div>
+
+        <div class="col-2">
+            <label for="total-suma">Hora: </label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <img src="{{ asset('assets/icons/fecha-limite.webp') }}" alt="" width="25px">
+                </span>
+                <input  id="horaSeleccionadaInput" name="horaSeleccionada" type="time" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-3">
             <label for="total-suma">¿Quien lo vendio?</label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">
@@ -40,8 +60,7 @@
             </div>
         </div>
 
-
-        <div class="col-4">
+        <div class="col-6">
             <div class="form-group">
                 <label for="name">Cliente *</label>
                 <div class="input-group mb-3">
@@ -59,27 +78,7 @@
             </div>
         </div>
 
-        <div class="col-4">
-            <label for="total-suma">Fecha</label>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">
-                    <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
-                </span>
-                <input id="fechaSeleccionadaInput" name="fechaSeleccionada" type="date" class="form-control" value="{{$fechaActual}}">
-            </div>
-        </div>
-
-        <div class="col-4">
-            <label for="total-suma">Hora: </label>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">
-                    <img src="{{ asset('assets/icons/fecha-limite.webp') }}" alt="" width="30px">
-                </span>
-                <input  id="horaSeleccionadaInput" name="horaSeleccionada" type="time" class="form-control">
-            </div>
-        </div>
-
-        <div class="col-12" style="display: grid;">
+        <div class="col-6" style="display: grid;">
             <label for="cosmesInput">Cosmes:</label>
             <select class="form-control multi_cosme_manual" id="cosmesInput" name="cosmes[]" multiple >
                 @foreach($user_pagos as $cosme)
@@ -88,7 +87,7 @@
             </select>
         </div>
 
-        <div class="col-4">
+        <div class="col-2">
             <label for="total-suma"># Nota servicio: </label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">
@@ -98,7 +97,7 @@
             </div>
         </div>
 
-        <div class="col-4">
+        <div class="col-2">
             <label for="total-suma"># Nota laser: </label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">
@@ -108,7 +107,7 @@
             </div>
         </div>
 
-        <div class="col-4">
+        <div class="col-2">
             <label for="total-suma"># Nota paquete: </label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">
@@ -118,14 +117,18 @@
             </div>
         </div>
 
-        <div class="col-12" style="display: grid;">
+        <div class="col-6 mb-3" style="display: grid;">
             <label for="cosmesInput">Descripcion:</label>
             <textarea name="descripcion"  cols="10" rows="3" class="form-control"></textarea>
         </div>
 
-        <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-            Guardar
-        </button>
+        <div class="col-4">
+            <button type="submit" class="btn close-modal w-100" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                Guardar
+            </button>
+        </div>
+
+
     </div>
 </form>
 

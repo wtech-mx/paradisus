@@ -90,6 +90,18 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
+                            <label class="form-control-label">Color:</label>
+                            <input  id="color" name="color" type="color" class="form-control" value="{{$user->color}}" >
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Resoirce ID:</label>
+                            <input  id="resourceId" name="resourceId" type="text" class="form-control" minlength="1" maxlength="1"  value="{{$user->resourceId}}">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
                             <label class="form-control-label">Password:</label>
                             {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
                         </div>

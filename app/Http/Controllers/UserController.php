@@ -71,6 +71,7 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->color = $request->get('color');
+        $user->resourceId = $request->get('resourceId');
         $user->puesto = $request->get('puesto');
         $user->sueldo_base = $request->get('sueldo_base');
         $user->comision_despedida = $request->get('comision_despedida');
@@ -151,7 +152,7 @@ class UserController extends Controller
         $user->puesto = $request->get('puesto');
         $user->photo = $request->get('photo');
         $user->color = $request->get('color');
-
+        $user->resourceId = $request->get('resourceId');
         $user->sueldo_base = $request->get('sueldo_base');
         $user->comision_despedida = $request->get('comision_despedida');
         $user->sueldo_hora = $request->get('sueldo_hora');
