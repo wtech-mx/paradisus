@@ -82,7 +82,12 @@ class AppServiceProvider extends ServiceProvider
             ->orderby('name', 'ASC')
             ->get();
 
-            $view->with(['user_pagos' => $user_pagos,'user_recepcion' => $user_recepcion,'configuracion' => $configuracion, 'fechaActual' => $fechaActual, 'clients' => $clients,'contadorMiercoles' => $contadorMiercoles]);
+            $user_mix = User::where(function ($query) {
+                $query->where('puesto', 'Recepcionista')
+                      ->orWhere('puesto', 'Cosme');
+            })->orderby('name', 'ASC')->get();
+
+            $view->with(['user_pagos' => $user_pagos,'user_recepcion' => $user_recepcion,'configuracion' => $configuracion, 'fechaActual' => $fechaActual, 'clients' => $clients, 'user_mix' => $user_mix,'contadorMiercoles' => $contadorMiercoles]);
         });
     }
 }
