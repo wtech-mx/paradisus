@@ -120,7 +120,7 @@
 
         <div class="col-12" style="display: grid;">
             <label for="cosmesInput">Descripcion:</label>
-            <textarea name="descripcion" id="descripcion" cols="10" rows="3" class="form-control"></textarea>
+            <textarea name="descripcion"  cols="10" rows="3" class="form-control"></textarea>
         </div>
 
         <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">

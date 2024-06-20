@@ -98,7 +98,7 @@
           left: 'today prev,next',
           center: 'title',
           // right: 'dayGridDay,timeGridWeek,dayGridMonth' sirve para la vidsata por di
-          right: 'resourceTimeGridDay,timeGridWeek,dayGridMonth'
+          right: 'resourceTimeGridDay,timeGridWeek,dayGridMonth,list'
         },
 
         // resources: [

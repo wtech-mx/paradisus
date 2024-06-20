@@ -76,7 +76,7 @@
                 </div>
 
                 <label for="">Descripcion</label>
-                <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="2"></textarea>
+                <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="3"></textarea>
 
                 <div class="form-group col-6 mt-3">
                     <label for="">Selecciona el servicio</label>

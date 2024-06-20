@@ -137,7 +137,7 @@ class AlertasController extends Controller
         $datosEvento->resourceId = $request->resourceId;
         $datosEvento->id_especialist = $request->id_especialist;
         $datosEvento->descripcion = $request->descripcion;
-        $datosEvento->image = asset('img/iconos_serv/'.$datosEvento->Servicios->imagen);
+        // $datosEvento->image = asset('img/iconos_serv/'.$datosEvento->Servicios->imagen);
         $datosEvento->update();
 
         // if ($datosEvento->check == 2){
