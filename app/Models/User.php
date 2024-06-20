@@ -22,6 +22,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'photo',
+        'color',
         'password',
         'puesto',
         'sueldo_base',

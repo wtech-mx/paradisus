@@ -14,7 +14,7 @@ class AlertasCosmes extends Model
 
     protected $fillable = [
         'id_alerta',
-        'id_especialist',
+        'id_user',
     ];
 
     public function Alertas()

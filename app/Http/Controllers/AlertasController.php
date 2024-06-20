@@ -38,7 +38,6 @@ class AlertasController extends Controller
     {
         $colores = Colores::get();
         $estatus = Status::get();
-        dd($colores);
 
         // $alert_retenedores = Alertas::where('id_color', '=', 6)->get();
         // $alert_limpieza = Alertas::where('id_color', '=', 2)->get();
@@ -381,6 +380,7 @@ class AlertasController extends Controller
     {
         // N U E V O  U S U A R I O
         $fechaActual = date('Y-m-d');
+
         if($request->get('name') != NULL){
            $client = new Client;
            $client->name = $request->get('name');
@@ -400,14 +400,12 @@ class AlertasController extends Controller
 
         // Calcula la hora de finalización
         $endDateTime = $startDateTime->copy()->addMinutes($duracion);
-
         $datosEvento = new Alertas;
         $datosEvento->start = $startDateTime;
         $datosEvento->end = $endDateTime;
         $datosEvento->id_servicio = $request->servicio;
         $datosEvento->id_status = 1;
         $datosEvento->estatus = 'Agendado';
-        $datosEvento->color ='#667cea';
         $datosEvento->id_client = $request->id_client;
         $full_name = $datosEvento->Client->name.$datosEvento->Client->last_name;
         $datosEvento->title = $full_name;
@@ -426,9 +424,14 @@ class AlertasController extends Controller
             $datosEvento->end = $new_time;
         }
 
-        $datosEvento->save();
 
         $cosmes = $request->get('cosmes');
+        $users = User::whereIn('id', $cosmes)->get();
+        $colors = $users->pluck('color')->filter()->all(); // Obtener los colores y filtrar los valores no nulos
+        $finalColor = $this->combineColors($colors);
+        $datosEvento->color = $finalColor;
+        $datosEvento->save();
+
 
         for ($count = 0; $count < count($cosmes); $count++) {
             $data = array(
@@ -444,6 +447,55 @@ class AlertasController extends Controller
         return redirect()->back()
                         ->with('success','Agenda created successfully');
     }
+
+    private function combineColors(array $colors)
+    {
+        if (count($colors) === 0) {
+            return null; // Retornar nulo si no hay colores
+        }
+
+        // Convertir los colores hexadecimales a sus componentes RGB
+        $rgbColors = array_map([$this, 'hexToRgb'], $colors);
+
+        // Mezclar los colores RGB
+        $combinedRgb = array_reduce($rgbColors, function($carry, $item) {
+            return [
+                'r' => $carry['r'] + $item['r'],
+                'g' => $carry['g'] + $item['g'],
+                'b' => $carry['b'] + $item['b']
+            ];
+        }, ['r' => 0, 'g' => 0, 'b' => 0]);
+
+        $colorCount = count($colors);
+        $combinedRgb = array_map(function($value) use ($colorCount) {
+            return round($value / $colorCount);
+        }, $combinedRgb);
+
+        // Convertir el color combinado de RGB a hexadecimal
+        return $this->rgbToHex($combinedRgb);
+    }
+
+    private function hexToRgb($hex)
+    {
+        $hex = ltrim($hex, '#');
+
+        if (strlen($hex) == 6) {
+            list($r, $g, $b) = [hexdec($hex[0].$hex[1]), hexdec($hex[2].$hex[3]), hexdec($hex[4].$hex[5])];
+        } elseif (strlen($hex) == 3) {
+            list($r, $g, $b) = [hexdec(str_repeat($hex[0], 2)), hexdec(str_repeat($hex[1], 2)), hexdec(str_repeat($hex[2], 2))];
+        } else {
+            return ['r' => 0, 'g' => 0, 'b' => 0];
+        }
+
+        return ['r' => $r, 'g' => $g, 'b' => $b];
+    }
+
+    private function rgbToHex($rgb)
+    {
+        return sprintf("#%02x%02x%02x", $rgb['r'], $rgb['g'], $rgb['b']);
+    }
+
+
 
     public function buscarDisponibilidad(Request $request)
     {

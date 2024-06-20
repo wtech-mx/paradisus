@@ -20,6 +20,8 @@ use App\Models\PaquetesPago;
 use App\Models\RegCosmesSum;
 use App\Models\RegistroSemanal;
 use App\Models\RegistroSueldoSemanal;
+use App\Models\AlertasCosmes;
+
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -68,6 +70,7 @@ class UserController extends Controller
         $user = new User;
         $user->name = $request->get('name');
         $user->email = $request->get('email');
+        $user->color = $request->get('color');
         $user->puesto = $request->get('puesto');
         $user->sueldo_base = $request->get('sueldo_base');
         $user->comision_despedida = $request->get('comision_despedida');
@@ -147,6 +150,8 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->puesto = $request->get('puesto');
         $user->photo = $request->get('photo');
+        $user->color = $request->get('color');
+
         $user->sueldo_base = $request->get('sueldo_base');
         $user->comision_despedida = $request->get('comision_despedida');
         $user->sueldo_hora = $request->get('sueldo_hora');
@@ -159,6 +164,19 @@ class UserController extends Controller
         }
         $user->assignRole($request->input('roles'));
         $user->update();
+
+
+    // Encontrar todas las alertas asociadas al usuario en AlertasCosmes
+    $alertasCosmes = AlertasCosmes::where('id_user', $id)->get();
+
+    // Actualizar el color de las alertas asociadas
+    foreach ($alertasCosmes as $alertaCosmes) {
+        $alerta = Alertas::find($alertaCosmes->id_alerta);
+        if ($alerta) {
+            $alerta->color = $user->color;
+            $alerta->update();
+        }
+    }
 
         $horario = Horario::find($user->id);
         $horario->id_user = $user->id;
