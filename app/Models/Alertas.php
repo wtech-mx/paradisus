@@ -36,7 +36,6 @@ class Alertas extends Model
         return $this->belongsTo(Client::class, 'id_client');
     }
 
-
     public function Status()
     {
         return $this->belongsTo(Status::class, 'id_status');
@@ -45,5 +44,10 @@ class Alertas extends Model
     public function Servicios()
     {
         return $this->belongsTo(Servicios::class, 'id_color');
+    }
+
+    public function cosmes()
+    {
+        return $this->hasMany(AlertasCosmes::class, 'id_alerta');
     }
 }

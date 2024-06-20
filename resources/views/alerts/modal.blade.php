@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-secondary" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-secondary" role="document">
       <div class="modal-content">
 
         <div class="modal-header">
@@ -42,7 +42,7 @@
 
                 <div class="form-group col-6 mb-3">
 
-                   <label for="">Selecionar Paciente</label>
+                   <label for="">Selecionar Cliente</label>
                    {{-- <input class="" type="text" name="title" id="title" disabled style="background: transparent;font-size: 12px;border: 0px;padding:0px"> --}}
                         <select class="form-control mibuscador_paciente" id="cliente_id" name="cliente_id" >
                              <option value="">Seleccione Cliente</option>
@@ -53,26 +53,64 @@
                 </div>
 
                 <div class="form-group col-6 mb-3">
-                   <label for="">Selecionar Unidad</label>
-                        <select class="form-control" id="resourceId" name="resourceId">
-                             <option value="">Seleccione Unidad</option>
-                             @for ($i = 1; $i <= $configuracion->modulos; $i++)
-                             @php
-                                 $letra = chr($i + 64); // Convierte el número en su equivalente de letra ASCII (A = 1, B = 2, etc.)
-                             @endphp
-                             <option value="{{ $letra }}">{{ $letra }}</option>
-                         @endfor
-                        </select>
+
+                    <label for="">¿Quien lo vendio?</label>
+                    {{-- <input class="" type="text" name="title" id="title" disabled style="background: transparent;font-size: 12px;border: 0px;padding:0px"> --}}
+                         <select class="form-control " id="id_especialist" name="id_especialist" >
+                              <option value="">Seleccione vendedor</option>
+                              @foreach($user_mix as $item)
+                              <option  value="{{$item->id}}">{{$item->name}} </option>
+                           @endforeach
+                         </select>
+                 </div>
+
+                 <div class="col-12" style="display: grid;">
+                    <label for="cosmesInput">Cosmetólogas:</label>
+                    <select class="form-control"  id="cosmesInput" name="cosmes[]" multiple>
+                        @foreach($user_pagos as $cosme)
+                            <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <div class="form-group col-12 mb-3">
-                   <label for="">Selecionar recepcionista</label>
-                        <select class="form-control" id="id_especialist" name="id_especialist" >
-                             <option value="">Seleccione recepcionista</option>
-                             @foreach($user_cosmes as $item)
-                             <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
-                        </select>
+                <div class="col-6">
+                        <label for="total-suma"># de personas:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
+                            </span>
+                            <input  id="numPersonas" name="numPersonas" type="number" class="form-control" >
+                        </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="total-suma"># Nota servicio </label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="number" id="id_notaModal" name="id_nota">
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="total-suma"># Nota laser </label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="number" id="id_laserModal" name="id_laser">
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="total-suma"># Nota paque</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="number" id="id_paqueteModal" name="id_paquete">
+                    </div>
                 </div>
 
                 <label for="">Descripcion</label>

@@ -183,13 +183,27 @@
             $('#txtTelefono').val(info.event.extendedProps.telefono);
             $('#color').val(info.event.backgroundColor);
             $('#id_servicio').val(info.event.extendedProps.id_servicio);
+            $('#id_notaModal').val(info.event.extendedProps.id_nota);
+            $('#id_laseModalr').val(info.event.extendedProps.id_laser);
+            $('#id_paqueteModal').val(info.event.extendedProps.id_paquete);
             $('#descripcion').val(info.event.extendedProps.descripcion);
             $('#id_status').val(info.event.extendedProps.id_status);
             $('#image').val(info.event.extendedProps.image);
+
+
+
+    // Limpiar selecciones del select múltiple de cosmes
+    limpiarSelectCosmes();
+
+    // Seleccionar las cosmes correspondientes en el select múltiple
+    if (info.event.extendedProps.cosmes) {
+        info.event.extendedProps.cosmes.forEach(function(id) {
+            $('#cosmesInput option[value="' + id + '"]').prop('selected', true);
+        });
+    }
             $('#exampleModal').modal('show');
 
-
-            console.log('Fecha', dia)
+            console.log('cosmesInput', info.event.extendedProps.cosmes)
           },
 
           eventContent: function(arg) {
@@ -298,6 +312,9 @@
               image:$('#image').val()+imageDefault,
               color:$('#color').val(),
               id_servicio:$('#id_servicio').val(),
+              id_notaModal:$('#id_notaModal').val(),
+              id_laserModal:$('#id_laserModal').val(),
+              id_paqueteModal:$('#id_paqueteModal').val(),
               cliente_id:$('#cliente_id').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
@@ -320,6 +337,9 @@
               image:$('#image').val(),
               color:$('#color').val(),
               id_servicio:$('#id_servicio').val(),
+              id_notaModal:$('#id_notaModal').val(),
+              id_laserModal:$('#id_laserModal').val(),
+              id_paqueteModal:$('#id_paqueteModal').val(),
               cliente_id:$('#cliente_id').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
@@ -371,11 +391,19 @@
             $('#txtHorafin').val("");
             $('#color').val("");
             $('#id_servicio').val("");
+            $('#id_notaModal').val("");
+            $('#id_laserModal').val("");
+            $('#id_paqueteModal').val("");
             $('#cliente_id').val("");
             $('#descripcion').val("");
             $('#id_status').val("");
             $('#image').val("");
-      }
+            limpiarSelectCosmes();
+        }
+
+        function limpiarSelectCosmes() {
+            $('#cosmesInput option').prop('selected', false);
+        }
     });
 </script>
 

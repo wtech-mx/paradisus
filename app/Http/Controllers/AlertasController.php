@@ -116,14 +116,12 @@ class AlertasController extends Controller
 
     public function show_calendar()
     {
-        //Trae datos de db to jason
-        $json2 = $data2['alertas'] = Alertas::all();
+        $resultado = Alertas::all();
 
-        //los convieerte en array
-        $decode2 = json_decode($json2);
+        $resultado->each(function ($alerta) {
+            $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
+        });
 
-        //Une los array en uno solo
-        $resultado = array_merge($decode2);
 
         //retorna a la vista sn json
         return response()->json($resultado);
@@ -154,8 +152,6 @@ class AlertasController extends Controller
         //     $controlpagos->id_clients = $datosEvento->id_client;
         //     $controlpagos->id_alertas = $id;
         //     $controlpagos->id_doctor = $datosEvento->id_especialist;
-        //     $controlpagos->id_color = $datosEvento->id_color;
-        //     $controlpagos->save();
         // }
     }
 
@@ -422,7 +418,7 @@ class AlertasController extends Controller
             $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
             $datosEvento->title = $full_name;
             $datosEvento->telefono = $datosEvento->Client->phone;
-            $datosEvento->id_especialist = $user->id;
+            $datosEvento->id_especialist = $request->id_especialist;
             $datosEvento->id_nota = $request->id_nota;
             $datosEvento->id_paquete = $request->id_paquete;
             $datosEvento->id_laser = $request->id_laser;

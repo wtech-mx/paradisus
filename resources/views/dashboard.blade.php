@@ -25,6 +25,7 @@
                             <div class="tab-pane fade" id="pills-disponibilidad" role="tabpanel" aria-labelledby="pills-disponibilidad-tab">
                                 @include('alerts.disponibilidad')
                             </div>
+
                             <div class="tab-pane fade show active" id="pills-manual" role="tabpanel" aria-labelledby="pills-manual-tab">
                                 @include('alerts.manual')
                             </div>
