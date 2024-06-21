@@ -129,14 +129,16 @@ class AlertasController extends Controller
 
     public function update_calendar(Request $request, $id)
     {
-
         $datosEvento = Alertas::find($id);
         $datosEvento->start = $request->start;
         $datosEvento->end = $request->end;
         $datosEvento->id_servicio = $request->id_servicio;
         $datosEvento->id_status = $request->id_status;
         $datosEvento->estatus = $datosEvento->Status->estatus;
-        // $datosEvento->color = $datosEvento->Status->color;
+
+        $datosEvento->id_nota = $datosEvento->id_notaModal;
+        $datosEvento->id_laser = $datosEvento->id_paqueteModal;
+        $datosEvento->id_paquete = $datosEvento->id_laserModal;
 
         $clienteUpdate = Client::find($request->cliente_id);
 
@@ -148,7 +150,6 @@ class AlertasController extends Controller
         // $datosEvento->resourceId = $request->resourceId;
         $datosEvento->id_especialist = $request->id_especialist;
         $datosEvento->descripcion = $request->descripcion;
-        // $datosEvento->image = asset('img/iconos_serv/'.$datosEvento->Servicios->imagen);
 
         if( $request->id_status == '1'){
 
@@ -444,7 +445,7 @@ class AlertasController extends Controller
             $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
             $datosEvento->title = $full_name;
             $datosEvento->telefono = $datosEvento->Client->phone;
-            $datosEvento->id_especialist = $request->id_especialist;
+            $datosEvento->id_especialist = $user->id;
             $datosEvento->id_nota = $request->id_nota;
             $datosEvento->id_paquete = $request->id_paquete;
             $datosEvento->id_laser = $request->id_laser;

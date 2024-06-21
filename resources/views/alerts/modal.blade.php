@@ -99,7 +99,7 @@
                         <span class="input-group-text" id="basic-addon1">
                             <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
                         </span>
-                        <input class="form-control" type="number" id="id_laserModal" name="id_laser">
+                        <input class="form-control" type="number" id="id_laserModal" name="cosmesInput">
                     </div>
                 </div>
 

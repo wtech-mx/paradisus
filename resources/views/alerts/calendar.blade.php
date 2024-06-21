@@ -184,7 +184,7 @@
             $('#color').val(info.event.backgroundColor);
             $('#id_servicio').val(info.event.extendedProps.id_servicio);
             $('#id_notaModal').val(info.event.extendedProps.id_nota);
-            $('#id_laseModalr').val(info.event.extendedProps.id_laser);
+            $('#id_laserModal').val(info.event.extendedProps.id_laser);
             $('#id_paqueteModal').val(info.event.extendedProps.id_paquete);
             $('#descripcion').val(info.event.extendedProps.descripcion);
             $('#id_status').val(info.event.extendedProps.id_status);
@@ -255,11 +255,14 @@
           EnviarInformacionWhatsapp('', ObjEvento);
       });
 
-      $('#btnNota').click(function(){
-          ObjEvento= recolectarDatosGUInota('POST');
-          {{--EnviarInformacion('{{route('calendar.index_calendar')}}', ObjEvento);--}}
-          EnviarInformacionnota('', ObjEvento);
-      });
+      $('#btnNota').click(function() {
+        var ObjEvento = {
+            nota: $('#id_notaModal').val(),
+            laser: $('#id_laserModal').val(),
+            paquete: $('#id_paqueteModal').val()
+        };
+        EnviarInformacionnota(ObjEvento);
+    });
 
       $('#btnAgregar').click(function(){
           ObjEvento= recolectarDatosGUI('POST');
@@ -352,16 +355,29 @@
 
       function EnviarInformacionWhatsapp(accion,ObjEvento){
           // console.log(ObjEvento['telefono']);
-          var pagina='https://api.whatsapp.com/send?phone=+52'+ObjEvento['telefono']+'&text=Buen%20día%20✨🦷%20Le%20escribimos%20del%20consultorio%20dental%20BeDental%20para%20confirmar%20la%20cita%20'+ObjEvento['fecha']+'%20%20a%20las%20'+ObjEvento['hora']+'%20Le%20agradecemos%20nos%20confirme%20su%20asistencia%20a%20más%20tardar%20hoy%20antes%20de%202:00%20pm%20de%20lo%20contrario%20se%20cederá%20el%20lugar%20a%20otro%20paciente%20que%20requiera.%20Quedamos%20al%20pendiente%20de%20su%20pronta%20respuesta.%20Gracias!';
+          var pagina='https://api.whatsapp.com/send?phone=+52'+ObjEvento['telefono']+'&text=Buen%20día%20✨🦷%20Le%20escribimos%20de%20PARADISUS%20para%20confirmar%20la%20cita%20'+ObjEvento['fecha']+'%20%20a%20las%20'+ObjEvento['hora']+'%20Le%20agradecemos%20nos%20confirme%20su%20asistencia%20a%20más%20tardar%20hoy%20antes%20de%202:00%20pm%20de%20lo%20contrario%20se%20cederá%20el%20lugar%20a%20otro%20cliente%20que%20requiera.%20Quedamos%20al%20pendiente%20de%20su%20pronta%20respuesta.%20Gracias!';
           window.open(pagina, '_blank');
       }
 
-      function EnviarInformacionnota(accion,ObjEvento){
-           console.log(ObjEvento['telefono']);
-          var pagina='https://paradisus.mx/notas/servicios/edit/'+ObjEvento['nota'];
-          window.open(pagina, '_blank');
-      }
+      function EnviarInformacionnota(ObjEvento) {
+            var idNota = ObjEvento.nota;
+            var idLaser = ObjEvento.laser;
+            var idPaquete = ObjEvento.paquete;
 
+            var ruta = '';
+            if (idNota) {
+                ruta = 'https://paradisus.mx/notas/servicios/edit/' + idNota;
+            } else if (idLaser) {
+                ruta = 'https://paradisus.mx/notas/laser/edit/' + idLaser;
+            } else if (idPaquete) {
+                ruta = 'https://paradisus.mx/paquetes/servicios/edit/moldeante/' + idPaquete;
+            } else {
+                alert('No hay valores disponibles para redirigir.');
+                return;
+            }
+
+            window.open(ruta, '_blank');
+        }
       function EnviarInformacion(accion,ObjEvento){
           $.ajax(
                   {
