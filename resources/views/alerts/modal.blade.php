@@ -66,7 +66,7 @@
 
                  <div class="col-12" style="display: grid;">
                     <label for="cosmesInput">Cosmetólogas:</label>
-                    <select class="form-control"  id="cosmesInput" name="cosmes[]" multiple>
+                    <select class="form-control"  id="cosmesInput" name="cosmes[]" multiple readonly>
                         @foreach($user_pagos as $cosme)
                             <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
                         @endforeach

@@ -129,30 +129,56 @@ class AlertasController extends Controller
 
     public function update_calendar(Request $request, $id)
     {
+
         $datosEvento = Alertas::find($id);
         $datosEvento->start = $request->start;
         $datosEvento->end = $request->end;
         $datosEvento->id_servicio = $request->id_servicio;
         $datosEvento->id_status = $request->id_status;
         $datosEvento->estatus = $datosEvento->Status->estatus;
-        $datosEvento->color = $datosEvento->Status->color;
+        // $datosEvento->color = $datosEvento->Status->color;
+
+        $clienteUpdate = Client::find($request->cliente_id);
+
         $datosEvento->id_client = $request->id_client;
-        $full_name = $datosEvento->Client->nombre.$datosEvento->Client->apellido;
+        $full_name = $clienteUpdate->name.$clienteUpdate->last_name;
         $datosEvento->title = $full_name;
-        $datosEvento->telefono = $datosEvento->Client->telefono;
-        $datosEvento->resourceId = $request->resourceId;
+        $datosEvento->telefono = $clienteUpdate->phone;
+
+        // $datosEvento->resourceId = $request->resourceId;
         $datosEvento->id_especialist = $request->id_especialist;
         $datosEvento->descripcion = $request->descripcion;
         // $datosEvento->image = asset('img/iconos_serv/'.$datosEvento->Servicios->imagen);
+
+        if( $request->id_status == '1'){
+
+            $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+
+        }else if( $request->id_status == '2'){
+
+            $datosEvento->image = asset('img/iconos_serv/cancelado.png');
+
+        }else if( $request->id_status == '3'){
+
+             $datosEvento->image = asset('img/iconos_serv/sin_asistencia.png');
+
+        }else if( $request->id_status == '4'){
+
+             $datosEvento->image = asset('img/iconos_serv/pendiente.png');
+
+        }else if( $request->id_status == '5'){
+
+             $datosEvento->image = asset('img/iconos_serv/pagadoo.png');
+        }
+        else if( $request->id_status == '6'){
+
+            $datosEvento->image = asset('img/iconos_serv/reagendado.png');
+
+        }
+
+
         $datosEvento->update();
 
-        // if ($datosEvento->check == 2){
-        //     $controlpagos = new Controlpagos;
-        //     $controlpagos->fecha = $datosEvento->start;
-        //     $controlpagos->id_clients = $datosEvento->id_client;
-        //     $controlpagos->id_alertas = $id;
-        //     $controlpagos->id_doctor = $datosEvento->id_especialist;
-        // }
     }
 
     public function destroy_calendar($id)
