@@ -230,7 +230,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($suma_pago_tarjeta, 1, '.', ',') }}</strong>
+                <strong>$5,750</strong>
             </td>
         </tr>
     </table>
