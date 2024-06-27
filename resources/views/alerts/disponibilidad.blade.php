@@ -5,7 +5,7 @@
                 @csrf
                 <div class="col-5">
                     <label for="servicio">Servicio:</label>
-                    <select class="form-control servicios_disponibilidad" name="servicio" id="servicio">
+                    <select class="form-control disponibilidad_2" name="servicio" id="servicio">
                         @foreach($servicios as $servicio)
                             <option value="{{ $servicio->id }}" data-duracion="{{ $servicio->duracion }}" data-precio="{{ $servicio->precio }}">
                                 {{ $servicio->nombre }} - {{ $servicio->duracion }} min

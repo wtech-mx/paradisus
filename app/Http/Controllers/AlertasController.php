@@ -358,12 +358,13 @@ class AlertasController extends Controller
 
         $datosEvento->save();
 
-        $cosmes = $request->get('cosmes');
+        $cosmesNombres = $request->get('cosmes');
+        $cosmesIds = User::whereIn('name', $cosmesNombres)->pluck('id')->toArray();
+        for ($count = 0; $count < count($cosmesIds); $count++) {
 
-        for ($count = 0; $count < count($cosmes); $count++) {
             $data = array(
-                'id_nota' => $datosEvento->id,
-                'concepto' => $cosmes[$count],
+                'id_alerta' => $datosEvento->id,
+                'id_user' => $cosmesIds[$count],
             );
             $insert_data[] = $data;
         }
@@ -423,14 +424,14 @@ class AlertasController extends Controller
             $client->save();
         }
 
-        $servicio = Servicios::find($request->servicio);
+        $servicio = Servicios::find($request->servicio_manual);
         $duracion = $servicio->duracion;
 
         $startDateTimeString = $request->fechaSeleccionada . ' ' . $request->horaSeleccionada;
         $startDateTime = Carbon::parse($startDateTimeString);
         $endDateTime = $startDateTime->copy()->addMinutes($duracion);
 
-        $cosmes = $request->get('cosmes');
+        $cosmes = $request->get('cosmes_manual');
 
         $users = User::whereIn('id', $cosmes)->get();
         $colors = $users->pluck('color')->filter()->all();
@@ -440,14 +441,14 @@ class AlertasController extends Controller
             $datosEvento = new Alertas;
             $datosEvento->start = $startDateTime;
             $datosEvento->end = $endDateTime;
-            $datosEvento->id_servicio = $request->servicio;
+            $datosEvento->id_servicio = $request->servicio_manual;
             $datosEvento->id_status = 1;
             $datosEvento->estatus = 'Agendado';
-            $datosEvento->id_client = $request->id_client;
+            $datosEvento->id_client = $request->id_client_manual;
             $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
             $datosEvento->title = $full_name;
             $datosEvento->telefono = $datosEvento->Client->phone;
-            $datosEvento->id_especialist = $user->id;
+            $datosEvento->id_especialist = $request->id_user_manual;
             $datosEvento->id_nota = $request->id_nota;
             $datosEvento->id_paquete = $request->id_paquete;
             $datosEvento->id_laser = $request->id_laser;
@@ -476,7 +477,6 @@ class AlertasController extends Controller
         Session::flash('success', 'Se ha guardado sus datos con exito');
         return redirect()->back()->with('success', 'Agenda created successfully');
     }
-
 
     private function combineColors(array $colors)
     {

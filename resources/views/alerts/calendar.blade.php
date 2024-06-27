@@ -58,12 +58,10 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.servicios_regalo').select2();
-
         $('.user_disponibilidad').select2();
         $('.cliente_disponibilidad').select2();
         $('.multi_cosme_disponibilidad').select2();
-        $('.servicios_disponibilidad').select2();
+        $('.disponibilidad_2').select2();
 
         $('.user_manual').select2();
         $('.cliente_manual').select2();
@@ -114,26 +112,26 @@
           events:"{{ route('calendar.show_calendar') }}",
 
         // ======================= M O D A L  P A R A  N U E V A  C I T A =======================
-        dateClick:function (info) {
+        // dateClick:function (info) {
 
-            limpiarFormulario();
-            $("#btnAgregar").prop("disabled",false);
-            $("#btnModificar").prop("disabled",true);
-            $("#btnBorrar").prop("disabled",true);
+        //     limpiarFormulario();
+        //     $("#btnAgregar").prop("disabled",false);
+        //     $("#btnModificar").prop("disabled",true);
+        //     $("#btnBorrar").prop("disabled",true);
 
-              if (info.allDay) {
-                  $('#txtFecha').val(info.dateStr);
-              } else {
-                  let fechaHora = info.dateStr.split("T");
-                  let unahora = fechaHora[1].substring(0, 2);
-                  let final = Number(unahora) + 1;
-                  $('#txtFecha').val(fechaHora[0]);
-                  $('#txtHorafin').val(fechaHora[1].substring(0, 5));
-                  $('#txtHora').val(fechaHora[1].substring(0, 5));
-                  console.log('hora', final)
-              }
-            $('#exampleModal').modal('toggle');
-          },
+        //       if (info.allDay) {
+        //           $('#txtFecha').val(info.dateStr);
+        //       } else {
+        //           let fechaHora = info.dateStr.split("T");
+        //           let unahora = fechaHora[1].substring(0, 2);
+        //           let final = Number(unahora) + 1;
+        //           $('#txtFecha').val(fechaHora[0]);
+        //           $('#txtHorafin').val(fechaHora[1].substring(0, 5));
+        //           $('#txtHora').val(fechaHora[1].substring(0, 5));
+        //           console.log('hora', final)
+        //       }
+        //     $('#exampleModal').modal('toggle');
+        //   },
         // ======================= E N D  M O D A L  P A R A  N U E V A  C I T A =======================
 
         eventClick:function (info) {
