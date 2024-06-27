@@ -16,6 +16,30 @@
                         @endif
 
                         <h3 class="mb-3">Recordatorios</h3>
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <form action="{{ route('advance_search.recordatorios') }}" method="GET" >
+                                            <div class="card-body" style="padding-left: 1.5rem; padding-top: 1rem;">
+                                                <h5>Filtro</h5>
+                                                    <div class="row">
+                                                    <div class="col-3">
+                                                        <label for="user_id">Seleccionar Fecha:</label>
+                                                        <input type="date" id="fecha" name="fecha" class="form-control" required>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <br>
+                                                        <button class="btn btn-sm mb-0 mt-sm-0 mt-1" type="submit" style="background-color: #F82018; color: #ffffff;">Buscar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                         <div class="card-body">
@@ -26,36 +50,37 @@
                                             <th>No</th>
                                             <th>Nombre</th>
                                             <th>Estatus</th>
-                                            <th>Email</th>
-
+                                            <th>Cita</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($alertas as $alerta)
-                                            <tr>
-                                                <td>{{ $alerta->id }}</td>
+                                        @if(Route::currentRouteName() != 'index.recordatorios')
+                                            @foreach ($alertas as $alerta)
+                                                <tr>
+                                                    <td>{{ $alerta->id }}</td>
 
-                                                <td>{{ $alerta->title }}</td>
-                                                <td style="background-color: {{ $alerta->Status->color }};">
-                                                    <a type="button" data-bs-toggle="modal" data-bs-target="#editEstatus{{$alerta->id}}" style="color: #fff">
-                                                       <b> {{ $alerta->Status->estatus }} </b>
-                                                    </a>
-                                                </td>
-                                                <td>{{ $alerta->start }}</td>
+                                                    <td>{{ $alerta->title }}</td>
+                                                    <td style="background-color: {{ $alerta->Status->color }};">
+                                                        <a type="button" data-bs-toggle="modal" data-bs-target="#editEstatus{{$alerta->id}}" style="color: #fff">
+                                                        <b> {{ $alerta->Status->estatus }} </b>
+                                                        </a>
+                                                    </td>
+                                                    <td>{{ $alerta->start }}</td>
 
-                                                <td>
-                                                    <button class="btn btn-sm enviarWhatsapp"
-                                                            data-id="{{ $alerta->id }}"
-                                                            data-start="{{ $alerta->start }}"
-                                                            data-client-id="{{ $alerta->id_client }}"
-                                                            style="background: #00BB2D; color: #ffff">
-                                                            <i class="fa fa-whatsapp"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            @include('alerts_recordatorios.estatus')
-                                        @endforeach
+                                                    <td>
+                                                        <button class="btn btn-sm enviarWhatsapp"
+                                                                data-id="{{ $alerta->id }}"
+                                                                data-start="{{ $alerta->start }}"
+                                                                data-client-id="{{ $alerta->id_client }}"
+                                                                style="background: #00BB2D; color: #ffff">
+                                                                <i class="fa fa-whatsapp"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                @include('alerts_recordatorios.estatus')
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

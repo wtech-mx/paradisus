@@ -58,6 +58,8 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $('.servicios_regalo').select2();
+
         $('.user_disponibilidad').select2();
         $('.cliente_disponibilidad').select2();
         $('.multi_cosme_disponibilidad').select2();

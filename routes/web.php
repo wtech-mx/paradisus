@@ -345,6 +345,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     // =============== M O D U L O  R E C O R D A T O R I O S ===============================
     Route::get('/recordatorios/index', [App\Http\Controllers\RecordatoriosController::class, 'index'])->name('index.recordatorios');
+    Route::get('/recordatorios/buscador/index', [App\Http\Controllers\RecordatoriosController::class, 'advance'])->name('advance_search.recordatorios');
     Route::get('/get-client-phone/{clientId}', [App\Http\Controllers\RecordatoriosController::class, 'getClientPhone']);
     Route::patch('/recordatorios/update/{id}', [App\Http\Controllers\RecordatoriosController::class, 'update_recordatorios'])->name('update_estatus.recordatorios');
 

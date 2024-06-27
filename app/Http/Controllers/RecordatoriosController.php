@@ -12,15 +12,17 @@ use Session;
 class RecordatoriosController extends Controller
 {
     public function index(Request $request){
-        $hoy = Carbon::now();
-        // Fecha dentro de 3 días
-        $fechaDentroDeTresDias = $hoy->copy()->addDays(3)->format('Y-m-d');
 
-        // Filtrar alertas que inician dentro de 3 días
-        $alertas = Alertas::whereRaw("DATE(start) = ?", [$fechaDentroDeTresDias])->get();
-        $estatus = Status::get();
+        return view('alerts_recordatorios.index');
+    }
 
-        return view('alerts_recordatorios.index', compact('alertas', 'estatus'));
+    public function advance(Request $request) {
+
+        $fecha = $request->input('fecha');;
+
+        $alertas = Alertas::whereRaw('DATE(start) = ?', [$fecha])->get();
+
+        return view('alerts_recordatorios.index', compact('alertas'));
     }
 
     public function getClientPhone($clientId){
