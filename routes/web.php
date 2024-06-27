@@ -343,6 +343,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/clip/buscador', [App\Http\Controllers\ClipController::class, 'buscador'])->name('buscador.clip');
     Route::post('/clip/punto_venta', [App\Http\Controllers\ClipController::class, 'punto_venta'])->name('punto_venta.clip');
 
+    // =============== M O D U L O  R E C O R D A T O R I O S ===============================
+    Route::get('/recordatorios/index', [App\Http\Controllers\RecordatoriosController::class, 'index'])->name('index.recordatorios');
+    Route::get('/get-client-phone/{clientId}', [App\Http\Controllers\RecordatoriosController::class, 'getClientPhone']);
+    Route::patch('/recordatorios/update/{id}', [App\Http\Controllers\RecordatoriosController::class, 'update_recordatorios'])->name('update_estatus.recordatorios');
+
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');

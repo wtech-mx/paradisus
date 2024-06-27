@@ -81,6 +81,7 @@ class AlertasController extends Controller
         $servicios_contador = Servicios::count();
         $t_citas_contador = Alertas::count();
         $p_citas_contador = Alertas::where('start', '>=', $now)->count();
+        Alertas::query()->update(['color' => '#ffca99']);
 
         return view('dashboard', compact('user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador','modulos'));
 
@@ -135,6 +136,7 @@ class AlertasController extends Controller
         $datosEvento->id_servicio = $request->id_servicio;
         $datosEvento->id_status = $request->id_status;
         $datosEvento->estatus = $datosEvento->Status->estatus;
+        $datosEvento->color = $datosEvento->Status->color;
 
         $datosEvento->id_nota = $datosEvento->id_notaModal;
         $datosEvento->id_laser = $datosEvento->id_paqueteModal;
@@ -523,14 +525,13 @@ class AlertasController extends Controller
         return sprintf("#%02x%02x%02x", $rgb['r'], $rgb['g'], $rgb['b']);
     }
 
-
-
     public function buscarDisponibilidad(Request $request)
     {
         Carbon::setLocale('es');
         $servicioId = $request->input('servicioId');
         $duracion = $request->input('duracion');
         $numPersonas = $request->input('numPersonas');
+        $pagina = $request->input('pagina', 1);
 
         // Obtener el servicio seleccionado
         $servicio = Servicios::find($servicioId);
@@ -541,8 +542,10 @@ class AlertasController extends Controller
         // Filtrar cosmes disponibles en los próximos 30 días
         $disponibilidad = [];
         $today = Carbon::now();
+        $startDay = ($pagina - 1) * 5;  // Calcular el día inicial en función de la página
+        $endDay = $startDay + 5;  // Calcular el día final para el rango de fechas a buscar
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = $startDay; $i < $endDay; $i++) {
             $fecha = $today->copy()->addDays($i); // Clonar la fecha actual antes de modificarla
             $diaSemana = strtolower($fecha->isoFormat('dddd')); // 'lunes', 'martes', etc.
 
@@ -555,15 +558,12 @@ class AlertasController extends Controller
 
             if (!empty($horariosDisponibles)) {
                 $disponibilidad[$fecha->toDateString()] = $horariosDisponibles;
-
-                if (count($disponibilidad) >= 5) {
-                    break;
-                }
             }
         }
 
         return response()->json($disponibilidad);
     }
+
 
     private function buscarHorariosDisponibles($fecha, $cosmesDisponibles, $duracion, $numPersonas)
     {

@@ -14,17 +14,7 @@
                 @endforeach
             </select>
         </div>
-
-        <div class="col-2">
-            <label for="total-suma">Número de personas:</label>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">
-                    <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
-                </span>
-                <input  id="numPersonas" name="numPersonas" type="number" class="form-control" value="1" min="1" required>
-            </div>
-        </div>
-
+        
         <div class="col-2">
             <label for="total-suma">Fecha</label>
             <div class="input-group mb-3">

@@ -5,7 +5,7 @@
                 @csrf
                 <div class="col-5">
                     <label for="servicio">Servicio:</label>
-                    <select class="form-control servicios" name="servicio" id="servicio">
+                    <select class="form-control servicios_disponibilidad" name="servicio" id="servicio">
                         @foreach($servicios as $servicio)
                             <option value="{{ $servicio->id }}" data-duracion="{{ $servicio->duracion }}" data-precio="{{ $servicio->precio }}">
                                 {{ $servicio->nombre }} - {{ $servicio->duracion }} min
@@ -32,6 +32,7 @@
     </div>
 
     <div class="col-4">
+        <button id="buscarMasFechas" class="btn btn-secondary">Buscar más fechas</button>
         <div id="resultadosDisponibilidad"></div>
     </div>
 
@@ -43,12 +44,12 @@
                     <h5>Agendar cita</h5>
 
                     <div class="col-6">
-                        <label for="total-suma">¿Quien lo vendio?</label>
+                        <label for="total-suma">¿Quien lo vendio/Agendo?</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">
                                 <img src="{{ asset('assets/icons/mujer.png') }}" alt="" width="30px">
                             </span>
-                            <select class="form-control user" id="id_user" name="id_user" value="{{ old('submarca') }}" required>
+                            <select class="form-control user_disponibilidad" id="id_user" name="id_user" value="{{ old('submarca') }}" required>
                                 <option value="">Seleccione una opcion</option>
                                 @foreach ($user_cosmes as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -66,7 +67,7 @@
                                     <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
                                 </span>
 
-                                <select class="form-select cliente d-inline-block"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
+                                <select class="form-select cliente_disponibilidad d-inline-block"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
                                     <option>Seleccionar cliente</option>
                                     @foreach ($clients as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }} / {{ $item->phone }}</option>
@@ -111,7 +112,7 @@
 
                     <div class="col-12">
                         <label for="cosmesInput">Cosmes:</label>
-                        <select class="form-control multi_cosme" id="cosmesInput" name="cosmes[]" multiple>
+                        <select class="form-control multi_cosme_disponibilidad" id="cosmesInput" name="cosmes[]" multiple>
                             @foreach($user_pagos as $cosme)
                                 <option value="{{ $cosme->name }}">{{ $cosme->name }}</option>
                             @endforeach
@@ -236,3 +237,5 @@
         </div>
     </div>
 </div>
+
+

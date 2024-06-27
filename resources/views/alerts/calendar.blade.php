@@ -58,10 +58,10 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.user').select2();
-        $('.cliente').select2();
-        $('.multi_cosme').select2();
-        $('.servicios').select2();
+        $('.user_disponibilidad').select2();
+        $('.cliente_disponibilidad').select2();
+        $('.multi_cosme_disponibilidad').select2();
+        $('.servicios_disponibilidad').select2();
 
         $('.user_manual').select2();
         $('.cliente_manual').select2();
@@ -425,9 +425,16 @@
 
 <script>
 $(document).ready(function() {
+    let pagina = 1;
+
     $('#buscarDisponibilidadForm').on('submit', function(e) {
         e.preventDefault();
+        pagina = 1;  // Reiniciar la página cuando se envía el formulario
 
+        buscarDisponibilidad(true);
+    });
+
+    function buscarDisponibilidad(reset = false) {
         const servicioId = $('#servicio').val();
         const duracion = $('#servicio option:selected').data('duracion');
         const numPersonas = $('#numPersonas').val();
@@ -438,37 +445,79 @@ $(document).ready(function() {
             data: {
                 servicioId: servicioId,
                 duracion: duracion,
-                numPersonas: numPersonas
+                numPersonas: numPersonas,
+                pagina: pagina
             },
             success: function(data) {
+                if (reset) {
+                    $('#resultadosDisponibilidad').html('');
+                }
+
                 let resultadosHtml = '';
 
                 if (Object.keys(data).length > 0) {
+                    let collapseId = pagina * 5;  // Ajustar el ID para evitar conflictos
+
                     for (const [fecha, horarios] of Object.entries(data)) {
                         const fechaFormateada = moment(fecha).locale('es').format('dddd D [de] MMMM');
-                        console.log(fechaFormateada);
-                        resultadosHtml += `<div><h3>${fechaFormateada}</h3></div>`;
+                        collapseId++;
+                        resultadosHtml += `
+                            <div class="card">
+                                <div class="card-header" id="heading${collapseId}">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${collapseId}" aria-expanded="true" aria-controls="collapse${collapseId}">
+                                            ${fechaFormateada}
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse${collapseId}" class="collapse" aria-labelledby="heading${collapseId}" data-parent="#resultadosDisponibilidad">
+                                    <div class="card-body">
+                        `;
                         horarios.forEach(horario => {
                             resultadosHtml += `<div><h4>${horario.hora}</h4><ul>`;
                             horario.cosmes.forEach(cosme => {
                                 resultadosHtml += `<li>${cosme}</li>`;
                             });
                             resultadosHtml += '</ul>';
-                            resultadosHtml += `<button class="seleccionarHorario btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff" data-fecha="${fecha}" data-hora="${horario.hora}" data-servicio="${servicioId}" data-numPersonas="${numPersonas}" data-cosmes='${JSON.stringify(horario.cosmes)}'>¿Agendar?</button>`;
+                            resultadosHtml += `
+                                <button class="seleccionarHorario btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff"
+                                    data-fecha="${fecha}"
+                                    data-hora="${horario.hora}"
+                                    data-servicio="${servicioId}"
+                                    data-numPersonas="${numPersonas}"
+                                    data-cosmes='${JSON.stringify(horario.cosmes)}'>
+                                    ¿Agendar?
+                                </button>
+                            `;
                             resultadosHtml += '</div>';
                         });
+                        resultadosHtml += `
+                                    </div>
+                                </div>
+                            </div>
+                        `;
                     }
                 } else {
-                    resultadosHtml = '<p>No hay disponibilidad para el servicio seleccionado.</p>';
+                    if (reset) {
+                        resultadosHtml = '<p>No hay disponibilidad para el servicio seleccionado.</p>';
+                    }
                 }
 
-                $('#resultadosDisponibilidad').html(resultadosHtml);
+                $('#resultadosDisponibilidad').append(resultadosHtml);
             },
             error: function(error) {
                 console.log(error);
             }
         });
+    }
+
+    $('#buscarMasFechas').on('click', function() {
+        pagina++;
+        buscarDisponibilidad();
+
+        alert('Busqueda Actualizada');
     });
+
 
     $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
         const fechaSeleccionada = $(this).data('fecha');
