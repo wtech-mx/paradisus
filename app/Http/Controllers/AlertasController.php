@@ -81,7 +81,7 @@ class AlertasController extends Controller
         $servicios_contador = Servicios::count();
         $t_citas_contador = Alertas::count();
         $p_citas_contador = Alertas::where('start', '>=', $now)->count();
-        Alertas::query()->update(['color' => '#ffca99']);
+        //Alertas::query()->update(['color' => '#ffca99']);
 
         return view('dashboard', compact('user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador','modulos'));
 
