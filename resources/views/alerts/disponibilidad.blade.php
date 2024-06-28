@@ -39,9 +39,21 @@
     <div class="col-8">
         <div id="formularioFechaSeleccionada" style="display: none;">
             <form id="detallesFechaSeleccionadaForm" method="POST" action="{{ route('store_agenda.notas') }}" enctype="multipart/form-data" role="form">
+                @csrf
                 <div class="row">
-                    @csrf
-                    <h5>Agendar cita</h5>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="option_nota" value="nota" id="nota" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Nota
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="option_nota" value="gratis" id="gratis">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Gratis
+                        </label>
+                    </div>
 
                     <div class="col-6">
                         <label for="total-suma">¿Quien lo vendio/Agendo?</label>
@@ -119,112 +131,137 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
-                        <label for="total-suma">Total a Pagar</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
-                            </span>
-                            <input type="text" id="totalSumaInput" name="total-suma" class="form-control" readonly>
+                    <div id="nota-inputs">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="total-suma">Total a Pagar</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input type="text" id="totalSumaInput" name="total-suma" class="form-control" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <label for="total-suma">Restante</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input type="number" id="restanteInput" name="restanteInput" class="form-control" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <label for="total-suma">Cambio</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input type="number" id="cambioInput" name="cambioInput" class="form-control" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <label for="total-suma">Fecha</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <label for="total-suma">Cajera</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="25px">
+                                    </span>
+                                    <select class="form-control"  data-toggle="select" id="cajera" name="cajera">
+                                        <option value="">Seleccionar cosme</option>
+                                        @foreach ($user_recepcion as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <label for="total-suma">Monto a pagar</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/cash-machine.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input  id="pagoInput" name="pagoInput" type="number" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <label for="total-suma">Dinero recibido</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input  id="dineroRecibidoInput" name="dineroRecibidoInput" type="number" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+
+                                <label for="num_sesion">Metodo Pago</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/transferir.png') }}" alt="" width="25px">
+                                    </span>
+                                    <select id="forma_pago" name="forma_pago" class="form-control">
+                                        <option value="Efectivo">Efectivo</option>
+                                        <option value="Transferencia">Transferencia</option>
+                                        <option value="Mercado Pago">Mercado Pago</option>
+                                        <option value="Tarjeta">Tarjeta</option>
+                                        <option value="Nota">Nota</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="nota">Nota</label>
+                                    <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="total-suma">Comprobante de pago</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input type="file" id="foto" class="form-control" name="foto">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-4">
-                        <label for="total-suma">Restante</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
-                            </span>
-                            <input type="number" id="restanteInput" name="restanteInput" class="form-control" readonly>
-                        </div>
-                    </div>
+                    <div id="gratis-inputs" style="display: none">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="nota">Nota</label>
+                                    <textarea class="form-control" id="nota2_gratis" name="nota2_gratis" rows="2"></textarea>
+                                </div>
+                            </div>
 
-                    <div class="col-4">
-                        <label for="total-suma">Cambio</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="25px">
-                            </span>
-                            <input type="number" id="cambioInput" name="cambioInput" class="form-control" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <label for="total-suma">Fecha</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="25px">
-                            </span>
-                            <input  id="fecha_pago" name="fecha_pago" type="date" class="form-control" value="{{$fechaActual}}">
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <label for="total-suma">Cajera</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="25px">
-                            </span>
-                            <select class="form-control"  data-toggle="select" id="cajera" name="cajera" required>
-                                <option value="">Seleccionar cosme</option>
-                                @foreach ($user_recepcion as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <label for="total-suma">Monto a pagar</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/cash-machine.png') }}" alt="" width="25px">
-                            </span>
-                            <input  id="pagoInput" name="pagoInput" type="number" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <label for="total-suma">Dinero recibido</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
-                            </span>
-                            <input  id="dineroRecibidoInput" name="dineroRecibidoInput" type="number" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-
-                        <label for="num_sesion">Metodo Pago</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/transferir.png') }}" alt="" width="25px">
-                            </span>
-                            <select id="forma_pago" name="forma_pago" class="form-control">
-                                <option value="Efectivo">Efectivo</option>
-                                <option value="Transferencia">Transferencia</option>
-                                <option value="Mercado Pago">Mercado Pago</option>
-                                <option value="Tarjeta">Tarjeta</option>
-                                <option value="Nota">Nota</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="nota">Nota</label>
-                            <textarea class="form-control" id="nota2" name="nota2" rows="2"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <label for="total-suma">Comprobante de pago</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="25px">
-                            </span>
-                            <input type="file" id="foto" class="form-control" name="foto">
+                            <div class="col-6">
+                                <label for="total-suma">Comprobante</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="25px">
+                                    </span>
+                                    <input type="file" id="foto_gratis" class="form-control" name="foto_gratis">
+                                </div>
+                            </div>
                         </div>
                     </div>
 

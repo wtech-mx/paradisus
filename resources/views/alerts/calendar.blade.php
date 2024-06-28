@@ -585,6 +585,28 @@ $(document).ready(function() {
     }
 });
 </script>
+
+<script>
+    $(document).ready(function() {
+        function toggleInputs() {
+            if ($('#nota').is(':checked')) {
+                $('#nota-inputs').show();
+                $('#gratis-inputs').hide();
+            } else if ($('#gratis').is(':checked')) {
+                $('#nota-inputs').hide();
+                $('#gratis-inputs').show();
+            }
+        }
+
+        // Ejecutar al cargar la página para establecer el estado inicial
+        toggleInputs();
+
+        // Ejecutar cada vez que cambie la selección del radio button
+        $('input[name="option_nota"]').change(function() {
+            toggleInputs();
+        });
+    });
+</script>
     @endsection
 
 

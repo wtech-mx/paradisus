@@ -15,6 +15,7 @@ class Alertas extends Model
 
     protected $fillable = [
         'id_client',
+        'id_especialist',
         'id_nota',
         'titulo',
         'descripcion',
@@ -29,6 +30,11 @@ class Alertas extends Model
     {
         if ($titulo)
             return $query->where('titulo', 'LIKE', "%$titulo%");
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'id_especialist');
     }
 
     public function Client()
