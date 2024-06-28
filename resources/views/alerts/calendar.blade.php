@@ -17,15 +17,25 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.1/index.global.min.js'></script>
 
 
-<style>
-.fc-v-event .fc-event-title {
-    font-size: 7.6px;
-}
-</style>
+    <style>
+        .fc-v-event .fc-event-title {
+            font-size: 7.6px;
+        }
+    </style>
 
 @endsection
 
 @section('content')
+
+    <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#estatusModal">
+                Estatus
+              </button>
+        </div>
+    </div>
+
+
     <div class="calendar" data-toggle="calendar" id="calendar"></div>
     @include('alerts.modal')
 
