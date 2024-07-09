@@ -121,6 +121,11 @@
           right: 'resourceTimeGridDay,timeGridWeek,dayGridMonth,list'
         },
 
+        dateClick: function(info) {
+            // Cambiar la vista del calendario a 'dayGridDay' para la fecha seleccionada
+            calendar.changeView('resourceTimeGridDay', info.dateStr);
+        },
+
         // resources: [
         //       { id: "A", title: "Modulo A" },
         //       { id: "B", title: "Modulo B" },

@@ -19,17 +19,35 @@
 
                 <div class="form-group col-4">
                     <label for="">Fecha</label>
-                  <input class="form-control" type="date" name="txtFecha" id="txtFecha" >
+                    <div class="input-group mb-3">
+                         <span class="input-group-text" id="">
+                            <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="date" name="txtFecha" id="txtFecha" >
+
+                    </div>
                 </div>
 
                 <div class="form-group col-4">
                     <label for="">Hora Inicio</label>
-                  <input class="form-control" type="time" name="txtHora" id="txtHora" autocomplete="off" >
+                    <div class="input-group mb-3">
+                         <span class="input-group-text" id="">
+                            <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="time" name="txtHora" id="txtHora" autocomplete="off" >
+
+                    </div>
                 </div>
 
                 <div class="form-group col-4">
                     <label for="">Hora Fin</label>
-                  <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" >
+                    <div class="input-group mb-3">
+                         <span class="input-group-text" id="">
+                            <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" >
+
+                    </div>
                 </div>
 
                 {{-- <input type="hidden" class="form-control" name="image" id="image"> --}}
@@ -40,29 +58,36 @@
                     <input class="form-control" type="text" name="title" id="title">
                 </div> --}}
 
-                <div class="form-group col-6 mb-3">
-
-                   <label for="">Selecionar Cliente</label>
-                   {{-- <input class="" type="text" name="title" id="title" disabled style="background: transparent;font-size: 12px;border: 0px;padding:0px"> --}}
+                <div class="form-group col-6  mt-3">
+                    <label for="">Selecionar Cliente</label>
+                    <div class="input-group mb-3">
+                         <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="30px">
+                        </span>
                         <select class="form-control mibuscador_paciente" id="cliente_id" name="cliente_id" >
-                             <option value="">Seleccione Cliente</option>
-                             @foreach($clients as $item)
-                             <option  value="{{$item->id}}">{{$item->name}} {{$item->last_name}}</option>
-                          @endforeach
-                        </select>
+                            <option value="">Seleccione Cliente</option>
+                            @foreach($clients as $item)
+                            <option  value="{{$item->id}}">{{$item->name}} {{$item->last_name}}</option>
+                         @endforeach
+                       </select>
+                    </div>
                 </div>
 
-                <div class="form-group col-6 mb-3">
 
+                <div class="form-group col-6 mt-3">
                     <label for="">¿Quien lo vendio?</label>
-                    {{-- <input class="" type="text" name="title" id="title" disabled style="background: transparent;font-size: 12px;border: 0px;padding:0px"> --}}
-                         <select class="form-control " id="id_especialist" name="id_especialist" >
-                              <option value="">Seleccione vendedor</option>
-                              @foreach($user_mix as $item)
-                              <option  value="{{$item->id}}">{{$item->name}} </option>
-                           @endforeach
-                         </select>
-                 </div>
+                    <div class="input-group mb-3">
+                         <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/mujer.png') }}" alt="" width="30px">
+                        </span>
+                        <select class="form-control " id="id_especialist" name="id_especialist" >
+                            <option value="">Seleccione vendedor</option>
+                            @foreach($user_mix as $item)
+                            <option  value="{{$item->id}}">{{$item->name}} </option>
+                         @endforeach
+                       </select>
+                    </div>
+                </div>
 
                  <div class="col-12" style="display: grid;">
                     <label for="cosmesInput">Cosmetólogas:</label>
@@ -73,17 +98,7 @@
                     </select>
                 </div>
 
-                <div class="col-6">
-                        <label for="total-suma"># de personas:</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
-                            </span>
-                            <input  id="numPersonas" name="numPersonas" type="number" class="form-control" >
-                        </div>
-                </div>
-
-                <div class="col-6">
+                <div class="col-4 mt-3">
                     <label for="total-suma"># Nota servicio </label>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
@@ -93,7 +108,7 @@
                     </div>
                 </div>
 
-                <div class="col-6">
+                <div class="col-4 mt-3">
                     <label for="total-suma"># Nota laser </label>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
@@ -103,13 +118,13 @@
                     </div>
                 </div>
 
-                <div class="col-6">
+                <div class="col-4 mt-3">
                     <label for="total-suma"># Nota paque</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
                         </span>
-                        <input class="form-control" type="number" id="id_paqueteModal" name="id_paquete">
+                        <input class="form-control" type="number" id="id_paqueteModal" name="id_paqueteModal">
                     </div>
                 </div>
 
@@ -118,22 +133,32 @@
 
                 <div class="form-group col-6 mt-3">
                     <label for="">Selecciona el servicio</label>
-                    <select class="form-control" id="id_servicio" name="id_servicio" >
-                        <option value="">Selecionar servicio</option>
-                        @foreach($servicios as $item)
-                              <option value="{{$item->id}}">{{$item->nombre}}</option>
-                        @endforeach
-                    </select>
+                    <div class="input-group mb-3">
+                         <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/mascara-facial.png') }}" alt="" width="30px">
+                        </span>
+                        <select class="form-control" id="id_servicio" name="id_servicio" >
+                            <option value="">Selecionar servicio</option>
+                            @foreach($servicios as $item)
+                                  <option value="{{$item->id}}">{{$item->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group col-6 mt-3">
                     <label for="">¿Estatus de la cita?</label>
-                    <select class="form-control" id="id_status" name="id_status">
-                      <option value="">Selecionar estatus</option>
-                      @foreach($estatus as $item)
-                          <option value="{{$item->id}}">{{$item->estatus}}</option>
-                      @endforeach
-                    </select>
+                    <div class="input-group mb-3">
+                         <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/change.png') }}" alt="" width="30px">
+                        </span>
+                        <select class="form-control" id="id_status" name="id_status">
+                            <option value="">Selecionar estatus</option>
+                            @foreach($estatus as $item)
+                                <option value="{{$item->id}}">{{$item->estatus}}</option>
+                            @endforeach
+                          </select>
+                    </div>
                 </div>
 
             </div>
