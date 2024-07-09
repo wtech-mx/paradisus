@@ -21,6 +21,16 @@
         .fc-v-event .fc-event-title {
             font-size: 7.6px;
         }
+        .fc .fc-scrollgrid, .fc .fc-scrollgrid table {
+            width: 100%;
+            table-layout: fixed;
+            background: #fff!important;
+        }
+
+        .fc-theme-standard .fc-scrollgrid, .fc-scrollgrid {
+            border: none;
+            background: #fff;
+        }
     </style>
 
 @endsection
