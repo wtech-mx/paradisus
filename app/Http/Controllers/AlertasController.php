@@ -205,47 +205,46 @@ class AlertasController extends Controller
 
         if($request->option_nota == 'nota'){
             // G U A R D A R  N O T A  P R I N C I P A L
-            $nota = new Notas();
-            if($request->get('name') != NULL){
-                $nota->id_client = $client->id;
-            }else{
-                $nota->id_client = $request->get('id_client');
-            }
-            $nota->fecha = $fechaActual;
-            $nota->precio = $request->get('total-suma');
-            $nota->restante = $request->get('restanteInput');
-            $nota->save();
-
-            $cambio = $request->get('dineroRecibidoInput') - $request->get('pagoInput');
-
-            // G U A R D A R  C A M B I |
-            // if($request->get('cambio') > '0'){
-            if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
-                $fechaActual = date('Y-m-d');
-                $caja = new CajaDia;
-                $caja->egresos = $request->get('cambioInput');
-                $caja->motivo = 'Retiro';
-                $caja->concepto = 'Cambio nota servicio: ' . $nota->id;
-                $caja->fecha = $fechaActual;
-                $caja->save();
-            }
-
-            // G U A R D A R  S E R V I C I O
-            $nota_paquete = new NotasPaquetes;
-            $nota_paquete->id_nota = $nota->id;
-            $nota_paquete->id_servicio = $request->get('servicioIdInput');
-            $nota_paquete->num = $request->get('num_servicio');
-            $nota_paquete->save();
-
-            // G U A R D A R  C O S M I S I O N
-            $nota_paquete = new NotasCosmes;
-            $nota_paquete->id_nota = $nota->id;
-            $nota_paquete->id_user = $request->get('id_user');
-            $nota_paquete->save();
-
-            // G U A R D A R  P A G O
             if($request->get('pagoInput') != NULL){
+                $nota = new Notas();
+                if($request->get('name') != NULL){
+                    $nota->id_client = $client->id;
+                }else{
+                    $nota->id_client = $request->get('id_client');
+                }
+                $nota->fecha = $fechaActual;
+                $nota->precio = $request->get('total-suma');
+                $nota->restante = $request->get('restanteInput');
+                $nota->save();
 
+                $cambio = $request->get('dineroRecibidoInput') - $request->get('pagoInput');
+
+                // G U A R D A R  C A M B I |
+                // if($request->get('cambio') > '0'){
+                if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
+                    $fechaActual = date('Y-m-d');
+                    $caja = new CajaDia;
+                    $caja->egresos = $request->get('cambioInput');
+                    $caja->motivo = 'Retiro';
+                    $caja->concepto = 'Cambio nota servicio: ' . $nota->id;
+                    $caja->fecha = $fechaActual;
+                    $caja->save();
+                }
+
+                // G U A R D A R  S E R V I C I O
+                $nota_paquete = new NotasPaquetes;
+                $nota_paquete->id_nota = $nota->id;
+                $nota_paquete->id_servicio = $request->get('servicioIdInput');
+                $nota_paquete->num = $request->get('num_servicio');
+                $nota_paquete->save();
+
+                // G U A R D A R  C O S M I S I O N
+                $nota_paquete = new NotasCosmes;
+                $nota_paquete->id_nota = $nota->id;
+                $nota_paquete->id_user = $request->get('id_user');
+                $nota_paquete->save();
+
+                // G U A R D A R  P A G O
                 $pago = new Pagos;
                 $pago->id_nota = $nota->id;
                 $pago->fecha = $fechaActual;
@@ -335,56 +334,71 @@ class AlertasController extends Controller
         // Calcula la hora de finalización
         $endDateTime = $startDateTime->copy()->addMinutes($duracion);
 
-        $datosEvento = new Alertas;
-        $datosEvento->start = $startDateTime;
-        $datosEvento->end = $endDateTime;
-        $datosEvento->id_servicio = $request->servicioIdInput;
-        $datosEvento->id_status = 1;
-        $datosEvento->estatus = $datosEvento->Status->estatus;
-        $datosEvento->color = $datosEvento->Status->color;
-        $datosEvento->id_client = $request->id_client;
-        $full_name = $datosEvento->Client->name.$datosEvento->Client->last_name;
-        $datosEvento->title = $full_name;
-        $datosEvento->telefono = $datosEvento->Client->phone;
-        $datosEvento->id_especialist = $request->id_user;
-        $datosEvento->resourceId = $datosEvento->User->resourceId;
-        $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+        $cosmes = $request->get('cosmes');
 
-        if ( $datosEvento->end == $datosEvento->start){
-            $now = date($datosEvento->end);
-            $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now))); // $now + 3 hours
-            $datosEvento->end = $new_time;
-        }
+        $users = User::whereIn('name', $cosmes)->get();
 
-        if($request->option_nota == 'gratis'){
-            $datosEvento->tarjeta_regalo = '1';
-            $datosEvento->descripcion = $request->nota2_gratis;
+        $colors = $users->pluck('color')->filter()->all();
+        $finalColor = $this->combineColors($colors);
 
-            if ($request->hasFile("foto_gratis")) {
-                $file = $request->file('foto_gratis');
-                $path = public_path() . '/foto_gratis';
-                $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move($path, $fileName);
-                $datosEvento->comprobante_gratis = $fileName;
+        foreach ($users as $user) {
+            $datosEvento = new Alertas;
+            $datosEvento->start = $startDateTime;
+            $datosEvento->end = $endDateTime;
+            $datosEvento->id_servicio = $request->servicioIdInput;
+            if($request->get('pagoInput') == NULL){
+                $datosEvento->id_status = 5;
+            }else{
+                $datosEvento->id_status = 1;
             }
-        }else{
-            $datosEvento->descripcion = $request->nota2;
-            $datosEvento->id_nota = $nota->id;
-        }
-        $datosEvento->save();
+            $datosEvento->estatus = $datosEvento->Status->estatus;
+            $datosEvento->color = $datosEvento->Status->color;
+            $datosEvento->id_client = $nota->id_client;
+            $full_name = $datosEvento->Client->name.$datosEvento->Client->last_name;
+            $datosEvento->title = $full_name;
+            $datosEvento->telefono = $datosEvento->Client->phone;
+            $datosEvento->id_especialist = $request->id_user;
+            $datosEvento->id_nota = $request->id_nota;
+            $datosEvento->id_paquete = $request->id_paquete;
+            $datosEvento->id_laser = $request->id_laser;
+            $datosEvento->descripcion = $request->descripcion;
+            $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+            $datosEvento->resourceId = $user->resourceId;
 
-        $cosmesNombres = $request->get('cosmes');
-        $cosmesIds = User::whereIn('name', $cosmesNombres)->pluck('id')->toArray();
-        for ($count = 0; $count < count($cosmesIds); $count++) {
+            if ($datosEvento->end == $datosEvento->start) {
+                $now = date($datosEvento->end);
+                $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now)));
+                $datosEvento->end = $new_time;
+            }
 
+            if($request->option_nota == 'gratis'){
+                $datosEvento->tarjeta_regalo = '1';
+                $datosEvento->descripcion = $request->nota2_gratis;
+
+                if ($request->hasFile("foto_gratis")) {
+                    $file = $request->file('foto_gratis');
+                    $path = public_path() . '/foto_gratis';
+                    $fileName = uniqid() . $file->getClientOriginalName();
+                    $file->move($path, $fileName);
+                    $datosEvento->comprobante_gratis = $fileName;
+                }
+            }else{
+                $datosEvento->descripcion = $request->nota2;
+                if($request->get('pagoInput') != NULL){
+                    $datosEvento->id_nota = $nota->id;
+                }
+            }
+
+            $datosEvento->save();
             $data = array(
                 'id_alerta' => $datosEvento->id,
-                'id_user' => $cosmesIds[$count],
+                'id_user' => $user->id,
             );
-            $insert_data[] = $data;
-        }
 
-        AlertasCosmes::insert($insert_data);
+            $insert_data[] = $data;
+
+            AlertasCosmes::insert($insert_data);
+        }
 
         Session::flash('success', 'Se ha guardado su nota con exito');
         return redirect()->back()->with('success', 'Agenda created successfully');

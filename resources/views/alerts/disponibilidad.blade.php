@@ -42,17 +42,19 @@
                 @csrf
                 <div class="row">
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="option_nota" value="nota" id="nota" checked>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Nota
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="option_nota" value="gratis" id="gratis">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Gratis
-                        </label>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="option_nota" value="nota" id="nota" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Nota
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="option_nota" value="gratis" id="gratis">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Gratis
+                            </label>
+                        </div>
                     </div>
 
                     <div class="col-6">
@@ -70,7 +72,12 @@
                         </div>
                     </div>
 
-
+                    <div class="col-3">
+                        <label for="precio">Nuevo cliente</label><br>
+                        <button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Agregar <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
+                        </button>
+                    </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="name">Cliente *</label>
@@ -85,6 +92,44 @@
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }} / {{ $item->phone }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-12">
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label for="name">Nombre(s) *</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="29px">
+                                            </span>
+                                            <input  id="name" name="name" type="text" class="form-control" placeholder="Nombre o Nombres">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label for="name">Apellido(s) *</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <img src="{{ asset('assets/icons/letter.png') }}" alt="" width="29px">
+                                            </span>
+                                            <input  id="last_name" name="last_name" type="text" class="form-control" placeholder="Apellidos">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label for="name">Telefono *</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <img src="{{ asset('assets/icons/phone.png') }}" alt="" width="29px">
+                                            </span>
+                                            <input  id="phone" name="phone" type="text" class="form-control" type="tel" minlength="10" maxlength="10" placeholder="555555555">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
