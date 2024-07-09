@@ -447,7 +447,7 @@ class AlertasController extends Controller
             $datosEvento->descripcion = $request->descripcion;
             $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
             $datosEvento->resourceId = $user->resourceId;
-            $datosEvento->color = $finalColor;
+            $datosEvento->color = $datosEvento->Status->color;;
 
             if ($datosEvento->end == $datosEvento->start) {
                 $now = date($datosEvento->end);
