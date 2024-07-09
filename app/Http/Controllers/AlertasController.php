@@ -201,17 +201,16 @@ class AlertasController extends Controller
            $client->phone = $request->get('phone');
            //$client->email = $request->get('email');
            $client->save();
+           $cliente = $client->id;
+        }else{
+            $cliente = $request->get('id_client');
         }
 
         if($request->option_nota == 'nota'){
             // G U A R D A R  N O T A  P R I N C I P A L
             if($request->get('pagoInput') != NULL){
                 $nota = new Notas();
-                if($request->get('name') != NULL){
-                    $nota->id_client = $client->id;
-                }else{
-                    $nota->id_client = $request->get('id_client');
-                }
+                $nota->id_client = $cliente;
                 $nota->fecha = $fechaActual;
                 $nota->precio = $request->get('total-suma');
                 $nota->restante = $request->get('restanteInput');
@@ -353,7 +352,7 @@ class AlertasController extends Controller
             }
             $datosEvento->estatus = $datosEvento->Status->estatus;
             $datosEvento->color = $datosEvento->Status->color;
-            $datosEvento->id_client = $nota->id_client;
+            $datosEvento->id_client = $cliente;
             $full_name = $datosEvento->Client->name.$datosEvento->Client->last_name;
             $datosEvento->title = $full_name;
             $datosEvento->telefono = $datosEvento->Client->phone;
