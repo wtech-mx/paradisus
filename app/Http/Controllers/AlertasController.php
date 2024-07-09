@@ -138,9 +138,10 @@ class AlertasController extends Controller
         $datosEvento->estatus = $datosEvento->Status->estatus;
         $datosEvento->color = $datosEvento->Status->color;
 
-        $datosEvento->id_nota = $datosEvento->id_notaModal;
-        $datosEvento->id_laser = $datosEvento->id_paqueteModal;
-        $datosEvento->id_paquete = $datosEvento->id_laserModal;
+        $datosEvento->id_nota = $request->id_notaModal;
+        $datosEvento->id_laser = $request->id_laserModal;
+        $datosEvento->id_paquete = $request->id_paqueteModal;
+
 
         $clienteUpdate = Client::find($request->cliente_id);
 
@@ -178,7 +179,6 @@ class AlertasController extends Controller
             $datosEvento->image = asset('img/iconos_serv/reagendado.png');
 
         }
-
 
         $datosEvento->update();
 
