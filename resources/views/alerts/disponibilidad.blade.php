@@ -87,7 +87,7 @@
                                 </span>
 
                                 <select class="form-select cliente_disponibilidad d-inline-block"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
-                                    <option>Seleccionar cliente</option>
+                                    <option value="">Seleccionar cliente</option>
                                     @foreach ($clients as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }} / {{ $item->phone }}</option>
                                     @endforeach
@@ -169,7 +169,7 @@
 
                     <div class="col-12">
                         <label for="cosmesInput">Cosmes:</label>
-                        <select class="form-control multi_cosme_disponibilidad" id="cosmesInput" name="cosmes[]" multiple>
+                        <select class="form-control multi_cosme_disponibilidad" id="cosme_disp" name="cosme_disp[]" multiple>
                             @foreach($user_pagos as $cosme)
                                 <option value="{{ $cosme->name }}">{{ $cosme->name }}</option>
                             @endforeach

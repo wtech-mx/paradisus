@@ -87,6 +87,34 @@
         $('.cliente_manual').select2();
         $('.multi_cosme_manual').select2();
         $('.servicios_manual').select2();
+
+        // Inicializar select2 fuera del modal (por si acaso)
+        $('.mibuscador_paciente').select2({
+            width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+            dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
+        });
+
+        // Re-inicializar select2 cada vez que se muestre el modal
+        $('#exampleModal').on('shown.bs.modal', function () {
+            $('.mibuscador_paciente').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+        });
+
+        // Inicializar select2 fuera del modal (por si acaso)
+        $('.cosmesInput_multiple').select2({
+            width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+            dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
+        });
+
+        // Re-inicializar select2 cada vez que se muestre el modal
+        $('#exampleModal').on('shown.bs.modal', function () {
+            $('.cosmesInput_multiple').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+        });
     });
 </script>
 
@@ -369,12 +397,13 @@
               id_laserModal:$('#id_laserModal').val(),
               id_paqueteModal:$('#id_paqueteModal').val(),
               cliente_id:$('#cliente_id').val(),
+              cosmesInput:$('#cosmesInput').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
               '_token':$("meta[name='csrf-token']").attr("content"),
               '_method':method
           }
-          console.log('Fecha nuevo 1',nuevoEvento)
+          console.log('Fecha nuevo 1',cosmesInput)
           return (nuevoEvento);
       }
 
@@ -558,7 +587,7 @@ $(document).ready(function() {
         $('#numPersonasInput').val(numPersonasSeleccionado);
 
         // Preselecciona los cosmes en el multiselect
-        $('#cosmesInput').val(cosmesSeleccionados).trigger('change');
+        $('#cosme_disp').val(cosmesSeleccionados).trigger('change');
 
         $('#formularioFechaSeleccionada').show();
         actualizarTotalSuma();

@@ -45,7 +45,7 @@
                          <span class="input-group-text" id="">
                             <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
                         </span>
-                        <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" >
+                        <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" readonly>
 
                     </div>
                 </div>
@@ -67,8 +67,8 @@
                         <select class="form-control mibuscador_paciente" id="cliente_id" name="cliente_id" >
                             <option value="">Seleccione Cliente</option>
                             @foreach($clients as $item)
-                            <option  value="{{$item->id}}">{{$item->name}} {{$item->last_name}}</option>
-                         @endforeach
+                                <option  value="{{$item->id}}">{{$item->name}} {{$item->last_name}}</option>
+                            @endforeach
                        </select>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
 
                  <div class="col-12" style="display: grid;">
                     <label for="cosmesInput">Cosmetólogas:</label>
-                    <select class="form-control"  id="cosmesInput" name="cosmes[]" multiple readonly>
+                    <select class="form-control cosmesInput_multiple"  id="cosmesInput" name="cosmes[]" multiple>
                         @foreach($user_pagos as $cosme)
                             <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
                         @endforeach

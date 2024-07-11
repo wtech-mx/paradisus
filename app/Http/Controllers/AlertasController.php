@@ -130,58 +130,78 @@ class AlertasController extends Controller
 
     public function update_calendar(Request $request, $id)
     {
+        $cliente = $request->cliente_id;
+        $startDateTime = $request->start;
         $datosEvento = Alertas::find($id);
-        $datosEvento->start = $request->start;
-        $datosEvento->end = $request->end;
-        $datosEvento->id_servicio = $request->id_servicio;
-        $datosEvento->id_status = $request->id_status;
-        $datosEvento->estatus = $datosEvento->Status->estatus;
-        $datosEvento->color = $datosEvento->Status->color;
 
-        $datosEvento->id_nota = $request->id_notaModal;
-        $datosEvento->id_laser = $request->id_laserModal;
-        $datosEvento->id_paquete = $request->id_paqueteModal;
+        $alertas = Alertas::where('id_client', $datosEvento->id_client)
+            ->where('start', $datosEvento->start)
+            ->where('id_servicio', $datosEvento->id_servicio)
+            ->get();
 
+        // Actualiza cada alerta encontrada
+        foreach ($alertas as $alerta) {
+            $alerta->start = $startDateTime;
+            $alerta->id_servicio = $request->id_servicio;
+            $alerta->id_status = $request->id_status;
+            $alerta->estatus = $alerta->Status->estatus;
+            $alerta->color = $alerta->Status->color;
+            $alerta->id_client = $cliente;
+            $full_name = $alerta->Client->name . ' ' . $alerta->Client->last_name;
+            $alerta->title = $full_name;
+            $alerta->telefono = $alerta->Client->phone;
+            $alerta->id_especialist = $request->id_especialist;
+            $alerta->id_nota = $request->id_notaModal;
+            $alerta->id_laser = $request->id_laserModal;
+            $alerta->id_paquete = $request->id_paqueteModal;
+            $alerta->descripcion = $request->descripcion;
 
-        $clienteUpdate = Client::find($request->cliente_id);
+            $servicio = Servicios::find($request->id_servicio);
+            $duracion = $servicio->duracion; // Duración en minutos
 
-        $datosEvento->id_client = $request->id_client;
-        $full_name = $clienteUpdate->name.$clienteUpdate->last_name;
-        $datosEvento->title = $full_name;
-        $datosEvento->telefono = $clienteUpdate->phone;
+            // Combina la fecha y la hora seleccionada
+            $startDateTimeString = $request->start;
+            $startDateTime = Carbon::parse($startDateTimeString);
 
-        // $datosEvento->resourceId = $request->resourceId;
-        $datosEvento->id_especialist = $request->id_especialist;
-        $datosEvento->descripcion = $request->descripcion;
+            // Calcula la hora de finalización
+            $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+            $alerta->end = $endDateTime;
 
-        if( $request->id_status == '1'){
+            if ($request->id_status == '1') {
+                $alerta->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+            } elseif ($request->id_status == '2') {
+                $alerta->image = asset('img/iconos_serv/cancelado.png');
+            } elseif ($request->id_status == '3') {
+                $alerta->image = asset('img/iconos_serv/sin_asistencia.png');
+            } elseif ($request->id_status == '4') {
+                $alerta->image = asset('img/iconos_serv/pendiente.png');
+            } elseif ($request->id_status == '5') {
+                $alerta->image = asset('img/iconos_serv/pagadoo.png');
+            } elseif ($request->id_status == '6') {
+                $alerta->image = asset('img/iconos_serv/reagendado.png');
+            }
 
-            $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+            $alerta->save();
 
-        }else if( $request->id_status == '2'){
+            // Elimina los registros existentes en AlertasCosmes para esta alerta
+            AlertasCosmes::where('id_alerta', $alerta->id)->delete();
 
-            $datosEvento->image = asset('img/iconos_serv/cancelado.png');
+            // Vuelve a insertar los registros en AlertasCosmes
+            $cosmes = $request->input('cosmesInput', []);
+            $insert_data = [];
+            $users = User::whereIn('id', $cosmes)->get();
+            foreach ($users as $user) {
+                $data = [
+                    'id_alerta' => $alerta->id,
+                    'id_user' => $user->id,
+                ];
+                $insert_data[] = $data;
+            }
 
-        }else if( $request->id_status == '3'){
-
-             $datosEvento->image = asset('img/iconos_serv/sin_asistencia.png');
-
-        }else if( $request->id_status == '4'){
-
-             $datosEvento->image = asset('img/iconos_serv/pendiente.png');
-
-        }else if( $request->id_status == '5'){
-
-             $datosEvento->image = asset('img/iconos_serv/pagadoo.png');
+            if (!empty($insert_data)) {
+                AlertasCosmes::insert($insert_data);
+            }
         }
-        else if( $request->id_status == '6'){
-
-            $datosEvento->image = asset('img/iconos_serv/reagendado.png');
-
-        }
-
-        $datosEvento->update();
-
     }
 
     public function destroy_calendar($id)
@@ -202,8 +222,10 @@ class AlertasController extends Controller
            //$client->email = $request->get('email');
            $client->save();
            $cliente = $client->id;
-        }else{
+        }elseif($request->get('id_client') != NULL){
             $cliente = $request->get('id_client');
+        }else{
+            $cliente = 3841;
         }
 
         if($request->option_nota == 'nota'){
@@ -333,27 +355,29 @@ class AlertasController extends Controller
         // Calcula la hora de finalización
         $endDateTime = $startDateTime->copy()->addMinutes($duracion);
 
-        $cosmes = $request->get('cosmes');
+        $cosmes = $request->get('cosme_disp');
 
         $users = User::whereIn('name', $cosmes)->get();
-
         $colors = $users->pluck('color')->filter()->all();
         $finalColor = $this->combineColors($colors);
+
+
+        $insert_data = [];
 
         foreach ($users as $user) {
             $datosEvento = new Alertas;
             $datosEvento->start = $startDateTime;
             $datosEvento->end = $endDateTime;
             $datosEvento->id_servicio = $request->servicioIdInput;
-            if($request->get('pagoInput') == NULL){
+            if ($request->get('pagoInput') == NULL) {
                 $datosEvento->id_status = 5;
-            }else{
+            } else {
                 $datosEvento->id_status = 1;
             }
             $datosEvento->estatus = $datosEvento->Status->estatus;
             $datosEvento->color = $datosEvento->Status->color;
             $datosEvento->id_client = $cliente;
-            $full_name = $datosEvento->Client->name.$datosEvento->Client->last_name;
+            $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
             $datosEvento->title = $full_name;
             $datosEvento->telefono = $datosEvento->Client->phone;
             $datosEvento->id_especialist = $request->id_user;
@@ -389,13 +413,17 @@ class AlertasController extends Controller
             }
 
             $datosEvento->save();
-            $data = array(
-                'id_alerta' => $datosEvento->id,
-                'id_user' => $user->id,
-            );
 
-            $insert_data[] = $data;
+            foreach ($users as $cosme) {
+                $data = [
+                    'id_alerta' => $datosEvento->id,
+                    'id_user' => $cosme->id,
+                ];
+                $insert_data[] = $data;
+            }
+        }
 
+        if (!empty($insert_data)) {
             AlertasCosmes::insert($insert_data);
         }
 
