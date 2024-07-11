@@ -140,7 +140,7 @@
                             <span class="input-group-text" id="basic-addon1">
                                 <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
                             </span>
-                            <input id="fechaSeleccionadaInput" name="fechaSeleccionada" readonly class="form-control">
+                            <input id="fechaSeleccionadaInput" name="fechaSeleccionada" class="form-control">
                         </div>
                     </div>
 
@@ -150,7 +150,7 @@
                             <span class="input-group-text" id="basic-addon1">
                                 <img src="{{ asset('assets/icons/fecha-limite.webp') }}" alt="" width="30px">
                             </span>
-                            <input  id="horaSeleccionadaInput" name="horaSeleccionada" readonly class="form-control">
+                            <input  id="horaSeleccionadaInput" name="horaSeleccionada" class="form-control">
                         </div>
                     </div>
 
