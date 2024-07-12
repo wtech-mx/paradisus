@@ -88,6 +88,8 @@
         $('.multi_cosme_manual').select2();
         $('.servicios_manual').select2();
 
+        $('.id_servicio').select2();
+
         // Inicializar select2 fuera del modal (por si acaso)
         $('.mibuscador_paciente').select2({
             width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
@@ -124,7 +126,7 @@
       var calendarEl = document.getElementById('calendar');
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
-
+        navLinks: true,
           height: 'auto',
           timeZone: 'local',
           {{--now: '{{$Fecha}}',--}}
@@ -149,11 +151,6 @@
           right: 'resourceTimeGridDay,timeGridWeek,dayGridMonth,list'
         },
 
-        dateClick: function(info) {
-            // Cambiar la vista del calendario a 'dayGridDay' para la fecha seleccionada
-            calendar.changeView('resourceTimeGridDay', info.dateStr);
-        },
-
         // resources: [
         //       { id: "A", title: "Modulo A" },
         //       { id: "B", title: "Modulo B" },
@@ -165,26 +162,26 @@
           events:"{{ route('calendar.show_calendar') }}",
 
         // ======================= M O D A L  P A R A  N U E V A  C I T A =======================
-        // dateClick:function (info) {
+        dateClick:function (info) {
 
-        //     limpiarFormulario();
-        //     $("#btnAgregar").prop("disabled",false);
-        //     $("#btnModificar").prop("disabled",true);
-        //     $("#btnBorrar").prop("disabled",true);
+            limpiarFormulario();
+            $("#btnAgregar").prop("disabled",false);
+            $("#btnModificar").prop("disabled",true);
+            $("#btnBorrar").prop("disabled",true);
 
-        //       if (info.allDay) {
-        //           $('#txtFecha').val(info.dateStr);
-        //       } else {
-        //           let fechaHora = info.dateStr.split("T");
-        //           let unahora = fechaHora[1].substring(0, 2);
-        //           let final = Number(unahora) + 1;
-        //           $('#txtFecha').val(fechaHora[0]);
-        //           $('#txtHorafin').val(fechaHora[1].substring(0, 5));
-        //           $('#txtHora').val(fechaHora[1].substring(0, 5));
-        //           console.log('hora', final)
-        //       }
-        //     $('#exampleModal').modal('toggle');
-        //   },
+              if (info.allDay) {
+                  $('#txtFecha').val(info.dateStr);
+              } else {
+                  let fechaHora = info.dateStr.split("T");
+                  let unahora = fechaHora[1].substring(0, 2);
+                  let final = Number(unahora) + 1;
+                  $('#txtFecha').val(fechaHora[0]);
+                  $('#txtHorafin').val(fechaHora[1].substring(0, 5));
+                  $('#txtHora').val(fechaHora[1].substring(0, 5));
+                  console.log('hora', final)
+              }
+            $('#exampleModal').modal('toggle');
+          },
         // ======================= E N D  M O D A L  P A R A  N U E V A  C I T A =======================
 
         eventClick:function (info) {
@@ -359,6 +356,11 @@
 
           nuevoEvento={
               id:$('#txtID').val(),
+
+              name_full:$('#name_full').val(),
+              last_name_full:$('#last_name_full').val(),
+              phone_full:$('#phone_full').val(),
+
               title:$('#title').val(),
               id_client:$('#id_client').val(),
               resourceId:$('#resourceId').val(),
@@ -372,6 +374,7 @@
               id_laserModal:$('#id_laserModal').val(),
               id_paqueteModal:$('#id_paqueteModal').val(),
               cliente_id:$('#cliente_id').val(),
+              cosmesInput:$('#cosmesInput').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
               '_token':$("meta[name='csrf-token']").attr("content"),

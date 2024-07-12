@@ -58,12 +58,16 @@
                     <input class="form-control" type="text" name="title" id="title">
                 </div> --}}
 
+                <div class="col-3">
+                    <label for="precio">Nuevo cliente</label><br>
+                    <button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#fullCalendar" aria-expanded="false" aria-controls="fullCalendar">
+                        Agregar <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
+                    </button>
+                </div>
+
                 <div class="form-group col-6  mt-3">
                     <label for="">Selecionar Cliente</label>
                     <div class="input-group mb-3">
-                         <span class="input-group-text" id="basic-addon1">
-                            <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="30px">
-                        </span>
                         <select class="form-control mibuscador_paciente" id="cliente_id" name="cliente_id" >
                             <option value="">Seleccione Cliente</option>
                             @foreach($clients as $item)
@@ -73,6 +77,43 @@
                     </div>
                 </div>
 
+                <div class="form-group col-12">
+                    <div class="collapse" id="fullCalendar">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="name">Nombre(s) *</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="29px">
+                                        </span>
+                                        <input  id="name_full" name="name_full" type="text" class="form-control" placeholder="Nombre o Nombres">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="name">Apellido(s) *</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <img src="{{ asset('assets/icons/letter.png') }}" alt="" width="29px">
+                                        </span>
+                                        <input  id="last_name_full" name="last_name_full" type="text" class="form-control" placeholder="Apellidos">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="name">Telefono *</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <img src="{{ asset('assets/icons/phone.png') }}" alt="" width="29px">
+                                        </span>
+                                        <input  id="phone_full" name="phone_full" type="text" class="form-control" type="tel" minlength="10" maxlength="10" placeholder="555555555">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="form-group col-6 mt-3">
                     <label for="">¿Quien lo vendio?</label>

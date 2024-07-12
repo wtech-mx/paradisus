@@ -89,30 +89,136 @@ class AlertasController extends Controller
 
     public function store_calendar(Request $request)
     {
-
-        $datosEvento = new Alertas;
-        $datosEvento->start = $request->start;
-        $datosEvento->end = $request->end;
-        $datosEvento->id_servicio = $request->id_servicio;
-        $datosEvento->id_status = $request->id_status;
-        $datosEvento->estatus = $datosEvento->Status->estatus;
-        $datosEvento->color = $datosEvento->Status->color;
-        $datosEvento->id_client = $request->cliente_id;
-        $full_name = $datosEvento->Client->name.$datosEvento->Client->last_name;
-        $datosEvento->title = $full_name;
-        $datosEvento->telefono = $datosEvento->Client->phone;
-        $datosEvento->resourceId = $request->resourceId;
-        $datosEvento->id_especialist = $request->id_especialist;
-        $datosEvento->descripcion = $request->descripcion;
-        $datosEvento->image = asset('img/iconos_serv/'.$datosEvento->Servicios->imagen);
-
-        if ( $datosEvento->end == $datosEvento->start){
-            $now = date($datosEvento->end);
-            $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now))); // $now + 3 hours
-            $datosEvento->end = $new_time;
+        // N U E V O  U S U A R I O
+        $fechaActual = date('Y-m-d');
+        if($request->get('name_full') != NULL){
+           $client = new Client;
+           $client->name = $request->get('name_full');
+           $client->last_name = $request->get('last_name_full');
+           $client->phone = $request->get('phone_full');
+           $client->save();
+           $cliente = $client->id;
+        }elseif($request->get('cliente_id') != NULL){
+            $cliente = $request->get('cliente_id');
+        }else{
+            $cliente = 3841;
         }
 
-        $datosEvento->save();
+        // G U A R D A R  N O T A  P R I N C I P A L
+        if($request->get('pagoInput') != NULL){
+            $nota = new Notas();
+            $nota->id_client = $cliente;
+            $nota->fecha = $fechaActual;
+            $nota->precio = $request->get('total-suma');
+            $nota->restante = $request->get('id_servicio');
+            $nota->save();
+
+            $cambio = $request->get('dineroRecibidoInput') - $request->get('pagoInput');
+
+            // G U A R D A R  C A M B I |
+            // if($request->get('cambio') > '0'){
+            if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
+                $fechaActual = date('Y-m-d');
+                $caja = new CajaDia;
+                $caja->egresos = $request->get('cambioInput');
+                $caja->motivo = 'Retiro';
+                $caja->concepto = 'Cambio nota servicio: ' . $nota->id;
+                $caja->fecha = $fechaActual;
+                $caja->save();
+            }
+
+            // G U A R D A R  S E R V I C I O
+            $nota_paquete = new NotasPaquetes;
+            $nota_paquete->id_nota = $nota->id;
+            $nota_paquete->id_servicio = $request->get('id_servicio');
+            $nota_paquete->num = $request->get('num_servicio');
+            $nota_paquete->save();
+
+            // G U A R D A R  C O S M I S I O N
+            $nota_paquete = new NotasCosmes;
+            $nota_paquete->id_nota = $nota->id;
+            $nota_paquete->id_user = $request->get('id_user');
+            $nota_paquete->save();
+
+            // G U A R D A R  P A G O
+            $pago = new Pagos;
+            $pago->id_nota = $nota->id;
+            $pago->fecha = $fechaActual;
+            $pago->cosmetologa = $request->get('cajera');
+            $pago->pago = $request->get('pagoInput');
+            $pago->dinero_recibido = $request->get('dineroRecibidoInput');
+            $pago->forma_pago = $request->get('forma_pago');
+            $pago->nota = $request->get('nota2');
+            $pago->cambio = $request->get('cambioInput');
+
+            if ($request->hasFile("foto")) {
+                $file = $request->file('foto');
+                $path = public_path() . '/foto_servicios';
+                $fileName = uniqid() . $file->getClientOriginalName();
+                $file->move($path, $fileName);
+                $pago->foto = $fileName;
+            }
+            $pago->save();
+        }
+
+        // Obtener el servicio para acceder a la duración
+        $servicio = Servicios::find($request->id_servicio);
+        $duracion = $servicio->duracion; // Duración en minutos
+
+        // Combina la fecha y la hora seleccionada
+        $startDateTime = $request->start;
+
+        $cosmes = $request->get('cosmesInput');
+
+        $users = User::whereIn('id', $cosmes)->get();
+        $colors = $users->pluck('color')->filter()->all();
+        $finalColor = $this->combineColors($colors);
+
+
+        $insert_data = [];
+
+        foreach ($users as $user) {
+            $datosEvento = new Alertas;
+            $datosEvento->start = $startDateTime;
+            $datosEvento->id_servicio = $request->id_servicio;
+            if ($cliente == 3841) {
+                $datosEvento->id_status = 5;
+            } else {
+                $datosEvento->id_status = 1;
+            }
+            $datosEvento->estatus = $datosEvento->Status->estatus;
+            $datosEvento->color = $datosEvento->Status->color;
+            $datosEvento->id_client = $cliente;
+            $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
+            $datosEvento->title = $full_name;
+            $datosEvento->telefono = $datosEvento->Client->phone;
+            $datosEvento->id_especialist = $request->id_especialist;
+            $datosEvento->id_nota = $request->id_notaModal;
+            $datosEvento->id_paquete = $request->id_paqueteModal;
+            $datosEvento->id_laser = $request->id_laserModal;
+            $datosEvento->descripcion = $request->descripcion;
+            $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+            $datosEvento->resourceId = $user->resourceId;
+
+            $now = date($datosEvento->end);
+            
+            $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now)));
+            $datosEvento->end = $new_time;
+
+            $datosEvento->save();
+
+            foreach ($users as $cosme) {
+                $data = [
+                    'id_alerta' => $datosEvento->id,
+                    'id_user' => $cosme->id,
+                ];
+                $insert_data[] = $data;
+            }
+        }
+
+        if (!empty($insert_data)) {
+            AlertasCosmes::insert($insert_data);
+        }
     }
 
     public function show_calendar()
