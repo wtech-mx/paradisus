@@ -88,8 +88,6 @@
         $('.multi_cosme_manual').select2();
         $('.servicios_manual').select2();
 
-        $('.id_servicio').select2();
-
         // Inicializar select2 fuera del modal (por si acaso)
         $('.mibuscador_paciente').select2({
             width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
@@ -102,6 +100,28 @@
                 width: '100%',
                 dropdownParent: $('#exampleModal')
             });
+        });
+
+        // Inicializar select2 fuera del modal (por si acaso)
+        $('.id_servicio_full').select2({
+            width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+            dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
+        });
+
+        // Re-inicializar select2 cada vez que se muestre el modal
+        $('#exampleModal').on('shown.bs.modal', function () {
+            $('.id_servicio_full').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+        });
+
+        // Selección del servicio y actualización del precio
+        $('#id_servicio').on('select2:select', function (e) {
+            var selectedOption = e.params.data.element;
+            var precio = $(selectedOption).data('precio');
+            console.log(precio);
+            $('#precio_servicio').val(precio ? precio : '');
         });
 
         // Inicializar select2 fuera del modal (por si acaso)
@@ -126,7 +146,7 @@
       var calendarEl = document.getElementById('calendar');
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        navLinks: true,
+          navLinks: true,
           height: 'auto',
           timeZone: 'local',
           {{--now: '{{$Fecha}}',--}}
@@ -242,15 +262,16 @@
 
 
 
-    // Limpiar selecciones del select múltiple de cosmes
-    limpiarSelectCosmes();
+            // Limpiar selecciones del select múltiple de cosmes
+            limpiarSelectCosmes();
 
-    // Seleccionar las cosmes correspondientes en el select múltiple
-    if (info.event.extendedProps.cosmes) {
-        info.event.extendedProps.cosmes.forEach(function(id) {
-            $('#cosmesInput option[value="' + id + '"]').prop('selected', true);
-        });
-    }
+            // Seleccionar las cosmes correspondientes en el select múltiple
+            if (info.event.extendedProps.cosmes) {
+                info.event.extendedProps.cosmes.forEach(function(id) {
+                    $('#cosmesInput option[value="' + id + '"]').prop('selected', true);
+                });
+            }
+
             $('#exampleModal').modal('show');
 
             console.log('cosmesInput', info.event.extendedProps.cosmes)
