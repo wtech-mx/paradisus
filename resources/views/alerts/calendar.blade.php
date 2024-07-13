@@ -116,14 +116,6 @@
             });
         });
 
-        // Selección del servicio y actualización del precio
-        $('#id_servicio').on('select2:select', function (e) {
-            var selectedOption = e.params.data.element;
-            var precio = $(selectedOption).data('precio');
-            console.log(precio);
-            $('#precio_servicio').val(precio ? precio : '');
-        });
-
         // Inicializar select2 fuera del modal (por si acaso)
         $('.cosmesInput_multiple').select2({
             width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor

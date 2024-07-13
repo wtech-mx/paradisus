@@ -169,24 +169,9 @@
                     </div>
                 </div>
 
-                <div class="col-7">
+                <div class="col-12">
                     <label for="">Descripcion</label>
                     <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="3"></textarea>
-                </div>
-
-                <div class="form-group col-5 mt-3">
-                    <label for="">¿Estatus de la cita?</label>
-                    <div class="input-group mb-3">
-                         <span class="input-group-text" id="basic-addon1">
-                            <img src="{{ asset('assets/icons/change.png') }}" alt="" width="30px">
-                        </span>
-                        <select class="form-control" id="id_status" name="id_status">
-                            <option value="">Selecionar estatus</option>
-                            @foreach($estatus as $item)
-                                <option value="{{$item->id}}">{{$item->estatus}}</option>
-                            @endforeach
-                          </select>
-                    </div>
                 </div>
 
                 <div class="form-group col-6 mt-3">
@@ -201,71 +186,18 @@
                     </div>
                 </div>
 
-                <div class="form-group col-6 mt-3">
-                    <label for="">Precio del servicio</label>
+                <div class="form-group col-5 mt-3">
+                    <label for="">¿Estatus de la cita?</label>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="precio_servicio" name="precio_servicio" readonly>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <label for="total-suma">Cajera</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-                            <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="25px">
+                         <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/change.png') }}" alt="" width="30px">
                         </span>
-                        <select class="form-control"  data-toggle="select" id="cajera" name="cajera">
-                            <option value="">Seleccionar cosme</option>
-                            @foreach ($user_recepcion as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                        <select class="form-control" id="id_status" name="id_status">
+                            <option value="">Selecionar estatus</option>
+                            @foreach($estatus as $item)
+                                <option value="{{$item->id}}">{{$item->estatus}}</option>
                             @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <label for="total-suma">Monto a pagar</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-                            <img src="{{ asset('assets/icons/cash-machine.png') }}" alt="" width="25px">
-                        </span>
-                        <input  id="pagoInput" name="pagoInput" type="number" class="form-control">
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <label for="total-suma">Dinero recibido</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-                            <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
-                        </span>
-                        <input  id="dineroRecibidoInput" name="dineroRecibidoInput" type="number" class="form-control">
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <label for="num_sesion">Metodo Pago</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-                            <img src="{{ asset('assets/icons/transferir.png') }}" alt="" width="25px">
-                        </span>
-                        <select id="forma_pago" name="forma_pago" class="form-control">
-                            <option value="Efectivo">Efectivo</option>
-                            <option value="Transferencia">Transferencia</option>
-                            <option value="Mercado Pago">Mercado Pago</option>
-                            <option value="Tarjeta">Tarjeta</option>
-                            <option value="Nota">Nota</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <label for="total-suma">Comprobante de pago</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">
-                            <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="25px">
-                        </span>
-                        <input type="file" id="foto" class="form-control" name="foto">
+                          </select>
                     </div>
                 </div>
 

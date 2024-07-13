@@ -161,10 +161,6 @@ class AlertasController extends Controller
             $pago->save();
         }
 
-        // Obtener el servicio para acceder a la duración
-        $servicio = Servicios::find($request->id_servicio);
-        $duracion = $servicio->duracion; // Duración en minutos
-
         // Combina la fecha y la hora seleccionada
         $startDateTime = $request->start;
 
@@ -179,7 +175,6 @@ class AlertasController extends Controller
 
         foreach ($users as $user) {
             $datosEvento = new Alertas;
-            $datosEvento->start = $startDateTime;
             $datosEvento->id_servicio = $request->id_servicio;
             if ($cliente == 3841) {
                 $datosEvento->id_status = 5;
@@ -200,10 +195,18 @@ class AlertasController extends Controller
             $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
             $datosEvento->resourceId = $user->resourceId;
 
-            $now = date($datosEvento->end);
-            
-            $new_time = date("Y-m-d H:i", strtotime('+1 hours', strtotime($now)));
-            $datosEvento->end = $new_time;
+            $servicio = Servicios::find($request->id_servicio);
+            $duracion = $servicio->duracion; // Duración en minutos
+
+            // Combina la fecha y la hora seleccionada
+            $startDateTimeString = $request->start;
+            $startDateTime = Carbon::parse($startDateTimeString);
+
+            // Calcula la hora de finalización
+            $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+
+            $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
+            $datosEvento->end = $endDateTime->format('Y-m-d H:i:s');
 
             $datosEvento->save();
 
@@ -247,7 +250,6 @@ class AlertasController extends Controller
 
         // Actualiza cada alerta encontrada
         foreach ($alertas as $alerta) {
-            $alerta->start = $startDateTime;
             $alerta->id_servicio = $request->id_servicio;
             $alerta->id_status = $request->id_status;
             $alerta->estatus = $alerta->Status->estatus;
@@ -271,7 +273,9 @@ class AlertasController extends Controller
 
             // Calcula la hora de finalización
             $endDateTime = $startDateTime->copy()->addMinutes($duracion);
-            $alerta->end = $endDateTime;
+
+            $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+            $alerta->end = $endDateTime->format('Y-m-d H:i:s');
 
             if ($request->id_status == '1') {
                 $alerta->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
