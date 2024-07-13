@@ -226,14 +226,13 @@ class AlertasController extends Controller
 
     public function show_calendar()
     {
-        $resultado = Alertas::all();
+        $resultado = Alertas::with('Servicios_id')->get();
 
         $resultado->each(function ($alerta) {
             $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
+            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agrega el nombre del servicio
         });
 
-
-        //retorna a la vista sn json
         return response()->json($resultado);
     }
 

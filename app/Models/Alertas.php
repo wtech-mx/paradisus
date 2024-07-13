@@ -24,6 +24,7 @@ class Alertas extends Model
         'start',
         'end',
         'status',
+        'id_servicio',
     ];
 
     public function scopeTitulo($query, $titulo)
@@ -50,6 +51,11 @@ class Alertas extends Model
     public function Servicios()
     {
         return $this->belongsTo(Servicios::class, 'id_color');
+    }
+
+    public function Servicios_id()
+    {
+        return $this->belongsTo(Servicios::class, 'id_servicio');
     }
 
     public function cosmes()
