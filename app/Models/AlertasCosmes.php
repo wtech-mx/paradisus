@@ -10,7 +10,6 @@ class AlertasCosmes extends Model
     use HasFactory;
     protected $table = "alertas_cosmes";
     protected $primarykey = "id";
-    public $timestamps = false;
 
     protected $fillable = [
         'id_alerta',

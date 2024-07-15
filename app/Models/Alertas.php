@@ -11,7 +11,6 @@ class Alertas extends Model
 
     protected $table = "alertas";
     protected $primarykey = "id";
-    public $timestamps = false;
 
     protected $fillable = [
         'id_client',
