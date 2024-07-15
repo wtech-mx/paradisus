@@ -135,184 +135,179 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-      var calendarEl = document.getElementById('calendar');
+        var calendarEl = document.getElementById('calendar');
+        var originalResources = {!! json_encode($modulos) !!};
 
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-          navLinks: true,
-          height: 'auto',
-          timeZone: 'local',
-          {{--now: '{{$Fecha}}',--}}
-          initialDate: '{{$Fecha}}',
-          initialView: 'timeGridWeek',
-          editable: true,
-          dayMaxEvents: 5,
-          aspectRatio: 1.8,
-          themeSystem: 'bootstrap',
-          scrollTime:  "09:00:00",
-        //   slotMinTime: "08:00:00",
-        //   slotMaxTime: "22:00:00",
-        slotMinTime: "{{ date('H:i:s', strtotime($configuracion->horario_inicio)) }} }}",
-          slotMaxTime: "{{ date('H:i:s', strtotime($configuracion->horario_fin)) }} }}",
-        //   hiddenDays: [ 0 ],
-          schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+var calendar = new FullCalendar.Calendar(calendarEl, {
+    navLinks: true,
+    height: 'auto',
+    timeZone: 'local',
+    initialDate: '{{$Fecha}}',
+    initialView: 'timeGridWeek',
+    editable: true,
+    dayMaxEvents: 5,
+    aspectRatio: 1.8,
+    themeSystem: 'bootstrap',
+    scrollTime: "09:00:00",
+    slotMinTime: "{{ date('H:i:s', strtotime($configuracion->horario_inicio)) }}",
+    slotMaxTime: "{{ date('H:i:s', strtotime($configuracion->horario_fin)) }}",
+    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+    headerToolbar: {
+        left: 'today prev,next',
+        center: 'title',
+        right: 'resourceTimeGridDay,timeGridWeek,dayGridMonth,list'
+    },
+    resources: {!! json_encode($modulos) !!},
+    resources: originalResources,
+    events: "{{ route('calendar.show_calendar') }}",
 
-        headerToolbar: {
-          left: 'today prev,next',
-          center: 'title',
-          // right: 'dayGridDay,timeGridWeek,dayGridMonth' sirve para la vidsata por di
-          right: 'resourceTimeGridDay,timeGridWeek,dayGridMonth,list'
-        },
+    // datesSet: function(info) {
+    //      console.log(info);
 
-        // resources: [
-        //       { id: "A", title: "Modulo A" },
-        //       { id: "B", title: "Modulo B" },
-        //   ],
+    //     var hiddenDates = ["2024-06-22", "2024-06-23", "2024-06-24"];
+    //     var currentDate = info.startStr.split('T')[0];
 
-        resources: {!! json_encode($modulos) !!},
+    //     if (info.view.type === 'resourceTimeGridDay' && hiddenDates.includes(currentDate)) {
+    //         var filteredResources = originalResources.filter(function(resource) {
+    //             return resource.id !== "A";
+    //         });
+    //         calendar.setOption('resources', filteredResources);
+    //     } else {
+    //         calendar.setOption('resources', originalResources);
+    //     }
+    // },
 
+    datesSet: function(info) {
+        var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+        var currentDay = dayNames[new Date(info.start).getDay()]; // Obtener el día de la semana actual
 
-          events:"{{ route('calendar.show_calendar') }}",
+        if (info.view.type === 'resourceTimeGridDay') {
+            var filteredResources = originalResources.filter(function(resource) {
+                return resource.horario[currentDay] === 1; // Filtrar los recursos según el día de la semana
+            });
+            calendar.setOption('resources', filteredResources);
+        } else {
+            calendar.setOption('resources', originalResources);
+        }
+    },
 
-        // ======================= M O D A L  P A R A  N U E V A  C I T A =======================
-        dateClick:function (info) {
+    // ======================= M O D A L  P A R A  N U E V A  C I T A =======================
+    dateClick: function (info) {
+        limpiarFormulario();
+        $("#btnAgregar").prop("disabled", false);
+        $("#btnModificar").prop("disabled", true);
+        $("#btnBorrar").prop("disabled", true);
 
-            limpiarFormulario();
-            $("#btnAgregar").prop("disabled",false);
-            $("#btnModificar").prop("disabled",true);
-            $("#btnBorrar").prop("disabled",true);
+        if (info.allDay) {
+            $('#txtFecha').val(info.dateStr);
+        } else {
+            let fechaHora = info.dateStr.split("T");
+            let unahora = fechaHora[1].substring(0, 2);
+            let final = Number(unahora) + 1;
+            $('#txtFecha').val(fechaHora[0]);
+            $('#txtHorafin').val(fechaHora[1].substring(0, 5));
+            $('#txtHora').val(fechaHora[1].substring(0, 5));
+            // console.log('hora', final)
+        }
+        $('#exampleModal').modal('toggle');
+    },
+    // ======================= E N D  M O D A L  P A R A  N U E V A  C I T A =======================
 
-              if (info.allDay) {
-                  $('#txtFecha').val(info.dateStr);
-              } else {
-                  let fechaHora = info.dateStr.split("T");
-                  let unahora = fechaHora[1].substring(0, 2);
-                  let final = Number(unahora) + 1;
-                  $('#txtFecha').val(fechaHora[0]);
-                  $('#txtHorafin').val(fechaHora[1].substring(0, 5));
-                  $('#txtHora').val(fechaHora[1].substring(0, 5));
-                  console.log('hora', final)
-              }
-            $('#exampleModal').modal('toggle');
-          },
-        // ======================= E N D  M O D A L  P A R A  N U E V A  C I T A =======================
+    eventClick: function (info) {
+        $("#btnAgregar").prop("disabled", true);
+        $("#btnModificar").prop("disabled", false);
+        $("#btnBorrar").prop("disabled", false);
+        $('#txtID').val(info.event.id);
 
-        eventClick:function (info) {
+        mes = (info.event.start.getMonth() + 1);
+        dia = (info.event.start.getDate());
+        anio = (info.event.start.getFullYear());
 
-            $("#btnAgregar").prop("disabled",true);
-            $("#btnModificar").prop("disabled",false);
-            $("#btnBorrar").prop("disabled",false);
-            $('#txtID').val(info.event.id);
+        mes = (mes < 10) ? "0" + mes : mes;
+        dia = (dia < 10) ? "0" + dia : dia;
 
-              mes = (info.event.start.getMonth()+1);
-              dia = (info.event.start.getDate());
-              anio = (info.event.start.getFullYear());
+        minutos = (info.event.start.getMinutes());
+        hora = (info.event.start.getHours());
 
-              mes = (mes<10)?"0"+mes:mes;
-              dia = (dia<10)?"0"+dia:dia;
+        minutos = (minutos < 10) ? "0" + minutos : minutos;
+        hora = (hora < 10) ? "0" + hora : hora;
 
-              minutos=(info.event.start.getMinutes());
-              hora=(info.event.start.getHours());
+        horario = (hora + ":" + minutos);
 
-              minutos = (minutos<10)?"0"+minutos:minutos;
-              hora = (hora<10)?"0"+hora:hora;
+        minutos2 = (info.event.end && info.event.end.getMinutes()) || 0;
+        hora2 = (info.event.end && info.event.end.getHours()) || 0;
 
-              horario = (hora+":"+minutos);
-
-              // ---------a
-
-            minutos2 = (info.event.end && info.event.end.getMinutes()) || 0;
-            console.log(minutos2);
-
-            hora2 = (info.event.end && info.event.end.getHours()) || 0;
-
-            if (info.event.end) {
+        if (info.event.end) {
             minutos2 = (minutos2 < 10) ? "0" + minutos2 : minutos2;
             hora2 = (hora2 < 10) ? "0" + hora2 : hora2;
-            }
+        }
 
-            horario2 = hora2 + ":" + minutos2;
+        horario2 = hora2 + ":" + minutos2;
 
+        $('#txtFecha').val(anio + "-" + mes + "-" + dia);
+        $('#txtHora').val(horario);
+        $('#txtHorafin').val(horario2);
+        $('#id_client').val(info.event.extendedProps.id_client);
+        $('#cliente_id').val(info.event.extendedProps.id_client);
+        $('#resourceId').val(info.event._def.resourceIds);
+        $('#id_especialist').val(info.event.extendedProps.id_especialist);
+        $('#title').val(info.event.title);
+        $('#txtNota').val(info.event.extendedProps.id_nota);
+        $('#txtTelefono').val(info.event.extendedProps.telefono);
+        $('#color').val(info.event.backgroundColor);
+        $('#id_servicio').val(info.event.extendedProps.id_servicio);
+        $('#id_notaModal').val(info.event.extendedProps.id_nota);
+        $('#id_laserModal').val(info.event.extendedProps.id_laser);
+        $('#id_paqueteModal').val(info.event.extendedProps.id_paquete);
+        $('#descripcion').val(info.event.extendedProps.descripcion);
+        $('#id_status').val(info.event.extendedProps.id_status);
+        $('#image').val(info.event.extendedProps.image);
 
-            $('#txtFecha').val(anio+"-"+mes+"-"+dia);
-            $('#txtHora').val(horario);
-            $('#txtHorafin').val(horario2);
-            $('#id_client').val(info.event.extendedProps.id_client);
-            $('#cliente_id').val(info.event.extendedProps.id_client);
-            $('#resourceId').val(info.event._def.resourceIds);
-            $('#id_especialist').val(info.event.extendedProps.id_especialist);
-            $('#title').val(info.event.title);
-            $('#txtNota').val(info.event.extendedProps.id_nota);
-            $('#txtTelefono').val(info.event.extendedProps.telefono);
-            $('#color').val(info.event.backgroundColor);
-            $('#id_servicio').val(info.event.extendedProps.id_servicio);
-            $('#id_notaModal').val(info.event.extendedProps.id_nota);
-            $('#id_laserModal').val(info.event.extendedProps.id_laser);
-            $('#id_paqueteModal').val(info.event.extendedProps.id_paquete);
-            $('#descripcion').val(info.event.extendedProps.descripcion);
-            $('#id_status').val(info.event.extendedProps.id_status);
-            $('#image').val(info.event.extendedProps.image);
+        limpiarSelectCosmes();
 
+        if (info.event.extendedProps.cosmes) {
+            info.event.extendedProps.cosmes.forEach(function (id) {
+                $('#cosmesInput option[value="' + id + '"]').prop('selected', true);
+            });
+        }
 
+        $('#exampleModal').modal('show');
+        // console.log('cosmesInput', info.event.extendedProps.cosmes)
+    },
 
-            // Limpiar selecciones del select múltiple de cosmes
-            limpiarSelectCosmes();
+    eventContent: function (arg) {
+        minutos3 = (arg.event.start.getMinutes());
+        hora3 = (arg.event.start.getHours());
+        minutos3 = (minutos3 < 10) ? "0" + minutos3 : minutos3;
+        hora3 = (hora3 < 10) ? "0" + hora3 : hora3;
+        horario = (hora3 + ":" + minutos3);
+        let hor = horario;
 
-            // Seleccionar las cosmes correspondientes en el select múltiple
-            if (info.event.extendedProps.cosmes) {
-                info.event.extendedProps.cosmes.forEach(function(id) {
-                    $('#cosmesInput option[value="' + id + '"]').prop('selected', true);
-                });
-            }
+        let imageArg = arg.event.extendedProps.image;
+        let modulocapi = arg.event.getResources().map(function (resource) { return resource.id });
+        let nombreServicio = arg.event.extendedProps.nombre_servicio;
+        // console.log(nombreServicio);
 
-            $('#exampleModal').modal('show');
+        let arrayOfDomNodes = []
 
-            console.log('cosmesInput', info.event.extendedProps.cosmes)
-          },
+        let titleEvent = document.createElement('div')
+        titleEvent.innerHTML = arg.event.title
+        titleEvent.classList = "fc-event-title fc-sticky"
 
-          eventContent: function(arg) {
+        let horaEvent = document.createElement('div')
+        horaEvent.innerHTML = '<div style="font-size:10px;">' + hor + ' - ' + modulocapi + '<img width="13px" style="margin-left: 10px" src="' + imageArg + '" ><br>' + nombreServicio + '</div>';
+        horaEvent.classList = "fc-event-time"
 
-          minutos3=(arg.event.start.getMinutes());
-          hora3=(arg.event.start.getHours());
-          minutos3 = (minutos3<10)?"0"+minutos3:minutos3;
-          hora3 = (hora3<10)?"0"+hora3:hora3;
-          horario = (hora3+":"+minutos3);
-          let hor = horario;
+        arrayOfDomNodes = [titleEvent, horaEvent]
 
-          let imageArg = arg.event.extendedProps.image;
-          let modulocapi = arg.event.getResources().map(function(resource) { return resource.id });
-          let nombreServicio = arg.event.extendedProps.nombre_servicio;
-          console.log(nombreServicio);
+        return { domNodes: arrayOfDomNodes }
+    },
 
-          let arrayOfDomNodes = []
+});
 
-          // title event
-          let titleEvent = document.createElement('div')
-            titleEvent.innerHTML = arg.event.title
-            titleEvent.classList = "fc-event-title fc-sticky"
+calendar.setOption('locale', 'es');
+calendar.render();
 
-
-          // Hora event
-          let horaEvent = document.createElement('div')
-            horaEvent.innerHTML = '<div style="font-size:10px;">'+hor+' - '+modulocapi+'<img width="13px" style="margin-left: 10px" src="'+imageArg+'" ><br>' + nombreServicio + '</div>';
-            horaEvent.classList = "fc-event-time"
-
-          // image event
-          // let imgEventWrap = document.createElement('div')
-          //   let imgEvent = '<img width="16px" height="16px" style="margin-left: 10px" src="'+imageArg+'" >';
-          //   imgEventWrap.classList = "fc-event-img"
-          //   imgEventWrap.innerHTML = imgEvent;
-
-          arrayOfDomNodes = [ titleEvent,horaEvent ]
-
-          return { domNodes: arrayOfDomNodes }
-        },
-
-
-
-      });
-
-      calendar.setOption('locale','Es');
-      calendar.render();
 
       $('#btnWhats').click(function(){
           ObjEvento= recolectarDatosGUIWhatsapp('POST');
@@ -395,7 +390,7 @@
               '_token':$("meta[name='csrf-token']").attr("content"),
               '_method':method
           }
-          console.log('Fecha nuevo',nuevoEvento)
+        //   console.log('Fecha nuevo',nuevoEvento)
           return (nuevoEvento);
       }
 
@@ -421,7 +416,7 @@
               '_token':$("meta[name='csrf-token']").attr("content"),
               '_method':method
           }
-          console.log('Fecha nuevo 1',cosmesInput)
+        //   console.log('Fecha nuevo 1',cosmesInput)
           return (nuevoEvento);
       }
 
@@ -457,7 +452,7 @@
                        url: "{{route('calendar.store_calendar')}}"+accion,
                       data:ObjEvento,
                       success:function (msg){
-                            console.log('Mensaje',msg);
+                            // console.log('Mensaje',msg);
                             $('#exampleModal').modal('toggle');
                             calendar.refetchEvents();
                            },

@@ -71,7 +71,11 @@ class AlertasController extends Controller
 
         // Iterar sobre los usuarios y generar los módulos
         foreach ($user_cosmetologas as $user) {
-            $modulos[] = ['id' => $user->resourceId, 'title' => $user->name];
+            $modulos[] = [
+                'id' => $user->resourceId,
+                'title' => $user->name,
+                'horario' => $user->horario // Incluye el horario del usuario
+            ];
         }
 
         // Obtener la fecha y hora actual
