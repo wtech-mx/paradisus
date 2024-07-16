@@ -201,6 +201,17 @@
                     </div>
                 </div>
 
+                <div class="form-group col-12 mt-3">
+                    <button class="btn btn-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#previousServices" aria-expanded="false" aria-controls="previousServices">
+                        Ver servicios anteriores
+                    </button>
+                    <div class="collapse mt-3" id="previousServices">
+                        <div class="card card-body ">
+                            <div class="row" id="previousServicesList"></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
