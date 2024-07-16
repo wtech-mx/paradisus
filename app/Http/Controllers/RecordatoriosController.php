@@ -42,4 +42,13 @@ class RecordatoriosController extends Controller
         Session::flash('edit', 'Se ha editado el estatus con exito');
         return redirect()->back();
     }
+
+    public function ChangePendienteStatus(Request $request)
+    {
+        $servicio = Alertas::find($request->id);
+        $servicio->recordatorio = $request->recordatorio;
+        $servicio->save();
+
+        return response()->json(['success' => 'Se cambio el estado exitosamente.']);
+    }
 }

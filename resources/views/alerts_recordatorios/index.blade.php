@@ -54,6 +54,7 @@
                                             <th>Nombre</th>
                                             <th>Estatus</th>
                                             <th>Cita</th>
+                                            <th>¿Enviado?</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -88,7 +89,11 @@ Buen dia, Te esperamos 💖";
                                                         </a>
                                                     </td>
                                                     <td>{{ $fechaFormateada }} {{$horaFormateada}}</td>
-
+                                                    <td>
+                                                        <input data-id="{{ $alerta->id }}" class="toggle-class" type="checkbox"
+                                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                        data-on="Active" data-off="InActive" {{ $alerta->recordatorio ? 'checked' : '' }}>
+                                                    </td>
                                                     <td>
                                                         <button class="btn btn-sm mb-0 mt-sm-0 mt-1" onclick="copyText({{ json_encode($texto) }})" style="background-color: #f8c418; color: #ffffff;">Copiar Texto</button>
                                                     </td>
@@ -136,5 +141,26 @@ Buen dia, Te esperamos 💖";
         // Notificar al usuario
         alert("Texto copiado al portapapeles");
     }
+
+    $(function() {
+        // Asignar el evento a un elemento padre estático
+        $('.table-responsive').on('change', '.toggle-class', function() {
+            var recordatorio = $(this).prop('checked') == true ? 1 : 0;
+            var id = $(this).data('id');
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '{{ route('ChangePendienteStatus.recordatorios') }}',
+                data: {
+                    'recordatorio': recordatorio,
+                    'id': id
+                },
+                success: function(data) {
+                    console.log(data.success)
+                }
+            });
+        });
+    });
 </script>
 @endsection

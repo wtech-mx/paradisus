@@ -265,7 +265,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/calendar/notas/manual/store', [App\Http\Controllers\AlertasController::class, 'store_agenda_manual'])->name('store_agenda_manual.notas');
 
     Route::get('/buscar-fechas-disponibles', [App\Http\Controllers\AlertasController::class, 'buscarFechasDisponibles']);
-
+    Route::get('/calendar/pago', [App\Http\Controllers\RecordatoriosController::class, 'ChangePendienteStatus'])->name('ChangePendienteStatus.recordatorios');
 
     /*|--------------------------------------------------------------------------
     |Colores
