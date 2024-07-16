@@ -19,8 +19,9 @@ class StatusController extends Controller
     public function create(Request $request)
     {
         $estatus = new Status();
-        $estatus -> estatus = $request->get('estatus');
-        $estatus -> color = $request->get('color');
+        $estatus->estatus = $request->get('estatus');
+        $estatus->color = $request->get('color');
+        $estatus->icono = $request->get('icono');
         $estatus->save();
 
         Session::flash('create', 'Se ha creado sus datos con exito');
@@ -41,6 +42,7 @@ class StatusController extends Controller
         $estatus = Status::find($id);
         $estatus -> estatus = $request->get('estatus');
         $estatus -> color = $request->get('color');
+        $estatus->icono = $request->get('icono');
         $estatus->update();
 
         $alerta = Alertas::where('id_status',$id)->where('color', '!=', $estatus -> color)->get()->count();
@@ -49,6 +51,7 @@ class StatusController extends Controller
                              ->where('color', '!=', $estatus -> color)
                              ->first();
             $alert->color =$request->get('color');
+            $estatus->image = $request->get('icono');
             $alert->update();
         }
 

@@ -28,6 +28,11 @@
                                     <input type="color" class="form-control" id="color" name="color">
                                 </div>
 
+                                <div class="form-group col-2">
+                                    <label for="Color">Icono</label>
+                                    <input type="text" class="form-control" id="icono" name="icono">
+                                </div>
+
                                 <div class="form-group col-3">
                                     <label for="operatoria" style="opacity: 0;">-------</label>
                                     <button type="submit" class="btn btn-primary">Crear</button>

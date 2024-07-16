@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 'auto',
         timeZone: 'local',
         initialDate: '{{$Fecha}}',
-        initialView: 'timeGridWeek',
+        initialView: 'dayGridMonth',
         editable: true,
         dayMaxEvents: 5,
         aspectRatio: 1.8,
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         headerToolbar: {
             left: 'today prev,next',
             center: 'title',
-            right: 'resourceTimeGridDay,timeGridWeek,dayGridMonth,list'
+            right: 'resourceTimeGridDay,dayGridMonth,list'
         },
         resources: {!! json_encode($modulos) !!},
         resources: originalResources,
