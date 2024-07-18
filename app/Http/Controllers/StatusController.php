@@ -42,16 +42,27 @@ class StatusController extends Controller
         $estatus = Status::find($id);
         $estatus -> estatus = $request->get('estatus');
         $estatus -> color = $request->get('color');
-        $estatus->icono = $request->get('icono');
+        $estatus->icono = $request->get('icono2');
         $estatus->update();
 
-        $alerta = Alertas::where('id_status',$id)->where('color', '!=', $estatus -> color)->get()->count();
+        $alerta = Alertas::where('id_status',$id)
+        ->where(function ($query) use ($estatus){
+            $query->where('color', '!=', $estatus -> color)
+                  ->orwhere('image', '!=', $estatus -> icono);
+        })
+        ->get()->count();
+
         for($i=1; $i<=$alerta; $i++){
             $alert = Alertas::where('id_status', $id)
-                             ->where('color', '!=', $estatus -> color)
+                            ->where(function ($query) use ($estatus){
+                                $query->where('color', '!=', $estatus -> color)
+                                    ->orwhere('image', '!=', $estatus -> icono);
+                            })
                              ->first();
+         
             $alert->color =$request->get('color');
-            $estatus->image = $request->get('icono');
+            $alert->image = $request->get('icono2');
+
             $alert->update();
         }
 

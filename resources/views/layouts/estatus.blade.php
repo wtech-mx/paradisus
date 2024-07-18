@@ -28,9 +28,22 @@
                                     <input type="color" class="form-control" id="color" name="color">
                                 </div>
 
-                                <div class="form-group col-2">
+                                <div class="form-group col-4">
                                     <label for="Color">Icono</label>
-                                    <input type="text" class="form-control" id="icono" name="icono">
+                                    <select class="form-control" id="icono" name="icono">
+                                        <option value="{{ asset('img/iconos_serv/sistema/asistencia.png') }}" data-img="{{ asset('img/iconos_serv/sistema/asistencia.png') }}">Asistencia</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/asistencia 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/asistencia 2.png') }}">Asistencia 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/confirmado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/confirmado.png') }}">Confirmado</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/confirmado 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/confirmado 2.png') }}">Confirmado 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/pendiente.png') }}" data-img="{{ asset('img/iconos_serv/sistema/pendiente.png') }}">Pendiente</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/pendiente 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/pendiente 2.png') }}">Pendiente 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/reagendado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/reagendado.png') }}">Reagendado</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/reagendado 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/reagendado 2.png') }}">Reagendado 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/sin_asistencia.png') }}" data-img="{{ asset('img/iconos_serv/sistema/sin_asistencia.png') }}">Sin Asistencia</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/sin_asistencia 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/sin_asistencia 2.png') }}">Sin Asistencia 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/cancelado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/cancelado.png') }}">Cancelado</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/pagado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/pagado.png') }}">Pagado</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-3">
@@ -58,6 +71,25 @@
                                 <div class="form-group col-2">
                                     <label for="Color">Color</label>
                                     <input type="color" class="form-control" id="color" name="color" value="{{$item->color}}">
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="Color">Icono</label>
+                                    <select class="form-control icono-select" name="icono2">
+                                        <option value="{{$item->image}}" data-img="{{$item->image}}">{{$item->estatus}}</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/asistencia.png') }}" data-img="{{ asset('img/iconos_serv/sistema/asistencia.png') }}">Asistencia</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/asistencia 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/asistencia 2.png') }}">Asistencia 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/confirmado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/confirmado.png') }}">Confirmado</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/confirmado 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/confirmado 2.png') }}">Confirmado 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/pendiente.png') }}" data-img="{{ asset('img/iconos_serv/sistema/pendiente.png') }}">Pendiente</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/pendiente 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/pendiente 2.png') }}">Pendiente 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/reagendado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/reagendado.png') }}">Reagendado</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/reagendado 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/reagendado 2.png') }}">Reagendado 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/sin_asistencia.png') }}" data-img="{{ asset('img/iconos_serv/sistema/sin_asistencia.png') }}">Sin Asistencia</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/sin_asistencia 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/sin_asistencia 2.png') }}">Sin Asistencia 2</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/cancelado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/cancelado.png') }}">Cancelado</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/pagado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/pagado.png') }}">Pagado</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-3">

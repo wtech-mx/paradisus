@@ -19,7 +19,8 @@
 
     <style>
         .fc-v-event .fc-event-title {
-            font-size: 7.6px;
+            font-size: 8.5px;
+            color: #000000!important;
         }
         .fc .fc-scrollgrid, .fc .fc-scrollgrid table {
             width: 100%;
@@ -30,6 +31,10 @@
         .fc-theme-standard .fc-scrollgrid, .fc-scrollgrid {
             border: none;
             background: #fff;
+        }
+        .fc-event-time {
+            font-size: 7.6px;
+            color: #000000!important;
         }
     </style>
 
@@ -160,22 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
         resources: {!! json_encode($modulos) !!},
         resources: originalResources,
         events: "{{ route('calendar.show_calendar') }}",
-
-        // datesSet: function(info) {
-        //      console.log(info);
-
-        //     var hiddenDates = ["2024-06-22", "2024-06-23", "2024-06-24"];
-        //     var currentDate = info.startStr.split('T')[0];
-
-        //     if (info.view.type === 'resourceTimeGridDay' && hiddenDates.includes(currentDate)) {
-        //         var filteredResources = originalResources.filter(function(resource) {
-        //             return resource.id !== "A";
-        //         });
-        //         calendar.setOption('resources', filteredResources);
-        //     } else {
-        //         calendar.setOption('resources', originalResources);
-        //     }
-        // },
 
         datesSet: function(info) {
             var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
@@ -695,6 +684,46 @@ $(document).ready(function() {
         // Ejecutar cada vez que cambie la selección del radio button
         $('input[name="option_nota"]').change(function() {
             toggleInputs();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        function formatState (state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = $(state.element).data('img');
+            var $state = $(
+                '<span><img src="' + baseUrl + '" class="img-flag" style="width: 20px; margin-right: 10px;" /> ' + state.text + '</span>'
+            );
+            return $state;
+        };
+
+        $('#icono').select2({
+            templateResult: formatState,
+            templateSelection: formatState,
+            width: '100%'
+        });
+    });
+
+    $(document).ready(function() {
+        function formatState (state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = $(state.element).data('img');
+            var $state = $(
+                '<span><img src="' + baseUrl + '" class="img-flag" style="width: 20px; margin-right: 10px;" /> ' + state.text + '</span>'
+            );
+            return $state;
+        };
+
+        $('.icono-select').select2({
+            templateResult: formatState,
+            templateSelection: formatState,
+            width: '100%'
         });
     });
 </script>

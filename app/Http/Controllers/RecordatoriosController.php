@@ -20,7 +20,13 @@ class RecordatoriosController extends Controller
 
         $fecha = $request->input('fecha');;
 
-        $alertas = Alertas::whereRaw('DATE(start) = ?', [$fecha])->get();
+
+        $alertas = Alertas::whereRaw('DATE(start) = ?', [$fecha])
+        ->select('id_client', 'start', 'id_servicio')
+        ->distinct()
+        ->groupBy('id_client', 'start', 'id_servicio')
+        ->select('*')
+        ->get();
 
         return view('alerts_recordatorios.index', compact('alertas'));
     }
