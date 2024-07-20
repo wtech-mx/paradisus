@@ -47,7 +47,6 @@ class AlertasController extends Controller
 
     public function index_calendar()
     {
-
         $fechaActual = date('Y-m-d');
         $estatus = Status::get();
         $alert = Alertas::get();
@@ -255,18 +254,35 @@ class AlertasController extends Controller
         return response()->json($alertas);
     }
 
-
-
     public function update_calendar(Request $request, $id)
     {
         $cliente = $request->cliente_id;
         $startDateTime = $request->start;
         $datosEvento = Alertas::find($id);
 
+        // Obtener todas las alertas relacionadas
         $alertas = Alertas::where('id_client', $datosEvento->id_client)
             ->where('start', $datosEvento->start)
             ->where('id_servicio', $datosEvento->id_servicio)
             ->get();
+
+        // Obtener los IDs de las cosmetólogas seleccionadas en el formulario
+        $cosmesSeleccionadas = $request->input('cosmesInput', []);
+
+        // Obtener los IDs de las cosmetólogas asociadas a las alertas
+        $cosmesActuales = AlertasCosmes::whereIn('id_alerta', $alertas->pluck('id'))->pluck('id_user')->toArray();
+
+        // Cosmetólogas que deben eliminarse
+        $cosmesAEliminar = array_diff($cosmesActuales, $cosmesSeleccionadas);
+
+        // Cosmetólogas que deben agregarse
+        $cosmesAAgregar = array_diff($cosmesSeleccionadas, $cosmesActuales);
+
+        // Eliminar las alertas y relaciones de cosmetólogas que ya no están seleccionadas
+        if (!empty($cosmesAEliminar)) {
+            AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->delete();
+            Alertas::whereIn('id_especialist', $cosmesAEliminar)->delete();
+        }
 
         // Actualiza cada alerta encontrada
         foreach ($alertas as $alerta) {
@@ -274,6 +290,7 @@ class AlertasController extends Controller
             $alerta->id_status = $request->id_status;
             $alerta->estatus = $alerta->Status->estatus;
             $alerta->color = $alerta->Status->color;
+            $alerta->image = $alerta->Status->icono;
             $alerta->id_client = $cliente;
             $full_name = $alerta->Client->name . ' ' . $alerta->Client->last_name;
             $alerta->title = $full_name;
@@ -296,42 +313,35 @@ class AlertasController extends Controller
 
             $alerta->start = $startDateTime->format('Y-m-d H:i:s');
             $alerta->end = $endDateTime->format('Y-m-d H:i:s');
-
-            if ($request->id_status == '1') {
-                $alerta->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
-            } elseif ($request->id_status == '2') {
-                $alerta->image = asset('img/iconos_serv/cancelado.png');
-            } elseif ($request->id_status == '3') {
-                $alerta->image = asset('img/iconos_serv/sin_asistencia.png');
-            } elseif ($request->id_status == '4') {
-                $alerta->image = asset('img/iconos_serv/pendiente.png');
-            } elseif ($request->id_status == '5') {
-                $alerta->image = asset('img/iconos_serv/pagadoo.png');
-            } elseif ($request->id_status == '6') {
-                $alerta->image = asset('img/iconos_serv/reagendado.png');
-            }
-
             $alerta->save();
+        }
 
-            // Elimina los registros existentes en AlertasCosmes para esta alerta
-            AlertasCosmes::where('id_alerta', $alerta->id)->delete();
+        // Actualizar los resourceId en las alertas según los cosmetólogos seleccionados
+        foreach ($alertas as $alerta) {
+            // Obtener la relación actual de AlertasCosmes
+            $alertaCosmes = AlertasCosmes::where('id_alerta', $alerta->id)->get();
 
-            // Vuelve a insertar los registros en AlertasCosmes
-            $cosmes = $request->input('cosmesInput', []);
-            $insert_data = [];
-            $users = User::whereIn('id', $cosmes)->get();
-            foreach ($users as $user) {
-                $data = [
-                    'id_alerta' => $alerta->id,
-                    'id_user' => $user->id,
-                ];
-                $insert_data[] = $data;
+            // Eliminar todas las relaciones actuales
+            foreach ($alertaCosmes as $alertaCosme) {
+                $alertaCosme->delete();
             }
 
-            if (!empty($insert_data)) {
-                AlertasCosmes::insert($insert_data);
+            // Crear nuevas relaciones y actualizar resourceId
+            foreach ($cosmesSeleccionadas as $index => $idCosme) {
+                AlertasCosmes::create([
+                    'id_alerta' => $alerta->id,
+                    'id_user' => $idCosme
+                ]);
+
+                // Solo actualizar el resourceId para la alerta correspondiente
+                if ($index < count($alertas)) {
+                    $alertas[$index]->resourceId = User::find($idCosme)->resourceId;
+                    $alertas[$index]->save();
+                }
             }
         }
+
+        return redirect()->back()->with('success', 'Alerta actualizada con éxito');
     }
 
     public function destroy_calendar($id)
@@ -565,13 +575,10 @@ class AlertasController extends Controller
     {
         $fechaActual = date('Y-m-d');
 
-        if ($request->get('name') != NULL) {
-            $client = new Client;
-            $client->name = $request->get('name');
-            $client->last_name = $request->get('last_name');
-            $client->phone = $request->get('phone');
-            //$client->email = $request->get('email');
-            $client->save();
+        if($request->get('id_client_manual') != NULL){
+            $cliente = $request->get('id_client_manual');
+        }else{
+            $cliente = 3841;
         }
 
         $servicio = Servicios::find($request->servicio_manual);
@@ -594,7 +601,7 @@ class AlertasController extends Controller
             $datosEvento->id_servicio = $request->servicio_manual;
             $datosEvento->id_status = 1;
             $datosEvento->estatus = $datosEvento->Status->estatus;
-            $datosEvento->id_client = $request->id_client_manual;
+            $datosEvento->id_client = $cliente;
             $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
             $datosEvento->title = $full_name;
             $datosEvento->telefono = $datosEvento->Client->phone;
@@ -625,7 +632,6 @@ class AlertasController extends Controller
         AlertasCosmes::insert($insert_data);
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
-        return redirect()->back()->with('success', 'Agenda created successfully');
     }
 
     private function combineColors(array $colors)
@@ -713,7 +719,6 @@ class AlertasController extends Controller
 
         return response()->json($disponibilidad);
     }
-
 
     private function buscarHorariosDisponibles($fecha, $cosmesDisponibles, $duracion, $numPersonas)
     {
