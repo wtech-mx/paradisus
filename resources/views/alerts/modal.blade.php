@@ -228,6 +228,11 @@
         </div>
 
         <div class="modal-footer">
+
+            <div id="spinner" style="display: none;">
+                <i class="fa fa-spinner fa-spin"></i> Cargando...
+            </div>
+
             <button class="btn  btn-sm text-white" id="btnNota" style="background-color: #000">
                 <input type="text" name="txtNota" id="txtNota" disabled style="background: transparent;color: #fff;border: 1px solid transparent;display: inherit;left: 40px;position: relative;font-size:0px;">
                 <input type="hidden" name="txtNota" id="txtNota">

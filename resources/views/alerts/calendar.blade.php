@@ -379,9 +379,19 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       $('#btnModificar').click(function(){
-          ObjEvento= editarDatosGUI('PATCH');
-          EnviarInformacion('/update/'+$('#txtID').val(), ObjEvento);
-      });
+        var ObjEvento = editarDatosGUI('PATCH');
+        var botonModificar = $(this);
+
+        // Mostrar el spinner y deshabilitar el botón
+        $('#spinner').show();
+        botonModificar.prop('disabled', true);
+
+        EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function() {
+            // Ocultar el spinner y habilitar el botón nuevamente
+            $('#spinner').hide();
+            botonModificar.prop('disabled', false);
+        });
+    });
 
       function recolectarDatosGUIWhatsapp(method){
           nuevoEventowhatasapp={
@@ -492,21 +502,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             window.open(ruta, '_blank');
         }
-      function EnviarInformacion(accion,ObjEvento){
-          $.ajax(
-                  {
-                     type:"POST",
-                       url: "{{route('calendar.store_calendar')}}"+accion,
-                      data:ObjEvento,
-                      success:function (msg){
-                            // console.log('Mensaje',msg);
-                            $('#exampleModal').modal('toggle');
-                            calendar.refetchEvents();
-                           },
-                      error:function(){alert("hay un error");}
-                  }
-              );
-      }
+        function EnviarInformacion(accion, ObjEvento, callback){
+        $.ajax({
+            type: "POST",
+            url: "{{route('calendar.store_calendar')}}" + accion,
+            data: ObjEvento,
+            success: function (msg) {
+                // console.log('Mensaje',msg);
+                $('#exampleModal').modal('toggle');
+                calendar.refetchEvents();
+                if (typeof callback === 'function') callback();
+            },
+            error: function(){
+                alert("Hay un error");
+                if (typeof callback === 'function') callback();
+            }
+        });
+    }
 
       function limpiarFormulario(){
             $('#txtID').val("");
