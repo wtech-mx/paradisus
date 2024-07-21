@@ -351,6 +351,17 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.setOption('locale', 'es');
     calendar.render();
 
+    // Función para mostrar el spinner
+    function showSpinner(button) {
+        button.prop('disabled', true);
+        button.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...');
+    }
+
+    // Función para ocultar el spinner y restaurar el botón
+    function hideSpinner(button, originalText) {
+        button.prop('disabled', false);
+        button.html(originalText);
+    }
 
       $('#btnWhats').click(function(){
           ObjEvento= recolectarDatosGUIWhatsapp('POST');
@@ -367,29 +378,28 @@ document.addEventListener('DOMContentLoaded', function() {
             EnviarInformacionnota(ObjEvento);
       });
 
-      $('#btnAgregar').click(function(){
-          ObjEvento= recolectarDatosGUI('POST');
-          {{--EnviarInformacion('{{route('calendar.index_calendar')}}', ObjEvento);--}}
-          EnviarInformacion('', ObjEvento);
-      });
+      $('#btnAgregar').click(function() {
+        var button = $(this);
+        showSpinner(button);
+
+        ObjEvento = recolectarDatosGUI('POST');
+        EnviarInformacion('', ObjEvento, function() {
+            hideSpinner(button, '<i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar');
+        });
+    });
 
       $('#btnBorrar').click(function(){
           ObjEvento= editarDatosGUI('PATCH');
           EnviarInformacion('/destroy/'+$('#txtID').val(), ObjEvento);
       });
 
-      $('#btnModificar').click(function(){
-        var ObjEvento = editarDatosGUI('PATCH');
-        var botonModificar = $(this);
+      $('#btnModificar').click(function() {
+        var button = $(this);
+        showSpinner(button);
 
-        // Mostrar el spinner y deshabilitar el botón
-        $('#spinner').show();
-        botonModificar.prop('disabled', true);
-
+        ObjEvento = editarDatosGUI('PATCH');
         EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function() {
-            // Ocultar el spinner y habilitar el botón nuevamente
-            $('#spinner').hide();
-            botonModificar.prop('disabled', false);
+            hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
         });
     });
 
@@ -501,21 +511,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             window.open(ruta, '_blank');
-        }
-        function EnviarInformacion(accion, ObjEvento, callback){
+      }
+
+      function EnviarInformacion(accion, ObjEvento, callback) {
         $.ajax({
             type: "POST",
             url: "{{route('calendar.store_calendar')}}" + accion,
             data: ObjEvento,
-            success: function (msg) {
-                // console.log('Mensaje',msg);
+            success: function(msg) {
                 $('#exampleModal').modal('toggle');
                 calendar.refetchEvents();
-                if (typeof callback === 'function') callback();
+                if (callback) callback();  // Llama a la callback si existe
             },
-            error: function(){
-                alert("Hay un error");
-                if (typeof callback === 'function') callback();
+            error: function() {
+                alert("hay un error");
+                if (callback) callback();  // Llama a la callback incluso en caso de error
             }
         });
     }
