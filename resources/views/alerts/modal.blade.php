@@ -139,7 +139,7 @@
                     </select>
                 </div>
 
-                <div class="col-12" style="display: grid;">
+                <div class="col-12 mt-3" style="display: grid;">
                     <label for="cosmesInput_multiple_nueva">Agregar Cosmetologas:</label>
                     <select class="form-control cosmesInput_multiple_nueva"  id="cosmesnueva" name="cosmesnueva[]" multiple>
                         @foreach($user_pagos as $cosme)

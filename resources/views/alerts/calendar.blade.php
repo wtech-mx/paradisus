@@ -138,6 +138,11 @@
                 width: '100%',
                 dropdownParent: $('#exampleModal')
             });
+
+            $('.cosmesInput_multiple_nueva').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
         });
     });
 </script>
@@ -258,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#image').val(info.event.extendedProps.image);
 
             limpiarSelectCosmes();
-            limpiarSelectCosmesNuevas();
+            limpiarSelectCosmesNuevasSinSeleccionar();
 
             if (info.event.extendedProps.cosmes) {
                 info.event.extendedProps.cosmes.forEach(function (id) {
@@ -270,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const previousServicesList = document.getElementById('previousServicesList');
             previousServicesList.innerHTML = ''; // Clear existing list
             const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
-            console.log(serviciosAnteriores);
+            // console.log(serviciosAnteriores);
 
             if (serviciosAnteriores && serviciosAnteriores.length > 0) {
                 const rowDiv = document.createElement('div');
@@ -333,6 +338,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
+    // Ensure the selects are cleared each time the modal is opened
+    $('#exampleModal').on('show.bs.modal', function() {
+        limpiarSelectCosmesNuevasSinSeleccionar();
+    });
+
+    // Clear the selects after the modal is hidden
+    $('#exampleModal').on('hidden.bs.modal', function() {
+        limpiarSelectCosmesNuevasSinSeleccionar();
+    });
 
     calendar.setOption('locale', 'es');
     calendar.render();
@@ -345,13 +359,13 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       $('#btnNota').click(function() {
-        var ObjEvento = {
-            nota: $('#id_notaModal').val(),
-            laser: $('#id_laserModal').val(),
-            paquete: $('#id_paqueteModal').val()
-        };
-        EnviarInformacionnota(ObjEvento);
-    });
+            var ObjEvento = {
+                nota: $('#id_notaModal').val(),
+                laser: $('#id_laserModal').val(),
+                paquete: $('#id_paqueteModal').val()
+            };
+            EnviarInformacionnota(ObjEvento);
+      });
 
       $('#btnAgregar').click(function(){
           ObjEvento= recolectarDatosGUI('POST');
@@ -515,16 +529,18 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#id_status').val("");
             $('#image').val("");
             limpiarSelectCosmes();
-            limpiarSelectCosmesNuevas();
+            limpiarSelectCosmesNuevasSinSeleccionar();
         }
 
         function limpiarSelectCosmes() {
             $('#cosmesInput option').prop('selected', false);
         }
 
-        function limpiarSelectCosmesNuevas() {
-            $('#cosmesnueva option').prop('selected', false);
+        function limpiarSelectCosmesNuevasSinSeleccionar() {
+            $('#cosmesnueva option:selected').prop('selected', false);
+            $('#cosmesnueva').val([]).trigger('change');
         }
+
     });
 </script>
 
@@ -630,7 +646,7 @@ $(document).ready(function() {
         const servicioIdSeleccionado = $(this).data('servicio');
         const numPersonasSeleccionado = $(this).data('numPersonas');
         const cosmesSeleccionados = $(this).data('cosmes');
-        console.log(cosmesSeleccionados);
+        // console.log(cosmesSeleccionados);
 
         $('#fechaSeleccionadaInput').val(fechaSeleccionada);
         $('#horaSeleccionadaInput').val(horaSeleccionada);
