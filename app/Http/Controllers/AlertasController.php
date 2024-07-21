@@ -277,10 +277,16 @@ class AlertasController extends Controller
         // Cosmetólogas que deben agregarse
         $cosmesAAgregar = array_diff($cosmesSeleccionadas, $cosmesActuales);
 
+        if(count($cosmesSeleccionadas) < count($alertas)){
+            $cosmes = AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->first();
+            $alerta = Alertas::where('id', '=', $cosmes->id_alerta)->first();
+        }
         // Eliminar las alertas y relaciones de cosmetólogas que ya no están seleccionadas
-        if (!empty($cosmesAEliminar)) {
-            AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->delete();
-            Alertas::whereIn('id_especialist', $cosmesAEliminar)->delete();
+        if(count($cosmesSeleccionadas) >= count($alertas)){
+            if (!empty($cosmesAEliminar)) {
+                AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->delete();
+                Alertas::whereIn('id_especialist', $cosmesAEliminar)->delete();
+            }
         }
 
         // Actualiza cada alerta encontrada
@@ -340,61 +346,66 @@ class AlertasController extends Controller
             }
         }
 
-    // Verifica si hay nuevos IDs de cosmetólogas
-    if ($request->input('cosmesnueva') != NULL) {
+        // Verifica si hay nuevos IDs de cosmetólogas
+        if ($request->input('cosmesnueva') != NULL) {
 
-        // Obtener los IDs de cosmetólogas nuevas y existentes
-        $cosmesExistentes = $request->get('cosmesInput', []);
-        $cosmesNuevas = $request->get('cosmesnueva', []);
+            // Obtener los IDs de cosmetólogas nuevas y existentes
+            $cosmesExistentes = $request->get('cosmesInput', []);
+            $cosmesNuevas = $request->get('cosmesnueva', []);
 
-        // Obtener detalles de la alerta existente
-        $datosEvento = Alertas::find($request->get('id'));
+            // Obtener detalles de la alerta existente
+            $datosEvento = Alertas::find($request->get('id'));
 
-        // Iterar a través de cada nuevo ID de cosmetóloga
-        foreach ($cosmesNuevas as $nuevaCosmeId) {
-            // Añadir la nueva relación en alertas_cosmes para la alerta principal
-            AlertasCosmes::create([
-                'id_alerta' => $datosEvento->id,
-                'id_user' => $nuevaCosmeId,
-            ]);
-
-            // Obtener el resourceId del nuevo ID de cosmetóloga
-            $nuevaCosmetologa = User::find($nuevaCosmeId);
-            $nuevoResourceId = $nuevaCosmetologa->resourceId;
-
-            // Crear una nueva alerta duplicada con el nuevo resourceId
-            $nuevaAlerta = $datosEvento->replicate();
-            $nuevaAlerta->resourceId = $nuevoResourceId;
-            $nuevaAlerta->save();
-
-            // Añadir relaciones en alertas_cosmes para la nueva alerta duplicada
-            foreach ($cosmesExistentes as $existenteCosmeId) {
+            // Iterar a través de cada nuevo ID de cosmetóloga
+            foreach ($cosmesNuevas as $nuevaCosmeId) {
+                // Añadir la nueva relación en alertas_cosmes para la alerta principal
                 AlertasCosmes::create([
-                    'id_alerta' => $nuevaAlerta->id,
-                    'id_user' => $existenteCosmeId,
-                ]);
-            }
-            AlertasCosmes::create([
-                'id_alerta' => $nuevaAlerta->id,
-                'id_user' => $nuevaCosmeId,
-            ]);
-
-            // Obtener todas las alertas que comparten el mismo id_alerta
-            $alertasRelacionadas = Alertas::where('id_client', $datosEvento->id_client)
-                                          ->where('descripcion', $datosEvento->descripcion)
-                                          ->where('start', $datosEvento->start)
-                                          ->get();
-
-            // Actualizar las relaciones en alertas_cosmes para todas las alertas relacionadas
-            foreach ($alertasRelacionadas as $alertaRelacionada) {
-                AlertasCosmes::create([
-                    'id_alerta' => $alertaRelacionada->id,
+                    'id_alerta' => $datosEvento->id,
                     'id_user' => $nuevaCosmeId,
                 ]);
+
+                // Obtener el resourceId del nuevo ID de cosmetóloga
+                $nuevaCosmetologa = User::find($nuevaCosmeId);
+                $nuevoResourceId = $nuevaCosmetologa->resourceId;
+
+                // Crear una nueva alerta duplicada con el nuevo resourceId
+                $nuevaAlerta = $datosEvento->replicate();
+                $nuevaAlerta->resourceId = $nuevoResourceId;
+                $nuevaAlerta->save();
+
+                // Añadir relaciones en alertas_cosmes para la nueva alerta duplicada
+                foreach ($cosmesExistentes as $existenteCosmeId) {
+                    AlertasCosmes::create([
+                        'id_alerta' => $nuevaAlerta->id,
+                        'id_user' => $existenteCosmeId,
+                    ]);
+                }
+                AlertasCosmes::create([
+                    'id_alerta' => $nuevaAlerta->id,
+                    'id_user' => $nuevaCosmeId,
+                ]);
+
+                // Obtener todas las alertas que comparten el mismo id_alerta
+                $alertasRelacionadas = Alertas::where('id_client', $datosEvento->id_client)
+                                            ->where('descripcion', $datosEvento->descripcion)
+                                            ->where('start', $datosEvento->start)
+                                            ->get();
+
+                // Actualizar las relaciones en alertas_cosmes para todas las alertas relacionadas
+                foreach ($alertasRelacionadas as $alertaRelacionada) {
+                    AlertasCosmes::create([
+                        'id_alerta' => $alertaRelacionada->id,
+                        'id_user' => $nuevaCosmeId,
+                    ]);
+                }
             }
         }
-    }
 
+        if(count($cosmesSeleccionadas) < count($alertas)){
+            AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->delete();
+            AlertasCosmes::where('id_alerta', $alerta->id)->delete();
+            Alertas::where('id', '=', $alerta->id)->delete();
+        }
         return redirect()->back()->with('success', 'Alerta actualizada con éxito');
     }
 
