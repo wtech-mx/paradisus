@@ -127,6 +127,11 @@
             dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
         });
 
+        $('.cosmesInput_multiple_nueva').select2({
+            width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+            dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
+        });
+
         // Re-inicializar select2 cada vez que se muestre el modal
         $('#exampleModal').on('shown.bs.modal', function () {
             $('.cosmesInput_multiple').select2({
@@ -253,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#image').val(info.event.extendedProps.image);
 
             limpiarSelectCosmes();
+            limpiarSelectCosmesNuevas();
 
             if (info.event.extendedProps.cosmes) {
                 info.event.extendedProps.cosmes.forEach(function (id) {
@@ -408,6 +414,8 @@ document.addEventListener('DOMContentLoaded', function() {
               id_paqueteModal:$('#id_paqueteModal').val(),
               cliente_id:$('#cliente_id').val(),
               cosmesInput:$('#cosmesInput').val(),
+              cosmesnueva:$('#cosmesnueva').val(),
+              resourceId:$('#resourceId').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
               '_token':$("meta[name='csrf-token']").attr("content"),
@@ -434,6 +442,8 @@ document.addEventListener('DOMContentLoaded', function() {
               id_paqueteModal:$('#id_paqueteModal').val(),
               cliente_id:$('#cliente_id').val(),
               cosmesInput:$('#cosmesInput').val(),
+              cosmesnueva:$('#cosmesnueva').val(),
+              resourceId:$('#resourceId').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
               '_token':$("meta[name='csrf-token']").attr("content"),
@@ -505,10 +515,15 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#id_status').val("");
             $('#image').val("");
             limpiarSelectCosmes();
+            limpiarSelectCosmesNuevas();
         }
 
         function limpiarSelectCosmes() {
             $('#cosmesInput option').prop('selected', false);
+        }
+
+        function limpiarSelectCosmesNuevas() {
+            $('#cosmesnueva option').prop('selected', false);
         }
     });
 </script>

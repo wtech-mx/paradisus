@@ -139,6 +139,17 @@
                     </select>
                 </div>
 
+                <div class="col-12" style="display: grid;">
+                    <label for="cosmesInput_multiple_nueva">Agregar Cosmetologas:</label>
+                    <select class="form-control cosmesInput_multiple_nueva"  id="cosmesnueva" name="cosmesnueva[]" multiple>
+                        @foreach($user_pagos as $cosme)
+                            <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <input type="hidden" id="resourceId" name="resourceId">
+
                 <div class="col-4 mt-3">
                     <label for="total-suma"># Nota servicio </label>
                     <div class="input-group mb-3">
