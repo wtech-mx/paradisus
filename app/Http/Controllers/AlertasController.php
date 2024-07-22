@@ -402,7 +402,7 @@ class AlertasController extends Controller
         }
 
         if(count($cosmesSeleccionadas) < count($alertas)){
-            AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->delete();
+            AlertasCosmes::where('id_alerta', $alerta->id)->whereIn('id_user', $cosmesAEliminar)->delete();
             AlertasCosmes::where('id_alerta', $alerta->id)->delete();
             Alertas::where('id', '=', $alerta->id)->delete();
         }
