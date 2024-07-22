@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         ObjEvento = editarDatosGUI('PATCH');
         EnviarInformacion('/destroy/'+$('#txtID').val(), ObjEvento, function() {
-            hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
+            hideSpinner(button, '<i class="fa fa-trash" aria-hidden="true"></i> Eliminar');
         });
 
       });

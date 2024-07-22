@@ -412,11 +412,32 @@ class AlertasController extends Controller
     public function destroy_calendar($id)
     {
         DB::transaction(function() use ($id) {
-            // Eliminar las alertas_cosmes relacionadas
-            AlertasCosmes::where('id_alerta', $id)->delete();
+            // Encontrar la alerta original
+            $alerta = Alertas::find($id);
 
-            // Eliminar la alerta
-            Alertas::destroy($id);
+            if ($alerta) {
+                // Encontrar todas las alertas con los mismos datos excepto resourceId
+                $alertasParaEliminar = Alertas::where('id_client', $alerta->id_client)
+                    ->where('id_especialist', $alerta->id_especialist)
+                    ->where('id_nota', $alerta->id_nota)
+                    ->where('title', $alerta->title)
+                    ->where('descripcion', $alerta->descripcion)
+                    ->where('image', $alerta->image)
+                    ->where('color', $alerta->color)
+                    ->where('start', $alerta->start)
+                    ->where('end', $alerta->end)
+                    ->where('estatus', $alerta->estatus)
+                    ->where('id_servicio', $alerta->id_servicio)
+                    ->get();
+
+                foreach ($alertasParaEliminar as $alertaEliminar) {
+                    // Eliminar todas las alertas_cosmes relacionadas con id_alerta
+                    AlertasCosmes::where('id_alerta', $alertaEliminar->id)->delete();
+
+                    // Eliminar la alerta
+                    $alertaEliminar->delete();
+                }
+            }
         });
 
         return response()->json(['success' => true, 'id' => $id]);
