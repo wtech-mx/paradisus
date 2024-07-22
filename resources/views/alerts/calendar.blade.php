@@ -389,8 +389,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
       $('#btnBorrar').click(function(){
-          ObjEvento= editarDatosGUI('PATCH');
-          EnviarInformacion('/destroy/'+$('#txtID').val(), ObjEvento);
+        var button = $(this);
+        showSpinner(button);
+
+        ObjEvento = editarDatosGUI('PATCH');
+        EnviarInformacion('/destroy/'+$('#txtID').val(), ObjEvento, function() {
+            hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
+        });
+
       });
 
       $('#btnModificar').click(function() {

@@ -411,8 +411,15 @@ class AlertasController extends Controller
 
     public function destroy_calendar($id)
     {
-        Alertas::destroy($id);
-        return response()->json($id);
+        DB::transaction(function() use ($id) {
+            // Eliminar las alertas_cosmes relacionadas
+            AlertasCosmes::where('id_alerta', $id)->delete();
+
+            // Eliminar la alerta
+            Alertas::destroy($id);
+        });
+
+        return response()->json(['success' => true, 'id' => $id]);
     }
 
     public function store_agenda(Request $request)
