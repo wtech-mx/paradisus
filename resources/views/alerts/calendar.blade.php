@@ -4,8 +4,6 @@
      Calendario
 @endsection
 
-
-
 @section('css')
 
     <!-- Datatable -->
@@ -42,14 +40,50 @@
 
 @section('content')
 
+@php
+    $Y = date('Y') ;
+    $M = date('m');
+    $D = date('d') ;
+    $Fecha = $Y."-".$M."-".$D;
+@endphp
+
     <div class="row">
         <div class="col-6">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#estatusModal">
-                Estatus
-              </button>
-        </div>
-    </div>
 
+        </div>
+
+        <div class="col-6"></div>
+
+        <div class="col-12">
+
+            <div class="row">
+                <div class="col-6 mt-3">
+                    <label for="total-suma">Buscar Cliente</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="text" id="title_search" name="title_search">
+                    </div>
+                </div>
+
+                <div class="col-6 mt-5">
+                    <button class="btn btn-sx btn-success" id="btnBuscar">Buscar</button>
+                </div>
+            </div>
+
+
+            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#estatusModal">
+                Estatus de Servicios
+              </button>
+
+            <div id="resultadosContainer">
+                <!-- La vista parcial se cargará aquí -->
+            </div>
+        </div>
+
+
+    </div>
 
     <div class="calendar" data-toggle="calendar" id="calendar"></div>
     @include('alerts.modal')
@@ -71,15 +105,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- Incluir el archivo de idioma de Moment.js para español -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es.min.js"></script>
-        @php
-        $Y = date('Y') ;
-        $M = date('m');
-        $D = date('d') ;
-        $Fecha = $Y."-".$M."-".$D;
-
-       @endphp
-
-<script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -171,6 +197,30 @@ document.addEventListener('DOMContentLoaded', function() {
             left: 'today prev,next',
             center: 'title',
             right: 'resourceTimeGridDay,dayGridMonth,list'
+        },
+        views: {
+            resourceTimeGridDay: {
+                titleFormat: { // para resourceTimeGridDay
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }
+            },
+            dayGridMonth: {
+                titleFormat: { // para dayGridMonth
+                    year: 'numeric',
+                    month: 'long'
+                }
+            },
+            list: {
+                titleFormat: { // para list view
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }
+            }
         },
         resources: {!! json_encode($modulos) !!},
         resources: originalResources,
@@ -667,6 +717,27 @@ $(document).ready(function() {
         alert('Busqueda Actualizada');
     });
 
+    $('#btnBuscar').on('click', function() {
+            var titulo = $('#title_search').val();
+
+            $.ajax({
+                url: '{{ route("alertas.buscar") }}',
+                type: 'GET',
+                data: { titulo: titulo },
+                success: function(response) {
+                    $('#resultadosContainer').html(response);
+                    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+                    deferRender:true,
+                    paging: true,
+                    pageLength: 10
+                });
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
 
     $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
         const fechaSeleccionada = $(this).data('fecha');
@@ -765,19 +836,6 @@ $(document).ready(function() {
             templateSelection: formatState,
             width: '100%'
         });
-    });
-
-    $(document).ready(function() {
-        function formatState (state) {
-            if (!state.id) {
-                return state.text;
-            }
-            var baseUrl = $(state.element).data('img');
-            var $state = $(
-                '<span><img src="' + baseUrl + '" class="img-flag" style="width: 20px; margin-right: 10px;" /> ' + state.text + '</span>'
-            );
-            return $state;
-        };
 
         $('.icono-select').select2({
             templateResult: formatState,
@@ -786,6 +844,6 @@ $(document).ready(function() {
         });
     });
 </script>
+
+
     @endsection
-
-

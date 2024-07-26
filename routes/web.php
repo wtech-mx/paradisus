@@ -256,6 +256,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('calendar', [AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
     Route::post('calendar', [AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');
     Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
+
+    Route::get('buscar-alertas', [AlertasController::class, 'buscarAlertas'])->name('alertas.buscar');
+
+
     Route::patch('calendar/destroy/{id}', [AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
     Route::patch('calendar/update/{id}', [AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
 

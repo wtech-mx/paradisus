@@ -90,6 +90,56 @@ class AlertasController extends Controller
 
     }
 
+    public function buscarAlertas(Request $request)
+    {
+        $titulo = $request->input('titulo');
+        $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
+
+        // Obtener todos los clientes (usuarios) con resourceId
+        $clientes = User::whereNotNull('resourceId')->pluck('name', 'resourceId');
+
+        // Obtener todos los servicios con id_servicio
+        $servicios = Servicios::pluck('nombre', 'id');
+
+        // Añadir el nombre del cliente a cada alerta
+        foreach ($alertas as $alerta) {
+            $alerta->cosmetologa = $clientes->get($alerta->resourceId, 'Desconocido'); // Por si el resourceId no existe en clientes
+            $alerta->service_name = $servicios->get($alerta->id_servicio, 'No asignado'); // Nombre del servicio
+        }
+
+        // dd($alertas);
+
+        return view('alerts.resultados', compact('alertas'));
+    }
+
+
+    public function show_calendar()
+    {
+        $alertas = Alertas::with('Servicios_id')->get();
+
+        $alertas->each(function ($alerta) {
+            // Obtener las cosmetólogas asociadas
+            $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
+            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agregar el nombre del servicio
+
+            // Obtener los servicios anteriores del mismo cliente
+            $serviciosAnteriores = Alertas::where('id_client', $alerta->id_client)
+                ->where('start', '<', $alerta->start) // Asegurarse de que los servicios sean anteriores a la fecha del evento actual
+                ->with('Servicios_id')
+                ->get();
+
+            $serviciosAnteriores->each(function ($servicioAnterior) {
+                $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
+                $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
+            });
+
+            // Anidar los servicios anteriores en el objeto alerta
+            $alerta->servicios_anteriores = $serviciosAnteriores;
+        });
+
+        return response()->json($alertas);
+    }
+
     public function store_calendar(Request $request)
     {
         // N U E V O  U S U A R I O
@@ -224,33 +274,6 @@ class AlertasController extends Controller
         if (!empty($insert_data)) {
             AlertasCosmes::insert($insert_data);
         }
-    }
-
-    public function show_calendar()
-    {
-        $alertas = Alertas::with('Servicios_id')->get();
-
-        $alertas->each(function ($alerta) {
-            // Obtener las cosmetólogas asociadas
-            $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
-            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agregar el nombre del servicio
-
-            // Obtener los servicios anteriores del mismo cliente
-            $serviciosAnteriores = Alertas::where('id_client', $alerta->id_client)
-                ->where('start', '<', $alerta->start) // Asegurarse de que los servicios sean anteriores a la fecha del evento actual
-                ->with('Servicios_id')
-                ->get();
-
-            $serviciosAnteriores->each(function ($servicioAnterior) {
-                $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
-                $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
-            });
-
-            // Anidar los servicios anteriores en el objeto alerta
-            $alerta->servicios_anteriores = $serviciosAnteriores;
-        });
-
-        return response()->json($alertas);
     }
 
     public function update_calendar(Request $request, $id)
