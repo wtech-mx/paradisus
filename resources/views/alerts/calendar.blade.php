@@ -67,8 +67,11 @@
                     </div>
                 </div>
 
-                <div class="col-6 mt-5">
+                <div class="col-1 mt-5">
                     <button class="btn btn-sx btn-success" id="btnBuscar">Buscar</button>
+                </div>
+                <div class="col-3 mt-5">
+                    <a class="btn btn-sx btn-warning" href="{{ route('dashboard') }}">Limpiar</a>
                 </div>
             </div>
 
