@@ -387,7 +387,6 @@ class NotasLacerController extends Controller
             $registrosZonas->firma = $signature;
         }
 
-
         $registrosZonas->save();
 
         $zona_lacer = ZonasLaser::where('id_nota', '=', $request->get('id_nota'))->where('id_zona', '=', $request->get('id_zona'))->first();
@@ -396,6 +395,112 @@ class NotasLacerController extends Controller
         $zona_lacer->update();
 
         Session::flash('success', 'Se registro exitosamente');
+        return redirect()->back()
+        ->with('success', 'Se registro exitosamente.');
+
+    }
+
+    public function store_firma(Request $request){
+        $fechaActual = date('Y-m-d');
+        $zonas = ZonasLaser::where('id_nota', '=', $request->get('id_nota_firma'))->get();
+        $ultimoRegistro = RegistroZonas::where('id_nota', $request->get('id_nota_firma'))
+                               ->orderBy('created_at', 'desc')
+                               ->first();
+
+        // Obtener el número de sesión del último registro
+        $numeroSesion = $ultimoRegistro->sesion;
+
+        // Buscar todos los registros con el mismo id_nota y sesión
+        $registrosZonas = RegistroZonas::where('id_nota', $request->get('id_nota_firma'))
+                                    ->where('fecha', $fechaActual)
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+
+        foreach ($registrosZonas as $registroZona) {
+
+            if ($request->signed_pago3 != NULL) {
+                $folderPath = public_path('image/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->signed_pago3);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.'.$image_type;
+                $file = $folderPath . $signature;
+
+                file_put_contents($file, $image_base64);
+                $registroZona->firma = $signature;
+            }
+
+            $registroZona->update();
+        }
+
+        Session::flash('success', 'Se registro exitosamente');
+        return redirect()->back()
+        ->with('success', 'Se registro exitosamente.');
+
+    }
+
+    public function store_zona_agregar(Request $request){
+        $fechaActual = date('Y-m-d');
+        if($request->get('precio_personalizado') == NULL){
+            $precio = $request->get('precio_sugerido');
+        }else{
+            $precio = $request->get('precio_personalizado');
+        }
+
+        $nota_laser = NotasLacer::where('id', $request->get('id_nota_per'))->first();
+        $sumaTotal = $nota_laser->total + $precio;
+        $sumaRestante = $nota_laser->restante + $precio;
+        $nota_laser->total = $sumaTotal;
+        $nota_laser->restante = $sumaRestante;
+        $nota_laser->update();
+
+        $zonasSeleccionadas = array_filter($request->only(['zona_personalizado_1', 'zona_personalizado_2', 'zona_personalizado_3', 'zona_personalizado_4']));
+        $comisionTotal = 0;
+        foreach ($zonasSeleccionadas as $zonaSelect) {
+            // Verifica si la zonaSelect es diferente de NULL
+            if ($zonaSelect !== NULL) {
+                // Busca la zona en la base de datos
+                $zona = Laser::find($zonaSelect);
+
+                // Verifica si la zona fue encontrada
+                if ($zona) {
+                    if ($zona->tipo_zona == 'Zona Mini') {
+                        $comisionTotal += 200;
+                        $sesiones = 12;
+                    } elseif ($zona->tipo_zona == 'Zonas Pequeñas') {
+                        $comisionTotal += 250;
+                        $sesiones = 12;
+                    } elseif ($zona->tipo_zona == 'Zonas Medianas') {
+                        $comisionTotal += 350;
+                        $sesiones = 15;
+                    } elseif ($zona->tipo_zona == 'Zonas Grandes') {
+                        $comisionTotal += 500;
+                        $sesiones = 15;
+                    }
+
+                    // Crea y guarda el registro en la tabla ZonasLaser
+                    $zona_laser = new ZonasLaser;
+                    $zona_laser->id_nota = $nota_laser->id;
+                    $zona_laser->id_zona = $zonaSelect;
+                    $zona_laser->sesiones_compradas = $sesiones;
+                    $zona_laser->sesiones_restantes = $sesiones;
+                    $zona_laser->save();
+                }
+            }
+        }
+        // G U A R D A R  C O M I S I O N  C O S M E
+        if($request->get('id_user_per') == 6 || $request->get('id_user_per') == 3 || $request->get('id_user_per') == 5){
+            $registroSemanal = new RegCosmesSum;
+            $registroSemanal->id_cosme = $request->get('id_user_per');
+            $registroSemanal->tipo = 'Extra';
+            $registroSemanal->concepto = 'Bono Venta Laser en nota: ' . $nota_laser->id;
+            $registroSemanal->id_nota = $nota_laser->id;
+            $registroSemanal->fecha = $fechaActual;
+            $registroSemanal->monto = $comisionTotal;
+            $registroSemanal->save();
+        }
+
         return redirect()->back()
         ->with('success', 'Se registro exitosamente.');
 
