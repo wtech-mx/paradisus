@@ -166,28 +166,6 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
         $user->update();
 
-
-    // Encontrar todas las alertas asociadas al usuario en AlertasCosmes
-    $alertasCosmes = AlertasCosmes::where('id_user', $id)->get();
-
-    // Actualizar el color de las alertas asociadas
-    foreach ($alertasCosmes as $alertaCosmes) {
-        $alerta = Alertas::find($alertaCosmes->id_alerta);
-        if ($alerta) {
-            $alerta->color = $user->color;
-            $alerta->update();
-        }
-    }
-
-        // Actualizar el color de las alertas asociadas
-        foreach ($alertasCosmes as $alertaCosmesResourceId) {
-            $alerta = Alertas::find($alertaCosmesResourceId->id_alerta);
-            if ($alerta) {
-                $alerta->resourceId = $user->resourceId;
-                $alerta->update();
-            }
-        }
-
         $horario = Horario::find($user->id);
         $horario->id_user = $user->id;
         $horario->lunes = $request->get('lunes');
