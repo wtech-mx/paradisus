@@ -304,11 +304,13 @@ class AlertasController extends Controller
             $cosmes = AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->first();
             $alerta = Alertas::where('id', '=', $cosmes->id_alerta)->first();
         }
+
         // Eliminar las alertas y relaciones de cosmetólogas que ya no están seleccionadas
         if(count($cosmesSeleccionadas) >= count($alertas)){
             if (!empty($cosmesAEliminar)) {
-                AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->delete();
-                Alertas::whereIn('id_especialist', $cosmesAEliminar)->delete();
+                foreach($alertas as $alerta){
+                    AlertasCosmes::where('id_alerta', '=', $alerta->id)->whereIn('id_user', $cosmesAEliminar)->delete();
+                }
             }
         }
 
