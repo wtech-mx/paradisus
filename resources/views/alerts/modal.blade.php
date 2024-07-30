@@ -45,7 +45,7 @@
                          <span class="input-group-text" id="">
                             <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
                         </span>
-                        <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" readonly>
+                        <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" >
 
                     </div>
                 </div>
@@ -214,8 +214,12 @@
 
                 <div class="form-group col-12 mt-3">
                     <button class="btn btn-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#previousServices" aria-expanded="false" aria-controls="previousServices">
-                        Ver servicios anteriores
+                        Ver citas Anteriores
                     </button>
+
+                    <a class="btn btn-dark btn-sm" id="btnVerServicios">Ver Servicios Anteriores</a>
+
+
                     <div class="collapse mt-3" id="previousServices">
                         <div class="card card-body ">
                             <div class="row" id="previousServicesList"></div>

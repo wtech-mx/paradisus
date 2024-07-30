@@ -418,9 +418,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
       $('#btnWhats').click(function(){
           ObjEvento= recolectarDatosGUIWhatsapp('POST');
-          {{--EnviarInformacion('{{route('calendar.index_calendar')}}', ObjEvento);--}}
           EnviarInformacionWhatsapp('', ObjEvento);
       });
+
+      $('#btnVerServicios').click(function() {
+        var clienteId = $('#cliente_id').val();
+            var url = 'https://paradisus.mx/buscador?id_client=' + clienteId + '&phone=';
+            window.open(url, '_blank');
+    });
 
       $('#btnNota').click(function() {
             var ObjEvento = {
