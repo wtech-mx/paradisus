@@ -1,4 +1,4 @@
-<table id="resultadosAlertas" class="table table-flush" id="datatable-search">
+<table id="resultadosAlertas" class="table table-dark table-striped p-5 mb-5" id="datatable-search">
     <thead>
         <tr>
             <th>ID</th>
@@ -8,7 +8,6 @@
             <th>Fecha Fin</th>
             <th>Estado</th>
             <th>Servicio</th>
-
         </tr>
     </thead>
     <tbody>

@@ -11,11 +11,67 @@
                 </button>
             </div>
 
-                <div class="modal-body ">
+                <div class="modal-body row">
+                    <form method="POST" class="row" action="{{ route('calendar.store_comidas') }}" id="miFormulario" enctype="multipart/form-data" role="form">
+                        @csrf
 
+                        <div class="form-group col-6">
+                            <label for="">Fecha Inicio Comida</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">
+                                    <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
+                                </span>
+                                <input class="form-control" type="date" name="fecha_inicio_comida" id="" >
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="">Fecha fin Comida</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">
+                                    <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
+                                </span>
+                                <input class="form-control" type="date" name="fecha_fin_comida" id="" >
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="">Hora Inicio Comida</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">
+                                    <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                                </span>
+                                <input class="form-control" type="time" name="hora_inicio_comida" id="" autocomplete="off" >
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="">Hora Fin Comida</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">
+                                    <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                                </span>
+                                <input class="form-control" type="time" name="hora_fin_comida" id="" autocomplete="off" >
+                            </div>
+                        </div>
+
+                        <div class="col-12" style="display: grid;">
+                            <label for="">Cosmetólogas:</label>
+                            <select class="form-control cosmesInput_multipleComida"  id="cosmesInputComida" name="cosmesComida[]" multiple>
+                                @foreach($user_pagos as $cosme)
+                                    <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success close-btn" >Guardar</button>
+                        </div>
+
+
+                    </form>
 
                 </div>
-                <hr>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">cerrar</button>

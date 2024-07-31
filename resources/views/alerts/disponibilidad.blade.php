@@ -25,14 +25,16 @@
                 </div>
 
                 <div class="col-3">
-                    <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Buscar Disponibilidad</button>
+                    <label for="total-suma">-</label>
+                    <button type="submit" class="btn close-modal d-block" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Buscar Disponibilidad</button>
                 </div>
+
             </div>
         </form>
     </div>
 
     <div class="col-4">
-        <button id="buscarMasFechas" class="btn btn-secondary">Buscar más fechas</button>
+        <button id="buscarMasFechas" class="btn btn-success">Buscar más fechas <img src="{{ asset('assets/icons/buscar.png') }}" alt="" width="20px"></button></button>
         <div id="resultadosDisponibilidad"></div>
     </div>
 

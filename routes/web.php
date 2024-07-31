@@ -259,6 +259,7 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O   C A L E N D A R I O ===============================
     Route::get('calendar', [AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
     Route::post('calendar', [AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');
+    Route::post('calendar/comidas', [AlertasController::class, 'store_comidas'])->name('calendar.store_comidas');
     Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
 
     Route::get('buscar-alertas', [AlertasController::class, 'buscarAlertas'])->name('alertas.buscar');

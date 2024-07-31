@@ -7,13 +7,7 @@
 @section('css')
 
     <!-- Datatable -->
-    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">
-    <link   href="{{ asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.1/index.global.min.js'></script>
-
 
     <style>
         .fc-v-event .fc-event-title {
@@ -48,13 +42,9 @@
 @endphp
 
     <div class="row">
-        <div class="col-6">
 
-        </div>
 
-        <div class="col-6"></div>
-
-        <div class="col-12">
+        <div class="col-12 mt-5">
 
             <div class="row ">
 
@@ -73,7 +63,7 @@
                 </div>
 
                 <div class="col-3 mt-4">
-                    <a class="btn btn-sx btn-danger" href="{{ route('dashboard') }}">Limpiar <img src="{{ asset('assets/icons/limpiar-deslizar.png') }}" alt="" width="20px"></a>
+                    <button class="btn btn-sx btn-danger" id="btnLimpiar">Limpiar <img src="{{ asset('assets/icons/limpiar-deslizar.png') }}" alt="" width="20px"></button>
                 </div>
 
                 <div class="col-1"></div>
@@ -102,25 +92,16 @@
     <div class="calendar" data-toggle="calendar" id="calendar"></div>
     @include('alerts.modal')
     @include('alerts.modal_comida')
+    @include('alerts.estatus')
 
 @endsection
 
 @section('select2')
-<script src="{{ asset('assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+
 <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Incluir Moment.js desde CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<!-- Incluir el archivo de idioma de Moment.js para español -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es.min.js"></script>
+
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
 <script type="text/javascript">
@@ -130,10 +111,10 @@
         $('.multi_cosme_disponibilidad').select2();
         $('.disponibilidad_2').select2();
 
-        $('.user_manual').select2();
-        $('.cliente_manual').select2();
-        $('.multi_cosme_manual').select2();
-        $('.servicios_manual').select2();
+        // $('.user_manual').select2();
+        // $('.cliente_manual').select2();
+        // $('.multi_cosme_manual').select2();
+        // $('.servicios_manual').select2();
 
         // Inicializar select2 fuera del modal (por si acaso)
         $('.mibuscador_paciente').select2({
@@ -162,6 +143,11 @@
                 width: '100%',
                 dropdownParent: $('#exampleModal')
             });
+
+            $('.cosmesInput_multipleComida').select2({
+                width: '100%',
+                dropdownParent: $('#comidaModal')
+            });
         });
 
         // Inicializar select2 fuera del modal (por si acaso)
@@ -179,6 +165,11 @@
         $('.cosmesInput_multiple_nueva').select2({
             width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
             dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
+        });
+
+        $('.cosmesInput_multipleComida').select2({
+            width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+            dropdownParent: $('#comidaModal') // Esto asegura que el dropdown se renderice dentro del modal
         });
 
     });
@@ -778,24 +769,28 @@ $(document).ready(function() {
             });
         });
 
+        $('#btnLimpiar').on('click', function() {
+            $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
+        });
+
 
     $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
-        const fechaSeleccionada = $(this).data('fecha');
-        const horaSeleccionada = $(this).data('hora');
+        // const fechaSeleccionada = $(this).data('fecha');
+        // const horaSeleccionada = $(this).data('hora');
         const servicioIdSeleccionado = $(this).data('servicio');
         const numPersonasSeleccionado = $(this).data('numPersonas');
         const cosmesSeleccionados = $(this).data('cosmes');
         // console.log(cosmesSeleccionados);
 
-        $('#fechaSeleccionadaInput').val(fechaSeleccionada);
-        $('#horaSeleccionadaInput').val(horaSeleccionada);
+        // $('#fechaSeleccionadaInput').val(fechaSeleccionada);
+        // $('#horaSeleccionadaInput').val(horaSeleccionada);
         $('#servicioIdInput').val(servicioIdSeleccionado);
         $('#numPersonasInput').val(numPersonasSeleccionado);
 
         // Preselecciona los cosmes en el multiselect
         $('#cosme_disp').val(cosmesSeleccionados).trigger('change');
 
-        $('#formularioFechaSeleccionada').show();
+        // $('#formularioFechaSeleccionada').show();
         actualizarTotalSuma();
     });
 

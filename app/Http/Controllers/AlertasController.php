@@ -140,6 +140,51 @@ class AlertasController extends Controller
         return response()->json($alertas);
     }
 
+    public function store_comidas(Request $request)
+    {
+        $cosmes = $request->get('cosmesComida');
+        $users = User::whereIn('id', $cosmes)->get();
+
+        $fechaInicioComida = $request->get('fecha_inicio_comida');
+        $horaInicioComida = $request->get('hora_inicio_comida');
+
+        $fechaFinComida = $request->get('fecha_fin_comida');
+        $horaFinComida = $request->get('hora_fin_comida');
+
+        // Convierte las fechas en objetos Carbon
+        $startCarbon = Carbon::createFromFormat('Y-m-d', $fechaInicioComida);
+        $endCarbon = Carbon::createFromFormat('Y-m-d', $fechaFinComida);
+
+        // Itera sobre cada día entre las fechas de inicio y fin
+        for ($date = $startCarbon; $date->lte($endCarbon); $date->addDay()) {
+            // Combina la fecha actual del bucle con las horas especificadas
+            $startOfDay = $date->copy()->format('Y-m-d') . ' ' . $horaInicioComida;
+            $endOfDay = $date->copy()->format('Y-m-d') . ' ' . $horaFinComida;
+
+            // Convierte las cadenas en objetos Carbon
+            $startFormatted = Carbon::createFromFormat('Y-m-d H:i', $startOfDay)->format('Y-m-d H:i:s');
+            $endFormatted = Carbon::createFromFormat('Y-m-d H:i', $endOfDay)->format('Y-m-d H:i:s');
+
+            foreach ($users as $user) {
+                $datosEvento = new Alertas;
+                $datosEvento->start = $startFormatted;
+                $datosEvento->end = $endFormatted;
+                $datosEvento->id_status = 7;
+                $datosEvento->color = $datosEvento->Status->color;
+                $datosEvento->title = $user->name . ' Comida';
+                $datosEvento->image = asset('assets/icons/muchacha.png');
+                $datosEvento->resourceId = $user->resourceId;
+                $datosEvento->save();
+            }
+        }
+
+        return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+
+    }
+
+
+
+
     public function store_calendar(Request $request)
     {
         // N U E V O  U S U A R I O
