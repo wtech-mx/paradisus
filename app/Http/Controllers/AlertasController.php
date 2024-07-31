@@ -182,9 +182,6 @@ class AlertasController extends Controller
 
     }
 
-
-
-
     public function store_calendar(Request $request)
     {
         // N U E V O  U S U A R I O
@@ -329,6 +326,22 @@ class AlertasController extends Controller
 
     public function update_calendar(Request $request, $id)
     {
+
+
+        if($request->id_status == 7){
+
+            $startDateTimeString = $request->start;
+            $startDateTime = Carbon::parse($startDateTimeString);
+
+            $datosEvento = Alertas::find($id);
+            $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
+            $datosEvento->end = $request->end;
+            $datosEvento->update();
+
+            return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+
+        }
+
         $cliente = $request->cliente_id;
         $startDateTime = $request->start;
         $datosEvento = Alertas::find($id);

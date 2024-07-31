@@ -64,7 +64,7 @@
                             </select>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-6 mt-3">
                             <button type="submit" class="btn btn-success close-btn" >Guardar</button>
                         </div>
 
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">cerrar</button>
+                    <button type="button" class="btn btn-sm  btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
                 </div>
 
         </div>

@@ -365,6 +365,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 previousServicesList.innerHTML = '<li>No hay servicios anteriores.</li>';
             }
 
+            // Verificar el valor de id_status y ocultar/mostrar el contenedor
+            $('#id_status').val(info.event.extendedProps.id_status);
+            toggleContainer();
+
             $('#exampleModal').modal('show');
             // console.log('cosmesInput', info.event.extendedProps.cosmes)
         },
@@ -398,6 +402,24 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
     });
+
+        // Función para ocultar/mostrar el contenedor según el valor de id_status
+        function toggleContainer() {
+            var idStatus = $('#id_status').val();
+            if (idStatus == 7) {
+                $('#OcultaroContendores').hide();
+                $('#OcultaroContendoresBotones').hide();
+            } else {
+                $('#OcultaroContendores').show();
+                $('#OcultaroContendoresBotones').show();
+            }
+        }
+
+            // Asegurar que el contenedor se oculte/muestre cuando se cambie el valor de id_status manualmente
+            $('#id_status').on('change', function() {
+                toggleContainer();
+            });
+
 
 
     // Ensure the selects are cleared each time the modal is opened

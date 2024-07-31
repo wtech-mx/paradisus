@@ -105,7 +105,7 @@
                 <hr>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">cerrar</button>
+                    <button type="button" class="btn btn-sm  btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
                 </div>
 
         </div>
