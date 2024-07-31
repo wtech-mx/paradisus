@@ -188,6 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
         timeZone: 'local',
         initialDate: '{{$Fecha}}',
         initialView: 'dayGridMonth',
+        nowIndicator: true,
         editable: true,
         dayMaxEvents: 5,
         aspectRatio: 1.8,
@@ -311,6 +312,15 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#id_notaModal').val(info.event.extendedProps.id_nota);
             $('#id_laserModal').val(info.event.extendedProps.id_laser);
             $('#id_paqueteModal').val(info.event.extendedProps.id_paquete);
+
+            if (info.event.extendedProps.mod_hora_fin === 'si') {
+                $('#mod_hora_fin').prop('checked', true);
+                $('#txtHorafin').prop('disabled', false);
+            } else {
+                $('#mod_hora_fin').prop('checked', false);
+                $('#txtHorafin').prop('disabled', true);
+            }
+
             $('#descripcion').val(info.event.extendedProps.descripcion);
             $('#id_status').val(info.event.extendedProps.id_status);
             $('#image').val(info.event.extendedProps.image);
@@ -399,6 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear the selects after the modal is hidden
     $('#exampleModal').on('hidden.bs.modal', function() {
         limpiarSelectCosmesNuevasSinSeleccionar();
+    });
+
+    $('#mod_hora_fin').change(function() {
+        if ($(this).is(':checked')) {
+            $('#txtHorafin').prop('disabled', false);
+        } else {
+            $('#txtHorafin').prop('disabled', true);
+        }
     });
 
     calendar.setOption('locale', 'es');
@@ -493,11 +511,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
           nuevoEvento={
               id:$('#txtID').val(),
-
               name_full:$('#name_full').val(),
               last_name_full:$('#last_name_full').val(),
               phone_full:$('#phone_full').val(),
-
               title:$('#title').val(),
               id_client:$('#id_client').val(),
               resourceId:$('#resourceId').val(),
@@ -513,12 +529,15 @@ document.addEventListener('DOMContentLoaded', function() {
               cliente_id:$('#cliente_id').val(),
               cosmesInput:$('#cosmesInput').val(),
               cosmesnueva:$('#cosmesnueva').val(),
-              resourceId:$('#resourceId').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
               '_token':$("meta[name='csrf-token']").attr("content"),
               '_method':method
           }
+
+          if ($('#mod_hora_fin').is(':checked')) {
+        nuevoEvento.mod_hora_fin = 'si';
+    }
         //   console.log('Fecha nuevo',nuevoEvento)
           return (nuevoEvento);
       }
@@ -541,12 +560,15 @@ document.addEventListener('DOMContentLoaded', function() {
               cliente_id:$('#cliente_id').val(),
               cosmesInput:$('#cosmesInput').val(),
               cosmesnueva:$('#cosmesnueva').val(),
-              resourceId:$('#resourceId').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               end:$('#txtFecha').val()+" "+$('#txtHorafin').val(),
               '_token':$("meta[name='csrf-token']").attr("content"),
               '_method':method
           }
+
+          if ($('#mod_hora_fin').is(':checked')) {
+        nuevoEvento.mod_hora_fin = 'si';
+    }
         //   console.log('Fecha nuevo 1',cosmesInput)
           return (nuevoEvento);
       }
@@ -604,7 +626,6 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#txtNota').val("");
             $('#txtTelefono').val("");
             $('#txtHora').val("");
-            $('#txtHorafin').val("");
             $('#color').val("");
             $('#id_servicio').val("");
             $('#id_notaModal').val("");
@@ -614,6 +635,8 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#descripcion').val("");
             $('#id_status').val("");
             $('#image').val("");
+            $('#mod_hora_fin').prop('checked', false);
+            $('#txtHorafin').prop('disabled', true);
             limpiarSelectCosmes();
             limpiarSelectCosmesNuevasSinSeleccionar();
         }

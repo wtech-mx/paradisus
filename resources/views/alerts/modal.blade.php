@@ -35,8 +35,8 @@
                             <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
                         </span>
                         <input class="form-control" type="time" name="txtHora" id="txtHora" autocomplete="off" >
-
                     </div>
+
                 </div>
 
                 <div class="form-group col-4">
@@ -46,7 +46,13 @@
                             <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
                         </span>
                         <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" >
+                    </div>
 
+                    <label for="">Mod Hora Fin</label> <br>
+
+                    <div class="form-group">
+                        <label for="mod_hora_fin">Si</label>
+                        <input type="checkbox" id="mod_hora_fin" name="mod_hora_fin">
                     </div>
                 </div>
 

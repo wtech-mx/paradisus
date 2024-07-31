@@ -254,11 +254,17 @@ class AlertasController extends Controller
             $startDateTimeString = $request->start;
             $startDateTime = Carbon::parse($startDateTimeString);
 
-            // Calcula la hora de finalización
-            $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+            if($request->mod_hora_fin == 'si'){
 
-            $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
-            $datosEvento->end = $endDateTime->format('Y-m-d H:i:s');
+                $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
+                $datosEvento->end = $request->end;
+
+            }else{
+                // Calcula la hora de finalización
+                $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+                $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
+                $datosEvento->end = $endDateTime->format('Y-m-d H:i:s');
+            }
 
             $datosEvento->save();
 
@@ -338,11 +344,16 @@ class AlertasController extends Controller
             $startDateTimeString = $request->start;
             $startDateTime = Carbon::parse($startDateTimeString);
 
-            // Calcula la hora de finalización
-            $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+            if($request->mod_hora_fin == 'si'){
+                $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+                $alerta->end = $request->end;
+            }else{
+                // Calcula la hora de finalización
+                $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+                $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+                $alerta->end = $endDateTime->format('Y-m-d H:i:s');
+            }
 
-            $alerta->start = $startDateTime->format('Y-m-d H:i:s');
-            $alerta->end = $endDateTime->format('Y-m-d H:i:s');
             $alerta->save();
         }
 
