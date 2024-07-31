@@ -56,8 +56,9 @@
 
         <div class="col-12">
 
-            <div class="row">
-                <div class="col-6 mt-3">
+            <div class="row ">
+
+                <div class="col-6">
                     <label for="total-suma">Buscar Cliente</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
@@ -67,18 +68,28 @@
                     </div>
                 </div>
 
-                <div class="col-1 mt-5">
-                    <button class="btn btn-sx btn-success" id="btnBuscar">Buscar</button>
+                <div class="col-2 mt-4">
+                    <button class="btn btn-sx btn-success" id="btnBuscar">Buscar <img src="{{ asset('assets/icons/buscar.png') }}" alt="" width="20px"></button>
                 </div>
-                <div class="col-3 mt-5">
-                    <a class="btn btn-sx btn-warning" href="{{ route('dashboard') }}">Limpiar</a>
+
+                <div class="col-3 mt-4">
+                    <a class="btn btn-sx btn-danger" href="{{ route('dashboard') }}">Limpiar <img src="{{ asset('assets/icons/limpiar-deslizar.png') }}" alt="" width="20px"></a>
                 </div>
+
+                <div class="col-1"></div>
+
+                <div class="col-12 mt-5 mb-5">
+                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#estatusModal">
+                        Estatus de Servicios <img src="{{ asset('assets/icons/carta_res.png') }}" alt="" width="20px">
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#comidaModal">
+                        Comidas de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
+                    </button>
+
+                </div>
+
             </div>
-
-
-            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#estatusModal">
-                Estatus de Servicios
-              </button>
 
             <div id="resultadosContainer">
                 <!-- La vista parcial se cargará aquí -->
@@ -90,6 +101,7 @@
 
     <div class="calendar" data-toggle="calendar" id="calendar"></div>
     @include('alerts.modal')
+    @include('alerts.modal_comida')
 
 @endsection
 
@@ -104,11 +116,12 @@
 <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Incluir Moment.js desde CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <!-- Incluir el archivo de idioma de Moment.js para español -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es.min.js"></script>
-    <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+
+<!-- Incluir Moment.js desde CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<!-- Incluir el archivo de idioma de Moment.js para español -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/es.min.js"></script>
+<script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -134,20 +147,27 @@
                 width: '100%',
                 dropdownParent: $('#exampleModal')
             });
+
+            $('.id_servicio_full').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
+            $('.cosmesInput_multiple').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
+            $('.cosmesInput_multiple_nueva').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
         });
 
         // Inicializar select2 fuera del modal (por si acaso)
         $('.id_servicio_full').select2({
             width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
             dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
-        });
-
-        // Re-inicializar select2 cada vez que se muestre el modal
-        $('#exampleModal').on('shown.bs.modal', function () {
-            $('.id_servicio_full').select2({
-                width: '100%',
-                dropdownParent: $('#exampleModal')
-            });
         });
 
         // Inicializar select2 fuera del modal (por si acaso)
@@ -161,18 +181,6 @@
             dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
         });
 
-        // Re-inicializar select2 cada vez que se muestre el modal
-        $('#exampleModal').on('shown.bs.modal', function () {
-            $('.cosmesInput_multiple').select2({
-                width: '100%',
-                dropdownParent: $('#exampleModal')
-            });
-
-            $('.cosmesInput_multiple_nueva').select2({
-                width: '100%',
-                dropdownParent: $('#exampleModal')
-            });
-        });
     });
 </script>
 
@@ -443,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var clienteId = $('#cliente_id').val();
             var url = 'https://paradisus.mx/buscador?id_client=' + clienteId + '&phone=';
             window.open(url, '_blank');
-    });
+      });
 
       $('#btnNota').click(function() {
             var ObjEvento = {
@@ -462,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function() {
         EnviarInformacion('', ObjEvento, function() {
             hideSpinner(button, '<i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar');
         });
-    });
+      });
 
       $('#btnBorrar').click(function(){
         var button = $(this);
@@ -536,8 +544,8 @@ document.addEventListener('DOMContentLoaded', function() {
           }
 
           if ($('#mod_hora_fin').is(':checked')) {
-        nuevoEvento.mod_hora_fin = 'si';
-    }
+            nuevoEvento.mod_hora_fin = 'si';
+        }
         //   console.log('Fecha nuevo',nuevoEvento)
           return (nuevoEvento);
       }
@@ -567,10 +575,10 @@ document.addEventListener('DOMContentLoaded', function() {
           }
 
           if ($('#mod_hora_fin').is(':checked')) {
-        nuevoEvento.mod_hora_fin = 'si';
-    }
-        //   console.log('Fecha nuevo 1',cosmesInput)
-          return (nuevoEvento);
+            nuevoEvento.mod_hora_fin = 'si';
+            }
+            //   console.log('Fecha nuevo 1',cosmesInput)
+            return (nuevoEvento);
       }
 
       function EnviarInformacionWhatsapp(accion,ObjEvento){
@@ -614,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (callback) callback();  // Llama a la callback incluso en caso de error
             }
         });
-    }
+      }
 
       function limpiarFormulario(){
             $('#txtID').val("");
@@ -651,6 +659,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
     });
+
 </script>
 
 <script>
@@ -829,6 +838,7 @@ $(document).ready(function() {
 
 <script>
     $(document).ready(function() {
+
         function toggleInputs() {
             if ($('#nota').is(':checked')) {
                 $('#nota-inputs').show();
@@ -846,11 +856,7 @@ $(document).ready(function() {
         $('input[name="option_nota"]').change(function() {
             toggleInputs();
         });
-    });
-</script>
 
-<script>
-    $(document).ready(function() {
         function formatState (state) {
             if (!state.id) {
                 return state.text;

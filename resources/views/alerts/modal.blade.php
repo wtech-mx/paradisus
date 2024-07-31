@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-secondary" role="document">
       <div class="modal-content">
 
@@ -266,6 +266,9 @@
             <button class="btn btn-danger btn-sm text-white" id="btnBorrar">
                 <i class="fa fa-trash" aria-hidden="true"></i> Borrar
             </button>
+
+            <button type="button" class="btn btn-sm  btn-secondary" data-bs-dismiss="modal">X Cerrar</button>
+
         </div>
 
       </div>
