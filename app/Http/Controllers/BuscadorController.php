@@ -17,6 +17,7 @@ use App\Models\NotasPedidos;
 use App\Models\Paquetes;
 use App\Models\Reporte;
 use Illuminate\Http\Request;
+use App\Models\NotasLacer;
 use DB;
 Use Alert;
 
@@ -45,15 +46,17 @@ class BuscadorController extends Controller
         if ($id_client !== 'null' && $id_client !== null) {
             $nota = Notas::where('id_client', $id_client)->get();
             $paquetes = Paquetes::where('id_client', $id_client)->get();
+            $nota_lacer = NotasLacer::where('id_client',$id_client)->get();
 
         } elseif ($phone !== 'null' && $phone !== null) {
             $nota = Notas::where('id_client', $phone)->get();
             $paquetes = Paquetes::where('id_client', $phone)->get();
+            $nota_lacer = NotasLacer::where('id_client',$id_client)->get();
         }
 
         //Alert::success('Encontrado con exito ');
 
-        return view('buscador.index', compact('nota', 'paquetes'));
+        return view('buscador.index', compact('nota', 'paquetes','nota_lacer'));
     }
 
     public function update_paquete(Request $request, $id)

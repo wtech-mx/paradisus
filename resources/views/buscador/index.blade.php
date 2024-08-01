@@ -228,6 +228,29 @@
                                                 </tr>
                                                 @include('paquetes_servicios.modal_cambio_paquete')
                                             @endforeach
+
+                                            @foreach ($nota_lacer as $item)
+                                                <tr>
+                                                    <td>{{$item->id}}</td>
+                                                    <td>{{$item->Client->name }} {{ $item->Client->last_name }}</td>
+                                                    <td>
+                                                        <strong>Laser</strong> <br>
+                                                        {{$item->tipo}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d \d\e F \d\e\l Y') }}</td>
+
+                                                    <td>
+                                                        <ul>
+                                                            <li>Total: $ {{$item->total}}</li>
+                                                            <li>Restante:  $ {{$item->restante}}</li>
+                                                        </ul>
+                                                    </td>
+
+                                                    <td>
+                                                        <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$item->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
                                         @endif
                                     </tbody>
                                 </table>
