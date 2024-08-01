@@ -184,6 +184,7 @@ class AlertasController extends Controller
 
     public function store_calendar(Request $request)
     {
+
         // N U E V O  U S U A R I O
         $fechaActual = date('Y-m-d');
         if($request->get('name_full') != NULL){
@@ -273,7 +274,7 @@ class AlertasController extends Controller
             if ($cliente == 3841) {
                 $datosEvento->id_status = 5;
             } else {
-                $datosEvento->id_status = 1;
+                $datosEvento->id_status = $request->id_status;
             }
             $datosEvento->estatus = $datosEvento->Status->estatus;
             $datosEvento->color = $datosEvento->Status->color;
