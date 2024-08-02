@@ -453,6 +453,8 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.setOption('locale', 'es');
     calendar.render();
 
+
+
     // Función para mostrar el spinner
     function showSpinner(button) {
         button.prop('disabled', true);
@@ -647,6 +649,78 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
 
+      $('#guardarCita').on('click', function(e,callback) {
+            e.preventDefault();
+
+            var formData = $('#updateForm').serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('update_horarios') }}", // Actualiza con la ruta correcta
+                data: formData,
+                success: function(response) {
+                    // Actualiza los eventos en el calendario
+                    calendar.refetchEvents();
+                    if (callback) callback();  // Llama a la callback si existe
+                    $('#HorariosModal').modal('hide');
+                    // Muestra un mensaje de éxito si es necesario
+                    alert('Cita guardada exitosamente');
+                    location.reload();
+
+                },
+                error: function(xhr, status, error) {
+                    // Maneja el error si es necesario
+                    alert('Ocurrió un error al guardar la cita');
+                    if (callback) callback();  // Llama a la callback incluso en caso de error
+
+                }
+            });
+        });
+
+        $('#submit_comida').on('click', function(e, callback) {
+            e.preventDefault();
+
+            var $button = $(this);
+            var $spinner = $('#spinner');
+            var formData = $('#comidas_form').serialize();
+
+            // Mostrar el spinner y deshabilitar el botón
+            $spinner.show();
+            $button.prop('disabled', true);
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('calendar.store_comidas') }}",
+                data: formData,
+                success: function(response) {
+                    // Actualiza los eventos en el calendario
+                    calendar.refetchEvents();
+                    if (callback) callback();  // Llama a la callback si existe
+
+                    // Reinicia el formulario
+                    $('#comidas_form')[0].reset();
+                    $('#cosmesInputComida').val([]).trigger('change'); // Limpiar el select múltiple si estás usando Select2 u otro plugin
+
+                    // Cierra el modal
+                    $('#comidaModal').modal('hide');
+
+                    // Muestra un mensaje de éxito si es necesario
+                    alert('Comida guardada exitosamente');
+                },
+                error: function(xhr, status, error) {
+                    // Maneja el error si es necesario
+                    alert('Ocurrió un error al guardar la comida');
+                    if (callback) callback();  // Llama a la callback incluso en caso de error
+                },
+                complete: function() {
+                    // Ocultar el spinner y habilitar el botón después de completar la solicitud
+                    $spinner.hide();
+                    $button.prop('disabled', false);
+                }
+            });
+        });
+
+
       function limpiarFormulario(){
             $('#txtID').val("");
             $('#title').val("");
@@ -803,7 +877,8 @@ $(document).ready(function() {
 
         $('#btnLimpiar').on('click', function() {
             $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
-        });
+    });
+
 
 
     $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {

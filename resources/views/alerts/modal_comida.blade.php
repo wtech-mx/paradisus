@@ -12,7 +12,7 @@
             </div>
 
                 <div class="modal-body row">
-                    <form method="POST" class="row" action="{{ route('calendar.store_comidas') }}" id="miFormulario" enctype="multipart/form-data" role="form">
+                    <form method="POST" class="row" action="{{ route('calendar.store_comidas') }}" id="comidas_form" enctype="multipart/form-data" role="form">
                         @csrf
 
                         <div class="form-group col-6">
@@ -65,9 +65,12 @@
                         </div>
 
                         <div class="col-6 mt-3">
-                            <button type="submit" class="btn btn-success close-btn" >Guardar</button>
-                        </div>
+                            <button type="submit" id="submit_comida" class="btn btn-success">
+                                <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                                Guardar
+                            </button>
 
+                        </div>
 
                     </form>
 

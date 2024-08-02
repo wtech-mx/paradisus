@@ -25,6 +25,7 @@ use App\Models\NotasCosmes;
 use App\Models\NotasPaquetes;
 use App\Models\Pagos;
 use GuzzleHttp\Client as GuzzleClient;
+use App\Models\Horario;
 
 class AlertasController extends Controller
 {
@@ -258,6 +259,42 @@ class AlertasController extends Controller
 
         return redirect()->back()->with('success', 'Alerta actualizada con éxito');
 
+    }
+
+    public function updateMultipleUsers(Request $request)
+    {
+        $usuarios = $request->input('usuarios');
+
+        foreach ($usuarios as $userId => $horarios) {
+            $horario = Horario::where('id_user', $userId)->first();
+
+            if ($horario) {
+                $horario->update([
+                    'lunes' => isset($horarios['lunes']) ? 1 : 0,
+                    'martes' => isset($horarios['martes']) ? 1 : 0,
+                    'miercoles' => isset($horarios['miercoles']) ? 1 : 0,
+                    'jueves' => isset($horarios['jueves']) ? 1 : 0,
+                    'viernes' => isset($horarios['viernes']) ? 1 : 0,
+                    'sabado' => isset($horarios['sabado']) ? 1 : 0,
+                    'domingo' => isset($horarios['domingo']) ? 1 : 0,
+                ]);
+            } else {
+                Horario::create([
+                    'id_user' => $userId,
+                    'lunes' => isset($horarios['lunes']) ? 1 : 0,
+                    'martes' => isset($horarios['martes']) ? 1 : 0,
+                    'miercoles' => isset($horarios['miercoles']) ? 1 : 0,
+                    'jueves' => isset($horarios['jueves']) ? 1 : 0,
+                    'viernes' => isset($horarios['viernes']) ? 1 : 0,
+                    'sabado' => isset($horarios['sabado']) ? 1 : 0,
+                    'domingo' => isset($horarios['domingo']) ? 1 : 0,
+                ]);
+            }
+        }
+
+        // return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+
+        return response()->json(['success' => true]);
     }
 
     public function store_calendar(Request $request)

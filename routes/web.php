@@ -94,6 +94,7 @@ Route::patch('/firma_custom/{id}', [App\Http\Controllers\CustomtermsController::
 Route::patch('/pagos/quitar/comida/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'quitar_comida'])->name('pagos.quitar_comida');
 Route::patch('/pagos/quitar/puntualidad/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'quitar_puntualidad'])->name('pagos.quitar_puntualidad');
 Route::patch('/pagos/comida', [App\Http\Controllers\RegistroSemanalController::class, 'comida'])->name('pagos.comida');
+
 // =============== M O D U L O   login custom ===============================
 
 Route::get('/dashboard', [AlertasController::class, 'index_calendar'])->name('dashboard');
@@ -260,6 +261,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('calendar', [AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
     Route::post('calendar', [AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');
     Route::post('calendar/comidas', [AlertasController::class, 'store_comidas'])->name('calendar.store_comidas');
+
+    Route::post('/update/horarios', [AlertasController::class, 'updateMultipleUsers'])->name('update_horarios');
+
 
     Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
     Route::get('calendar/show/anterior', [AlertasController::class, 'show_calendar_anterior'])->name('calendar.show_calendar_anterior');
