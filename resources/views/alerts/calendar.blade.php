@@ -77,6 +77,10 @@
                         Comidas de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
                     </button>
 
+                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#HorariosModal">
+                        Horarios de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
+                    </button>
+
                     <a href="{{ route('dashboard_anterior') }}" class="btn btn-sm btn-secundary" >
                         Meses Anteriores <img src="{{ asset('assets/icons/flecha-izquierda.png') }}" alt="" width="20px">
                     </a>
@@ -97,6 +101,8 @@
     @include('alerts.modal')
     @include('alerts.modal_comida')
     @include('alerts.estatus')
+    @include('alerts.horarios')
+
 
 @endsection
 
