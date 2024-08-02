@@ -78,6 +78,7 @@
                                     <select class="form-control icono-select" name="icono2">
                                         <option value="{{$item->image}}" data-img="{{$item->image}}">{{$item->estatus}}</option>
                                         <option value="{{ asset('img/iconos_serv/sistema/asistencia.png') }}" data-img="{{ asset('img/iconos_serv/sistema/asistencia.png') }}">Asistencia</option>
+                                        <option value="{{ asset('img/iconos_serv/sistema/muchacha.png') }}" data-img="{{ asset('img/iconos_serv/sistema/muchacha.png') }}">Comida</option>
                                         <option value="{{ asset('img/iconos_serv/sistema/asistencia 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/asistencia 2.png') }}">Asistencia 2</option>
                                         <option value="{{ asset('img/iconos_serv/sistema/confirmado.png') }}" data-img="{{ asset('img/iconos_serv/sistema/confirmado.png') }}">Confirmado</option>
                                         <option value="{{ asset('img/iconos_serv/sistema/confirmado 2.png') }}" data-img="{{ asset('img/iconos_serv/sistema/confirmado 2.png') }}">Confirmado 2</option>
