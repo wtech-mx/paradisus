@@ -458,6 +458,23 @@ class AlertasController extends Controller
 
         // Actualiza cada alerta encontrada
         foreach ($alertas as $alerta) {
+            $servicio = Servicios::find($request->id_servicio);
+            $duracion = $servicio->duracion; // Duración en minutos
+
+            // Combina la fecha y la hora seleccionada
+            $startDateTimeString = $request->start;
+            $startDateTime = Carbon::parse($startDateTimeString);
+            if($alerta->id_servicio != $request->id_servicio || $request->mod_hora_fin == 'si'){
+                if($request->mod_hora_fin == 'si'){
+                    $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+                    $alerta->end = $request->end;
+                }else{
+                    // Calcula la hora de finalización
+                    $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+                    $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+                    $alerta->end = $endDateTime->format('Y-m-d H:i:s');
+                }
+            }
             $alerta->id_servicio = $request->id_servicio;
             $alerta->id_status = $request->id_status;
             $alerta->estatus = $alerta->Status->estatus;
@@ -472,23 +489,6 @@ class AlertasController extends Controller
             $alerta->id_laser = $request->id_laserModal;
             $alerta->id_paquete = $request->id_paqueteModal;
             $alerta->descripcion = $request->descripcion;
-
-            $servicio = Servicios::find($request->id_servicio);
-            $duracion = $servicio->duracion; // Duración en minutos
-
-            // Combina la fecha y la hora seleccionada
-            $startDateTimeString = $request->start;
-            $startDateTime = Carbon::parse($startDateTimeString);
-
-            if($request->mod_hora_fin == 'si'){
-                $alerta->start = $startDateTime->format('Y-m-d H:i:s');
-                $alerta->end = $request->end;
-            }else{
-                // Calcula la hora de finalización
-                $endDateTime = $startDateTime->copy()->addMinutes($duracion);
-                $alerta->start = $startDateTime->format('Y-m-d H:i:s');
-                $alerta->end = $endDateTime->format('Y-m-d H:i:s');
-            }
 
             $alerta->save();
         }
