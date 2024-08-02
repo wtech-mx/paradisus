@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-     Calendario
+     Calendario Meses anteriores
 @endsection
 
 @section('css')
@@ -10,6 +10,11 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.1/index.global.min.js'></script>
 
     <style>
+
+        .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+            background: #a8a8a8 !important;
+        }
+
         .fc-v-event .fc-event-title {
             font-size: 8.5px;
             color: #000000!important;
@@ -35,15 +40,22 @@
 @section('content')
 
 @php
-    $Y = date('Y') ;
-    $M = date('m');
-    $D = date('d') ;
-    $Fecha = $Y."-".$M."-".$D;
+    // $Y = date('Y') ;
+    // $M = date('m');
+    // $D = date('d') ;
+    // $Fecha = $Y."-".$M."-".$D;
+    use Carbon\Carbon;
+
+        // Obtener la fecha de inicio del mes actual y del mes anterior
+        $currentDate = Carbon::now();
+
+        $startOfCurrentMonth = $currentDate->copy()->startOfMonth();
+        $startOfPreviousMonth = $startOfCurrentMonth->copy()->subMonth();
+    $Fecha = $startOfPreviousMonth;
+
 @endphp
 
     <div class="row">
-
-
         <div class="col-12 mt-5">
 
             <div class="row ">
@@ -77,8 +89,8 @@
                         Comidas de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
                     </button>
 
-                    <a href="{{ route('dashboard_anterior') }}" class="btn btn-sm btn-secundary" >
-                        Meses Anteriores <img src="{{ asset('assets/icons/flecha-izquierda.png') }}" alt="" width="20px">
+                    <a href="{{ route('dashboard') }}" class="btn btn-sm btn-success" >
+                        Mese Actual <img src="{{ asset('assets/icons/flecha-correcta.png') }}" alt="" width="20px">
                     </a>
 
                 </div>
@@ -89,11 +101,10 @@
                 <!-- La vista parcial se cargará aquí -->
             </div>
         </div>
-
-
     </div>
 
     <div class="calendar" data-toggle="calendar" id="calendar"></div>
+
     @include('alerts.modal')
     @include('alerts.modal_comida')
     @include('alerts.estatus')
@@ -110,15 +121,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.user_disponibilidad').select2();
-        $('.cliente_disponibilidad').select2();
-        $('.multi_cosme_disponibilidad').select2();
-        $('.disponibilidad_2').select2();
-
-        // $('.user_manual').select2();
-        // $('.cliente_manual').select2();
-        // $('.multi_cosme_manual').select2();
-        // $('.servicios_manual').select2();
 
         // Inicializar select2 fuera del modal (por si acaso)
         $('.mibuscador_paciente').select2({
@@ -231,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         resources: {!! json_encode($modulos) !!},
         resources: originalResources,
-        events: "{{ route('calendar.show_calendar') }}",
+        events: "{{ route('calendar.show_calendar_anterior') }}",
 
         datesSet: function(info) {
             var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
@@ -419,65 +421,63 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-            // Asegurar que el contenedor se oculte/muestre cuando se cambie el valor de id_status manualmente
-            $('#id_status').on('change', function() {
+        // Asegurar que el contenedor se oculte/muestre cuando se cambie el valor de id_status manualmente
+        $('#id_status').on('change', function() {
                 toggleContainer();
-            });
+        });
 
+        // Ensure the selects are cleared each time the modal is opened
+        $('#exampleModal').on('show.bs.modal', function() {
+            limpiarSelectCosmesNuevasSinSeleccionar();
+        });
 
+        // Clear the selects after the modal is hidden
+        $('#exampleModal').on('hidden.bs.modal', function() {
+            limpiarSelectCosmesNuevasSinSeleccionar();
+        });
 
-    // Ensure the selects are cleared each time the modal is opened
-    $('#exampleModal').on('show.bs.modal', function() {
-        limpiarSelectCosmesNuevasSinSeleccionar();
-    });
+        $('#mod_hora_fin').change(function() {
+            if ($(this).is(':checked')) {
+                $('#txtHorafin').prop('disabled', false);
+            } else {
+                $('#txtHorafin').prop('disabled', true);
+            }
+        });
 
-    // Clear the selects after the modal is hidden
-    $('#exampleModal').on('hidden.bs.modal', function() {
-        limpiarSelectCosmesNuevasSinSeleccionar();
-    });
+        calendar.setOption('locale', 'es');
+        calendar.render();
 
-    $('#mod_hora_fin').change(function() {
-        if ($(this).is(':checked')) {
-            $('#txtHorafin').prop('disabled', false);
-        } else {
-            $('#txtHorafin').prop('disabled', true);
+        // Función para mostrar el spinner
+        function showSpinner(button) {
+            button.prop('disabled', true);
+            button.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...');
         }
-    });
 
-    calendar.setOption('locale', 'es');
-    calendar.render();
+        // Función para ocultar el spinner y restaurar el botón
+        function hideSpinner(button, originalText) {
+            button.prop('disabled', false);
+            button.html(originalText);
+        }
 
-    // Función para mostrar el spinner
-    function showSpinner(button) {
-        button.prop('disabled', true);
-        button.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...');
-    }
+        $('#btnWhats').click(function(){
+            ObjEvento= recolectarDatosGUIWhatsapp('POST');
+            EnviarInformacionWhatsapp('', ObjEvento);
+        });
 
-    // Función para ocultar el spinner y restaurar el botón
-    function hideSpinner(button, originalText) {
-        button.prop('disabled', false);
-        button.html(originalText);
-    }
+        $('#btnVerServicios').click(function() {
+            var clienteId = $('#cliente_id').val();
+                var url = 'https://paradisus.mx/buscador?id_client=' + clienteId + '&phone=';
+                window.open(url, '_blank');
+        });
 
-      $('#btnWhats').click(function(){
-          ObjEvento= recolectarDatosGUIWhatsapp('POST');
-          EnviarInformacionWhatsapp('', ObjEvento);
-      });
-
-      $('#btnVerServicios').click(function() {
-        var clienteId = $('#cliente_id').val();
-            var url = 'https://paradisus.mx/buscador?id_client=' + clienteId + '&phone=';
-            window.open(url, '_blank');
-      });
-
-      $('#btnNota').click(function() {
-            var ObjEvento = {
-                nota: $('#id_notaModal').val(),
-                laser: $('#id_laserModal').val(),
-                paquete: $('#id_paqueteModal').val()
-            };
-            EnviarInformacionnota(ObjEvento);
-      });
+        $('#btnNota').click(function() {
+                var ObjEvento = {
+                    nota: $('#id_notaModal').val(),
+                    laser: $('#id_laserModal').val(),
+                    paquete: $('#id_paqueteModal').val()
+                };
+                EnviarInformacionnota(ObjEvento);
+        });
 
       $('#btnAgregar').click(function() {
         var button = $(this);
@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
         EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function() {
             hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
         });
-    });
+});
 
       function recolectarDatosGUIWhatsapp(method){
           nuevoEventowhatasapp={
@@ -681,98 +681,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 $(document).ready(function() {
-    let pagina = 1;
-
-    $('#buscarDisponibilidadForm').on('submit', function(e) {
-        e.preventDefault();
-        pagina = 1;  // Reiniciar la página cuando se envía el formulario
-
-        buscarDisponibilidad(true);
-    });
-
-    function buscarDisponibilidad(reset = false) {
-        const servicioId = $('#servicio').val();
-        const duracion = $('#servicio option:selected').data('duracion');
-        const numPersonas = $('#numPersonas').val();
-
-        $.ajax({
-            url: '/buscar-disponibilidad',
-            method: 'GET',
-            data: {
-                servicioId: servicioId,
-                duracion: duracion,
-                numPersonas: numPersonas,
-                pagina: pagina
-            },
-            success: function(data) {
-                if (reset) {
-                    $('#resultadosDisponibilidad').html('');
-                }
-
-                let resultadosHtml = '';
-
-                if (Object.keys(data).length > 0) {
-                    let collapseId = pagina * 5;  // Ajustar el ID para evitar conflictos
-
-                    for (const [fecha, horarios] of Object.entries(data)) {
-                        const fechaFormateada = moment(fecha).locale('es').format('dddd D [de] MMMM');
-                        collapseId++;
-                        resultadosHtml += `
-                            <div class="card">
-                                <div class="card-header" id="heading${collapseId}">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${collapseId}" aria-expanded="true" aria-controls="collapse${collapseId}">
-                                            ${fechaFormateada}
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse${collapseId}" class="collapse" aria-labelledby="heading${collapseId}" data-parent="#resultadosDisponibilidad">
-                                    <div class="card-body">
-                        `;
-                        horarios.forEach(horario => {
-                            resultadosHtml += `<div><h4>${horario.hora}</h4><ul>`;
-                            horario.cosmes.forEach(cosme => {
-                                resultadosHtml += `<li>${cosme}</li>`;
-                            });
-                            resultadosHtml += '</ul>';
-                            resultadosHtml += `
-                                <button class="seleccionarHorario btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff"
-                                    data-fecha="${fecha}"
-                                    data-hora="${horario.hora}"
-                                    data-servicio="${servicioId}"
-                                    data-numPersonas="${numPersonas}"
-                                    data-cosmes='${JSON.stringify(horario.cosmes)}'>
-                                    ¿Agendar?
-                                </button>
-                            `;
-                            resultadosHtml += '</div>';
-                        });
-                        resultadosHtml += `
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                } else {
-                    if (reset) {
-                        resultadosHtml = '<p>No hay disponibilidad para el servicio seleccionado.</p>';
-                    }
-                }
-
-                $('#resultadosDisponibilidad').append(resultadosHtml);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-    }
-
-    $('#buscarMasFechas').on('click', function() {
-        pagina++;
-        buscarDisponibilidad();
-
-        alert('Busqueda Actualizada');
-    });
 
     $('#btnBuscar').on('click', function() {
             var titulo = $('#title_search').val();
@@ -799,26 +707,6 @@ $(document).ready(function() {
             $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
         });
 
-
-    $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
-        // const fechaSeleccionada = $(this).data('fecha');
-        // const horaSeleccionada = $(this).data('hora');
-        const servicioIdSeleccionado = $(this).data('servicio');
-        const numPersonasSeleccionado = $(this).data('numPersonas');
-        const cosmesSeleccionados = $(this).data('cosmes');
-        // console.log(cosmesSeleccionados);
-
-        // $('#fechaSeleccionadaInput').val(fechaSeleccionada);
-        // $('#horaSeleccionadaInput').val(horaSeleccionada);
-        $('#servicioIdInput').val(servicioIdSeleccionado);
-        $('#numPersonasInput').val(numPersonasSeleccionado);
-
-        // Preselecciona los cosmes en el multiselect
-        $('#cosme_disp').val(cosmesSeleccionados).trigger('change');
-
-        // $('#formularioFechaSeleccionada').show();
-        actualizarTotalSuma();
-    });
 
     $('#num_servicio').on('input', function() {
         actualizarTotalSuma();

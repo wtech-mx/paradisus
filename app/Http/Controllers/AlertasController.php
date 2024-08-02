@@ -90,6 +90,35 @@ class AlertasController extends Controller
 
     }
 
+    public function index_calendar_anterior()
+    {
+        $estatus = Status::get();
+        $alert = Alertas::get();
+        $cosmes_alerts = AlertasCosmes::get();
+        $servicios = Servicios::orderBy('nombre')->get();
+        $colores = Colores::get();
+
+        $user_cosmes = User::get();
+
+        $user_cosmetologas = User::where('puesto', 'Cosme')
+        ->orderby('name', 'ASC')
+        ->get();
+
+        $modulos = [];
+
+        // Iterar sobre los usuarios y generar los módulos
+        foreach ($user_cosmetologas as $user) {
+            $modulos[] = [
+                'id' => $user->resourceId,
+                'title' => $user->name,
+                'horario' => $user->horario // Incluye el horario del usuario
+            ];
+        }
+
+        return view('dashboard_anterior', compact('user_cosmes','alert', 'colores','servicios', 'cosmes_alerts','estatus','modulos'));
+
+    }
+
     public function buscarAlertas(Request $request)
     {
         $titulo = $request->input('titulo');
@@ -115,7 +144,17 @@ class AlertasController extends Controller
 
     public function show_calendar()
     {
-        $alertas = Alertas::with('Servicios_id')->get();
+        // Obtener la fecha actual
+        $currentDate = Carbon::now();
+
+        // Obtener la fecha de inicio del mes actual
+        $startOfCurrentMonth = $currentDate->copy()->startOfMonth();
+
+        // Filtrar alertas que tienen una fecha de inicio desde el inicio del mes actual en adelante
+        $alertas = Alertas::with('Servicios_id')
+            ->where('start', '>=', $startOfCurrentMonth)
+            ->get();
+
 
         $alertas->each(function ($alerta) {
             // Obtener las cosmetólogas asociadas
@@ -139,6 +178,45 @@ class AlertasController extends Controller
 
         return response()->json($alertas);
     }
+
+    public function show_calendar_anterior()
+    {
+
+        $currentDate = Carbon::now();
+
+        // Obtener la fecha de inicio del mes actual y del mes anterior
+        $startOfCurrentMonth = $currentDate->copy()->startOfMonth();
+        $startOfPreviousMonth = $startOfCurrentMonth->copy()->subMonth();
+
+        // Filtrar alertas que tienen una fecha de inicio antes del inicio del mes actual
+        // y desde el inicio del mes anterior hacia atrás
+        $alertas = Alertas::where('start', '<', $startOfCurrentMonth)
+            ->where('start', '>=', $startOfPreviousMonth)
+            ->get();
+
+        $alertas->each(function ($alerta) {
+            // Obtener las cosmetólogas asociadas
+            $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
+            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agregar el nombre del servicio
+
+            // Obtener los servicios anteriores del mismo cliente
+            $serviciosAnteriores = Alertas::where('id_client', $alerta->id_client)
+                ->where('start', '<', $alerta->start) // Asegurarse de que los servicios sean anteriores a la fecha del evento actual
+                ->with('Servicios_id')
+                ->get();
+
+            $serviciosAnteriores->each(function ($servicioAnterior) {
+                $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
+                $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
+            });
+
+            // Anidar los servicios anteriores en el objeto alerta
+            $alerta->servicios_anteriores = $serviciosAnteriores;
+        });
+
+        return response()->json($alertas);
+    }
+
 
     public function store_comidas(Request $request)
     {
@@ -264,7 +342,6 @@ class AlertasController extends Controller
 
         $users = User::whereIn('id', $cosmes)->get();
         $colors = $users->pluck('color')->filter()->all();
-        $finalColor = $this->combineColors($colors);
 
         $insert_data = [];
 
@@ -687,7 +764,6 @@ class AlertasController extends Controller
 
         $users = User::whereIn('name', $cosmes)->get();
         $colors = $users->pluck('color')->filter()->all();
-        $finalColor = $this->combineColors($colors);
 
 
         $insert_data = [];
@@ -780,7 +856,6 @@ class AlertasController extends Controller
 
         $users = User::whereIn('id', $cosmes)->get();
         $colors = $users->pluck('color')->filter()->all();
-        $finalColor = $this->combineColors($colors);
 
         foreach ($users as $user) {
             $datosEvento = new Alertas;
@@ -820,53 +895,6 @@ class AlertasController extends Controller
         AlertasCosmes::insert($insert_data);
 
         Session::flash('success', 'Se ha guardado sus datos con exito');
-    }
-
-    private function combineColors(array $colors)
-    {
-        if (count($colors) === 0) {
-            return null; // Retornar nulo si no hay colores
-        }
-
-        // Convertir los colores hexadecimales a sus componentes RGB
-        $rgbColors = array_map([$this, 'hexToRgb'], $colors);
-
-        // Mezclar los colores RGB
-        $combinedRgb = array_reduce($rgbColors, function($carry, $item) {
-            return [
-                'r' => $carry['r'] + $item['r'],
-                'g' => $carry['g'] + $item['g'],
-                'b' => $carry['b'] + $item['b']
-            ];
-        }, ['r' => 0, 'g' => 0, 'b' => 0]);
-
-        $colorCount = count($colors);
-        $combinedRgb = array_map(function($value) use ($colorCount) {
-            return round($value / $colorCount);
-        }, $combinedRgb);
-
-        // Convertir el color combinado de RGB a hexadecimal
-        return $this->rgbToHex($combinedRgb);
-    }
-
-    private function hexToRgb($hex)
-    {
-        $hex = ltrim($hex, '#');
-
-        if (strlen($hex) == 6) {
-            list($r, $g, $b) = [hexdec($hex[0].$hex[1]), hexdec($hex[2].$hex[3]), hexdec($hex[4].$hex[5])];
-        } elseif (strlen($hex) == 3) {
-            list($r, $g, $b) = [hexdec(str_repeat($hex[0], 2)), hexdec(str_repeat($hex[1], 2)), hexdec(str_repeat($hex[2], 2))];
-        } else {
-            return ['r' => 0, 'g' => 0, 'b' => 0];
-        }
-
-        return ['r' => $r, 'g' => $g, 'b' => $b];
-    }
-
-    private function rgbToHex($rgb)
-    {
-        return sprintf("#%02x%02x%02x", $rgb['r'], $rgb['g'], $rgb['b']);
     }
 
     public function buscarDisponibilidad(Request $request)
