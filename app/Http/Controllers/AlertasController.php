@@ -511,6 +511,10 @@ class AlertasController extends Controller
                     $alerta->start = $startDateTime->format('Y-m-d H:i:s');
                     $alerta->end = $endDateTime->format('Y-m-d H:i:s');
                 }
+            }elseif($alerta->start != $request->start){
+                $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+                $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+                $alerta->end = $endDateTime->format('Y-m-d H:i:s');
             }
             $alerta->id_servicio = $request->id_servicio;
             $alerta->id_status = $request->id_status;
