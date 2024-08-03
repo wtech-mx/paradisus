@@ -205,7 +205,18 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-5 mt-3">
+                    <div class="col-6 mt-3">
+                        <label for="">Selecciona el servicio 2</label>
+                        <div class="input-group mb-3">
+                            <select class="form-control id_servicio_full2"  id="id_servicio2" name="id_servicio2">
+                                @foreach($servicios as $item)
+                                    <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-6 mt-3">
                         <label for="">¿Estatus de la cita?</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">
@@ -220,7 +231,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-12 mt-3">
+                    <div class="form-group col-6 mt-5">
                         <button class="btn btn-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#previousServices" aria-expanded="false" aria-controls="previousServices">
                             Ver citas Anteriores
                         </button>
@@ -228,7 +239,7 @@
                         <a class="btn btn-dark btn-sm" id="btnVerServicios">Ver Servicios Anteriores</a>
 
 
-                        <div class="collapse mt-3" id="previousServices">
+                        <div class="collapse mt-5" id="previousServices">
                             <div class="card card-body ">
                                 <div class="row" id="previousServicesList"></div>
                             </div>

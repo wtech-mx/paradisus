@@ -144,6 +144,11 @@
                 dropdownParent: $('#exampleModal')
             });
 
+            $('.id_servicio_full2').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
             $('.cosmesInput_multiple').select2({
                 width: '100%',
                 dropdownParent: $('#exampleModal')
@@ -162,6 +167,12 @@
 
         // Inicializar select2 fuera del modal (por si acaso)
         $('.id_servicio_full').select2({
+            width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+            dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
+        });
+
+        // Inicializar select2 fuera del modal (por si acaso)
+        $('.id_servicio_full2').select2({
             width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
             dropdownParent: $('#exampleModal') // Esto asegura que el dropdown se renderice dentro del modal
         });
@@ -318,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#txtTelefono').val(info.event.extendedProps.telefono);
             $('#color').val(info.event.backgroundColor);
             $('#id_servicio').val(info.event.extendedProps.id_servicio);
+            $('#id_servicio2').val(info.event.extendedProps.id_servicio2);
             $('#id_notaModal').val(info.event.extendedProps.id_nota);
             $('#id_laserModal').val(info.event.extendedProps.id_laser);
             $('#id_paqueteModal').val(info.event.extendedProps.id_paquete);
@@ -556,6 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
               image:$('#image').val()+imageDefault,
               color:$('#color').val(),
               id_servicio:$('#id_servicio').val(),
+              id_servicio2:$('#id_servicio2').val(),
               id_notaModal:$('#id_notaModal').val(),
               id_laserModal:$('#id_laserModal').val(),
               id_paqueteModal:$('#id_paqueteModal').val(),
@@ -587,6 +600,7 @@ document.addEventListener('DOMContentLoaded', function() {
               image:$('#image').val(),
               color:$('#color').val(),
               id_servicio:$('#id_servicio').val(),
+              id_servicio2:$('#id_servicio2').val(),
               id_notaModal:$('#id_notaModal').val(),
               id_laserModal:$('#id_laserModal').val(),
               id_paqueteModal:$('#id_paqueteModal').val(),
@@ -733,6 +747,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#txtHora').val("");
             $('#color').val("");
             $('#id_servicio').val("");
+            $('#id_servicio2').val("");
             $('#id_notaModal').val("");
             $('#id_laserModal').val("");
             $('#id_paqueteModal').val("");

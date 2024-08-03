@@ -385,6 +385,7 @@ class AlertasController extends Controller
         foreach ($users as $user) {
             $datosEvento = new Alertas;
             $datosEvento->id_servicio = $request->id_servicio;
+            $datosEvento->id_servicio2 = $request->id_servicio2;
             if ($cliente == 3841) {
                 $datosEvento->id_status = 5;
             } else {
@@ -407,6 +408,14 @@ class AlertasController extends Controller
             $servicio = Servicios::find($request->id_servicio);
             $duracion = $servicio->duracion; // Duración en minutos
 
+            $servicio2 = Servicios::find($request->id_servicio2);
+            if($servicio2 == null){
+                $duracion2 = '0';
+            }else{
+                $duracion2 = $servicio2->duracion; // Duración en minutos
+            }
+            $suma_duracion = $duracion + $duracion2;
+
             // Combina la fecha y la hora seleccionada
             $startDateTimeString = $request->start;
             $startDateTime = Carbon::parse($startDateTimeString);
@@ -418,7 +427,7 @@ class AlertasController extends Controller
 
             }else{
                 // Calcula la hora de finalización
-                $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+                $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
                 $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
                 $datosEvento->end = $endDateTime->format('Y-m-d H:i:s');
             }
@@ -498,25 +507,44 @@ class AlertasController extends Controller
             $servicio = Servicios::find($request->id_servicio);
             $duracion = $servicio->duracion; // Duración en minutos
 
+            $servicio2 = Servicios::find($request->id_servicio2);
+            if($servicio2 == null){
+                $duracion2 = '0';
+            }else{
+                $duracion2 = $servicio2->duracion; // Duración en minutos
+            }
+            $suma_duracion = $duracion + $duracion2;
+
             // Combina la fecha y la hora seleccionada
             $startDateTimeString = $request->start;
             $startDateTime = Carbon::parse($startDateTimeString);
-            if($alerta->id_servicio != $request->id_servicio || $request->mod_hora_fin == 'si'){
-                if($request->mod_hora_fin == 'si'){
-                    $alerta->start = $startDateTime->format('Y-m-d H:i:s');
-                    $alerta->end = $request->end;
-                }else{
-                    // Calcula la hora de finalización
-                    $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+
+            $requestStart = Carbon::parse($request->start);
+            $requestStartFormatted = $requestStart->format('Y-m-d H:i:s');
+
+            if($request->mod_hora_fin == 'si'){
+                $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+                $alerta->end = $request->end;
+
+            }elseif($alerta->id_servicio != $request->id_servicio){
+                $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
+                $alerta->start = $startDateTime->format('Y-m-d H:i:s');
+                $alerta->end = $endDateTime->format('Y-m-d H:i:s');
+
+            }elseif($alerta->id_servicio2 != NULL){
+                if($alerta->id_servicio2 != $request->id_servicio2){
+                    $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
                     $alerta->start = $startDateTime->format('Y-m-d H:i:s');
                     $alerta->end = $endDateTime->format('Y-m-d H:i:s');
                 }
-            }elseif($alerta->start != $request->start){
-                $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+
+            }elseif($alerta->start != $requestStartFormatted){
+                $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
                 $alerta->start = $startDateTime->format('Y-m-d H:i:s');
                 $alerta->end = $endDateTime->format('Y-m-d H:i:s');
             }
             $alerta->id_servicio = $request->id_servicio;
+            $alerta->id_servicio2 = $request->id_servicio2;
             $alerta->id_status = $request->id_status;
             $alerta->estatus = $alerta->Status->estatus;
             $alerta->color = $alerta->Status->color;
