@@ -57,6 +57,11 @@ class Alertas extends Model
         return $this->belongsTo(Servicios::class, 'id_servicio');
     }
 
+    public function Servicios_id2()
+    {
+        return $this->belongsTo(Servicios::class, 'id_servicio2');
+    }
+
     public function cosmes()
     {
         return $this->hasMany(AlertasCosmes::class, 'id_alerta');

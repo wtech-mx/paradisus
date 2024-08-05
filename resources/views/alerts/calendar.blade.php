@@ -406,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let imageArg = arg.event.extendedProps.image;
             let modulocapi = arg.event.getResources().map(function (resource) { return resource.id });
             let nombreServicio = arg.event.extendedProps.nombre_servicio;
+            let nombreServicio2 = arg.event.extendedProps.nombre_servicio2;
             // console.log(nombreServicio);
 
             let arrayOfDomNodes = []
@@ -415,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
             titleEvent.classList = "fc-event-title fc-sticky"
 
             let horaEvent = document.createElement('div')
-            horaEvent.innerHTML = '<div style="font-size:10px;">' + hor + ' - ' + modulocapi + '<img width="13px" style="margin-left: 10px" src="' + imageArg + '" ><br>' + nombreServicio + '</div>';
+            horaEvent.innerHTML = '<div style="font-size:10px;">' + hor + ' - ' + modulocapi + '<img width="13px" style="margin-left: 10px" src="' + imageArg + '" ><br>' + nombreServicio + '<br>' + nombreServicio2 + '</div>';
             horaEvent.classList = "fc-event-time"
 
             arrayOfDomNodes = [titleEvent, horaEvent]

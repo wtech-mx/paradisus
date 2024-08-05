@@ -161,6 +161,7 @@ class AlertasController extends Controller
             // Obtener las cosmetólogas asociadas
             $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
             $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agregar el nombre del servicio
+            $alerta->nombre_servicio2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->nombre : '.';
 
             // Obtener los servicios anteriores del mismo cliente
             $serviciosAnteriores = Alertas::where('id_client', $alerta->id_client)
@@ -171,6 +172,7 @@ class AlertasController extends Controller
             $serviciosAnteriores->each(function ($servicioAnterior) {
                 $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
                 $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
+                $servicioAnterior->nombre_servicio2 = $servicioAnterior->Servicios_id2 ? $servicioAnterior->Servicios_id2->nombre : '.';
             });
 
             // Anidar los servicios anteriores en el objeto alerta
