@@ -765,7 +765,7 @@ class CajaController extends Controller
             ->where('pagos.fecha', '=', $diaActual)
             ->where('pagos.forma_pago', '=', 'Efectivo')
             ->where('notas.anular', '=', NULL)
-            ->select(DB::raw('SUM(pagos.dinero_recibido) as total'), DB::raw('count(*) as filas'))
+            ->select(DB::raw('SUM(pagos.pago) as total'), DB::raw('count(*) as filas'))
             ->first();
 
             $laser_mercado = PagosLaser::where('fecha', '=', $diaActual)
@@ -780,11 +780,11 @@ class CajaController extends Controller
             })
             ->select(DB::raw('SUM(
                 CASE
-                    WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
+                    WHEN metodo_pago = "Efectivo" THEN COALESCE(total, 0)
                     ELSE 0
                 END +
                 CASE
-                    WHEN metodo_pago2 = "Efectivo" THEN COALESCE(dinero_recibido2, 0)
+                    WHEN metodo_pago2 = "Efectivo" THEN COALESCE(total, 0)
                     ELSE 0
                 END
             ) AS total'), DB::raw('count(*) as filas'))
