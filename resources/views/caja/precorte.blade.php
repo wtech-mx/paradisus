@@ -505,11 +505,7 @@
                     </td>
 
                     <td>
-                        @if ($item->metodo_pago2 == 'Efectivo')
-                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
-                        @else
-                                ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
-                        @endif
+                        ${{ number_format($item->total, 1, '.', ',') }}
                     </td>
 
                     <td>
