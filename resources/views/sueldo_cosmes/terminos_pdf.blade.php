@@ -109,7 +109,10 @@
         </div>
 
         <div class="col-12 mb-3 mt-3">
-            <p class="">{{ $cosme->descripcion }}</p>
+
+            {!! $cosme->descripcion !!}
+
+            {{-- <p class="">{{ $cosme->descripcion }}</p> --}}
         </div>
 
         <img src="{{asset('firmaCosme/'. $cosme->firma)}}" style="text-align: center;">

@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modal_terminos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createDataModalLabel">Crear Terminos</h5>
@@ -77,12 +77,8 @@
 
                     <div class="col-12 form-group">
                         <label for="name">Texto *</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
-                                <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="25px">
-                            </span>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descripcion"></textarea>
-                        </div>
+                        <textarea  id="mytextarea" name="descripcion"></textarea>
+
                     </div>
 
                     <div class="col-6 form-group">
