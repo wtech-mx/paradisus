@@ -37,7 +37,13 @@
                     @foreach ($custom as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->User->name}}</td>
+                        <td>
+                            @if(!isset($item->User->name ))
+                                {{ $item->cosmemanual}}
+                            @else
+                                {{ $item->User->name}}
+                            @endif
+                        </td>
                         <td>{{ $item->titulo }}</td>
                         <td>
                             @if ($item->firma == NULL)
@@ -48,11 +54,25 @@
                         </td>
                         <td>
                             <a href="{{ route('terminos.edit', $item->id) }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-signature"></i></a>
+
+                            @if(!isset($item->User->name ))
                             <a type="button" class="btn btn-sm" target="_blank"
-                            href="https://wa.me/52{{$item->User->photo}}?text=Hola%20{{$item->User->name}}%20{{ route('terminos.edit', $item->id) }}"
+                            href="https://wa.me/52{{$item->cosmemanual_tel}}?text=Hola%20{{$item->cosmemanual}}%20{{ route('terminos.edit', $item->id) }}"
                             style="background: #00BB2D; color: #ffff">
                             <i class="fa fa-whatsapp"></i>
                             </a>
+
+                            @else
+
+                                <a type="button" class="btn btn-sm" target="_blank"
+                                href="https://wa.me/52{{$item->User->photo}}?text=Hola%20{{$item->User->name}}%20{{ route('terminos.edit', $item->id) }}"
+                                style="background: #00BB2D; color: #ffff">
+                                <i class="fa fa-whatsapp"></i>
+                                </a>
+                            @endif
+
+
+
                             <a type="button" class="btn btn-outline-dark" href="{{ route('treminos.pdf', $item->id) }}">
                                 PDF
                             </a>
@@ -80,6 +100,28 @@
       searchable: true,
       fixedHeight: false
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var cosmeNoRadio = document.getElementById('cosme_no');
+    var cosmeSiRadio = document.getElementById('cosme_si');
+    var campoCosmeManual = document.getElementById('campo_cosmemanual');
+
+    function toggleCosmeManualField() {
+        if (cosmeSiRadio.checked) {
+            campoCosmeManual.style.display = 'flex';
+        } else {
+            campoCosmeManual.style.display = 'none';
+        }
+    }
+
+    cosmeNoRadio.addEventListener('change', toggleCosmeManualField);
+    cosmeSiRadio.addEventListener('change', toggleCosmeManualField);
+
+    // Llamada inicial para configurar el campo en función del valor predeterminado
+    toggleCosmeManualField();
+});
+
+
 </script>
 
 @endsection

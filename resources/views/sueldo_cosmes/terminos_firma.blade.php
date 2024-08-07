@@ -72,7 +72,15 @@
     <section class="row">
 
         <div class="col-12 mb-3">
-            <h3 class="text-white"> <strong>Cosmetologa:</strong> <br> {{ $user->name}} </h3>
+            <h3 class="text-white"> <strong>Cosmetologa:</strong> <br>
+
+                @if(!isset($user->name))
+                {{ $cosme->cosmemanual}}
+                @else
+                    {{ $user->name}}
+                @endif
+
+            </h3>
         </div>
 
 
@@ -96,7 +104,16 @@
 
                                 <textarea id="signed" name="signed" style="display: none"></textarea>
 
-                                <h6 class="text-left mt-3 mb-3">Nombre: <br> {{ $user->name}}  </h6>
+                                <h6 class="text-left mt-3 mb-3">Nombre: <br>
+
+                                    @if(!isset($user->name))
+                                    {{ $cosme->cosmemanual}}
+                                    @else
+                                        {{ $user->name}}
+                                    @endif
+                                </h6>
+
+
                                 <button id="clear" class="btn btn-sm btn-danger ">Repetir</button>
                                 <button class="btn btn-sm btn-success">Guardar</button>
                             </form>

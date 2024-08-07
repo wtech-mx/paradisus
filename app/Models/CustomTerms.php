@@ -17,6 +17,9 @@ class CustomTerms extends Model
         'descripcion',
         'monto',
         'firma',
+        'cosmemanual',
+        'cosmemanual_tel',
+
     ];
 
     public function User()

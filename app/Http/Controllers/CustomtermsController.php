@@ -25,7 +25,15 @@ class CustomtermsController extends Controller
     public function store(Request $request)
     {
         $custom = new CustomTerms();
-        $custom ->id_user = $request->get('id_user');
+
+        if($request->get('cosme_manual') == 'si'){
+            $custom ->cosmemanual = $request->get('cosmemanual');
+            $custom ->cosmemanual_tel = $request->get('cosmemanual_tel');
+
+        }else{
+            $custom ->id_user = $request->get('id_user');
+        }
+
         $custom ->titulo = $request->get('titulo');
         $custom ->descripcion = $request->get('descripcion');
         $custom ->monto = $request->get('monto');
@@ -76,6 +84,13 @@ class CustomtermsController extends Controller
 
         $pdf = \PDF::loadView('sueldo_cosmes.terminos_pdf',compact('cosme','user'));
         // return $pdf->stream();
-        return $pdf->download('Terminos '.$user->name.'-'.$fecha.'.pdf');
+
+        if(!isset($user->name)){
+            $nombrepdf = $cosme->cosmemanual;
+        }else{
+            $nombrepdf = $user->name;
+        }
+
+        return $pdf->download('Terminos '.$nombrepdf.'-'.$fecha.'.pdf');
     }
 }

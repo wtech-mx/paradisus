@@ -76,7 +76,15 @@
   </style>
 <body>
   <header>
-    <h1>Terminos y condiciones <br> {{$user->name}}</h1>
+    <h1>Terminos y condiciones <br>
+
+        @if(!isset($user->name))
+        {{ $cosme->cosmemanual}}
+        @else
+        {{$user->name}}
+        @endif
+
+        </h1>
   </header>
 
   <footer>
@@ -105,7 +113,16 @@
         </div>
 
         <img src="{{asset('firmaCosme/'. $cosme->firma)}}" style="text-align: center;">
-        <h4 style="text-align: center;">Firma <br>{{$user->name}}</h4>
+        <h4 style="text-align: center;">Firma <br>
+
+            @if(!isset($user->name))
+            {{ $cosme->cosmemanual}}
+            @else
+            {{$user->name}}
+            @endif
+
+
+        </h4>
     </div>
   </div>
 </body>
