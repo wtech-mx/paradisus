@@ -224,7 +224,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($total_efectivo_vista, 1, '.', ',') }}</strong>
+                <strong>$2,316</strong>
             </td>
 
             <td>
