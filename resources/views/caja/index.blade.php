@@ -11,7 +11,7 @@
             @php
                 $total_ing = 0;
 
-                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_vista->inicio + $caja_dia_suma_Ingreso->total + $pago_laser_suma->total;
+                $total_ing =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $caja_vista->inicio + $caja_dia_suma_Ingreso->total + $pago_laser_suma->total + $propinas_suma->total;
 
                 $total_egresos = 0;
                 $total_egresos = $total_ing - $caja_dia_suma->total;
@@ -217,6 +217,16 @@
                                                 <td>${{ $item->pago }}</td>
                                                 <td>${{ number_format($item->dinero_recibido, 1, '.', ',') }}</td>
                                                 <td></td>
+                                            </tr>
+                                        @endforeach
+
+                                        @foreach ($propinas as $item)
+                                            <tr>
+                                                <td>{{ $item->fecha }}</td>
+                                                <td> <label class="badge" style="color: #e30000;background-color: #e300006c;">Propina</label> </td>
+                                                <td>-</td>
+                                                <td>${{ number_format($item->propina, 1, '.', ',') }}</td>
+                                                <td>${{ number_format($item->propina, 1, '.', ',') }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

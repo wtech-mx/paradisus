@@ -292,7 +292,7 @@
                             @endphp
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($propina->created_at)->format('d \d\e F ') }}</td>
-                                <td>Propina en nota: #{{$propina->id_nota}}</td>
+                                <td>Propina</td>
                                 <td>${{$propina->propina}}</td>
                                 <td></td>
                             </tr>

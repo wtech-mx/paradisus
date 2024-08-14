@@ -378,7 +378,7 @@
                                         @endphp
                                         <tr>
                                             <td>{{ \Carbon\Carbon::parse($propina->created_at)->format('d \d\e F ') }}</td>
-                                            <td><a href="{{ route('notas.edit',$propina->id_nota) }}"> Propina en nota: #{{$propina->id_nota}}</a></td>
+                                            <td>Propina</td>
                                             <td>${{$propina->propina}}</td>
                                             <td></td>
                                         </tr>

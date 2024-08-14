@@ -165,7 +165,7 @@
 
     //Vista
     $resta_vista = $total_ing_vista - $caja_final->inicio ;
-    $efectivo_vista = $resta_vista - $caja_dia_suma_cambios->total;
+    $efectivo_vista = $resta_vista - $caja_dia_suma_cambios->total + $propinas_suma->total;
     if($efectivo_vista > 0){
      $total_efectivo_vista = $efectivo_vista;
     }else{
@@ -224,7 +224,7 @@
             </td>
 
             <td>
-                <strong>$2,316</strong>
+                <strong>${{ number_format($total_efectivo_vista, 1, '.', ',') }}</strong>
             </td>
 
             <td>
@@ -468,6 +468,17 @@
                     </td>
                 </tr>
             @endforeach
+
+            @foreach ($propinas_transferencia as $propina_efectivo)
+                <tr>
+                    <td><b>Cosmetologa:</b><br>{{$propina_efectivo->User->name}}</td>
+                    <td>Propina</td>
+                    <td>{{$propina_efectivo->propina}}</td>
+                    <td>{{$propina_efectivo->propina}}</td>
+                    <td>-</td>
+                    <td>Propina</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -647,6 +658,17 @@
                     </td>
                 </tr>
             @endforeach
+
+            @foreach ($propinas_efectivo as $propina_efectivo)
+                <tr>
+                    <td><b>Cosmetologa:</b><br>{{$propina_efectivo->User->name}}</td>
+                    <td>Propina</td>
+                    <td>{{$propina_efectivo->propina}}</td>
+                    <td>{{$propina_efectivo->propina}}</td>
+                    <td>-</td>
+                    <td>Propina</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -819,6 +841,17 @@
                     <td>
                         Laser
                     </td>
+                </tr>
+            @endforeach
+
+            @foreach ($propinas_tarjeta as $propina_efectivo)
+                <tr>
+                    <td><b>Cosmetologa:</b><br>{{$propina_efectivo->User->name}}</td>
+                    <td>Propina</td>
+                    <td>{{$propina_efectivo->propina}}</td>
+                    <td>{{$propina_efectivo->propina}}</td>
+                    <td>-</td>
+                    <td>Propina</td>
                 </tr>
             @endforeach
         </tbody>

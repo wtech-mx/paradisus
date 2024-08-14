@@ -4,6 +4,10 @@
    Crear Nota
 @endsection
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
+@endsection
+
 @section('content')
 
     <div class="container-fluid">
@@ -35,11 +39,11 @@
                                         <i class="ni ni-credit-card text-sm me-2"></i> Pago
                                     </a>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-sesion" role="tab" aria-controls="pills-sesion" aria-selected="true" id="pills-sesion-tab">
-                                        <i class="fa fa-calendar-day text-sm me-2"></i> Sesiones
-                                    </a>
 
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-condiciones" role="tab" aria-controls="pills-condiciones" aria-selected="true" id="pills-condiciones-tab">
+                                        <i class="fa fa-calendar-day text-sm me-2"></i> Condiciones
+                                    </a>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
@@ -47,13 +51,6 @@
                                         <i class="fa fa-money-bill text-sm me-2"></i> Extras
                                     </a>
                                 </li>
-
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-propina" role="tab" aria-controls="pills-propina" aria-selected="true" id="pills-propina-tab">
-                                        <i class="fa fa-coin text-sm me-2"></i> Propina
-                                    </a>
-                                </li>
-
                             </ul>
 
                         <form method="POST" action="{{ route('notas.store') }}" id="miFormulario" enctype="multipart/form-data" role="form">
@@ -527,56 +524,25 @@
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane fade" id="pills-sesion" role="tabpanel" aria-labelledby="pills-sesion-tab">
+                                    <div class="tab-pane fade" id="pills-condiciones" role="tabpanel" aria-labelledby="pills-condiciones-tab">
+
+                                        <h5>Politicas & Condiciones</h5>
+
                                         <div class="row">
-
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="fecha">Fecha</label>
-                                                    <input  id="fecha_sesion" name="fecha_sesion" type="date" class="form-control" value="{{$fechaActual}}">
-                                                </div>
+                                            <div class="col-12">
+                                                <ul class="list-group mt-5 mb-5" style="margin-left: 3rem">
+                                                    <li>Al apartar tu paquete no habrá reembolsos de anticipos o abonos.</li>
+                                                    <li>Solo tienes oportunidad de <b>re-agendar UNA sesión</b> con un mínimo de <b>3 días de anticipo.</b> </li>
+                                                    <li>En caso de fallar más de una de las sesiones, ya <b>NO se reagendará</b> y tendrás que volverla a pagar, independiente del costo de tu paquete.</li>
+                                                </ul>
                                             </div>
 
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="fecha">Hora de inicio</label>
-                                                    <input  id="start" name="start" type="time" class="form-control" >
-                                                </div>
-                                            </div>
-
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="fecha">Hora de Fin</label>
-                                                    <input  id="end" name="end" type="time" class="form-control" >
-                                                </div>
-                                            </div>
-
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="">Selecionar Unidad</label>
-                                                    <select class="form-control" id="resourceId" name="resourceId">
-                                                         <option value="">Seleccione Unidad</option>
-                                                         @for ($i = 1; $i <= $configuracion->modulos; $i++)
-                                                            @php
-                                                                $letra = chr($i + 64); // Convierte el número en su equivalente de letra ASCII (A = 1, B = 2, etc.)
-                                                            @endphp
-                                                         <option value="{{ $letra }}">{{ $letra }}</option>
-                                                        @endfor
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-1">
-                                                <div class="form-group">
-                                                    <label for="num_sesion">sesion</label>
-                                                    <input  id="sesion" name="sesion" type="number" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="form-group">
-                                                    <label for="nota">Nota</label>
-                                                    <textarea class="form-control" id="nota3" name="nota3" rows="1"></textarea>
-                                                </div>
+                                            <div class="col-12">
+                                                <strong>He leído todas las cláusulas y estoy de acuerdo.</strong><br/>
+                                                <div id="sig_ini"></div>
+                                                <br/><br/>
+                                                <button id="clear_ini" class="btn btn-danger btn-sm">Repetir</button>
+                                                <textarea id="signed_ini" name="signed_ini" style="display: none"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -612,56 +578,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="tab-pane fade" id="pills-propina" role="tabpanel" aria-labelledby="pills-propina-tab">
-                                        <div id="formulario_3" class="mt-4">
-                                            <div class="row">
-                                                <div class="col-6">
-
-                                                    <label for="total-suma">Seleccione Usuario</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/ama-de-casa.webp') }}" alt="" width="25px">
-                                                        </span>
-                                                        <select class="form-control " id="id_user_propina" name="id_user_propina" value="{{ old('id_user_propina') }}" required>
-                                                            @foreach ($user as $item)
-                                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-3">
-                                                    <label for="total-suma">Propina</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <input  id="propina" name="propina" type="number" class="form-control" >
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-3">
-
-                                                    <label for="total-suma">Metodo Pago</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <img src="{{ asset('assets/icons/transferir.png') }}" alt="" width="25px">
-                                                        </span>
-                                                        <select id="forma_pago_propina" name="forma_pago_propina" class="form-control">
-                                                            <option value="Efectivo">Efectivo</option>
-                                                            <option value="Transferencia">Transferencia</option>
-                                                            <option value="Mercado Pago">Mercado Pago</option>
-                                                            <option value="Tarjeta">Tarjeta</option>
-                                                            <option value="Gift Card">Gift Card</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
 
@@ -705,348 +621,361 @@
 
     </script>
 
-<script>
-    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-    $('.servicio1, #num1, #descuento-adicional1').change(function() {
-        var selectedService = $('.servicio1 option:selected');
-        var precio = selectedService.data('precio');
-        var descuento = selectedService.data('descuento');
-        var actDescuento = selectedService.data('act-descuento');
-        var cantidad = parseInt($('#num1').val());
-        var descuentoAdicional = parseInt($('#descuento-adicional1').val()) || 0; // Descuento adicional ingresado
-
-        // Calcular el subtotal usando el precio
-        var subtotal = cantidad * precio;
-
-        $('#total').val(precio);
-
-        $('#totalConDescuento1').val(descuento);
-
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-        var total = subtotal - descuentoTotal;
-
-        $('#total').val(total);
-    });
-
-    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-    $('.servicio2, #num2, #descuento-adicional2').change(function() {
-        var selectedService = $('.servicio2 option:selected');
-        var precio = selectedService.data('precio');
-        var descuento = selectedService.data('descuento');
-        var actDescuento = selectedService.data('act-descuento');
-        var cantidad = parseInt($('#num2').val());
-        var descuentoAdicional = parseInt($('#descuento-adicional2').val()) || 0; // Descuento adicional ingresado
-
-        // Calcular el subtotal usando el precio
-        var subtotal = cantidad * precio;
-
-        $('#total22').val(precio);
-
-        $('#totalConDescuento2').val(descuento);
-
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-        var total = subtotal - descuentoTotal;
-
-        $('#total22').val(total);
-    });
-
-    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-    $('.servicio3, #num3, #descuento-adicional3').change(function() {
-        var selectedService = $('.servicio3 option:selected');
-        var precio = selectedService.data('precio');
-        var descuento = selectedService.data('descuento');
-        var actDescuento = selectedService.data('act-descuento');
-        var cantidad = parseInt($('#num3').val());
-        var descuentoAdicional = parseInt($('#descuento-adicional3').val()) || 0; // Descuento adicional ingresado
-
-        // Calcular el subtotal usando el precio
-        var subtotal = cantidad * precio;
-
-        $('#total33').val(precio);
-
-        $('#totalConDescuento3').val(descuento);
-
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-        var total = subtotal - descuentoTotal;
-
-        $('#total33').val(total);
-    });
-
-    // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-    $('.servicio4, #num4, #descuento-adicional4').change(function() {
-        var selectedService = $('.servicio4 option:selected');
-        var precio = selectedService.data('precio');
-        var descuento = selectedService.data('descuento');
-        var actDescuento = selectedService.data('act-descuento');
-        var cantidad = parseInt($('#num4').val());
-        var descuentoAdicional = parseInt($('#descuento-adicional4').val()) || 0; // Descuento adicional ingresado
-
-        // Calcular el subtotal usando el precio
-        var subtotal = cantidad * precio;
-
-        $('#total44').val(precio);
-
-        $('#totalConDescuento4').val(descuento);
-
-        var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-        var total = subtotal - descuentoTotal;
-
-        $('#total44').val(total);
-    });
-
-    // Configura el evento change para el checkbox
-    $('#check_desc1').change(function() {
-        calcularTotal();
-    });
-    $('#check_desc2').change(function() {
-        calcularTotal();
-    });
-    $('#check_desc3').change(function() {
-        calcularTotal();
-    });
-    $('#check_desc4').change(function() {
-        calcularTotal();
-    });
-
-    function calcularTotal() {
-        var totalSuma = 0;
-
-        for (var i = 1; i <= 4; i++) {
-            var selectedService = $('.servicio' + i + ' option:selected');
+    <script>
+        // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+        $('.servicio1, #num1, #descuento-adicional1').change(function() {
+            var selectedService = $('.servicio1 option:selected');
             var precio = selectedService.data('precio');
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
-            var cantidad = parseInt($('#num' + i).val());
-            var descuentoAdicional = parseInt($('#descuento-adicional' + i).val()) || 0;
-            var checkDesc = $('#check_desc' + i).is(':checked');
+            var cantidad = parseInt($('#num1').val());
+            var descuentoAdicional = parseInt($('#descuento-adicional1').val()) || 0; // Descuento adicional ingresado
 
-            if (!isNaN(cantidad) && !isNaN(descuentoAdicional)) {
-                if (checkDesc && descuento > 0) {
-                    subtotal = cantidad * descuento; // Aplicar descuento si el checkbox está marcado y hay un descuento
-                } else {
-                    subtotal = cantidad * precio;
-                }
-                    console.log(subtotal);
-                var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
-                var total = subtotal - descuentoTotal;
+            // Calcular el subtotal usando el precio
+            var subtotal = cantidad * precio;
 
-                $('#total' + i).val(total);
+            $('#total').val(precio);
 
-                if (!isNaN(total)) {
-                    totalSuma += total;
-                }
-            }
-        }
+            $('#totalConDescuento1').val(descuento);
 
-        var precio = parseFloat($('#precio').val()) || 0;
-        var propina = parseFloat($('#propina').val()) || 0;
+            var descuentoTotal = (subtotal * descuentoAdicional) / 100;
+            var total = subtotal - descuentoTotal;
 
-        var nuevoTotal = totalSuma + precio + propina;
-
-        $('#total-suma').val(nuevoTotal.toFixed(2));
-    }
-
-    // Llamar a la función calcularTotal() al cargar la página para mostrar el total inicial
-    calcularTotal();
-
-    // Vincular el evento change a todos los campos relacionados para actualizar los totales al cambiar la selección o la cantidad
-    $('.servicio1, #num1, #descuento-adicional1, .servicio2, #num2, #descuento-adicional2, .servicio3, #num3, #descuento-adicional3, .servicio4, #num4, #descuento-adicional4, #precio, #propina').change(function() {
-    calcularTotal();
-    });
-
-    // Obtén la referencia a los elementos de pago, cambio, y dinero recibido
-    var inputPago = $('#pago');
-    var inputCambio = $('#cambio');
-    var inputDineroRecibido = $('#dinero_recibido');
-
-    // Función para calcular cambio y restante
-    function calcularCambioYRestante() {
-        // Obtiene el valor del pago
-        var pago = parseFloat(inputPago.val()) || 0;
-
-        // Obtiene el valor del total a pagar
-        var totalAPagar = parseFloat($('#total-suma').val()) || 0;
-
-        // Calcula el restante solo en función del pago
-        var restante = totalAPagar - pago;
-
-        // Establece el valor del restante en el campo correspondiente
-        $('#restante').val(restante);
-
-        // Obtiene el valor del dinero recibido
-        var dineroRecibido = parseFloat(inputDineroRecibido.val()) || 0;
-
-        // Calcula el cambio solo si el dinero recibido es mayor que el pago
-        var cambio = (dineroRecibido > pago) ? dineroRecibido - pago : 0;
-
-        // Establece el valor del cambio en el campo correspondiente
-        inputCambio.val(cambio);
-    }
-
-    // Escucha el evento 'input' en los campos de pago y dinero recibido
-    inputPago.on('input', calcularCambioYRestante);
-    inputDineroRecibido.on('input', calcularCambioYRestante);
-
-
-    // inicio de funcion ajax impresion caja y tiket
-
-    $(document).ready(function () {
-            $("#miFormulario").on("submit", function (event) {
-                event.preventDefault(); // Evita el envío predeterminado del formulario
-
-                // Deshabilitar el botón de enviar y mostrar el preloader
-                $("#miFormulario button[type=submit]").prop("disabled", true);
-                $("#preloader").show(); // Asegúrate de tener un elemento con id "preloader" en tu HTML para mostrar el preloader
-
-                // Realiza la solicitud POST usando AJAX
-                $.ajax({
-                    url: $(this).attr("action"),
-                    type: "POST",
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    success: async function(response) { // Agrega "async" aquí
-                        // El formulario se ha enviado correctamente, ahora realiza la impresión
-                        imprimirRecibo(response);
-
-                    },
-                    error: function (xhr, status, error) {
-                            // Habilitar el botón de enviar y ocultar el preloader en caso de error
-                            $("#miFormulario button[type=submit]").prop("disabled", false);
-                            $("#preloader").hide();
-
-                            var errors = xhr.responseJSON.errors;
-                            var errorMessage = '';
-
-                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
-                            for (var key in errors) {
-                                if (errors.hasOwnProperty(key)) {
-                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
-                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
-                                }
-                            }
-                            console.log(errorMessage);
-                            // Muestra el mensaje de error en una SweetAlert
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Faltan Campos',
-                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
-                            });
-                    }
-                });
-
-            });
-
-            // Función para imprimir el recibo
-            async function imprimirRecibo(response) {
-
-                        const userAgent = navigator.userAgent;
-                        // Obtén los datos del recibo de la respuesta AJAX
-                        const recibo = response.recibo;
-                        // Empezar a usar el plugin
-                        const formaPago = $("#forma_pago").val();
-                    if (/Windows/i.test(userAgent)) {
-
-                        if(formaPago === 'Efectivo'){
-
-                            const conector = new ConectorPluginV3();
-                            console.log(recibo);
-
-                            conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
-
-                            conector
-                                .EscribirTexto("Paradisus\n")
-                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                                .EscribirTexto("Total: $" + recibo.Total + "\n")
-                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
-                                .EscribirTexto("-------------------------")
-                                .Feed(1);
-
-                            for (const pago of recibo.pago) {
-                                conector
-                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                                .EscribirTexto("-------------------------")
-                                conector.Feed(1);
-                            }
-
-
-                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
-
-                            if (!respuesta) {
-                                alert("Error al imprimir ticket: " + respuesta);
-                            } else {
-
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Guardado con exito',
-                                    text: 'Impresion de ticket y apertura de caja',
-                                }).then(() => {
-                                    // Recarga la página
-                                   window.location.href = '/notas/servicios/edit/' + recibo.id;
-                                });
-                            }
-
-                        }else{
-
-                            const conector = new ConectorPluginV3();
-                            console.log(recibo);
-
-                            conector
-                                .EscribirTexto("Paradisus\n")
-                                .EscribirTexto("Ticket #: " + recibo.id + "\n")
-                                .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
-                                .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
-                                .EscribirTexto("Total: $" + recibo.Total + "\n")
-                                .EscribirTexto("Restante: $" + recibo.Restante + "\n")
-                                .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
-                                .EscribirTexto("-------------------------")
-                                .Feed(1);
-
-                            for (const pago of recibo.pago) {
-                                conector
-                                .EscribirTexto(" Fecha: " + pago.fecha + "\n")
-                                .EscribirTexto(" Pago: $" + pago.pago + "\n")
-                                .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
-                                .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
-                                .EscribirTexto("-------------------------")
-                                conector.Feed(1);
-                            }
-
-                            const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
-
-                            if (!respuesta) {
-                                alert("Error al imprimir ticket: " + respuesta);
-                            } else {
-
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Guardado con exito',
-                                    text: 'Impresion de ticket',
-                                }).then(() => {
-                                    // Recarga la página
-                                    window.location.href = '/notas/servicios/edit/' + recibo.id;
-                                });
-                            }
-
-                        }
-                    } else if (/Macintosh/i.test(userAgent)) {
-                        // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
-                        alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
-                        setTimeout(function() {
-                            window.location.href = '/notas/servicios/edit/' + recibo.id;
-                        }, 1000);
-                    }
-            }
-
-
+            $('#total').val(total);
         });
 
+        // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+        $('.servicio2, #num2, #descuento-adicional2').change(function() {
+            var selectedService = $('.servicio2 option:selected');
+            var precio = selectedService.data('precio');
+            var descuento = selectedService.data('descuento');
+            var actDescuento = selectedService.data('act-descuento');
+            var cantidad = parseInt($('#num2').val());
+            var descuentoAdicional = parseInt($('#descuento-adicional2').val()) || 0; // Descuento adicional ingresado
 
+            // Calcular el subtotal usando el precio
+            var subtotal = cantidad * precio;
+
+            $('#total22').val(precio);
+
+            $('#totalConDescuento2').val(descuento);
+
+            var descuentoTotal = (subtotal * descuentoAdicional) / 100;
+            var total = subtotal - descuentoTotal;
+
+            $('#total22').val(total);
+        });
+
+        // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+        $('.servicio3, #num3, #descuento-adicional3').change(function() {
+            var selectedService = $('.servicio3 option:selected');
+            var precio = selectedService.data('precio');
+            var descuento = selectedService.data('descuento');
+            var actDescuento = selectedService.data('act-descuento');
+            var cantidad = parseInt($('#num3').val());
+            var descuentoAdicional = parseInt($('#descuento-adicional3').val()) || 0; // Descuento adicional ingresado
+
+            // Calcular el subtotal usando el precio
+            var subtotal = cantidad * precio;
+
+            $('#total33').val(precio);
+
+            $('#totalConDescuento3').val(descuento);
+
+            var descuentoTotal = (subtotal * descuentoAdicional) / 100;
+            var total = subtotal - descuentoTotal;
+
+            $('#total33').val(total);
+        });
+
+        // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
+        $('.servicio4, #num4, #descuento-adicional4').change(function() {
+            var selectedService = $('.servicio4 option:selected');
+            var precio = selectedService.data('precio');
+            var descuento = selectedService.data('descuento');
+            var actDescuento = selectedService.data('act-descuento');
+            var cantidad = parseInt($('#num4').val());
+            var descuentoAdicional = parseInt($('#descuento-adicional4').val()) || 0; // Descuento adicional ingresado
+
+            // Calcular el subtotal usando el precio
+            var subtotal = cantidad * precio;
+
+            $('#total44').val(precio);
+
+            $('#totalConDescuento4').val(descuento);
+
+            var descuentoTotal = (subtotal * descuentoAdicional) / 100;
+            var total = subtotal - descuentoTotal;
+
+            $('#total44').val(total);
+        });
+
+        // Configura el evento change para el checkbox
+        $('#check_desc1').change(function() {
+            calcularTotal();
+        });
+        $('#check_desc2').change(function() {
+            calcularTotal();
+        });
+        $('#check_desc3').change(function() {
+            calcularTotal();
+        });
+        $('#check_desc4').change(function() {
+            calcularTotal();
+        });
+
+        function calcularTotal() {
+            var totalSuma = 0;
+
+            for (var i = 1; i <= 4; i++) {
+                var selectedService = $('.servicio' + i + ' option:selected');
+                var precio = selectedService.data('precio');
+                var descuento = selectedService.data('descuento');
+                var actDescuento = selectedService.data('act-descuento');
+                var cantidad = parseInt($('#num' + i).val());
+                var descuentoAdicional = parseInt($('#descuento-adicional' + i).val()) || 0;
+                var checkDesc = $('#check_desc' + i).is(':checked');
+
+                if (!isNaN(cantidad) && !isNaN(descuentoAdicional)) {
+                    if (checkDesc && descuento > 0) {
+                        subtotal = cantidad * descuento; // Aplicar descuento si el checkbox está marcado y hay un descuento
+                    } else {
+                        subtotal = cantidad * precio;
+                    }
+                        console.log(subtotal);
+                    var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
+                    var total = subtotal - descuentoTotal;
+
+                    $('#total' + i).val(total);
+
+                    if (!isNaN(total)) {
+                        totalSuma += total;
+                    }
+                }
+            }
+
+            var precio = parseFloat($('#precio').val()) || 0;
+            var propina = parseFloat($('#propina').val()) || 0;
+
+            var nuevoTotal = totalSuma + precio + propina;
+
+            $('#total-suma').val(nuevoTotal.toFixed(2));
+        }
+
+        // Llamar a la función calcularTotal() al cargar la página para mostrar el total inicial
+        calcularTotal();
+
+        // Vincular el evento change a todos los campos relacionados para actualizar los totales al cambiar la selección o la cantidad
+        $('.servicio1, #num1, #descuento-adicional1, .servicio2, #num2, #descuento-adicional2, .servicio3, #num3, #descuento-adicional3, .servicio4, #num4, #descuento-adicional4, #precio, #propina').change(function() {
+        calcularTotal();
+        });
+
+        // Obtén la referencia a los elementos de pago, cambio, y dinero recibido
+        var inputPago = $('#pago');
+        var inputCambio = $('#cambio');
+        var inputDineroRecibido = $('#dinero_recibido');
+
+        // Función para calcular cambio y restante
+        function calcularCambioYRestante() {
+            // Obtiene el valor del pago
+            var pago = parseFloat(inputPago.val()) || 0;
+
+            // Obtiene el valor del total a pagar
+            var totalAPagar = parseFloat($('#total-suma').val()) || 0;
+
+            // Calcula el restante solo en función del pago
+            var restante = totalAPagar - pago;
+
+            // Establece el valor del restante en el campo correspondiente
+            $('#restante').val(restante);
+
+            // Obtiene el valor del dinero recibido
+            var dineroRecibido = parseFloat(inputDineroRecibido.val()) || 0;
+
+            // Calcula el cambio solo si el dinero recibido es mayor que el pago
+            var cambio = (dineroRecibido > pago) ? dineroRecibido - pago : 0;
+
+            // Establece el valor del cambio en el campo correspondiente
+            inputCambio.val(cambio);
+        }
+
+        // Escucha el evento 'input' en los campos de pago y dinero recibido
+        inputPago.on('input', calcularCambioYRestante);
+        inputDineroRecibido.on('input', calcularCambioYRestante);
+
+
+        // inicio de funcion ajax impresion caja y tiket
+
+        $(document).ready(function () {
+                $("#miFormulario").on("submit", function (event) {
+                    event.preventDefault(); // Evita el envío predeterminado del formulario
+
+                    // Deshabilitar el botón de enviar y mostrar el preloader
+                    $("#miFormulario button[type=submit]").prop("disabled", true);
+                    $("#preloader").show(); // Asegúrate de tener un elemento con id "preloader" en tu HTML para mostrar el preloader
+
+                    // Realiza la solicitud POST usando AJAX
+                    $.ajax({
+                        url: $(this).attr("action"),
+                        type: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        processData: false,
+                        success: async function(response) { // Agrega "async" aquí
+                            // El formulario se ha enviado correctamente, ahora realiza la impresión
+                            imprimirRecibo(response);
+
+                        },
+                        error: function (xhr, status, error) {
+                                // Habilitar el botón de enviar y ocultar el preloader en caso de error
+                                $("#miFormulario button[type=submit]").prop("disabled", false);
+                                $("#preloader").hide();
+
+                                var errors = xhr.responseJSON.errors;
+                                var errorMessage = '';
+
+                                // Itera a través de los errores y agrega cada mensaje de error al mensaje final
+                                for (var key in errors) {
+                                    if (errors.hasOwnProperty(key)) {
+                                        var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
+                                        errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                                    }
+                                }
+                                console.log(errorMessage);
+                                // Muestra el mensaje de error en una SweetAlert
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Faltan Campos',
+                                    html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
+                                });
+                        }
+                    });
+
+                });
+
+                // Función para imprimir el recibo
+                async function imprimirRecibo(response) {
+
+                            const userAgent = navigator.userAgent;
+                            // Obtén los datos del recibo de la respuesta AJAX
+                            const recibo = response.recibo;
+                            // Empezar a usar el plugin
+                            const formaPago = $("#forma_pago").val();
+                        if (/Windows/i.test(userAgent)) {
+
+                            if(formaPago === 'Efectivo'){
+
+                                const conector = new ConectorPluginV3();
+                                console.log(recibo);
+
+                                conector.Pulso(parseInt(48), parseInt(60), parseInt(120));
+
+                                conector
+                                    .EscribirTexto("Paradisus\n")
+                                    .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                    .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                    .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                    .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                    .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                    .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
+                                    .EscribirTexto("-------------------------")
+                                    .Feed(1);
+
+                                for (const pago of recibo.pago) {
+                                    conector
+                                    .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                    .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                    .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                                    .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                    .EscribirTexto("-------------------------")
+                                    conector.Feed(1);
+                                }
+
+
+                                const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                                if (!respuesta) {
+                                    alert("Error al imprimir ticket: " + respuesta);
+                                } else {
+
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Guardado con exito',
+                                        text: 'Impresion de ticket y apertura de caja',
+                                    }).then(() => {
+                                        // Recarga la página
+                                    window.location.href = '/notas/servicios/edit/' + recibo.id;
+                                    });
+                                }
+
+                            }else{
+
+                                const conector = new ConectorPluginV3();
+                                console.log(recibo);
+
+                                conector
+                                    .EscribirTexto("Paradisus\n")
+                                    .EscribirTexto("Ticket #: " + recibo.id + "\n")
+                                    .EscribirTexto("Cliente: " + recibo.Cliente + "\n")
+                                    .EscribirTexto("Cosmetologa: " + recibo.cosmetologa + "\n")
+                                    .EscribirTexto("Total: $" + recibo.Total + "\n")
+                                    .EscribirTexto("Restante: $" + recibo.Restante + "\n")
+                                    .EscribirTexto("Servicio: " + recibo.notas_paquetes + "\n")
+                                    .EscribirTexto("-------------------------")
+                                    .Feed(1);
+
+                                for (const pago of recibo.pago) {
+                                    conector
+                                    .EscribirTexto(" Fecha: " + pago.fecha + "\n")
+                                    .EscribirTexto(" Pago: $" + pago.pago + "\n")
+                                    .EscribirTexto(" Cambio: $" + pago.cambio + "\n")
+                                    .EscribirTexto(" Met. Pago: " + pago.forma_pago + "\n")
+                                    .EscribirTexto("-------------------------")
+                                    conector.Feed(1);
+                                }
+
+                                const respuesta = await conector.imprimirEn(recibo.nombreImpresora);
+
+                                if (!respuesta) {
+                                    alert("Error al imprimir ticket: " + respuesta);
+                                } else {
+
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Guardado con exito',
+                                        text: 'Impresion de ticket',
+                                    }).then(() => {
+                                        // Recarga la página
+                                        window.location.href = '/notas/servicios/edit/' + recibo.id;
+                                    });
+                                }
+
+                            }
+                        } else if (/Macintosh/i.test(userAgent)) {
+                            // Si es Windows, muestra una alerta y redirige a Google después de 5 segundos
+                            alert("¡Estás usando una Mac! Serás redirigido a la nota en 1 segundo.");
+                            setTimeout(function() {
+                                window.location.href = '/notas/servicios/edit/' + recibo.id;
+                            }, 1000);
+                        }
+                }
+        });
+    </script>
+@endsection
+
+@section('js_custom')
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
+
+<script type="text/javascript">
+    var sig_ini = $('#sig_ini').signature({syncField: '#signed_ini', syncFormat: 'PNG'});
+
+    $('#clear_ini').click(function (e) {
+        e.preventDefault();
+        sig_ini.signature('clear');
+        $("#signed_ini").val('');
+    });
 </script>
 @endsection

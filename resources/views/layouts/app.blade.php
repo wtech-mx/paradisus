@@ -58,7 +58,7 @@
     <!-- End Navbar -->
     @include('sueldo_cosmes.crear')
     @include('paquetes_servicios.show')
-
+    
     <div class="container-fluid">
 
         {{-- @include('layouts.header') --}}

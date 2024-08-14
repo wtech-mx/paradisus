@@ -4,8 +4,14 @@
    Editar Notas
 @endsection
 
-@section('content')
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.signature.css') }}">
+@endsection
 
+@section('content')
+@php
+    use Carbon\Carbon;
+@endphp
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -37,7 +43,12 @@
                                     <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-sesion{{$notas->id}}" role="tab" aria-controls="pills-sesion" aria-selected="true" id="pills-sesion-tab">
                                         <i class="fa fa-calendar-day text-sm me-2"></i> Sesiones
                                     </a>
+                                </li>
 
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-condiciones{{$notas->id}}" role="tab" aria-controls="pills-condiciones" aria-selected="true" id="pills-condiciones-tab">
+                                        <i class="fa fa-file text-sm me-2"></i> Condiciones
+                                    </a>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
@@ -497,111 +508,79 @@
                                         </div>
 
                                         <div class="tab-pane fade" id="pills-sesion{{$notas->id}}" role="tabpanel" aria-labelledby="pills-sesion-tab">
-                                            @foreach ($notas_sesiones as $item)
-                                            <div class="row">
+                                            @foreach ($sesiones as $alerta)
+                                                <div class="row">
+                                                    @php
+                                                        $fechaFormateada = Carbon::parse($alerta->start)->locale('es')->isoFormat('dddd D [de] MMMM');
+                                                        $horaFormateada = Carbon::parse($alerta->start)->format('g:i A');
+                                                    @endphp
 
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="fecha">Fecha</label>
-                                                        <input  id="fecha_sesion" name="fecha_sesion" type="date" class="form-control" disabled value="{{$item->fecha}}">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Fecha sesion</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" class="form-control" value="{{$fechaFormateada}}" disabled>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="fecha">Hora de inicio</label>
-                                                        <input  id="start" name="start" type="time" class="form-control" disabled value="{{ $item->start }}">
+                                                    <div class="col-2">
+                                                        <label for="total-suma">Hora sesion</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" class="form-control" value="{{$horaFormateada}}" disabled>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="fecha">Hora de Fin</label>
-                                                        <input  id="end" name="end" type="time" class="form-control" disabled value="{{ $item->end }}">
+                                                    <div class="col-3">
+                                                        <label for="total-suma">Estatus</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/change.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="text" class="form-control" value="{{$alerta->estatus}}" disabled>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="">Selecionar Unidad</label>
-                                                        <select class="form-control" id="resourceId" name="resourceId" disabled>
-                                                             <option value="">{{ $item->resourceId }}</option>
-                                                             @for ($i = 1; $i <= $configuracion->modulos; $i++)
-                                                                @php
-                                                                    $letra = chr($i + 64); // Convierte el número en su equivalente de letra ASCII (A = 1, B = 2, etc.)
-                                                                @endphp
-                                                             <option value="{{ $letra }}">{{ $letra }}</option>
-                                                            @endfor
-                                                        </select>
+                                                    <div class="col-4">
+                                                        <label for="total-suma">Descripcion</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/cuaderno.webp') }}" alt="" width="25px">
+                                                            </span>
+                                                            <textarea class="form-control" cols="10" rows="3" disabled>{{$alerta->descripcion}}</textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-1">
-                                                    <div class="form-group">
-                                                        <label for="num_sesion">sesion</label>
-                                                        <input  id="sesion" name="sesion" type="number" class="form-control" disabled value="{{ $item->sesion }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="form-group">
-                                                        <label for="nota">Nota</label>
-                                                        <textarea class="form-control" id="nota3" name="nota3" rows="1" disabled>{{ $item->nota }}</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             @endforeach
+                                        </div>
+
+                                        <div class="tab-pane fade" id="pills-condiciones{{$notas->id}}" role="tabpanel" aria-labelledby="pills-condiciones-tab">
+
+                                            <h5>Politicas & Condiciones</h5>
+
                                             <div class="row">
-
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="fecha">Fecha</label>
-                                                        <input  id="fecha_sesion" name="fecha_sesion" type="date" class="form-control" value="{{$fechaActual}}">
-                                                    </div>
+                                                <div class="col-12">
+                                                    <ul class="list-group mt-5 mb-5" style="margin-left: 3rem">
+                                                        <li>Al apartar tu paquete no habrá reembolsos de anticipos o abonos.</li>
+                                                        <li>Solo tienes oportunidad de <b>re-agendar UNA sesión</b> con un mínimo de <b>3 días de anticipo.</b> </li>
+                                                        <li>En caso de fallar más de una de las sesiones, ya <b>NO se reagendará</b> y tendrás que volverla a pagar, independiente del costo de tu paquete.</li>
+                                                    </ul>
                                                 </div>
 
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="fecha">Hora de inicio</label>
-                                                        <input  id="start" name="start" type="time" class="form-control" >
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="fecha">Hora de Fin</label>
-                                                        <input  id="end" name="end" type="time" class="form-control" >
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <div class="form-group">
-                                                        <label for="">Selecionar Unidad</label>
-                                                        <select class="form-control" id="resourceId" name="resourceId">
-                                                             <option value="">Seleccione Unidad</option>
-                                                             @for ($i = 1; $i <= $configuracion->modulos; $i++)
-                                                                @php
-                                                                    $letra = chr($i + 64); // Convierte el número en su equivalente de letra ASCII (A = 1, B = 2, etc.)
-                                                                @endphp
-                                                             <option value="{{ $letra }}">{{ $letra }}</option>
-                                                            @endfor
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-6 mb-5">
-                                                    <label for="id_user" class="form-label">Cosmes</label><br>
-                                                    <select multiple class="form-control cosme_sesion_edit" id="id_user" name="id_user[]"  style="width: 300px;">
-                                                        @foreach($user_pagos as $usuario)
-                                                            <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-3">
-                                                    <div class="form-group">
-                                                        <label for="nota">Nota</label>
-                                                        <textarea class="form-control" id="nota3" name="nota3" rows="1"></textarea>
-                                                    </div>
+                                                <div class="col-12">
+                                                    <strong>He leído todas las cláusulas y estoy de acuerdo.</strong><br/>
+                                                    @if ($notas->firma == NULL)
+                                                        <div id="sig_ini"></div>
+                                                        <br/><br/>
+                                                        <button id="clear_ini" class="btn btn-danger btn-sm">Repetir</button>
+                                                        <textarea id="signed_ini" name="signed_ini" style="display: none"></textarea>
+                                                    @else
+                                                        <img src="{{asset('firmas_notas/'.$notas->firma)}}" alt="">
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -1140,4 +1119,22 @@
 
     </script>
 
+@endsection
+
+
+@section('js_custom')
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.signature.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
+
+    <script type="text/javascript">
+        var sig_ini = $('#sig_ini').signature({syncField: '#signed_ini', syncFormat: 'PNG'});
+
+        $('#clear_ini').click(function (e) {
+            e.preventDefault();
+            sig_ini.signature('clear');
+            $("#signed_ini").val('');
+        });
+    </script>
 @endsection

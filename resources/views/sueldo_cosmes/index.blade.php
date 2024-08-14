@@ -25,15 +25,20 @@
                     Corte Sueldos
                 </a>
 
-                @can('reportecosmes')
+                <a class="btn btn-sm btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#showPropinaCosmes">
+                    <span class="sidenav-normal">Propina</span>
+                </a>
+
+                {{-- @can('reportecosmes')
                     <a type="button" class="btn btn-sm btn-outline-warning" href="{{ route('reporte.index_cosmes') }}">Imprimir 2</a>
-                @endcan
+                @endcan --}}
 
 
             </div>
         </div>
         @include('sueldo_cosmes.corte')
         @include('sueldo_cosmes.modal_comida')
+        @include('layouts.modal_propina')
         <div class="row">
             @foreach ($user_pagos as $user_pago)
                 <div class="col-md-6 mt-3">
@@ -295,7 +300,7 @@
                                             $propinaCosme += $propina->propina;
                                         @endphp
                                         <div class="col-3">{{ \Carbon\Carbon::parse($propina->created_at)->format('d \d\e F ') }}</div>
-                                        <div class="col-5"><a href="{{ route('notas.edit',$propina->id_nota) }}"> Propina en nota: #{{$propina->id_nota}}</a></div>
+                                        <div class="col-5">Propina</div>
                                         <div class="col-3">${{$propina->propina}}</div>
                                         <div class="col-1"></div>
                                     @endif

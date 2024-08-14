@@ -137,6 +137,20 @@ class NotasController extends Controller
         $nota->nota = $request->get('nota');
         $nota->precio = $request->get('total-suma');
         $nota->restante = $request->get('restante');
+
+        if($request->signed_ini != NULL){
+            $folderPath = public_path('firmas_notas/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_ini);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $nota->firma = $signature;
+        }
+
         $nota->save();
 
         $cambio = $request->get('dinero_recibido') - $request->get('pago');
@@ -334,16 +348,6 @@ class NotasController extends Controller
             $notas_extra->save();
         }
 
-        // G U A R D A R   P R O P I N A S
-        if($request->get('propina') != NULL){
-            $notas_propinas = new NotasPropinas;
-            $notas_propinas->id_nota = $nota->id;
-            $notas_propinas->id_user = $request->get('id_user_propina');
-            $notas_propinas->propina = $request->get('propina');
-            $notas_propinas->metdodo_pago = $request->get('forma_pago_propina');
-            $notas_propinas->save();
-        }
-
         // inicio de code ajax
         $notas_paquetes = NotasPaquetes::where('id_nota', '=',$nota->id)
         ->first();
@@ -406,7 +410,6 @@ class NotasController extends Controller
         $servicio = Servicios::orderBy('nombre','ASC')->get();
 
         $pago = Pagos::where('id_nota', '=', $id)->get();
-        $notas_sesiones = NotasSesion::where('id_nota', '=', $id)->get();
         $notas_paquetes = NotasPaquetes::get();
         $notas_extras = NotasExtras::where('id_nota', '=', $id)->get();
         $notas_propinas = NotasPropinas::where('id_nota', '=', $id)->get();
@@ -414,7 +417,25 @@ class NotasController extends Controller
         $nota_cosme = NotasCosmes::where('id_nota', '=', $id)->get();
         $user = User::where('id', '!=', 1)->get();
 
-        return view('notas.edit',compact('client', 'servicio', 'user', 'pago', 'nota_cosme', 'notas_sesiones', 'notas_paquetes', 'notas_extras','notas_propinas', 'notas'));
+        $sesiones = Alertas::where('id_nota', $id)
+        ->groupBy('id_nota', 'start')
+        ->select('id_nota', 'start', 'estatus', 'descripcion', \DB::raw('MIN(id) as id'))  // Puedes seleccionar más columnas si lo necesitas
+        ->get();
+
+        return view('notas.edit',compact('client', 'servicio', 'user', 'pago', 'nota_cosme', 'notas_paquetes', 'notas_extras','notas_propinas', 'notas', 'sesiones'));
+    }
+
+    public function propina_store(Request $request){
+        $notas_propinas = new NotasPropinas;
+        $fechaActual = date('Y-m-d');
+        $notas_propinas->id_user = $request->get('id_user_propina');
+        $notas_propinas->propina = $request->get('propina');
+        $notas_propinas->metdodo_pago = $request->get('forma_pago_propina');
+        $notas_propinas->fecha = $fechaActual;
+        $notas_propinas->save();
+
+        Session::flash('success', 'Se ha creado propina con exito');
+        return redirect()->back();
     }
     /**
      * Update the specified resource in storage.
@@ -431,6 +452,18 @@ class NotasController extends Controller
         $nota->id_client = $request->get('id_client');
         $nota->nota = $request->get('nota');
         $nota->restante = $request->get('restante_paquetes');
+        if($request->signed_ini != NULL){
+            $folderPath = public_path('firmas_notas/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed_ini);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $nota->firma = $signature;
+        }
         $nota->update();
 
         if ($request->has('editarsi')) {

@@ -366,6 +366,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/get-client-phone/{clientId}', [App\Http\Controllers\RecordatoriosController::class, 'getClientPhone']);
     Route::patch('/recordatorios/update/{id}', [App\Http\Controllers\RecordatoriosController::class, 'update_recordatorios'])->name('update_estatus.recordatorios');
 
+    // =============== M O D U L O  P R O P I N A S===============================
+    Route::post('/notas/propina/store', [App\Http\Controllers\NotasController::class, 'propina_store'])->name('propina_store.propina');
+
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');
