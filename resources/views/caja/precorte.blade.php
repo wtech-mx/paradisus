@@ -155,23 +155,24 @@
         </tbody>
     </table>
     @php
-    $resta = $total_ing - $caja_final->inicio ;
-    $efectivo = $resta - $caja_dia_suma_cambios->total;
-    if($efectivo > 0){
-     $total_efectivo = $efectivo;
-    }else{
-     $total_efectivo = 0;
-    }
+        $resta = $total_ing - $caja_final->inicio ;
+        $efectivo = $resta - $caja_dia_suma_cambios->total;
+        if($efectivo > 0){
+        $total_efectivo = $efectivo;
+        }else{
+        $total_efectivo = 0;
+        }
 
-    //Vista
-    $resta_vista = $total_ing_vista - $caja_final->inicio ;
-    $efectivo_vista = $resta_vista - $caja_dia_suma_cambios->total + $propinas_suma->total;
-    if($efectivo_vista > 0){
-     $total_efectivo_vista = $efectivo_vista;
-    }else{
-     $total_efectivo_vista = 0;
-    }
- @endphp
+        //Vista
+
+        $res = $total_ing - $caja_final->inicio - $caja_dia_suma_vista->total - $caja_dia_suma_cambios->total;
+    
+        if($res > 0){
+        $total_efectivo_vista = $res;
+        }else{
+        $total_efectivo_vista = 0;
+        }
+    @endphp
     <h2 style="text-align: center;">Total de ingresos durante el dia  <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> <br>
         @php
             $totalingresos =  $suma_pago_trans + $total_efectivo +  $suma_pago_tarjeta;

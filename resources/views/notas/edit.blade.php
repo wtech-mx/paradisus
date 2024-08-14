@@ -39,11 +39,6 @@
                                         <i class="ni ni-credit-card text-sm me-2"></i> Pago
                                     </a>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-sesion{{$notas->id}}" role="tab" aria-controls="pills-sesion" aria-selected="true" id="pills-sesion-tab">
-                                        <i class="fa fa-calendar-day text-sm me-2"></i> Sesiones
-                                    </a>
-                                </li>
 
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-condiciones{{$notas->id}}" role="tab" aria-controls="pills-condiciones" aria-selected="true" id="pills-condiciones-tab">
@@ -58,11 +53,10 @@
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#propina{{$notas->id}}" role="tab" aria-controls="propina" aria-selected="true" id="propina-tab">
-                                        <i class="fa fa-money-bill text-sm me-2"></i> Propina
+                                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pills-sesion{{$notas->id}}" role="tab" aria-controls="pills-sesion" aria-selected="true" id="pills-sesion-tab">
+                                        <i class="fa fa-calendar-day text-sm me-2"></i> Sesiones
                                     </a>
                                 </li>
-
                             </ul>
 
                             <form method="POST" action="{{ route('notas.update', $notas->id) }}" id="miFormulario" enctype="multipart/form-data" role="form">

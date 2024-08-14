@@ -323,6 +323,7 @@ class CajaController extends Controller
         ->get();
 
         $caja_dia_suma = CajaDia::where('fecha', '=', $diaActual)
+        ->where('motivo', '=', 'Ingreso')
         ->select(DB::raw('SUM(egresos) as total'))
         ->first();
 
@@ -365,12 +366,12 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
-            $propinasTrans = NotasPropinas::whereDate('created_at', $diaActual)
+            $propinasTrans = NotasPropinas::whereDate('fecha', $diaActual)
             ->where('metdodo_pago', '=', 'Transferencia')
             ->select(DB::raw('SUM(propina) as total'))
             ->first();
 
-            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total + $laser_trans->total;
+            $suma_pago_trans = $servicios_trans->total + $productos_trans->total + $paquete_trans->total + $laser_trans->total + $propinasTrans->total;
             $suma_filas_trans = $servicios_trans->filas + $productos_trans->filas + $paquete_trans->filas + $laser_trans->filas;
 
             $total_servicios_trans = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
@@ -423,7 +424,7 @@ class CajaController extends Controller
             ->select(DB::raw('SUM(dinero_recibido) as total'), DB::raw('count(*) as filas'))
             ->first();
 
-            $propinasEfect = NotasPropinas::whereDate('created_at', $diaActual)
+            $propinasEfect = NotasPropinas::whereDate('fecha', $diaActual)
             ->where('metdodo_pago', '=', 'Efectivo')
             ->select(DB::raw('SUM(propina) as total'))
             ->first();
@@ -431,6 +432,9 @@ class CajaController extends Controller
             $suma_pago_mercado = $servicios_mercado->total + $productos_mercado->total + $paquete_mercado->total + $laser_mercado->total;
 
             $suma_filas_mercado = $servicios_mercado->filas + $productos_mercado->filas + $paquete_mercado->filas + $laser_mercado->filas;
+
+            $total_ing = 0;
+            $total_ing = $caja_dia_suma->total + $caja_rep->inicio + $servicios_mercado->total +  $productos_mercado->total + $paquete_mercado->total + $laser_mercado->total + $propinasEfect->total;
 
             $total_servicios_mercado = Pagos::join('notas', 'pagos.id_nota', '=', 'notas.id')
             ->where('pagos.fecha', '=', $diaActual)->where('pagos.forma_pago', '=', 'Efectivo')->where('notas.anular', '=', NULL)->get();
@@ -598,7 +602,7 @@ class CajaController extends Controller
         ->first();
 
         $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('propinas_efectivo', 'propinas_tarjeta', 'propinas_transferencia', 'propinas_suma','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
-        'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes',
+        'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes', 'total_ing',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
         'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta', 'caja_dia_suma_vista'));
          return $pdf->stream();
@@ -670,7 +674,7 @@ class CajaController extends Controller
             ->first();
 
             $caja_dia_suma_vista = CajaDia::where('fecha', '=', $diaActual)
-            ->where('concepto', 'NOT LIKE', '%Cambio%')
+            ->where('concepto', 'LIKE', '%Cambio%')
             ->where('motivo', '=', 'Ingreso')
             ->select(DB::raw('SUM(egresos) as total'))
             ->first();
@@ -687,7 +691,8 @@ class CajaController extends Controller
             ->first();
 
             $total_ing = 0;
-            $total_ing = $caja_dia_suma->total + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $caja_final->ingresos + $propinas_suma->total;
+            $total_ing = $caja_dia_suma->total + $caja_final->inicio + $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total + $propinas_suma->total;
+
             $total_ing_vista = 0;
             $total_ing_vista =  $pago_suma->total +  $pago_pedidos_suma->total + $pago_paquete_suma->total + $pago_laser_suma->total;
 
@@ -919,8 +924,8 @@ class CajaController extends Controller
         $pdf = \PDF::loadView('caja.precorte', compact('propinas_efectivo','propinas_tarjeta','propinas_transferencia', 'propinas_suma','total_ing_vista','notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
         'suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'caja_final','suma_filas_trans','propinasHoy','total_ing','caja_egre','total_egresos','paquetes',
         'fechaYHoraFormateada', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes','total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta',
-        'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'caja_dia_suma_vista'));
-         //return $pdf->stream();
-        return $pdf->download('Precorte '.$fechaYHoraFormateada.'.pdf');
+        'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'caja_dia_suma_vista', 'caja_dia_resta'));
+        return $pdf->stream();
+       //  return $pdf->download('Precorte '.$fechaYHoraFormateada.'.pdf');
     }
 }

@@ -161,10 +161,9 @@
         }
 
         //Vista
-        $resta_vista = $caja_rep->ingresos - $caja_rep->inicio - $caja_dia_suma_vista->total;
-        $efectivo_vista = $resta_vista - $caja_dia_suma_cambios->total;
-        if($efectivo_vista > 0){
-        $total_efectivo_vista = $efectivo_vista;
+        $res = $total_ing - $caja_rep->inicio - $caja_dia_suma_vista->total - $caja_dia_suma_cambios->total;
+        if($res > 0){
+        $total_efectivo_vista = $res;
         }else{
         $total_efectivo_vista = 0;
         }
@@ -180,7 +179,7 @@
 
     </h2>
 
-    <h2 style="text-align: center;">No de Servicos y ventas  <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="35px"> <br>
+    <h2 style="text-align: center;">No de Servicos y ventas <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="35px"> <br>
         @php
             $totalsumaservent = $suma_filas_trans + $suma_filas_mercado + $suma_filas_tarjeta
         @endphp

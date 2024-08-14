@@ -46,9 +46,7 @@
                             <select id="forma_pago_propina" name="forma_pago_propina" class="form-control">
                                 <option value="Efectivo">Efectivo</option>
                                 <option value="Transferencia">Transferencia</option>
-                                <option value="Mercado Pago">Mercado Pago</option>
                                 <option value="Tarjeta">Tarjeta</option>
-                                <option value="Gift Card">Gift Card</option>
                             </select>
                         </div>
                     </div>
