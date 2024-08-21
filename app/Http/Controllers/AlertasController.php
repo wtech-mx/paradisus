@@ -52,7 +52,7 @@ class AlertasController extends Controller
         $estatus = Status::get();
         $alert = Alertas::get();
         $cosmes_alerts = AlertasCosmes::get();
-        $servicios = Servicios::where('estatus', '!=', 'ocultar')->where('estatus', '=', null)->orderBy('nombre')->get();
+        $servicios = Servicios::where('estatus', '!=', 'ocultar')->where('estatus', '=', '')->where('estatus', '=', null)->orderBy('nombre')->get();
         $colores = Colores::get();
         $Configuracion = Configuracion::first();
 

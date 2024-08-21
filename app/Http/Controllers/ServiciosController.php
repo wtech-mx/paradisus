@@ -19,8 +19,8 @@ class ServiciosController extends Controller
      */
     public function index()
     {
-        $servicio = Servicios::where('estatus', '!=', 'ocultar')->where('estatus', '=', null)->get();
-        $servicio_promo = Servicios::where('act_descuento', '=', '1')->where('estatus', '!=', 'ocultar')->get();
+        $servicio = Servicios::where('estatus', '!=', 'ocultar')->where('estatus', '=', '')->get();
+        $servicio_promo = Servicios::where('act_descuento', '=', '1')->where('estatus', '=', '')->where('estatus', '!=', 'ocultar')->get();
 
         return view('servicios.index', compact('servicio', 'servicio_promo'));
     }
