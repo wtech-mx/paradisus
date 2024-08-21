@@ -57,4 +57,17 @@ class RecordatoriosController extends Controller
 
         return response()->json(['success' => 'Se cambio el estado exitosamente.']);
     }
+
+    public function ChangePendienteStatusWhats(Request $request)
+    {
+        $servicio = Alertas::find($request->id);
+
+        $servicio->confirmo_whats = $request->confirmo_whats;
+
+        $servicio->save();
+
+        return response()->json(['success' => 'Se cambió el estado exitosamente.']);
+    }
+
+
 }

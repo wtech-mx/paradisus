@@ -55,6 +55,7 @@
                                             <th>Estatus</th>
                                             <th>Cita</th>
                                             <th>¿Enviado?</th>
+                                            <th>Confirmo Whats</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -90,10 +91,16 @@ Buen dia, Te esperamos 💖";
                                                     </td>
                                                     <td>{{ $fechaFormateada }} {{$horaFormateada}}</td>
                                                     <td>
-                                                        <input data-id="{{ $alerta->id }}" class="toggle-class" type="checkbox"
+                                                        <input data-id="{{ $alerta->id }}" class="toggle-class recordatorio-toggle" type="checkbox"
                                                         data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                         data-on="Active" data-off="InActive" {{ $alerta->recordatorio ? 'checked' : '' }}>
                                                     </td>
+                                                    <td>
+                                                        <input data-id="{{ $alerta->id }}" class="toggle-class confirmo-whats-toggle" type="checkbox"
+                                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                        data-on="Active" data-off="InActive" {{ $alerta->confirmo_whats ? 'checked' : '' }}>
+                                                    </td>
+
                                                     <td>
                                                         <button class="btn btn-sm mb-0 mt-sm-0 mt-1" onclick="copyText({{ json_encode($texto) }})" style="background-color: #f8c418; color: #ffffff;">Copiar Texto</button>
                                                     </td>
@@ -144,7 +151,7 @@ Buen dia, Te esperamos 💖";
 
     $(function() {
         // Asignar el evento a un elemento padre estático
-        $('.table-responsive').on('change', '.toggle-class', function() {
+        $('.table-responsive').on('change', '.recordatorio-toggle', function() {
             var recordatorio = $(this).prop('checked') == true ? 1 : 0;
             var id = $(this).data('id');
 
@@ -162,5 +169,25 @@ Buen dia, Te esperamos 💖";
             });
         });
     });
+
+    // Para el segundo checkbox que controla 'confirmo_whats'
+    $('.table-responsive').on('change', '.confirmo-whats-toggle', function() {
+        var confirmo_whats = $(this).prop('checked') == true ? 1 : 0;
+        var id = $(this).data('id');
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '{{ route('ChangePendienteStatusWhats.recordatorios') }}', // Ajusta la ruta si es necesario
+            data: {
+                'confirmo_whats': confirmo_whats,
+                'id': id
+            },
+            success: function(data) {
+                console.log(data.success);
+            }
+        });
+    });
+
 </script>
 @endsection

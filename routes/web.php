@@ -283,6 +283,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/buscar-fechas-disponibles', [App\Http\Controllers\AlertasController::class, 'buscarFechasDisponibles']);
     Route::get('/calendar/pago', [App\Http\Controllers\RecordatoriosController::class, 'ChangePendienteStatus'])->name('ChangePendienteStatus.recordatorios');
+    Route::get('/calendar/whats', [App\Http\Controllers\RecordatoriosController::class, 'ChangePendienteStatusWhats'])->name('ChangePendienteStatusWhats.recordatorios');
 
     /*|--------------------------------------------------------------------------
     |Colores
