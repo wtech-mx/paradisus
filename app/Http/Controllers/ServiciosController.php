@@ -19,8 +19,8 @@ class ServiciosController extends Controller
      */
     public function index()
     {
-        $servicio = Servicios::get();
-        $servicio_promo = Servicios::where('act_descuento', '=', '1')->get();
+        $servicio = Servicios::where('estatus', '!=', 'ocultar')->get();
+        $servicio_promo = Servicios::where('act_descuento', '=', '1')->where('estatus', '!=', 'ocultar')->get();
 
         return view('servicios.index', compact('servicio', 'servicio_promo'));
     }
@@ -136,6 +136,16 @@ class ServiciosController extends Controller
         Session::flash('edit', 'Se ha editado sus datos con exito');
         return redirect()->back();
 
+    }
+
+    public function update_ocultar(Request $request, $id){
+
+        $servicio = Servicios::find($id);
+        $servicio->estatus = $request->get('estatus');
+        $servicio->update();
+
+        Session::flash('edit', 'Se ha editado sus datos con exito');
+        return redirect()->back();
     }
 
     /**

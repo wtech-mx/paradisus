@@ -82,9 +82,10 @@
                                                 @endcan
 
                                                 @can('servicios-delete')
-                                                    <form action="{{ route('servicio.destroy',$servicios->id) }}" method="POST" style="display: contents;">
+                                                    <form method="POST" action="{{ route('servicio.update_ocultar', $servicios->id) }}" enctype="multipart/form-data" role="form">
                                                         @csrf
-                                                        @method('DELETE')
+                                                        <input type="hidden" name="_method" value="PATCH">
+                                                        <input type="hidden" name="estatus" value="ocultar">
                                                         <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
                                                     </form>
                                                 @endcan
@@ -141,9 +142,16 @@
                                                 @endcan
 
                                                 @can('servicios-delete')
-                                                    <form action="{{ route('servicio.destroy',$servicios->id) }}" method="POST" style="display: contents;">
+                                                    {{-- <form action="{{ route('servicio.destroy',$servicios->id) }}" method="POST" style="display: contents;">
                                                         @csrf
                                                         @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
+                                                    </form> --}}
+
+                                                    <form method="POST" action="{{ route('servicio.update_ocultar', $servicios->id) }}" enctype="multipart/form-data" role="form">
+                                                        @csrf
+                                                        <input type="hidden" name="_method" value="PATCH">
+                                                        <input type="hidden" name="estatus" value="ocultar">
                                                         <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
                                                     </form>
                                                 @endcan
