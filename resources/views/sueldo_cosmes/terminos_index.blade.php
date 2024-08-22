@@ -94,7 +94,8 @@
 @endsection
 
 @section('datatable')
-<script src="https://cdn.tiny.cloud/1/yn4x1viiyko8qn9udqfjn80wby2uece9bv12reo2vvo1h8t2/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+{{-- <script src="https://cdn.tiny.cloud/1/yn4x1viiyko8qn9udqfjn80wby2uece9bv12reo2vvo1h8t2/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> --}}
+<script src="https://cdn.tiny.cloud/1/asek5c0zv2gl6pfvxfpzb82en4opov2qjp29rl4jhya2ekls/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
