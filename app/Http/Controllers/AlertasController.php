@@ -195,34 +195,34 @@ class AlertasController extends Controller
             ->where('start', '>=', $startOfPreviousMonth)
             ->get();
 
-        $alertas->each(function ($alerta) {
-            // Obtener las cosmetólogas asociadas
-            $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
-            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agregar el nombre del servicio
-            $alerta->nombre_servicio2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->nombre : '.';
+            $alertas->each(function ($alerta) {
+                // Obtener las cosmetólogas asociadas
+                $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
+                $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null;
 
-            // Obtener los servicios anteriores del mismo cliente
-            $serviciosAnteriores = Alertas::where('id_client', $alerta->id_client)
-                ->where('start', '<', $alerta->start) // Asegurarse de que los servicios sean anteriores a la fecha del evento actual
-                ->with('Servicios_id')
-                ->get();
+                // Obtener los servicios anteriores del mismo cliente con los campos necesarios
+                $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist','start','end','estatus')
 
-            $serviciosAnteriores->each(function ($servicioAnterior) {
-                $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
-                $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
-                $servicioAnterior->nombre_servicio2 = $servicioAnterior->Servicios_id2 ? $servicioAnterior->Servicios_id2->nombre : '.';
+                    ->where('id_client', $alerta->id_client)
+                    ->where('start', '<', $alerta->start)
+                    ->get();
+
+                // Añadir detalles adicionales a cada servicio anterior
+                $serviciosAnteriores->each(function ($servicioAnterior) {
+                    $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
+                    // Traer el nombre del servicio si es necesario
+                    $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
+                });
+
+                // Anidar los servicios anteriores en el objeto alerta
+                $alerta->servicios_anteriores = $serviciosAnteriores;
             });
 
-            // Anidar los servicios anteriores en el objeto alerta
-            $alerta->servicios_anteriores = $serviciosAnteriores;
-        });
-
-        return response()->json($alertas);
+            return response()->json($alertas);
     }
 
     public function show_calendar_anterior()
     {
-
         $currentDate = Carbon::now();
 
         // Obtener la fecha de inicio del mes actual y del mes anterior
@@ -231,23 +231,27 @@ class AlertasController extends Controller
 
         // Filtrar alertas que tienen una fecha de inicio antes del inicio del mes actual
         // y desde el inicio del mes anterior hacia atrás
-        $alertas = Alertas::where('start', '<', $startOfCurrentMonth)
+        $alertas = Alertas::select('id', 'id_client', 'id_especialist', 'id_servicio', 'id_status', 'color', 'resourceId', 'estatus', 'image', 'descripcion', 'telefono', 'title', 'start', 'end', 'id_nota', 'id_laser', 'id_paquete', 'id_servicio2')
+            ->where('start', '<', $startOfCurrentMonth)
             ->where('start', '>=', $startOfPreviousMonth)
             ->get();
 
         $alertas->each(function ($alerta) {
             // Obtener las cosmetólogas asociadas
             $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
-            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agregar el nombre del servicio
+            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null;
 
-            // Obtener los servicios anteriores del mismo cliente
-            $serviciosAnteriores = Alertas::where('id_client', $alerta->id_client)
-                ->where('start', '<', $alerta->start) // Asegurarse de que los servicios sean anteriores a la fecha del evento actual
-                ->with('Servicios_id')
+            // Obtener los servicios anteriores del mismo cliente con los campos necesarios
+            $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist','start','end','estatus')
+
+                ->where('id_client', $alerta->id_client)
+                ->where('start', '<', $alerta->start)
                 ->get();
 
+            // Añadir detalles adicionales a cada servicio anterior
             $serviciosAnteriores->each(function ($servicioAnterior) {
                 $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
+                // Traer el nombre del servicio si es necesario
                 $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
             });
 
@@ -257,6 +261,7 @@ class AlertasController extends Controller
 
         return response()->json($alertas);
     }
+
 
 
     public function store_comidas(Request $request)
