@@ -237,7 +237,9 @@
                         </button>
 
                         <a class="btn btn-dark btn-sm" id="btnVerServicios">Ver Servicios Anteriores</a>
+                    </div>
 
+                    <div class="col-12">
 
                         <div class="collapse mt-5" id="previousServices">
                             <div class="card card-body ">

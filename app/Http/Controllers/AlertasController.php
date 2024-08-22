@@ -145,17 +145,17 @@ class AlertasController extends Controller
 
     public function show_calendar()
     {
+
         // Obtener la fecha actual
         $currentDate = Carbon::now();
 
-        // Obtener la fecha de inicio del mes actual
-        $startOfCurrentMonth = $currentDate->copy()->startOfMonth();
+        // Obtener la fecha de inicio del mes anterior
+        $startOfPreviousMonth = $currentDate->copy()->subMonth()->startOfMonth();
 
-        // Filtrar alertas que tienen una fecha de inicio desde el inicio del mes actual en adelante
+        // Filtrar alertas que tienen una fecha de inicio desde el inicio del mes anterior en adelante
         $alertas = Alertas::with('Servicios_id')
-            ->where('start', '>=', $startOfCurrentMonth)
+            ->where('start', '>=', $startOfPreviousMonth)
             ->get();
-
 
         $alertas->each(function ($alerta) {
             // Obtener las cosmetólogas asociadas
