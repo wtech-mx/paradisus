@@ -83,10 +83,86 @@
             dropdownParent: $('#comidaModal') // Esto asegura que el dropdown se renderice dentro del modal
         });
 
+        $(document).on('shown.bs.modal', function(e) {
+            // Obtén el modal que se ha mostrado
+            var modal = $(e.target);
+
+            // Encuentra los selects dentro de este modal y aplica Select2
+            modal.find('.modal_cita_serv').select2({
+                width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+                dropdownParent: modal // Esto asegura que el dropdown se renderice dentro del modal correcto
+            });
+
+            modal.find('.modal_cita_cosme').select2({
+                width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
+                dropdownParent: modal // Esto asegura que el dropdown se renderice dentro del modal correcto
+            });
+        });
     });
 </script>
 
 <script>
+$(document).on('click', '.btn-submit-cita', function(e) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+
+    var alertaId = $(this).data('alerta-id');
+    console.log('alertaId', alertaId);
+    var form = $('#submit_prox_cita_' + alertaId);
+    var formData = form.serialize();
+    console.log('formData', formData); // Debugging
+    console.log(form.length);
+
+    // Asegúrate de que formData no esté vacío
+    if (formData === '') {
+        console.error('formData is empty');
+        return;
+    }
+
+    var $button = $(this);
+    var $spinner = $button.find('#spinner');
+
+    // Mostrar el spinner y deshabilitar el botón
+    $spinner.show();
+    $button.prop('disabled', true);
+
+    $.ajax({
+        type: 'POST',
+        url: "{{ route('servicio.store_prox_cita') }}",
+        data: formData,
+        success: function(response) {
+            // Actualiza los eventos en el calendario
+            calendar.refetchEvents();
+
+            // Reinicia el formulario
+            form[0].reset();
+            form.find('.modal_cita_serv').val([]).trigger('change'); // Limpiar el select de servicio si usas Select2
+            form.find('.modal_cita_cosme').val([]).trigger('change'); // Limpiar el select múltiple si usas Select2
+
+            // Cierra el modal
+            $('#modalCita' + alertaId).modal('hide');
+
+            // Muestra un mensaje de éxito
+            alert('Cita agendada exitosamente');
+        },
+        error: function(xhr, status, error) {
+            // Maneja el error si es necesario
+            alert('Ocurrió un error al guardar la cita');
+        },
+        complete: function() {
+            // Ocultar el spinner y habilitar el botón después de completar la solicitud
+            $spinner.hide();
+            $button.prop('disabled', false);
+        }
+    });
+
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     var calendarEl = document.getElementById('calendar');

@@ -48,7 +48,25 @@
         <div class="col-12 mt-5">
 
             <div class="row ">
+                <div class="col-12 mt-5 mb-5">
+                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#estatusModal">
+                        Estatus de Servicios <img src="{{ asset('assets/icons/carta_res.png') }}" alt="" width="20px">
+                    </button>
 
+                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#comidaModal">
+                        Comidas de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#HorariosModal">
+                        Horarios de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
+                    </button>
+
+                    <a href="{{ route('dashboard_anterior') }}" class="btn btn-sm btn-secundary" >
+                        Meses Anteriores <img src="{{ asset('assets/icons/flecha-izquierda.png') }}" alt="" width="20px">
+                    </a>
+
+                </div>
+                
                 <div class="col-6">
                     <label for="total-suma">Buscar Cliente</label>
                     <div class="input-group mb-3">
@@ -68,26 +86,6 @@
                 </div>
 
                 <div class="col-1"></div>
-
-                <div class="col-12 mt-5 mb-5">
-                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#estatusModal">
-                        Estatus de Servicios <img src="{{ asset('assets/icons/carta_res.png') }}" alt="" width="20px">
-                    </button>
-
-                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#comidaModal">
-                        Comidas de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
-                    </button>
-
-                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#HorariosModal">
-                        Horarios de Cosmetologas <img src="{{ asset('assets/icons/muchacha.png') }}" alt="" width="20px">
-                    </button>
-
-                    <a href="{{ route('dashboard_anterior') }}" class="btn btn-sm btn-secundary" >
-                        Meses Anteriores <img src="{{ asset('assets/icons/flecha-izquierda.png') }}" alt="" width="20px">
-                    </a>
-
-                </div>
-
             </div>
 
             <div id="resultadosContainer">

@@ -397,39 +397,39 @@
         calcularSuma();
     });
 
-});
-
-// Escucha el evento 'input' en los campos de dinero recibido
-$('input[name^="dinero_recibido"]').on('input', function() {
-    calcularCambioYRestante();
-});
-
-// Función para calcular cambio y restante
-function calcularCambioYRestante() {
-    var dineroRecibidoTotal = 0;
-    $('input[name^="dinero_recibido"]').each(function() {
-        dineroRecibidoTotal += parseFloat($(this).val()) || 0;
     });
 
-    // Obtiene el valor del total sumado
-    var totalSuma = parseFloat($('#totalSuma').val()) || 0;
+    // Escucha el evento 'input' en los campos de dinero recibido
+    $('input[name^="dinero_recibido"]').on('input', function() {
+        calcularCambioYRestante();
+    });
 
-    // Calcula el restante como la diferencia entre el total y el dinero recibido total
-    var restante = totalSuma - dineroRecibidoTotal;
+    // Función para calcular cambio y restante
+    function calcularCambioYRestante() {
+        var dineroRecibidoTotal = 0;
+        $('input[name^="dinero_recibido"]').each(function() {
+            dineroRecibidoTotal += parseFloat($(this).val()) || 0;
+        });
 
-    // El restante no debe ser negativo
-    restante = Math.max(restante, 0);
+        // Obtiene el valor del total sumado
+        var totalSuma = parseFloat($('#totalSuma').val()) || 0;
 
-    // Calcula el cambio solo si el dinero recibido total es mayor o igual que el total
-    var cambio = (dineroRecibidoTotal >= totalSuma) ? dineroRecibidoTotal - totalSuma : 0;
+        // Calcula el restante como la diferencia entre el total y el dinero recibido total
+        var restante = totalSuma - dineroRecibidoTotal;
 
-    // Actualiza los campos Restante y Cambio
-    $('#restante').val(restante);
-    $('#cambio').val(cambio);
-}
+        // El restante no debe ser negativo
+        restante = Math.max(restante, 0);
 
-// Calcula el cambio y restante al cargar la página
-calcularCambioYRestante();
+        // Calcula el cambio solo si el dinero recibido total es mayor o igual que el total
+        var cambio = (dineroRecibidoTotal >= totalSuma) ? dineroRecibidoTotal - totalSuma : 0;
+
+        // Actualiza los campos Restante y Cambio
+        $('#restante').val(restante);
+        $('#cambio').val(cambio);
+    }
+
+    // Calcula el cambio y restante al cargar la página
+    calcularCambioYRestante();
     // inicio de funcion ajax impresion caja y tiket
 
     $(document).ready(function () {

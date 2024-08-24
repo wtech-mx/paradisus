@@ -123,7 +123,13 @@ class AlertasController extends Controller
     public function buscarAlertas(Request $request)
     {
         $titulo = $request->input('titulo');
-        $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
+        //    $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
+
+        $subquery = Alertas::select(DB::raw('MAX(id) as latest_id'))
+            ->where('title', 'LIKE', "%{$titulo}%")
+            ->groupBy('id_servicio');
+
+        $alertas = Alertas::whereIn('id', $subquery->pluck('latest_id'))->get();
 
         // Obtener todos los clientes (usuarios) con resourceId
         $clientes = User::whereNotNull('resourceId')->pluck('name', 'resourceId');
@@ -131,6 +137,7 @@ class AlertasController extends Controller
         // Obtener todos los servicios con id_servicio
         $servicios = Servicios::pluck('nombre', 'id');
 
+        $servicios_select = Servicios::select('nombre', 'id')->get();
         // Añadir el nombre del cliente a cada alerta
         foreach ($alertas as $alerta) {
             $alerta->cosmetologa = $clientes->get($alerta->resourceId, 'Desconocido'); // Por si el resourceId no existe en clientes
@@ -139,7 +146,82 @@ class AlertasController extends Controller
 
         // dd($alertas);
 
-        return view('alerts.resultados', compact('alertas'));
+        return view('alerts.resultados', compact('alertas', 'servicios_select'));
+    }
+
+    public function store_prox_cita(Request $request)
+    {
+       // Combina la fecha y la hora seleccionada
+       $startDateTime = $request->start;
+
+       $cosmes = $request->get('modal_cita_cosme');
+
+       $users = User::whereIn('id', $cosmes)->get();
+       $colors = $users->pluck('color')->filter()->all();
+
+       $insert_data = [];
+
+       foreach ($users as $user) {
+           $datosEvento = new Alertas;
+           $datosEvento->id_servicio = $request->id_servicio;
+           $datosEvento->id_servicio2 = $request->id_servicio2;
+           $datosEvento->id_status = $request->id_status;
+           $datosEvento->estatus = $datosEvento->Status->estatus;
+           $datosEvento->color = $datosEvento->Status->color;
+           $datosEvento->id_client = $request->get('modal_cita_cliente_id');
+           $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
+           $datosEvento->title = $full_name;
+           $datosEvento->telefono = $datosEvento->Client->phone;
+           $datosEvento->id_especialist = auth()->user()->id;
+           $datosEvento->id_nota = $request->modal_cita_id_nota;
+           $datosEvento->id_paquete = $request->modal_cita_id_paquete;
+           $datosEvento->id_laser = $request->modal_cita_id_laser;
+           $datosEvento->descripcion = $request->modal_cita_descripcion;
+           $datosEvento->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+           $datosEvento->resourceId = $user->resourceId;
+
+           $servicio = Servicios::find($request->modal_cita_id_servicio);
+           $duracion = $servicio->duracion; // Duración en minutos
+
+           $servicio2 = Servicios::find($request->id_servicio2);
+           if($servicio2 == null){
+               $duracion2 = '0';
+           }else{
+               $duracion2 = $servicio2->duracion; // Duración en minutos
+           }
+           $suma_duracion = $duracion + $duracion2;
+
+           // Combina la fecha y la hora seleccionada
+           $startDateTimeString = $request->start;
+           $startDateTime = Carbon::parse($startDateTimeString);
+
+           if($request->mod_hora_fin == 'si'){
+
+               $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
+               $datosEvento->end = $request->end;
+
+           }else{
+               // Calcula la hora de finalización
+               $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
+               $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
+               $datosEvento->end = $endDateTime->format('Y-m-d H:i:s');
+           }
+
+           $datosEvento->save();
+
+           foreach ($users as $cosme) {
+               $data = [
+                   'id_alerta' => $datosEvento->id,
+                   'id_user' => $cosme->id,
+               ];
+               $insert_data[] = $data;
+           }
+       }
+
+       if (!empty($insert_data)) {
+           AlertasCosmes::insert($insert_data);
+       }
+       return redirect()->back()->with('success', 'Alerta actualizada con éxito');
     }
 
 

@@ -272,7 +272,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('buscar-alertas', [AlertasController::class, 'buscarAlertas'])->name('alertas.buscar');
 
-
+    Route::post('/calendario/agendar/cita/create', [AlertasController::class, 'store_prox_cita'])->name('servicio.store_prox_cita');
     Route::patch('calendar/destroy/{id}', [AlertasController::class, 'destroy_calendar'])->name('calendar.destroy_calendar');
     Route::patch('calendar/update/{id}', [AlertasController::class, 'update_calendar'])->name('calendar.update_calendar');
 
