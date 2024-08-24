@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var calendarEl = document.getElementById('calendar');
     var originalResources = {!! json_encode($modulos) !!};
+    var spinner = document.getElementById('loading-spinner');
 
     var currentUrl = window.location.href; // Obtener la URL actual
     var eventsUrl;
@@ -101,6 +102,9 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         eventsUrl = "{{ route('calendar.show_calendar') }}";
     }
+
+       // Mostrar el spinner antes de iniciar la carga
+       spinner.style.display = 'block';
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         navLinks: true,
@@ -150,6 +154,11 @@ document.addEventListener('DOMContentLoaded', function() {
         resources: originalResources,
 
         events: eventsUrl,
+
+                // Ocultar el spinner una vez que los eventos estén completamente cargados
+        eventDidMount: function(info) {
+            spinner.style.display = 'none';
+        },
 
         datesSet: function(info) {
             var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];

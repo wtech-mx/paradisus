@@ -28,6 +28,7 @@
             font-size: 7.6px;
             color: #000000!important;
         }
+
     </style>
 
 @endsection
@@ -97,7 +98,19 @@
 
     </div>
 
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div class="calendar" data-toggle="calendar" id="calendar"></div>
+
     @include('alerts.modal')
     @include('alerts.modal_comida')
     @include('alerts.estatus')
