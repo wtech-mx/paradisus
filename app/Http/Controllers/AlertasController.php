@@ -26,6 +26,7 @@ use App\Models\NotasPaquetes;
 use App\Models\Pagos;
 use GuzzleHttp\Client as GuzzleClient;
 use App\Models\Horario;
+use App\Models\BiracoraHorariosAlertas;
 
 class AlertasController extends Controller
 {
@@ -55,6 +56,7 @@ class AlertasController extends Controller
         $servicios = Servicios::where('estatus', '=', null)->orderBy('nombre')->get();
         $colores = Colores::get();
         $Configuracion = Configuracion::first();
+        $bitacora_horario = BiracoraHorariosAlertas::get();
 
         $user_cosmes = User::get();
 
@@ -87,7 +89,7 @@ class AlertasController extends Controller
         $p_citas_contador = Alertas::where('start', '>=', $now)->count();
         //Alertas::query()->update(['color' => '#ffca99']);
 
-        return view('dashboard', compact('user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador','modulos'));
+        return view('dashboard', compact('bitacora_horario','user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador','modulos'));
 
     }
 
@@ -225,45 +227,6 @@ class AlertasController extends Controller
     }
 
 
-    // public function show_calendar()
-    // {
-    //     // Obtener la fecha actual
-    //     $currentDate = Carbon::now();
-
-    //     // Obtener la fecha de inicio del mes actual
-    //     $startOfCurrentMonth = $currentDate->copy()->startOfMonth();
-
-    //     // Filtrar alertas que tienen una fecha de inicio desde el inicio del mes actual en adelante
-    //     $alertas = Alertas::with('Servicios_id')
-    //         ->where('start', '>=', $startOfCurrentMonth)
-    //         ->get();
-
-
-    //     $alertas->each(function ($alerta) {
-    //         // Obtener las cosmetólogas asociadas
-    //         $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
-    //         $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null; // Agregar el nombre del servicio
-    //         $alerta->nombre_servicio2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->nombre : '.';
-
-    //         // Obtener los servicios anteriores del mismo cliente
-    //         $serviciosAnteriores = Alertas::where('id_client', $alerta->id_client)
-    //             ->where('start', '<', $alerta->start) // Asegurarse de que los servicios sean anteriores a la fecha del evento actual
-    //             ->with('Servicios_id')
-    //             ->get();
-
-    //         $serviciosAnteriores->each(function ($servicioAnterior) {
-    //             $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
-    //             $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
-    //             $servicioAnterior->nombre_servicio2 = $servicioAnterior->Servicios_id2 ? $servicioAnterior->Servicios_id2->nombre : '.';
-    //         });
-
-    //         // Anidar los servicios anteriores en el objeto alerta
-    //         $alerta->servicios_anteriores = $serviciosAnteriores;
-    //     });
-
-    //     return response()->json($alertas);
-    // }
-
         public function show_calendar()
     {
         // Obtener la fecha actual
@@ -346,8 +309,6 @@ class AlertasController extends Controller
         return response()->json($alertas);
     }
 
-
-
     public function store_comidas(Request $request)
     {
         $cosmes = $request->get('cosmesComida');
@@ -424,6 +385,26 @@ class AlertasController extends Controller
         // return redirect()->back()->with('success', 'Alerta actualizada con éxito');
 
         return response()->json(['success' => true]);
+    }
+
+    public function bitacora_horarios(Request $request){
+
+        $horaio_fecha_inicio = $request->input('horaio_fecha_inicio');
+        $horario_fecha_fin = $request->input('horario_fecha_fin');
+        $horario_cosme_faltante = $request->input('horario_cosme_faltante');
+        $horario_cosme_sustituye = $request->input('horario_cosme_sustituye');
+        $horario_descripcion = $request->input('horario_descripcion');
+
+        $bitacora_horario = new BiracoraHorariosAlertas;
+        $bitacora_horario->fecha_inicio = $request->get('horaio_fecha_inicio');
+        $bitacora_horario->fecha_fin = $request->get('horario_fecha_fin');
+        $bitacora_horario->id_cosmetologa_faltante = $request->get('horario_cosme_faltante');
+        $bitacora_horario->id_cosmetologa_sustituye  = $request->get('horario_cosme_sustituye');
+        $bitacora_horario->comentario  = $request->get('horario_descripcion');
+        $bitacora_horario->save();
+
+        return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+
     }
 
     public function store_calendar(Request $request)

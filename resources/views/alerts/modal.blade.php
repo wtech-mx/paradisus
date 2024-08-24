@@ -30,7 +30,6 @@
                             <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
                         </span>
                         <input class="form-control" type="date" name="txtFecha" id="txtFecha" >
-
                     </div>
                 </div>
 

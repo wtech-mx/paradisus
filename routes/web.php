@@ -265,6 +265,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('calendar/comidas', [AlertasController::class, 'store_comidas'])->name('calendar.store_comidas');
 
     Route::post('/update/horarios', [AlertasController::class, 'updateMultipleUsers'])->name('update_horarios');
+    Route::post('/horarios/bitacora', [AlertasController::class, 'bitacora_horarios'])->name('bitacora_horarios.create');
 
 
     Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
