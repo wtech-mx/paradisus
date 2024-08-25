@@ -69,6 +69,13 @@ class AlertasController extends Controller
         // Procesar alertas para la fecha actual (intercambio de horarios)
         foreach ($alertasHoy as $item) {
             $this->intercambiarHorarios($item);
+            $cosme_faltante = User::where('id', $item->id_cosmetologa_faltante)->first();
+            $cosme_sustituye = User::where('id', $item->id_cosmetologa_sustituye)->first();
+            $alertas = Alertas::whereDate('start', $item->fecha_inicio)->where('resourceId', $cosme_faltante->resourceId)->get();
+            foreach ($alertas as $alerta) {
+                $alerta->resourceId = $cosme_sustituye->resourceId;
+                $alerta->save();
+            }
         }
 
         // Buscar registros en BiracoraHorariosAlertas donde la fecha_inicio sea un día antes de la fecha actual
@@ -76,9 +83,17 @@ class AlertasController extends Controller
         ->whereDate('fecha_inicio', '=', Carbon::parse($fechaActual)->subDay()->format('Y-m-d'))
         ->get();
 
+
         // Procesar alertas para el día siguiente a la fecha_inicio (restauración de horarios)
         foreach ($alertasDespues as $item) {
             $this->restaurarHorarios($item);
+            $cosme_faltante = User::where('id', $item->id_cosmetologa_faltante)->first();
+            $cosme_sustituye = User::where('id', $item->id_cosmetologa_sustituye)->first();
+            $alertas = Alertas::whereDate('start', $item->fecha_inicio)->where('resourceId', $cosme_sustituye->resourceId)->get();
+            foreach ($alertas as $alerta) {
+                $alerta->resourceId = $cosme_faltante->resourceId;
+                $alerta->save();
+            }
         }
 
         $user_cosmes = User::get();
