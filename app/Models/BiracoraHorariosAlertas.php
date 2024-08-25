@@ -18,5 +18,18 @@ class BiracoraHorariosAlertas extends Model
         'estatus',
         'fecha_inicio',
         'fecha_fin',
+        'dia_se_semana_faltante',
+        'dia_se_semana_sustituye'
     ];
+
+    public function CosmeFaltante()
+    {
+        return $this->belongsTo(User::class, 'id_cosmetologa_faltante');
+    }
+
+    public function CosmeSustituye()
+    {
+        return $this->belongsTo(User::class, 'id_cosmetologa_sustituye');
+    }
+
 }

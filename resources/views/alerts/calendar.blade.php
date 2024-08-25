@@ -5,6 +5,7 @@
 @endsection
 
 @section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- Datatable -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.1/index.global.min.js'></script>
@@ -66,7 +67,24 @@
                     </a>
 
                 </div>
-                
+
+                <div class="col-12">
+                    @foreach ($dia_bitacora as $item)
+                        <div class="row mt-3" style="box-shadow: 6px 6px 15px -10px rgb(0 0 0 / 50%);border-radius: 16px;padding:10px;background: #e3829f1f;">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>#</strong> {{ $item->id }} </p></div>
+                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>Comes Faltante</strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
+                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>Comes sustituta</strong> <br> {{ $item->CosmeSustituye->name }}</p></div>
+                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>Fecha inicio</strong> <br>{{ \Carbon\Carbon::parse($item->fecha_inicio)->locale('es')->translatedFormat('l j F Y') }} </p></div>
+                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>Fecha Fin</strong> <br> {{ \Carbon\Carbon::parse($item->fecha_fin)->locale('es')->translatedFormat('l j F Y') }}</p></div>
+                                    <div class="col-2"><p class="text-left text-dark text-sm">{{ $item->comentario }}</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
                 <div class="col-6">
                     <label for="total-suma">Buscar Cliente</label>
                     <div class="input-group mb-3">
@@ -118,7 +136,25 @@
 @endsection
 
 @section('select2')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        flatpickr("#horaio_fecha_inicio", {
+            "locale": "es", // Establece el idioma en español
+            dateFormat: "Y-m-d", // Formato de la fecha (opcional, ya que este es el formato por defecto)
+            weekNumbers: true // (opcional) muestra los números de semana
+        });
+
+        flatpickr("#horario_fecha_fin", {
+            "locale": "es", // Establece el idioma en español
+            dateFormat: "Y-m-d", // Formato de la fecha (opcional, ya que este es el formato por defecto)
+            weekNumbers: true // (opcional) muestra los números de semana
+        });
+    });
+
+</script>
 @include('alerts.js_fullcalendar')
 
 @endsection

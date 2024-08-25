@@ -49,6 +49,8 @@ class AlertasController extends Controller
 
     public function index_calendar()
     {
+        // Obtener la fecha y hora actual
+        $now = Carbon::now();
         $fechaActual = date('Y-m-d');
         $estatus = Status::get();
         $alert = Alertas::get();
@@ -58,6 +60,25 @@ class AlertasController extends Controller
         $Configuracion = Configuracion::first();
         $bitacora_horario = BiracoraHorariosAlertas::get();
 
+        $dia_bitacora = BiracoraHorariosAlertas::where('fecha_inicio','=',$fechaActual)->get();
+        $fechaActualhorario = Carbon::now()->format('Y-m-d');
+
+        // Buscar registros en BiracoraHorariosAlertas donde la fecha_inicio sea la fecha actual
+        $alertasHoy = BiracoraHorariosAlertas::whereDate('fecha_inicio', $fechaActualhorario)->get();
+
+        // Procesar alertas para la fecha actual (intercambio de horarios)
+        foreach ($alertasHoy as $item) {
+            $this->intercambiarHorarios($item);
+        }
+
+        // Buscar registros en BiracoraHorariosAlertas donde la fecha_inicio sea un día antes de la fecha actual
+        $alertasAyer = BiracoraHorariosAlertas::whereDate('fecha_inicio', Carbon::parse($fechaActualhorario)->subDay())->get();
+
+        // Procesar alertas para el día siguiente a la fecha_inicio (restauración de horarios)
+        foreach ($alertasAyer as $item) {
+            $this->restaurarHorarios($item);
+        }
+
         $user_cosmes = User::get();
 
         $user_cosmetologas = User::where('puesto', 'Cosme')
@@ -66,10 +87,6 @@ class AlertasController extends Controller
 
         $modulos = [];
 
-        // for ($i = 1; $i <= $Configuracion->modulos; $i++) {
-        //     $letra = chr(64 + $i);
-        //     $modulos[] = ['id' => $letra, 'title' => 'Modulo ' . $letra];
-        // }
 
         // Iterar sobre los usuarios y generar los módulos
         foreach ($user_cosmetologas as $user) {
@@ -80,8 +97,14 @@ class AlertasController extends Controller
             ];
         }
 
-        // Obtener la fecha y hora actual
-        $now = Carbon::now();
+        // Obtener los registros que coincidan con la fecha actual
+        $horario_alertas = BiracoraHorariosAlertas::whereDate('fecha_inicio', now()->toDateString())->get();
+
+        // Iterar sobre cada registro y actualizar el estatus
+        foreach ($horario_alertas as $item) {
+            $item->estatus = 'Realizado';
+            $item->update();
+        }
 
         $estatus_contador = Status::count();
         $servicios_contador = Servicios::count();
@@ -89,9 +112,64 @@ class AlertasController extends Controller
         $p_citas_contador = Alertas::where('start', '>=', $now)->count();
         //Alertas::query()->update(['color' => '#ffca99']);
 
-        return view('dashboard', compact('bitacora_horario','user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador','modulos'));
+        return view('dashboard', compact('bitacora_horario','dia_bitacora','user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador','modulos'));
 
     }
+
+    protected function intercambiarHorarios($item){
+    // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
+    $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
+    $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
+
+    // Obtener el día de la semana y el valor faltante y sustituye
+    [$dia_faltante, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_faltante));
+    [$dia_sustituye, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
+
+    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_faltante
+    $horario_faltante = Horario::where('id_user', $id_cosmetologa_faltante)->first();
+
+    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_sustituye
+    $horario_sustituye = Horario::where('id_user', $id_cosmetologa_sustituye)->first();
+
+    if ($horario_faltante && $horario_sustituye) {
+        // Intercambiar los valores en el horario
+        $horario_faltante->$dia_faltante = $valor_sustituye;
+        $horario_sustituye->$dia_sustituye = $valor_faltante;
+
+        // Guardar los cambios en la base de datos
+        $horario_faltante->save();
+        $horario_sustituye->save();
+    }
+}
+
+
+
+    protected function restaurarHorarios($item){
+    // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
+    $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
+    $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
+
+    // Obtener el día de la semana y el valor faltante y sustituye
+    [$dia_faltante, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_faltante));
+    [$dia_sustituye, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
+
+    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_faltante
+    $horario_faltante = Horario::where('id_user', $id_cosmetologa_faltante)->first();
+
+    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_sustituye
+    $horario_sustituye = Horario::where('id_user', $id_cosmetologa_sustituye)->first();
+
+    if ($horario_faltante && $horario_sustituye) {
+        // Restaurar los valores originales en el horario
+        $horario_faltante->$dia_faltante = $valor_faltante;
+        $horario_sustituye->$dia_sustituye = $valor_sustituye;
+
+        // Guardar los cambios en la base de datos
+        $horario_faltante->save();
+        $horario_sustituye->save();
+    }
+}
+
 
     public function index_calendar_anterior()
     {
@@ -227,7 +305,7 @@ class AlertasController extends Controller
     }
 
 
-        public function show_calendar()
+    public function show_calendar()
     {
         // Obtener la fecha actual
         $currentDate = Carbon::now();
@@ -387,24 +465,57 @@ class AlertasController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function bitacora_horarios(Request $request){
-
+    public function bitacora_horarios(Request $request)
+    {
+        // Obtener datos del request
         $horaio_fecha_inicio = $request->input('horaio_fecha_inicio');
-        $horario_fecha_fin = $request->input('horario_fecha_fin');
         $horario_cosme_faltante = $request->input('horario_cosme_faltante');
         $horario_cosme_sustituye = $request->input('horario_cosme_sustituye');
-        $horario_descripcion = $request->input('horario_descripcion');
 
+        // Extraer el día de la semana de la fecha_inicio
+        $dia_de_la_semana = \Carbon\Carbon::parse($horaio_fecha_inicio)->format('l'); // Día de la semana en inglés
+
+        // Traducir el día al español
+        $dias_en_espanol = [
+            'Monday' => 'lunes',
+            'Tuesday' => 'martes',
+            'Wednesday' => 'miercoles',
+            'Thursday' => 'jueves',
+            'Friday' => 'viernes',
+            'Saturday' => 'sabado',
+            'Sunday' => 'domingo',
+        ];
+        $dia_de_la_semana_es = $dias_en_espanol[$dia_de_la_semana]; // Traducir el día al español
+
+        // Buscar en la tabla 'horario' el registro que corresponde a id_cosmetologa_faltante
+        $cosme_horaio_faltante = Horario::where('id_user', $horario_cosme_faltante)->first();
+        $cosme_horaio_sustituye = Horario::where('id_user', $horario_cosme_sustituye)->first();
+
+        // Obtener dinámicamente el valor del día de la semana (por ejemplo, 'sabado')
+        $valor_dia_faltante = $cosme_horaio_faltante->$dia_de_la_semana_es;
+        $valor_dia_sustituye = $cosme_horaio_sustituye->$dia_de_la_semana_es;
+
+        $dia_y_valor_faltante = ucfirst($dia_de_la_semana_es) . " = " . $valor_dia_faltante;
+        $dia_y_valor_sustituye = ucfirst($dia_de_la_semana_es) . " = " . $valor_dia_sustituye;
+
+        // Crear un nuevo registro en bitacora_horarios_alertas
         $bitacora_horario = new BiracoraHorariosAlertas;
-        $bitacora_horario->fecha_inicio = $request->get('horaio_fecha_inicio');
+        $bitacora_horario->fecha_inicio = $horaio_fecha_inicio;
         $bitacora_horario->fecha_fin = $request->get('horario_fecha_fin');
-        $bitacora_horario->id_cosmetologa_faltante = $request->get('horario_cosme_faltante');
-        $bitacora_horario->id_cosmetologa_sustituye  = $request->get('horario_cosme_sustituye');
-        $bitacora_horario->comentario  = $request->get('horario_descripcion');
+        $bitacora_horario->id_cosmetologa_faltante = $horario_cosme_faltante;
+        $bitacora_horario->id_cosmetologa_sustituye = $horario_cosme_sustituye;
+        $bitacora_horario->comentario = $request->get('horario_descripcion');
+        $bitacora_horario->estatus = 'Pendiente';
+
+        // Guardar el día de la semana correspondiente en dia_se_semana_faltante y dia_se_semana_sustituye
+        $bitacora_horario->dia_se_semana_faltante = $dia_y_valor_faltante;
+        $bitacora_horario->dia_se_semana_sustituye = $dia_y_valor_sustituye;
+
+        // Guardar el registro
         $bitacora_horario->save();
 
+        // Redirigir con un mensaje de éxito
         return redirect()->back()->with('success', 'Alerta actualizada con éxito');
-
     }
 
     public function store_calendar(Request $request)
