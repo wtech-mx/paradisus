@@ -72,10 +72,12 @@ class AlertasController extends Controller
         }
 
         // Buscar registros en BiracoraHorariosAlertas donde la fecha_inicio sea un día antes de la fecha actual
-        $alertasAyer = BiracoraHorariosAlertas::whereDate('fecha_inicio', Carbon::parse($fechaActualhorario)->subDay())->get();
+        $alertasDespues = BiracoraHorariosAlertas::whereDate('fecha_inicio', '<', $fechaActual)
+        ->whereDate('fecha_inicio', '=', Carbon::parse($fechaActual)->subDay()->format('Y-m-d'))
+        ->get();
 
         // Procesar alertas para el día siguiente a la fecha_inicio (restauración de horarios)
-        foreach ($alertasAyer as $item) {
+        foreach ($alertasDespues as $item) {
             $this->restaurarHorarios($item);
         }
 
@@ -143,15 +145,15 @@ class AlertasController extends Controller
 }
 
 
-
-    protected function restaurarHorarios($item){
+protected function restaurarHorarios($item)
+{
     // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
     $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
     $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
 
     // Obtener el día de la semana y el valor faltante y sustituye
-    [$dia_faltante, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_faltante));
-    [$dia_sustituye, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
+    [$dia_faltante, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_faltante));
+    [$dia_sustituye, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
 
     // Buscar el registro en la tabla 'horario' para el id_cosmetologa_faltante
     $horario_faltante = Horario::where('id_user', $id_cosmetologa_faltante)->first();
@@ -160,16 +162,21 @@ class AlertasController extends Controller
     $horario_sustituye = Horario::where('id_user', $id_cosmetologa_sustituye)->first();
 
     if ($horario_faltante && $horario_sustituye) {
+
         // Restaurar los valores originales en el horario
-        $horario_faltante->$dia_faltante = $valor_faltante;
-        $horario_sustituye->$dia_sustituye = $valor_sustituye;
+        // Primero guardamos los valores actuales en variables temporales
+        $valor_faltante_actual = $horario_faltante->$dia_faltante;
+        $valor_sustituye_actual = $horario_sustituye->$dia_sustituye;
+
+        // Actualizamos los valores en el horario
+        $horario_faltante->$dia_faltante = $valor_sustituye;
+        $horario_sustituye->$dia_sustituye = $valor_faltante;
 
         // Guardar los cambios en la base de datos
         $horario_faltante->save();
         $horario_sustituye->save();
     }
 }
-
 
     public function index_calendar_anterior()
     {
