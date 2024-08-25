@@ -74,8 +74,9 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-2"><p class="text-left text-dark text-sm"><strong>#</strong> {{ $item->id }} </p></div>
-                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>Comes Faltante</strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
-                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>Comes sustituta</strong> <br> {{ $item->CosmeSustituye->name }}</p></div>
+                                    <div class="col-4"><p class="text-left text-dark text-sm">{{ $item->CosmeSustituye->name }}<br><strong>  Sustuitura a </strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
+                                    {{-- <div class="col-2"><p class="text-left text-dark text-sm"><strong>Comes Faltante</strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
+                                    <div class="col-2"><p class="text-left text-dark text-sm"><strong>Comes sustituta</strong> <br> {{ $item->CosmeSustituye->name }}</p></div> --}}
                                     <div class="col-2"><p class="text-left text-dark text-sm"><strong>Fecha inicio</strong> <br>{{ \Carbon\Carbon::parse($item->fecha_inicio)->locale('es')->translatedFormat('l j F Y') }} </p></div>
                                     <div class="col-2"><p class="text-left text-dark text-sm"><strong>Fecha Fin</strong> <br> {{ \Carbon\Carbon::parse($item->fecha_fin)->locale('es')->translatedFormat('l j F Y') }}</p></div>
                                     <div class="col-2"><p class="text-left text-dark text-sm">{{ $item->comentario }}</p></div>
