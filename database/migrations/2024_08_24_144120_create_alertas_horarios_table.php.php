@@ -35,6 +35,9 @@ return new class extends Migration
             $table->text('fecha_inicio')->nullable();
             $table->text('fecha_fin')->nullable();
 
+            $table->text('dia_se_semana_faltante')->nullable();
+            $table->text('dia_se_semana_sustituye')->nullable();
+
             $table->timestamps();
         });
     }
