@@ -114,7 +114,7 @@
             </td>
 
             <td>
-                $1,930
+                ${{ number_format($suma_pago_mercado, 1, '.', ',') }}
             </td>
 
             <td>
