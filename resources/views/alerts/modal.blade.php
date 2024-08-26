@@ -6,7 +6,8 @@
 </style>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-secondary" role="document">
+    <div class="modal-dialog modal-lg  modal-secondary" style="margin-right: 0; margin-left: auto;" role="document">
+
       <div class="modal-content" style="background-color: #ffffffcf!important;">
 
         <div class="modal-header">
