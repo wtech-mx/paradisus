@@ -26,8 +26,8 @@
                                 <div class="card card-body ">
                                     <div class="row">
 
-                                        <div class="form-group col-6">
-                                            <label for="">Fecha Inicio </label>
+                                        <div class="form-group col-12">
+                                            <label for="">Fecha</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="">
                                                     <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
@@ -36,7 +36,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-6">
+                                        {{-- <div class="form-group col-6">
                                             <label for="">Fecha Fin </label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="">
@@ -44,10 +44,10 @@
                                                 </span>
                                                 <input class="form-control" type="date" name="horario_fecha_fin" id="horario_fecha_fin" placeholder="Selecionar Fecha">
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group col-6" style="">
-                                            <label for="">Cosmetóloga Faltante</label>
+                                            <label for="">Cosmetóloga que faltara</label>
                                             <select class="form-control "  id="horario_cosme_faltante" name="horario_cosme_faltante" >
                                                 @foreach($user_pagos as $cosme)
                                                     <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
@@ -56,7 +56,7 @@
                                         </div>
 
                                         <div class="form-group col-6" style="">
-                                            <label for="">Cosmetóloga Sustituye:</label>
+                                            <label for="">Cosmetóloga que sustituira:</label>
                                             <select class="form-control"  id="horario_cosme_sustituye" name="horario_cosme_sustituye" >
                                                 @foreach($user_pagos as $cosme)
                                                     <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
@@ -120,8 +120,8 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-2"><p class="text-left text-dark text-sm"><strong>#</strong> {{ $item->id }} </p></div>
-                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Comes Faltante</strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
-                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Comes sustituta</strong> <br> {{ $item->CosmeSustituye->name }}</p></div>
+                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Come que falto</strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
+                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Come que sustituye</strong> <br> {{ $item->CosmeSustituye->name }}</p></div>
                                         <div class="col-6"><p class="text-left text-dark text-sm"><strong>Fecha inicio</strong> <br>{{ \Carbon\Carbon::parse($item->fecha_inicio)->locale('es')->translatedFormat('l j F Y') }} </p></div>
                                         <div class="col-6"><p class="text-left text-dark text-sm"><strong>Fecha Fin</strong> <br> {{ \Carbon\Carbon::parse($item->fecha_fin)->locale('es')->translatedFormat('l j F Y') }}</p></div>
                                         <div class="col-12"><p class="text-left text-dark text-sm">{{ $item->comentario }}</p></div>

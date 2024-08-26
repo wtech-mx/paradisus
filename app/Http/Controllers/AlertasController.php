@@ -101,7 +101,6 @@ class AlertasController extends Controller
 
         // Obtener los registros que coincidan con la fecha actual
         $horario_alertas = BiracoraHorariosAlertas::whereDate('fecha_inicio', now()->toDateString())->get();
-
         // Iterar sobre cada registro y actualizar el estatus
         foreach ($horario_alertas as $item) {
             $item->estatus = 'Realizado';
@@ -118,7 +117,7 @@ class AlertasController extends Controller
 
     }
 
-    protected function intercambiarHorarios($item){
+protected function intercambiarHorarios($item){
     // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
     $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
     $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
@@ -171,6 +170,11 @@ protected function restaurarHorarios($item)
         // Actualizamos los valores en el horario
         $horario_faltante->$dia_faltante = $valor_sustituye;
         $horario_sustituye->$dia_sustituye = $valor_faltante;
+
+        $actualzaicion_bitacora = BiracoraHorariosAlertas::find($item->id);
+        $actualzaicion_bitacora->estatus = 'Finalizado';
+        $actualzaicion_bitacora->save();
+
 
         // Guardar los cambios en la base de datos
         $horario_faltante->save();
