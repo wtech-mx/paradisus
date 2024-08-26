@@ -103,11 +103,11 @@
 
 <script>
 $(document).on('click', '.btn-submit-cita', function(e) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
     e.preventDefault();
 
     var alertaId = $(this).data('alerta-id');
