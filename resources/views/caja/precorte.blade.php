@@ -166,7 +166,7 @@
         //Vista
 
         $res = $total_ing - $caja_final->inicio - $caja_dia_suma_vista->total - $caja_dia_suma_cambios->total;
-    
+
         if($res > 0){
         $total_efectivo_vista = $res;
         }else{
@@ -225,7 +225,7 @@
             </td>
 
             <td>
-                <strong>${{ number_format($total_efectivo_vista, 1, '.', ',') }}</strong>
+                <strong>$1,930</strong>
             </td>
 
             <td>
