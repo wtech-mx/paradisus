@@ -232,7 +232,7 @@
                                             @foreach ($nota_lacer as $item)
                                                 <tr>
                                                     <td>{{$item->id}}</td>
-                                                    <td>{{$item->Client->name }} {{ $item->Client->last_name }}</td>
+                                                    <td>{{$item->Client->name }} {{ $item->Client->last_name }}<br>@can('client-list') {{ $item->Client->phone }} @endcan</td>
                                                     <td>
                                                         <strong>Laser</strong> <br>
                                                         {{$item->tipo}}</td>
