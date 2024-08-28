@@ -246,6 +246,19 @@
                                                     </td>
 
                                                     <td>
+                                                        @can('client-list')
+                                                            <a type="button" class="btn btn-primary btn-sm" href="{{route('laser.pdf_laser', $item->id)}}"style="color: #ffff">
+                                                                <i class="fa fa-print"></i>
+                                                            </a>
+
+                                                            <a type="button" class="btn btn-success btn-sm" href="https://api.whatsapp.com/send?phone=521{{ $item->Client->phone }}&text=Hola%20Te%20mandamos%20recomendaciones%20del%20antes%20y%20despues%20de%20tu%20cita%20%3A%20%20{{route('index.recomendaciones')}}" target="_blank" style="color: #ffff">
+                                                                <i class="fa fa-whatsapp"></i>
+                                                            </a>
+
+                                                            <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('edit_hoja_laser.lacer', $item->Client->id) }}"><i class="fa fa-fw fa-pencil"></i> </a>
+                                                            <a class="btn btn-sm btn-danger" target="_blank" href="{{ route('index_consentimiento.laser', $item->Client->id) }}"><i class="fa fa-fw fa-file-text-o"></i> </a>
+                                                        @endcan
+
                                                         <a class="btn btn-sm btn-success" href="{{ route('edit.lacer',$item->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                     </td>
                                                 </tr>
