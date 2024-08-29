@@ -197,7 +197,7 @@ protected function restaurarHorarios($item)
     }
 }
 
-    public function index_calendar_anterior()
+public function index_calendar_anterior()
     {
         $estatus = Status::get();
         $alert = Alertas::get();
@@ -226,7 +226,7 @@ protected function restaurarHorarios($item)
 
     }
 
-    public function buscarAlertas(Request $request)
+public function buscarAlertas(Request $request)
     {
         $titulo = $request->input('titulo');
         //    $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
@@ -255,7 +255,7 @@ protected function restaurarHorarios($item)
         return view('alerts.resultados', compact('alertas', 'servicios_select'));
     }
 
-    public function store_prox_cita(Request $request)
+public function store_prox_cita(Request $request)
     {
        // Combina la fecha y la hora seleccionada
        $startDateTime = $request->start;
@@ -330,7 +330,6 @@ protected function restaurarHorarios($item)
        return redirect()->back()->with('success', 'Alerta actualizada con éxito');
     }
 
-
     public function show_calendar()
     {
         // Obtener la fecha actual
@@ -349,6 +348,8 @@ protected function restaurarHorarios($item)
                 $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
                 $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null;
                 $alerta->nombre_servicio2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->nombre : '.';
+                $alerta->duracion = $alerta->Servicios_id ? $alerta->Servicios_id->duracion : null; // Añadir la duración del servicio
+                $alerta->duracion2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->duracion : null; // Añadir la duración del servicio
 
                 // Obtener los servicios anteriores del mismo cliente con los campos necesarios
                 $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist','start','end','estatus')
@@ -391,6 +392,8 @@ protected function restaurarHorarios($item)
             $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
             $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null;
             $alerta->nombre_servicio2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->nombre : '.';
+            $alerta->duracion = $alerta->Servicios_id ? $alerta->Servicios_id->duracion : null; // Añadir la duración del servicio
+            $alerta->duracion2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->duracion : null; // Añadir la duración del servicio
 
             // Obtener los servicios anteriores del mismo cliente con los campos necesarios
             $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist','start','end','estatus')
