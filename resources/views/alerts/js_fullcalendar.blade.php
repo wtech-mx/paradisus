@@ -203,30 +203,40 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'resourceTimeGridDay,dayGridMonth,list'
         },
+        slotLabelFormat: {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        },
         views: {
             resourceTimeGridDay: {
-                titleFormat: { // para resourceTimeGridDay
-                    weekday: 'long',
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                }
+            titleFormat: {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
             },
-            dayGridMonth: {
-                titleFormat: { // para dayGridMonth
-                    year: 'numeric',
-                    month: 'long'
-                }
-            },
-            list: {
-                titleFormat: { // para list view
-                    weekday: 'long',
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                }
+            slotLabelFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true // Esto muestra el formato de 12 horas con AM/PM
             }
         },
+        dayGridMonth: {
+            titleFormat: { // para dayGridMonth
+                year: 'numeric',
+                month: 'long'
+            }
+        },
+        list: {
+            titleFormat: { // para list view
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            }
+        }
+    },
         resources: {!! json_encode($modulos) !!},
         resources: originalResources,
 
@@ -403,6 +413,42 @@ document.addEventListener('DOMContentLoaded', function() {
     hora3 = (hora3 < 10) ? "0" + hora3 : hora3;
     let horario = hora3 + ":" + minutos3;
 
+
+    let horaincio = arg.event.start;
+    // Crear un objeto Date con la fecha y hora de 'horaincio'
+    let dateInicio = new Date(horaincio);
+    // Extraer las horas y minutos
+    let hoursInicio = dateInicio.getHours();
+    let minutesInicio = dateInicio.getMinutes();
+    // Formatear los minutos para que siempre tengan dos dígitos
+    minutesInicio = minutesInicio < 10 ? '0' + minutesInicio : minutesInicio;
+    // Determinar si es AM o PM
+    let ampm = hoursInicio >= 12 ? 'PM' : 'AM';
+    // Convertir la hora al formato de 12 horas
+    hoursInicio = hoursInicio % 12;
+    hoursInicio = hoursInicio ? hoursInicio : 12; // El 0 debe ser 12
+    // Formatear la hora final
+    let formattedTimeInicio = hoursInicio + ':' + minutesInicio + ' ' + ampm;
+
+
+    let horafin = arg.event.end;
+    // Crear un objeto Date con la fecha y hora de 'horafin'
+    let date = new Date(horafin);
+    // Extraer las horas y minutos
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    // Formatear los minutos para que siempre tengan dos dígitos
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    // Determinar si es AM o PM
+    let ampmini = hours >= 12 ? 'PM' : 'AM';
+    // Convertir la hora al formato de 12 horas
+    hours = hours % 12;
+    hours = hours ? hours : 12; // El 0 debe ser 12
+    // Formatear la hora final
+    let formattedTime = hours + ':' + minutes + ' ' + ampmini;
+
+
+
     let duracion = arg.event.extendedProps.duracion || 0; // Duración del primer servicio en minutos
     let duracion2 = arg.event.extendedProps.duracion2 || 0; // Duración del segundo servicio en minutos
 
@@ -416,10 +462,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let horafinservicio1 = horaFinFormateada1 + ":" + minutosFin1;
 
     // Calcular hora final del segundo servicio sumando duracion2 en minutos a horaFinServicio1
-    let horaFinServicio2 = new Date(horaFinServicio1.getTime() + duracion2 * 60000);
-    let minutosFin2 = (horaFinServicio2.getMinutes() < 10) ? "0" + horaFinServicio2.getMinutes() : horaFinServicio2.getMinutes();
-    let horaFinFormateada2 = (horaFinServicio2.getHours() < 10) ? "0" + horaFinServicio2.getHours() : horaFinServicio2.getHours();
-    let horafinservicio2 = horaFinFormateada2 + ":" + minutosFin2;
+    let horaFinServicio2 = duracion2 > 0 ? new Date(horaFinServicio1.getTime() + duracion2 * 60000) : null;
+    let minutosFin2 = horaFinServicio2 ? (horaFinServicio2.getMinutes() < 10 ? "0" + horaFinServicio2.getMinutes() : horaFinServicio2.getMinutes()) : null;
+    let horaFinFormateada2 = horaFinServicio2 ? (horaFinServicio2.getHours() < 10 ? "0" + horaFinServicio2.getHours() : horaFinServicio2.getHours()) : null;
+    let horafinservicio2 = horaFinServicio2 ? horaFinFormateada2 + ":" + minutosFin2 : null;
 
     let imageArg = arg.event.extendedProps.image;
     let modulocapi = arg.event.getResources().map(function (resource) { return resource.id; });
@@ -435,18 +481,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let horaEvent = document.createElement('div');
     horaEvent.innerHTML = `
         <div style="font-size:10px;">
-            ${horario} - ${modulocapi}
+            ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
             <img width="13px" style="margin-left: 10px" src="${imageArg}">
-            <br>${horafinservicio1} - ${nombreServicio} (${duracion} min)
-            <br>${horafinservicio2} - ${nombreServicio2} (${duracion2} min)
+            <br>${nombreServicio} (${duracion} min)
+            <br>${nombreServicio2 && duracion2 ? `${nombreServicio2} (${duracion2} min)` : ''}
         </div>`;
     horaEvent.classList = "fc-event-time";
 
     arrayOfDomNodes = [titleEvent, horaEvent];
 
-    return { domNodes: arrayOfDomNodes };
+    return { domNodes: arrayOfDomNodes };
 },
-
 
     });
 
