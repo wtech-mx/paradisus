@@ -395,52 +395,57 @@ document.addEventListener('DOMContentLoaded', function() {
             // console.log('cosmesInput', info.event.extendedProps.cosmes)
         },
 
-    eventContent: function (arg) {
-        let minutos3 = (arg.event.start.getMinutes());
-        let hora3 = (arg.event.start.getHours());
-        minutos3 = (minutos3 < 10) ? "0" + minutos3 : minutos3;
-        hora3 = (hora3 < 10) ? "0" + hora3 : hora3;
-        let horario = (hora3 + ":" + minutos3);
+        eventContent: function (arg) {
+    // Formatear la hora de inicio
+    let minutos3 = arg.event.start.getMinutes();
+    let hora3 = arg.event.start.getHours();
+    minutos3 = (minutos3 < 10) ? "0" + minutos3 : minutos3;
+    hora3 = (hora3 < 10) ? "0" + hora3 : hora3;
+    let horario = hora3 + ":" + minutos3;
 
-        let duracion = arg.event.extendedProps.duracion || 0; // Obtener la duración, si no está definida, asignar 0
-        let duracion2 = arg.event.extendedProps.duracion2 || 0; // Obtener la duración, si no está definida, asignar 0
+    let duracion = arg.event.extendedProps.duracion || 0; // Duración del primer servicio en minutos
+    let duracion2 = arg.event.extendedProps.duracion2 || 0; // Duración del segundo servicio en minutos
 
-        // Calcular la hora de finalización
-        let horaFin = new Date(arg.event.start.getTime() + duracion * 60000);
-        let minutosFin = (horaFin.getMinutes() < 10) ? "0" + horaFin.getMinutes() : horaFin.getMinutes();
-        let horaFinFormateada = (horaFin.getHours() < 10) ? "0" + horaFin.getHours() : horaFin.getHours();
-        let horarioFin = horaFinFormateada + ":" + minutosFin;
+    // Crear objeto Date para la hora inicial
+    let horaInicial = new Date(arg.event.start);
 
-        let horaFin2 = new Date(arg.event.start.getTime() + duracion2 * 60000);
-        let minutosFin2 = (horaFin2.getMinutes() < 10) ? "0" + horaFin2.getMinutes() : horaFin2.getMinutes();
-        let horaFinFormateada2 = (horaFin2.getHours() < 10) ? "0" + horaFin2.getHours() : horaFin2.getHours();
-        let horarioFin2 = horaFinFormateada2 + ":" + minutosFin2;
+    // Calcular hora final del primer servicio sumando duracion en minutos
+    let horaFinServicio1 = new Date(horaInicial.getTime() + duracion * 60000);
+    let minutosFin1 = (horaFinServicio1.getMinutes() < 10) ? "0" + horaFinServicio1.getMinutes() : horaFinServicio1.getMinutes();
+    let horaFinFormateada1 = (horaFinServicio1.getHours() < 10) ? "0" + horaFinServicio1.getHours() : horaFinServicio1.getHours();
+    let horafinservicio1 = horaFinFormateada1 + ":" + minutosFin1;
 
-        let imageArg = arg.event.extendedProps.image;
-        let modulocapi = arg.event.getResources().map(function (resource) { return resource.id });
-        let nombreServicio = arg.event.extendedProps.nombre_servicio;
-        let nombreServicio2 = arg.event.extendedProps.nombre_servicio2;
+    // Calcular hora final del segundo servicio sumando duracion2 en minutos a horaFinServicio1
+    let horaFinServicio2 = new Date(horaFinServicio1.getTime() + duracion2 * 60000);
+    let minutosFin2 = (horaFinServicio2.getMinutes() < 10) ? "0" + horaFinServicio2.getMinutes() : horaFinServicio2.getMinutes();
+    let horaFinFormateada2 = (horaFinServicio2.getHours() < 10) ? "0" + horaFinServicio2.getHours() : horaFinServicio2.getHours();
+    let horafinservicio2 = horaFinFormateada2 + ":" + minutosFin2;
 
-        let arrayOfDomNodes = [];
+    let imageArg = arg.event.extendedProps.image;
+    let modulocapi = arg.event.getResources().map(function (resource) { return resource.id; });
+    let nombreServicio = arg.event.extendedProps.nombre_servicio;
+    let nombreServicio2 = arg.event.extendedProps.nombre_servicio2;
 
-        let titleEvent = document.createElement('div');
-        titleEvent.innerHTML = arg.event.title;
-        titleEvent.classList = "fc-event-title fc-sticky";
+    let arrayOfDomNodes = [];
 
-        let horaEvent = document.createElement('div');
-        horaEvent.innerHTML = `
-            <div style="font-size:10px;">
-                ${horario} - ${horarioFin}  - ${modulocapi}
-                <img width="13px" style="margin-left: 10px" src="${imageArg}">
-                <br>${horarioFin} - ${nombreServicio}  (${duracion} min)
-                <br>${horarioFin2} - ${nombreServicio2} (${duracion2} min)
-            </div>`;
-        horaEvent.classList = "fc-event-time";
+    let titleEvent = document.createElement('div');
+    titleEvent.innerHTML = arg.event.title;
+    titleEvent.classList = "fc-event-title fc-sticky";
 
-        arrayOfDomNodes = [titleEvent, horaEvent];
+    let horaEvent = document.createElement('div');
+    horaEvent.innerHTML = `
+        <div style="font-size:10px;">
+            ${horario} - ${modulocapi}
+            <img width="13px" style="margin-left: 10px" src="${imageArg}">
+            <br>${horafinservicio1} - ${nombreServicio} (${duracion} min)
+            <br>${horafinservicio2} - ${nombreServicio2} (${duracion2} min)
+        </div>`;
+    horaEvent.classList = "fc-event-time";
 
-        return { domNodes: arrayOfDomNodes };
-    },
+    arrayOfDomNodes = [titleEvent, horaEvent];
+
+    return { domNodes: arrayOfDomNodes };
+},
 
 
     });
