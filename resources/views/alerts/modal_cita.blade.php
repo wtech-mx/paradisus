@@ -33,7 +33,7 @@
                                                 <span class="input-group-text" id="">
                                                     <img src="{{ asset('assets/icons/prueba.webp') }}" alt="" width="30px">
                                                 </span>
-                                                <input class="form-control" type="text" id="num_sesion" name="num_sesion" value="{{$alerta->id_color + 1 }}">
+                                                <input class="form-control" type="text" id="modal_cita_num_sesion" name="modal_cita_num_sesion" value="{{$alerta->id_color + 1 }}">
                                             </div>
                                         </div>
 
@@ -58,7 +58,7 @@
                                                 <span class="input-group-text" id="">
                                                     <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
                                                 </span>
-                                                <input class="form-control" type="date" name="fecha_inicio_comida" id="" >
+                                                <input class="form-control" type="date" name="modal_cita_fecha_inicio" id="" >
                                             </div>
                                         </div>
 
@@ -68,7 +68,7 @@
                                                 <span class="input-group-text" id="">
                                                     <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
                                                 </span>
-                                                <input class="form-control" type="time" name="hora_inicio_comida" id="" autocomplete="off" >
+                                                <input class="form-control" type="time" name="modal_cita_hora_inicio" id="" autocomplete="off" >
                                             </div>
                                         </div>
 

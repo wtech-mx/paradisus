@@ -257,10 +257,9 @@ public function buscarAlertas(Request $request)
 
 public function store_prox_cita(Request $request)
     {
-        dd($request);
+  
        // Combina la fecha y la hora seleccionada
        $startDateTime = $request->start;
-
        $cosmes = $request->get('modal_cita_cosme');
 
        $users = User::whereIn('id', $cosmes)->get();
@@ -270,9 +269,8 @@ public function store_prox_cita(Request $request)
 
        foreach ($users as $user) {
            $datosEvento = new Alertas;
-           $datosEvento->id_servicio = $request->id_servicio;
-           $datosEvento->id_servicio2 = $request->id_servicio2;
-           $datosEvento->id_status = $request->id_status;
+           $datosEvento->id_servicio = $request->modal_cita_id_servicio;
+           $datosEvento->id_status = 1;
            $datosEvento->estatus = $datosEvento->Status->estatus;
            $datosEvento->color = $datosEvento->Status->color;
            $datosEvento->id_client = $request->get('modal_cita_cliente_id');
@@ -299,7 +297,7 @@ public function store_prox_cita(Request $request)
            $suma_duracion = $duracion + $duracion2;
 
            // Combina la fecha y la hora seleccionada
-           $startDateTimeString = $request->start;
+           $startDateTimeString = $request->modal_cita_fecha_inicio . $request->modal_cita_hora_inicio;
            $startDateTime = Carbon::parse($startDateTimeString);
 
            if($request->mod_hora_fin == 'si'){
