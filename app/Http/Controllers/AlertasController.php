@@ -257,6 +257,7 @@ public function buscarAlertas(Request $request)
 
 public function store_prox_cita(Request $request)
     {
+        dd($request);
        // Combina la fecha y la hora seleccionada
        $startDateTime = $request->start;
 

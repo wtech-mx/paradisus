@@ -22,12 +22,17 @@
                 <td style="background-color: {{ $alerta->status->color }}">{{ $alerta->status->estatus }} <img src="{{ $alerta->status->icono }}" alt="" style="width: 20px"></td>
                 <td>{{ $alerta->service_name  }}</td>
                 <td>
-                    <a type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalCita{{$alerta->id}}" style="background: #ffff; color: #000000">
-                        Agendar prox.
-                    </a>
+                    <!-- Botón para abrir el modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAprobar-{{ $alerta->id }}">
+                        Agendar prox cita
+                    </button>
+
+                @include('alerts.modal_cita')
                 </td>
+
             </tr>
-            @include('alerts.modal_cita')
         @endforeach
     </tbody>
 </table>
+
+
