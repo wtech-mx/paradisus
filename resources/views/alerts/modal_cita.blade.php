@@ -11,11 +11,10 @@
 
                                     <form id="formAprobar-{{ $alerta->id }}" class="row" method="POST" action="{{ route('servicio.store_prox_cita') }}">
                                         @csrf
-                                        <input type="text" id="modal_cita_cliente_id" name="modal_cita_cliente_id" value="{{$alerta->id_client}}">
-                                        <input type="text" id="modal_cita_id_nota" name="modal_cita_id_nota" value="{{$alerta->id_nota}}">
-                                        <input type="text" id="modal_cita_id_paquete" name="modal_cita_id_paquete" value="{{$alerta->id_paquete}}">
-                                        <input type="text" id="modal_cita_id_laser" name="modal_cita_id_laser" value="{{$alerta->id_laser}}">
-                                        <input type="text" id="modal_cita_descripcion" name="modal_cita_descripcion" value="{{$alerta->descripcion}}">
+                                        <input type="text" id="modal_cita_cliente_id" name="modal_cita_cliente_id" value="{{$alerta->id_client}}" style="display: none">
+                                        <input type="text" id="modal_cita_id_nota" name="modal_cita_id_nota" value="{{$alerta->id_nota}}" style="display: none">
+                                        <input type="text" id="modal_cita_id_paquete" name="modal_cita_id_paquete" value="{{$alerta->id_paquete}}" style="display: none">
+                                        <input type="text" id="modal_cita_id_laser" name="modal_cita_id_laser" value="{{$alerta->id_laser}}" style="display: none">
 
                                         <div class="form-group col-6">
                                             <label for="">Cliente</label>
@@ -79,6 +78,11 @@
                                                     <option value="{{ $cosme->id }}">{{ $cosme->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="">Descripcion</label>
+                                            <textarea class="form-control" name="modal_cita_descripcion" id="modal_cita_descripcion" cols="30" rows="3">{{$alerta->descripcion}}</textarea>
                                         </div>
 
                                     </form>

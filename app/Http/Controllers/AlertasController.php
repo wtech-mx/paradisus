@@ -257,7 +257,7 @@ public function buscarAlertas(Request $request)
 
 public function store_prox_cita(Request $request)
     {
-  
+
        // Combina la fecha y la hora seleccionada
        $startDateTime = $request->start;
        $cosmes = $request->get('modal_cita_cosme');
@@ -269,6 +269,7 @@ public function store_prox_cita(Request $request)
 
        foreach ($users as $user) {
            $datosEvento = new Alertas;
+           $datosEvento->id_color = $request->modal_cita_num_sesion;
            $datosEvento->id_servicio = $request->modal_cita_id_servicio;
            $datosEvento->id_status = 1;
            $datosEvento->estatus = $datosEvento->Status->estatus;
