@@ -257,7 +257,6 @@ public function buscarAlertas(Request $request)
 
 public function store_prox_cita(Request $request)
     {
-
        // Combina la fecha y la hora seleccionada
        $startDateTime = $request->start;
        $cosmes = $request->get('modal_cita_cosme');
@@ -326,8 +325,13 @@ public function store_prox_cita(Request $request)
 
        if (!empty($insert_data)) {
            AlertasCosmes::insert($insert_data);
+
+           return response()->json(['success' => true]);
+
        }
-       return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+    //    return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+
+
     }
 
     public function show_calendar()

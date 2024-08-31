@@ -22,12 +22,12 @@
                 <td style="background-color: {{ $alerta->status->color }}">{{ $alerta->status->estatus }} <img src="{{ $alerta->status->icono }}" alt="" style="width: 20px"></td>
                 <td>{{ $alerta->service_name  }}</td>
                 <td>
-                    <!-- Botón para abrir el modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAprobar-{{ $alerta->id }}">
-                        Agendar prox cita
+
+                    <button type="button" class="btn btn-primary modal-trigger" data-target="#modal-{{ $alerta->id }}">
+                        Aprobar
                     </button>
 
-                @include('alerts.modal_cita')
+                    @include('alerts.modal_cita')
                 </td>
 
             </tr>
