@@ -750,6 +750,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Muestra un mensaje de éxito si es necesario
                     alert('Cita guardada exitosamente');
                     location.reload();
+
                 },
                 error: function(xhr, status, error) {
                     // Maneja el error si es necesario
@@ -802,6 +803,66 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
+
+        $('#btnBuscar').on('click', function() {
+            var titulo = $('#title_search').val();
+
+            $.ajax({
+                url: '{{ route("alertas.buscar") }}',
+                type: 'GET',
+                data: { titulo: titulo },
+                success: function(response) {
+                $('#resultadosContainer').html(response);
+
+                // Inicializa los modales después de cargar la vista diferida
+                $('#resultadosContainer').find('.modal-trigger').on('click', function() {
+                    var targetModal = $(this).data('target');
+                    $(targetModal).modal('show');
+                });
+
+                // const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+                // searchable: true,
+                // fixedHeight: false
+                // });
+            },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+    });
+
+    $('#btnLimpiar').on('click', function() {
+        $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
+    });
+
+    $(document).on('submit', '.approveForm', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var formData = form.serialize();
+
+        $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    // Mostrar alerta de guardado exitoso
+                    alert('Aprobado correctamente.');
+
+                    // Cerrar el modal después de guardar
+                    form.closest('.modal').modal('hide');
+                    calendar.refetchEvents();
+
+                    // Opcional: recargar la tabla o los datos si es necesario
+                    $('#btnBuscar').click(); // Esto recarga la tabla después de la aprobación
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+     });
+
+    });
 
 
       function limpiarFormulario(){
@@ -937,64 +998,6 @@ $(document).ready(function() {
 
         alert('Busqueda Actualizada');
     });
-
-    $('#btnBuscar').on('click', function() {
-            var titulo = $('#title_search').val();
-
-            $.ajax({
-                url: '{{ route("alertas.buscar") }}',
-                type: 'GET',
-                data: { titulo: titulo },
-                success: function(response) {
-                $('#resultadosContainer').html(response);
-
-                // Inicializa los modales después de cargar la vista diferida
-                $('#resultadosContainer').find('.modal-trigger').on('click', function() {
-                    var targetModal = $(this).data('target');
-                    $(targetModal).modal('show');
-                });
-
-                // const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-                // searchable: true,
-                // fixedHeight: false
-                // });
-            },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-
-        $('#btnLimpiar').on('click', function() {
-        $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
-    });
-
-    $(document).on('submit', '.approveForm', function(e) {
-        e.preventDefault();
-
-        var form = $(this);
-        var formData = form.serialize();
-
-        $.ajax({
-            url: form.attr('action'),
-            method: form.attr('method'),
-            data: formData,
-            success: function(response) {
-                console.log(response);
-                // Mostrar alerta de guardado exitoso
-                alert('Aprobado correctamente.');
-
-                // Cerrar el modal después de guardar
-                form.closest('.modal').modal('hide');
-                calendar.refetchEvents();
-                // Opcional: recargar la tabla o los datos si es necesario
-                $('#btnBuscar').click(); // Esto recarga la tabla después de la aprobación
-            },
-            error: function(xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-    });
 
     $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
         // const fechaSeleccionada = $(this).data('fecha');
