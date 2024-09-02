@@ -1,11 +1,31 @@
 <!-- Modal -->
-<div class="modal fade" id="modal-{{ $alerta->id }}" tabindex="-1" aria-labelledby="modalLabel-{{ $alerta->id }}" aria-hidden="true">
-    <div class="modal-dialog modal-md  modal-secondary" style="margin-right: 0; margin-left: auto;" role="document">
-        <div class="modal-content">
+<style>
+    .modal-backdrop{
+        opacity: 0.1!important;
+        position: absolute; /* Permite que la página se desplace bajo el modal */
+
+    }
+    .select2-results__option[aria-selected] {
+        color: #000!important;
+    }
+
+    .modal-open-scrollable {
+        overflow-y: auto !important;
+        padding-right: 0 !important; /* Para evitar el desplazamiento del body */
+    }
+
+</style>
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-{{ $alerta->id }}" tabindex="-1" aria-labelledby="modalLabel-{{ $alerta->id }}" aria-hidden="true">
+
+    <div class="modal-dialog modal-md modal-secondary" style="margin-right: 0; margin-left: auto;" role="document">
+        <div class="modal-content" style="background-color: #ffffffcf!important;">
+
             <div class="modal-header">
                 <h5 class="modal-title" id="modalLabel-{{ $alerta->id }}">Aprobar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
                 <form class="approveForm row" action="{{ route('servicio.store_prox_cita') }}" method="POST">
                     @csrf
@@ -88,6 +108,20 @@
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 </div>
+
+<script>
+
+document.addEventListener('show.bs.modal', function (event) {
+    document.body.classList.add('modal-open-scrollable');
+});
+
+document.addEventListener('hidden.bs.modal', function (event) {
+    document.body.classList.remove('modal-open-scrollable');
+});
+
+
+</script>
