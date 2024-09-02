@@ -286,6 +286,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/calendar/pago', [App\Http\Controllers\RecordatoriosController::class, 'ChangePendienteStatus'])->name('ChangePendienteStatus.recordatorios');
     Route::get('/calendar/whats', [App\Http\Controllers\RecordatoriosController::class, 'ChangePendienteStatusWhats'])->name('ChangePendienteStatusWhats.recordatorios');
 
+    Route::get('/falta/cosmes', [App\Http\Controllers\AlertasController::class, 'falta_cosmes'])->name('falta.cosmes');
     /*|--------------------------------------------------------------------------
     |Colores
     |--------------------------------------------------------------------------*/

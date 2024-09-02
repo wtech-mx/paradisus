@@ -89,23 +89,22 @@
                             @csrf
 
                             @foreach($user_pagos as $cosme)
-                            <div class="col-4">
-                                {{ $cosme->name }}
-                            </div>
-
-                            <div class="col-8">
-                                <div class="form-group">
-                                    <label class="form-control-label">Dias Laborales:</label>
-                                    @foreach(['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'] as $dia)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="usuarios[{{ $cosme->id }}][{{ $dia }}]" id="customRadio{{ $cosme->id }}{{ $dia }}" value="1" {{ $cosme->horario->{$dia} == 1 ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="customRadio{{ $cosme->id }}{{ $dia }}">{{ ucfirst($dia) }}</label>
-                                        </div>
-                                    @endforeach
+                                <div class="col-4">
+                                    {{ $cosme->name }}
                                 </div>
-                            </div>
 
-                        @endforeach
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Dias Laborales:</label>
+                                        @foreach(['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'] as $dia)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="usuarios[{{ $cosme->id }}][{{ $dia }}]" id="customRadio{{ $cosme->id }}{{ $dia }}" value="1" {{ $cosme->horario->{$dia} == 1 ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="customRadio{{ $cosme->id }}{{ $dia }}">{{ ucfirst($dia) }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
 
                         <div class="col-12 mt-3">
                             <button type="submit" id="guardarCita" class="btn btn-primary">Actualizar</button>
@@ -120,8 +119,8 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-2"><p class="text-left text-dark text-sm"><strong>#</strong> {{ $item->id }} </p></div>
-                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Come que falto</strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
-                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Come que sustituye</strong> <br> {{ $item->CosmeSustituye->name }}</p></div>
+                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Cosme que falto</strong> <br>{{ $item->CosmeFaltante->name }}</p></div>
+                                        <div class="col-5"><p class="text-left text-dark text-sm"><strong>Cosme que sustituye</strong> <br> {{ $item->CosmeSustituye->name }}</p></div>
                                         <div class="col-6"><p class="text-left text-dark text-sm"><strong>Fecha inicio</strong> <br>{{ \Carbon\Carbon::parse($item->fecha_inicio)->locale('es')->translatedFormat('l j F Y') }} </p></div>
                                         <div class="col-6"><p class="text-left text-dark text-sm"><strong>Fecha Fin</strong> <br> {{ \Carbon\Carbon::parse($item->fecha_fin)->locale('es')->translatedFormat('l j F Y') }}</p></div>
                                         <div class="col-12"><p class="text-left text-dark text-sm">{{ $item->comentario }}</p></div>

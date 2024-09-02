@@ -54,6 +54,10 @@
                         <a class="nav-link {{ (Request::is('pagos/terminos*') ? 'active' : '') }}" href="{{ route('terminos.index') }}" target="">
                             <span class="nav-link-text ms-1">Terminos Personalizados</span>
                         </a>
+
+                        <a class="nav-link {{ (Request::is('falta/cosmes*') ? 'active' : '') }}" href="{{ route('falta.cosmes') }}" target="">
+                            <span class="nav-link-text ms-1">Faltas de Cosmes</span>
+                        </a>
                     </li>
                 </ul>
             </div>

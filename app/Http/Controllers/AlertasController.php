@@ -47,6 +47,12 @@ class AlertasController extends Controller
         return view('recordatorios.view', compact('colores','estatus'));
     }
 
+    public function falta_cosmes(){
+        $bitacora_horario = BiracoraHorariosAlertas::where('fecha_inicio', '<', Carbon::now())->get();
+
+        return view('alerts.index_faltas', compact('bitacora_horario'));
+    }
+
     public function index_calendar()
     {
         // Obtener la fecha y hora actual
@@ -58,7 +64,7 @@ class AlertasController extends Controller
         $servicios = Servicios::where('estatus', '=', null)->orderBy('nombre')->get();
         $colores = Colores::get();
         $Configuracion = Configuracion::first();
-        $bitacora_horario = BiracoraHorariosAlertas::get();
+        $bitacora_horario = BiracoraHorariosAlertas::where('fecha_inicio', '>', Carbon::now())->get();
 
         $dia_bitacora = BiracoraHorariosAlertas::where('fecha_inicio','=',$fechaActual)->get();
         $fechaActualhorario = Carbon::now()->format('Y-m-d');
@@ -569,63 +575,6 @@ public function store_prox_cita(Request $request)
             $cliente = 3841;
         }
 
-        // G U A R D A R  N O T A  P R I N C I P A L
-        if($request->get('pagoInput') != NULL){
-            $nota = new Notas();
-            $nota->id_client = $cliente;
-            $nota->fecha = $fechaActual;
-            $nota->precio = $request->get('total-suma');
-            $nota->restante = $request->get('id_servicio');
-            $nota->save();
-
-            $cambio = $request->get('dineroRecibidoInput') - $request->get('pagoInput');
-
-            // G U A R D A R  C A M B I |
-            // if($request->get('cambio') > '0'){
-            if($cambio > 0 && $request->get('forma_pago') == 'Efectivo'){
-                $fechaActual = date('Y-m-d');
-                $caja = new CajaDia;
-                $caja->egresos = $request->get('cambioInput');
-                $caja->motivo = 'Retiro';
-                $caja->concepto = 'Cambio nota servicio: ' . $nota->id;
-                $caja->fecha = $fechaActual;
-                $caja->save();
-            }
-
-            // G U A R D A R  S E R V I C I O
-            $nota_paquete = new NotasPaquetes;
-            $nota_paquete->id_nota = $nota->id;
-            $nota_paquete->id_servicio = $request->get('id_servicio');
-            $nota_paquete->num = $request->get('num_servicio');
-            $nota_paquete->save();
-
-            // G U A R D A R  C O S M I S I O N
-            $nota_paquete = new NotasCosmes;
-            $nota_paquete->id_nota = $nota->id;
-            $nota_paquete->id_user = $request->get('id_user');
-            $nota_paquete->save();
-
-            // G U A R D A R  P A G O
-            $pago = new Pagos;
-            $pago->id_nota = $nota->id;
-            $pago->fecha = $fechaActual;
-            $pago->cosmetologa = $request->get('cajera');
-            $pago->pago = $request->get('pagoInput');
-            $pago->dinero_recibido = $request->get('dineroRecibidoInput');
-            $pago->forma_pago = $request->get('forma_pago');
-            $pago->nota = $request->get('nota2');
-            $pago->cambio = $request->get('cambioInput');
-
-            if ($request->hasFile("foto")) {
-                $file = $request->file('foto');
-                $path = public_path() . '/foto_servicios';
-                $fileName = uniqid() . $file->getClientOriginalName();
-                $file->move($path, $fileName);
-                $pago->foto = $fileName;
-            }
-            $pago->save();
-        }
-
         // Combina la fecha y la hora seleccionada
         $startDateTime = $request->start;
 
@@ -707,7 +656,6 @@ public function store_prox_cita(Request $request)
 
 
         if($request->id_status == 7){
-
             $startDateTimeString = $request->start;
             $startDateTime = Carbon::parse($startDateTimeString);
 
@@ -717,7 +665,6 @@ public function store_prox_cita(Request $request)
             $datosEvento->update();
 
             return redirect()->back()->with('success', 'Alerta actualizada con éxito');
-
         }
 
         $cliente = $request->cliente_id;
