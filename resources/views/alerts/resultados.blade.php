@@ -60,7 +60,7 @@
                 <td>
 
                     <button type="button" class="btn btn-xs btn-primary modal-trigger" data-target="#modal-{{ $alerta->id }}">
-                        Aprobar
+                        Agendar
                     </button>
 
                     @include('alerts.modal_cita')
