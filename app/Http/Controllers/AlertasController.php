@@ -654,7 +654,6 @@ public function store_prox_cita(Request $request)
     public function update_calendar(Request $request, $id)
     {
 
-
         if($request->id_status == 7){
             $startDateTimeString = $request->start;
             $startDateTime = Carbon::parse($startDateTimeString);
@@ -668,8 +667,36 @@ public function store_prox_cita(Request $request)
         }
 
         $cliente = $request->cliente_id;
-        $startDateTime = $request->start;
+        $startDateTime = Carbon::parse($request->start);;
         $datosEvento = Alertas::find($id);
+        $datosEventoStart = Carbon::parse($datosEvento->start);
+
+
+        if ($datosEventoStart->format('Y-m-d H:i:s') != $startDateTime->format('Y-m-d H:i:s')) {
+            $diaSemana = strtolower($startDateTime->format('l')); // Obtiene el día de la semana en inglés
+            $diasSemanaEspañol = [
+                'monday' => 'lunes',
+                'tuesday' => 'martes',
+                'wednesday' => 'miercoles',
+                'thursday' => 'jueves',
+                'friday' => 'viernes',
+                'saturday' => 'sabado',
+                'sunday' => 'domingo'
+            ];
+            $diaEnEspanol = $diasSemanaEspañol[$diaSemana]; // Traduce el día al español
+
+            // Obtener IDs de cosmetólogas seleccionadas
+            $cosmesSeleccionadas = $request->input('cosmesInput', []);
+
+            // Verificar disponibilidad de cada cosmetóloga
+            foreach ($cosmesSeleccionadas as $idCosme) {
+                $horario = Horario::where('id_user', $idCosme)->first();
+
+                if ($horario && $horario->$diaEnEspanol != 1) {
+                    return redirect()->back()->with('error', "La cosmetóloga con ID {$idCosme} no trabaja el día {$diaEnEspanol}.");
+                }
+            }
+        }
 
         // Obtener todas las alertas relacionadas
         $alertas = Alertas::where('id_client', $datosEvento->id_client)
