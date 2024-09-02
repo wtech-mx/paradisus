@@ -330,7 +330,7 @@
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="25px">
                                                             </span>
-                                                            <input type="text" class="form-control" id="precio_sugerido" name="precio_sugerido" readonly>
+                                                            <input type="text" class="form-control" id="precio_sugerido" name="precio_sugerido">
                                                         </div>
                                                     </div>
 
@@ -580,7 +580,14 @@
         var dineroRecibidoInput = $('#dinero_recibido');
         var cambioInput = $('#cambio');
 
-        var precioSugeridoInput = document.getElementById('precio_sugerido');
+        var precioSugeridoInput = $('#precio_sugerido');
+
+        // Evento para actualizar total_suma al cambiar el valor de precio_sugerido
+        precioSugeridoInput.on('input', function () {
+            var nuevoPrecio = parseFloat($(this).val()) || 0; // Obtiene el nuevo valor del input y convierte a número
+            totalSumaInput.val(nuevoPrecio.toFixed(2)); // Actualiza total_suma con el nuevo valor
+            updateRestante(); // Actualiza el campo restante
+        });
 
         // Agrega un evento al campo de pago para realizar la resta
             pagoInput.on('input', function () {
@@ -782,17 +789,13 @@
             }
 
         // ============================== Pagos ==============================
-            function updateRestante() {
-                var totalSuma = parseInt(totalSumaInput.val()) || 0;
-                var pago = parseInt(pagoInput.val()) || 0;
+        function updateRestante() {
+            var totalSuma = parseFloat(totalSumaInput.val()) || 0;
+            var pago = parseFloat(pagoInput.val()) || 0;
+            var restante = totalSuma - pago;
 
-                var restante = totalSuma - pago;
-
-                // Asegurarse de que el restante no sea negativo
-                restante = restante < 0 ? 0 : restante;
-
-                restanteInput.val(restante);
-            }
+            restanteInput.val(restante < 0 ? 0 : restante.toFixed(2)); // Asegurarse de que el restante no sea negativo
+        }
 
             function updateCambio() {
                 var pago = parseInt(pagoInput.val()) || 0;
