@@ -495,7 +495,7 @@ let horaEvent = document.createElement('div');
 // Si la diferencia es de 30 minutos, usa la estructura compacta
 if (timeDifference === 30) {
     horaEvent.innerHTML = `
-        <p style="font-size:9px; line-height:3px ; margin: 0; padding: 0;">
+        <p style="font-size:9px; line-height:6px ; margin: 0; padding: 0;">
             ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
             <img width="9px" style="margin-left: 10px" src="${imageArg}">
             <br>${nombreServicio} (${duracion} min)
