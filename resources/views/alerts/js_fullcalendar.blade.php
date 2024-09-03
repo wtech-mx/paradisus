@@ -479,23 +479,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let arrayOfDomNodes = [];
 
-            let titleEvent = document.createElement('div');
-            titleEvent.innerHTML = arg.event.title;
-            titleEvent.classList = "fc-event-title fc-sticky";
+// Calcula la diferencia en minutos entre formattedTimeInicio y formattedTime
+let startTime = new Date(arg.event.start);
+let endTime = new Date(arg.event.end);
+let timeDifference = (endTime - startTime) / 60000; // Diferencia en minutos
 
-            let horaEvent = document.createElement('div');
-            horaEvent.innerHTML = `
-                <div style="font-size:10px;">
-                    ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
-                    <img width="13px" style="margin-left: 10px" src="${imageArg}">
-                    <br>${nombreServicio} (${duracion} min)
-                    <br>${nombreServicio2 && duracion2 ? `${nombreServicio2} (${duracion2} min)` : ''}
-                </div>`;
-            horaEvent.classList = "fc-event-time";
+// Define los valores predeterminados para fontSize y lineHeight
+let fontSize = '9.5px';
+let lineHeight = '11.2px';
 
-            arrayOfDomNodes = [titleEvent, horaEvent];
+let titulo = arg.event.title;
 
-            return { domNodes: arrayOfDomNodes };
+let horaEvent = document.createElement('div');
+
+// Si la diferencia es de 30 minutos, usa la estructura compacta
+if (timeDifference === 30) {
+    horaEvent.innerHTML = `
+        <p style="font-size:9px; line-height:3px ; margin: 0; padding: 0;">
+            ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
+            <img width="9px" style="margin-left: 10px" src="${imageArg}">
+            <br>${nombreServicio} (${duracion} min)
+            ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+        </p>`;
+} else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
+    horaEvent.innerHTML = `
+        <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
+            ${titulo}
+            <br>
+            ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
+            <img width="9px" style="margin-left: 10px" src="${imageArg}">
+            <br>${nombreServicio} (${duracion} min)
+            ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+        </p>`;
+}
+
+horaEvent.classList = "fc-event-time";
+
+arrayOfDomNodes = [horaEvent];
+return { domNodes: arrayOfDomNodes };
+
+
         },
 
     });
