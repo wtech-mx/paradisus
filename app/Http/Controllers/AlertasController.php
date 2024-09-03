@@ -634,38 +634,6 @@ public function store_prox_cita(Request $request)
                 $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
                 $datosEvento->end = $endDateTime->format('Y-m-d H:i:s');
             }
-
-            if (strpos($servicio->nombre, 'Jacuzzi') !== false) {
-                $datosEvento_jacuzzi = new Alertas;
-                $datosEvento_jacuzzi->start = $datosEvento->end;
-                $start = Carbon::parse($datosEvento_jacuzzi->start);
-                $datosEvento_jacuzzi->end = $start->addMinutes(30);
-                $datosEvento_jacuzzi->id_servicio = $request->id_servicio;
-                if ($cliente == 3841) {
-                    $datosEvento_jacuzzi->id_status = 5;
-                } else {
-                    $datosEvento_jacuzzi->id_status = $request->id_status;
-                }
-                $datosEvento_jacuzzi->estatus = $datosEvento_jacuzzi->Status->estatus;
-                $datosEvento_jacuzzi->color = $datosEvento_jacuzzi->Status->color;
-                $datosEvento_jacuzzi->id_client = $cliente;
-                $full_name = $datosEvento_jacuzzi->Client->name . ' ' . $datosEvento_jacuzzi->Client->last_name;
-                $datosEvento_jacuzzi->title = $full_name;
-                $datosEvento_jacuzzi->telefono = $datosEvento_jacuzzi->Client->phone;
-                $datosEvento_jacuzzi->id_especialist = $request->id_especialist;
-                $datosEvento_jacuzzi->id_nota = $request->id_notaModal;
-                $datosEvento_jacuzzi->id_paquete = $request->id_paqueteModal;
-                $datosEvento_jacuzzi->id_laser = $request->id_laserModal;
-                $datosEvento_jacuzzi->descripcion = $request->descripcion;
-                $datosEvento_jacuzzi->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
-                $datosEvento_jacuzzi->resourceId = 'J';
-                $datosEvento_jacuzzi->save();
-
-                $cosme_jacuzzi = new AlertasCosmes;
-                $cosme_jacuzzi->id_alerta = $datosEvento_jacuzzi->id;
-                $cosme_jacuzzi->id_user = 38;
-                $cosme_jacuzzi->save();
-            }
             $datosEvento->save();
 
             foreach ($users as $cosme) {
@@ -675,6 +643,38 @@ public function store_prox_cita(Request $request)
                 ];
                 $insert_data[] = $data;
             }
+        }
+
+        if (strpos($servicio->nombre, 'Jacuzzi') !== false) {
+            $datosEvento_jacuzzi = new Alertas;
+            $datosEvento_jacuzzi->start = $datosEvento->end;
+            $start = Carbon::parse($datosEvento_jacuzzi->start);
+            $datosEvento_jacuzzi->end = $start->addMinutes(30);
+            $datosEvento_jacuzzi->id_servicio = $request->id_servicio;
+            if ($cliente == 3841) {
+                $datosEvento_jacuzzi->id_status = 5;
+            } else {
+                $datosEvento_jacuzzi->id_status = $request->id_status;
+            }
+            $datosEvento_jacuzzi->estatus = $datosEvento_jacuzzi->Status->estatus;
+            $datosEvento_jacuzzi->color = $datosEvento_jacuzzi->Status->color;
+            $datosEvento_jacuzzi->id_client = $cliente;
+            $full_name = $datosEvento_jacuzzi->Client->name . ' ' . $datosEvento_jacuzzi->Client->last_name;
+            $datosEvento_jacuzzi->title = $full_name;
+            $datosEvento_jacuzzi->telefono = $datosEvento_jacuzzi->Client->phone;
+            $datosEvento_jacuzzi->id_especialist = $request->id_especialist;
+            $datosEvento_jacuzzi->id_nota = $request->id_notaModal;
+            $datosEvento_jacuzzi->id_paquete = $request->id_paqueteModal;
+            $datosEvento_jacuzzi->id_laser = $request->id_laserModal;
+            $datosEvento_jacuzzi->descripcion = $request->descripcion;
+            $datosEvento_jacuzzi->image = asset('img/iconos_serv/1686195647.voto-positivo.png');
+            $datosEvento_jacuzzi->resourceId = 'J';
+            $datosEvento_jacuzzi->save();
+
+            $cosme_jacuzzi = new AlertasCosmes;
+            $cosme_jacuzzi->id_alerta = $datosEvento_jacuzzi->id;
+            $cosme_jacuzzi->id_user = 38;
+            $cosme_jacuzzi->save();
         }
 
         if (!empty($insert_data)) {
