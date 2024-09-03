@@ -108,6 +108,7 @@
 </script>
 
 <script>
+
 $(document).on('click', '.btn-submit-cita', function(e) {
     // $.ajaxSetup({
     //     headers: {
@@ -167,7 +168,6 @@ $(document).on('click', '.btn-submit-cita', function(e) {
     });
 
 });
-
 
 document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -479,27 +479,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let arrayOfDomNodes = [];
 
-            let titulo = arg.event.title;
-
-            // Condición para ajustar el estilo si 'nombreServicio2' y 'duracion2' son null
-            let lineHeight = nombreServicio2 && duracion2 ? '9px' : '12.1px';
-            let fontSize = nombreServicio2 && duracion2 ? '9px' : '9.1px';
+            let titleEvent = document.createElement('div');
+            titleEvent.innerHTML = arg.event.title;
+            titleEvent.classList = "fc-event-title fc-sticky";
 
             let horaEvent = document.createElement('div');
             horaEvent.innerHTML = `
-                <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
-                    ${titulo}
-                    <br>
+                <div style="font-size:10px;">
                     ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
-                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
+                    <img width="13px" style="margin-left: 10px" src="${imageArg}">
                     <br>${nombreServicio} (${duracion} min)
-                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-                </p>`;
+                    <br>${nombreServicio2 && duracion2 ? `${nombreServicio2} (${duracion2} min)` : ''}
+                </div>`;
             horaEvent.classList = "fc-event-time";
 
-            arrayOfDomNodes = [horaEvent];
-            return { domNodes: arrayOfDomNodes };
+            arrayOfDomNodes = [titleEvent, horaEvent];
 
+            return { domNodes: arrayOfDomNodes };
         },
 
     });

@@ -12,7 +12,7 @@
 
     <style>
         .fc-v-event .fc-event-title {
-            font-size: 8px;
+            font-size: 8.5px;
             color: #000000!important;
         }
         .fc .fc-scrollgrid, .fc .fc-scrollgrid table {
@@ -26,13 +26,10 @@
             background: #fff;
         }
         .fc-event-time {
-            font-size: 8px;
+            font-size: 7.6px;
             color: #000000!important;
         }
 
-        .fc .fc-event, .fc .fc-scrollgrid table tr {
-            height: 40px !important;
-        }
 
     </style>
 
@@ -48,10 +45,10 @@
 @endphp
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 mt-5">
 
             <div class="row ">
-                <div class="col-12 mt-2 mb-2">
+                <div class="col-12 mt-5 mb-5">
                     <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#estatusModal">
                         Estatus de Servicios <img src="{{ asset('assets/icons/carta_res.png') }}" alt="" width="20px">
                     </button>
