@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${titulo}
                     <br>
                     ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
-                    <img width="13px" style="margin-left: 10px" src="${imageArg}">
+                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
                     <br>${nombreServicio} (${duracion} min)
                     <br>${nombreServicio2 && duracion2 ? `${nombreServicio2} (${duracion2} min)` : ''}
                 </p>`;
