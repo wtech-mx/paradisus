@@ -51,7 +51,7 @@
         <div class="col-12">
 
             <div class="row ">
-                <div class="col-12 mt-5 mb-5">
+                <div class="col-12 mt-2 mb-2">
                     <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#estatusModal">
                         Estatus de Servicios <img src="{{ asset('assets/icons/carta_res.png') }}" alt="" width="20px">
                     </button>
