@@ -1290,4 +1290,32 @@ public function store_prox_cita(Request $request)
         return $horariosDisponibles;
     }
 
+    public function create_falta(Request $request){
+        $duracion = 600; // Duración en minutos
+
+        // Combina la fecha y la hora seleccionada
+        $startDateTimeString = $request->fecha_falta_disponibilidad . '  10:00:00';
+        $startDateTime = Carbon::parse($startDateTimeString);
+
+        // Calcula la hora de finalización
+        $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+        $user = User::where('id', $request->cosme_falta_disponibilidad)->first();
+
+        $datosEvento = new Alertas;
+        $datosEvento->start = $startDateTime;
+        $datosEvento->end = $endDateTime;
+        $datosEvento->id_status = 8;
+        $datosEvento->estatus = 'Falta disponibilidad';
+        $datosEvento->color = $datosEvento->Status->color;
+        $datosEvento->id_especialist = $request->cosme_falta_disponibilidad;
+        $full_name = $datosEvento->User->name . ' Falta disponibilidad';
+        $datosEvento->title = $full_name;
+        $datosEvento->descripcion = 'Falta disponibilidad';
+        $datosEvento->image = $datosEvento->Status->icono;
+        $datosEvento->resourceId = $user->resourceId;
+        $datosEvento->save();
+
+        return redirect()->back()->with('success', 'Falta de disponibilidad');
+    }
+
 }
