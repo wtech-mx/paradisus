@@ -672,7 +672,7 @@ public function store_prox_cita(Request $request)
         $datosEventoStart = Carbon::parse($datosEvento->start);
 
 
-        if ($datosEventoStart->format('Y-m-d H:i:s') != $startDateTime->format('Y-m-d H:i:s')) {
+        if ($datosEventoStart->format('Y-m-d') != $startDateTime->format('Y-m-d')) {
             $diaSemana = strtolower($startDateTime->format('l')); // Obtiene el día de la semana en inglés
             $diasSemanaEspañol = [
                 'monday' => 'lunes',
@@ -693,7 +693,12 @@ public function store_prox_cita(Request $request)
                 $horario = Horario::where('id_user', $idCosme)->first();
 
                 if ($horario && $horario->$diaEnEspanol != 1) {
-                    return redirect()->back()->with('error', "La cosmetóloga con ID {$idCosme} no trabaja el día {$diaEnEspanol}.");
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => "La cosmetóloga con ID {$idCosme} no trabaja el día {$diaEnEspanol}."
+                    ]);
+
                 }
             }
         }
@@ -875,7 +880,12 @@ public function store_prox_cita(Request $request)
             AlertasCosmes::where('id_alerta', $alerta->id)->delete();
             Alertas::where('id', '=', $alerta->id)->delete();
         }
-        return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+        // return redirect()->back()->with('success', 'Alerta actualizada con éxito');
+
+        return response()->json([
+            'success' => true,
+            'message' => "La Cita se actualizo Correctamente. (Se vera actualizado en algunos segundos)"
+        ]);
     }
 
     public function destroy_calendar($id)

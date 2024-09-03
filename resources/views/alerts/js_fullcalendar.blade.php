@@ -3,6 +3,8 @@
 
 
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -539,7 +541,6 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
 
 
-
     // Función para mostrar el spinner
     function showSpinner(button) {
         button.prop('disabled', true);
@@ -594,14 +595,17 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       $('#btnModificar').click(function() {
-        var button = $(this);
-        showSpinner(button);
+    var button = $(this);
+    showSpinner(button);
 
-        ObjEvento = editarDatosGUI('PATCH');
-        EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function() {
+    var ObjEvento = editarDatosGUI('PATCH');
+        EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function(response) {
             hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
+            console.log(response);
+            // Aquí puedes manejar cualquier acción adicional en función de la respuesta
         });
     });
+
 
       function recolectarDatosGUIWhatsapp(method){
           nuevoEventowhatasapp={
@@ -724,17 +728,51 @@ document.addEventListener('DOMContentLoaded', function() {
             type: "POST",
             url: "{{route('calendar.store_calendar')}}" + accion,
             data: ObjEvento,
-            success: function(msg) {
+            success: function(response) {
                 $('#exampleModal').modal('toggle');
                 calendar.refetchEvents();
-                if (callback) callback();  // Llama a la callback si existe
+
+                // Asegúrate de que la respuesta es un objeto JSON
+                if (typeof response === 'object' && response !== null) {
+                    if (response.success) {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Éxito!',
+                            text: response.message || 'Operación realizada con éxito.',
+                        });
+
+                    } else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message || 'Ocurrió un error.',
+                        });
+
+                    }
+                }
+
+                if (callback) callback(response);  // Llama a la callback si existe
             },
-            error: function() {
-                alert("hay un error");
-                if (callback) callback();  // Llama a la callback incluso en caso de error
+
+            error: function(xhr) {
+                alert("Hay un error en la solicitud.");
+
+                // Si prefieres usar SweetAlert:
+                /*
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error en la solicitud.',
+                });
+                */
+
+                if (callback) callback(xhr);  // Llama a la callback incluso en caso de error
             }
         });
       }
+
 
         $('#guardarCita').on('click', function(e,callback) {
                 e.preventDefault();
