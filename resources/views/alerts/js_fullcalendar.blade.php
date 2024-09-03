@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let horaEvent = document.createElement('div');
             horaEvent.innerHTML = `
-                <p style="font-size:7.8px;line-height: 8.3px;margin: 0;padding: 0;">
+                <p style="font-size:9.5px;line-height: 9.1px;margin: 0;padding: 0;">
                     ${titulo}
                     <br>
                     ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
