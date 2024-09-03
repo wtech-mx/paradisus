@@ -479,21 +479,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let arrayOfDomNodes = [];
 
-            let titleEvent = document.createElement('div');
-            titleEvent.innerHTML = arg.event.title;
-            titleEvent.classList = "fc-event-title fc-sticky";
+            let titulo = arg.event.title;
 
             let horaEvent = document.createElement('div');
             horaEvent.innerHTML = `
-                <div style="font-size:10px;">
+                <p style="font-size:7.8px;line-height: 8.3px;margin: 0;padding: 0;">
+                    ${titulo}
+                    <br>
                     ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
                     <img width="13px" style="margin-left: 10px" src="${imageArg}">
                     <br>${nombreServicio} (${duracion} min)
                     <br>${nombreServicio2 && duracion2 ? `${nombreServicio2} (${duracion2} min)` : ''}
-                </div>`;
+                </p>`;
             horaEvent.classList = "fc-event-time";
 
-            arrayOfDomNodes = [titleEvent, horaEvent];
+            arrayOfDomNodes = [horaEvent];
 
             return { domNodes: arrayOfDomNodes };
         },

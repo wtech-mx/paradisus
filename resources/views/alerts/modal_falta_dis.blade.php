@@ -26,7 +26,7 @@
                         </div>
 
 
-                        <div class="col-12" style="display: grid;">
+                        <div class="col-6" style="display: grid;">
                             <label for="">Cosmetóloga:</label>
                             <select class="form-control cosmesInput_falta_disponibilidad"  id="cosme_falta_disponibilidad" name="cosme_falta_disponibilidad" >
                                 @foreach($user_pagos as $cosme)

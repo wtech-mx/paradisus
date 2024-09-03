@@ -12,7 +12,7 @@
 
     <style>
         .fc-v-event .fc-event-title {
-            font-size: 8.5px;
+            font-size: 8px;
             color: #000000!important;
         }
         .fc .fc-scrollgrid, .fc .fc-scrollgrid table {
@@ -26,8 +26,12 @@
             background: #fff;
         }
         .fc-event-time {
-            font-size: 7.6px;
+            font-size: 8px;
             color: #000000!important;
+        }
+
+        .fc .fc-event, .fc .fc-scrollgrid table tr {
+            height: 40px !important;
         }
 
     </style>
