@@ -481,21 +481,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let titulo = arg.event.title;
 
+            // Condición para ajustar el estilo si 'nombreServicio2' y 'duracion2' son null
+            let lineHeight = nombreServicio2 && duracion2 ? '9px' : '12.1px';
+            let fontSize = nombreServicio2 && duracion2 ? '9px' : '9.1px';
+
             let horaEvent = document.createElement('div');
             horaEvent.innerHTML = `
-                <p style="font-size:9.5px;line-height: 9.1px;margin: 0;padding: 0;">
+                <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
                     ${titulo}
                     <br>
                     ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
                     <img width="9px" style="margin-left: 10px" src="${imageArg}">
                     <br>${nombreServicio} (${duracion} min)
-                    <br>${nombreServicio2 && duracion2 ? `${nombreServicio2} (${duracion2} min)` : ''}
+                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
                 </p>`;
             horaEvent.classList = "fc-event-time";
 
             arrayOfDomNodes = [horaEvent];
-
             return { domNodes: arrayOfDomNodes };
+
         },
 
     });
