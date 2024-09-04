@@ -13,11 +13,6 @@
         $('.multi_cosme_disponibilidad').select2();
         $('.disponibilidad_2').select2();
 
-        // $('.user_manual').select2();
-        // $('.cliente_manual').select2();
-        // $('.multi_cosme_manual').select2();
-        // $('.servicios_manual').select2();
-
         // Inicializar select2 fuera del modal (por si acaso)
         $('.mibuscador_paciente').select2({
             width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
@@ -36,15 +31,16 @@
                 dropdownParent: $('#comidaModal')
             });
 
-            // $('.id_servicio_full').select2({
-            //     width: '100%',
-            //     dropdownParent: $('#exampleModal')
-            // });
+            $('.id_servicio_full').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
 
-            // $('.id_servicio_full2').select2({
-            //     width: '100%',
-            //     dropdownParent: $('#exampleModal')
-            // });
+            $('.id_servicio_full2').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
             // $('.cosmesInput_multiple').select2({
             //     width: '100%',
             //     dropdownParent: $('#exampleModal')
@@ -54,8 +50,8 @@
             //     dropdownParent: $('#exampleModal')
             // });
 
-            $('.id_servicio_full').select2();
-            $('.id_servicio_full2').select2();
+            // $('.id_servicio_full').select2();
+            // $('.id_servicio_full2').select2();
             $('.cosmesInput_multiple').select2();
             $('.cosmesInput_multiple_nueva').select2();
 

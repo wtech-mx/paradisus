@@ -3,6 +3,8 @@
     .modal-backdrop{
         opacity: 0.1!important;
     }
+
+
 </style>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
@@ -162,6 +164,29 @@
                         </select>
                     </div>
 
+                    <div class="form-group col-6 mt-3">
+                        <label for="">Selecciona el servicio</label>
+                        <div class="input-group mb-3">
+                            <select class="form-control id_servicio_full" id="id_servicio" name="id_servicio" >
+                                <option value="">Selecionar servicio</option>
+                                @foreach($servicios as $item)
+                                    <option value="{{$item->id}}" data-precio="{{ $item->precio }}">{{$item->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mt-3">
+                        <label for="">Selecciona el servicio 2</label>
+                        <div class="input-group mb-3">
+                            <select class="form-control id_servicio_full2"  id="id_servicio2" name="id_servicio2">
+                                @foreach($servicios as $item)
+                                    <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <input type="hidden" id="resourceId" name="resourceId">
 
                     <div class="col-4 mt-3">
@@ -197,29 +222,6 @@
                     <div class="col-12">
                         <label for="">Descripcion</label>
                         <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="3"></textarea>
-                    </div>
-
-                    <div class="form-group col-6 mt-3">
-                        <label for="">Selecciona el servicio</label>
-                        <div class="input-group mb-3">
-                            <select class="form-control id_servicio_full" id="id_servicio" name="id_servicio" >
-                                <option value="">Selecionar servicio</option>
-                                @foreach($servicios as $item)
-                                    <option value="{{$item->id}}" data-precio="{{ $item->precio }}">{{$item->nombre}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-6 mt-3">
-                        <label for="">Selecciona el servicio 2</label>
-                        <div class="input-group mb-3">
-                            <select class="form-control id_servicio_full2"  id="id_servicio2" name="id_servicio2">
-                                @foreach($servicios as $item)
-                                    <option value="{{$item->id}}">{{$item->nombre}}</option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
 
                     <div class="form-group col-6 mt-3">
