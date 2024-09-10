@@ -250,11 +250,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 success: function(data) {
                     successCallback(data); // Pasar los eventos al calendario
-                    spinner.style.display = 'none'; // Ocultar el spinner
                 },
                 error: function() {
                     failureCallback();
-                    spinner.style.display = 'none'; // Ocultar el spinner en caso de error
                 }
             });
         },
@@ -271,6 +269,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 calendar.setOption('resources', filteredResources);
             } else {
                 calendar.setOption('resources', originalResources);
+            }
+        },
+
+        // Mostrar el spinner cuando se cargan nuevos eventos
+        loading: function(isLoading) {
+            if (isLoading) {
+                spinner.style.display = 'block'; // Mostrar el spinner
+            } else {
+                spinner.style.display = 'none'; // Ocultar el spinner
             }
         },
 

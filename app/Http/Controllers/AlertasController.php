@@ -375,7 +375,6 @@ public function store_prox_cita(Request $request)
         return response()->json($alertas);
     }
 
-
     public function show_calendar_anterior()
     {
         $currentDate = Carbon::now();
