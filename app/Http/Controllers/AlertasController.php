@@ -430,36 +430,57 @@ public function store_prox_cita(Request $request)
         $fechaFinComida = $request->get('fecha_fin_comida');
         $horaFinComida = $request->get('hora_fin_comida');
 
+        // Mapeo de días en inglés a español sin acentos
+        $diasSemana = [
+            'monday'    => 'lunes',
+            'tuesday'   => 'martes',
+            'wednesday' => 'miercoles',
+            'thursday'  => 'jueves',
+            'friday'    => 'viernes',
+            'saturday'  => 'sabado',
+            'sunday'    => 'domingo',
+        ];
+
         // Convierte las fechas en objetos Carbon
         $startCarbon = Carbon::createFromFormat('Y-m-d', $fechaInicioComida);
         $endCarbon = Carbon::createFromFormat('Y-m-d', $fechaFinComida);
 
         // Itera sobre cada día entre las fechas de inicio y fin
         for ($date = $startCarbon; $date->lte($endCarbon); $date->addDay()) {
-            // Combina la fecha actual del bucle con las horas especificadas
-            $startOfDay = $date->copy()->format('Y-m-d') . ' ' . $horaInicioComida;
-            $endOfDay = $date->copy()->format('Y-m-d') . ' ' . $horaFinComida;
-
-            // Convierte las cadenas en objetos Carbon
-            $startFormatted = Carbon::createFromFormat('Y-m-d H:i', $startOfDay)->format('Y-m-d H:i:s');
-            $endFormatted = Carbon::createFromFormat('Y-m-d H:i', $endOfDay)->format('Y-m-d H:i:s');
+            // Obtener el nombre del día en inglés y luego traducirlo al español
+            $nombreDiaIngles = strtolower($date->format('l')); // Ejemplo: 'monday', 'tuesday'
+            $nombreDia = $diasSemana[$nombreDiaIngles]; // Convertir a español sin acentos
 
             foreach ($users as $user) {
-                $datosEvento = new Alertas;
-                $datosEvento->start = $startFormatted;
-                $datosEvento->end = $endFormatted;
-                $datosEvento->id_status = 7;
-                $datosEvento->color = $datosEvento->Status->color;
-                $datosEvento->title = $user->name . ' Comida';
-                $datosEvento->image = asset('assets/icons/muchacha.png');
-                $datosEvento->resourceId = $user->resourceId;
-                $datosEvento->save();
+                // Verificar si el usuario trabaja ese día
+                $horario = $user->horario; // Acceder al horario del usuario
+                if ($horario && $horario->{$nombreDia} == 1) {
+
+                    // Combina la fecha actual del bucle con las horas especificadas
+                    $startOfDay = $date->copy()->format('Y-m-d') . ' ' . $horaInicioComida;
+                    $endOfDay = $date->copy()->format('Y-m-d') . ' ' . $horaFinComida;
+
+                    // Convierte las cadenas en objetos Carbon
+                    $startFormatted = Carbon::createFromFormat('Y-m-d H:i', $startOfDay)->format('Y-m-d H:i:s');
+                    $endFormatted = Carbon::createFromFormat('Y-m-d H:i', $endOfDay)->format('Y-m-d H:i:s');
+                    // Crear el evento si trabaja ese día
+                    $datosEvento = new Alertas;
+                    $datosEvento->start = $startFormatted;
+                    $datosEvento->end = $endFormatted;
+                    $datosEvento->id_status = 7;
+                    $datosEvento->color = $datosEvento->Status->color;
+                    $datosEvento->title = $user->name . ' Comida';
+                    $datosEvento->image = asset('assets/icons/muchacha.png');
+                    $datosEvento->resourceId = $user->resourceId;
+                    $datosEvento->save();
+                }
             }
         }
 
         return redirect()->back()->with('success', 'Alerta actualizada con éxito');
-
     }
+
+
 
     public function updateMultipleUsers(Request $request)
     {
