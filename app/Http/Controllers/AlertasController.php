@@ -349,7 +349,8 @@ public function store_prox_cita(Request $request)
         // Filtrar las alertas solo dentro del rango de fechas proporcionado
         $alertas = Alertas::with('Servicios_id')
             ->whereBetween('start', [$start, $end])
-            ->get();
+            ->get()
+            ->makeHidden(['comprobante_gratis','tarjeta_regalo','recordatorio','confirmo_whats','created_at','updated_at','id_color']);
 
         $alertas->each(function ($alerta) {
             $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
@@ -362,7 +363,9 @@ public function store_prox_cita(Request $request)
             $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus')
                 ->where('id_client', $alerta->id_client)
                 ->where('start', '<', $alerta->start)
-                ->get();
+                ->get()
+                ->makeHidden(['nombre_servicio']);
+
 
             $serviciosAnteriores->each(function ($servicioAnterior) {
                 $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
