@@ -340,47 +340,41 @@ public function store_prox_cita(Request $request)
 
     }
 
-    public function show_calendar()
+    public function show_calendar(Request $request)
     {
-        // Obtener la fecha actual
-        $currentDate = Carbon::now();
+        // Obtener la fecha de inicio y fin del rango visible en el calendario
+        $start = $request->query('start'); // Fecha de inicio
+        $end = $request->query('end'); // Fecha de fin
 
-        // Obtener la fecha de inicio del mes anterior
-        $startOfPreviousMonth = $currentDate->copy()->subMonth()->startOfMonth();
-
-        // Filtrar alertas que tienen una fecha de inicio desde el inicio del mes anterior en adelante
+        // Filtrar las alertas solo dentro del rango de fechas proporcionado
         $alertas = Alertas::with('Servicios_id')
-            ->where('start', '>=', $startOfPreviousMonth)
+            ->whereBetween('start', [$start, $end])
             ->get();
 
-            $alertas->each(function ($alerta) {
-                // Obtener las cosmetólogas asociadas
-                $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
-                $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null;
-                $alerta->nombre_servicio2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->nombre : '.';
-                $alerta->duracion = $alerta->Servicios_id ? $alerta->Servicios_id->duracion : null; // Añadir la duración del servicio
-                $alerta->duracion2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->duracion : null; // Añadir la duración del servicio
+        $alertas->each(function ($alerta) {
+            $alerta->cosmes = AlertasCosmes::where('id_alerta', $alerta->id)->pluck('id_user')->toArray();
+            $alerta->nombre_servicio = $alerta->Servicios_id ? $alerta->Servicios_id->nombre : null;
+            $alerta->nombre_servicio2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->nombre : '.';
+            $alerta->duracion = $alerta->Servicios_id ? $alerta->Servicios_id->duracion : null;
+            $alerta->duracion2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->duracion : null;
 
-                // Obtener los servicios anteriores del mismo cliente con los campos necesarios
-                $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist','start','end','estatus')
+            // Obtener los servicios anteriores del mismo cliente
+            $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus')
+                ->where('id_client', $alerta->id_client)
+                ->where('start', '<', $alerta->start)
+                ->get();
 
-                    ->where('id_client', $alerta->id_client)
-                    ->where('start', '<', $alerta->start)
-                    ->get();
-
-                // Añadir detalles adicionales a cada servicio anterior
-                $serviciosAnteriores->each(function ($servicioAnterior) {
-                    $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
-                    // Traer el nombre del servicio si es necesario
-                    $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
-                });
-
-                // Anidar los servicios anteriores en el objeto alerta
-                $alerta->servicios_anteriores = $serviciosAnteriores;
+            $serviciosAnteriores->each(function ($servicioAnterior) {
+                $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
+                $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
             });
 
-            return response()->json($alertas);
+            $alerta->servicios_anteriores = $serviciosAnteriores;
+        });
+
+        return response()->json($alertas);
     }
+
 
     public function show_calendar_anterior()
     {

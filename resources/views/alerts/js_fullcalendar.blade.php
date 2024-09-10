@@ -238,16 +238,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         },
-        resources: {!! json_encode($modulos) !!},
-        resources: originalResources,
 
-        events: eventsUrl,
-
-                // Ocultar el spinner una vez que los eventos estén completamente cargados
-        eventDidMount: function(info) {
-            spinner.style.display = 'none';
+        // Enviar el rango de fechas visible al servidor
+        events: function(info, successCallback, failureCallback) {
+            $.ajax({
+                url: eventsUrl, // Tu ruta para obtener eventos
+                dataType: 'json',
+                data: {
+                    start: info.startStr,
+                    end: info.endStr
+                },
+                success: function(data) {
+                    successCallback(data); // Pasar los eventos al calendario
+                    spinner.style.display = 'none'; // Ocultar el spinner
+                },
+                error: function() {
+                    failureCallback();
+                    spinner.style.display = 'none'; // Ocultar el spinner en caso de error
+                }
+            });
         },
 
+        resources: originalResources,
         datesSet: function(info) {
             var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
             var currentDay = dayNames[new Date(info.start).getDay()]; // Obtener el día de la semana actual
@@ -475,44 +487,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let arrayOfDomNodes = [];
 
-// Calcula la diferencia en minutos entre formattedTimeInicio y formattedTime
-let startTime = new Date(arg.event.start);
-let endTime = new Date(arg.event.end);
-let timeDifference = (endTime - startTime) / 60000; // Diferencia en minutos
+        // Calcula la diferencia en minutos entre formattedTimeInicio y formattedTime
+        let startTime = new Date(arg.event.start);
+        let endTime = new Date(arg.event.end);
+        let timeDifference = (endTime - startTime) / 60000; // Diferencia en minutos
 
-// Define los valores predeterminados para fontSize y lineHeight
-let fontSize = '9.5px';
-let lineHeight = '11.2px';
+        // Define los valores predeterminados para fontSize y lineHeight
+        let fontSize = '9.5px';
+        let lineHeight = '11.2px';
 
-let titulo = arg.event.title;
+        let titulo = arg.event.title;
 
-let horaEvent = document.createElement('div');
+        let horaEvent = document.createElement('div');
 
-// Si la diferencia es de 30 minutos, usa la estructura compacta
-if (timeDifference === 30) {
-    horaEvent.innerHTML = `
-        <p style="font-size:9px; line-height:6px ; margin: 0; padding: 0;">
-            ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
-            <img width="9px" style="margin-left: 10px" src="${imageArg}">
-            <br>${nombreServicio} (${duracion} min)
-            ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-        </p>`;
-} else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
-    horaEvent.innerHTML = `
-        <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
-            ${titulo}
-            <br>
-            ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
-            <img width="9px" style="margin-left: 10px" src="${imageArg}">
-            <br>${nombreServicio} (${duracion} min)
-            ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-        </p>`;
-}
+        // Si la diferencia es de 30 minutos, usa la estructura compacta
+        if (timeDifference === 30) {
+            horaEvent.innerHTML = `
+                <p style="font-size:9px; line-height:6px ; margin: 0; padding: 0;">
+                    ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
+                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
+                    <br>${nombreServicio} (${duracion} min)
+                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+                </p>`;
+        } else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
+            horaEvent.innerHTML = `
+                <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
+                    ${titulo}
+                    <br>
+                    ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
+                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
+                    <br>${nombreServicio} (${duracion} min)
+                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+                </p>`;
+        }
 
-horaEvent.classList = "fc-event-time";
+            horaEvent.classList = "fc-event-time";
 
-arrayOfDomNodes = [horaEvent];
-return { domNodes: arrayOfDomNodes };
+            arrayOfDomNodes = [horaEvent];
+            return { domNodes: arrayOfDomNodes };
 
 
         },
