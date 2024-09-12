@@ -172,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var currentUrl = window.location.href; // Obtener la URL actual
         var eventsUrl;
-        var allowRefetch = true; // Permitir recargar eventos por defecto
 
         // Determinar la URL de eventos según la URL actual
         if (currentUrl.includes("/dashboard/anterior")) {
@@ -199,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
             slotMinTime: "{{ date('H:i:s', strtotime($configuracion->horario_inicio)) }}",
             slotMaxTime: "{{ date('H:i:s', strtotime($configuracion->horario_fin)) }}",
             schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-            lazyFetching: true,
+            lazyFetching: false,
             headerToolbar: {
                 left: 'today prev,next',
                 center: 'title',
@@ -240,26 +239,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-        events: function(info, successCallback, failureCallback) {
-            if (allowRefetch) {
-                $.ajax({
-                    url: eventsUrl,
-                    dataType: 'json',
-                    data: {
-                        start: info.startStr,
-                        end: info.endStr
-                    },
-                    success: function(data) {
-                        successCallback(data);
-                    },
-                    error: function() {
-                        failureCallback();
-                    }
-                });
-            }
-        },
-
+        resources: {!! json_encode($modulos) !!},
         resources: originalResources,
+
+        events: eventsUrl,
         datesSet: function(info) {
             var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
             var currentDay = dayNames[new Date(info.start).getDay()]; // Obtener el día de la semana actual
@@ -614,91 +597,35 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       $('#btnAgregar').click(function() {
-    var button = $(this);
-    showSpinner(button);
+        var button = $(this);
+        showSpinner(button);
 
-    var ObjEvento = recolectarDatosGUI('POST');
+        ObjEvento = recolectarDatosGUI('POST');
+        EnviarInformacion('', ObjEvento, function() {
+            hideSpinner(button, '<i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar');
+        });
+      });
 
-    EnviarInformacion('', ObjEvento, function(response) {
-        hideSpinner(button, '<i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar');
-
-        // Verifica que la respuesta ha llegado y se ejecuta el callback
-        console.log('Callback ejecutado con la respuesta:', response);
-
-        if (response.success) {
-            var newEvent = {
-                id: response.id, // Asegúrate de que este ID sea el correcto
-                title: ObjEvento.title,
-                start: ObjEvento.start,
-                end: ObjEvento.end,
-                // Otras propiedades necesarias
-            };
-
-            // Verifica que el evento nuevo se está creando correctamente
-            console.log('Nuevo evento:', newEvent);
-
-            // Agrega el evento al calendario
-            calendar.addEvent(newEvent);
-
-            // Mostrar la SweetAlert (esto debería ejecutarse si el callback funciona)
-            Swal.fire({
-                icon: 'success',
-                title: '¡Evento agregado!',
-                text: 'El evento ha sido agregado exitosamente al calendario.'
-            });
-        } else {
-            console.error('Error al agregar el evento:', response.message);
-        }
-    });
-});
-
-
-
-    $('#btnBorrar').click(function() {
+      $('#btnBorrar').click(function(){
         var button = $(this);
         showSpinner(button);
 
         ObjEvento = editarDatosGUI('PATCH');
-
-        EnviarInformacion('/destroy/' + $('#txtID').val(), ObjEvento, function(response) {
+        EnviarInformacion('/destroy/'+$('#txtID').val(), ObjEvento, function() {
             hideSpinner(button, '<i class="fa fa-trash" aria-hidden="true"></i> Eliminar');
-            allowRefetch = false; // Desactiva el rec   argo automático
-            console.log(allowRefetch);
-            calendar.getEventById($('#txtID').val()).remove(); // Elimina el evento manualmente del calendario
-
-            setTimeout(function() {
-                allowRefetch = true; // Reactiva el recargo automático
-            }, 1000); // Ajusta el tiempo según sea necesario
         });
-    });
 
-    $('#btnModificar').click(function() {
-        var button = $(this);
-        showSpinner(button);
+      });
 
-        var ObjEvento = editarDatosGUI('PATCH');
+      $('#btnModificar').click(function() {
+    var button = $(this);
+    showSpinner(button);
+
+    var ObjEvento = editarDatosGUI('PATCH');
         EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function(response) {
             hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
-
-            // Desactiva el recargo automático
-            allowRefetch = false;
-
-            // Obtén el evento actual usando el ID
-            var event = calendar.getEventById($('#txtID').val());
-
-            if (event) {
-                // Actualiza el evento con los nuevos datos
-                event.setProp('title', ObjEvento.title);
-                event.setStart(ObjEvento.start);
-                event.setEnd(ObjEvento.end);
-                event.setExtendedProp('otherProperty', ObjEvento.otherProperty);
-                // Asegúrate de actualizar otras propiedades necesarias
-            }
-
-            // Reactiva el recargo automático después de un tiempo
-            setTimeout(function() {
-                allowRefetch = true;
-            }, 1000); // Ajusta el tiempo según sea necesario
+            console.log(response);
+            // Aquí puedes manejar cualquier acción adicional en función de la respuesta
         });
     });
 
@@ -819,51 +746,56 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(ruta, '_blank');
       }
 
-    function EnviarInformacion(accion, ObjEvento, callback) {
+      function EnviarInformacion(accion, ObjEvento, callback) {
         $.ajax({
             type: "POST",
             url: "{{route('calendar.store_calendar')}}" + accion,
             data: ObjEvento,
-                success: function(response) {
-                    $('#exampleModal').modal('toggle');
+            success: function(response) {
+                $('#exampleModal').modal('toggle');
+                calendar.refetchEvents();
 
-                    // Intentar parsear la respuesta como JSON
-                    try {
-                        var jsonResponse = (typeof response === 'string') ? JSON.parse(response) : response;
+                // Asegúrate de que la respuesta es un objeto JSON
+                if (typeof response === 'object' && response !== null) {
+                    if (response.success) {
 
-                        console.log("Respuesta JSON procesada:", jsonResponse);
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Éxito!',
+                            text: response.message || 'Operación realizada con éxito.',
+                        });
 
-                        if (jsonResponse.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Éxito!',
-                                text: jsonResponse.message || 'Operación realizada con éxito.',
-                            });
+                    } else {
 
-                        if (callback) callback(jsonResponse);  // Llama a la callback si existe
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: jsonResponse.message || 'Ocurrió un error.',
-                            });
-                        }
-                    } catch (e) {
-                        console.error('Error procesando la respuesta JSON:', e);
-                        alert('La respuesta del servidor no es válida.');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message || 'Ocurrió un error.',
+                        });
+
                     }
-                },
-                error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Ocurrió un error en la solicitud.',
-                            });
-
-                            if (callback) callback(xhr);
                 }
-            });
-    }
+
+                if (callback) callback(response);  // Llama a la callback si existe
+            },
+
+            error: function(xhr) {
+                alert("Hay un error en la solicitud.");
+
+                // Si prefieres usar SweetAlert:
+                /*
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error en la solicitud.',
+                });
+                */
+
+                if (callback) callback(xhr);  // Llama a la callback incluso en caso de error
+            }
+        });
+      }
+
 
         $('#guardarCita').on('click', function(e,callback) {
                 e.preventDefault();
