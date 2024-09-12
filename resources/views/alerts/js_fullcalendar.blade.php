@@ -105,66 +105,6 @@
 
 <script>
 
-$(document).on('click', '.btn-submit-cita', function(e) {
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-    e.preventDefault();
-
-    var alertaId = $(this).data('alerta-id');
-    console.log('alertaId', alertaId);
-    var form = $('#submit_prox_cita_' + alertaId);
-    var formData = form.serialize();
-    console.log('formData', formData); // Debugging
-    console.log(form.length);
-
-    // Asegúrate de que formData no esté vacío
-    if (formData === '') {
-        console.error('formData is empty');
-        return;
-    }
-
-    var $button = $(this);
-    var $spinner = $button.find('#spinner');
-
-    // Mostrar el spinner y deshabilitar el botón
-    $spinner.show();
-    $button.prop('disabled', true);
-
-    $.ajax({
-        type: 'POST',
-        url: "{{ route('servicio.store_prox_cita') }}",
-        data: formData,
-        success: function(response) {
-            // Actualiza los eventos en el calendario
-            calendar.refetchEvents();
-
-            // Reinicia el formulario
-            form[0].reset();
-            form.find('.modal_cita_serv').val([]).trigger('change'); // Limpiar el select de servicio si usas Select2
-            form.find('.modal_cita_cosme').val([]).trigger('change'); // Limpiar el select múltiple si usas Select2
-
-            // Cierra el modal
-            $('#modalCita' + alertaId).modal('hide');
-
-            // Muestra un mensaje de éxito
-            alert('Cita agendada exitosamente');
-        },
-        error: function(xhr, status, error) {
-            // Maneja el error si es necesario
-            alert('Ocurrió un error al guardar la cita');
-        },
-        complete: function() {
-            // Ocultar el spinner y habilitar el botón después de completar la solicitud
-            $spinner.hide();
-            $button.prop('disabled', false);
-        }
-    });
-
-});
-
 document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var originalResources = {!! json_encode($modulos) !!};
@@ -479,39 +419,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let arrayOfDomNodes = [];
 
-        // Calcula la diferencia en minutos entre formattedTimeInicio y formattedTime
-        let startTime = new Date(arg.event.start);
-        let endTime = new Date(arg.event.end);
-        let timeDifference = (endTime - startTime) / 60000; // Diferencia en minutos
+            // Calcula la diferencia en minutos entre formattedTimeInicio y formattedTime
+            let startTime = new Date(arg.event.start);
+            let endTime = new Date(arg.event.end);
+            let timeDifference = (endTime - startTime) / 60000; // Diferencia en minutos
 
-        // Define los valores predeterminados para fontSize y lineHeight
-        let fontSize = '9.5px';
-        let lineHeight = '11.2px';
+            // Define los valores predeterminados para fontSize y lineHeight
+            let fontSize = '9.5px';
+            let lineHeight = '11.2px';
 
-        let titulo = arg.event.title;
+            let titulo = arg.event.title;
 
-        let horaEvent = document.createElement('div');
+            let horaEvent = document.createElement('div');
 
-        // Si la diferencia es de 30 minutos, usa la estructura compacta
-        if (timeDifference === 30) {
-            horaEvent.innerHTML = `
-                <p style="font-size:9px; line-height:6px ; margin: 0; padding: 0;">
-                    ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
-                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
-                    <br>${nombreServicio} (${duracion} min)
-                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-                </p>`;
-        } else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
-            horaEvent.innerHTML = `
-                <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
-                    ${titulo}
-                    <br>
-                    ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
-                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
-                    <br>${nombreServicio} (${duracion} min)
-                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-                </p>`;
-        }
+            // Si la diferencia es de 30 minutos, usa la estructura compacta
+            if (timeDifference === 30) {
+                horaEvent.innerHTML = `
+                    <p style="font-size:9px; line-height:6px ; margin: 0; padding: 0;">
+                        ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
+                        <img width="9px" style="margin-left: 10px" src="${imageArg}">
+                        <br>${nombreServicio} (${duracion} min)
+                        ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+                    </p>`;
+            } else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
+                horaEvent.innerHTML = `
+                    <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
+                        ${titulo}
+                        <br>
+                        ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
+                        <img width="9px" style="margin-left: 10px" src="${imageArg}">
+                        <br>${nombreServicio} (${duracion} min)
+                        ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+                    </p>`;
+            }
 
             horaEvent.classList = "fc-event-time";
 
@@ -535,46 +475,44 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-            // Asegurar que el contenedor se oculte/muestre cuando se cambie el valor de id_status manualmente
-            $('#id_status').on('change', function() {
-                toggleContainer();
-            });
+        // Asegurar que el contenedor se oculte/muestre cuando se cambie el valor de id_status manualmente
+        $('#id_status').on('change', function() {
+            toggleContainer();
+        });
+
+        // Ensure the selects are cleared each time the modal is opened
+        $('#exampleModal').on('show.bs.modal', function() {
+            limpiarSelectCosmesNuevasSinSeleccionar();
+        });
+
+        // Clear the selects after the modal is hidden
+        $('#exampleModal').on('hidden.bs.modal', function() {
+            limpiarSelectCosmesNuevasSinSeleccionar();
+        });
+
+        $('#mod_hora_fin').change(function() {
+            if ($(this).is(':checked')) {
+                $('#txtHorafin').prop('disabled', false);
+            } else {
+                $('#txtHorafin').prop('disabled', true);
+            }
+        });
+
+        calendar.setOption('locale', 'es');
+        calendar.render();
 
 
-
-    // Ensure the selects are cleared each time the modal is opened
-    $('#exampleModal').on('show.bs.modal', function() {
-        limpiarSelectCosmesNuevasSinSeleccionar();
-    });
-
-    // Clear the selects after the modal is hidden
-    $('#exampleModal').on('hidden.bs.modal', function() {
-        limpiarSelectCosmesNuevasSinSeleccionar();
-    });
-
-    $('#mod_hora_fin').change(function() {
-        if ($(this).is(':checked')) {
-            $('#txtHorafin').prop('disabled', false);
-        } else {
-            $('#txtHorafin').prop('disabled', true);
+        // Función para mostrar el spinner
+        function showSpinner(button) {
+            button.prop('disabled', true);
+            button.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...');
         }
-    });
 
-    calendar.setOption('locale', 'es');
-    calendar.render();
-
-
-    // Función para mostrar el spinner
-    function showSpinner(button) {
-        button.prop('disabled', true);
-        button.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...');
-    }
-
-    // Función para ocultar el spinner y restaurar el botón
-    function hideSpinner(button, originalText) {
-        button.prop('disabled', false);
-        button.html(originalText);
-    }
+        // Función para ocultar el spinner y restaurar el botón
+        function hideSpinner(button, originalText) {
+            button.prop('disabled', false);
+            button.html(originalText);
+        }
 
       $('#btnWhats').click(function(){
           ObjEvento= recolectarDatosGUIWhatsapp('POST');
@@ -618,16 +556,16 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       $('#btnModificar').click(function() {
-    var button = $(this);
-    showSpinner(button);
+            var button = $(this);
+            showSpinner(button);
 
-    var ObjEvento = editarDatosGUI('PATCH');
-        EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function(response) {
-            hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
-            console.log(response);
-            // Aquí puedes manejar cualquier acción adicional en función de la respuesta
-        });
-    });
+            var ObjEvento = editarDatosGUI('PATCH');
+                EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function(response) {
+                    hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
+                    console.log(response);
+                    // Aquí puedes manejar cualquier acción adicional en función de la respuesta
+            });
+      });
 
 
       function recolectarDatosGUIWhatsapp(method){
@@ -796,8 +734,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
 
-
-        $('#guardarCita').on('click', function(e,callback) {
+       $('#guardarCita').on('click', function(e,callback) {
                 e.preventDefault();
 
                 var formData = $('#updateForm').serialize();
@@ -823,9 +760,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     }
                 });
-        });
+       });
 
-        $('#submit_comida').on('click', function(e, callback) {
+       $('#submit_comida').on('click', function(e, callback) {
             e.preventDefault();
 
             var $button = $(this);
@@ -866,9 +803,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     $button.prop('disabled', false);
                 }
             });
-        });
+       });
 
-        $('#btnBuscar').on('click', function() {
+       $('#btnBuscar').on('click', function() {
             var titulo = $('#title_search').val();
 
             $.ajax({
@@ -893,13 +830,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log(xhr.responseText);
                 }
             });
-        });
+       });
 
-        $('#btnLimpiar').on('click', function() {
+       $('#btnLimpiar').on('click', function() {
             $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
-        });
+       });
 
-        $(document).on('submit', '.approveForm', function(e) {
+       $(document).on('submit', '.approveForm', function(e) {
             e.preventDefault();
 
             var form = $(this);
@@ -926,7 +863,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
             });
 
-        });
+       });
 
 
       function limpiarFormulario(){
@@ -964,205 +901,67 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#cosmesnueva').val([]).trigger('change');
         }
 
-    });
+      });
 
-</script>
-
-<script>
-    $(document).ready(function() {
-        let pagina = 1;
-
-        $('#buscarDisponibilidadForm').on('submit', function(e) {
+      $(document).on('click', '.btn-submit-cita', function(e) {
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     }
+            // });
             e.preventDefault();
-            pagina = 1;  // Reiniciar la página cuando se envía el formulario
 
-            buscarDisponibilidad(true);
-        });
+            var alertaId = $(this).data('alerta-id');
+            console.log('alertaId', alertaId);
+            var form = $('#submit_prox_cita_' + alertaId);
+            var formData = form.serialize();
+            console.log('formData', formData); // Debugging
+            console.log(form.length);
 
-        function buscarDisponibilidad(reset = false) {
-            const servicioId = $('#servicio').val();
-            const duracion = $('#servicio option:selected').data('duracion');
-            const numPersonas = $('#numPersonas').val();
+            // Asegúrate de que formData no esté vacío
+            if (formData === '') {
+                console.error('formData is empty');
+                return;
+            }
+
+            var $button = $(this);
+            var $spinner = $button.find('#spinner');
+
+            // Mostrar el spinner y deshabilitar el botón
+            $spinner.show();
+            $button.prop('disabled', true);
 
             $.ajax({
-                url: '/buscar-disponibilidad',
-                method: 'GET',
-                data: {
-                    servicioId: servicioId,
-                    duracion: duracion,
-                    numPersonas: numPersonas,
-                    pagina: pagina
+                type: 'POST',
+                url: "{{ route('servicio.store_prox_cita') }}",
+                data: formData,
+                success: function(response) {
+                    // Actualiza los eventos en el calendario
+                    calendar.refetchEvents();
+
+                    // Reinicia el formulario
+                    form[0].reset();
+                    form.find('.modal_cita_serv').val([]).trigger('change'); // Limpiar el select de servicio si usas Select2
+                    form.find('.modal_cita_cosme').val([]).trigger('change'); // Limpiar el select múltiple si usas Select2
+
+                    // Cierra el modal
+                    $('#modalCita' + alertaId).modal('hide');
+
+                    // Muestra un mensaje de éxito
+                    alert('Cita agendada exitosamente');
                 },
-                success: function(data) {
-                    if (reset) {
-                        $('#resultadosDisponibilidad').html('');
-                    }
-
-                    let resultadosHtml = '';
-
-                    if (Object.keys(data).length > 0) {
-                        let collapseId = pagina * 5;  // Ajustar el ID para evitar conflictos
-
-                        for (const [fecha, horarios] of Object.entries(data)) {
-                            const fechaFormateada = moment(fecha).locale('es').format('dddd D [de] MMMM');
-                            collapseId++;
-                            resultadosHtml += `
-                                <div class="card">
-                                    <div class="card-header" id="heading${collapseId}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${collapseId}" aria-expanded="true" aria-controls="collapse${collapseId}">
-                                                ${fechaFormateada}
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapse${collapseId}" class="collapse" aria-labelledby="heading${collapseId}" data-parent="#resultadosDisponibilidad">
-                                        <div class="card-body">
-                            `;
-                            horarios.forEach(horario => {
-                                resultadosHtml += `<div><h4>${horario.hora}</h4><ul>`;
-                                horario.cosmes.forEach(cosme => {
-                                    resultadosHtml += `<li>${cosme}</li>`;
-                                });
-                                resultadosHtml += '</ul>';
-                                resultadosHtml += `
-                                    <button class="seleccionarHorario btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff"
-                                        data-fecha="${fecha}"
-                                        data-hora="${horario.hora}"
-                                        data-servicio="${servicioId}"
-                                        data-numPersonas="${numPersonas}"
-                                        data-cosmes='${JSON.stringify(horario.cosmes)}'>
-                                        ¿Agendar?
-                                    </button>
-                                `;
-                                resultadosHtml += '</div>';
-                            });
-                            resultadosHtml += `
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        }
-                    } else {
-                        if (reset) {
-                            resultadosHtml = '<p>No hay disponibilidad para el servicio seleccionado.</p>';
-                        }
-                    }
-
-                    $('#resultadosDisponibilidad').append(resultadosHtml);
+                error: function(xhr, status, error) {
+                    // Maneja el error si es necesario
+                    alert('Ocurrió un error al guardar la cita');
                 },
-                error: function(error) {
-                    console.log(error);
+                complete: function() {
+                    // Ocultar el spinner y habilitar el botón después de completar la solicitud
+                    $spinner.hide();
+                    $button.prop('disabled', false);
                 }
             });
-        }
 
-        $('#buscarMasFechas').on('click', function() {
-            pagina++;
-            buscarDisponibilidad();
+      });
 
-            alert('Busqueda Actualizada');
-        });
-
-        $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
-            // const fechaSeleccionada = $(this).data('fecha');
-            // const horaSeleccionada = $(this).data('hora');
-            const servicioIdSeleccionado = $(this).data('servicio');
-            const numPersonasSeleccionado = $(this).data('numPersonas');
-            const cosmesSeleccionados = $(this).data('cosmes');
-            // console.log(cosmesSeleccionados);
-
-            // $('#fechaSeleccionadaInput').val(fechaSeleccionada);
-            // $('#horaSeleccionadaInput').val(horaSeleccionada);
-            $('#servicioIdInput').val(servicioIdSeleccionado);
-            $('#numPersonasInput').val(numPersonasSeleccionado);
-
-            // Preselecciona los cosmes en el multiselect
-            $('#cosme_disp').val(cosmesSeleccionados).trigger('change');
-
-            // $('#formularioFechaSeleccionada').show();
-            actualizarTotalSuma();
-        });
-
-        $('#num_servicio').on('input', function() {
-            actualizarTotalSuma();
-        });
-
-        $('#pagoInput').on('input', function() {
-            actualizarRestante();
-            actualizarCambio();
-        });
-
-        $('#dineroRecibidoInput').on('input', function() {
-            actualizarCambio();
-        });
-
-        function actualizarTotalSuma() {
-            const numServicios = $('#num_servicio').val();
-            const precioServicio = parseFloat($('#servicio option:selected').data('precio'));
-            const totalSuma = precioServicio * numServicios;
-            $('#totalSumaInput').val(totalSuma);
-            actualizarRestante();
-        }
-
-        function actualizarRestante() {
-            const totalSuma = parseFloat($('#totalSumaInput').val());
-            const pago = parseFloat($('#pagoInput').val()) || 0;
-            const restante = totalSuma - pago;
-            $('#restanteInput').val(restante);
-        }
-
-        function actualizarCambio() {
-            const pago = parseFloat($('#pagoInput').val()) || 0;
-            const dineroRecibido = parseFloat($('#dineroRecibidoInput').val()) || 0;
-            const cambio = dineroRecibido - pago;
-            $('#cambioInput').val(cambio > 0 ? cambio : 0);
-        }
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-
-        function toggleInputs() {
-            if ($('#nota').is(':checked')) {
-                $('#nota-inputs').show();
-                $('#gratis-inputs').hide();
-            } else if ($('#gratis').is(':checked')) {
-                $('#nota-inputs').hide();
-                $('#gratis-inputs').show();
-            }
-        }
-
-        // Ejecutar al cargar la página para establecer el estado inicial
-        toggleInputs();
-
-        // Ejecutar cada vez que cambie la selección del radio button
-        $('input[name="option_nota"]').change(function() {
-            toggleInputs();
-        });
-
-        function formatState (state) {
-            if (!state.id) {
-                return state.text;
-            }
-            var baseUrl = $(state.element).data('img');
-            var $state = $(
-                '<span><img src="' + baseUrl + '" class="img-flag" style="width: 20px; margin-right: 10px;" /> ' + state.text + '</span>'
-            );
-            return $state;
-        };
-
-        $('#icono').select2({
-            templateResult: formatState,
-            templateSelection: formatState,
-            width: '100%'
-        });
-
-        $('.icono-select').select2({
-            templateResult: formatState,
-            templateSelection: formatState,
-            width: '100%'
-        });
-    });
 </script>
 
