@@ -66,6 +66,7 @@
 
                 {{-- <input type="hidden" class="form-control" name="image" id="image"> --}}
                 <input class="form-control" type="hidden" name="estatus" id="estatus" >
+                <input class="form-control" type="hidden" name="title" id="title" >
 
                 {{-- <div class="form-group col-12 mb-3">
                     <label for="">T&iacute;tulo</label>
