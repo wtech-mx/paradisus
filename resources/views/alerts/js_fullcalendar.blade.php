@@ -1,7 +1,5 @@
 <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
@@ -463,6 +461,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
+        calendar.setOption('locale', 'es');
+        calendar.render();
+
         // Función para ocultar/mostrar el contenedor según el valor de id_status
         function toggleContainer() {
             var idStatus = $('#id_status').val();
@@ -497,10 +498,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 $('#txtHorafin').prop('disabled', true);
             }
         });
-
-        calendar.setOption('locale', 'es');
-        calendar.render();
-
 
         // Función para mostrar el spinner
         function showSpinner(button) {

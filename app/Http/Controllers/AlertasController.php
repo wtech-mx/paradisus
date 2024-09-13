@@ -138,72 +138,72 @@ class AlertasController extends Controller
 
     }
 
-protected function intercambiarHorarios($item){
-    // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
-    $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
-    $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
+    protected function intercambiarHorarios($item){
+        // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
+        $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
+        $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
 
-    // Obtener el día de la semana y el valor faltante y sustituye
-    [$dia_faltante, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_faltante));
-    [$dia_sustituye, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
+        // Obtener el día de la semana y el valor faltante y sustituye
+        [$dia_faltante, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_faltante));
+        [$dia_sustituye, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
 
-    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_faltante
-    $horario_faltante = Horario::where('id_user', $id_cosmetologa_faltante)->first();
+        // Buscar el registro en la tabla 'horario' para el id_cosmetologa_faltante
+        $horario_faltante = Horario::where('id_user', $id_cosmetologa_faltante)->first();
 
-    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_sustituye
-    $horario_sustituye = Horario::where('id_user', $id_cosmetologa_sustituye)->first();
+        // Buscar el registro en la tabla 'horario' para el id_cosmetologa_sustituye
+        $horario_sustituye = Horario::where('id_user', $id_cosmetologa_sustituye)->first();
 
-    if ($horario_faltante && $horario_sustituye) {
-        // Intercambiar los valores en el horario
-        $horario_faltante->$dia_faltante = $valor_sustituye;
-        $horario_sustituye->$dia_sustituye = $valor_faltante;
+        if ($horario_faltante && $horario_sustituye) {
+            // Intercambiar los valores en el horario
+            $horario_faltante->$dia_faltante = $valor_sustituye;
+            $horario_sustituye->$dia_sustituye = $valor_faltante;
 
-        // Guardar los cambios en la base de datos
-        $horario_faltante->save();
-        $horario_sustituye->save();
+            // Guardar los cambios en la base de datos
+            $horario_faltante->save();
+            $horario_sustituye->save();
+        }
     }
-}
 
 
-protected function restaurarHorarios($item)
-{
-    // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
-    $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
-    $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
+    protected function restaurarHorarios($item)
+    {
+        // Obtener id_cosmetologa_faltante y id_cosmetologa_sustituye
+        $id_cosmetologa_faltante = $item->id_cosmetologa_faltante;
+        $id_cosmetologa_sustituye = $item->id_cosmetologa_sustituye;
 
-    // Obtener el día de la semana y el valor faltante y sustituye
-    [$dia_faltante, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_faltante));
-    [$dia_sustituye, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
+        // Obtener el día de la semana y el valor faltante y sustituye
+        [$dia_faltante, $valor_sustituye] = explode(' = ', strtolower($item->dia_se_semana_faltante));
+        [$dia_sustituye, $valor_faltante] = explode(' = ', strtolower($item->dia_se_semana_sustituye));
 
-    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_faltante
-    $horario_faltante = Horario::where('id_user', $id_cosmetologa_faltante)->first();
+        // Buscar el registro en la tabla 'horario' para el id_cosmetologa_faltante
+        $horario_faltante = Horario::where('id_user', $id_cosmetologa_faltante)->first();
 
-    // Buscar el registro en la tabla 'horario' para el id_cosmetologa_sustituye
-    $horario_sustituye = Horario::where('id_user', $id_cosmetologa_sustituye)->first();
+        // Buscar el registro en la tabla 'horario' para el id_cosmetologa_sustituye
+        $horario_sustituye = Horario::where('id_user', $id_cosmetologa_sustituye)->first();
 
-    if ($horario_faltante && $horario_sustituye) {
+        if ($horario_faltante && $horario_sustituye) {
 
-        // Restaurar los valores originales en el horario
-        // Primero guardamos los valores actuales en variables temporales
-        $valor_faltante_actual = $horario_faltante->$dia_faltante;
-        $valor_sustituye_actual = $horario_sustituye->$dia_sustituye;
+            // Restaurar los valores originales en el horario
+            // Primero guardamos los valores actuales en variables temporales
+            $valor_faltante_actual = $horario_faltante->$dia_faltante;
+            $valor_sustituye_actual = $horario_sustituye->$dia_sustituye;
 
-        // Actualizamos los valores en el horario
-        $horario_faltante->$dia_faltante = $valor_sustituye;
-        $horario_sustituye->$dia_sustituye = $valor_faltante;
+            // Actualizamos los valores en el horario
+            $horario_faltante->$dia_faltante = $valor_sustituye;
+            $horario_sustituye->$dia_sustituye = $valor_faltante;
 
-        $actualzaicion_bitacora = BiracoraHorariosAlertas::find($item->id);
-        $actualzaicion_bitacora->estatus = 'Finalizado';
-        $actualzaicion_bitacora->save();
+            $actualzaicion_bitacora = BiracoraHorariosAlertas::find($item->id);
+            $actualzaicion_bitacora->estatus = 'Finalizado';
+            $actualzaicion_bitacora->save();
 
 
-        // Guardar los cambios en la base de datos
-        $horario_faltante->save();
-        $horario_sustituye->save();
+            // Guardar los cambios en la base de datos
+            $horario_faltante->save();
+            $horario_sustituye->save();
+        }
     }
-}
 
-public function index_calendar_anterior()
+    public function index_calendar_anterior()
     {
         $estatus = Status::get();
         $alert = Alertas::get();
@@ -232,7 +232,7 @@ public function index_calendar_anterior()
 
     }
 
-public function buscarAlertas(Request $request)
+    public function buscarAlertas(Request $request)
     {
         $titulo = $request->input('titulo');
         //    $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
@@ -261,7 +261,7 @@ public function buscarAlertas(Request $request)
         return view('alerts.resultados', compact('alertas', 'servicios_select'));
     }
 
-public function store_prox_cita(Request $request)
+    public function store_prox_cita(Request $request)
     {
        // Combina la fecha y la hora seleccionada
        $startDateTime = $request->start;
@@ -335,9 +335,6 @@ public function store_prox_cita(Request $request)
            return response()->json(['success' => true]);
 
        }
-    //    return redirect()->back()->with('success', 'Alerta actualizada con éxito');
-
-
     }
 
     public function show_calendar()
@@ -489,8 +486,6 @@ public function store_prox_cita(Request $request)
 
         return redirect()->back()->with('success', 'Alerta actualizada con éxito');
     }
-
-
 
     public function updateMultipleUsers(Request $request)
     {
