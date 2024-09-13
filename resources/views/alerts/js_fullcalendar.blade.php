@@ -3,6 +3,8 @@
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -105,7 +107,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-        var originalResources = {!! json_encode($modulos) !!};
         var spinner = document.getElementById('loading-spinner');
 
         var currentUrl = window.location.href; // Obtener la URL actual
@@ -124,7 +125,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var calendar = new FullCalendar.Calendar(calendarEl, {
             navLinks: true,
             height: 'auto',
-            timeZone: 'local',
+            // timeZone: 'America/Mexico_City',
+            timeZone: 'America/Mexico_City',
+
             initialDate: '{{$Fecha}}',
             initialView: 'dayGridMonth',
             nowIndicator: true,
@@ -177,23 +180,67 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-        resources: {!! json_encode($modulos) !!},
-        resources: originalResources,
-
-        events: eventsUrl,
         datesSet: function(info) {
-            var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
-            var currentDay = dayNames[new Date(info.start).getDay()]; // Obtener el día de la semana actual
-
             if (info.view.type === 'resourceTimeGridDay') {
-                var filteredResources = originalResources.filter(function(resource) {
-                    return resource.horario[currentDay] === 1; // Filtrar los recursos según el día de la semana
-                });
-                calendar.setOption('resources', filteredResources);
-            } else {
-                calendar.setOption('resources', originalResources);
+                fetch('{{ route('calendar.get_modules') }}')
+                    .then(response => response.json())
+                    .then(modules => {
+                        var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+                        var currentDay = dayNames[new Date(info.start).getDay()];
+
+                        var filteredResources = modules.filter(function(resource) {
+                            return resource.horario[currentDay] === 1;
+                        });
+
+                        // console.log("Recursos filtrados:", filteredResources); // Verificar recursos filtrados
+                        calendar.setOption('resources', filteredResources);
+
+                        // Solo después de establecer los recursos, forzamos la carga de eventos
+                        calendar.refetchEvents();
+                    })
+                    .catch(error => console.error('Error al cargar módulos:', error));
             }
         },
+
+
+    events: function(fetchInfo, successCallback, failureCallback) {
+        // Obtener las fechas de inicio y fin
+        var startDate = new Date(fetchInfo.start);
+        var endDate = new Date(fetchInfo.end);
+
+        // Convertir las fechas al formato ISO sin cambiar la zona horaria
+        var correctedStart = startDate.getFullYear() + '-' +
+            String(startDate.getMonth() + 1).padStart(2, '0') + '-' +
+            String(startDate.getDate()).padStart(2, '0') + 'T' +
+            String(startDate.getHours()).padStart(2, '0') + ':' +
+            String(startDate.getMinutes()).padStart(2, '0') + ':' +
+            String(startDate.getSeconds()).padStart(2, '0') + '-06:00'; // Zona horaria local
+
+        var correctedEnd = endDate.getFullYear() + '-' +
+            String(endDate.getMonth() + 1).padStart(2, '0') + '-' +
+            String(endDate.getDate()).padStart(2, '0') + 'T' +
+            String(endDate.getHours()).padStart(2, '0') + ':' +
+            String(endDate.getMinutes()).padStart(2, '0') + ':' +
+            String(endDate.getSeconds()).padStart(2, '0') + '-06:00'; // Zona horaria local
+
+        // console.log('Cargando eventos para:', correctedStart, ' hasta ', correctedEnd);
+
+        // Hacer la petición con las fechas corregidas
+        fetch(eventsUrl + '?start=' + correctedStart + '&end=' + correctedEnd)
+            .then(response => response.json())
+            .then(data => {
+                successCallback(data); // Devolver los eventos al calendario
+            })
+            .catch(error => {
+                console.error('Error al cargar eventos:', error);
+                failureCallback(error);
+            });
+    },
+
+    viewDidMount: function(info) {
+        calendar.refetchEvents(); // Forzar la actualización de eventos al cambiar de vista
+    },
+
 
         // Mostrar el spinner cuando se cargan nuevos eventos
         loading: function(isLoading) {
@@ -239,27 +286,15 @@ document.addEventListener('DOMContentLoaded', function() {
             mes = (mes < 10) ? "0" + mes : mes;
             dia = (dia < 10) ? "0" + dia : dia;
 
-            minutos = (info.event.start.getMinutes());
-            hora = (info.event.start.getHours());
+            // Obtener la hora sin hacer conversiones de zona horaria
+            const start = moment(info.event.start).utc().format('HH:mm');
+            const end = moment(info.event.end).utc().format('HH:mm');
 
-            minutos = (minutos < 10) ? "0" + minutos : minutos;
-            hora = (hora < 10) ? "0" + hora : hora;
-
-            horario = (hora + ":" + minutos);
-
-            minutos2 = (info.event.end && info.event.end.getMinutes()) || 0;
-            hora2 = (info.event.end && info.event.end.getHours()) || 0;
-
-            if (info.event.end) {
-                minutos2 = (minutos2 < 10) ? "0" + minutos2 : minutos2;
-                hora2 = (hora2 < 10) ? "0" + hora2 : hora2;
-            }
-
-            horario2 = hora2 + ":" + minutos2;
+            $('#txtHora').val(start);
+            $('#txtHorafin').val(end);
 
             $('#txtFecha').val(anio + "-" + mes + "-" + dia);
-            $('#txtHora').val(horario);
-            $('#txtHorafin').val(horario2);
+
             $('#id_client').val(info.event.extendedProps.id_client);
             $('#cliente_id').val(info.event.extendedProps.id_client);
             $('#resourceId').val(info.event._def.resourceIds);
@@ -411,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let horafinservicio2 = horaFinServicio2 ? horaFinFormateada2 + ":" + minutosFin2 : null;
 
             let imageArg = arg.event.extendedProps.image;
-            let modulocapi = arg.event.getResources().map(function (resource) { return resource.id; });
+
             let nombreServicio = arg.event.extendedProps.nombre_servicio;
             let nombreServicio2 = arg.event.extendedProps.nombre_servicio2;
 
@@ -430,11 +465,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let horaEvent = document.createElement('div');
 
+            const start = moment(arg.event.start).utc().format('HH:mm');
+            const end = moment(arg.event.end).utc().format('HH:mm');
+
+
+
+
             // Si la diferencia es de 30 minutos, usa la estructura compacta
             if (timeDifference === 30) {
                 horaEvent.innerHTML = `
                     <p style="font-size:9px; line-height:6px ; margin: 0; padding: 0;">
-                        ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
+                        ${titulo} ${start} - ${end}
                         <img width="9px" style="margin-left: 10px" src="${imageArg}">
                         <br>${nombreServicio} (${duracion} min)
                         ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
@@ -444,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
                         ${titulo}
                         <br>
-                        ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
+                        ${start} - ${end} -
                         <img width="9px" style="margin-left: 10px" src="${imageArg}">
                         <br>${nombreServicio} (${duracion} min)
                         ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}

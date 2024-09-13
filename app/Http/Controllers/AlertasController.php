@@ -104,22 +104,6 @@ class AlertasController extends Controller
 
         $user_cosmes = User::get();
 
-        $user_cosmetologas = User::where('puesto', 'Cosme')
-        ->orderby('name', 'ASC')
-        ->get();
-
-        $modulos = [];
-
-
-        // Iterar sobre los usuarios y generar los módulos
-        foreach ($user_cosmetologas as $user) {
-            $modulos[] = [
-                'id' => $user->resourceId,
-                'title' => $user->name,
-                'horario' => $user->horario // Incluye el horario del usuario
-            ];
-        }
-
         // Obtener los registros que coincidan con la fecha actual
         $horario_alertas = BiracoraHorariosAlertas::whereDate('fecha_inicio', now()->toDateString())->get();
         // Iterar sobre cada registro y actualizar el estatus
@@ -134,7 +118,7 @@ class AlertasController extends Controller
         $p_citas_contador = Alertas::where('start', '>=', $now)->count();
         //Alertas::query()->update(['color' => '#ffca99']);
 
-        return view('dashboard', compact('bitacora_horario','dia_bitacora','user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador','modulos'));
+        return view('dashboard', compact('bitacora_horario','dia_bitacora','user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador'));
 
     }
 
@@ -163,7 +147,6 @@ class AlertasController extends Controller
             $horario_sustituye->save();
         }
     }
-
 
     protected function restaurarHorarios($item)
     {
@@ -337,7 +320,30 @@ class AlertasController extends Controller
        }
     }
 
-    public function show_calendar()
+    public function getModules()
+    {
+
+        $user_cosmetologas = User::where('puesto', 'Cosme')
+        ->orderby('name', 'ASC')
+        ->get();
+
+        $modulos = [];
+
+        // Iterar sobre los usuarios y generar los módulos
+        foreach ($user_cosmetologas as $user) {
+            $modulos[] = [
+                'id' => $user->resourceId,
+                'title' => $user->name,
+                'horario' => $user->horario // Incluye el horario del usuario
+            ];
+        }
+
+        // Ejemplo: $modulos = Modulo::all();
+        return response()->json($modulos);
+    }
+
+
+    public function show_calendar(Request $request)
     {
         // Obtener la fecha actual
         $currentDate = Carbon::now();
@@ -346,13 +352,22 @@ class AlertasController extends Controller
         $startOfPreviousMonth = $currentDate->copy()->subMonth()->startOfMonth();
 
         // Obtener la fecha de inicio y fin del rango visible en el calendario
-        // $start = $request->query('start'); // Fecha de inicio
-        // $end = $request->query('end'); // Fecha de fin
+        $start = $request->query('start'); // Fecha de inicio
+        $end = $request->query('end'); // Fecha de fin
+
+        // Asegúrate de que las fechas estén bien recibidas
+        if (!$start || !$end) {
+            return response()->json([]);
+        }
+
+        // Verificar qué fechas estamos recibiendo
+        \Log::info('Rango de fechas: ', [$start, $end]);
+
 
         // Filtrar las alertas solo dentro del rango de fechas proporcionado
         $alertas = Alertas::with('Servicios_id')
-            // ->whereBetween('start', [$start, $end])
-            ->where('start', '>=', $startOfPreviousMonth)
+            ->whereBetween('start', [$start, $end])
+            // ->where('start', '>=', $startOfPreviousMonth)
             ->get()
             ->makeHidden(['comprobante_gratis','tarjeta_regalo','recordatorio','confirmo_whats','created_at','updated_at','id_color']);
 
@@ -379,7 +394,10 @@ class AlertasController extends Controller
             $alerta->servicios_anteriores = $serviciosAnteriores;
         });
 
-        return response()->json($alertas);
+            // Verificar que los eventos fueron encontrados
+            \Log::info('Eventos encontrados: ', [$alertas->toArray()]);
+
+            return response()->json($alertas);
     }
 
     public function show_calendar_anterior()
