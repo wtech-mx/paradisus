@@ -336,28 +336,28 @@ class AlertasController extends Controller
        }
     }
 
-    public function getModules()
-    {
+    // public function getModules()
+    // {
 
-        $user_cosmetologas = User::where('puesto', 'Cosme')
-        ->orderby('name', 'ASC')
-        ->get();
+    //     $user_cosmetologas = User::where('puesto', 'Cosme')
+    //     ->orderby('name', 'ASC')
+    //     ->get();
 
-        $modulos = [];
+    //     $modulos = [];
 
 
-        // Iterar sobre los usuarios y generar los módulos
-        foreach ($user_cosmetologas as $user) {
-            $modulos[] = [
-                'id' => $user->resourceId,
-                'title' => $user->name,
-                'horario' => $user->horario // Incluye el horario del usuario
-            ];
-        }
+    //     // Iterar sobre los usuarios y generar los módulos
+    //     foreach ($user_cosmetologas as $user) {
+    //         $modulos[] = [
+    //             'id' => $user->resourceId,
+    //             'title' => $user->name,
+    //             'horario' => $user->horario // Incluye el horario del usuario
+    //         ];
+    //     }
 
-        // Ejemplo: $modulos = Modulo::all();
-        return response()->json($modulos);
-    }
+    //     // Ejemplo: $modulos = Modulo::all();
+    //     return response()->json($modulos);
+    // }
 
 
     public function show_calendar(Request $request)

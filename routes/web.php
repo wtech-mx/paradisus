@@ -269,7 +269,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     Route::get('calendar/show', [AlertasController::class, 'show_calendar'])->name('calendar.show_calendar');
-    Route::get('calendar/modules', [AlertasController::class, 'getModules'])->name('calendar.get_modules');
+    // Route::get('calendar/modules', [AlertasController::class, 'getModules'])->name('calendar.get_modules');
 
     Route::get('calendar/show/anterior', [AlertasController::class, 'show_calendar_anterior'])->name('calendar.show_calendar_anterior');
 

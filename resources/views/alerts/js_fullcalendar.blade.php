@@ -186,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
             var dayNames = [ "lunes", "martes", "miercoles", "jueves", "viernes", "sabado","domingo",];
             var currentDay = dayNames[new Date(info.start).getDay()]; // Obtener el día de la semana actual
 
-            console.log(dayNames);
-            console.log(currentDay);
+            // console.log(dayNames);
+            // console.log(currentDay);
 
             if (info.view.type === 'resourceTimeGridDay') {
                 var filteredResources = originalResources.filter(function(resource) {
@@ -382,66 +382,10 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         eventContent: function (arg) {
-            // Formatear la hora de inicio
-            let minutos3 = arg.event.start.getMinutes();
-            let hora3 = arg.event.start.getHours();
-            minutos3 = (minutos3 < 10) ? "0" + minutos3 : minutos3;
-            hora3 = (hora3 < 10) ? "0" + hora3 : hora3;
-            let horario = hora3 + ":" + minutos3;
-
-
-            let horaincio = arg.event.start;
-            // Crear un objeto Date con la fecha y hora de 'horaincio'
-            let dateInicio = new Date(horaincio);
-            // Extraer las horas y minutos
-            let hoursInicio = dateInicio.getHours();
-            let minutesInicio = dateInicio.getMinutes();
-            // Formatear los minutos para que siempre tengan dos dígitos
-            minutesInicio = minutesInicio < 10 ? '0' + minutesInicio : minutesInicio;
-            // Determinar si es AM o PM
-            let ampm = hoursInicio >= 12 ? 'PM' : 'AM';
-            // Convertir la hora al formato de 12 horas
-            hoursInicio = hoursInicio % 12;
-            hoursInicio = hoursInicio ? hoursInicio : 12; // El 0 debe ser 12
-            // Formatear la hora final
-            let formattedTimeInicio = hoursInicio + ':' + minutesInicio + ' ' + ampm;
-
-
-            let horafin = arg.event.end;
-            // Crear un objeto Date con la fecha y hora de 'horafin'
-            let date = new Date(horafin);
-            // Extraer las horas y minutos
-            let hours = date.getHours();
-            let minutes = date.getMinutes();
-            // Formatear los minutos para que siempre tengan dos dígitos
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            // Determinar si es AM o PM
-            let ampmini = hours >= 12 ? 'PM' : 'AM';
-            // Convertir la hora al formato de 12 horas
-            hours = hours % 12;
-            hours = hours ? hours : 12; // El 0 debe ser 12
-            // Formatear la hora final
-            let formattedTime = hours + ':' + minutes + ' ' + ampmini;
-
-
 
             let duracion = arg.event.extendedProps.duracion || 0; // Duración del primer servicio en minutos
             let duracion2 = arg.event.extendedProps.duracion2 || 0; // Duración del segundo servicio en minutos
 
-            // Crear objeto Date para la hora inicial
-            let horaInicial = new Date(arg.event.start);
-
-            // Calcular hora final del primer servicio sumando duracion en minutos
-            let horaFinServicio1 = new Date(horaInicial.getTime() + duracion * 60000);
-            let minutosFin1 = (horaFinServicio1.getMinutes() < 10) ? "0" + horaFinServicio1.getMinutes() : horaFinServicio1.getMinutes();
-            let horaFinFormateada1 = (horaFinServicio1.getHours() < 10) ? "0" + horaFinServicio1.getHours() : horaFinServicio1.getHours();
-            let horafinservicio1 = horaFinFormateada1 + ":" + minutosFin1;
-
-            // Calcular hora final del segundo servicio sumando duracion2 en minutos a horaFinServicio1
-            let horaFinServicio2 = duracion2 > 0 ? new Date(horaFinServicio1.getTime() + duracion2 * 60000) : null;
-            let minutosFin2 = horaFinServicio2 ? (horaFinServicio2.getMinutes() < 10 ? "0" + horaFinServicio2.getMinutes() : horaFinServicio2.getMinutes()) : null;
-            let horaFinFormateada2 = horaFinServicio2 ? (horaFinServicio2.getHours() < 10 ? "0" + horaFinServicio2.getHours() : horaFinServicio2.getHours()) : null;
-            let horafinservicio2 = horaFinServicio2 ? horaFinFormateada2 + ":" + minutosFin2 : null;
 
             let imageArg = arg.event.extendedProps.image;
 
@@ -465,8 +409,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const start = moment(arg.event.start).utc().format('HH:mm');
             const end = moment(arg.event.end).utc().format('HH:mm');
-
-
 
 
             // Si la diferencia es de 30 minutos, usa la estructura compacta
@@ -598,7 +540,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var ObjEvento = editarDatosGUI('PATCH');
                 EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function(response) {
                     hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
-                    console.log(response);
+                    // console.log(response);
                     // Aquí puedes manejar cualquier acción adicional en función de la respuesta
             });
       });
@@ -863,7 +805,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // });
             },
                 error: function(xhr) {
-                    console.log(xhr.responseText);
+                    // console.log(xhr.responseText);
                 }
             });
        });
@@ -883,7 +825,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     method: form.attr('method'),
                     data: formData,
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         // Mostrar alerta de guardado exitoso
                         alert('Aprobado correctamente.');
 
@@ -895,7 +837,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         $('#btnBuscar').click(); // Esto recarga la tabla después de la aprobación
                     },
                     error: function(xhr) {
-                        console.log(xhr.responseText);
+                        // console.log(xhr.responseText);
                     }
             });
 
@@ -948,11 +890,11 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 
             var alertaId = $(this).data('alerta-id');
-            console.log('alertaId', alertaId);
+            // console.log('alertaId', alertaId);
             var form = $('#submit_prox_cita_' + alertaId);
-            var formData = form.serialize();
-            console.log('formData', formData); // Debugging
-            console.log(form.length);
+            // var formData = form.serialize();
+            // console.log('formData', formData); // Debugging
+            // console.log(form.length);
 
             // Asegúrate de que formData no esté vacío
             if (formData === '') {
