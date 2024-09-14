@@ -112,13 +112,29 @@ class AlertasController extends Controller
             $item->update();
         }
 
+        $user_cosmetologas = User::where('puesto', 'Cosme')
+        ->orderby('name', 'ASC')
+        ->get();
+
+        $modulos = [];
+
+
+        // Iterar sobre los usuarios y generar los módulos
+        foreach ($user_cosmetologas as $user) {
+            $modulos[] = [
+                'id' => $user->resourceId,
+                'title' => $user->name,
+                'horario' => $user->horario // Incluye el horario del usuario
+            ];
+        }
+
         $estatus_contador = Status::count();
         $servicios_contador = Servicios::count();
         $t_citas_contador = Alertas::count();
         $p_citas_contador = Alertas::where('start', '>=', $now)->count();
         //Alertas::query()->update(['color' => '#ffca99']);
 
-        return view('dashboard', compact('bitacora_horario','dia_bitacora','user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador'));
+        return view('dashboard', compact('modulos','bitacora_horario','dia_bitacora','user_cosmes','alert', 'colores','servicios', 'servicios_contador', 't_citas_contador', 'p_citas_contador','cosmes_alerts','estatus', 'estatus_contador'));
 
     }
 
@@ -328,6 +344,7 @@ class AlertasController extends Controller
         ->get();
 
         $modulos = [];
+
 
         // Iterar sobre los usuarios y generar los módulos
         foreach ($user_cosmetologas as $user) {

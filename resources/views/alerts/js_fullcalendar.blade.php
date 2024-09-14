@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var currentUrl = window.location.href; // Obtener la URL actual
         var eventsUrl;
-
+        var originalResources = {!! json_encode($modulos) !!};
         // Determinar la URL de eventos según la URL actual
         if (currentUrl.includes("/dashboard/anterior")) {
             eventsUrl = "{{ route('calendar.show_calendar_anterior') }}";
@@ -180,27 +180,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
+        resources: {!! json_encode($modulos) !!},
+
         datesSet: function(info) {
+            var dayNames = [ "lunes", "martes", "miercoles", "jueves", "viernes", "sabado","domingo",];
+            var currentDay = dayNames[new Date(info.start).getDay()]; // Obtener el día de la semana actual
+
+            console.log(dayNames);
+            console.log(currentDay);
+
             if (info.view.type === 'resourceTimeGridDay') {
-                fetch('{{ route('calendar.get_modules') }}')
-                    .then(response => response.json())
-                    .then(modules => {
-                        var dayNames = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
-                        var currentDay = dayNames[new Date(info.start).getDay()];
-
-                        var filteredResources = modules.filter(function(resource) {
-                            return resource.horario[currentDay] === 1;
-                        });
-
-                        // console.log("Recursos filtrados:", filteredResources); // Verificar recursos filtrados
-                        calendar.setOption('resources', filteredResources);
-
-                        // Solo después de establecer los recursos, forzamos la carga de eventos
-                        calendar.refetchEvents();
-                    })
-                    .catch(error => console.error('Error al cargar módulos:', error));
+                var filteredResources = originalResources.filter(function(resource) {
+                    return resource.horario[currentDay] === 1; // Filtrar los recursos según el día de la semana
+                });
+                calendar.setOption('resources', filteredResources);
+            } else {
+                calendar.setOption('resources', originalResources);
             }
         },
+
 
 
     events: function(fetchInfo, successCallback, failureCallback) {
