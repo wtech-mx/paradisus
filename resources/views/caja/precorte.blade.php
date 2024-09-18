@@ -180,7 +180,7 @@
             $totalingresos_vista =  $suma_pago_trans + $total_efectivo_vista +  $suma_pago_tarjeta;
         @endphp
 
-        <strong> $11,440</strong>
+        <strong> $12,840</strong>
 
     </h2>
 
