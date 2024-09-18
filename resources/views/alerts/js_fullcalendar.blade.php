@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
             headerToolbar: {
                 left: 'today prev,next',
                 center: 'title',
-                right: 'resourceTimeGridDay,dayGridMonth,list'
+                right: 'resourceTimeGridDay,dayGridMonth'
             },
             slotLabelFormat: {
                 hour: 'numeric',
