@@ -201,7 +201,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    events: function(fetchInfo, successCallback, failureCallback) {
+        events: function(fetchInfo, successCallback, failureCallback) {
+    // Obtener las fechas de inicio y fin
+    var startDate = new Date(fetchInfo.start);
+    var endDate = new Date(fetchInfo.end);
+
+    // Calcular la diferencia de días entre las dos fechas
+    var diffInTime = endDate.getTime() - startDate.getTime();
+    var diffInDays = diffInTime / (1000 * 3600 * 24); // Convertir el tiempo a días
+
+    // Si la diferencia de días es mayor o igual a 27, estamos en un mes completo
+    if (diffInDays >= 27) {
+        // Corregir las fechas para obtener solo los días del mes actual
+        var firstDayOfMonth = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 1);
+        var lastDayOfMonth = new Date(startDate.getFullYear(), startDate.getMonth() + 2, 0);
+
+        // Ajustar las fechas de inicio y fin al primer y último día del mes seleccionado
+        startDate = firstDayOfMonth;
+        endDate = lastDayOfMonth;
+
+        // Convertir las fechas al formato YYYY-MM-DD
+        var correctedStart = startDate.getFullYear() + '-' +
+        String(startDate.getMonth() + 1).padStart(2, '0') + '-' +
+        String(startDate.getDate()).padStart(2, '0') + 'T00:00:00-06:00'; // Primer día del mes
+
+        var correctedEnd = endDate.getFullYear() + '-' +
+        String(endDate.getMonth() + 1).padStart(2, '0') + '-' +
+        String(endDate.getDate()).padStart(2, '0') + 'T23:59:59-06:00'; // Último día del mes
+
+        // Mostrar las fechas corregidas en la consola para verificar
+        console.log('Cargando eventos para:', correctedStart, ' hasta ', correctedEnd);
+
+        // Hacer la petición con las fechas corregidas
+        fetch(eventsUrl + '?start=' + correctedStart + '&end=' + correctedEnd)
+        .then(response => response.json())
+        .then(data => {
+            successCallback(data); // Devolver los eventos al calendario
+        })
+        .catch(error => {
+            console.error('Error al cargar eventos:', error);
+            failureCallback(error);
+        });
+
+    }else{
+
         // Obtener las fechas de inicio y fin
         var startDate = new Date(fetchInfo.start);
         var endDate = new Date(fetchInfo.end);
@@ -233,8 +276,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error al cargar eventos:', error);
                 failureCallback(error);
             });
-    },
+    }
 
+},
     viewDidMount: function(info) {
         calendar.refetchEvents(); // Forzar la actualización de eventos al cambiar de vista
     },
