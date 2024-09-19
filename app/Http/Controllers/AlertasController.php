@@ -822,6 +822,7 @@ class AlertasController extends Controller
 
         // Actualiza cada alerta encontrada
         foreach ($alertas as $alerta) {
+
             $servicio = Servicios::find($request->id_servicio);
             $duracion = $servicio->duracion; // Duración en minutos
 
@@ -843,20 +844,20 @@ class AlertasController extends Controller
             if($request->mod_hora_fin == 'si'){
                 $alerta->start = $startDateTime->format('Y-m-d H:i:s');
                 $alerta->end = $request->end;
-
-            }elseif($alerta->id_servicio != $request->id_servicio){
+            }
+            if($alerta->id_servicio != $request->id_servicio){
                 $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
                 $alerta->start = $startDateTime->format('Y-m-d H:i:s');
                 $alerta->end = $endDateTime->format('Y-m-d H:i:s');
-
-            }elseif($alerta->id_servicio2 != NULL){
+            }
+            if($alerta->id_servicio2 != NULL){
                 if($alerta->id_servicio2 != $request->id_servicio2){
                     $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
                     $alerta->start = $startDateTime->format('Y-m-d H:i:s');
                     $alerta->end = $endDateTime->format('Y-m-d H:i:s');
                 }
-
-            }elseif($alerta->start != $requestStartFormatted){
+            }
+            if($alerta->start != $requestStartFormatted){
                 $endDateTime = $startDateTime->copy()->addMinutes($suma_duracion);
                 $alerta->start = $startDateTime->format('Y-m-d H:i:s');
                 $alerta->end = $endDateTime->format('Y-m-d H:i:s');
@@ -876,7 +877,6 @@ class AlertasController extends Controller
             $alerta->id_laser = $request->id_laserModal;
             $alerta->id_paquete = $request->id_paqueteModal;
             $alerta->descripcion = $request->descripcion;
-
             $alerta->save();
         }
 
