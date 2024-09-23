@@ -286,7 +286,7 @@
                                             <a href=""></a>
                                         @else
                                             <div class="col-1 py-2 p-1">
-                                                <a target="_blank" href="{{asset('foto_servicios/'.$item->foto)}}">Ver</a>
+                                                <a target="_blank" href="{{asset('foto_laser/'.$item->foto)}}">Ver</a>
                                             </div>
                                         @endif
 
