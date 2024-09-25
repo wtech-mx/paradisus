@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\NotasPedidos;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::get('/enviar-notas-pedidos', function () {
+    // Traer los registros de la tabla NotasPedidos y ordenarlos por id
+    $notas_pedidos = NotasPedidos::orderBy('id', 'DESC')->get();
+
+    // Retornar los datos en formato JSON
+    return response()->json([
+        'success' => true,
+        'message' => 'Datos enviados correctamente',
+        'data' => $notas_pedidos
+    ]);
 });
