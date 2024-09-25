@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use GuzzleHttp\Client as GuzzleClient;
-use Illuminate\Support\Facades\Http;
 
 // use Automattic\WooCommerce\Client;
 
@@ -40,7 +39,7 @@ class NotasPedidoController extends Controller
         return view('notas_pedidos.index', compact('nota_pedido'));
     }
 
-    public function enviarTodasNotasPedidos($id)
+    public function enviarNotasPedidos($id)
     {
         // Buscar la nota de pedido con el ID proporcionado
         $notaPedido = NotasPedidos::orderBy('id','DESC')->get();
@@ -63,7 +62,6 @@ class NotasPedidoController extends Controller
                 'pedidos' => $notaPedido->Pedido,  // Lista de pedidos asociados
             ];
         });
-
         // Enviar los datos a la API de Paradisus 2
         $response = Http::post('https://plataforma.imnasmexico.com/api/recibir-notas-pedidos', ['notas_pedidos' => $data]);
 
