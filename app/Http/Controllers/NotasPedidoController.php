@@ -39,40 +39,6 @@ class NotasPedidoController extends Controller
         return view('notas_pedidos.index', compact('nota_pedido'));
     }
 
-    public function enviarNotasPedidos($id)
-    {
-        // Buscar la nota de pedido con el ID proporcionado
-        $notaPedido = NotasPedidos::orderBy('id','DESC')->get();
-
-        if (!$notaPedido) {
-            return response()->json(['success' => false, 'message' => 'Nota de pedido no encontrada']);
-        }
-
-        // Preparar los datos para enviar
-        $data = $notasPedidos->map(function($notaPedido) {
-            return [
-                'id_user' => $notaPedido->id_user,
-                'id_client' => $notaPedido->id_client,
-                'metodo_pago' => $notaPedido->metodo_pago,
-                'fecha' => $notaPedido->fecha,
-                'total' => $notaPedido->total,
-                'foto' => $notaPedido->foto,
-                'user' => $notaPedido->User, // Datos del usuario
-                'client' => $notaPedido->Client, // Datos del cliente
-                'pedidos' => $notaPedido->Pedido,  // Lista de pedidos asociados
-            ];
-        });
-        // Enviar los datos a la API de Paradisus 2
-        $response = Http::post('https://plataforma.imnasmexico.com/api/recibir-notas-pedidos', ['notas_pedidos' => $data]);
-
-        // Verificar la respuesta
-        if ($response->successful()) {
-            return response()->json(['success' => true, 'message' => 'Datos enviados correctamente']);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Error al enviar los datos']);
-        }
-    }
-
     public function create()
     {
         $cosme = auth()->user();
@@ -474,11 +440,11 @@ class NotasPedidoController extends Controller
      */
     public function destroy($id)
     {
-        //         $pago = Pagos::where('id_nota', '=', $id)->delete();
-        // dd($pago);
-                // for(){
+//         $pago = Pagos::where('id_nota', '=', $id)->delete();
+// dd($pago);
+        // for(){
 
-                // }
+        // }
 
         $nota = NotasPedidos::find($id)->delete();
 
