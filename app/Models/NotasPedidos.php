@@ -19,7 +19,7 @@ class NotasPedidos extends Model
         'total',
         'foto',
         'estatus',
-        'aprobado_hora_y_guia'
+        'aprobado_hora_y_guia',
         'preparado_hora_y_guia',
         'enviado_hora_y_guia',
     ];
