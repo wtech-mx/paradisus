@@ -75,12 +75,12 @@
                                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
                                                                 </form>
                                                             @endcan
-                                                            <a type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#modal_pedido_{{ $notas->id }}">
+                                                            {{-- <a type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#modal_pedido_{{ $notas->id }}">
                                                                Productos
-                                                            </a>
+                                                            </a> --}}
                                                     </td>
                                                 </tr>
-                                                @include('notas_pedidos.modal_pedido')
+                                                {{-- @include('notas_pedidos.modal_pedido') --}}
                                             @endforeach
                                         </tbody>
 
