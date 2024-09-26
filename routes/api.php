@@ -21,8 +21,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/enviar-notas-pedidos', function () {
-    // Traer los registros de la tabla NotasPedidos y ordenarlos por id
-    $notas_pedidos = NotasPedidos::orderBy('id', 'DESC')->get();
+    // Definir los estatus que deseas filtrar
+    $estatusPermitidos = ['Preparado', 'Enviado', 'Aprobada'];
+
+    // Traer los registros de la tabla NotasPedidos con los estatus especificados y ordenarlos por id
+    $notas_pedidos = NotasPedidos::with(['user', 'client','pedidos'])
+        ->whereIn('estatus', $estatusPermitidos)
+        ->orderBy('id', 'DESC')
+        ->get();
 
     // Retornar los datos en formato JSON
     return response()->json([
@@ -30,4 +36,19 @@ Route::get('/enviar-notas-pedidos', function () {
         'message' => 'Datos enviados correctamente',
         'data' => $notas_pedidos
     ]);
+});
+
+Route::patch('/actualizar-notas-pedidos/{id}', function (Request $request, $id) {
+    // Buscar el registro que se quiere actualizar
+    $notaPedido = NotasPedidos::find($id);
+
+    if (!$notaPedido) {
+        return response()->json(['success' => false, 'message' => 'Registro no encontrado'], 404);
+    }
+
+    // Actualizar los campos con los datos recibidos desde Platform
+    $notaPedido->update($request->all());
+
+    // Responder con un mensaje de éxito
+    return response()->json(['success' => true, 'message' => 'Registro actualizado correctamente']);
 });

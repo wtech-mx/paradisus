@@ -18,6 +18,9 @@ class NotasPedidos extends Model
         'fecha',
         'total',
         'foto',
+        'estatus',
+        'preparado_hora_y_guia',
+        'enviado_hora_y_guia',
     ];
 
     public function User()
@@ -32,4 +35,12 @@ class NotasPedidos extends Model
     {
         return $this->hasMany('App\Models\Pedido', 'id_nota', 'id');
     }
+
+    // En el modelo NotasPedidos
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class, 'id_nota', 'id');
+    }
+
+
 }
