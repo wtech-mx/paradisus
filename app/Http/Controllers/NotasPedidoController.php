@@ -34,8 +34,8 @@ class NotasPedidoController extends Controller
      */
     public function index()
     {
-        // $nota_pedido = NotasPedidos::with('pedidos')->orderBy('id', 'DESC')->take(100)->get();
-        $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
+        $nota_pedido = NotasPedidos::with('pedidos')->orderBy('id', 'DESC')->take(500)->get();
+        // $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
         return view('notas_pedidos.index', compact('nota_pedido'));
     }
 
