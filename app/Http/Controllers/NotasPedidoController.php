@@ -34,8 +34,8 @@ class NotasPedidoController extends Controller
      */
     public function index()
     {
+        // $nota_pedido = NotasPedidos::with('pedidos')->orderBy('id', 'DESC')->take(100)->get();
         $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
-
         return view('notas_pedidos.index', compact('nota_pedido'));
     }
 
@@ -85,6 +85,9 @@ class NotasPedidoController extends Controller
         $nota = new NotasPedidos;
         $nota->id_user = $request->get('id_user');
 
+        $nota->estatus = 'Aprobada';
+        $nota->aprobado_hora_y_guia = date("Y-m-d H:i:s");
+
         if($request->get('name') != NULL){
             $nota->id_client = $client->id;
 
@@ -130,6 +133,8 @@ class NotasPedidoController extends Controller
         }else{
             $nota->cambio = '0';
         }
+
+
 
         $nota->save();
 
