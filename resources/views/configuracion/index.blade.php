@@ -56,6 +56,13 @@ Configuracion
                             </div>
                         </div>
 
+                        <div class="col-xs-12 col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <!-- En tu vista Blade, por ejemplo: resources/views/welcome.blade.php -->
+                                <a href="{{ route('descargar.db') }}" class="btn btn-xs btn-primary">Descargar Base de Datos</a>
+                            </div>
+                        </div>ssss
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <h3 class="mt-3">Color Iconos</h3>
                         </div>

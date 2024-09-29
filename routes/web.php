@@ -402,6 +402,7 @@ Route::view('/especialists', 'livewire.especialists.index')->middleware('auth');
 |--------------------------------------------------------------------------*/
 Route::get('/configuracion', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('index.configuracion');
 Route::patch('/configuracion/update', [App\Http\Controllers\ConfiguracionController::class, 'update'])->name('update.configuracion');
+Route::get('/descargar-db', [App\Http\Controllers\DatabaseController::class, 'descargarBaseDeDatos'])->name('descargar.db');
 
 /*|--------------------------------------------------------------------------
 |Reporte paquetes
