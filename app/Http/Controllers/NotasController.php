@@ -376,8 +376,10 @@ class NotasController extends Controller
         }
 
         if ($request->get('producto_concepto') !== null) {
+            $cosme_id = NotasCosmes::where('id_nota', '=', $nota->id)
+            ->first();
             $nota_pedido = new NotasPedidos;
-            $nota_pedido->id_user = $data['id_user'];
+            $nota_pedido->id_user = $cosme_id->id_user;
             $nota_pedido->estatus = 'Aprobada';
             $nota_pedido->aprobado_hora_y_guia = date("Y-m-d H:i:s");
             $nota_pedido->id_client = $nota->id_client;
