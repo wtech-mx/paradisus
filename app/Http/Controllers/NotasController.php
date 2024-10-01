@@ -24,6 +24,8 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Barryvdh\DomPDF\Facade\Pdf;
 Use Alert;
 use App\Models\AlertasCosmes;
+use App\Models\NotasPedidos;
+use App\Models\Pedido;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client as GuzzleClient;
@@ -373,24 +375,26 @@ class NotasController extends Controller
             $servicio .= ' ' . $notas_paquetes->Servicios4->nombre;
         }
 
-        if ($request->get('concepto') !== null) {
+        if ($request->get('producto_concepto') !== null) {
             $nota_pedido = new NotasPedidos;
-            $nota_pedido->id_user = $id_user;
+            $nota_pedido->id_user = $data['id_user'];
             $nota_pedido->estatus = 'Aprobada';
             $nota_pedido->aprobado_hora_y_guia = date("Y-m-d H:i:s");
             $nota_pedido->id_client = $nota->id_client;
             $nota_pedido->metodo_pago = 'Gratis';
             $nota_pedido->fecha = $fechaActual;
             $nota_pedido->descuento = '0';
-            $nota_pedido->total = 0;
+            $nota_pedido->total = 0.0;
             $nota_pedido->restante = '0';
             $nota_pedido->dinero_recibido = '0';
             $nota_pedido->save();
 
+
             $nota_producto = new Pedido;
-            $nota_paquete->concepto = $request->get('concepto');
-            $nota_paquete->cantidad = $request->get('cantidad');
-            $nota_paquete->importe = $request->get('importe');
+            $nota_producto->id_nota = $nota_pedido->id;
+            $nota_producto->concepto = $request->get('producto_concepto');
+            $nota_producto->cantidad = 1;
+            $nota_producto->importe = 0;
             $nota_producto->save();
         }
 

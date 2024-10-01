@@ -164,16 +164,16 @@
                                             </div>
 
                                             <div class="col-6">
-                                                    <label for="">Producto</label>
-                                                    <div class="form-group">
-                                                        <select name="concepto" class="form-select d-inline-block productos">
-                                                            <option value="">Seleccione products</option>
-                                                            @foreach ($products as $product)
-                                                            <option value="{{ $product->nombre }}">{{ $product->nombre }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                <label for="">Producto</label>
+                                                <div class="form-group">
+                                                    <select name="producto_concepto" class="form-select d-inline-block productos">
+                                                        <option value="">Seleccione producto</option>
+                                                        @foreach ($products as $product)
+                                                        <option value="{{ $product->nombre }}">{{ $product->nombre }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
+                                            </div>
 
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -621,14 +621,14 @@
 
     <script type="text/javascript">
 
-            $(document).ready(function() {
-                $('.user').select2();
-                $('.cliente').select2();
-                $('.servicio1').select2();
-                $('.servicio2').select2();
-                $('.servicio3').select2();
-                $('.servicio4').select2();
-                $('.productos').select2();
+        $(document).ready(function() {
+            $('.user').select2();
+            $('.cliente').select2();
+            $('.servicio1').select2();
+            $('.servicio2').select2();
+            $('.servicio3').select2();
+            $('.servicio4').select2();
+            $('.productos').select2();
         });
 
     </script>
