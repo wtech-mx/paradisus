@@ -163,6 +163,18 @@
                                                 </button>
                                             </div>
 
+                                            <div class="col-6">
+                                                    <label for="">Producto</label>
+                                                    <div class="form-group">
+                                                        <select name="concepto" class="form-select d-inline-block productos">
+                                                            <option value="">Seleccione products</option>
+                                                            @foreach ($products as $product)
+                                                            <option value="{{ $product->nombre }}">{{ $product->nombre }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="precio">Servicio</label><br>
@@ -616,6 +628,7 @@
                 $('.servicio2').select2();
                 $('.servicio3').select2();
                 $('.servicio4').select2();
+                $('.productos').select2();
         });
 
     </script>

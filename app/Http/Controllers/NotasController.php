@@ -27,7 +27,7 @@ use App\Models\AlertasCosmes;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client as GuzzleClient;
-
+use App\Models\ProductosNAS;
 
 class NotasController extends Controller
 {
@@ -89,8 +89,9 @@ class NotasController extends Controller
         $client = Client::orderBy('name','ASC')->get();
         $servicio = Servicios::orderBy('nombre','ASC')->get();
         $user = User::where('id', '!=', 1)->get();
+        $products = ProductosNAS::get();
 
-        return view('notas.create',compact('client', 'servicio', 'user'));
+        return view('notas.create',compact('client', 'servicio', 'user', 'products'));
     }
     /**
      * Store a newly created resource in storage.
@@ -370,6 +371,27 @@ class NotasController extends Controller
 
         if ($notas_paquetes->id_servicio4 !== null) {
             $servicio .= ' ' . $notas_paquetes->Servicios4->nombre;
+        }
+
+        if ($request->get('concepto') !== null) {
+            $nota_pedido = new NotasPedidos;
+            $nota_pedido->id_user = $id_user;
+            $nota_pedido->estatus = 'Aprobada';
+            $nota_pedido->aprobado_hora_y_guia = date("Y-m-d H:i:s");
+            $nota_pedido->id_client = $nota->id_client;
+            $nota_pedido->metodo_pago = 'Gratis';
+            $nota_pedido->fecha = $fechaActual;
+            $nota_pedido->descuento = '0';
+            $nota_pedido->total = 0;
+            $nota_pedido->restante = '0';
+            $nota_pedido->dinero_recibido = '0';
+            $nota_pedido->save();
+
+            $nota_producto = new Pedido;
+            $nota_paquete->concepto = $request->get('concepto');
+            $nota_paquete->cantidad = $request->get('cantidad');
+            $nota_paquete->importe = $request->get('importe');
+            $nota_producto->save();
         }
 
         $recibo = [
