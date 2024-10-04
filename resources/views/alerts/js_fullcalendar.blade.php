@@ -829,11 +829,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
        $('#btnBuscar').on('click', function() {
             var titulo = $('#title_search').val();
+            var telefono = $('#telefono_search').val();
 
             $.ajax({
                 url: '{{ route("alertas.buscar") }}',
                 type: 'GET',
-                data: { titulo: titulo },
+                data: {
+                    titulo: titulo,
+                    telefono: telefono,
+                },
                 success: function(response) {
                 $('#resultadosContainer').html(response);
 

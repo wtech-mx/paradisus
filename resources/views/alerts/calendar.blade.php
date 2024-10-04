@@ -89,13 +89,23 @@
                     @endforeach
                 </div>
 
-                <div class="col-6">
-                    <label for="total-suma">Buscar Cliente</label>
+                <div class="col-4">
+                    <label for="total-suma">Buscar Cliente Nombre</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <img src="{{ asset('assets/icons/personas.webp') }}" alt="" width="30px">
                         </span>
-                        <input class="form-control" type="text" id="title_search" name="title_search">
+                        <input class="form-control" type="text" id="title_search" name="title_search" placeholder="Ingresa Nombre">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <label for="total-suma">Buscar Cliente Telefono</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <img src="{{ asset('assets/icons/phone.png') }}" alt="" width="30px">
+                        </span>
+                        <input class="form-control" type="text" id="telefono_search" name="telefono_search" placeholder="Ingresa Telefono">
                     </div>
                 </div>
 
@@ -103,11 +113,10 @@
                     <button class="btn btn-sx btn-success" id="btnBuscar">Buscar <img src="{{ asset('assets/icons/buscar.png') }}" alt="" width="20px"></button>
                 </div>
 
-                <div class="col-3 mt-4">
+                <div class="col-2 mt-4">
                     <button class="btn btn-sx btn-danger" id="btnLimpiar">Limpiar <img src="{{ asset('assets/icons/limpiar-deslizar.png') }}" alt="" width="20px"></button>
                 </div>
 
-                <div class="col-1"></div>
             </div>
 
             <div id="resultadosContainer">

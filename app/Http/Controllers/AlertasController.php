@@ -233,12 +233,21 @@ class AlertasController extends Controller
 
     public function buscarAlertas(Request $request)
     {
-        $titulo = $request->input('titulo');
+
+        $titulo = trim($request->input('titulo'));
+        $telefono = trim($request->input('telefono'));
+
         //    $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
 
-        $subquery = Alertas::select(DB::raw('MAX(id) as latest_id'))
+        if($titulo == NULL){
+            $subquery = Alertas::select(DB::raw('MAX(id) as latest_id'))
+            ->where('telefono', 'LIKE', "%{$telefono}%")
+            ->groupBy('id_servicio');
+        }else{
+            $subquery = Alertas::select(DB::raw('MAX(id) as latest_id'))
             ->where('title', 'LIKE', "%{$titulo}%")
             ->groupBy('id_servicio');
+        }
 
         $alertas = Alertas::whereIn('id', $subquery->pluck('latest_id'))->get();
 
