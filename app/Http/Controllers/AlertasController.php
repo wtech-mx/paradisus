@@ -1091,7 +1091,6 @@ class AlertasController extends Controller
                 }
                 $pago->save();
 
-
                 if($request->get('forma_pago') == 'Tarjeta'){
 
                     // Define las credenciales de la API
@@ -1232,12 +1231,19 @@ class AlertasController extends Controller
             AlertasCosmes::insert($insert_data);
         }
 
-        Session::flash('success', 'Se ha guardado su nota con exito');
-        return redirect()->back()->with('success', 'Agenda created successfully');
+        return response()->json([
+            'success' => true,
+            'message' => "La Cita se actualizo Correctamente. (Se vera actualizado en algunos segundos)"
+        ]);
+
+
+        // Session::flash('success', 'Se ha guardado su nota con exito');
+        // return redirect()->back()->with('success', 'Agenda created successfully');
     }
 
     public function store_agenda_manual(Request $request)
     {
+
         $fechaActual = date('Y-m-d');
 
         if($request->get('id_client_manual') != NULL){

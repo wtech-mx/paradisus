@@ -26,19 +26,21 @@
 
                 <div class="col-3">
                     <label for="total-suma">-</label>
-                    <button type="submit" class="btn close-modal d-block" style="background: {{$configuracion->color_boton_save}}; color: #ffff">Buscar Disponibilidad</button>
+                    <button type="submit" class="btn close-modal d-block" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                        Buscar Disponibilidades
+                    </button>
                 </div>
 
             </div>
         </form>
     </div>
 
-    <div class="col-4">
+    <div class="col-4" id="colIzqDis">
         <button id="buscarMasFechas" class="btn btn-success">Buscar más fechas <img src="{{ asset('assets/icons/buscar.png') }}" alt="" width="20px"></button></button>
         <div id="resultadosDisponibilidad"></div>
     </div>
 
-    <div class="col-8">
+    <div class="col-8" id="colDerDis">
         <div id="formularioFechaSeleccionada" style="display: none;">
             <form id="detallesFechaSeleccionadaForm" method="POST" action="{{ route('store_agenda.notas') }}" enctype="multipart/form-data" role="form">
                 @csrf
@@ -312,7 +314,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                    <button type="submit" id="submit_disponibilidad" class="btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
+                        <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
                         Guardar
                     </button>
                 </div>

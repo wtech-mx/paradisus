@@ -45,6 +45,11 @@
 @endphp
 
     <div class="row">
+
+        <div id="resultadosDisponibilidad">
+
+        </div>
+
         <div class="col-12 mt-5">
 
             <div class="row ">
@@ -168,6 +173,9 @@
     });
 
 </script>
+
+@include('alerts.js_buscar_disponibilidad')
+
 @include('alerts.js_fullcalendar')
 
 @endsection

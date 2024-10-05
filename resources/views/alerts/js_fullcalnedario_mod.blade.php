@@ -1,10 +1,11 @@
+@ -0,0 +1,916 @@
 <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.all.min.js"></script>
+
+@include('alerts.js_buscar_disponibilidad')
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -31,34 +32,30 @@
                 dropdownParent: $('#exampleModal')
             });
 
+            $('.id_servicio_full').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
+            $('.id_servicio_full2').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
+            $('.cosmesInput_multiple').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
+            $('.cosmesInput_multiple_nueva').select2({
+                width: '100%',
+                dropdownParent: $('#exampleModal')
+            });
+
             $('.cosmesInput_multipleComida').select2({
                 width: '100%',
                 dropdownParent: $('#comidaModal')
             });
-
-            // $('.id_servicio_full').select2({
-            //     width: '100%',
-            //     dropdownParent: $('#exampleModal')
-            // });
-
-            // $('.id_servicio_full2').select2({
-            //     width: '100%',
-            //     dropdownParent: $('#exampleModal')
-            // });
-            // $('.cosmesInput_multiple').select2({
-            //     width: '100%',
-            //     dropdownParent: $('#exampleModal')
-            // });
-            // $('.cosmesInput_multiple_nueva').select2({
-            //     width: '100%',
-            //     dropdownParent: $('#exampleModal')
-            // });
-
-            $('.id_servicio_full').select2();
-            $('.id_servicio_full2').select2();
-            $('.cosmesInput_multiple').select2();
-            $('.cosmesInput_multiple_nueva').select2();
-
         });
 
         // Inicializar select2 fuera del modal (por si acaso)
@@ -89,142 +86,52 @@
             dropdownParent: $('#comidaModal') // Esto asegura que el dropdown se renderice dentro del modal
         });
 
-        $(document).on('shown.bs.modal', function(e) {
-            // Obtén el modal que se ha mostrado
-            var modal = $(e.target);
-
-            // Encuentra los selects dentro de este modal y aplica Select2
-            modal.find('.modal_cita_serv').select2({
-                width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
-                dropdownParent: modal // Esto asegura que el dropdown se renderice dentro del modal correcto
-            });
-
-            modal.find('.modal_cita_cosme').select2({
-                width: '100%', // Asegúrate de que el select2 ocupe el 100% del ancho del contenedor
-                dropdownParent: modal // Esto asegura que el dropdown se renderice dentro del modal correcto
-            });
-        });
     });
 </script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
 
-$(document).on('click', '.btn-submit-cita', function(e) {
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-    e.preventDefault();
+    var calendarEl = document.getElementById('calendar');
+    var originalResources = {!! json_encode($modulos) !!};
 
-    var alertaId = $(this).data('alerta-id');
-    console.log('alertaId', alertaId);
-    var form = $('#submit_prox_cita_' + alertaId);
-    var formData = form.serialize();
-    console.log('formData', formData); // Debugging
-    console.log(form.length);
+    var currentUrl = window.location.href; // Obtener la URL actual
+    var eventsUrl;
 
-    // Asegúrate de que formData no esté vacío
-    if (formData === '') {
-        console.error('formData is empty');
-        return;
+    // Determinar la URL de eventos según la URL actual
+    if (currentUrl.includes("/dashboard/anterior")) {
+        eventsUrl = "{{ route('calendar.show_calendar_anterior') }}";
+    } else {
+        eventsUrl = "{{ route('calendar.show_calendar') }}";
     }
 
-    var $button = $(this);
-    var $spinner = $button.find('#spinner');
-
-    // Mostrar el spinner y deshabilitar el botón
-    $spinner.show();
-    $button.prop('disabled', true);
-
-    $.ajax({
-        type: 'POST',
-        url: "{{ route('servicio.store_prox_cita') }}",
-        data: formData,
-        success: function(response) {
-            // Actualiza los eventos en el calendario
-            calendar.refetchEvents();
-
-            // Reinicia el formulario
-            form[0].reset();
-            form.find('.modal_cita_serv').val([]).trigger('change'); // Limpiar el select de servicio si usas Select2
-            form.find('.modal_cita_cosme').val([]).trigger('change'); // Limpiar el select múltiple si usas Select2
-
-            // Cierra el modal
-            $('#modalCita' + alertaId).modal('hide');
-
-            // Muestra un mensaje de éxito
-            alert('Cita agendada exitosamente');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        navLinks: true,
+        height: 'auto',
+        timeZone: 'local',
+        initialDate: '{{$Fecha}}',
+        initialView: 'dayGridMonth',
+        nowIndicator: true,
+        editable: true,
+        dayMaxEvents: 5,
+        aspectRatio: 1.8,
+        themeSystem: 'bootstrap',
+        scrollTime: "09:00:00",
+        slotMinTime: "{{ date('H:i:s', strtotime($configuracion->horario_inicio)) }}",
+        slotMaxTime: "{{ date('H:i:s', strtotime($configuracion->horario_fin)) }}",
+        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+        headerToolbar: {
+            left: 'today prev,next',
+            center: 'title',
+            right: 'resourceTimeGridDay,dayGridMonth,list'
         },
-        error: function(xhr, status, error) {
-            // Maneja el error si es necesario
-            alert('Ocurrió un error al guardar la cita');
-        },
-        complete: function() {
-            // Ocultar el spinner y habilitar el botón después de completar la solicitud
-            $spinner.hide();
-            $button.prop('disabled', false);
-        }
-    });
-
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var originalResources = {!! json_encode($modulos) !!};
-        var spinner = document.getElementById('loading-spinner');
-
-        var currentUrl = window.location.href; // Obtener la URL actual
-        var eventsUrl;
-
-        // Determinar la URL de eventos según la URL actual
-        if (currentUrl.includes("/dashboard/anterior")) {
-            eventsUrl = "{{ route('calendar.show_calendar_anterior') }}";
-        } else {
-            eventsUrl = "{{ route('calendar.show_calendar') }}";
-        }
-
-       // Mostrar el spinner antes de iniciar la carga
-       spinner.style.display = 'block';
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            navLinks: true,
-            height: 'auto',
-            timeZone: 'local',
-            initialDate: '{{$Fecha}}',
-            initialView: 'dayGridMonth',
-            nowIndicator: true,
-            editable: true,
-            dayMaxEvents: 5,
-            aspectRatio: 1.8,
-            themeSystem: 'bootstrap',
-            scrollTime: "09:00:00",
-            slotMinTime: "{{ date('H:i:s', strtotime($configuracion->horario_inicio)) }}",
-            slotMaxTime: "{{ date('H:i:s', strtotime($configuracion->horario_fin)) }}",
-            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-            lazyFetching: true,
-            headerToolbar: {
-                left: 'today prev,next',
-                center: 'title',
-                right: 'resourceTimeGridDay,dayGridMonth,list'
-            },
-            slotLabelFormat: {
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
-            },
-            views: {
-                resourceTimeGridDay: {
-                titleFormat: {
+        views: {
+            resourceTimeGridDay: {
+                titleFormat: { // para resourceTimeGridDay
                     weekday: 'long',
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric'
-                },
-                slotLabelFormat: {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true // Esto muestra el formato de 12 horas con AM/PM
                 }
             },
             dayGridMonth: {
@@ -242,8 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         },
-
         resources: {!! json_encode($modulos) !!},
+        resources: originalResources,
 
         events: eventsUrl,
 
@@ -260,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 calendar.setOption('resources', originalResources);
             }
         },
-
 
         // ======================= M O D A L  P A R A  N U E V A  C I T A =======================
         dateClick: function (info) {
@@ -407,113 +313,32 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         eventContent: function (arg) {
-            // Formatear la hora de inicio
-            let minutos3 = arg.event.start.getMinutes();
-            let hora3 = arg.event.start.getHours();
+            minutos3 = (arg.event.start.getMinutes());
+            hora3 = (arg.event.start.getHours());
             minutos3 = (minutos3 < 10) ? "0" + minutos3 : minutos3;
             hora3 = (hora3 < 10) ? "0" + hora3 : hora3;
-            let horario = hora3 + ":" + minutos3;
-
-
-            let horaincio = arg.event.start;
-            // Crear un objeto Date con la fecha y hora de 'horaincio'
-            let dateInicio = new Date(horaincio);
-            // Extraer las horas y minutos
-            let hoursInicio = dateInicio.getHours();
-            let minutesInicio = dateInicio.getMinutes();
-            // Formatear los minutos para que siempre tengan dos dígitos
-            minutesInicio = minutesInicio < 10 ? '0' + minutesInicio : minutesInicio;
-            // Determinar si es AM o PM
-            let ampm = hoursInicio >= 12 ? 'PM' : 'AM';
-            // Convertir la hora al formato de 12 horas
-            hoursInicio = hoursInicio % 12;
-            hoursInicio = hoursInicio ? hoursInicio : 12; // El 0 debe ser 12
-            // Formatear la hora final
-            let formattedTimeInicio = hoursInicio + ':' + minutesInicio + ' ' + ampm;
-
-
-            let horafin = arg.event.end;
-            // Crear un objeto Date con la fecha y hora de 'horafin'
-            let date = new Date(horafin);
-            // Extraer las horas y minutos
-            let hours = date.getHours();
-            let minutes = date.getMinutes();
-            // Formatear los minutos para que siempre tengan dos dígitos
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            // Determinar si es AM o PM
-            let ampmini = hours >= 12 ? 'PM' : 'AM';
-            // Convertir la hora al formato de 12 horas
-            hours = hours % 12;
-            hours = hours ? hours : 12; // El 0 debe ser 12
-            // Formatear la hora final
-            let formattedTime = hours + ':' + minutes + ' ' + ampmini;
-
-
-
-            let duracion = arg.event.extendedProps.duracion || 0; // Duración del primer servicio en minutos
-            let duracion2 = arg.event.extendedProps.duracion2 || 0; // Duración del segundo servicio en minutos
-
-            // Crear objeto Date para la hora inicial
-            let horaInicial = new Date(arg.event.start);
-
-            // Calcular hora final del primer servicio sumando duracion en minutos
-            let horaFinServicio1 = new Date(horaInicial.getTime() + duracion * 60000);
-            let minutosFin1 = (horaFinServicio1.getMinutes() < 10) ? "0" + horaFinServicio1.getMinutes() : horaFinServicio1.getMinutes();
-            let horaFinFormateada1 = (horaFinServicio1.getHours() < 10) ? "0" + horaFinServicio1.getHours() : horaFinServicio1.getHours();
-            let horafinservicio1 = horaFinFormateada1 + ":" + minutosFin1;
-
-            // Calcular hora final del segundo servicio sumando duracion2 en minutos a horaFinServicio1
-            let horaFinServicio2 = duracion2 > 0 ? new Date(horaFinServicio1.getTime() + duracion2 * 60000) : null;
-            let minutosFin2 = horaFinServicio2 ? (horaFinServicio2.getMinutes() < 10 ? "0" + horaFinServicio2.getMinutes() : horaFinServicio2.getMinutes()) : null;
-            let horaFinFormateada2 = horaFinServicio2 ? (horaFinServicio2.getHours() < 10 ? "0" + horaFinServicio2.getHours() : horaFinServicio2.getHours()) : null;
-            let horafinservicio2 = horaFinServicio2 ? horaFinFormateada2 + ":" + minutosFin2 : null;
+            horario = (hora3 + ":" + minutos3);
+            let hor = horario;
 
             let imageArg = arg.event.extendedProps.image;
-            let modulocapi = arg.event.getResources().map(function (resource) { return resource.id; });
+            let modulocapi = arg.event.getResources().map(function (resource) { return resource.id });
             let nombreServicio = arg.event.extendedProps.nombre_servicio;
             let nombreServicio2 = arg.event.extendedProps.nombre_servicio2;
+            // console.log(nombreServicio);
 
-            let arrayOfDomNodes = [];
+            let arrayOfDomNodes = []
 
-        // Calcula la diferencia en minutos entre formattedTimeInicio y formattedTime
-        let startTime = new Date(arg.event.start);
-        let endTime = new Date(arg.event.end);
-        let timeDifference = (endTime - startTime) / 60000; // Diferencia en minutos
+            let titleEvent = document.createElement('div')
+            titleEvent.innerHTML = arg.event.title
+            titleEvent.classList = "fc-event-title fc-sticky"
 
-        // Define los valores predeterminados para fontSize y lineHeight
-        let fontSize = '9.5px';
-        let lineHeight = '11.2px';
+            let horaEvent = document.createElement('div')
+            horaEvent.innerHTML = '<div style="font-size:10px;">' + hor + ' - ' + modulocapi + '<img width="13px" style="margin-left: 10px" src="' + imageArg + '" ><br>' + nombreServicio + '<br>' + nombreServicio2 + '</div>';
+            horaEvent.classList = "fc-event-time"
 
-        let titulo = arg.event.title;
+            arrayOfDomNodes = [titleEvent, horaEvent]
 
-        let horaEvent = document.createElement('div');
-
-        // Si la diferencia es de 30 minutos, usa la estructura compacta
-        if (timeDifference === 30) {
-            horaEvent.innerHTML = `
-                <p style="font-size:9px; line-height:6px ; margin: 0; padding: 0;">
-                    ${titulo} ${formattedTimeInicio} - ${formattedTime} ${modulocapi}
-                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
-                    <br>${nombreServicio} (${duracion} min)
-                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-                </p>`;
-        } else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
-            horaEvent.innerHTML = `
-                <p style="font-size:${fontSize}; line-height: ${lineHeight}; margin: 0; padding: 0;">
-                    ${titulo}
-                    <br>
-                    ${formattedTimeInicio} - ${formattedTime} -${modulocapi}
-                    <img width="9px" style="margin-left: 10px" src="${imageArg}">
-                    <br>${nombreServicio} (${duracion} min)
-                    ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-                </p>`;
-        }
-
-            horaEvent.classList = "fc-event-time";
-
-            arrayOfDomNodes = [horaEvent];
-            return { domNodes: arrayOfDomNodes };
-
+            return { domNodes: arrayOfDomNodes }
         },
 
     });
@@ -559,6 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
 
 
+
     // Función para mostrar el spinner
     function showSpinner(button) {
         button.prop('disabled', true);
@@ -592,94 +418,35 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       $('#btnAgregar').click(function() {
-    var button = $(this);
-    showSpinner(button);
+        var button = $(this);
+        showSpinner(button);
 
-    var ObjEvento = recolectarDatosGUI('POST');
+        ObjEvento = recolectarDatosGUI('POST');
+        EnviarInformacion('', ObjEvento, function() {
+            hideSpinner(button, '<i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar');
+        });
+      });
 
-    EnviarInformacion('', ObjEvento, function(response) {
-        hideSpinner(button, '<i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar');
-
-        // Verifica que la respuesta ha llegado y se ejecuta el callback
-        console.log('Callback ejecutado con la respuesta:', response);
-
-        if (response.success) {
-            var newEvent = {
-                id: response.id, // Asegúrate de que este ID sea el correcto
-                title: ObjEvento.title,
-                start: ObjEvento.start,
-                end: ObjEvento.end,
-                // Otras propiedades necesarias
-            };
-
-            // Verifica que el evento nuevo se está creando correctamente
-            console.log('Nuevo evento:', newEvent);
-
-            // Agrega el evento al calendario
-            calendar.addEvent(newEvent);
-
-            // Mostrar la SweetAlert (esto debería ejecutarse si el callback funciona)
-            Swal.fire({
-                icon: 'success',
-                title: '¡Evento agregado!',
-                text: 'El evento ha sido agregado exitosamente al calendario.'
-            });
-        } else {
-            console.error('Error al agregar el evento:', response.message);
-        }
-    });
-});
-
-
-
-    $('#btnBorrar').click(function() {
+      $('#btnBorrar').click(function(){
         var button = $(this);
         showSpinner(button);
 
         ObjEvento = editarDatosGUI('PATCH');
-
-        EnviarInformacion('/destroy/' + $('#txtID').val(), ObjEvento, function(response) {
+        EnviarInformacion('/destroy/'+$('#txtID').val(), ObjEvento, function() {
             hideSpinner(button, '<i class="fa fa-trash" aria-hidden="true"></i> Eliminar');
-            allowRefetch = false; // Desactiva el rec   argo automático
-            console.log(allowRefetch);
-            calendar.getEventById($('#txtID').val()).remove(); // Elimina el evento manualmente del calendario
-
-            setTimeout(function() {
-                allowRefetch = true; // Reactiva el recargo automático
-            }, 1000); // Ajusta el tiempo según sea necesario
         });
-    });
 
-    $('#btnModificar').click(function() {
+      });
+
+      $('#btnModificar').click(function() {
         var button = $(this);
         showSpinner(button);
 
-        var ObjEvento = editarDatosGUI('PATCH');
-        EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function(response) {
+        ObjEvento = editarDatosGUI('PATCH');
+        EnviarInformacion('/update/' + $('#txtID').val(), ObjEvento, function() {
             hideSpinner(button, '<i class="fa fa-retweet" aria-hidden="true"></i> Modificar');
-
-            // Desactiva el recargo automático
-            allowRefetch = false;
-
-            // Obtén el evento actual usando el ID
-            var event = calendar.getEventById($('#txtID').val());
-
-            if (event) {
-                // Actualiza el evento con los nuevos datos
-                event.setProp('title', ObjEvento.title);
-                event.setStart(ObjEvento.start);
-                event.setEnd(ObjEvento.end);
-                event.setExtendedProp('otherProperty', ObjEvento.otherProperty);
-                // Asegúrate de actualizar otras propiedades necesarias
-            }
-
-            // Reactiva el recargo automático después de un tiempo
-            setTimeout(function() {
-                allowRefetch = true;
-            }, 1000); // Ajusta el tiempo según sea necesario
         });
     });
-
 
       function recolectarDatosGUIWhatsapp(method){
           nuevoEventowhatasapp={
@@ -797,78 +564,49 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(ruta, '_blank');
       }
 
-    function EnviarInformacion(accion, ObjEvento, callback) {
+      function EnviarInformacion(accion, ObjEvento, callback) {
         $.ajax({
             type: "POST",
             url: "{{route('calendar.store_calendar')}}" + accion,
             data: ObjEvento,
+            success: function(msg) {
+                $('#exampleModal').modal('toggle');
+                calendar.refetchEvents();
+                if (callback) callback();  // Llama a la callback si existe
+            },
+            error: function() {
+                alert("hay un error");
+                if (callback) callback();  // Llama a la callback incluso en caso de error
+            }
+        });
+      }
+
+      $('#guardarCita').on('click', function(e,callback) {
+            e.preventDefault();
+
+            var formData = $('#updateForm').serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('update_horarios') }}", // Actualiza con la ruta correcta
+                data: formData,
                 success: function(response) {
-                    $('#exampleModal').modal('toggle');
+                    // Actualiza los eventos en el calendario
+                    calendar.refetchEvents();
+                    if (callback) callback();  // Llama a la callback si existe
+                    $('#HorariosModal').modal('hide');
+                    // Muestra un mensaje de éxito si es necesario
+                    alert('Cita guardada exitosamente');
+                    location.reload();
 
-                    // Intentar parsear la respuesta como JSON
-                    try {
-                        var jsonResponse = (typeof response === 'string') ? JSON.parse(response) : response;
-
-                        console.log("Respuesta JSON procesada:", jsonResponse);
-
-                        if (jsonResponse.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Éxito!',
-                                text: jsonResponse.message || 'Operación realizada con éxito.',
-                            });
-
-                        if (callback) callback(jsonResponse);  // Llama a la callback si existe
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: jsonResponse.message || 'Ocurrió un error.',
-                            });
-                        }
-                    } catch (e) {
-                        console.error('Error procesando la respuesta JSON:', e);
-                        alert('La respuesta del servidor no es válida.');
-                    }
                 },
-                error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Ocurrió un error en la solicitud.',
-                            });
+                error: function(xhr, status, error) {
+                    // Maneja el error si es necesario
+                    alert('Ocurrió un error al guardar la cita');
+                    if (callback) callback();  // Llama a la callback incluso en caso de error
 
-                            if (callback) callback(xhr);
                 }
             });
-    }
-
-        $('#guardarCita').on('click', function(e,callback) {
-                e.preventDefault();
-
-                var formData = $('#updateForm').serialize();
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('update_horarios') }}", // Actualiza con la ruta correcta
-                    data: formData,
-                    success: function(response) {
-                        // Actualiza los eventos en el calendario
-                        calendar.refetchEvents();
-                        if (callback) callback();  // Llama a la callback si existe
-                        $('#HorariosModal').modal('hide');
-                        // Muestra un mensaje de éxito si es necesario
-                        alert('Cita guardada exitosamente');
-                        location.reload();
-
-                    },
-                    error: function(xhr, status, error) {
-                        // Maneja el error si es necesario
-                        alert('Ocurrió un error al guardar la cita');
-                        if (callback) callback();  // Llama a la callback incluso en caso de error
-
-                    }
-                });
         });
 
         $('#submit_comida').on('click', function(e, callback) {
@@ -914,66 +652,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        $('#btnBuscar').on('click', function() {
-            var titulo = $('#title_search').val();
-
-            $.ajax({
-                url: '{{ route("alertas.buscar") }}',
-                type: 'GET',
-                data: { titulo: titulo },
-                success: function(response) {
-                $('#resultadosContainer').html(response);
-
-                // Inicializa los modales después de cargar la vista diferida
-                $('#resultadosContainer').find('.modal-trigger').on('click', function() {
-                    var targetModal = $(this).data('target');
-                    $(targetModal).modal('show');
-                });
-
-                // const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-                // searchable: true,
-                // fixedHeight: false
-                // });
-            },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-
-        $('#btnLimpiar').on('click', function() {
-            $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
-        });
-
-        $(document).on('submit', '.approveForm', function(e) {
-            e.preventDefault();
-
-            var form = $(this);
-            var formData = form.serialize();
-
-            $.ajax({
-                    url: form.attr('action'),
-                    method: form.attr('method'),
-                    data: formData,
-                    success: function(response) {
-                        console.log(response);
-                        // Mostrar alerta de guardado exitoso
-                        alert('Aprobado correctamente.');
-
-                        // Cerrar el modal después de guardar
-                        form.closest('.modal').modal('hide');
-                        calendar.refetchEvents();
-
-                        // Opcional: recargar la tabla o los datos si es necesario
-                        $('#btnBuscar').click(); // Esto recarga la tabla después de la aprobación
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
-            });
-
-        });
-
 
       function limpiarFormulario(){
             $('#txtID').val("");
@@ -1015,155 +693,156 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-    $(document).ready(function() {
-        let pagina = 1;
+$(document).ready(function() {
+    let pagina = 1;
 
-        $('#buscarDisponibilidadForm').on('submit', function(e) {
-            e.preventDefault();
-            pagina = 1;  // Reiniciar la página cuando se envía el formulario
+    $('#buscarDisponibilidadForm').on('submit', function(e) {
+        e.preventDefault();
+        pagina = 1;  // Reiniciar la página cuando se envía el formulario
 
-            buscarDisponibilidad(true);
-        });
+        buscarDisponibilidad(true);
+    });
 
-        function buscarDisponibilidad(reset = false) {
-            const servicioId = $('#servicio').val();
-            const duracion = $('#servicio option:selected').data('duracion');
-            const numPersonas = $('#numPersonas').val();
+    function buscarDisponibilidad(reset = false) {
+        const servicioId = $('#servicio').val();
+        const duracion = $('#servicio option:selected').data('duracion');
+        const numPersonas = $('#numPersonas').val();
 
-            $.ajax({
-                url: '/buscar-disponibilidad',
-                method: 'GET',
-                data: {
-                    servicioId: servicioId,
-                    duracion: duracion,
-                    numPersonas: numPersonas,
-                    pagina: pagina
-                },
-                success: function(data) {
-                    if (reset) {
-                        $('#resultadosDisponibilidad').html('');
-                    }
+        $.ajax({
+            url: '/buscar-disponibilidad',
+            method: 'GET',
+            data: {
+                servicioId: servicioId,
+                duracion: duracion,
+                numPersonas: numPersonas,
+                pagina: pagina
+            },
+            success: function(data) {
+                if (reset) {
+                    $('#resultadosDisponibilidad').html('');
+                }
 
-                    let resultadosHtml = '';
+                let resultadosHtml = '';
 
-                    if (Object.keys(data).length > 0) {
-                        let collapseId = pagina * 5;  // Ajustar el ID para evitar conflictos
+                if (Object.keys(data).length > 0) {
+                    let collapseId = pagina * 5;  // Ajustar el ID para evitar conflictos
 
-                        for (const [fecha, horarios] of Object.entries(data)) {
-                            const fechaFormateada = moment(fecha).locale('es').format('dddd D [de] MMMM');
-                            collapseId++;
-                            resultadosHtml += `
-                                <div class="card">
-                                    <div class="card-header" id="heading${collapseId}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${collapseId}" aria-expanded="true" aria-controls="collapse${collapseId}">
-                                                ${fechaFormateada}
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapse${collapseId}" class="collapse" aria-labelledby="heading${collapseId}" data-parent="#resultadosDisponibilidad">
-                                        <div class="card-body">
-                            `;
-                            horarios.forEach(horario => {
-                                resultadosHtml += `<div><h4>${horario.hora}</h4><ul>`;
-                                horario.cosmes.forEach(cosme => {
-                                    resultadosHtml += `<li>${cosme}</li>`;
-                                });
-                                resultadosHtml += '</ul>';
-                                resultadosHtml += `
-                                    <button class="seleccionarHorario btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff"
-                                        data-fecha="${fecha}"
-                                        data-hora="${horario.hora}"
-                                        data-servicio="${servicioId}"
-                                        data-numPersonas="${numPersonas}"
-                                        data-cosmes='${JSON.stringify(horario.cosmes)}'>
-                                        ¿Agendar?
-                                    </button>
-                                `;
-                                resultadosHtml += '</div>';
+                    for (const [fecha, horarios] of Object.entries(data)) {
+                        const fechaFormateada = moment(fecha).locale('es').format('dddd D [de] MMMM');
+                        collapseId++;
+                        resultadosHtml += `
+                            <div class="card">
+                                <div class="card-header" id="heading${collapseId}">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${collapseId}" aria-expanded="true" aria-controls="collapse${collapseId}">
+                                            ${fechaFormateada}
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse${collapseId}" class="collapse" aria-labelledby="heading${collapseId}" data-parent="#resultadosDisponibilidad">
+                                    <div class="card-body">
+                        `;
+                        horarios.forEach(horario => {
+                            resultadosHtml += `<div><h4>${horario.hora}</h4><ul>`;
+                            horario.cosmes.forEach(cosme => {
+                                resultadosHtml += `<li>${cosme}</li>`;
                             });
+                            resultadosHtml += '</ul>';
                             resultadosHtml += `
-                                        </div>
+                                <button class="seleccionarHorario btn close-modal" style="background: {{$configuracion->color_boton_save}}; color: #ffff"
+                                    data-fecha="${fecha}"
+                                    data-hora="${horario.hora}"
+                                    data-servicio="${servicioId}"
+                                    data-numPersonas="${numPersonas}"
+                                    data-cosmes='${JSON.stringify(horario.cosmes)}'>
+                                    ¿Agendar?
+                                </button>
+                            `;
+                            resultadosHtml += '</div>';
+                        });
+                        resultadosHtml += `
                                     </div>
                                 </div>
-                            `;
-                        }
-                    } else {
-                        if (reset) {
-                            resultadosHtml = '<p>No hay disponibilidad para el servicio seleccionado.</p>';
-                        }
+                            </div>
+                        `;
                     }
-
-                    $('#resultadosDisponibilidad').append(resultadosHtml);
-                },
-                error: function(error) {
-                    console.log(error);
+                } else {
+                    if (reset) {
+                        resultadosHtml = '<p>No hay disponibilidad para el servicio seleccionado.</p>';
+                    }
                 }
-            });
-        }
 
-        $('#buscarMasFechas').on('click', function() {
-            pagina++;
-            buscarDisponibilidad();
-
-            alert('Busqueda Actualizada');
+                $('#resultadosDisponibilidad').append(resultadosHtml);
+            },
+            error: function(error) {
+                console.log(error);
+            }
         });
+    }
 
-        $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
-            // const fechaSeleccionada = $(this).data('fecha');
-            // const horaSeleccionada = $(this).data('hora');
-            const servicioIdSeleccionado = $(this).data('servicio');
-            const numPersonasSeleccionado = $(this).data('numPersonas');
-            const cosmesSeleccionados = $(this).data('cosmes');
-            // console.log(cosmesSeleccionados);
+    $('#buscarMasFechas').on('click', function() {
+        pagina++;
+        buscarDisponibilidad();
 
-            // $('#fechaSeleccionadaInput').val(fechaSeleccionada);
-            // $('#horaSeleccionadaInput').val(horaSeleccionada);
-            $('#servicioIdInput').val(servicioIdSeleccionado);
-            $('#numPersonasInput').val(numPersonasSeleccionado);
-
-            // Preselecciona los cosmes en el multiselect
-            $('#cosme_disp').val(cosmesSeleccionados).trigger('change');
-
-            // $('#formularioFechaSeleccionada').show();
-            actualizarTotalSuma();
-        });
-
-        $('#num_servicio').on('input', function() {
-            actualizarTotalSuma();
-        });
-
-        $('#pagoInput').on('input', function() {
-            actualizarRestante();
-            actualizarCambio();
-        });
-
-        $('#dineroRecibidoInput').on('input', function() {
-            actualizarCambio();
-        });
-
-        function actualizarTotalSuma() {
-            const numServicios = $('#num_servicio').val();
-            const precioServicio = parseFloat($('#servicio option:selected').data('precio'));
-            const totalSuma = precioServicio * numServicios;
-            $('#totalSumaInput').val(totalSuma);
-            actualizarRestante();
-        }
-
-        function actualizarRestante() {
-            const totalSuma = parseFloat($('#totalSumaInput').val());
-            const pago = parseFloat($('#pagoInput').val()) || 0;
-            const restante = totalSuma - pago;
-            $('#restanteInput').val(restante);
-        }
-
-        function actualizarCambio() {
-            const pago = parseFloat($('#pagoInput').val()) || 0;
-            const dineroRecibido = parseFloat($('#dineroRecibidoInput').val()) || 0;
-            const cambio = dineroRecibido - pago;
-            $('#cambioInput').val(cambio > 0 ? cambio : 0);
-        }
+        alert('Busqueda Actualizada');
     });
+
+
+    $('#resultadosDisponibilidad').on('click', '.seleccionarHorario', function() {
+        // const fechaSeleccionada = $(this).data('fecha');
+        // const horaSeleccionada = $(this).data('hora');
+        const servicioIdSeleccionado = $(this).data('servicio');
+        const numPersonasSeleccionado = $(this).data('numPersonas');
+        const cosmesSeleccionados = $(this).data('cosmes');
+        // console.log(cosmesSeleccionados);
+
+        // $('#fechaSeleccionadaInput').val(fechaSeleccionada);
+        // $('#horaSeleccionadaInput').val(horaSeleccionada);
+        $('#servicioIdInput').val(servicioIdSeleccionado);
+        $('#numPersonasInput').val(numPersonasSeleccionado);
+
+        // Preselecciona los cosmes en el multiselect
+        $('#cosme_disp').val(cosmesSeleccionados).trigger('change');
+
+        // $('#formularioFechaSeleccionada').show();
+        actualizarTotalSuma();
+    });
+
+    $('#num_servicio').on('input', function() {
+        actualizarTotalSuma();
+    });
+
+    $('#pagoInput').on('input', function() {
+        actualizarRestante();
+        actualizarCambio();
+    });
+
+    $('#dineroRecibidoInput').on('input', function() {
+        actualizarCambio();
+    });
+
+    function actualizarTotalSuma() {
+        const numServicios = $('#num_servicio').val();
+        const precioServicio = parseFloat($('#servicio option:selected').data('precio'));
+        const totalSuma = precioServicio * numServicios;
+        $('#totalSumaInput').val(totalSuma);
+        actualizarRestante();
+    }
+
+    function actualizarRestante() {
+        const totalSuma = parseFloat($('#totalSumaInput').val());
+        const pago = parseFloat($('#pagoInput').val()) || 0;
+        const restante = totalSuma - pago;
+        $('#restanteInput').val(restante);
+    }
+
+    function actualizarCambio() {
+        const pago = parseFloat($('#pagoInput').val()) || 0;
+        const dineroRecibido = parseFloat($('#dineroRecibidoInput').val()) || 0;
+        const cambio = dineroRecibido - pago;
+        $('#cambioInput').val(cambio > 0 ? cambio : 0);
+    }
+});
 </script>
 
 <script>
@@ -1211,4 +890,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 </script>
-
