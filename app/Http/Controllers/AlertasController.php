@@ -240,9 +240,9 @@ class AlertasController extends Controller
         //    $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
 
         if($titulo == NULL){
-            $subquery = Alertas::where('telefono', 'LIKE', "%{$telefono}%")->get();
+            $subquery = Alertas::where('telefono', 'LIKE', "%{$telefono}%")->orderBy('start', 'ASC')->get();
         }else{
-            $subquery = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
+            $subquery = Alertas::where('title', 'LIKE', "%{$titulo}%")->orderBy('start', 'ASC')->get();
         }
 
         $alertas = $subquery;
