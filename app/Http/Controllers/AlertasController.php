@@ -240,16 +240,12 @@ class AlertasController extends Controller
         //    $alertas = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
 
         if($titulo == NULL){
-            $subquery = Alertas::select(DB::raw('MAX(id) as latest_id'))
-            ->where('telefono', 'LIKE', "%{$telefono}%")
-            ->groupBy('id_servicio');
+            $subquery = Alertas::where('telefono', 'LIKE', "%{$telefono}%")->get();
         }else{
-            $subquery = Alertas::select(DB::raw('MAX(id) as latest_id'))
-            ->where('title', 'LIKE', "%{$titulo}%")
-            ->groupBy('id_servicio');
+            $subquery = Alertas::where('title', 'LIKE', "%{$titulo}%")->get();
         }
 
-        $alertas = Alertas::whereIn('id', $subquery->pluck('latest_id'))->get();
+        $alertas = $subquery;
 
         // Obtener todos los clientes (usuarios) con resourceId
         $clientes = User::whereNotNull('resourceId')->pluck('name', 'resourceId');
