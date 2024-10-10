@@ -79,16 +79,25 @@
                                         <form method="POST" action="{{ route('store_firma.lacer') }}" enctype="multipart/form-data" role="form">
                                             @csrf
                                             <input type="hidden" name="id_nota_firma" value="{{$nota_laser->id}}">
-                                            <div class="col-12 mt-3">
-                                                <div id="sig-pago3"></div>
-                                                <br/><br/>
-                                                <button id="clear-pago3" class="btn btn-danger btn-sm">Repetir</button>
-                                                <textarea id="signed_pago3" name="signed_pago3" style="display: none"></textarea>
+
+                                            <div class="row">
+                                                <div class="col-12 mt-3">
+                                                    <div id="sig-pago3"></div>
+                                                    <br/><br/>
+                                                    <textarea id="signed_pago3" name="signed_pago3" style="display: none"></textarea>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <button id="clear-pago3" class="btn btn-danger btn-sm">Repetir</button>
+                                                    <button type="submit" class="btn btn-success btn-sm">
+                                                        Guardar
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                                                Guardar
-                                            </button>
+
                                         </form>
+
+                                        <h4 class="mt-2 mb-2">Zonas:</h4>
 
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             @foreach ($zonas_lacer as $index => $zona_lacer)
@@ -115,7 +124,6 @@
                                                                 <th class="text-secondary opacity-7">IMG Antes</th>
                                                                 <th class="text-secondary opacity-7">IMG Despues</th>
                                                                 <th class="text-secondary opacity-7">Firma</th>
-
                                                                 <th class="text-secondary opacity-7">Guardar</th>
                                                             </tr>
                                                             </thead>
@@ -182,7 +190,7 @@
                                                                                 @if ($registro && $registro->foto1)
                                                                                     <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
                                                                                 @else
-                                                                                    <input type="file" name="foto1" class="form-control">
+                                                                                    <input type="file" name="foto1" class="form-control" required>
                                                                                 @endif
                                                                             </td>
 
@@ -190,7 +198,7 @@
                                                                                 @if ($registro && $registro->foto2)
                                                                                     <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
                                                                                 @else
-                                                                                    <input type="file" name="foto2" class="form-control">
+                                                                                    <input type="file" name="foto2" class="form-control" required>
                                                                                 @endif
                                                                             </td>
 
@@ -198,16 +206,13 @@
                                                                                 @if ($registro && $registro->firma)
                                                                                     <img src="{{asset('image/'.$registro->firma)}}" alt="" width="50px">
                                                                                 @endif
-
                                                                             </td>
                                                                             <td>
-
                                                                                 @if (!$hayRestante || $filaHabilitada)
                                                                                     <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
-                                                                                        G
+                                                                                        <i class="fa fa-save text-sm opacity-10"></i>
                                                                                     </button>
                                                                                 @endif
-
                                                                             </td>
 
                                                                         </tr>
