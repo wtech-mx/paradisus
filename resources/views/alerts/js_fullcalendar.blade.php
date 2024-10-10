@@ -199,8 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-
-
         events: function(fetchInfo, successCallback, failureCallback) {
     // Obtener las fechas de inicio y fin
     var startDate = new Date(fetchInfo.start);
@@ -372,49 +370,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Manejar servicios anteriores
-            const previousServicesList = document.getElementById('previousServicesList');
-            previousServicesList.innerHTML = ''; // Clear existing list
-            const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
-            // console.log(serviciosAnteriores);
+// Manejar servicios anteriores
+const previousServicesList = document.getElementById('previousServicesList');
+previousServicesList.innerHTML = ''; // Limpiar lista existente
+const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
 
-            if (serviciosAnteriores && serviciosAnteriores.length > 0) {
-                const rowDiv = document.createElement('div');
-                rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
+if (serviciosAnteriores && serviciosAnteriores.length > 0) {
+    const rowDiv = document.createElement('div');
+    rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
 
-                serviciosAnteriores.forEach(service => {
-                    if (service.id_client === info.event.extendedProps.id_client) {
-                        const colDiv = document.createElement('div');
-                        colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
+    serviciosAnteriores.forEach(service => {
+        if (service.id_client === info.event.extendedProps.id_client) {
+            const colDiv = document.createElement('div');
+            colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
 
-                        colDiv.innerHTML = `
-                            <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
-                            <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
-                            <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
-                            <strong>Cosmetóloga:</strong> ${service.cosmes.join(', ')}<br>
-                            <strong>Estatus:</strong> ${service.estatus}
-                        `;
+            colDiv.innerHTML = `
+                <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
+                <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
+                <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
+                <strong>Cosmetóloga:</strong> ${service.cosmes.join(', ')}<br>
+                <strong>Estatus:</strong> ${service.estatus}
+            `;
 
-                        rowDiv.appendChild(colDiv);
-                    }
-                });
+            rowDiv.appendChild(colDiv);
+        }
+    });
 
-                previousServicesList.appendChild(rowDiv);
-            } else {
-                previousServicesList.innerHTML = '<li>No hay servicios anteriores.</li>';
-            }
+    previousServicesList.appendChild(rowDiv);
 
-                // Evento para manejar el click en las fechas de servicios anteriores
-            document.getElementById('previousServicesList').addEventListener('click', function(e) {
-                if (e.target.classList.contains('service-date')) {
-                    e.preventDefault();
+    // Agregar manejadores de eventos a los enlaces de fecha
+    const serviceDates = document.querySelectorAll('.service-date');
+    serviceDates.forEach(dateLink => {
+        dateLink.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevenir la acción predeterminada de los enlaces
+            const selectedDate = new Date(this.getAttribute('data-date'));
 
-                    const date = e.target.getAttribute('data-date');
+            // Mover el calendario a la fecha seleccionada
+            calendar.gotoDate(selectedDate);
+        });
+    });
 
-                    // Navegar a la fecha en la vista resourceTimeGridDay
-                    calendar.changeView('resourceTimeGridDay', date);
-                }
-            });
+} else {
+    previousServicesList.innerHTML = '<li>No hay servicios anteriores.</li>';
+}
 
 
             // Verificar el valor de id_status y ocultar/mostrar el contenedor
@@ -860,6 +858,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
        $('#btnLimpiar').on('click', function() {
             $('#resultadosContainer').html('');  // Limpiar el contenido del contenedor de resultados
+            $('#title_search').val('');
+            $('#telefono_search').val('');
        });
 
        $(document).on('submit', '.approveForm', function(e) {
