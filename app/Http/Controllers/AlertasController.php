@@ -763,6 +763,7 @@ class AlertasController extends Controller
 
 
         if ($datosEventoStart->format('Y-m-d') != $startDateTime->format('Y-m-d')) {
+
             $diaSemana = strtolower($startDateTime->format('l')); // Obtiene el día de la semana en inglés
             $diasSemanaEspañol = [
                 'monday' => 'lunes',
@@ -773,24 +774,40 @@ class AlertasController extends Controller
                 'saturday' => 'sabado',
                 'sunday' => 'domingo'
             ];
+
             $diaEnEspanol = $diasSemanaEspañol[$diaSemana]; // Traduce el día al español
-
             // Obtener IDs de cosmetólogas seleccionadas
+
             $cosmesSeleccionadas = $request->input('cosmesInput', []);
+            $cosmesSeleccionadasAbajo = $request->input('cosmesnueva', []);
 
-            // Verificar disponibilidad de cada cosmetóloga
-            foreach ($cosmesSeleccionadas as $idCosme) {
-                $horario = Horario::where('id_user', $idCosme)->first();
+            if (empty($cosmesSeleccionadas)) {
+                foreach ($cosmesSeleccionadas as $idCosme) {
+                    $horario = Horario::where('id_user', $idCosme)->first();
 
-                if ($horario && $horario->$diaEnEspanol != 1) {
+                    if ($horario && $horario->$diaEnEspanol != 1) {
 
-                    return response()->json([
-                        'success' => false,
-                        'message' => "La cosmetóloga con ID {$idCosme} no trabaja el día {$diaEnEspanol}."
-                    ]);
+                        return response()->json([
+                            'success' => false,
+                            'message' => "La cosmetóloga con ID {$idCosme} no trabaja el día {$diaEnEspanol}."
+                        ]);
 
+                    }
                 }
-            }
+            } else {
+                foreach ($cosmesSeleccionadasAbajo as $idCosme) {
+                    $horario = Horario::where('id_user', $idCosme)->first();
+
+                    if ($horario && $horario->$diaEnEspanol != 1) {
+
+                        return response()->json([
+                            'success' => false,
+                            'message' => "La cosmetóloga con ID {$idCosme} no trabaja el día {$diaEnEspanol}."
+                        ]);
+
+                    }
+                }
+            }
         }
 
         // Obtener todas las alertas relacionadas
