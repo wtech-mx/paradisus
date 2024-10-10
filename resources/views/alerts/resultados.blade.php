@@ -53,7 +53,10 @@
                 <td>{{ $alerta->id }}</td>
                 <td>{!! $formattedTitle !!}</td>
                 <td>{!! $formattedTitleCosme !!}</td>
-                <td>{!! \Carbon\Carbon::parse($alerta->start)->format('d-m-Y') !!} <br> {!! \Carbon\Carbon::parse($alerta->start)->format('\a \l\a\s h:i A') !!}</td>
+                <td class="fecha-click" data-fecha="{{ \Carbon\Carbon::parse($alerta->start)->format('Y-m-d') }}">
+                    {!! \Carbon\Carbon::parse($alerta->start)->format('d-m-Y') !!} <br>
+                    {!! \Carbon\Carbon::parse($alerta->start)->format('\a \l\a\s h:i A') !!}
+                </td>
                 <td>{!! \Carbon\Carbon::parse($alerta->end)->format('d-m-Y') !!} <br> {!! \Carbon\Carbon::parse($alerta->end)->format('\a \l\a\s h:i A') !!}</td>
                 <td style="background-color: {{ $alerta->status->color }}">{{ $alerta->status->estatus }} <img src="{{ $alerta->status->icono }}" alt="" style="width: 20px"></td>
                 <td>{!! $formattedTitleServicio !!}</td>

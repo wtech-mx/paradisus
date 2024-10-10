@@ -370,49 +370,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-// Manejar servicios anteriores
-const previousServicesList = document.getElementById('previousServicesList');
-previousServicesList.innerHTML = ''; // Limpiar lista existente
-const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
+            // Manejar servicios anteriores
+            const previousServicesList = document.getElementById('previousServicesList');
+            previousServicesList.innerHTML = ''; // Limpiar lista existente
+            const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
 
-if (serviciosAnteriores && serviciosAnteriores.length > 0) {
-    const rowDiv = document.createElement('div');
-    rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
+            if (serviciosAnteriores && serviciosAnteriores.length > 0) {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
 
-    serviciosAnteriores.forEach(service => {
-        if (service.id_client === info.event.extendedProps.id_client) {
-            const colDiv = document.createElement('div');
-            colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
+                serviciosAnteriores.forEach(service => {
+                    if (service.id_client === info.event.extendedProps.id_client) {
+                        const colDiv = document.createElement('div');
+                        colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
 
-            colDiv.innerHTML = `
-                <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
-                <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
-                <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
-                <strong>Cosmetóloga:</strong> ${service.cosmes.join(', ')}<br>
-                <strong>Estatus:</strong> ${service.estatus}
-            `;
+                        colDiv.innerHTML = `
+                            <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
+                            <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
+                            <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
+                            <strong>Cosmetóloga:</strong> ${service.cosmes.join(', ')}<br>
+                            <strong>Estatus:</strong> ${service.estatus}
+                        `;
 
-            rowDiv.appendChild(colDiv);
-        }
-    });
+                        rowDiv.appendChild(colDiv);
+                    }
+                });
 
-    previousServicesList.appendChild(rowDiv);
+                previousServicesList.appendChild(rowDiv);
 
-    // Agregar manejadores de eventos a los enlaces de fecha
-    const serviceDates = document.querySelectorAll('.service-date');
-    serviceDates.forEach(dateLink => {
-        dateLink.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevenir la acción predeterminada de los enlaces
-            const selectedDate = new Date(this.getAttribute('data-date'));
+                // Agregar manejadores de eventos a los enlaces de fecha
+                const serviceDates = document.querySelectorAll('.service-date');
+                serviceDates.forEach(dateLink => {
+                    dateLink.addEventListener('click', function (event) {
+                        event.preventDefault(); // Prevenir la acción predeterminada de los enlaces
+                        const selectedDate = new Date(this.getAttribute('data-date'));
 
-            // Mover el calendario a la fecha seleccionada
-            calendar.gotoDate(selectedDate);
-        });
-    });
+                        // Mover el calendario a la fecha seleccionada
+                        calendar.gotoDate(selectedDate);
+                    });
+                });
 
-} else {
-    previousServicesList.innerHTML = '<li>No hay servicios anteriores.</li>';
-}
+            } else {
+                previousServicesList.innerHTML = '<li>No hay servicios anteriores.</li>';
+            }
 
 
             // Verificar el valor de id_status y ocultar/mostrar el contenedor
@@ -843,6 +843,16 @@ if (serviciosAnteriores && serviciosAnteriores.length > 0) {
                 $('#resultadosContainer').find('.modal-trigger').on('click', function() {
                     var targetModal = $(this).data('target');
                     $(targetModal).modal('show');
+                });
+
+                // Añadir el evento click a las fechas después de cargar la tabla
+                $('#resultadosContainer').find('.fecha-click').on('click', function() {
+                    var fechaSeleccionada = $(this).data('fecha'); // Obtenemos la fecha en formato 'YYYY-MM-DD'
+
+                    console.log(fechaSeleccionada);
+                    // Mover el calendario a la fecha seleccionada
+                    calendar.gotoDate(fechaSeleccionada);
+
                 });
 
                 // const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
