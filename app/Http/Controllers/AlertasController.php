@@ -782,7 +782,7 @@ class AlertasController extends Controller
             $cosmesSeleccionadasAbajo = $request->input('cosmesnueva', []);
 
             if (empty($cosmesSeleccionadas)) {
-                foreach ($cosmesSeleccionadas as $idCosme) {
+                foreach ($cosmesSeleccionadasAbajo as $idCosme) {
                     $horario = Horario::where('id_user', $idCosme)->first();
 
                     if ($horario && $horario->$diaEnEspanol != 1) {
@@ -795,7 +795,7 @@ class AlertasController extends Controller
                     }
                 }
             } else {
-                foreach ($cosmesSeleccionadasAbajo as $idCosme) {
+                foreach ($cosmesSeleccionadas as $idCosme) {
                     $horario = Horario::where('id_user', $idCosme)->first();
 
                     if ($horario && $horario->$diaEnEspanol != 1) {
@@ -806,8 +806,8 @@ class AlertasController extends Controller
                         ]);
 
                     }
-                }
-            }
+               }
+            }
         }
 
         // Obtener todas las alertas relacionadas
