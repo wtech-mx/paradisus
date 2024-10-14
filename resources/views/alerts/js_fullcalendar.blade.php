@@ -436,6 +436,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         // Mover el calendario a la fecha seleccionada
                         calendar.gotoDate(selectedDate);
+
+                        // Cerrar el modal automáticamente
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+                        if (modal) {
+                            modal.hide(); // Cerrar el modal
+                        }
+
                     });
                 });
 
@@ -484,6 +491,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         // Mover el calendario a la fecha seleccionada
                         calendar.gotoDate(selectedDate);
+
+                        // Cerrar el modal automáticamente
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+                        if (modal) {
+                            modal.hide(); // Cerrar el modal
+                        }
+
                     });
                 });
 
