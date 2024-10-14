@@ -241,30 +241,31 @@
 
                     <div class="form-group col-6 mt-5">
                         <button class="btn btn-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#previousServices" aria-expanded="false" aria-controls="previousServices">
-                            Ver citas Anteriores
+                            citas Anteriores
                         </button>
 
                         <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#previousServicesProx" aria-expanded="false" aria-controls="previousServicesProx">
-                            Ver Proximnas Citas
+                            Próximas Citas
                         </button>
-
-                        <a class="btn btn-dark btn-sm" id="btnVerServicios">Ver Servicios Anteriores</a>
                     </div>
 
-                    <div class="col-12">
+                    <div class="accordion" id="accordionExample">
 
-                        <div class="collapse mt-5" id="previousServices">
-                            <div class="card card-body ">
-                                <div class="row" id="previousServicesList"></div>
+                        <div class="col-12">
+                            <div class="collapse mt-5" id="previousServices" data-bs-parent="#accordionExample">
+                                <div class="card card-body" style="border:solid 3px #0FB8D7">
+                                    <div class="row" id="previousServicesList" ></div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="collapse mt-5" id="previousServicesProx">
-                            <div class="card card-body" style="border:solid 3px blue">
-                                <div class="row " id="previousServicesProxList"></div>
+                            <div class="collapse mt-5" id="previousServicesProx" data-bs-parent="#accordionExample">
+                                <div class="card card-body" style="border:solid 3px blue">
+                                    <div class="row" id="previousServicesProxList"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
 
                 </div>
 
