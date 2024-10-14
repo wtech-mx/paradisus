@@ -247,6 +247,8 @@
                         <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#previousServicesProx" aria-expanded="false" aria-controls="previousServicesProx">
                             Próximas Citas
                         </button>
+
+                        <a class="btn btn-dark btn-sm" id="btnVerServicios">Ver Servicios Anteriores</a>
                     </div>
 
                     <div class="accordion" id="accordionExample">
