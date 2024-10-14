@@ -407,13 +407,27 @@ class AlertasController extends Controller
                 ->get()
                 ->makeHidden(['nombre_servicio']);
 
+            // Obtener los servicios anteriores del mismo cliente
+            $serviciosProximos = Alertas::select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus')
+                ->where('id_client', $alerta->id_client)
+                ->where('start', '>', $alerta->start)
+                ->get()
+                ->makeHidden(['nombre_servicio']);
+
 
             $serviciosAnteriores->each(function ($servicioAnterior) {
                 $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
                 $servicioAnterior->nombre_servicio = $servicioAnterior->Servicios_id ? $servicioAnterior->Servicios_id->nombre : null;
             });
 
+            $serviciosProximos->each(function ($servicioProximo) {
+                $servicioProximo->cosmes = AlertasCosmes::where('id_alerta', $servicioProximo->id)->pluck('id_user')->toArray();
+                $servicioProximo->nombre_servicio = $servicioProximo->Servicios_id ? $servicioProximo->Servicios_id->nombre : null;
+            });
+
             $alerta->servicios_anteriores = $serviciosAnteriores;
+            $alerta->servicios_proximos = $serviciosProximos;
+
         });
 
             // Verificar que los eventos fueron encontrados

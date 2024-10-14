@@ -370,11 +370,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Manejar servicios anteriores
-            const previousServicesList = document.getElementById('previousServicesList');
-            previousServicesList.innerHTML = ''; // Limpiar lista existente
-            const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
-
             const cosmetologas = {
                 6: 'Teresa Gutiérrez Carrizales',
                 8: 'Perla Jurado',
@@ -400,6 +395,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 41: 'Abril Michelle Acosta Pérez',
                 22: 'Abril Acosta Pérez'
             };
+
+            // Manejar servicios anteriores
+            const previousServicesList = document.getElementById('previousServicesList');
+            previousServicesList.innerHTML = ''; // Limpiar lista existente
+            const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
 
             if (serviciosAnteriores && serviciosAnteriores.length > 0) {
                 const rowDiv = document.createElement('div');
@@ -443,6 +443,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 previousServicesList.innerHTML = '<li>No hay servicios anteriores.</li>';
             }
 
+            // Manejar servicios anteriores
+            const previousServicesProxList = document.getElementById('previousServicesProxList');
+            previousServicesProxList.innerHTML = ''; // Limpiar lista existente
+            const serviciosProximos = info.event.extendedProps.servicios_proximos;
+
+
+            if (serviciosProximos && serviciosProximos.length > 0) {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
+
+                serviciosProximos.forEach(service => {
+                    if (service.id_client === info.event.extendedProps.id_client) {
+                        const colDiv = document.createElement('div');
+                        colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
+
+                        // Mapeamos los IDs a los nombres de las cosmetólogas
+                        const cosmetologaNombres = service.cosmes.map(id => cosmetologas[id] || 'Desconocida');
+
+                        colDiv.innerHTML = `
+                            <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
+                            <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
+                            <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
+                            <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
+                            <strong>Estatus:</strong> ${service.estatus}
+                        `;
+
+                        rowDiv.appendChild(colDiv);
+                    }
+                });
+
+                previousServicesProxList.appendChild(rowDiv);
+
+                // Agregar manejadores de eventos a los enlaces de fecha
+                const serviceDates = document.querySelectorAll('.service-date');
+                serviceDates.forEach(dateLink => {
+                    dateLink.addEventListener('click', function (event) {
+                        event.preventDefault(); // Prevenir la acción predeterminada de los enlaces
+                        const selectedDate = new Date(this.getAttribute('data-date'));
+
+                        // Mover el calendario a la fecha seleccionada
+                        calendar.gotoDate(selectedDate);
+                    });
+                });
+
+            } else {
+                previousServicesProxList.innerHTML = '<li>No hay servicios anteriores.</li>';
+            }
 
             // Verificar el valor de id_status y ocultar/mostrar el contenedor
             $('#id_status').val(info.event.extendedProps.id_status);
