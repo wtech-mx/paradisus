@@ -26,32 +26,32 @@
                   <input class="form-control" type="hidden" name="txtID" id="txtID">
                 </div>
 
-                <div class="form-group col-4">
+                <div class="form-group col-4" style="padding: 0 0 0 0;">
                     <label for="">Fecha</label>
                     <div class="input-group mb-3">
                          <span class="input-group-text" id="">
-                            <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="30px">
+                            <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="20px">
                         </span>
                         <input class="form-control" type="date" name="txtFecha" id="txtFecha" >
                     </div>
                 </div>
 
-                <div class="form-group col-4">
+                <div class="form-group col-4" style="padding: 0 0 0 0;">
                     <label for="">Hora Inicio</label>
                     <div class="input-group mb-3">
                          <span class="input-group-text" id="">
-                            <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                            <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="20px">
                         </span>
                         <input class="form-control" type="time" name="txtHora" id="txtHora" autocomplete="off" >
                     </div>
 
                 </div>
 
-                <div class="form-group col-4">
+                <div class="form-group col-4" style="padding: 0 0 0 0;">
                     <label for="">Hora Fin</label>
                     <div class="input-group mb-3">
                          <span class="input-group-text" id="">
-                            <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                            <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="20px">
                         </span>
                         <input class="form-control" type="time" name="txtHorafin" id="txtHorafin" autocomplete="off" >
                     </div>
