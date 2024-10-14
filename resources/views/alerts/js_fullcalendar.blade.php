@@ -375,6 +375,32 @@ document.addEventListener('DOMContentLoaded', function() {
             previousServicesList.innerHTML = ''; // Limpiar lista existente
             const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
 
+            const cosmetologas = {
+                6: 'Teresa Gutiérrez Carrizales',
+                8: 'Perla Jurado',
+                5: 'Minu Reyes Vera',
+                29: 'Melisa Andrade',
+                9: 'María Fernanda Valdez Cordero',
+                37: 'Maria Fernanda Delgado Gonzalez',
+                32: 'Lesli Paola Patiño Audelo',
+                43: 'Leilani Natalie Mendoza Escobedo',
+                16: 'Karina Hurtado',
+                39: 'Jennifer Sada Barra',
+                35: 'Janine Ortega',
+                38: 'Jacuzzi',
+                4: 'Gioanna Jazmin Jimenez',
+                3: 'Gabriela Pérez Preciat',
+                25: 'Carmen Osorio',
+                40: 'Andrea Estefanía Castañeda Oaxaca',
+                31: 'Andrea Arizmendi Sánchez',
+                23: 'America Acosta Pérez',
+                26: 'Alexis Hurtado',
+                34: 'Alejandra Burgos',
+                36: 'Aglae Morales Tuyub',
+                41: 'Abril Michelle Acosta Pérez',
+                22: 'Abril Acosta Pérez'
+            };
+
             if (serviciosAnteriores && serviciosAnteriores.length > 0) {
                 const rowDiv = document.createElement('div');
                 rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
@@ -384,11 +410,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         const colDiv = document.createElement('div');
                         colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
 
+                        // Mapeamos los IDs a los nombres de las cosmetólogas
+                        const cosmetologaNombres = service.cosmes.map(id => cosmetologas[id] || 'Desconocida');
+
                         colDiv.innerHTML = `
                             <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
                             <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
                             <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
-                            <strong>Cosmetóloga:</strong> ${service.cosmes.join(', ')}<br>
+                            <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
                             <strong>Estatus:</strong> ${service.estatus}
                         `;
 
