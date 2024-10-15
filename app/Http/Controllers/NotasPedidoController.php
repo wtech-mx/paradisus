@@ -463,6 +463,8 @@ class NotasPedidoController extends Controller
         $nota = NotasPedidos::find($id);
         $nota->estatus = $request->get('estatus_cotizacion');
         $nota->update();
+
+        return redirect()->back()->with('edit','Nota Productos Actualizado.');
     }
 
     /**
