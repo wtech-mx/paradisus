@@ -49,9 +49,6 @@ Route::get('/nota/usuario/servicio/{id}', [App\Http\Controllers\NotasController:
 Route::get('/nota/usuario/servicio/print/{id}', [App\Http\Controllers\NotasController::class, 'imprimir'])->name('notas.usuario_imprimir');
 Route::get('/nota/usuario/servicio/print2/{id}', [App\Http\Controllers\NotasController::class, 'imprimir2'])->name('notas.usuario_imprimir2');
 
-
-Route::get('/notas/pedidos/print/{id}', [App\Http\Controllers\NotasPedidoController::class, 'imprimir'])->name('notas_pedidos.imprimir');
-
 Route::get('/paquetes/servicios/edit/figura_ideal/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_uno'])->name('print_paquete_uno.print_uno');
 Route::get('/paquetes/servicios/edit/lipoescultura/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_dos'])->name('print_paquete_dos.print_dos');
 Route::get('/paquetes/servicios/edit/moldeante/print/{id}', [App\Http\Controllers\PaquetesController::class, 'print_tres'])->name('print_paquete_tres.print_tres');
@@ -216,6 +213,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/notas/pedidos/edit/{id}', [App\Http\Controllers\NotasPedidoController::class, 'edit'])->name('notas_pedidos.edit');
     Route::patch('/notas/pedidos/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update'])->name('notas_pedidos.update');
     Route::delete('/notas/pedidos/delete/{id}', [App\Http\Controllers\NotasPedidoController::class, 'destroy'])->name('notas_pedidos.destroy');
+
+    Route::get('/notas/pedidos/print/{id}', [App\Http\Controllers\NotasPedidoController::class, 'imprimir'])->name('notas_pedidos.imprimir');
+    Route::patch('notas/pedidos/paradisus/estatus({id}', [App\Http\Controllers\NotasPedidoController::class, 'update_estatus'])->name('update_estatus.pedido');
 
     // =============== M O D U L O   P A Q U E T E S ===============================
     Route::get('/paquetes/servicios', [App\Http\Controllers\PaquetesController::class, 'index'])->name('paquetes_servicios.index');

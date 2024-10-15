@@ -32,12 +32,33 @@ class NotasPedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $nota_pedido = NotasPedidos::with('pedidos')->orderBy('id', 'DESC')->take(100)->get();
-        $nota_pedido = NotasPedidos::orderBy('id','DESC')->get();
-        return view('notas_pedidos.index', compact('nota_pedido'));
+        // Capturamos los parámetros de fecha
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Verificamos si los parámetros están presentes para filtrar
+        if ($startDate && $endDate) {
+            // Filtramos por el rango de fechas
+            $nota_pedido = NotasPedidos::whereBetween('fecha', [$startDate, $endDate])
+                            ->orderBy('id', 'DESC')
+                            ->get();
+        } else {
+            // Si no se proporcionan fechas, traemos los registros del mes actual
+            $nota_pedido = NotasPedidos::whereMonth('fecha', date('m'))
+                            ->whereYear('fecha', date('Y'))
+                            ->orderBy('id', 'DESC')
+                            ->get();
+        }
+
+        $nota_pedidoCancelado = NotasPedidos::where('estatus', '=', 'Cancelada')
+                                ->orderBy('id', 'DESC')
+                                ->get();
+
+        return view('notas_pedidos.index', compact('nota_pedido', 'nota_pedidoCancelado'));
     }
+
 
     public function create()
     {
@@ -436,6 +457,12 @@ class NotasPedidoController extends Controller
 
         return redirect()->back()
         ->with('edit','Nota Productos Actualizado.');
+    }
+
+    public function update_estatus(Request $request, $id){
+        $nota = NotasPedidos::find($id);
+        $nota->estatus = $request->get('estatus_cotizacion');
+        $nota->update();
     }
 
     /**
