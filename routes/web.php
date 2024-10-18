@@ -212,7 +212,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/notas/pedidos/store', [App\Http\Controllers\NotasPedidoController::class, 'store'])->name('notas_pedidos.store');
     Route::get('/notas/pedidos/edit/{id}', [App\Http\Controllers\NotasPedidoController::class, 'edit'])->name('notas_pedidos.edit');
     Route::patch('/notas/pedidos/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update'])->name('notas_pedidos.update');
+
     Route::delete('/notas/pedidos/delete/{id}', [App\Http\Controllers\NotasPedidoController::class, 'destroy'])->name('notas_pedidos.destroy');
+    Route::delete('/notas/pedidos/eliminar-producto/{id}', [App\Http\Controllers\NotasPedidoController::class, 'eliminarProducto']);
 
     Route::get('/notas/pedidos/print/{id}', [App\Http\Controllers\NotasPedidoController::class, 'imprimir'])->name('notas_pedidos.imprimir');
     Route::patch('notas/pedidos/paradisus/estatus({id}', [App\Http\Controllers\NotasPedidoController::class, 'update_estatus'])->name('update_estatus.pedido');

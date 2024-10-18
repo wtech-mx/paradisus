@@ -365,8 +365,9 @@ class NotasPedidoController extends Controller
          $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
          $client = Client::orderBy('name','ASC')->get();
          $user = User::where('id', '!=', 1)->get();
+         $products = ProductosNAS::get();
 
-         return view('notas_pedidos.edit', compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme'));
+         return view('notas_pedidos.edit', compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme','products'));
      }
 
      public function imprimir($id){
@@ -384,6 +385,19 @@ class NotasPedidoController extends Controller
 
         return $pdf->download('Recibo_'.$id.'.pdf');
     }
+
+    public function eliminarProducto($id){
+    $producto = Pedido::find($id);
+
+    if ($producto) {
+        $producto->delete();
+
+        return response()->json(['message' => 'Producto eliminado correctamente']);
+    }
+
+    return response()->json(['message' => 'Producto no encontrado'], 404);
+}
+
 
     public function update(Request $request, $id)
     {
@@ -474,11 +488,11 @@ class NotasPedidoController extends Controller
      */
     public function destroy($id)
     {
-//         $pago = Pagos::where('id_nota', '=', $id)->delete();
-// dd($pago);
-        // for(){
+            //         $pago = Pagos::where('id_nota', '=', $id)->delete();
+            // dd($pago);
+            // for(){
 
-        // }
+            // }
 
         $nota = NotasPedidos::find($id)->delete();
 

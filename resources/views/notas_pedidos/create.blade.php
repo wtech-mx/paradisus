@@ -325,6 +325,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+
         function initializeSelect2($container) {
             $container.find('.select2').select2();
         }
@@ -371,31 +372,30 @@
             });
         });
 
-            // Función para calcular la suma de los importes
-    // Función para calcular la suma de los importes
-    function calcularSuma() {
-        var totalSuma = 0;
-        // Itera a través de los campos de cantidad y importe
-        $('input[name="cantidad[]"]').each(function(index) {
-            var cantidad = parseFloat($(this).val()) || 0;
-            var importe = parseFloat($('input[name="importe[]"]').eq(index).val()) || 0;
-            totalSuma += cantidad * importe;
+        // Función para calcular la suma de los importes
+        function calcularSuma() {
+            var totalSuma = 0;
+            // Itera a través de los campos de cantidad y importe
+            $('input[name="cantidad[]"]').each(function(index) {
+                var cantidad = parseFloat($(this).val()) || 0;
+                var importe = parseFloat($('input[name="importe[]"]').eq(index).val()) || 0;
+                totalSuma += cantidad * importe;
+            });
+
+            // Obtén el valor del descuento
+            var descuento = parseFloat($('#descuento_porcentaje').val()) || 0;
+
+            // Calcula el total después de aplicar el descuento
+            var totalConDescuento = totalSuma - (totalSuma * descuento / 100);
+
+            // Actualiza el valor del campo de suma
+            $('#totalSuma').val(totalConDescuento.toFixed(2));
+        }
+
+        // Escucha el evento 'input' en los campos de cantidad, importe y descuento existentes y futuros
+        $(document).on('input', 'input[name="cantidad[]"], input[name="importe[]"], #descuento_porcentaje', function() {
+            calcularSuma();
         });
-
-        // Obtén el valor del descuento
-        var descuento = parseFloat($('#descuento_porcentaje').val()) || 0;
-
-        // Calcula el total después de aplicar el descuento
-        var totalConDescuento = totalSuma - (totalSuma * descuento / 100);
-
-        // Actualiza el valor del campo de suma
-        $('#totalSuma').val(totalConDescuento.toFixed(2));
-    }
-
-    // Escucha el evento 'input' en los campos de cantidad, importe y descuento existentes y futuros
-    $(document).on('input', 'input[name="cantidad[]"], input[name="importe[]"], #descuento_porcentaje', function() {
-        calcularSuma();
-    });
 
     });
 
@@ -598,8 +598,8 @@
                         }, 1000);
                     }
             }
-        });
 
+    });
 
     </script>
 @endsection
