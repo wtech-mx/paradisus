@@ -318,7 +318,7 @@
         });
 
         document.getElementById('descuento_porcentaje').addEventListener('change', function() {
-            calcularTotal();
+            calcularSuma();
         });
 
         function initializeSelect2($container) {
@@ -369,7 +369,7 @@
 
         function eliminar(elemento) {
             elemento.remove();
-            calcularTotal(); // Llama a la función para recalcular el total cuando se elimina un elemento
+            calcularSuma(); // Llama a la función para recalcular el total cuando se elimina un elemento
         }
 
         // Función para calcular la suma de los importes
@@ -608,8 +608,8 @@
                 success: function(response) {
                     // Eliminar el producto del frontend
                     document.getElementById('producto-' + id).remove();
-                    // Opcional: Puedes llamar a la función calcularTotal() para actualizar el total
-                    calcularTotal();
+                    // Opcional: Puedes llamar a la función calcularSuma() para actualizar el total
+                    calcularSuma();
                     alert(response.message);
                 },
                 error: function(xhr) {
