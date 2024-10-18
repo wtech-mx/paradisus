@@ -441,17 +441,21 @@ class NotasPedidoController extends Controller
         $cantidad = $request->get('cantidad');
         $importe = $request->get('importe');
 
-        for ($count = 0; $count < count($concepto); $count++) {
-            $data = array(
-                'id_nota' => $nota->id,
-                'cantidad' => $cantidad[$count],
-                'concepto' => $concepto[$count],
-                'importe' => $importe[$count],
-            );
-            $insert_data[] = $data;
-        }
+        if($concepto[0] == null){
 
-        Pedido::insert($insert_data);
+        }else{
+            for ($count = 0; $count < count($concepto); $count++) {
+                $data = array(
+                    'id_nota' => $nota->id,
+                    'cantidad' => $cantidad[$count],
+                    'concepto' => $concepto[$count],
+                    'importe' => $importe[$count],
+                );
+                $insert_data[] = $data;
+            }
+
+            Pedido::insert($insert_data);
+        }
 
         $sum = 0;
         $nota = NotasPedidos::find($nota->id);
