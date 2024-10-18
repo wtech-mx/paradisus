@@ -402,7 +402,41 @@ class NotasPedidoController extends Controller
     public function update(Request $request, $id)
     {
 
+        $conceptoBuscar = 'Cambio nota productos: ' . $id;
+
+        // Encuentra el registro en la tabla CajaDia que tiene el concepto con el ID de la nota
+        $registroExistente = CajaDia::where('concepto', $conceptoBuscar)->first();
+    
+        // Si existe un registro con ese concepto, lo eliminamos
+        if ($registroExistente) {
+            CajaDia::where('concepto', $conceptoBuscar)->delete();
+        }
+
         $nota = NotasPedidos::find($id);
+
+        if($nota->total != $request->get('totalSuma') && $request->get('metodo_pago') == 'Efectivo'){
+            $suma_pagos = $request->get('dinero_recibido') + $request->get('dinero_recibido2');
+
+            if($request->get('dinero_recibido') > $request->get('totalSuma')){
+                $cambio = $request->get('dinero_recibido') - $request->get('totalSuma');
+                $fechaActual = date('Y-m-d');
+                $caja = new CajaDia;
+                $caja->motivo = 'Retiro';
+                $caja->egresos = $cambio;
+                $caja->concepto = 'Cambio nota productos: ' . $nota->id;
+                $caja->fecha = $fechaActual;
+                $caja->save();
+            }elseif($suma_pagos > $request->get('totalSuma')){
+                $cambio = $suma_pagos - $request->get('totalSuma');
+                $fechaActual = date('Y-m-d');
+                $caja = new CajaDia;
+                $caja->motivo = 'Retiro';
+                $caja->egresos = $cambio;
+                $caja->concepto = 'Cambio nota productos: ' . $nota->id;
+                $caja->fecha = $fechaActual;
+                $caja->save();
+            }
+        }
 
         $concepto = $request->get('concepto');
         $cantidad = $request->get('cantidad');
@@ -422,15 +456,7 @@ class NotasPedidoController extends Controller
 
         $sum = 0;
         $nota = NotasPedidos::find($nota->id);
-        if($request->get('descuento_porcentaje') == NULL){
-            $sum =array_sum($importe) + $nota->total;
-        }else{
-            $suma =array_sum($importe) + $nota->total;
-            $descuento = ($suma * $request->get('descuento_porcentaje')) / 100;
-            $total_final = $suma - $descuento;
-            $sum = $total_final;
-        }
-        $nota->total = $sum;
+        $nota->total = $request->get('totalSuma');
         $nota->descuento = $request->get('descuento_porcentaje');
         $nota->metodo_pago = $request->get('metodo_pago');
         $nota->dinero_recibido = $request->get('dinero_recibido');
@@ -445,29 +471,6 @@ class NotasPedidoController extends Controller
             $nota->foto = $fileName;
         }
         $nota->update();
-
-        // G U A R D A R  C A M B I O
-        $suma_pagos = $request->get('dinero_recibido') + $request->get('dinero_recibido2');
-
-        if($request->get('dinero_recibido') > $nota->total && $request->get('metodo_pago') == 'Efectivo'){
-            $cambio = $request->get('dinero_recibido') - $nota->total;
-            $fechaActual = date('Y-m-d');
-            $caja = new CajaDia;
-            $caja->motivo = 'Retiro';
-            $caja->egresos = $cambio;
-            $caja->concepto = 'Cambio nota productos: ' . $nota->id;
-            $caja->fecha = $fechaActual;
-            $caja->save();
-        }elseif($suma_pagos > $nota->total){
-            $cambio = $suma_pagos - $nota->total;
-            $fechaActual = date('Y-m-d');
-            $caja = new CajaDia;
-            $caja->motivo = 'Retiro';
-            $caja->egresos = $cambio;
-            $caja->concepto = 'Cambio nota productos: ' . $nota->id;
-            $caja->fecha = $fechaActual;
-            $caja->save();
-        }
 
         return redirect()->back()
         ->with('edit','Nota Productos Actualizado.');

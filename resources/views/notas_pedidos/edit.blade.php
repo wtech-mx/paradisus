@@ -48,7 +48,7 @@
                                                         <img src="{{ asset('assets/icons/mujer.png') }}" alt=""
                                                             width="25px">
                                                     </span>
-                                                    <select disabled class="form-control input-edit-car" id="id_user"
+                                                    <select readonly class="form-control input-edit-car" id="id_user"
                                                         name="id_user" value="{{ old('id_user') }}" required>
                                                         <option selected value="{{ $nota_pedido->id_user }}">
                                                             {{ $nota_pedido->User->name }}</option>
@@ -67,7 +67,7 @@
                                                         <img src="{{ asset('assets/icons/cliente.png') }}" alt=""
                                                             width="25px">
                                                     </span>
-                                                    <select disabled class="form-control" id="id_client" name="id_client"
+                                                    <select readonly class="form-control" id="id_client" name="id_client"
                                                         value="{{ old('id_client') }}" required>
                                                         <option selected value="{{ $nota_pedido->id_client }}">
                                                             {{ $nota_pedido->Client->name }}
@@ -87,7 +87,7 @@
                                                         <img src="{{ asset('assets/icons/calenda.png') }}" alt=""
                                                             width="25px">
                                                     </span>
-                                                    <input disabled id="fecha" name="fecha" type="date"
+                                                    <input readonly id="fecha" name="fecha" type="date"
                                                         class="form-control" placeholder="fecha"
                                                         value="{{ $nota_pedido->fecha }}" required>
                                                 </div>
@@ -101,7 +101,7 @@
                                                         <img src="{{ asset('assets/icons/dinero.png') }}" alt=""
                                                             width="25px">
                                                     </span>
-                                                    <input disabled id="total_anterior" name="total_anterior"
+                                                    <input readonly id="total_anterior" name="total_anterior"
                                                         type="number" class="form-control"
                                                         value="{{ $nota_pedido->total }}">
                                                 </div>
@@ -114,7 +114,7 @@
                                                         <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}"
                                                             alt="" width="25px">
                                                     </span>
-                                                    <input disabled id="totalSuma" name="totalSuma" type="number"
+                                                    <input readonly id="totalSuma" name="totalSuma" type="number"
                                                         class="form-control">
                                                 </div>
                                             </div>
@@ -153,7 +153,7 @@
                                                         <img src="{{ asset('assets/icons/transferir.png') }}"
                                                             alt="" width="25px">
                                                     </span>
-                                                    <select disabled id="metodo_pago" name="metodo_pago"
+                                                    <select readonly id="metodo_pago" name="metodo_pago"
                                                         class="form-control" required>
                                                         <option selected value="{{ $nota_pedido->metodo_pago }}">
                                                             {{ $nota_pedido->metodo_pago }}</option>
@@ -429,20 +429,20 @@
         // inicio de funcion ajax impresion caja y tiket
         function habilitarInputs() {
             // Habilitar los inputs
-            document.getElementById('id_user').disabled = false;
-            document.getElementById('id_client').disabled = false;
-            document.getElementById('fecha').disabled = false;
-            document.getElementById('total').disabled = false;
-            document.getElementById('metodo_pago').disabled = false;
+            document.getElementById('id_user').readonly = false;
+            document.getElementById('id_client').readonly = false;
+            document.getElementById('fecha').readonly = false;
+            document.getElementById('total').readonly = false;
+            document.getElementById('metodo_pago').readonly = true;
         }
 
         function deshabilitarInputs() {
             // Deshabilitar los inputs
-            document.getElementById('id_user').disabled = true;
-            document.getElementById('id_client').disabled = true;
-            document.getElementById('fecha').disabled = true;
-            document.getElementById('total').disabled = true;
-            document.getElementById('metodo_pago').disabled = true;
+            document.getElementById('id_user').readonly = true;
+            document.getElementById('id_client').readonly = true;
+            document.getElementById('fecha').readonly = true;
+            document.getElementById('total').readonly = true;
+            document.getElementById('metodo_pago').readonly = true;
         }
 
         // Calcula el cambio y restante al cargar la página
