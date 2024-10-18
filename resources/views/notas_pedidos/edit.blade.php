@@ -454,6 +454,9 @@
             $("#miFormulario").on("submit", function(event) {
                 event.preventDefault(); // Evita el envío predeterminado del formulario
 
+                // Deshabilitar el botón de enviar y mostrar el preloader
+                $("#miFormulario button[type=submit]").prop("disabled", true);
+                $("#preloader").show(); // Asegúrate de tener un elemento con id "preloader" en tu HTML para mostrar el preloader
                 // Realiza la solicitud POST usando AJAX
                 $.ajax({
                     url: $(this).attr("action"),
@@ -466,8 +469,28 @@
                         console.log(response);
                         imprimirRecibo(response);
                     },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                    error: function (xhr, status, error) {
+                            // Habilitar el botón de enviar y ocultar el preloader en caso de error
+                            $("#miFormulario button[type=submit]").prop("disabled", false);
+                            $("#preloader").hide();
+
+                            var errors = xhr.responseJSON.errors;
+                            var errorMessage = '';
+
+                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
+                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
+                                }
+                            }
+                            console.log(errorMessage);
+                            // Muestra el mensaje de error en una SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Faltan Campos',
+                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
+                            });
                     }
                 });
 
@@ -476,11 +499,12 @@
             // Función para imprimir el recibo
             async function imprimirRecibo(response) {
                 const userAgent = navigator.userAgent;
-
+                console.log(userAgent);
                 // Obtén los datos del recibo de la respuesta AJAX
                 const recibo = response.recibo;
                 // Empezar a usar el plugin
-                const formaPago = $("#forma_pago").val();
+                const formaPago = $("#metodo_pago").val();
+                 const formaPago2 = $("#metodo_pago2").val();
 
                 if (/Windows/i.test(userAgent)) {
 

@@ -387,17 +387,16 @@ class NotasPedidoController extends Controller
     }
 
     public function eliminarProducto($id){
-    $producto = Pedido::find($id);
+        $producto = Pedido::find($id);
 
-    if ($producto) {
-        $producto->delete();
+        if ($producto) {
+            $producto->delete();
 
-        return response()->json(['message' => 'Producto eliminado correctamente']);
+            return response()->json(['message' => 'Producto eliminado correctamente']);
+        }
+
+        return response()->json(['message' => 'Producto no encontrado'], 404);
     }
-
-    return response()->json(['message' => 'Producto no encontrado'], 404);
-}
-
 
     public function update(Request $request, $id)
     {
@@ -406,7 +405,7 @@ class NotasPedidoController extends Controller
 
         // Encuentra el registro en la tabla CajaDia que tiene el concepto con el ID de la nota
         $registroExistente = CajaDia::where('concepto', $conceptoBuscar)->first();
-    
+
         // Si existe un registro con ese concepto, lo eliminamos
         if ($registroExistente) {
             CajaDia::where('concepto', $conceptoBuscar)->delete();
@@ -488,7 +487,7 @@ class NotasPedidoController extends Controller
                 'pedido' => $pedido,
             ];
         }
-        
+
         $recibo = [
             "id" => $nota->id,
             "fecha" => $nota->fecha,
