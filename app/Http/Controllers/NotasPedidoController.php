@@ -472,8 +472,40 @@ class NotasPedidoController extends Controller
         }
         $nota->update();
 
-        return redirect()->back()
-        ->with('edit','Nota Productos Actualizado.');
+        $pedidos = Pedido::where('id_nota', '=', $nota->id)->get();
+
+        $user_cosme = User::where('id','=',$request->get('id_user'))->first();
+
+        foreach ($pedidos as $item) {
+
+            $pedido = [];
+
+            $pedido[] = $item->cantidad;
+            $pedido[] = $item->concepto;
+            $pedido[] = $item->importe;
+
+            $pedido_paquetes_data[] = [
+                'pedido' => $pedido,
+            ];
+        }
+        
+        $recibo = [
+            "id" => $nota->id,
+            "fecha" => $nota->fecha,
+            "Metodo_pago" => $nota->metodo_pago,
+            "Metodo_pago_2" => $request->get('metodo_pago2'),
+            "Cliente" => $nota->Client->name,
+            "Total" => $nota->total,
+            "Restante" => $nota->restante,
+            "Cambio" => $nota->cambio,
+            "dinero_recibido" => $nota->dinero_recibido,
+            "nombreImpresora" => "ZJ-58",
+            'pago' => $pedido_paquetes_data,
+            'cosmetologa' => $user_cosme->name,
+            // Agrega cualquier otro dato necesario para el recibo
+        ];
+
+        return response()->json(['success' => true, 'recibo' => $recibo]);
     }
 
     public function update_estatus(Request $request, $id){

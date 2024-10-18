@@ -463,6 +463,7 @@
                     processData: false,
                     success: async function(response) { // Agrega "async" aquí
                         // El formulario se ha enviado correctamente, ahora realiza la impresión
+                        console.log(response);
                         imprimirRecibo(response);
                     },
                     error: function(xhr, status, error) {
