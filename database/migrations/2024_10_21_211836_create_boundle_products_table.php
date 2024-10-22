@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_product');
             $table->foreign('id_product')
-                ->references('id')->on('products')
+                ->references('id')->on('productos_nas')
                 ->inDelete('set null');
 
             $table->string('producto')->nullable();
