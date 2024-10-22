@@ -261,6 +261,15 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/reporte/imprimir/caja/{id}', [App\Http\Controllers\CajaController::class, 'imprimir_recibo'])->name('caja.print_recibo');
 
+    // =============== M O D U L O   B U N D L E   P R O D U C T ===============================
+
+    Route::get('/admin/products/bundle', [App\Http\Controllers\ProductsController::class, 'index_bundle'])->name('bundle.index');
+    Route::get('/admin/products/create/bundle', [App\Http\Controllers\ProductsController::class, 'create_bundle'])->name('bundle.create');
+    Route::post('/admin/products/store/bundle', [App\Http\Controllers\ProductsController::class, 'store_bundle'])->name('bundle.store');
+    Route::get('/admin/products/bundle/edit/{id}', [App\Http\Controllers\ProductsController::class, 'edit_bundle'])->name('bundle.edit');
+    Route::patch('/admin/products/bundle/update/{id}', [App\Http\Controllers\ProductsController::class, 'update_bundle'])->name('bundle.update');
+    Route::patch('/admin/products/ocultar/{id}', [App\Http\Controllers\ProductsController::class, 'update_ocultar'])->name('products.update_ocultar');
+
     // =============== M O D U L O   C A L E N D A R I O ===============================
     Route::get('calendar', [AlertasController::class, 'index_calendar'])->name('calendar.index_calendar');
     Route::post('calendar', [AlertasController::class, 'store_calendar'])->name('calendar.store_calendar');
