@@ -340,6 +340,11 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#resourceId').val(info.event._def.resourceIds);
             $('#id_especialist').val(info.event.extendedProps.id_especialist);
             $('#title').val(info.event.title);
+
+            $('#name_full').val(info.event.extendedProps.name_full);
+            $('#last_name_full').val(info.event.extendedProps.last_name_full);
+            $('#phone_full').val(info.event.extendedProps.phone_full);
+
             $('#txtNota').val(info.event.extendedProps.id_nota);
             $('#txtTelefono').val(info.event.extendedProps.telefono);
             $('#color').val(info.event.backgroundColor);
@@ -536,7 +541,14 @@ document.addEventListener('DOMContentLoaded', function() {
             let lineHeight = '11.2px';
 
             let titulo = arg.event.title;
-            let nuevoCliente = arg.event.nuevo_cliente || '';
+            let nuevoCliente =  arg.event.extendedProps.nuevo_cliente;
+
+            if(nuevoCliente === '1'){
+                NuevoClienteIcon = 'https://paradisus.mx/assets/icons/estrella.png';
+            }else{
+                NuevoClienteIcon = '';
+            }
+
             let horaEvent = document.createElement('div');
 
             const start = moment(arg.event.start).utc().format('HH:mm');
@@ -551,7 +563,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img width="9px" style="margin-left: 10px" src="${imageArg}">
                         <br>${nombreServicio} (${duracion} min)
                         ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-                        <br>${nuevoCliente}
+                        <br>
+                        <img width="30px" style="position: absolute;top: -20px;right: -15px;" src="${NuevoClienteIcon}">
                     </p>`;
             } else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
                 horaEvent.innerHTML = `
@@ -562,7 +575,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img width="9px" style="margin-left: 10px" src="${imageArg}">
                         <br>${nombreServicio} (${duracion} min)
                         ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
-                        <br>${nuevoCliente}
+                        <br>
+                        <img width="30px" style="position: absolute;top: -20px;right: -15px;" src="${NuevoClienteIcon}">
                     </p>`;
             }
 
