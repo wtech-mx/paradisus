@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let lineHeight = '11.2px';
 
             let titulo = arg.event.title;
-
+            let nuevoCliente = arg.event.nuevo_cliente || '';
             let horaEvent = document.createElement('div');
 
             const start = moment(arg.event.start).utc().format('HH:mm');
@@ -551,6 +551,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img width="9px" style="margin-left: 10px" src="${imageArg}">
                         <br>${nombreServicio} (${duracion} min)
                         ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+                        <br>${nuevoCliente}
                     </p>`;
             } else { // Si la diferencia es mayor a 30 minutos, usa la estructura más detallada
                 horaEvent.innerHTML = `
@@ -561,6 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img width="9px" style="margin-left: 10px" src="${imageArg}">
                         <br>${nombreServicio} (${duracion} min)
                         ${nombreServicio2 && duracion2 ? `<br>${nombreServicio2} (${duracion2} min)` : ''}
+                        <br>${nuevoCliente}
                     </p>`;
             }
 
@@ -739,6 +741,9 @@ document.addEventListener('DOMContentLoaded', function() {
       function editarDatosGUI(method){
           nuevoEvento={
               id:$('#txtID').val(),
+              name_full:$('#name_full').val(),
+              last_name_full:$('#last_name_full').val(),
+              phone_full:$('#phone_full').val(),
               title:$('#title').val(),
               id_client:$('#id_client').val(),
               resourceId:$('#resourceId').val(),
@@ -994,6 +999,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       function limpiarFormulario(){
             $('#txtID').val("");
+            $('#name_full').val(""),
+            $('#last_name_full').val(""),
+            $('#phone_full').val(""),
             $('#title').val("");
             $('#id_client').val("");
             $('#resourceId').val("");

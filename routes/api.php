@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\NotasPedidos;
+use App\Models\Pedido;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,22 @@ Route::patch('/actualizar-notas-pedidos/{id}', function (Request $request, $id) 
 
     // Actualizar los campos con los datos recibidos desde Platform
     $notaPedido->update($request->all());
+
+    // Responder con un mensaje de éxito
+    return response()->json(['success' => true, 'message' => 'Registro actualizado correctamente']);
+});
+
+Route::patch('/actualizar-producto/{id}', function (Request $request, $producto_id) {
+    // Buscar el registro que se quiere actualizar
+    $notaPedido = Pedido::find($producto_id);
+
+    if (!$notaPedido) {
+        return response()->json(['success' => false, 'message' => 'Registro no encontrado'], 404);
+    }
+
+    // Actualizar los campos con los datos recibidos desde Platform
+    $notaPedido->estatus = 1;
+    $notaPedido->update();
 
     // Responder con un mensaje de éxito
     return response()->json(['success' => true, 'message' => 'Registro actualizado correctamente']);

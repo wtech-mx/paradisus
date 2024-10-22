@@ -758,6 +758,37 @@ class AlertasController extends Controller
     public function update_calendar(Request $request, $id)
     {
 
+        if($request->get('name_full') != NULL){
+            try {
+                $client = new Client;
+                $client->name = $request->get('name_full');
+                $client->last_name = $request->get('last_name_full');
+                $client->phone = $request->get('phone_full');
+                $client->save();
+                $cliente = $client->id;
+
+                $datosEvento = Alertas::find($id);
+                $datosEvento->nuevo_cliente = 1;
+                $datosEvento->update();
+            } catch (QueryException $e) {
+                if ($e->errorInfo[1] == 1062) { // Código de error para entrada duplicada
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'El número de teléfono ya está registrado.'
+                    ]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Ocurrió un error inesperado. Intenta nuevamente.'
+                    ]);
+                }
+            }
+         }elseif($request->get('cliente_id') != NULL){
+             $cliente = $request->get('cliente_id');
+         }else{
+             $cliente = 3841;
+         }
+
         if($request->id_status == 7){
             $startDateTimeString = $request->start;
             $startDateTime = Carbon::parse($startDateTimeString);
@@ -770,7 +801,6 @@ class AlertasController extends Controller
             return redirect()->back()->with('success', 'Alerta actualizada con éxito');
         }
 
-        $cliente = $request->cliente_id;
         $startDateTime = Carbon::parse($request->start);;
         $datosEvento = Alertas::find($id);
         $datosEventoStart = Carbon::parse($datosEvento->start);
