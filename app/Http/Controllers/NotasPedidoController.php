@@ -9,7 +9,9 @@ use App\Models\Pedido;
 use App\Models\Reporte;
 use App\Models\User;
 use App\Models\NotasCosmes;
+use App\Models\ProductosBundleId;
 use App\Models\ProductosNAS;
+use App\Models\Products;
 use App\Models\RegCosmesSum;
 use Codexshaper\WooCommerce\Models\Product;
 use Session;
@@ -249,9 +251,30 @@ class NotasPedidoController extends Controller
                 'importe' => $importe[$count],
             );
             $insert_data[] = $data;
-        }
 
-        Pedido::insert($insert_data);
+            $producto = Products::where('nombre', $concepto[$count])->first();
+
+            if($producto->subcategoria == 'Kit'){
+                $productos_bundle = ProductosBundleId::where('id_product', $producto->id)->get();
+                foreach($productos_bundle as $producto_bundle){
+                    $notas_inscripcion = new Pedido;
+                    $notas_inscripcion->id_nota = $nota->id;
+                    $notas_inscripcion->concepto = $producto_bundle->producto;
+                    $notas_inscripcion->importe = '0';
+                    $notas_inscripcion->cantidad = $producto_bundle->cantidad;
+                    $notas_inscripcion->save();
+                }
+                $nota->id_kit = $producto->id;
+                $nota->update();
+            }else{
+                $notas_inscripcion = new Pedido;
+                $notas_inscripcion->id_nota = $nota->id;
+                $notas_inscripcion->concepto = $concepto[$count];
+                $notas_inscripcion->importe = $importe[$count];
+                $notas_inscripcion->cantidad = $cantidad[$count];
+                $notas_inscripcion->save();
+            }
+        }
 
         $pedidos = Pedido::where('id_nota', '=', $nota->id)->get();
 
