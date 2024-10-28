@@ -44,12 +44,14 @@ class NotasPedidoController extends Controller
         if ($startDate && $endDate) {
             // Filtramos por el rango de fechas
             $nota_pedido = NotasPedidos::whereBetween('fecha', [$startDate, $endDate])
+                            ->where('estatus', '!=', 'Cancelada')
                             ->orderBy('id', 'DESC')
                             ->get();
         } else {
             // Si no se proporcionan fechas, traemos los registros del mes actual
             $nota_pedido = NotasPedidos::whereMonth('fecha', date('m'))
                             ->whereYear('fecha', date('Y'))
+                            ->where('estatus', '!=', 'Cancelada')
                             ->orderBy('id', 'DESC')
                             ->get();
         }

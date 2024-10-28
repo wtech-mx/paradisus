@@ -68,6 +68,7 @@ class CajaController extends Controller
             $query->where('metodo_pago', 'Efectivo')
                 ->orWhere('metodo_pago2', 'Efectivo');
         })
+        ->where('estatus', '!=', 'Cancelada')
         ->get();
 
         $pago_pedidos_suma = NotasPedidos::where('fecha', $fechaActual)
@@ -75,6 +76,7 @@ class CajaController extends Controller
             $query->where('metodo_pago', 'Efectivo')
                 ->orWhere('metodo_pago2', 'Efectivo');
         })
+        ->where('estatus', '!=', 'Cancelada')
         ->select(DB::raw('SUM(
             CASE
                 WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
@@ -226,6 +228,7 @@ class CajaController extends Controller
             $query->where('metodo_pago', 'Efectivo')
                 ->orWhere('metodo_pago2', 'Efectivo');
         })
+        ->where('estatus', '!=', 'Cancelada')
         ->select(DB::raw('SUM(
             CASE
                 WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
@@ -313,6 +316,7 @@ class CajaController extends Controller
         ->get();
 
         $productos_rep = NotasPedidos::where('fecha', $diaActual)
+        ->where('estatus', '!=', 'Cancelada')
         ->with('Pedido')
         ->get();
 
@@ -349,6 +353,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Transferencia')
                     ->orWhere('metodo_pago2', 'Transferencia');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->select(DB::raw('SUM(
                 CASE
                     WHEN metodo_pago = "Transferencia" THEN COALESCE(dinero_recibido, 0)
@@ -382,6 +387,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Transferencia')
                     ->orWhere('metodo_pago2', 'Transferencia');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->with('Pedido')
             ->get();
 
@@ -402,6 +408,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Efectivo')
                     ->orWhere('metodo_pago2', 'Efectivo');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->select(DB::raw('SUM(
                 CASE
                     WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
@@ -451,6 +458,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Efectivo')
                     ->orWhere('metodo_pago2', 'Efectivo');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->with('Pedido')
             ->get();
 
@@ -472,6 +480,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Tarjeta')
                     ->orWhere('metodo_pago2', 'Tarjeta');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->select(DB::raw('SUM(
                 CASE
                     WHEN metodo_pago = "Tarjeta" THEN COALESCE(dinero_recibido, 0)
@@ -510,6 +519,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Tarjeta')
                     ->orWhere('metodo_pago2', 'Tarjeta');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->with('Pedido')
             ->get();
 
@@ -641,6 +651,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Efectivo')
                     ->orWhere('metodo_pago2', 'Efectivo');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->select(DB::raw('SUM(
                 CASE
                     WHEN metodo_pago = "Efectivo" THEN COALESCE(dinero_recibido, 0)
@@ -713,6 +724,7 @@ class CajaController extends Controller
             ->get();
 
             $productos_rep = NotasPedidos::where('fecha', $diaActual)
+            ->where('estatus', '!=', 'Cancelada')
             ->with('Pedido')
             ->get();
 
@@ -749,6 +761,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Transferencia')
                     ->orWhere('metodo_pago2', 'Transferencia');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->select(DB::raw('SUM(
                 CASE
                     WHEN metodo_pago = "Transferencia" THEN COALESCE(dinero_recibido, 0)
@@ -785,6 +798,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Transferencia')
                     ->orWhere('metodo_pago2', 'Transferencia');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->with('Pedido')
             ->get();
 
@@ -809,6 +823,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Efectivo')
                     ->orWhere('metodo_pago2', 'Efectivo');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->select(DB::raw('SUM(
                 CASE
                     WHEN metodo_pago = "Efectivo" THEN COALESCE(total, 0)
@@ -850,6 +865,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Efectivo')
                     ->orWhere('metodo_pago2', 'Efectivo');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->with('Pedido')
             ->get();
 
@@ -877,6 +893,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Tarjeta')
                     ->orWhere('metodo_pago2', 'Tarjeta');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->select(DB::raw('SUM(
                 CASE
                     WHEN metodo_pago = "Tarjeta" THEN COALESCE(dinero_recibido, 0)
@@ -910,6 +927,7 @@ class CajaController extends Controller
                 $query->where('metodo_pago', 'Tarjeta')
                     ->orWhere('metodo_pago2', 'Tarjeta');
             })
+            ->where('estatus', '!=', 'Cancelada')
             ->with('Pedido')
             ->get();
 
