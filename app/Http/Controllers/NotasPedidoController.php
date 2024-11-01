@@ -69,7 +69,7 @@ class NotasPedidoController extends Controller
         $cosme = auth()->user();
         $client = Client::orderBy('name','ASC')->get();
         $user = User::where('id', '!=', 1)->get();
-        $products = ProductosNAS::get();
+        $products = ProductosNAS::where('categoria', '!=', 'Ocultar')->get();
 
         return view('notas_pedidos.create', compact('cosme','user', 'client', 'products'));
     }
