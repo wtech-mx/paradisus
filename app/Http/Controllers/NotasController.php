@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client as GuzzleClient;
 use App\Models\ProductosNAS;
+use Illuminate\Support\Facades\Http;
 
 class NotasController extends Controller
 {
@@ -86,12 +87,50 @@ class NotasController extends Controller
         return view('notas.index', compact('nota', 'nota_cosme'));
     }
 
-    public function create()
+        // Método privado para obtener productos desde la API
+    private function obtenerProductosDesdeAPI($request)
     {
+        $dominio = $request->getHost();
+        $api_url = $dominio == 'plataforma.imnasmexico.com'
+            ? 'https://plataforma.imnasmexico.com/api/enviar-productos'
+            : 'http://imnasmexico_platform.test/api/enviar-productos';
+
+        $api_platform_Productos = Http::get($api_url);
+        $api_platform_Productos_Array = $api_platform_Productos->json();
+
+        // Asegurarnos de que estamos trabajando solo con la parte 'data' del array de la API
+        $api_productos_data = $api_platform_Productos_Array['data'];
+
+        // Transformar el array de la API en una colección de Laravel para que funcione como los productos de Eloquent
+        return collect($api_productos_data)->map(function ($product) {
+            return (object)[
+                'id' => $product['id'],
+                'sku' => $product['sku'],
+                'nombre' => $product['nombre'],
+                'stock_nas' => $product['stock_nas'],
+                'categoria' => $product['categoria'],
+                'subcategoria' => $product['subcategoria'],
+                'stock' => $product['stock'],
+                'descripcion' => $product['descripcion'],
+                'precio_rebajado' => $product['precio_rebajado'],
+                'precio_normal' => $product['precio_normal'],
+                'imagenes' => $product['imagenes'],
+                'laboratorio' => $product['laboratorio'],
+                'stock_cosmica' => $product['stock_cosmica'],
+                'fecha_fin' => $product['fecha_fin'],
+            ];
+        });
+    }
+
+    public function create(Request $request) {
+
         $client = Client::orderBy('name','ASC')->get();
         $servicio = Servicios::orderBy('nombre','ASC')->get();
         $user = User::where('id', '!=', 1)->get();
-        $products = ProductosNAS::get();
+        // $products = ProductosNAS::get();
+
+        // Obtener productos a través del método común
+        $products = $this->obtenerProductosDesdeAPI($request);
 
         return view('notas.create',compact('client', 'servicio', 'user', 'products'));
     }

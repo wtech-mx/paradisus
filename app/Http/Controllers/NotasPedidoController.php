@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use GuzzleHttp\Client as GuzzleClient;
+use Illuminate\Support\Facades\Http;
+
 
 // use Automattic\WooCommerce\Client;
 
@@ -63,13 +65,50 @@ class NotasPedidoController extends Controller
         return view('notas_pedidos.index', compact('nota_pedido', 'nota_pedidoCancelado'));
     }
 
+    // Método privado para obtener productos desde la API
+    private function obtenerProductosDesdeAPI($request)
+    {
+        $dominio = $request->getHost();
+        $api_url = $dominio == 'plataforma.imnasmexico.com'
+            ? 'https://plataforma.imnasmexico.com/api/enviar-productos'
+            : 'http://imnasmexico_platform.test/api/enviar-productos';
 
-    public function create()
+        $api_platform_Productos = Http::get($api_url);
+        $api_platform_Productos_Array = $api_platform_Productos->json();
+
+        // Asegurarnos de que estamos trabajando solo con la parte 'data' del array de la API
+        $api_productos_data = $api_platform_Productos_Array['data'];
+
+        // Transformar el array de la API en una colección de Laravel para que funcione como los productos de Eloquent
+        return collect($api_productos_data)->map(function ($product) {
+            return (object)[
+                'id' => $product['id'],
+                'sku' => $product['sku'],
+                'nombre' => $product['nombre'],
+                'stock_nas' => $product['stock_nas'],
+                'categoria' => $product['categoria'],
+                'subcategoria' => $product['subcategoria'],
+                'stock' => $product['stock'],
+                'descripcion' => $product['descripcion'],
+                'precio_rebajado' => $product['precio_rebajado'],
+                'precio_normal' => $product['precio_normal'],
+                'imagenes' => $product['imagenes'],
+                'laboratorio' => $product['laboratorio'],
+                'stock_cosmica' => $product['stock_cosmica'],
+                'fecha_fin' => $product['fecha_fin'],
+            ];
+        });
+    }
+
+    public function create(Request $request)
     {
         $cosme = auth()->user();
         $client = Client::orderBy('name','ASC')->get();
         $user = User::where('id', '!=', 1)->get();
-        $products = ProductosNAS::where('categoria', '!=', 'Ocultar')->get();
+        // $products = ProductosNAS::where('categoria', '!=', 'Ocultar')->get();
+
+        // Obtener productos a través del método común
+        $products = $this->obtenerProductosDesdeAPI($request);
 
         return view('notas_pedidos.create', compact('cosme','user', 'client', 'products'));
     }
@@ -362,35 +401,17 @@ class NotasPedidoController extends Controller
         //                 ->with('success','Nota Productos Creado.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $nota = NotasPedidos::find($id);
-
-        return view('notas_pedidos.show', compact('nota'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Notas $nota
-     * @return \Illuminate\Http\Response
-     */
-
-    public function edit($id){
+    public function edit(Request $request, $id){
          $cosme = auth()->user();
          $nota_pedido = NotasPedidos::find($id);
          $pedido = Pedido::get();
          $nota_pedido_cosme = NotasPedidos::where('id_user', '=',$cosme->id)->get();
          $client = Client::orderBy('name','ASC')->get();
          $user = User::where('id', '!=', 1)->get();
-         $products = ProductosNAS::get();
+        //  $products = ProductosNAS::get();
+
+        // Obtener productos a través del método común
+        $products = $this->obtenerProductosDesdeAPI($request);
 
          return view('notas_pedidos.edit', compact('pedido', 'cosme', 'client','user','nota_pedido', 'nota_pedido_cosme','products'));
      }
@@ -409,6 +430,13 @@ class NotasPedidoController extends Controller
         $pdf->setPaper([0, 0, 165, 500], 'portrait'); // Ancho: 58 mm, Alto: 500 mm (ajustar según tus necesidades)
 
         return $pdf->download('Recibo_'.$id.'.pdf');
+    }
+
+    public function show($id)
+    {
+        $nota = NotasPedidos::find($id);
+
+        return view('notas_pedidos.show', compact('nota'));
     }
 
     public function eliminarProducto($id){
