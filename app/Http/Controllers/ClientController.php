@@ -41,19 +41,37 @@ class ClientController extends Controller
     {
         $clients = Client::all();
 
-        // Paso 1: Identificar los registros con el mismo número de teléfono (en este caso específico)
-        $phone = Client::where('id', 4416)->value('phone');
+        // Paso 1: Identificar los números de teléfono duplicados
+        $duplicatedPhones = Client::select('phone')
+            ->groupBy('phone')
+            ->havingRaw('COUNT(*) > 1')
+            ->pluck('phone');
 
-        if ($phone) {
+        foreach ($duplicatedPhones as $phone) {
+            // Obtener todos los registros con el mismo número de teléfono
             $clientsWithSamePhone = Client::where('phone', $phone)->get();
 
             if ($clientsWithSamePhone->count() > 1) {
-                // Conservar uno de los registros y obtener su ID
-                $clientToKeep = $clientsWithSamePhone->shift(); // Elimina y guarda el primero de la colección
+                // Conservar el primer registro y obtener su ID
+                $clientToKeep = $clientsWithSamePhone->shift();
                 $clientToKeepId = $clientToKeep->id;
 
-                // Paso 2: Actualizar las tablas relacionadas para que apunten al ID conservado
-                $relatedTables = [
+                // Paso 2: Eliminar registros relacionados en tablas dependientes
+                $dependentTables = [
+                    'consentimiento_firmas_jacuzzi' => 'id_consentimiento',
+                    // Agregar más tablas dependientes si las hay
+                ];
+
+                foreach ($dependentTables as $table => $foreignKey) {
+                    DB::table($table)
+                        ->whereIn($foreignKey, DB::table('consentimiento_jacuzzi')
+                            ->whereIn('id_client', $clientsWithSamePhone->pluck('id'))
+                            ->pluck('id'))
+                        ->delete();
+                }
+
+                // Paso 3: Eliminar registros duplicados de las tablas con restricción UNIQUE
+                $tablesWithUniqueConstraint = [
                     'concentimiento_corporal' => 'id_client',
                     'concentimiento_facial' => 'id_client',
                     'configuracion_laser' => 'id_cliente',
@@ -61,6 +79,16 @@ class ClientController extends Controller
                     'consentimiento_laser' => 'id_cliente',
                     'hoja_salud_laser' => 'id_cliente',
                     'lash_lifting' => 'id_client',
+                ];
+
+                foreach ($tablesWithUniqueConstraint as $table => $foreignKey) {
+                    DB::table($table)
+                        ->whereIn($foreignKey, $clientsWithSamePhone->pluck('id'))
+                        ->delete();
+                }
+
+                // Paso 4: Actualizar las tablas sin la restricción UNIQUE
+                $tablesToUpdate = [
                     'notas' => 'id_client',
                     'notas_pedidos' => 'id_client',
                     'nota_laser' => 'id_client',
@@ -69,18 +97,16 @@ class ClientController extends Controller
                     'alertas' => 'id_client',
                 ];
 
-                foreach ($relatedTables as $table => $foreignKey) {
-                    // Actualizar todos los registros que apunten a los IDs duplicados para usar el ID conservado
+                foreach ($tablesToUpdate as $table => $foreignKey) {
                     DB::table($table)
                         ->whereIn($foreignKey, $clientsWithSamePhone->pluck('id'))
                         ->update([$foreignKey => $clientToKeepId]);
                 }
 
-                // Paso 3: Eliminar los registros duplicados
+                // Paso 5: Eliminar los registros duplicados de la tabla `clients`
                 Client::whereIn('id', $clientsWithSamePhone->pluck('id'))->delete();
             }
         }
-
 
         return view('client.index', compact('clients'));
     }
