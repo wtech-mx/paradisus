@@ -40,7 +40,48 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $clients = Client::all();
-        
+
+        // Paso 1: Identificar los registros con el mismo número de teléfono (en este caso específico)
+        $phone = Client::where('id', 4398)->value('phone');
+
+        if ($phone) {
+            $clientsWithSamePhone = Client::where('phone', $phone)->get();
+
+            if ($clientsWithSamePhone->count() > 1) {
+                // Conservar uno de los registros y obtener su ID
+                $clientToKeep = $clientsWithSamePhone->shift(); // Elimina y guarda el primero de la colección
+                $clientToKeepId = $clientToKeep->id;
+
+                // Paso 2: Actualizar las tablas relacionadas para que apunten al ID conservado
+                $relatedTables = [
+                    'concentimiento_corporal' => 'id_client',
+                    'concentimiento_facial' => 'id_client',
+                    'configuracion_laser' => 'id_cliente',
+                    'consentimiento_jacuzzi' => 'id_client',
+                    'consentimiento_laser' => 'id_cliente',
+                    'hoja_salud_laser' => 'id_cliente',
+                    'lash_lifting' => 'id_client',
+                    'notas' => 'id_client',
+                    'notas_pedidos' => 'id_client',
+                    'nota_laser' => 'id_client',
+                    'paquetes_servicios' => 'id_client',
+                    'reporte' => 'id_client',
+                    'alertas' => 'id_client',
+                ];
+
+                foreach ($relatedTables as $table => $foreignKey) {
+                    // Actualizar todos los registros que apunten a los IDs duplicados para usar el ID conservado
+                    DB::table($table)
+                        ->whereIn($foreignKey, $clientsWithSamePhone->pluck('id'))
+                        ->update([$foreignKey => $clientToKeepId]);
+                }
+
+                // Paso 3: Eliminar los registros duplicados
+                Client::whereIn('id', $clientsWithSamePhone->pluck('id'))->delete();
+            }
+        }
+
+
         return view('client.index', compact('clients'));
     }
 
