@@ -1448,14 +1448,19 @@ class AlertasController extends Controller
     }
 
     public function create_falta(Request $request){
-        $duracion = 600; // Duración en minutos
+        if($request->dia_completo_cosme == 1){
+            $duracion = 600; // Duración en minutos
 
-        // Combina la fecha y la hora seleccionada
-        $startDateTimeString = $request->fecha_falta_disponibilidad . '  10:00:00';
-        $startDateTime = Carbon::parse($startDateTimeString);
+            // Combina la fecha y la hora seleccionada
+            $startDateTimeString = $request->fecha_falta_disponibilidad . '  10:00:00';
+            $startDateTime = Carbon::parse($startDateTimeString);
 
-        // Calcula la hora de finalización
-        $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+            // Calcula la hora de finalización
+            $endDateTime = $startDateTime->copy()->addMinutes($duracion);
+        }else{
+            $startDateTime = $request->fecha_falta_disponibilidad . ' ' . $request->hora_inicio_falta;
+            $endDateTime = $request->fecha_falta_disponibilidad . ' ' . $request->hora_fin_falta;
+        }
         $user = User::where('id', $request->cosme_falta_disponibilidad)->first();
 
         $datosEvento = new Alertas;

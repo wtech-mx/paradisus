@@ -15,6 +15,31 @@
                     <form method="POST" class="row" action="{{ route('falta_disponibilidad.create') }}" enctype="multipart/form-data" role="form">
                         @csrf
 
+                        <div class="form-group col-12">
+                            <label for="mod_hora_fin">Marcar si es dia completo</label>
+                            <input type="checkbox" id="dia_completo_cosme" name="dia_completo_cosme" value="1">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="">Hora Inicio</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">
+                                    <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                                </span>
+                                <input class="form-control" type="time" name="hora_inicio_falta" id="hora_inicio_falta" autocomplete="off" >
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="">Hora Fin</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">
+                                    <img src="{{ asset('assets/icons/esperar.png') }}" alt="" width="30px">
+                                </span>
+                                <input class="form-control" type="time" name="hora_fin_falta" id="hora_fin_falta" autocomplete="off" >
+                            </div>
+                        </div>
+
                         <div class="form-group col-6">
                             <label for="">Fecha Falta</label>
                             <div class="input-group mb-3">
