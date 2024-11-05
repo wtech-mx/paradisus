@@ -41,6 +41,66 @@ class ClientController extends Controller
     {
         $clients = Client::all();
 
+        // Paso 1: Identificar duplicados por número de teléfono
+        $duplicatedPhones = Client::select('phone')
+            ->groupBy('phone')
+            ->havingRaw('COUNT(*) > 1')
+            ->pluck('phone');
+
+        foreach ($duplicatedPhones as $phone) {
+            // Obtener todos los registros con el mismo número de teléfono
+            $clientsWithSamePhone = Client::where('phone', $phone)->get();
+
+            // Conservar uno de los registros y obtener su ID
+            $clientToKeep = $clientsWithSamePhone->shift(); // Elimina y guarda el primero de la colección
+            $clientToKeepId = $clientToKeep->id;
+
+            // Paso 2: Actualizar las tablas relacionadas para que apunten al ID conservado
+            $relatedTables = [
+                'concentimiento_corporal' => 'id_client',
+                'concentimiento_facial' => 'id_client',
+                'configuracion_laser' => 'id_cliente',
+                'consentimiento_jacuzzi' => 'id_client',
+                'consentimiento_laser' => 'id_cliente',
+                'hoja_salud_laser' => 'id_cliente',
+                'lash_lifting' => 'id_client',
+                'notas' => 'id_client',
+                'notas_pedidos' => 'id_client',
+                'nota_laser' => 'id_client',
+                'paquetes_servicios' => 'id_client',
+                'reporte' => 'id_client',
+                'alertas' => 'id_client',
+            ];
+
+            foreach ($relatedTables as $table => $foreignKey) {
+                // Verificar si ya existe un registro con el ID que se quiere actualizar
+                $existingCount = DB::table($table)
+                    ->where($foreignKey, $clientToKeepId)
+                    ->count();
+
+                if ($existingCount === 0) {
+                    // Actualizar solo si no hay conflicto con el ID conservado
+                    DB::table($table)
+                        ->whereIn($foreignKey, $clientsWithSamePhone->pluck('id'))
+                        ->update([$foreignKey => $clientToKeepId]);
+                } else {
+                    // Mover los registros a un `id_client` alternativo si ya hay un conflicto
+                    $clientsWithSamePhone->shift(); // Avanza al siguiente cliente
+                    $clientAlternativeId = $clientsWithSamePhone->first()->id ?? null;
+
+                    if ($clientAlternativeId) {
+                        DB::table($table)
+                            ->whereIn($foreignKey, $clientsWithSamePhone->pluck('id'))
+                            ->update([$foreignKey => $clientAlternativeId]);
+                    }
+                }
+            }
+
+            // Paso 3: Eliminar los registros duplicados
+            Client::whereIn('id', $clientsWithSamePhone->pluck('id'))->delete();
+        }
+
+
         return view('client.index', compact('clients'));
     }
 
