@@ -91,7 +91,7 @@ class NotasController extends Controller
     private function obtenerProductosDesdeAPI($request)
     {
         $dominio = $request->getHost();
-        $api_url = $dominio == 'plataforma.imnasmexico.com'
+        $api_url = $dominio == 'paradisus.mx'
             ? 'https://plataforma.imnasmexico.com/api/enviar-productos'
             : 'http://imnasmexico_platform.test/api/enviar-productos';
 
