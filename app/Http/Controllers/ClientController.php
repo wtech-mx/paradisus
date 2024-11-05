@@ -42,7 +42,7 @@ class ClientController extends Controller
         $clients = Client::all();
 
         // Paso 1: Identificar los registros con el mismo número de teléfono (en este caso específico)
-        $phone = Client::where('id', 4398)->value('phone');
+        $phone = Client::where('id', 4424)->value('phone');
 
         if ($phone) {
             $clientsWithSamePhone = Client::where('phone', $phone)->get();
