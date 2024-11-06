@@ -31,11 +31,7 @@ use Illuminate\Support\Facades\Http;
 
 class NotasPedidoController extends Controller
 {
-  /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         // Capturamos los parámetros de fecha
@@ -113,12 +109,6 @@ class NotasPedidoController extends Controller
         return view('notas_pedidos.create', compact('cosme','user', 'client', 'products'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -197,8 +187,6 @@ class NotasPedidoController extends Controller
         }else{
             $nota->cambio = '0';
         }
-
-
 
         $nota->save();
 
@@ -293,7 +281,11 @@ class NotasPedidoController extends Controller
             );
             $insert_data[] = $data;
 
-            $producto = Products::where('nombre', $concepto[$count])->first();
+            // $producto = Products::where('nombre', $concepto[$count])->first();
+
+            $productsApi = $this->obtenerProductosDesdeAPI($request);
+            // Busca el producto en los productos obtenidos de la API
+            $producto = $productsApi->firstWhere('nombre', $concepto[$count]);
 
             if($producto->subcategoria == 'Kit'){
                 $productos_bundle = ProductosBundleId::where('id_product', $producto->id)->get();
@@ -572,11 +564,6 @@ class NotasPedidoController extends Controller
         return redirect()->back()->with('edit','Nota Productos Actualizado.');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
             //         $pago = Pagos::where('id_nota', '=', $id)->delete();

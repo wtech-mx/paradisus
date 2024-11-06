@@ -31,7 +31,7 @@
                                         <h4 for="name">Nombre Paquete/kit *</h4>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/user/icons/firma-digital.png') }}" alt="" width="35px">
+                                                <img src="{{ asset('assets/icons/firma-digital.png') }}" alt="" width="35px">
                                             </span>
                                             <input id="nombre" name="nombre" type="text" class="form-control"  value="{{$cotizacion->nombre}}">
                                         </div>
@@ -41,7 +41,7 @@
                                         <h4 for="name">Fecha de Finalizacion*</h4>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/cam/calenda.png') }}" alt="" width="35px">
+                                                <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="35px">
                                             </span>
                                             <input id="fecha_fin" name="fecha_fin" type="date" class="form-control" value="{{$cotizacion->fecha_fin}}" >
                                         </div>
@@ -51,9 +51,10 @@
                                         <h4 for="name">Imagen de portada*</h4>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/user/icons/picture.png') }}" alt="" width="35px">
+                                                <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="35px">
                                             </span>
-                                            <input id="foto" name="foto" type="file" class="form-control"  value="{{$cotizacion->foto}}">
+                                            <input id="foto" name="foto" type="file" class="form-control" >
+
                                         </div>
 
                                         @if ($cotizacion->imagenes == NULL)
@@ -68,7 +69,7 @@
                                         <label for="name">Categoria</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img class="img_profile_label" src="{{asset('assets/user/icons/clic.png')}}" alt="" width="30px" >
+                                                <img class="img_profile_label" src="{{asset('assets/icons/clic.png')}}" alt="" width="30px" >
                                             </span>
                                             <select name="categoria" id="categoria" class="form-select" >
                                                 <option selected value="{{$cotizacion->categoria}}">{{$cotizacion->categoria}}</option>
@@ -107,7 +108,7 @@
                                                 <label for="cantidad_{{ $productos->id }}">Cantidad *</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
-                                                        <img src="{{ asset('assets/user/icons/clic2.png') }}" alt="" width="35px">
+                                                        <img src="{{ asset('assets/icons/clic2.png') }}" alt="" width="35px">
                                                     </span>
                                                     <input type="number" id="cantidad_{{ $productos->id }}" name="cantidad[]" class="form-control cantidad" style="width: 65%;" value="{{ $productos->cantidad }}">
                                                 </div>
@@ -117,7 +118,7 @@
                                                 <label for="descuento_{{ $productos->id }}">Descuento *</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
-                                                        <img src="{{ asset('assets/cam/dinero.png') }}" alt="" width="35px">
+                                                        <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="35px">
                                                     </span>
                                                     <input type="number" id="descuento_{{ $productos->id }}" name="descuento[]" class="form-control descuento" value="{{ $productos->descuento }}">
                                                 </div>
@@ -127,7 +128,7 @@
                                                 <label for="subtotal_{{ $productos->id }}">Subtotal *</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
-                                                        <img src="{{ asset('assets/cam/dinero.png') }}" alt="" width="35px">
+                                                        <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="35px">
                                                     </span>
                                                     <input type="text" id="subtotal_{{ $productos->id }}" name="price[]" class="form-control subtotal" value="${{ $precio_format }}" readonly>
                                                 </div>
@@ -189,7 +190,7 @@
                                                             <label for="name">Cantidad *</label>
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text" id="basic-addon1">
-                                                                    <img src="{{ asset('assets/user/icons/clic2.png') }}" alt="" width="35px">
+                                                                    <img src="{{ asset('assets/icons/clic2.png') }}" alt="" width="35px">
                                                                 </span>
                                                                 <input type="number" name="campo3[]" class="form-control d-inline-block cantidad2">
                                                             </div>
@@ -209,7 +210,7 @@
                                                             <label for="name">Subtotal *</label>
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text" id="basic-addon1">
-                                                                    <img src="{{ asset('assets/cam/dinero.png') }}" alt="" width="35px">
+                                                                    <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="35px">
                                                                 </span>
                                                                 <input type="text" name="campo4[]" class="form-control d-inline-block subtotal2" readonly>
                                                             </div>
@@ -232,7 +233,7 @@
                                         <label for="name">Subtotal *</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/cam/dinero.png') }}" alt="" width="35px">
+                                                <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="35px">
                                             </span>
                                             <input id="subtotal_final" name="subtotal_final" type="text" class="form-control"  value="{{ $precio }}" readonly>
                                         </div>
@@ -242,7 +243,7 @@
                                         <label for="name">Total</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/user/icons/bolsa-de-dinero.png') }}" alt="" width="35px">
+                                                <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px">
                                             </span>
                                             <input id="total_final" name="total_final" type="text" class="form-control"  value="{{ $cotizacion->precio_normal }}" >
                                         </div>

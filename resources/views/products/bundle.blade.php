@@ -36,7 +36,7 @@
                                         <h4 for="name">Fecha de Finalizacion*</h4>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/icons/calendario.png') }}" alt="" width="35px">
+                                                <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="35px">
                                             </span>
                                             <input id="fecha_fin" name="fecha_fin" type="date" class="form-control" value="{{$fecha}}" required>
                                         </div>
@@ -90,8 +90,7 @@
                                                                 <select name="campo[]" class="form-select d-inline-block producto">
                                                                     <option value="">Seleccione products</option>
                                                                     @foreach ($products as $product)
-                                                                    <option value="{{ $product->nombre }}" data-precio_normal="{{ $product->precio_normal }}" data-imagen="{{ $product->imagenes }}">{{ $product->nombre }}</option>
-
+                                                                        <option value="{{ $product->nombre }}" data-precio_normal="{{ $product->precio_normal }}" data-imagen="{{ $product->imagenes }}">{{ $product->nombre }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>

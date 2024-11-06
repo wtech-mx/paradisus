@@ -9,14 +9,52 @@ use Illuminate\Support\Facades\Artisan;
 use Carbon\Carbon;
 use DB;
 use Session;
+use Illuminate\Support\Facades\Http;
 
 class ProductsController extends Controller
 {
 
+    // Método privado para obtener productos desde la API
+    private function obtenerProductosDesdeAPI($request)
+    {
+        $dominio = $request->getHost();
+        $api_url = $dominio == 'paradisus.mx'
+            ? 'https://plataforma.imnasmexico.com/api/enviar-productos'
+            : 'http://imnasmexico_platform.test/api/enviar-productos';
+
+        $api_platform_Productos = Http::get($api_url);
+        $api_platform_Productos_Array = $api_platform_Productos->json();
+
+        // Asegurarnos de que estamos trabajando solo con la parte 'data' del array de la API
+        $api_productos_data = $api_platform_Productos_Array['data'];
+
+        // Transformar el array de la API en una colección de Laravel para que funcione como los productos de Eloquent
+        return collect($api_productos_data)->map(function ($product) {
+            return (object)[
+                'id' => $product['id'],
+                'sku' => $product['sku'],
+                'nombre' => $product['nombre'],
+                'stock_nas' => $product['stock_nas'],
+                'categoria' => $product['categoria'],
+                'subcategoria' => $product['subcategoria'],
+                'stock' => $product['stock'],
+                'descripcion' => $product['descripcion'],
+                'precio_rebajado' => $product['precio_rebajado'],
+                'precio_normal' => $product['precio_normal'],
+                'imagenes' => $product['imagenes'],
+                'laboratorio' => $product['laboratorio'],
+                'stock_cosmica' => $product['stock_cosmica'],
+                'fecha_fin' => $product['fecha_fin'],
+            ];
+        });
+    }
 
     public function index_bundle(Request $request){
 
-        $productsKit = Products::orderBy('id','DESC')->where('categoria', '!=', 'Ocultar')->where('subcategoria', '=', 'Kit')->orderby('nombre','asc')->get();
+        // $productsKit = Products::orderBy('id','DESC')->where('categoria', '!=', 'Ocultar')->where('subcategoria', '=', 'Kit')->orderby('nombre','asc')->get();
+
+        // Obtener productos a través del método común
+        $productsKit = $this->obtenerProductosDesdeAPI($request);
 
         return view('products.index_bundle', compact('productsKit'));
     }
@@ -24,7 +62,9 @@ class ProductsController extends Controller
 
     public function create_bundle(Request $request){
 
-        $products = Products::orderBy('id','DESC')->where('categoria', '!=', 'Ocultar')->where('subcategoria', '!=', 'Kit')->get();
+        // $products = Products::orderBy('id','DESC')->where('categoria', '!=', 'Ocultar')->where('subcategoria', '!=', 'Kit')->get();
+
+        $products = $this->obtenerProductosDesdeAPI($request);
 
         return view('products.bundle', compact('products'));
     }
@@ -80,10 +120,28 @@ class ProductsController extends Controller
 
     }
 
-    public function edit_bundle($id){
-        $cotizacion = Products::find($id);
+    public function edit_bundle(Request $request,$id){
+        // $cotizacion = Products::find($id);
+        // Obtén los productos desde la API
+        $cotizacion = $this->obtenerProductosDesdeAPI($request);
+
+        // Busca el producto que coincida con el ID que se pasó al método
+        $cotizacion = $cotizacion->firstWhere('id', $id);
+
+        // Si no encuentra el producto, puedes manejar el error (por ejemplo, lanzando una excepción o devolviendo un mensaje)
+        if (!$cotizacion) {
+            abort(404, "Producto no encontrado");
+        }
+
         $cotizacion_productos = ProductosBundleId::where('id_product', '=', $id)->where('price', '!=', NULL)->get();
-        $products = Products::orderBy('nombre','ASC')->get();
+
+        // Obtén los productos desde la API
+        $products = $this->obtenerProductosDesdeAPI($request);
+
+        // Excluir productos cuya subcategoría sea "Kit"
+        $products = $products->reject(function ($product) {
+            return $product->subcategoria === 'Kit';
+        });
 
         return view('products.edit_bundle', compact('products', 'cotizacion', 'cotizacion_productos'));
     }
@@ -207,7 +265,6 @@ class ProductsController extends Controller
         Session::flash('success', 'Bundle actualizado con exito');
         return redirect()->back()->with('success', 'Se ha actualizada');
     }
-
 
     public function update_ocultar(Request $request, $id)
     {
