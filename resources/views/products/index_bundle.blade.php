@@ -67,7 +67,7 @@
                             @if ($product->imagenes == NULL)
                                 <img id="blah" src="{{asset('cursos/no-image.jpg') }}" alt="Imagen" style="width: 50px; height: 50px;"/>
                             @else
-                                <img id="blah" src="{{asset('products/'.$product->imagenes) }}" alt="Imagen" style="width: 50px; height: 50px;"/>
+                                <img id="blah" src="https://plataforma.imnasmexico.com/products/{{ $product->imagenes }}" alt="Imagen" style="width: 50px; height: 50px;"/>
                             @endif
 
                         </th>

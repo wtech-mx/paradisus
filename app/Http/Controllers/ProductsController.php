@@ -53,8 +53,13 @@ class ProductsController extends Controller
 
         // $productsKit = Products::orderBy('id','DESC')->where('categoria', '!=', 'Ocultar')->where('subcategoria', '=', 'Kit')->orderby('nombre','asc')->get();
 
-        // Obtener productos a través del método común
+        // Obtén los productos desde la API
         $productsKit = $this->obtenerProductosDesdeAPI($request);
+
+        // Excluir productos cuya subcategoría sea "Kit"
+        $productsKit = $productsKit->reject(function ($product) {
+            return $product->subcategoria === 'Producto';
+        });
 
         return view('products.index_bundle', compact('productsKit'));
     }
