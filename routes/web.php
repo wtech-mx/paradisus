@@ -389,6 +389,9 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O  P R O P I N A S===============================
     Route::post('/notas/propina/store', [App\Http\Controllers\NotasController::class, 'propina_store'])->name('propina_store.propina');
 
+    // =============== M O D U L O  K I T  L A S E R===============================
+    Route::get('/kit/laser/index', [App\Http\Controllers\LaserKitController::class, 'index'])->name('index_laser.kit');
+    Route::get('/kit/laser/create', [App\Http\Controllers\LaserKitController::class, 'create'])->name('create_laser.kit');
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');
