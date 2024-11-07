@@ -17,7 +17,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="myForm" method="POST" action="{{ route('bundle.store') }}" enctype="multipart/form-data" role="form">
+                        <form id="myForm" method="POST" action="{{ route('store_laser.kit') }}" enctype="multipart/form-data" role="form">
                             @csrf
                             <div class="modal-body">
                                 <div class="row">
@@ -32,43 +32,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-6">
+                                    {{-- <div class="form-group col-6">
                                         <h4 for="name">Fecha de Finalizacion*</h4>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <img src="{{ asset('assets/icons/calenda.png') }}" alt="" width="35px">
                                             </span>
-                                            <input id="fecha_fin" name="fecha_fin" type="date" class="form-control" value="{{$fecha}}" required>
+                                            <input id="fecha_caducidad" name="fecha_caducidad" type="date" class="form-control" value="{{$fecha}}">
                                         </div>
-                                    </div>
-
-                                    <div class="form-group col-6">
-                                        <h4 for="name">Imagen de portada*</h4>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/icons/picture.png') }}" alt="" width="35px">
-                                            </span>
-                                            <input id="foto" name="foto" type="file" class="form-control" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-6">
-                                        <label for="name">Categoria</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1">
-                                                <img class="img_profile_label" src="{{asset('assets/icons/clic.png')}}" alt="" width="30px" >
-                                            </span>
-                                            <select name="categoria" id="categoria" class="form-select" required>
-                                                <option value="">Seleciona una opcion</option>
-                                                <option value="NAS">NAS</option>
-                                                <option value="Cosmica">Cosmica</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
+                                    </div> --}}
 
                                     <div class="col-12 mt-2">
-                                        <h2 style="color:#836262"><strong>Seleciona los productos</strong> </h2>
+                                        <h2 style="color:#836262"><strong>Seleciona las zonas</strong> </h2>
                                     </div>
 
                                     <div class="col-1">
@@ -85,44 +60,14 @@
                                                 <div class="campo mt-3">
                                                     <div class="row">
                                                         <div class="col-5">
-                                                            <h4 for="">Producto</h4>
+                                                            <h4 for="">Zona</h4>
                                                             <div class="form-group">
-                                                                <select name="campo[]" class="form-select d-inline-block producto">
-                                                                    <option value="">Seleccione products</option>
-                                                                    @foreach ($products as $product)
-                                                                        <option value="{{ $product->nombre }}" data-precio_normal="{{ $product->precio_normal }}" data-imagen="{{ $product->imagenes }}">{{ $product->nombre }}</option>
+                                                                <select name="id_laser_zona[]" class="form-select d-inline-block">
+                                                                    <option value="">Seleccione Zona</option>
+                                                                    @foreach ($zonas as $zona)
+                                                                        <option value="{{ $zona->id }}">{{ $zona->zona }}</option>
                                                                     @endforeach
                                                                 </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group col-3">
-                                                            <h4 for="name">Cantidad *</h4>
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text" id="basic-addon1">
-                                                                    <img src="{{ asset('assets/icons/clic2.png') }}" alt="" width="35px">
-                                                                </span>
-                                                                <input type="number" name="campo3[]" class="form-control d-inline-block cantidad" >
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group col-2" style="display: none">
-                                                            <h4 for="name">Descuento (%)</h4>
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text" id="basic-addon1">
-                                                                    <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="35px">
-                                                                </span>
-                                                                <input type="number" name="descuento_prod[]" class="form-control d-inline-block descuento_prod" value="0">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group col-3">
-                                                            <h4 for="name">Subtotal *</h4>
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text" id="basic-addon1">
-                                                                    <img src="{{ asset('assets/icons/cambio.png') }}" alt="" width="35px">
-                                                                </span>
-                                                                <input type="text" name="campo4[]" class="form-control d-inline-block subtotal" readonly>
                                                             </div>
                                                         </div>
 
@@ -140,22 +85,12 @@
                                     </div>
 
                                     <div class="form-group col-4">
-                                        <h4 for="name">Subtotal *</h4>
+                                        <h4 for="name">Numero de sesiones</h4>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="35px">
+                                                <img src="{{ asset('assets/icons/prueba.webp') }}" alt="" width="35px">
                                             </span>
-                                            <input class="form-control total" type="text" id="total" name="total" value="0" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-4">
-                                        <h4 for="name">Descuento</h4>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">
-                                                <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="35px">
-                                            </span>
-                                            <input class="form-control" type="number" id="descuento" name="descuento" value="0">
+                                            <input class="form-control" type="number" id="num_sesiones" name="num_sesiones" required>
                                         </div>
                                     </div>
 
@@ -165,14 +100,17 @@
                                             <span class="input-group-text" id="basic-addon1">
                                                 <img src="{{ asset('assets/icons/bolsa-de-dinero.png') }}" alt="" width="35px">
                                             </span>
-                                            <input class="form-control" type="text" id="totalDescuento" name="totalDescuento" >
+                                            <input class="form-control" type="number" id="precio" name="precio" required>
                                         </div>
                                     </div>
-
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <h4 for="name">Comentario de promocion /kit</h4>
-                                            <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="3"></textarea>
+                                    
+                                    <div class="form-group col-4">
+                                        <h4 for="name">Desactivar Paquete</h4>
+                                        <div class="input-group mb-3">
+                                            <select name="vencido" class="form-select d-inline-block">
+                                                <option value="No">No</option>
+                                                <option value="Si">Si</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -189,5 +127,32 @@
     </div>
 @endsection
 @section('datatable')
+<script src="{{ asset('assets/admin/vendor/select2/dist/js/select2.min.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        $('.producto').select2();
 
+        // Al hacer clic en el botón de agregar
+        $('#agregarCampo').click(function() {
+            // Clonar la última fila `.campo`
+            let nuevoCampo = $('.campo:first').clone();
+
+            // Limpiar los valores del nuevo campo
+            nuevoCampo.find('select').val(''); // Limpiar el valor del select
+
+            // Agregar el nuevo campo al contenedor
+            $('#camposContainer').append(nuevoCampo);
+        });
+
+        // Al hacer clic en el botón de eliminar
+        $(document).on('click', '.eliminarCampo', function() {
+            // Verificar si hay más de un campo antes de eliminar
+            if ($('.campo').length > 1) {
+                $(this).closest('.campo').remove();
+            } else {
+                alert("Debe haber al menos un campo.");
+            }
+        });
+    });
+</script>
 @endsection

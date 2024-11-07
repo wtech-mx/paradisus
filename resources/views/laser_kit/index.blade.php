@@ -31,7 +31,7 @@
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Num sesiones</th>
-                                <th>Fecha Caducidad</th>
+                                <th>¿Desactivado?</th>
                             </tr>
                     </thead>
 
@@ -43,12 +43,12 @@
                                 <td>{{ $laser_kit->nombre }}</td>
                                 <td>{{ $laser_kit->precio }}</td>
                                 <td>{{ $laser_kit->num_sesiones }}</td>
-                                <td>{{ $laser_kit->fecha_caducidad }}</td>
+                                <td>{{ $laser_kit->vencido }}</td>
 
                                 <td>
-                                    @can('servicios-edit')
-                                        <a class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editDataModal{{$laser_kit->id}}"><i class="fa fa-fw fa-edit"></i> </a>
-                                    @endcan
+                                    <a class="btn btn-sm btn-success" href="{{ route('edit_laser.kit', $laser_kit->id) }}" style="background: {{$configuracion->color_boton_add}}; color: #ffff">
+                                        <i class="fa fa-fw fa-edit"></i> Crear
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

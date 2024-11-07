@@ -15,6 +15,8 @@ use App\Models\HojaSaludLaser;
 use GuzzleHttp\Client as GuzzleClient;
 Use Alert;
 use App\Models\ConsentimientoLaser;
+use App\Models\LaserKit;
+use App\Models\LaserKitZonas;
 use App\Models\RegCosmesSum;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -50,8 +52,9 @@ class NotasLacerController extends Controller
         $zonas = Laser::get();
         $client = Client::orderBy('name','ASC')->get();
         $user = User::where('puesto', '=', 'Cosme')->orwhere('puesto', '=', 'Recepcionista')->get();
+        $lasers_kits = LaserKit::where('vencido', '=', 'No')->orderBy('id','ASC')->get();
 
-        return view('notas_lacer.crear',compact('client', 'user', 'zonas'));
+        return view('notas_lacer.crear',compact('client', 'user', 'zonas', 'lasers_kits'));
     }
 
     public function store(Request $request){
@@ -100,6 +103,8 @@ class NotasLacerController extends Controller
             $tipo = 'Sesiones';
         }else if($request->get('tipo_servicio') == 'cara_completa'){
             $tipo = 'Cara completa';
+        }else if($request->get('tipo_servicio') == 'paquete_personalizado'){
+            $tipo = 'Paquete Personalizado';
         }else{
             $tipo = 'Personalizado';
         }
@@ -177,6 +182,19 @@ class NotasLacerController extends Controller
                 $zona_laser->id_zona = $zonaId;
                 $zona_laser->sesiones_compradas = $sesiones;
                 $zona_laser->sesiones_restantes = $sesiones;
+                $zona_laser->save();
+            }
+        }else if($request->get('tipo_servicio') == 'paquete_personalizado'){
+
+            $lasers_kits = LaserKit::where('id', '=', $request->get('paquete_perso_select'))->first();
+            $lasers_kits_zonas = LaserKitZonas::where('id_laser_kit', '=', $lasers_kits->id)->get();
+
+            foreach ($lasers_kits_zonas as $zonaId) {
+                $zona_laser = new ZonasLaser;
+                $zona_laser->id_nota = $nota_laser->id;
+                $zona_laser->id_zona = $zonaId->id_laser_zona;
+                $zona_laser->sesiones_compradas = $lasers_kits->num_sesiones;
+                $zona_laser->sesiones_restantes = $lasers_kits->num_sesiones;
                 $zona_laser->save();
             }
         }else{
@@ -806,8 +824,16 @@ class NotasLacerController extends Controller
 
     public function recomendaciones(){
 
-
         return view('notas_lacer.recomendaciones');
+    }
 
+    public function obtenerPrecioPaquete($id){
+        $laserKit = LaserKit::find($id); // Asumiendo que tienes un modelo LaserKit
+
+        if ($laserKit) {
+            return response()->json(['precio' => $laserKit->precio]);
+        }
+
+        return response()->json(['precio' => 0]); // Devuelve 0 si no se encuentra el paquete
     }
 }

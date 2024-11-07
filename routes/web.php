@@ -161,7 +161,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/notas/laser/pdf/{id}', [App\Http\Controllers\NotasLacerController::class, 'pdf_laser'])->name('laser.pdf_laser');
 
     Route::post('/nota/laser/agregar/zona/store', [App\Http\Controllers\NotasLacerController::class, 'store_zona_agregar'])->name('store_zona_agregar.lacer');
-
+    Route::get('/obtener-precio-paquete/{id}', [App\Http\Controllers\NotasLacerController::class, 'obtenerPrecioPaquete'])->name('obtenerPrecioPaquete');
     // =============== M O D U L O   C L I E N T S ===============================
     Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
 
@@ -392,6 +392,9 @@ Route::group(['middleware' => ['auth']], function() {
     // =============== M O D U L O  K I T  L A S E R===============================
     Route::get('/kit/laser/index', [App\Http\Controllers\LaserKitController::class, 'index'])->name('index_laser.kit');
     Route::get('/kit/laser/create', [App\Http\Controllers\LaserKitController::class, 'create'])->name('create_laser.kit');
+    Route::post('/kit/laser/store', [App\Http\Controllers\LaserKitController::class, 'store'])->name('store_laser.kit');
+    Route::get('/kit/laser/edit/{id}', [App\Http\Controllers\LaserKitController::class, 'edit'])->name('edit_laser.kit');
+    Route::patch('/kit/laser/update/{id}', [App\Http\Controllers\LaserKitController::class, 'update'])->name('update_laser.kit');
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');

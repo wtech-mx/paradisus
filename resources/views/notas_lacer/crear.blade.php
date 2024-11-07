@@ -160,6 +160,10 @@
                                                     <input class="form-check-input" type="radio" name="tipo_servicio" id="cara_completa" value="cara_completa">
                                                     <label class="form-check-label" for="cara_completa">Cara completa</label>
                                                 </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="tipo_servicio" id="paquete_personalizado" value="paquete_personalizado">
+                                                    <label class="form-check-label" for="cara_completa">Paquete personalizado</label>
+                                                </div>
                                             </div>
 
                                             <div class="form-group" id="sesionSelect" style="display:none;">
@@ -393,6 +397,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group" id="paquetePersonalizadoSelect" style="display:none;">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="precio">Tipo Paquete Personalizado</label><br>
+                                                        <select class="form-control" data-toggle="select" id="paquete_perso_select" name="paquete_perso_select">
+                                                            <option value="">Seleccionar servicio</option>
+                                                            @foreach ($lasers_kits as $laser_kit)
+                                                                <option value="{{$laser_kit->id}}">{{$laser_kit->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -570,6 +588,7 @@
         var sesionSelect = document.getElementById('sesionSelect');
         var paqueteSelect = document.getElementById('paqueteSelect');
         var zonasSelect = document.getElementById('zonasSelect');
+        var paquetePersonalizadoSelect = document.getElementById('paquetePersonalizadoSelect');
         var personalizadoSelect = document.getElementById('personalizadoSelect');
         var paqueteSelectElement = $('#paquete_select');
         var zonaSelect = document.getElementById('zona_paquete_1');
@@ -639,6 +658,7 @@
                     sesionSelect.style.display = 'block';
                     paqueteSelect.style.display = 'none';
                     zonasSelect.style.display = 'none';
+                    paquetePersonalizadoSelect.style.display = 'none';
                     totalSumaInput.val('');
                 } else if ($('#paquete').prop('checked')) {
                     sesionSelect.style.display = 'none';
@@ -650,6 +670,7 @@
                     sesionSelect.style.display = 'none';
                     paqueteSelect.style.display = 'none';
                     zonasSelect.style.display = 'none';
+                    paquetePersonalizadoSelect.style.display = 'none';
                     personalizadoSelect.style.display = 'block';
                 } else if ($('#cara_completa').prop('checked')) {
                     // Cuando se selecciona "Cara Completa"
@@ -657,11 +678,18 @@
                     paqueteSelect.style.display = 'none';
                     zonasSelect.style.display = 'none';
                     personalizadoSelect.style.display = 'none';
+                    paquetePersonalizadoSelect.style.display = 'none';
                     // Establecer el valor de total_suma como 5420
                     totalSumaInput.val('5420');
+                } else if ($('#paquete_personalizado').prop('checked')) {
+                    // Cuando se selecciona "Cara Completa"
+                    sesionSelect.style.display = 'none';
+                    paqueteSelect.style.display = 'none';
+                    zonasSelect.style.display = 'none';
+                    personalizadoSelect.style.display = 'none';
+                    paquetePersonalizadoSelect.style.display = 'block';
                 }
             });
-
 
         // ============================== Radio tipo de servicio SESIONES ==============================
             $('.zona_select_1, #cantidad_1').change(function() {
@@ -787,6 +815,30 @@
                 // Actualizar los select usando Bootstrap Select
                 $('.zona_paquete_1').selectpicker('refresh');
             }
+
+        // ============================== Radio tipo de servicio P A Q U E T E S  P E R S O N A L I Z A D O==============================
+            $('#paquete_perso_select').change(function() {
+                let paqueteId = $(this).val();
+
+                if (paqueteId) {
+                    $.ajax({
+                        url: '/obtener-precio-paquete/' + paqueteId,
+                        type: 'GET',
+                        success: function(response) {
+                            if (response.precio !== undefined) {
+                                $('#total_suma').val(response.precio);
+                            } else {
+                                $('#total_suma').val(0);
+                            }
+                        },
+                        error: function() {
+                            alert('Hubo un error al obtener el precio.');
+                        }
+                    });
+                } else {
+                    $('#total_suma').val(0);
+                }
+            });
 
         // ============================== Pagos ==============================
         function updateRestante() {

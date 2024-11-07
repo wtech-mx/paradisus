@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('fecha_caducidad')->nullable();
             $table->integer('precio')->nullable();
             $table->integer('num_sesiones')->nullable();
+            $table->text('vencido')->nullable();
             $table->timestamps();
         });
     }
