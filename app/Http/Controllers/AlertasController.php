@@ -40,7 +40,7 @@ class AlertasController extends Controller
     {
         $colores = Colores::get();
         $estatus = Status::get();
-
+        
         // $alert_retenedores = Alertas::where('id_color', '=', 6)->get();
         // $alert_limpieza = Alertas::where('id_color', '=', 2)->get();
 
@@ -707,6 +707,9 @@ class AlertasController extends Controller
                 $datosEvento->start = $startDateTime->format('Y-m-d H:i:s');
                 $datosEvento->end = $endDateTime->format('Y-m-d H:i:s');
             }
+            if($request->get('name_full') != NULL){
+                $datosEvento->nuevo_cliente = '1';
+            }
             $datosEvento->save();
 
             foreach ($users as $cosme) {
@@ -943,6 +946,9 @@ class AlertasController extends Controller
             $alerta->id_laser = $request->id_laserModal;
             $alerta->id_paquete = $request->id_paqueteModal;
             $alerta->descripcion = $request->descripcion;
+            if($alerta->nuevo_cliente == 1){
+                $alerta->nuevo_cliente = '1';
+            }
             $alerta->save();
         }
 

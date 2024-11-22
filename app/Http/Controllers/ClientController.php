@@ -44,6 +44,58 @@ class ClientController extends Controller
         return view('client.index', compact('clients'));
     }
 
+    public function filtro(Request $request){
+        $fechaInicialDe = \Carbon\Carbon::parse($request->fecha_inicial_de)->startOfDay();
+        $fechaInicialA = \Carbon\Carbon::parse($request->fecha_inicial_a)->endOfDay();
+
+        $HistorialVendidos = Alertas::where('nuevo_cliente', '=', '1')->orderBy('start', 'ASC');
+
+        if ($request->fecha_inicial_de && $request->fecha_inicial_a) {
+            $HistorialVendidos = $HistorialVendidos->where('start', '>=', $fechaInicialDe)
+                ->where('start', '<=', $fechaInicialA);
+        }
+
+        $HistorialVendidos = $HistorialVendidos->get()
+            ->groupBy('id_client')
+            ->map(function ($group) {
+                // Procesar los datos agrupados
+                $firstItem = $group->first(); // Usar el primer registro del grupo
+                $firstItem->resourceIds = $group->pluck('resourceId')->unique()->implode(', '); // Concatenar `resourceId`
+                return $firstItem; // Retornar el registro procesado
+            });
+
+
+        return view('client.index', compact('HistorialVendidos'));
+    }
+
+    public function clients_nuevos(Request $request)
+    {
+        $today =  date('d-m-Y');
+        $fechaInicialDe = \Carbon\Carbon::parse($request->fecha_inicial_de)->startOfDay();
+        $fechaInicialA = \Carbon\Carbon::parse($request->fecha_inicial_a)->endOfDay();
+
+        $HistorialVendidos = Alertas::where('nuevo_cliente', '=', '1')->orderBy('start', 'ASC');
+
+        if ($request->fecha_inicial_de && $request->fecha_inicial_a) {
+            $HistorialVendidos = $HistorialVendidos->where('start', '>=', $fechaInicialDe)
+                ->where('start', '<=', $fechaInicialA);
+        }
+
+        $HistorialVendidos = $HistorialVendidos->get()
+            ->groupBy('id_client')
+            ->map(function ($group) {
+                // Procesar los datos agrupados
+                $firstItem = $group->first(); // Usar el primer registro del grupo
+                $firstItem->resourceIds = $group->pluck('resourceId')->unique()->implode(', '); // Concatenar `resourceId`
+                return $firstItem; // Retornar el registro procesado
+            });
+
+        $pdf = \PDF::loadView('client.pdf_nuevos', compact('HistorialVendidos', 'today'));
+        return $pdf->stream();
+         //return $pdf->download('Nota cotizacion'. $folio .'/'.$today.'.pdf');
+
+    }
+
     public function advance(Request $request) {
 
         $request->validate([

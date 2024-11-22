@@ -177,6 +177,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/clients/consentimiento/', [App\Http\Controllers\ConsentimientoFacialController::class, 'store'])->name('clients_consentimiento.store');
     Route::get('/clients/advance', [App\Http\Controllers\ClientController::class, 'advance'])->name('clients.advance_search');
 
+    Route::get('/clients/nuevos/filtro', [App\Http\Controllers\ClientController::class, 'filtro'])->name('client_nuevos.filtro');
+    Route::get('/clients/nuevos/pdf', [App\Http\Controllers\ClientController::class, 'clients_nuevos'])->name('client_nuevos.pdf');
     // =============== M O D U L O   S E R V I C I O S ===============================
     Route::get('/servicios', [App\Http\Controllers\ServiciosController::class, 'index'])->name('servicio.index');
     Route::post('/servicios/create', [App\Http\Controllers\ServiciosController::class, 'store'])->name('servicio.store');
