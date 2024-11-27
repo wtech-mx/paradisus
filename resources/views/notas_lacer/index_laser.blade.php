@@ -208,11 +208,9 @@
                                                                                 @endif
                                                                             </td>
                                                                             <td>
-                                                                                @if (!$hayRestante || $filaHabilitada)
                                                                                     <button type="submit" class="btn" style="background: {{$configuracion->color_boton_save}}; color: #ffff">
                                                                                         <i class="fa fa-save text-sm opacity-10"></i>
                                                                                     </button>
-                                                                                @endif
                                                                             </td>
 
                                                                         </tr>
