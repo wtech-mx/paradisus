@@ -70,7 +70,7 @@
                                                     <th>Cliente</th>
                                                     <th>Total</th>
                                                     <th>Metodo Pago</th>
-                                                    <th>Estatus</th>
+                                                    {{-- <th>Estatus</th> --}}
                                                     <th>Fecha</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -81,8 +81,18 @@
                                                         <tr>
                                                             <td>{{ $notas->id }}</td>
 
-                                                            <td>{{ $notas->User->name }}</td>
-                                                            <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
+                                                            <td>
+                                                                @php
+                                                                    $words = explode(' ', $notas->User->name);
+                                                                    $chunks = array_chunk($words, 2);
+                                                                    foreach ($chunks as $chunk) {
+                                                                        echo implode(' ', $chunk) . '<br>';
+                                                                    }
+                                                                @endphp
+                                                            </td>
+
+                                                            {{-- <td>{{ $notas->User->name }}</td> --}}
+                                                            <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
                                                             <td>${{ $notas->total }} mxn</td>
                                                             @if ($notas->metodo_pago == "Mercado Pago")
                                                             <td> <label class="badge" style="color: #009ee3;background-color: #009ee340;">{{ $notas->metodo_pago }}</label> </td>
@@ -92,12 +102,20 @@
                                                             <td> <label class="badge" style="color: #746AB0;background-color: #746ab061;">{{ $notas->metodo_pago }}</label> </td>
                                                             @endif
 
-                                                            <td>
+                                                            {{-- <td>
                                                                 <a type="button" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$notas->id }}">
                                                                     Realizados
                                                                 </a>
+                                                            </td> --}}
+                                                            {{-- <td>{{ $notas->fecha }}</td> --}}
+                                                            <td>
+                                                                @php
+                                                                $fecha =  $notas->fecha;
+                                                                $fecha_timestamp = strtotime($fecha);
+                                                                $fecha_formateada = date('d \d\e F \d\e\l Y', $fecha_timestamp);
+                                                                @endphp
+                                                                {{$fecha_formateada}}
                                                             </td>
-                                                            <td>{{ $notas->fecha }}</td>
 
                                                             <td>
 
@@ -109,9 +127,10 @@
                                                                             <i class="fa fa-print"></i>
                                                                         </a>
                                                                     @can('notas-pedido-delete')
-                                                                        <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents">
-                                                                            @csrf
-                                                                            @method('DELETE')
+                                                                        <form id="myFormEstatus" method="POST" action="{{ route('update_estatus.pedido',  $notas->id) }}" enctype="multipart/form-data" role="form">
+                                                                         @csrf
+                                                                            @method('PATCH')
+                                                                            <input type="hidden" value="Cancelada"name="estatus_cotizacion" >
                                                                             <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-fw fa-trash"></i> </button>
                                                                         </form>
                                                                     @endcan
@@ -120,7 +139,7 @@
                                                                     </a> --}}
                                                             </td>
                                                         </tr>
-                                                        @include('notas_pedidos.modal_estatus')
+                                                        {{-- @include('notas_pedidos.modal_estatus') --}}
                                                     @endforeach
                                                 </tbody>
 
@@ -137,7 +156,6 @@
                                                     <th>Cliente</th>
                                                     <th>Total</th>
                                                     <th>Metodo Pago</th>
-                                                    <th>Estatus</th>
                                                     <th>Fecha</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -147,9 +165,17 @@
                                                     @foreach ($nota_pedidoCancelado as $notas)
                                                         <tr>
                                                             <td>{{ $notas->id }}</td>
+                                                            <td>
+                                                                @php
+                                                                    $words = explode(' ', $notas->User->name);
+                                                                    $chunks = array_chunk($words, 2);
+                                                                    foreach ($chunks as $chunk) {
+                                                                        echo implode(' ', $chunk) . '<br>';
+                                                                    }
+                                                                @endphp
+                                                            </td>
 
-                                                            <td>{{ $notas->User->name }}</td>
-                                                            <td>{{ $notas->Client->name }} {{ $notas->Client->last_name }}</td>
+                                                            <td>{{ $notas->Client->name }} <br> {{ $notas->Client->last_name }}</td>
                                                             <td>${{ $notas->total }} mxn</td>
                                                             @if ($notas->metodo_pago == "Mercado Pago")
                                                             <td> <label class="badge" style="color: #009ee3;background-color: #009ee340;">{{ $notas->metodo_pago }}</label> </td>
@@ -159,13 +185,15 @@
                                                             <td> <label class="badge" style="color: #746AB0;background-color: #746ab061;">{{ $notas->metodo_pago }}</label> </td>
                                                             @endif
 
-                                                            <td>
-                                                                <a type="button" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$notas->id }}">
-                                                                    Realizados
-                                                                </a>
-                                                            </td>
-                                                            <td>{{ $notas->fecha }}</td>
 
+                                                            <td>
+                                                                @php
+                                                                $fecha =  $notas->fecha;
+                                                                $fecha_timestamp = strtotime($fecha);
+                                                                $fecha_formateada = date('d \d\e F \d\e\l Y', $fecha_timestamp);
+                                                                @endphp
+                                                                {{$fecha_formateada}}
+                                                            </td>
                                                             <td>
 
                                                                     {{-- <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#showDataModal{{$notas->id}}" style="color: #ffff"><i class="fa fa-fw fa-eye"></i></a> --}}
@@ -175,13 +203,7 @@
                                                                         <a type="button" class="btn btn-primary btn-xs" href="{{route('notas_pedidos.imprimir',$notas->id)}}"style="color: #ffff">
                                                                             <i class="fa fa-print"></i>
                                                                         </a>
-                                                                    @can('notas-pedido-delete')
-                                                                        <form action="{{ route('notas.destroy',$notas->id) }}" method="POST" style="display: contents">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-fw fa-trash"></i> </button>
-                                                                        </form>
-                                                                    @endcan
+
                                                                     {{-- <a type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#modal_pedido_{{ $notas->id }}">
                                                                        Productos
                                                                     </a> --}}
