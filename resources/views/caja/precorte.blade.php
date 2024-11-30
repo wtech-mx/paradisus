@@ -705,15 +705,22 @@
                         </ul>
                     </td>
                     <td>
-                        @if ($item->metodo_pago2 == 'Tarjeta')
-                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+
+                        @if ($item->metodo_pago == 'Tarjeta' && $item->metodo_pago2 == 'Tarjeta')
+                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }} <br>
+                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @elseif ($item->metodo_pago2 == 'Tarjeta')
+                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
                         @else
                                 ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
                         @endif
                     </td>
                     <td>
-                        @if ($item->metodo_pago2 == 'Tarjeta')
-                                ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @if ($item->metodo_pago == 'Tarjeta' && $item->metodo_pago2 == 'Tarjeta')
+                            ${{ number_format($item->dinero_recibido, 1, '.', ',') }} <br>
+                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
+                        @elseif ($item->metodo_pago2 == 'Tarjeta')
+                            ${{ number_format($item->dinero_recibido2, 1, '.', ',') }}
                         @else
                                 ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
                         @endif
