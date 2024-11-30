@@ -40,7 +40,7 @@ class AlertasController extends Controller
     {
         $colores = Colores::get();
         $estatus = Status::get();
-        
+
         // $alert_retenedores = Alertas::where('id_color', '=', 6)->get();
         // $alert_limpieza = Alertas::where('id_color', '=', 2)->get();
 
@@ -875,19 +875,43 @@ class AlertasController extends Controller
         // Cosmetólogas que deben agregarse
         $cosmesAAgregar = array_diff($cosmesSeleccionadas, $cosmesActuales);
 
-        if(count($cosmesSeleccionadas) < count($alertas)){
-            $cosmes = AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->first();
-            $alerta = Alertas::where('id', '=', $cosmes->id_alerta)->first();
+        if (count($cosmesSeleccionadas) < count($alertas)) {
+            // Validar que existan cosmetólogas a eliminar antes de acceder a ellas
+            if (!empty($cosmesAEliminar)) {
+                $cosmes = AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->first();
+
+                if ($cosmes) {
+                    $alerta = Alertas::where('id', '=', $cosmes->id_alerta)->first();
+                    // Aquí puedes manejar la alerta como necesites
+                } else {
+                    // Manejo del caso donde no se encuentra ninguna alerta
+                    return response()->json(['error' => 'No se encontró ninguna alerta asociada a las cosmetólogas a eliminar'], 404);
+                }
+            }
         }
 
         // Eliminar las alertas y relaciones de cosmetólogas que ya no están seleccionadas
-        if(count($cosmesSeleccionadas) >= count($alertas)){
+        if (count($cosmesSeleccionadas) >= count($alertas)) {
             if (!empty($cosmesAEliminar)) {
-                foreach($alertas as $alerta){
+                foreach ($alertas as $alerta) {
                     AlertasCosmes::where('id_alerta', '=', $alerta->id)->whereIn('id_user', $cosmesAEliminar)->delete();
                 }
             }
         }
+
+        // if(count($cosmesSeleccionadas) < count($alertas)){
+        //     $cosmes = AlertasCosmes::whereIn('id_user', $cosmesAEliminar)->first();
+        //     $alerta = Alertas::where('id', '=', $cosmes->id_alerta)->first();
+        // }
+
+        // // Eliminar las alertas y relaciones de cosmetólogas que ya no están seleccionadas
+        // if(count($cosmesSeleccionadas) >= count($alertas)){
+        //     if (!empty($cosmesAEliminar)) {
+        //         foreach($alertas as $alerta){
+        //             AlertasCosmes::where('id_alerta', '=', $alerta->id)->whereIn('id_user', $cosmesAEliminar)->delete();
+        //         }
+        //     }
+        // }
 
         // Actualiza cada alerta encontrada
         foreach ($alertas as $alerta) {
