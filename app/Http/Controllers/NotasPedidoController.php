@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 
 // use Automattic\WooCommerce\Client;
@@ -96,6 +97,31 @@ class NotasPedidoController extends Controller
         });
     }
 
+    private function obtenerProductosBundleDesdeAPI($request)
+    {
+        $dominio = $request->getHost();
+        $api_url = $dominio == 'paradisus.mx'
+            ? 'https://plataforma.imnasmexico.com/api/enviar-productos/bundle-pack'
+            : 'http://imnasmexico_platform.test/api/enviar-productos/bundle-pack';
+
+        $api_platform_ProductosBundle = Http::get($api_url);
+        $api_platform_ProductosBundle_Array = $api_platform_ProductosBundle->json();
+
+        // Asegurarnos de que estamos trabajando solo con la parte 'data' del array de la API
+        $api_productos_dataBundle = $api_platform_ProductosBundle_Array['data'];
+
+        // Transformar el array de la API en una colección de Laravel para que funcione como los productos de Eloquent
+        return collect($api_productos_dataBundle)->map(function ($productsBundle) {
+            return (object)[
+                'id' => $productsBundle['id'],
+                'id_product' => $productsBundle['id_product'],
+                'producto' => $productsBundle['producto'],
+                'price' => $productsBundle['price'],
+                'cantidad' => $productsBundle['cantidad'],
+            ];
+        });
+    }
+
     public function create(Request $request)
     {
         $cosme = auth()->user();
@@ -119,7 +145,6 @@ class NotasPedidoController extends Controller
                 }),
             ],
         ]);
-
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -283,13 +308,16 @@ class NotasPedidoController extends Controller
 
             // $producto = Products::where('nombre', $concepto[$count])->first();
 
-            $productsApi = $this->obtenerProductosDesdeAPI($request);
             // Busca el producto en los productos obtenidos de la API
+            $productsApi = $this->obtenerProductosDesdeAPI($request);
+            $productsBundleApi = $this->obtenerProductosBundleDesdeAPI($request);
+
             $producto = $productsApi->firstWhere('nombre', $concepto[$count]);
 
             if($producto->subcategoria == 'Kit'){
-                $productos_bundle = ProductosBundleId::where('id_product', $producto->id)->get();
-                foreach($productos_bundle as $producto_bundle){
+                // $productos_bundle = ProductosBundleId::where('id_product', $producto->id)->get();
+                $productoBundle = $productsBundleApi->where('id_product', $producto->id);
+                foreach($productoBundle as $producto_bundle){
                     $notas_inscripcion = new Pedido;
                     $notas_inscripcion->id_nota = $nota->id;
                     $notas_inscripcion->concepto = $producto_bundle->producto;
@@ -310,11 +338,11 @@ class NotasPedidoController extends Controller
         }
 
         $pedidos = Pedido::where('id_nota', '=', $nota->id)->get();
-
         $user_cosme = User::where('id','=',$request->get('id_user'))->first();
 
-        foreach ($pedidos as $item) {
+        $pedido_paquetes_data = []; // Inicializamos la variable antes del foreach
 
+        foreach ($pedidos as $item) {
             $pedido = [];
 
             $pedido[] = $item->cantidad;
@@ -337,60 +365,11 @@ class NotasPedidoController extends Controller
             "Cambio" => $nota->cambio,
             "dinero_recibido" => $nota->dinero_recibido,
             "nombreImpresora" => "ZJ-58",
-            'pago' => $pedido_paquetes_data,
+            'pago' => $pedido_paquetes_data, // Ahora contiene los datos del pedido
             'cosmetologa' => $user_cosme->name,
-            // Agrega cualquier otro dato necesario para el recibo
         ];
 
-        //==============================COMISIONES POR VENTA ==================================================
-        // if($request->get('id_user') == 14 || $request->get('id_user') == 16 || $request->get('id_user') == 21 || $request->get('id_user') == 26){
-        // }else{
-        //     $notaTotal = $nota->total;
-
-        //    Define las escalas y porcentajes de comisión
-        //     $escalasComision = [
-        //         ['min' => 2000, 'max' => 2999, 'porcentaje' => 0.03],
-        //         ['min' => 3000, 'max' => 3999, 'porcentaje' => 0.05],
-        //         ['min' => 4000, 'max' => 6999, 'porcentaje' => 0.06],
-        //         ['min' => 7000, 'max' => 7999, 'porcentaje' => 0.07],
-        //         ['min' => 8000, 'max' => 8999, 'porcentaje' => 0.08],
-        //         ['min' => 9000, 'max' => 9999, 'porcentaje' => 0.09],
-        //         ['min' => 10000, 'porcentaje' => 0.10],
-        //     ];
-        //     $fecha = date('Y-m-d');
-        //     Encuentra la escala correspondiente
-        //     $escalaActual = null;
-        //     foreach ($escalasComision as $escala) {
-        //         if (isset($escala['max']) && $notaTotal >= $escala['min'] && $notaTotal <= $escala['max']) {
-        //             $escalaActual = $escala;
-        //             break;
-        //         } elseif (!isset($escala['max']) && $notaTotal >= $escala['min']) {
-        //             $escalaActual = $escala;
-        //             break;
-        //         }
-        //     }
-
-        //      Calcula el monto de la comisión
-        //     if ($escalaActual) {
-        //         $montoComision = $notaTotal * $escalaActual['porcentaje'];
-        //         Ahora puedes usar $montoComision en tu código
-        //         $registroSemanal = new RegCosmesSum;
-        //         $registroSemanal->id_cosme = $request->get('id_user');
-        //         $registroSemanal->tipo = 'Extra';
-        //         $registroSemanal->concepto = 'Bono Venta Producto en nota: ' . $nota->id;
-        //         $registroSemanal->id_nota = $nota->id;
-        //         $registroSemanal->fecha = $fecha;
-        //         $registroSemanal->monto = $montoComision;
-        //         $registroSemanal->save();
-        //     }
-        // }
-
-        // Devuelve los datos en formato JSON
         return response()->json(['success' => true, 'recibo' => $recibo]);
-
-        // Session::flash('success', 'Se ha guardado sus datos con exito');
-        // return redirect()->route('notas_pedidos.index')
-        //                 ->with('success','Nota Productos Creado.');
     }
 
     public function edit(Request $request, $id){
@@ -445,9 +424,7 @@ class NotasPedidoController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $conceptoBuscar = 'Cambio nota productos: ' . $id;
-
         // Encuentra el registro en la tabla CajaDia que tiene el concepto con el ID de la nota
         $registroExistente = CajaDia::where('concepto', $conceptoBuscar)->first();
 
@@ -489,18 +466,43 @@ class NotasPedidoController extends Controller
         if($concepto[0] == null){
 
         }else{
+            $insert_data = [];
+
             for ($count = 0; $count < count($concepto); $count++) {
-                $data = array(
-                    'id_nota' => $nota->id,
-                    'cantidad' => $cantidad[$count],
-                    'concepto' => $concepto[$count],
-                    'importe' => $importe[$count],
-                );
-                $insert_data[] = $data;
+                // Verificar si el producto contiene la palabra "Kit"
+
+                if (Str::contains(strtolower($concepto[$count]), ['kit', 'paquete'])) {
+
+                    $productsApi = $this->obtenerProductosDesdeAPI($request);
+                    $productsBundleApi = $this->obtenerProductosBundleDesdeAPI($request);
+                    $producto = $productsApi->firstWhere('nombre', $concepto[$count]);
+
+                    // Insertar cada producto del bundle
+                    $productoBundle = $productsBundleApi->where('id_product', $producto->id);
+
+                    foreach($productoBundle as $producto_bundle){
+                        $insert_data[] = [
+                            'id_nota' => $nota->id,
+                            'concepto' => $producto_bundle->producto,
+                            'cantidad' => $producto_bundle->cantidad,
+                            'importe' => 0, // Bundle no tiene importe directo
+                        ];
+                    }
+                } else {
+                    // Producto normal, agregarlo directamente
+                    $insert_data[] = [
+                        'id_nota' => $nota->id,
+                        'concepto' => $concepto[$count],
+                        'cantidad' => $cantidad[$count],
+                        'importe' => $importe[$count],
+                    ];
+                }
             }
 
+            // Guardar todos los registros en la tabla Pedido
             Pedido::insert($insert_data);
         }
+
 
         $sum = 0;
         $nota = NotasPedidos::find($nota->id);
@@ -520,9 +522,9 @@ class NotasPedidoController extends Controller
         }
         $nota->update();
 
-        $pedidos = Pedido::where('id_nota', '=', $nota->id)->get();
-
         $user_cosme = User::where('id','=',$request->get('id_user'))->first();
+
+        $pedidos = Pedido::where('id_nota', '=', $nota->id)->get();
 
         foreach ($pedidos as $item) {
 
