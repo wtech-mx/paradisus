@@ -197,27 +197,33 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($HistorialVendidos as $item)
-                                                @php
-                                                 $users = User::whereIn('resourceId', explode(', ', $item->resourceIds))->get();
-                                                 $userNames = $users->pluck('name')->implode(', ');
-                                                @endphp
+                                            @if(isset($HistorialVendidos) && $HistorialVendidos->isNotEmpty())
+                                                @foreach ($HistorialVendidos as $item)
+                                                    @php
+                                                        $users = User::whereIn('resourceId', explode(', ', $item->resourceIds))->get();
+                                                        $userNames = $users->pluck('name')->implode(', ');
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $item->id }}</td>
+                                                        <td>{{ $item->Client->name }} {{ $item->Client->last_name }} <br> {{ $item->Client->phone }}</td>
+                                                        <td>
+                                                            {{ $item->Servicios_id->nombre }}
+                                                            @if ($item->id_servicio2 != NULL)
+                                                                <br> {{ $item->Servicios_id2->nombre }}
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $userNames }}</td>
+                                                        <td>{{ $item->estatus }}</td>
+                                                        <td>{{ Carbon::parse($item->start)->locale('es')->translatedFormat('d F Y h:i a') }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
                                                 <tr>
-                                                    <td>{{ $item->id }}</td>
-                                                    <td>{{ $item->Client->name }} {{ $item->Client->last_name }} <br> {{ $item->Client->phone }}</td>
-                                                    <td>
-                                                        {{ $item->Servicios_id->nombre }}
-                                                        @if ($item->id_servicio2 != NULL)
-                                                            <br> {{ $item->Servicios_id2->nombre }}
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $userNames }}</td>
-                                                    <td>{{ $item->estatus }}</td>
-                                                    <td>{{ Carbon::parse($item->start)->locale('es')->translatedFormat('d F Y h:i a') }}</td>
+                                                    <td colspan="6">No hay historial disponible.</td>
                                                 </tr>
-                                            @endforeach
-
+                                            @endif
                                         </tbody>
+
                                     </table>
                                 </div>
                             @endif

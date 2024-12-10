@@ -40,9 +40,11 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $clients = Client::all();
+        $HistorialVendidos = collect(); // Inicializa como colección vacía
 
-        return view('client.index', compact('clients'));
+        return view('client.index', compact('clients', 'HistorialVendidos'));
     }
+
 
     public function filtro(Request $request){
         $fechaInicialDe = \Carbon\Carbon::parse($request->fecha_inicial_de)->startOfDay();
