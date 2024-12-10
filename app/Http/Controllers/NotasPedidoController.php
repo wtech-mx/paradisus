@@ -298,42 +298,46 @@ class NotasPedidoController extends Controller
         $importe = $request->get('importe');
 
         for ($count = 0; $count < count($concepto); $count++) {
-            $data = array(
-                'id_nota' => $nota->id,
-                'concepto' => $concepto[$count],
-                'cantidad' => $cantidad[$count],
-                'importe' => $importe[$count],
-            );
-            $insert_data[] = $data;
+            if($concepto[$count] != NULL){
+                $data = array(
+                    'id_nota' => $nota->id,
+                    'concepto' => $concepto[$count],
+                    'cantidad' => $cantidad[$count],
+                    'importe' => $importe[$count],
+                );
+                $insert_data[] = $data;
 
-            // $producto = Products::where('nombre', $concepto[$count])->first();
+                // $producto = Products::where('nombre', $concepto[$count])->first();
 
-            // Busca el producto en los productos obtenidos de la API
-            $productsApi = $this->obtenerProductosDesdeAPI($request);
-            $productsBundleApi = $this->obtenerProductosBundleDesdeAPI($request);
+                // Busca el producto en los productos obtenidos de la API
+                $productsApi = $this->obtenerProductosDesdeAPI($request);
+                $productsBundleApi = $this->obtenerProductosBundleDesdeAPI($request);
 
-            $producto = $productsApi->firstWhere('nombre', $concepto[$count]);
+                $producto = $productsApi->firstWhere('nombre', $concepto[$count]);
 
-            if($producto->subcategoria == 'Kit'){
-                // $productos_bundle = ProductosBundleId::where('id_product', $producto->id)->get();
-                $productoBundle = $productsBundleApi->where('id_product', $producto->id);
-                foreach($productoBundle as $producto_bundle){
-                    $notas_inscripcion = new Pedido;
-                    $notas_inscripcion->id_nota = $nota->id;
-                    $notas_inscripcion->concepto = $producto_bundle->producto;
-                    $notas_inscripcion->importe = '0';
-                    $notas_inscripcion->cantidad = $producto_bundle->cantidad;
-                    $notas_inscripcion->save();
+                if($producto->subcategoria == 'Kit'){
+                    // $productos_bundle = ProductosBundleId::where('id_product', $producto->id)->get();
+                    $productoBundle = $productsBundleApi->where('id_product', $producto->id);
+                    foreach($productoBundle as $producto_bundle){
+                        $notas_inscripcion = new Pedido;
+                        $notas_inscripcion->id_nota = $nota->id;
+                        $notas_inscripcion->concepto = $producto_bundle->producto;
+                        $notas_inscripcion->importe = '0';
+                        $notas_inscripcion->cantidad = $producto_bundle->cantidad;
+                        $notas_inscripcion->save();
+                    }
+                    $nota->id_kit = $producto->id;
+                    $nota->update();
+                }else{
+                    if($concepto[$count] != NULL){
+                        $notas_inscripcion = new Pedido;
+                        $notas_inscripcion->id_nota = $nota->id;
+                        $notas_inscripcion->concepto = $concepto[$count];
+                        $notas_inscripcion->importe = $importe[$count];
+                        $notas_inscripcion->cantidad = $cantidad[$count];
+                        $notas_inscripcion->save();
+                    }
                 }
-                $nota->id_kit = $producto->id;
-                $nota->update();
-            }else{
-                $notas_inscripcion = new Pedido;
-                $notas_inscripcion->id_nota = $nota->id;
-                $notas_inscripcion->concepto = $concepto[$count];
-                $notas_inscripcion->importe = $importe[$count];
-                $notas_inscripcion->cantidad = $cantidad[$count];
-                $notas_inscripcion->save();
             }
         }
 

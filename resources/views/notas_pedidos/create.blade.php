@@ -162,7 +162,7 @@
                                                 <span class="input-group-text" id="basic-addon1">
                                                     <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
                                                 </span>
-                                                <input  id="descuento_porcentaje" name="descuento_porcentaje" type="number" class="form-control"  required>
+                                                <input  id="descuento_porcentaje" name="descuento_porcentaje" type="number" class="form-control"  value="0">
                                             </div>
                                         </div>
 
