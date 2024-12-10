@@ -424,6 +424,7 @@ class NotasPedidoController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $conceptoBuscar = 'Cambio nota productos: ' . $id;
         // Encuentra el registro en la tabla CajaDia que tiene el concepto con el ID de la nota
         $registroExistente = CajaDia::where('concepto', $conceptoBuscar)->first();
@@ -488,7 +489,7 @@ class NotasPedidoController extends Controller
                             'importe' => 0, // Bundle no tiene importe directo
                         ];
                     }
-                } else {
+                }else {
                     // Producto normal, agregarlo directamente
                     $insert_data[] = [
                         'id_nota' => $nota->id,
@@ -505,8 +506,15 @@ class NotasPedidoController extends Controller
 
 
         $sum = 0;
-        $nota = NotasPedidos::find($nota->id);
-        $nota->total = $request->get('totalSuma');
+        if($request->get('totalSuma') == NULL){
+            $nota->total = $request->get('total_anterior');
+        }else if($nota->id_kit != NULL){
+            $nota->total = $request->get('total_anterior');
+        }else{
+            $nota->total = $request->get('totalSuma');
+        }
+        $nota->id_user = $request->get('id_user');
+        $nota->id_client = $request->get('id_client');
         $nota->descuento = $request->get('descuento_porcentaje');
         $nota->metodo_pago = $request->get('metodo_pago');
         $nota->dinero_recibido = $request->get('dinero_recibido');

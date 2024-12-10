@@ -29,18 +29,6 @@
                             <div class="modal-body">
 
                                 <div class="row">
-                                            <div class="col-12 mt-3">
-                                                <h5>¿Quieres modifcar los datos?</h5>
-                                                <label>
-                                                    <input type="radio" name="opcion" value="si"
-                                                        onclick="habilitarInputs()"> Sí
-                                                </label>
-                                                <label>
-                                                    <input type="radio" name="opcion" value="no"
-                                                        onclick="deshabilitarInputs()"> No
-                                                </label>
-                                            </div>
-
                                             <div class="form-group col-6">
                                                 <label for="nombre">Usuario</label>
                                                 <div class="input-group mb-3">
@@ -48,7 +36,7 @@
                                                         <img src="{{ asset('assets/icons/mujer.png') }}" alt=""
                                                             width="25px">
                                                     </span>
-                                                    <select readonly class="form-control input-edit-car" id="id_user"
+                                                    <select class="form-control id_user" id="id_user"
                                                         name="id_user" value="{{ old('id_user') }}" required>
                                                         <option selected value="{{ $nota_pedido->id_user }}">
                                                             {{ $nota_pedido->User->name }}</option>
@@ -67,7 +55,7 @@
                                                         <img src="{{ asset('assets/icons/cliente.png') }}" alt=""
                                                             width="25px">
                                                     </span>
-                                                    <select readonly class="form-control" id="id_client" name="id_client"
+                                                    <select class="form-control id_client" id="id_client" name="id_client"
                                                         value="{{ old('id_client') }}" required>
                                                         <option selected value="{{ $nota_pedido->id_client }}">
                                                             {{ $nota_pedido->Client->name }}
@@ -153,7 +141,7 @@
                                                         <img src="{{ asset('assets/icons/transferir.png') }}"
                                                             alt="" width="25px">
                                                     </span>
-                                                    <select readonly id="metodo_pago" name="metodo_pago"
+                                                    <select id="metodo_pago" name="metodo_pago"
                                                         class="form-control" required>
                                                         <option selected value="{{ $nota_pedido->metodo_pago }}">
                                                             {{ $nota_pedido->metodo_pago }}</option>
@@ -314,7 +302,8 @@
 
     <script>
         $(document).ready(function() {
-            $('.input-edit-car').select2();
+            $('.id_user').select2();
+            $('.id_client').select2();
         });
 
         document.getElementById('descuento_porcentaje').addEventListener('change', function() {
