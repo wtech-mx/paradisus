@@ -139,7 +139,7 @@
                     @can('client-list')
                         <div class="card-body">
                                 @include('client.create')
-                            @if(Route::currentRouteName() == 'clients.index')
+                            @if(Route::currentRouteName() == 'clients.advance_search')
                                 @include('consentimiento.modal_create')
                                 <div class="table-responsive">
                                     <table class="table table-flush" id="datatable-search">
