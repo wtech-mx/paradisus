@@ -50,19 +50,24 @@ class ClientController extends Controller
         $fechaInicialDe = \Carbon\Carbon::parse($request->fecha_inicial_de)->startOfDay();
         $fechaInicialA = \Carbon\Carbon::parse($request->fecha_inicial_a)->endOfDay();
 
-        $HistorialVendidos = Alertas::where('nuevo_cliente', '=', '1')->orderBy('start', 'ASC');
+        $HistorialVendidos = Alertas::where('nuevo_cliente', '=', '1')->orderBy('resourceId', 'ASC');
 
         if ($request->fecha_inicial_de && $request->fecha_inicial_a) {
             $HistorialVendidos = $HistorialVendidos->where('start', '>=', $fechaInicialDe)
                 ->where('start', '<=', $fechaInicialA);
         }
 
+        if ($request->cosme && $request->cosme !== 'todos') {
+            $HistorialVendidos = $HistorialVendidos->where('resourceId', $request->cosme);
+        }
+
         $HistorialVendidos = $HistorialVendidos->get()
             ->groupBy('id_client')
             ->map(function ($group) {
-                // Procesar los datos agrupados
-                $firstItem = $group->first(); // Usar el primer registro del grupo
-                $firstItem->resourceIds = $group->pluck('resourceId')->unique()->implode(', '); // Concatenar `resourceId`
+                // Ordenar el grupo por `resourceId` en orden descendente
+                $sortedGroup = $group->sortByDesc('resourceId');
+                $firstItem = $sortedGroup->first(); // Usar el primer registro del grupo
+                $firstItem->resourceIds = $sortedGroup->pluck('resourceId')->unique()->implode(', '); // Concatenar `resourceId`
                 return $firstItem; // Retornar el registro procesado
             });
 
@@ -78,19 +83,25 @@ class ClientController extends Controller
 
         $HistorialVendidos = Alertas::where('nuevo_cliente', '=', '1')->orderBy('start', 'ASC');
 
+        // Verificar filtro de fechas
         if ($request->fecha_inicial_de && $request->fecha_inicial_a) {
             $HistorialVendidos = $HistorialVendidos->where('start', '>=', $fechaInicialDe)
                 ->where('start', '<=', $fechaInicialA);
         }
 
+        // Verificar filtro de `cosme`
+
+
         $HistorialVendidos = $HistorialVendidos->get()
             ->groupBy('id_client')
             ->map(function ($group) {
-                // Procesar los datos agrupados
-                $firstItem = $group->first(); // Usar el primer registro del grupo
-                $firstItem->resourceIds = $group->pluck('resourceId')->unique()->implode(', '); // Concatenar `resourceId`
+                // Ordenar el grupo por `resourceId` en orden descendente
+                $sortedGroup = $group->sortByDesc('resourceId');
+                $firstItem = $sortedGroup->first(); // Usar el primer registro del grupo
+                $firstItem->resourceIds = $sortedGroup->pluck('resourceId')->unique()->implode(', '); // Concatenar `resourceId`
                 return $firstItem; // Retornar el registro procesado
             });
+
 
         $pdf = \PDF::loadView('client.pdf_nuevos', compact('HistorialVendidos', 'today'));
         return $pdf->stream();

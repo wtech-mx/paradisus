@@ -83,7 +83,7 @@
                                                         <h6>Filtro nuevos clientes</h6>
                                                     </div>
 
-                                                    <div class="col-6 col-md-4 col-lg-4 py-3">
+                                                    <div class="col-4 col-md-4 col-lg-4 py-3">
                                                         <label class="form-label tiitle_products">Rango Fecha de</label>
                                                         <div class="input-group">
                                                             <span class="input-group-text span_custom_tab" >
@@ -93,13 +93,25 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-6 col-md-4 col-lg-4 py-3">
+                                                    <div class="col-4 col-md-4 col-lg-4 py-3">
                                                         <label class="form-label tiitle_products">hasta </label>
                                                         <div class="input-group">
                                                             <span class="input-group-text span_custom_tab" >
                                                                 <img class="icon_span_tab" src="{{ asset('assets/media/icons/9.webp') }}" alt="" >
                                                             </span>
                                                             <input id="fecha_inicial_a" name="fecha_inicial_a" type="date"  class="form-control input_custom_tab @error('fecha_inicial_a') is-invalid @enderror"  value="{{ old('fecha_inicial_a') }}" autocomplete="" autofocus>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-4 col-md-4 col-lg-4 py-3">
+                                                        <label class="form-label tiitle_products">Cosme </label>
+                                                        <div class="input-group">
+                                                            <select class="form-control " id="cosme" name="cosme">
+                                                                    <option value="todos">Todas</option>
+                                                                @foreach ($user_pagos as $user_pago)
+                                                                    <option value="{{$user_pago->resourceId}}">{{$user_pago->name}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
 
