@@ -62,9 +62,13 @@ Route::patch('/actualizar-producto/{id}', function (Request $request, $producto_
         return response()->json(['success' => false, 'message' => 'Registro no encontrado'], 404);
     }
 
-    // Actualizar los campos con los datos recibidos desde Platform
-    $notaPedido->estatus = 1;
-    $notaPedido->update();
+    if ($notaPedido->escaneados < $notaPedido->cantidad) {
+        $notaPedido->escaneados = intval($notaPedido->escaneados) + 1; // Convierte escaneados a entero y suma 1
+        if (intval($notaPedido->escaneados) === intval($notaPedido->cantidad)) { // Convierte cantidad a entero para comparar
+            $notaPedido->estatus = 1; // Marca como completo
+        }
+            $notaPedido->update();
+    }
 
     // Responder con un mensaje de éxito
     return response()->json(['success' => true, 'message' => 'Registro actualizado correctamente']);
