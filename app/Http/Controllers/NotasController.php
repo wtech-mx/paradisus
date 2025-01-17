@@ -327,9 +327,12 @@ class NotasController extends Controller
             if($request->get('forma_pago') == 'Tarjeta'){
 
                 // Define las credenciales de la API
-                $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
-                $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+                // $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
+                // $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
 
+                $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
+                $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
+                //$token = 'Basic MjNiYjc0MzMtMWJhZS00ZjBkLTkyZjktZGM5Njk5MGE4ZWZiOmQ5YTYxYTdiLTI2NTgtNDFkMi05NmI4LWY2ZDIzNWRmYjVlOQ==';
                 // Genera el token de autorización
                 $token = base64_encode($apiKey . ':' . $clave);
 
@@ -345,7 +348,7 @@ class NotasController extends Controller
 
 
                 $amount = $request->get('pago');
-                $assigned_user = 'ventas@paradisus.com.mx';
+                $assigned_user = 'adrianwebtech@gmail.com';
                 $reference = $nota->id;
                 $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
@@ -362,6 +365,7 @@ class NotasController extends Controller
 
                 $jsonData = json_encode($data_items);
 
+
                 $response = $client_gz->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
                     'body' => $jsonData,
                     'headers' => [
@@ -376,7 +380,6 @@ class NotasController extends Controller
 
                 // Decodificar el cuerpo si es JSON
                 $data = json_decode($body, true);
-
             }
 
         }

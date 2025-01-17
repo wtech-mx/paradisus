@@ -91,8 +91,6 @@ class ClipController extends Controller
     public function punto_venta(Request $request){
 
                 // Define las credenciales de la API Vendexa
-                // $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
-                // $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
 
                 // Define las credenciales de la API Paradisus
 
