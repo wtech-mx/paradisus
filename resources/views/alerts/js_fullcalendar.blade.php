@@ -401,37 +401,50 @@ document.addEventListener('DOMContentLoaded', function() {
                 22: 'Abril Acosta Pérez'
             };
 
-// Manejar servicios anteriores
-const previousServicesList = document.getElementById('previousServicesList');
-previousServicesList.innerHTML = ''; // Limpiar lista existente
-const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
+            // Manejar servicios anteriores
+            const previousServicesList = document.getElementById('previousServicesList');
+            previousServicesList.innerHTML = ''; // Limpiar lista existente
+            const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
 
-if (serviciosAnteriores && serviciosAnteriores.length > 0) {
-    const rowDiv = document.createElement('div');
-    rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
+            if (serviciosAnteriores && serviciosAnteriores.length > 0) {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
+                rowDiv.style.display = 'flex';
+                rowDiv.style.flexWrap = 'wrap';
+                rowDiv.style.alignItems = 'stretch';
 
-    serviciosAnteriores.forEach(service => {
-        if (service.id_client === info.event.extendedProps.id_client) {
-            const colDiv = document.createElement('div');
-            colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
+                serviciosAnteriores.forEach(service => {
+                    if (service.id_client === info.event.extendedProps.id_client) {
+                        const colDiv = document.createElement('div');
+                        colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
+                        colDiv.style.padding = '0px';
+                        colDiv.style.display = 'flex';
+                        colDiv.style.flexDirection = 'column';
 
-            // Mapeamos los IDs a los nombres de las cosmetólogas
-            const cosmetologaNombres = service.cosmes.map(id => cosmetologas[id] || 'Desconocida');
+                        const innerDiv = document.createElement('div');
+                        innerDiv.style.borderRadius = '6px';
+                        innerDiv.style.background = '#F1F1F1';
+                        innerDiv.style.padding = '3px';
+                        innerDiv.style.margin = '5px';
+                        innerDiv.style.flex = '1';
 
-            colDiv.innerHTML = `
-                <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
-                <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
-                <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
-                <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
-                <strong>Estatus:</strong> ${service.estatus}<br>
-                <strong>Servicio:</strong> ${service.servicios_id.nombre || 'No asignado'}
-            `;
+                        // Mapeamos los IDs a los nombres de las cosmetólogas
+                        const cosmetologaNombres = service.cosmes.map(id => cosmetologas[id] || 'Desconocida');
 
-            rowDiv.appendChild(colDiv);
-        }
-    });
+                        innerDiv.innerHTML = `
+                            <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
+                            <strong>Hora:</strong><br> ${new Date(service.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} a ${new Date(service.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}<br>
+                            <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
+                            <strong>Estatus:</strong> ${service.estatus}<br>
+                            <strong>Servicio:</strong> ${service.servicios_id.nombre || 'No asignado'}
+                        `;
 
-    previousServicesList.appendChild(rowDiv);
+                        colDiv.appendChild(innerDiv);
+                        rowDiv.appendChild(colDiv);
+                    }
+                });
+
+                previousServicesList.appendChild(rowDiv);
 
 
                 // Agregar manejadores de eventos a los enlaces de fecha
@@ -462,29 +475,40 @@ if (serviciosAnteriores && serviciosAnteriores.length > 0) {
             previousServicesProxList.innerHTML = ''; // Limpiar lista existente
             const serviciosProximos = info.event.extendedProps.servicios_proximos;
 
-
             if (serviciosProximos && serviciosProximos.length > 0) {
                 const rowDiv = document.createElement('div');
                 rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
+                rowDiv.style.display = 'flex';
+                rowDiv.style.flexWrap = 'wrap';
+                rowDiv.style.alignItems = 'stretch';
 
                 serviciosProximos.forEach(service => {
                     if (service.id_client === info.event.extendedProps.id_client) {
                         const colDiv = document.createElement('div');
                         colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
+                        colDiv.style.padding = '0px';
+                        colDiv.style.display = 'flex';
+                        colDiv.style.flexDirection = 'column';
+
+                        const innerDiv = document.createElement('div');
+                        innerDiv.style.borderRadius = '6px';
+                        innerDiv.style.background = '#F1F1F1';
+                        innerDiv.style.padding = '3px';
+                        innerDiv.style.margin = '5px';
+                        innerDiv.style.flex = '1';
 
                         // Mapeamos los IDs a los nombres de las cosmetólogas
                         const cosmetologaNombres = service.cosmes.map(id => cosmetologas[id] || 'Desconocida');
 
-                        colDiv.innerHTML = `
+                        innerDiv.innerHTML = `
                             <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
-                            <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
-                            <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
+                            <strong>Hora:</strong><br> ${new Date(service.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} a ${new Date(service.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}<br>
                             <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
-                            <strong>Estatus:</strong> ${service.estatus}
+                            <strong>Estatus:</strong> ${service.estatus}<br>
                             <strong>Servicio:</strong> ${service.servicios_id.nombre || 'No asignado'}
-
                         `;
 
+                        colDiv.appendChild(innerDiv);
                         rowDiv.appendChild(colDiv);
                     }
                 });
