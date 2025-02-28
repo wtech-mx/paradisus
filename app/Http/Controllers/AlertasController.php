@@ -387,7 +387,8 @@ class AlertasController extends Controller
         \Log::info('Rango de fechas: ', [$start, $end]);
 
         // Filtrar las alertas solo dentro del rango de fechas proporcionado
-        $alertas = Alertas::with(['Servicios_id:id,nombre', 'Servicios_id2:id,nombre'])
+            $alertas = Alertas::with('Servicios_id')
+        // $alertas = Alertas::with(['Servicios_id:id,nombre', 'Servicios_id2:id,nombre'])
             ->whereBetween('start', [$start, $end])
             ->get()
             ->makeHidden(['comprobante_gratis','tarjeta_regalo','recordatorio','confirmo_whats','created_at','updated_at','id_color']);
@@ -400,6 +401,7 @@ class AlertasController extends Controller
             $alerta->duracion2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->duracion : null;
 
             // Obtener los servicios anteriores del mismo cliente
+            // $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus')
             $serviciosAnteriores = Alertas::with('Servicios_id:id,nombre')
                 ->select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus', 'id_servicio')
                 ->where('id_client', $alerta->id_client)
@@ -407,6 +409,7 @@ class AlertasController extends Controller
                 ->get()
                 ->makeHidden(['nombre_servicio']);
 
+            // $serviciosProximos = Alertas::select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus')
             // Obtener los servicios anteriores del mismo cliente
             $serviciosProximos = Alertas::with('Servicios_id:id,nombre')
                 ->select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus', 'id_servicio')
