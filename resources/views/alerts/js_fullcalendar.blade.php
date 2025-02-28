@@ -401,36 +401,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 22: 'Abril Acosta Pérez'
             };
 
-            // Manejar servicios anteriores
-            const previousServicesList = document.getElementById('previousServicesList');
-            previousServicesList.innerHTML = ''; // Limpiar lista existente
-            const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
+// Manejar servicios anteriores
+const previousServicesList = document.getElementById('previousServicesList');
+previousServicesList.innerHTML = ''; // Limpiar lista existente
+const serviciosAnteriores = info.event.extendedProps.servicios_anteriores;
 
-            if (serviciosAnteriores && serviciosAnteriores.length > 0) {
-                const rowDiv = document.createElement('div');
-                rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
+if (serviciosAnteriores && serviciosAnteriores.length > 0) {
+    const rowDiv = document.createElement('div');
+    rowDiv.classList.add('row'); // Agregar clase 'row' para Bootstrap
 
-                serviciosAnteriores.forEach(service => {
-                    if (service.id_client === info.event.extendedProps.id_client) {
-                        const colDiv = document.createElement('div');
-                        colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
+    serviciosAnteriores.forEach(service => {
+        if (service.id_client === info.event.extendedProps.id_client) {
+            const colDiv = document.createElement('div');
+            colDiv.classList.add('col-4'); // Agregar clase 'col-4' para Bootstrap
 
-                        // Mapeamos los IDs a los nombres de las cosmetólogas
-                        const cosmetologaNombres = service.cosmes.map(id => cosmetologas[id] || 'Desconocida');
+            // Mapeamos los IDs a los nombres de las cosmetólogas
+            const cosmetologaNombres = service.cosmes.map(id => cosmetologas[id] || 'Desconocida');
 
-                        colDiv.innerHTML = `
-                            <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
-                            <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
-                            <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
-                            <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
-                            <strong>Estatus:</strong> ${service.estatus}
-                        `;
+            colDiv.innerHTML = `
+                <strong>Fecha:</strong> <a href="#" style="text-decoration: underline blue;color: blue;" class="service-date" data-date="${service.start}">${new Date(service.start).toLocaleDateString()}</a><br>
+                <strong>Hora Inicio:</strong> ${new Date(service.start).toLocaleTimeString()}<br>
+                <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
+                <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
+                <strong>Estatus:</strong> ${service.estatus}<br>
+                <strong>Servicio:</strong> ${service.servicios_id.nombre || 'No asignado'}
+            `;
 
-                        rowDiv.appendChild(colDiv);
-                    }
-                });
+            rowDiv.appendChild(colDiv);
+        }
+    });
 
-                previousServicesList.appendChild(rowDiv);
+    previousServicesList.appendChild(rowDiv);
+
 
                 // Agregar manejadores de eventos a los enlaces de fecha
                 const serviceDates = document.querySelectorAll('.service-date');
@@ -479,6 +481,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <strong>Hora Fin:</strong> ${new Date(service.end).toLocaleTimeString()}<br>
                             <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
                             <strong>Estatus:</strong> ${service.estatus}
+                            <strong>Servicio:</strong> ${service.servicios_id.nombre || 'No asignado'}
+
                         `;
 
                         rowDiv.appendChild(colDiv);

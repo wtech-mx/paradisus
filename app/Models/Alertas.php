@@ -24,6 +24,7 @@ class Alertas extends Model
         'end',
         'status',
         'id_servicio',
+        'id_servicio2', // Asegúrate de incluir este campo si no está ya
     ];
 
     public function scopeTitulo($query, $titulo)

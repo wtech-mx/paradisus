@@ -255,14 +255,14 @@
 
                         <div class="col-12">
                             <div class="collapse mt-5" id="previousServices" data-bs-parent="#accordionExample">
-                                <div class="card card-body" style="border:solid 3px #0FB8D7">
+                                <div class="card card-body" style="border:solid 3px blue;font-size: 13px;">
                                     <div class="row" id="previousServicesList" ></div>
                                 </div>
                             </div>
 
                             <div class="collapse mt-5" id="previousServicesProx" data-bs-parent="#accordionExample">
-                                <div class="card card-body" style="border:solid 3px blue">
-                                    <div class="row" id="previousServicesProxList"></div>
+                                <div class="card card-body" style="border:solid 3px blue;font-size: 13px;">
+                                    <div class="row" id="previousServicesProxList" ></div>
                                 </div>
                             </div>
                         </div>

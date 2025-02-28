@@ -365,6 +365,7 @@ class AlertasController extends Controller
     // }
 
 
+
     public function show_calendar(Request $request)
     {
         // Obtener la fecha actual
@@ -385,11 +386,9 @@ class AlertasController extends Controller
         // Verificar qué fechas estamos recibiendo
         \Log::info('Rango de fechas: ', [$start, $end]);
 
-
         // Filtrar las alertas solo dentro del rango de fechas proporcionado
-        $alertas = Alertas::with('Servicios_id')
+        $alertas = Alertas::with(['Servicios_id:id,nombre', 'Servicios_id2:id,nombre'])
             ->whereBetween('start', [$start, $end])
-            // ->where('start', '>=', $startOfPreviousMonth)
             ->get()
             ->makeHidden(['comprobante_gratis','tarjeta_regalo','recordatorio','confirmo_whats','created_at','updated_at','id_color']);
 
@@ -401,19 +400,20 @@ class AlertasController extends Controller
             $alerta->duracion2 = $alerta->Servicios_id2 ? $alerta->Servicios_id2->duracion : null;
 
             // Obtener los servicios anteriores del mismo cliente
-            $serviciosAnteriores = Alertas::select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus')
+            $serviciosAnteriores = Alertas::with('Servicios_id:id,nombre')
+                ->select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus', 'id_servicio')
                 ->where('id_client', $alerta->id_client)
                 ->where('start', '<', $alerta->start)
                 ->get()
                 ->makeHidden(['nombre_servicio']);
 
             // Obtener los servicios anteriores del mismo cliente
-            $serviciosProximos = Alertas::select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus')
+            $serviciosProximos = Alertas::with('Servicios_id:id,nombre')
+                ->select('id', 'id_client', 'id_especialist', 'start', 'end', 'estatus', 'id_servicio')
                 ->where('id_client', $alerta->id_client)
                 ->where('start', '>', $alerta->start)
                 ->get()
                 ->makeHidden(['nombre_servicio']);
-
 
             $serviciosAnteriores->each(function ($servicioAnterior) {
                 $servicioAnterior->cosmes = AlertasCosmes::where('id_alerta', $servicioAnterior->id)->pluck('id_user')->toArray();
@@ -427,13 +427,12 @@ class AlertasController extends Controller
 
             $alerta->servicios_anteriores = $serviciosAnteriores;
             $alerta->servicios_proximos = $serviciosProximos;
-
         });
 
-            // Verificar que los eventos fueron encontrados
-            \Log::info('Eventos encontrados: ', [$alertas->toArray()]);
+        // Verificar que los eventos fueron encontrados
+        \Log::info('Eventos encontrados: ', [$alertas->toArray()]);
 
-            return response()->json($alertas);
+        return response()->json($alertas);
     }
 
     public function show_calendar_anterior()
