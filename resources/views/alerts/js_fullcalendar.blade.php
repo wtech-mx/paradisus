@@ -436,7 +436,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <strong>Hora:</strong><br> ${new Date(service.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} a ${new Date(service.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}<br>
                             <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
                             <strong>Estatus:</strong> ${service.estatus}<br>
-                            <strong>Servicio:</strong> ${service.servicios_id.nombre || 'No asignado'}
+                            <strong>Servicio:</strong> ${service.servicios_id ? service.servicios_id.nombre : 'No asignado'}
                         `;
 
                         colDiv.appendChild(innerDiv);
@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <strong>Hora:</strong><br> ${new Date(service.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} a ${new Date(service.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}<br>
                             <strong>Cosmetóloga:</strong> ${cosmetologaNombres.join(', ')}<br>
                             <strong>Estatus:</strong> ${service.estatus}<br>
-                            <strong>Servicio:</strong> ${service.servicios_id.nombre || 'No asignado'}
+                            <strong>Servicio:</strong> ${service.servicios_id ? service.servicios_id.nombre : 'No asignado'}
                         `;
 
                         colDiv.appendChild(innerDiv);
