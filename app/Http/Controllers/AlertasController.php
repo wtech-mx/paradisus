@@ -670,7 +670,14 @@ class AlertasController extends Controller
                 $datosEvento->id_status = $request->id_status;
             }
             $datosEvento->estatus = $datosEvento->Status->estatus;
-            $datosEvento->color = $datosEvento->Status->color;
+
+            // Verificar si id_servicio o id_servicio2 es igual a 268 o 281
+            if (in_array($request->id_servicio, [268, 281]) || in_array($request->id_servicio2, [268, 281])) {
+                $datosEvento->color = '#6c467566';
+            } else {
+                $datosEvento->color = $datosEvento->Status->color;
+            }
+
             $datosEvento->id_client = $cliente;
             $full_name = $datosEvento->Client->name . ' ' . $datosEvento->Client->last_name;
             $datosEvento->title = $full_name;
