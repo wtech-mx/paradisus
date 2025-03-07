@@ -33,7 +33,8 @@ class NotasLacerController extends Controller
     }
 
     public function index(){
-        $nota_lacer = NotasLacer::orderBy('id','DESC')->get();
+        $nota_lacer = NotasLacer::with(['Client', 'ZonasLaser'])->orderBy('id','DESC')->get();
+
 
         return view('notas_lacer.index', compact('nota_lacer'));
     }

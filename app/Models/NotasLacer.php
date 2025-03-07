@@ -29,4 +29,9 @@ class NotasLacer extends Model
     {
         return $this->belongsTo(Client::class, 'id_client');
     }
+
+    public function ZonasLaser()
+    {
+        return $this->hasMany(ZonasLaser::class, 'id_nota');
+    }
 }
