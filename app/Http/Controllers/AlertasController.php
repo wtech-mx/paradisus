@@ -968,7 +968,13 @@ class AlertasController extends Controller
             $alerta->id_servicio2 = $request->id_servicio2;
             $alerta->id_status = $request->id_status;
             $alerta->estatus = $alerta->Status->estatus;
-            $alerta->color = $alerta->Status->color;
+
+            if (in_array($request->id_servicio, [268, 281]) || in_array($request->id_servicio2, [268, 281])) {
+                $alerta->color = '#6c467566';
+            } else {
+                $alerta->color = $alerta->Status->color;
+            }
+
             $alerta->image = $alerta->Status->icono;
             $alerta->id_client = $cliente;
             $full_name = $alerta->Client->name . ' ' . $alerta->Client->last_name;
