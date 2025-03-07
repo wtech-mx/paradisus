@@ -108,6 +108,7 @@
                                                 </li>
                                             @endforeach
                                         </ul>
+
                                         <div class="tab-content" id="myTabContent">
                                             @foreach ($zonas_lacer as $index => $zona_lacer)
                                             <div class="tab-pane fade @if ($index === 0) show active @endif" id="zona-{{ $index }}" role="tabpanel" aria-labelledby="tab-{{ $index }}">
@@ -117,10 +118,11 @@
                                                         <table class="table align-items-left mb-0">
                                                             <thead>
                                                             <tr>
-                                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Num. Sesion</th>
+                                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="width: 5px; padding: 15px 5px 15px 5px"># Sesion</th>
                                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>
+                                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cosme</th>
                                                                 <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parametros</th>
-                                                                <th class="text-secondary opacity-7">Observaciones</th>
+                                                                <th class="text-secondary opacity-7">Obs</th>
                                                                 <th class="text-secondary opacity-7">IMG Antes</th>
                                                                 <th class="text-secondary opacity-7">IMG Despues</th>
                                                                 <th class="text-secondary opacity-7">Firma</th>
@@ -150,15 +152,28 @@
                                                                         <tr>
                                                                             <input type="text" class="form-control" name="id_nota" value="{{$zona_lacer->id_nota}}" style="display: none">
                                                                             <input type="text" class="form-control" name="id_zona" value="{{$zona_lacer->id_zona}}" style="display: none">
-                                                                            <td>
-                                                                                <input type="number" value="{{$i}}" name="sesion" class="form-control" style="display: inline-block;width: 50%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
+                                                                            <td style="padding: 0; width: 7px;">
+                                                                                <input type="number" value="{{$i}}" name="sesion" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;padding: 0;" readonly>
                                                                             </td>
 
                                                                             <td>
                                                                                 @if ($registro)
-                                                                                    <input type="date" value="{{ $registro->fecha }}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;" readonly>
+                                                                                    <input type="date" value="{{ $registro->fecha }}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;padding: 0;width: 120px;" readonly>
                                                                                 @else
-                                                                                    <input type="date" name="fecha" value="{{$fechaActual}}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;">
+                                                                                    <input type="date" name="fecha" value="{{$fechaActual}}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;padding: 0;width: 120px;">
+                                                                                @endif
+                                                                            </td>
+
+                                                                            <td>
+                                                                                @if ($registro && $registro->id_user != 0)
+                                                                                    <input type="text" value="{{ $registro->User->name }}" class="form-control" style="display: inline-block;width: 100%;border: 0px solid;border-bottom: 1px dotted #C45584;border-radius: 0;padding: 0;width: 145px;" readonly>
+                                                                                @else
+                                                                                    <select class="form-control" id="id_cosme" name="id_cosme" required style="width:145px;">
+                                                                                        <option value="">Selecionar </option>
+                                                                                        @foreach ($user as $item)
+                                                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                                                        @endforeach
+                                                                                    </select>
                                                                                 @endif
                                                                             </td>
 
@@ -180,7 +195,7 @@
 
                                                                             <td>
                                                                                 @if ($registro)
-                                                                                    <textarea class="form-control" cols="10" rows="1" readonly>{{ $registro->nota }}</textarea>
+                                                                                    <textarea class="form-control" cols="10" rows="2" readonly style="width: 90px;">{{ $registro->nota }}</textarea>
                                                                                 @else
                                                                                     <textarea class="form-control" cols="10" rows="1" name="nota"></textarea>
                                                                                 @endif
@@ -190,7 +205,7 @@
                                                                                 @if ($registro && $registro->foto1)
                                                                                     <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
                                                                                 @else
-                                                                                    <input type="file" name="foto1" class="form-control" required>
+                                                                                    <input type="file" name="foto1" class="form-control" required data-browse="Foto 1">
                                                                                 @endif
                                                                             </td>
 
@@ -198,7 +213,7 @@
                                                                                 @if ($registro && $registro->foto2)
                                                                                     <img src="{{ asset('assets/icons/comprobado.png') }}" alt="" width="25px">
                                                                                 @else
-                                                                                    <input type="file" name="foto2" class="form-control" required>
+                                                                                    <input type="file" name="foto2" class="form-control" required data-browse="Foto 2">
                                                                                 @endif
                                                                             </td>
 

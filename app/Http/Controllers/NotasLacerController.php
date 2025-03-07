@@ -375,6 +375,7 @@ class NotasLacerController extends Controller
         $registrosZonas->parametros = $request->get('parametros');
         $registrosZonas->nota = $request->get('nota');
         $registrosZonas->fecha = $fechaActual;
+        $registrosZonas->id_user = $request->get('id_cosme');
 
         if ($request->hasFile('foto1')) {
                 $foto1 = $request->file('foto1');
@@ -580,7 +581,7 @@ class NotasLacerController extends Controller
         $registrosZonas  = RegistroZonas::where('id_nota', '=', $id)->get();
 
         $zonas = Laser::get();
-        $user = User::where('puesto', '=', 'Cosme')->orwhere('puesto', '=', 'Recepcionista')->get();
+        $user = User::where('puesto', '=', 'Cosme')->orwhere('puesto', '=', 'Recepcionista')->orderby('name','asc')->get();
 
         return view('notas_lacer.index_laser',compact('user', 'zonas', 'nota_laser', 'pago', 'zonas_lacer', 'registrosZonas', 'configuraciones_laser'));
     }

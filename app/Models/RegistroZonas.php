@@ -12,6 +12,7 @@ class RegistroZonas extends Model
 
     protected $fillable = [
         'id_nota',
+        'id_user',
         'id_zona',
         'sesion',
         'parametros',
@@ -30,5 +31,10 @@ class RegistroZonas extends Model
     public function Zona()
     {
         return $this->belongsTo(Laser::class, 'id_zona');
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'id_user');
     }
 }
