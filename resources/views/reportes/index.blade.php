@@ -25,6 +25,9 @@
 @endphp
 
     <div class="container-fluid">
+    <a type="button" class="btn btn-primary btn-xs" href="{{route('reporte.print_mensual')}}"style="color: #ffff">
+        <i class="fa fa-print"></i>
+    </a>
         <div class="row">
             {{-- =============== C A R D   S E R V I C I O S =============================== --}}
             <div class="col-sm-12 mb-5">
