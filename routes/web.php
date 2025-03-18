@@ -122,6 +122,9 @@ Route::get('/clients/cosme/cons/jacuzzi/{id}', [App\Http\Controllers\Consentimie
 Route::get('/clients/cosme/cons/brow/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_brow'])->name('brow_clients_consen.cosme');
 Route::get('/clients/cosme/cons/lash/{id}', [App\Http\Controllers\ConsentimientoFacialController::class, 'cosme_show_lash'])->name('lash_clients_consen.cosme');
 
+Route::patch('notas/productos/cabinas/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update_cabinas'])->name('notas_cabinas.update');
+Route::get('/perfil/cliente/liga/reposicion/{id}', [App\Http\Controllers\NotasPedidoController::class, 'liga_reposicion'])->name('reposicion.liga');
+
 Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
@@ -400,6 +403,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/kit/laser/store', [App\Http\Controllers\LaserKitController::class, 'store'])->name('store_laser.kit');
     Route::get('/kit/laser/edit/{id}', [App\Http\Controllers\LaserKitController::class, 'edit'])->name('edit_laser.kit');
     Route::patch('/kit/laser/update/{id}', [App\Http\Controllers\LaserKitController::class, 'update'])->name('update_laser.kit');
+
+    // =============== M O D U L O   N O T A S  P E D I D O S  B O D E G A===============================
+    Route::get('notas/productos/cabinas/index', [App\Http\Controllers\NotasPedidoController::class, 'index_cabinas'])->name('notas_cabinas.index');
+    Route::get('notas/productos/cabinas/create', [App\Http\Controllers\NotasPedidoController::class, 'create_cabinas'])->name('notas_cabinas.create');
+    Route::post('notas/productos/cabinas/store', [App\Http\Controllers\NotasPedidoController::class, 'store_cabinas'])->name('notas_cabinas.store');
+    Route::get('notas/productos/cabinas/edit/{id}', [App\Http\Controllers\NotasPedidoController::class, 'edit_cabinas'])->name('notas_cabinas.edit');
+
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');

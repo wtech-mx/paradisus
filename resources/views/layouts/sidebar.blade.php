@@ -245,6 +245,11 @@
                         <span class="sidenav-normal">Crear Nueva</span>
                     </a>
 
+                    <a class="nav-link {{ (Request::is('notas/productos/cabinas*') ? 'show' : '') }}" href="{{ route('notas_cabinas.index') }}">
+                        <span class="sidenav-mini-icon"> P </span>
+                        <span class="sidenav-normal">Reposicion Cabinas</span>
+                    </a>
+
                     <a class="nav-link {{ (Request::is('notas/pedidos*') ? 'show' : '') }}" href="{{ route('notas_pedidos.index') }}">
                     <span class="sidenav-mini-icon"> P </span>
                     <span class="sidenav-normal">Todas</span>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CajaDia;
 use App\Models\Client;
+use App\Models\NotaReposicion;
+use App\Models\NotaReposicionProducto;
 use App\Models\NotasPedidos;
 use App\Models\Pedido;
 use App\Models\Reporte;
@@ -591,5 +593,126 @@ class NotasPedidoController extends Controller
         Session::flash('delete', 'Se ha eliminado sus datos con exito');
         return redirect()->route('notas_pedidos.index')
             ->with('success', 'nota deleted successfully');
+    }
+
+    public function index_cabinas(Request $request)
+    {
+        // Capturamos los parámetros de fecha
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Verificamos si los parámetros están presentes para filtrar
+        if ($startDate && $endDate) {
+            // Filtramos por el rango de fechas
+            $nota_pedido = NotaReposicion::whereBetween('fecha', [$startDate, $endDate])
+                            ->where('estatus_reposicion', '!=', 'Enviado')
+                            ->orderBy('id', 'DESC')
+                            ->get();
+        } else {
+            // Si no se proporcionan fechas, traemos los registros del mes actual
+            $nota_pedido = NotaReposicion::whereMonth('fecha', date('m'))
+                            ->whereYear('fecha', date('Y'))
+                            ->where('estatus_reposicion', '!=', 'Enviado')
+                            ->orderBy('id', 'DESC')
+                            ->get();
+        }
+
+        $nota_pedidoEnviada = NotaReposicion::where('estatus_reposicion', '=', 'Enviado')
+                                ->orderBy('id', 'DESC')
+                                ->get();
+
+        return view('notas_pedidos.cabinas.index', compact('nota_pedido', 'nota_pedidoEnviada'));
+    }
+
+    public function create_cabinas(Request $request)
+    {
+        $cosme = auth()->user();
+
+        $products = $this->obtenerProductosDesdeAPI($request);
+
+        return view('notas_pedidos.cabinas.create', compact('cosme', 'products'));
+    }
+
+
+    public function store_cabinas(Request $request)
+    {
+
+        $fechaActual = date('Y-m-d');
+
+
+        $nota = new NotaReposicion;
+        $nota->id_user = auth()->user()->id;
+        $nota->cabina = $request->get('cabina');
+        $nota->estatus_reposicion = 'Pendiente';
+        $nota->nota_reposicion = $request->get('nota_reposicion');
+        $nota->fecha = $fechaActual;
+        $nota->save();
+
+        $concepto = $request->get('producto');
+
+        for ($count = 0; $count < count($concepto); $count++) {
+            if($concepto[$count] != NULL){
+                $data = array(
+                    'id_nota' => $nota->id,
+                    'concepto' => $concepto[$count],
+                );
+                $insert_data[] = $data;
+
+                // $producto = Products::where('nombre', $concepto[$count])->first();
+
+                // Busca el producto en los productos obtenidos de la API
+                $productsApi = $this->obtenerProductosDesdeAPI($request);
+                $productsBundleApi = $this->obtenerProductosBundleDesdeAPI($request);
+
+                $producto = $productsApi->firstWhere('nombre', $concepto[$count]);
+
+                if($concepto[$count] != NULL){
+                    $notas_inscripcion = new NotaReposicionProducto;
+                    $notas_inscripcion->id_nota = $nota->id;
+                    $notas_inscripcion->concepto = $concepto[$count];
+                    $notas_inscripcion->cantidad = 1;
+                    $notas_inscripcion->save();
+                }
+            }
+        }
+
+        Session::flash('success', 'Se ha guardado sus datos con exito');
+        return redirect()->route('notas_cabinas.index')->with('success', 'Creado exitosamente.');
+    }
+
+    public function liga_reposicion($id){
+        $pedido = NotaReposicion::where('id', $id)->first();
+        $pedido_productos = NotaReposicionProducto::where('id_nota', $id)->get();
+
+        $pedido_original = NotaReposicion::where('id', '!=', $pedido->id)->where('cabina', $pedido->cabina)->first();
+        if($pedido_original != NULL){
+            $pedido_original_productos = NotaReposicionProducto::where('id_nota', $pedido_original->id)->get();
+        }else{
+            $pedido_original_productos = [];
+        }
+        return view('notas_pedidos.cabinas.firma', compact('pedido', 'pedido_productos', 'pedido_original', 'pedido_original_productos'));
+    }
+
+    public function update_cabinas(Request $request, $id)
+    {
+        $fechaActual = date('Y-m-d');
+        $nota = NotaReposicion::find($id);
+        if($request->signed != NULL){
+            $folderPath = public_path('firma_reposicion/'); // create signatures folder in public directory
+            $image_parts = explode(";base64,", $request->signed);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $signature = uniqid() . '.'.$image_type;
+            $file = $folderPath . $signature;
+
+            file_put_contents($file, $image_base64);
+            $nota->firma_reposicion = $signature;
+        }
+        $nota->fecha_aprobado = $fechaActual;
+        $nota->estatus_reposicion = 'Aprobada';
+        $nota->update();
+
+        return redirect()->back()->with('success','Reposicion aceptada');
     }
 }
