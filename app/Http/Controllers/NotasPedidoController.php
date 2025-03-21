@@ -626,11 +626,26 @@ class NotasPedidoController extends Controller
 
     public function create_cabinas(Request $request)
     {
-        $cosme = auth()->user();
-
         $products = $this->obtenerProductosDesdeAPI($request);
 
-        return view('notas_pedidos.cabinas.create', compact('cosme', 'products'));
+        $productos_recepcion = $this->obtenerProductosDesdeAPI($request)
+        ->whereIn('id', [1302, 1301, 1300, 1726, 1299, 1329, 1334, 1377, 1330, 1332, 1342, 1343])
+        ->values();
+
+    $productos_manos = $this->obtenerProductosDesdeAPI($request)
+        ->whereIn('id', [1282, 1692, 1673, 1691, 1690, 1363, 1348, 1309])
+        ->values();
+
+    $productos_pies = $this->obtenerProductosDesdeAPI($request)
+        ->whereIn('id', [1363, 1597, 1348])
+        ->values();
+
+        return view('notas_pedidos.cabinas.create', [
+            'productos_recepcion' => $productos_recepcion->toArray(),
+            'productos_manos' => $productos_manos->toArray(),
+            'productos_pies' => $productos_pies->toArray(),
+            'products' => $products->toArray(),
+        ]);
     }
 
 

@@ -3,7 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aprobar reposicion {{$pedido->cabina}}</title>
+    <title>Aprobar reposicion
+        @if ($pedido->cabina == 8)
+            Exfoliación de pies
+        @elseif ($pedido->cabina == 7)
+            Exfoliación de manos
+        @elseif ($pedido->cabina == 6)
+            Recepción
+        @else
+            {{ $pedido->cabina }}
+        @endif
+    </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
@@ -87,6 +97,17 @@
             color: #F39B6D;
         }
 
+        .cabina-6 {
+            color: #213555
+        }
+
+        .cabina-7 {
+            color: #3E5879
+        }
+
+        .cabina-8 {
+            color: #D8C4B6;
+        }
     </style>
 @php
     use Carbon\Carbon;
@@ -95,7 +116,16 @@
             <div class="row">
                 <div class="col-12 mt-3">
                     <h2 class="cabina-{{ $pedido->cabina }}">
-                        Aprobar reposicion para Cabina {{$pedido->cabina}}
+                        Aprobar reposicion para Cabina
+                        @if ($pedido->cabina == 8)
+                            Exfoliación de pies
+                        @elseif ($pedido->cabina == 7)
+                            Exfoliación de manos
+                        @elseif ($pedido->cabina == 6)
+                            Recepción
+                        @else
+                            {{ $pedido->cabina }}
+                        @endif
                     </h2>
                     <hr>
 

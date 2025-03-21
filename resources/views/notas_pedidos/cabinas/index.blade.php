@@ -27,6 +27,21 @@
         background-color: #F39B6D;
         color: white
     }
+
+    .cabina-6 {
+        background-color: #213555;
+        color: white
+    }
+
+    .cabina-7 {
+        background-color: #3E5879;
+        color: white
+    }
+
+    .cabina-8 {
+        background-color: #D8C4B6;
+        color: #213555;
+    }
 </style>
 @endsection
 @section('content')
@@ -101,7 +116,17 @@
                                                     @foreach ($nota_pedido as $notas)
                                                         <tr>
                                                             <td>{{ $notas->id }}</td>
-                                                            <td><p class="cabina-{{ $notas->cabina }}">{{ $notas->cabina }}</p></td>
+                                                            <td>
+                                                                @if ($notas->cabina == 8)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Exfoliación de pies </p>
+                                                                @elseif ($notas->cabina == 7)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Exfoliación de manos </p>
+                                                                @elseif ($notas->cabina == 6)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Recepción </p>
+                                                                @else
+                                                                    <p class="cabina-{{ $notas->cabina }}">{{ $notas->cabina }} </p>
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $notas->fecha }}</td>
                                                             <td>{{ $notas->fecha_aprobado }}</td>
                                                             <td>
@@ -133,7 +158,17 @@
                                                     @foreach ($nota_pedidoEnviada as $notas)
                                                         <tr>
                                                             <td>{{ $notas->id }}</td>
-                                                            <td><p class="cabina-{{ $notas->cabina }}">{{ $notas->cabina }}</p></td>
+                                                            <td>
+                                                                @if ($notas->cabina == 8)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Exfoliación de pies </p>
+                                                                @elseif ($notas->cabina == 7)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Exfoliación de manos </p>
+                                                                @elseif ($notas->cabina == 6)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Recepción </p>
+                                                                @else
+                                                                    <p class="cabina-{{ $notas->cabina }}">{{ $notas->cabina }} </p>
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $notas->fecha }}</td>
                                                             <td>{{ $notas->fecha_aprobado }}</td>
                                                             <td>{{ $notas->preparado_hora_y_guia }}</td>

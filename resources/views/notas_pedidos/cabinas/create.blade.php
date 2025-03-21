@@ -38,6 +38,9 @@
                                             <option value="3">Cabina 3</option>
                                             <option value="4">Cabina 4</option>
                                             <option value="5">Cabina 5</option>
+                                            <option value="6">Recepción</option>
+                                            <option value="7">Exfoliación de manos</option>
+                                            <option value="8">Exfoliación de pies</option>
                                         </select>
                                     </div>
                                 </div>
@@ -115,7 +118,33 @@
             });
 </script>
 <script type="text/javascript">
+    const productos = {
+        "1": @json($products),
+        "2": @json($products),
+        "3": @json($products),
+        "4": @json($products),
+        "5": @json($products),
+        "6": @json($productos_recepcion),
+        "7": @json($productos_manos),
+        "8": @json($productos_pies)
+    };
+    document.getElementById('cabina').addEventListener('change', function () {
+        const cabina = this.value;
+        const productosSelect = document.querySelector('select[name="producto[]"]');
 
+        // Limpiar opciones anteriores
+        productosSelect.innerHTML = '<option value="">Seleccione producto</option>';
+
+        // Si hay productos para esa cabina, los añadimos
+        if (productos[cabina]) {
+            productos[cabina].forEach(producto => {
+                const option = document.createElement('option');
+                option.value = producto.nombre;
+                option.text = producto.nombre;
+                productosSelect.appendChild(option);
+            });
+        }
+    });
     $(document).ready(function() {
 
         function initializeSelect2($container) {
