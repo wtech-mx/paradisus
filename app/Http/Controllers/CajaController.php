@@ -141,6 +141,17 @@ class CajaController extends Controller
              ->with('success', 'caja created successfully.');
     }
 
+    public function destroy($id){
+        $caja = CajaDia::find($id);
+
+        if ($caja) {
+            $caja->delete();
+            return redirect()->route('caja.index')->with('success', 'Registro eliminado exitosamente.');
+        }
+
+        return redirect()->route('caja.index')->with('error', 'El registro no fue encontrado.');
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

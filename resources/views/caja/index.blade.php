@@ -291,6 +291,13 @@
                                                 </td>
                                                 <td>
                                                     <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editDataModal{{ $item->id }}" ><i class="fa fa-pencil"></i> Editar</a>
+                                                    <form action="{{ route('caja.destroy', $item->id) }}" method="POST" style="display: inline-block;" class="delete-form">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             @include('caja.edit')

@@ -263,7 +263,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('caja/update/{id}', [App\Http\Controllers\CajaController::class, 'update_caja'])->name('caja.update_caja');
     Route::get('/reporte/imprimir/caja', [App\Http\Controllers\CajaController::class, 'imprimir_caja'])->name('caja.print_caja');
     Route::get('/reporte/imprimir/precorte', [App\Http\Controllers\CajaController::class, 'imprimir_precorte'])->name('caja.print_precorte');
-
+    Route::delete('/caja/{id}', [App\Http\Controllers\CajaController::class, 'destroy'])->name('caja.destroy');
     Route::get('/reporte/imprimir/caja/{id}', [App\Http\Controllers\CajaController::class, 'imprimir_recibo'])->name('caja.print_recibo');
 
     // =============== M O D U L O   B U N D L E   P R O D U C T ===============================
