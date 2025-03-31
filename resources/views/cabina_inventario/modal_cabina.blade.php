@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3 class="mb-3">Crear Inventario</h3>
+                            <h3 class="mb-3">Crear Inventario Cabina 1</h3>
                         </div>
                     </div>
 

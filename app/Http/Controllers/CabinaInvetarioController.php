@@ -140,8 +140,6 @@ class CabinaInvetarioController extends Controller
         Session::flash('success', 'Se ha guardado sus datos con exito');
         if($request->get('cabina') == 1){
             return redirect()->route('inventario.index1')->with('success', 'Corte con exito.');
-        }elseif($request->get('cabina') == 2){
-            return redirect()->route('inventario.index2')->with('success', 'Corte con exito.');
         }elseif($request->get('cabina') == 3){
             return redirect()->route('inventario.index3')->with('success', 'Corte con exito.');
         }elseif($request->get('cabina') == 4){

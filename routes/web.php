@@ -346,7 +346,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/producto/reporte/print', [App\Http\Controllers\CabinaInvetarioController::class, 'imprimir'])->name('productos_reporte.imprimir');
 
     Route::get('/inventario/cabinas/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista');
-    Route::get('/inventario/cabina2/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create'])->name('inventario.create_vista2');
     Route::get('/inventario/cabina3/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create3'])->name('inventario.create_vista3');
     Route::get('/inventario/cabina4/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create4'])->name('inventario.create_vista4');
     Route::get('/inventario/cabina5/create', [App\Http\Controllers\CabinaInvetarioController::class, 'create5'])->name('inventario.create_vista5');

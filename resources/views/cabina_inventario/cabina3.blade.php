@@ -10,6 +10,8 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
+                        @include('cabina_inventario.btn_cabinas')
+
                         @if(Session::has('message'))
                         <p>{{ Session::get('message') }}</p>
                         @endif
@@ -56,8 +58,8 @@
                                                     <td>
                                                         @php
                                                             $fechaCarbon = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $cabina->updated_at);
-                                                            $fechaActualizada = $fechaCarbon->format('Y-m-d');
-                                                            echo $fechaActualizada;
+                                                            $fechaFormateada = $fechaCarbon->format('d - m - Y'); // Formato día - mes - año
+                                                            echo $fechaFormateada;
                                                         @endphp
                                                     </td>
                                                     <td>

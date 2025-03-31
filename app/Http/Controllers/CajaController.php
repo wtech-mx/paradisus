@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use App\Models\Bitacora;
 use App\Models\NotasLacer;
 use App\Models\PagosLaser;
+use App\Models\CabinaInvetario;
 
 class CajaController extends Controller
 {
@@ -624,7 +625,52 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(propina) as total'))
         ->first();
 
-        $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('propinas_efectivo', 'propinas_tarjeta', 'propinas_transferencia', 'propinas_suma','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
+        $diaActual = Carbon::now()->format('Y-m-d');
+        $diaSemana = strtolower(Carbon::now()->locale('es')->dayName);
+
+        // Mapeo de cabinas a nombres
+        $cabinasProgramadas = [
+            3 => 'Minu',
+            4 => 'América',
+            5 => 'Gaby',
+            1 => 'Gio',
+        ];
+
+        // Cabina programada según el día
+        $diaProgramacion = [
+            'lunes' => ['nombre' => 'Minu', 'cabina' => 3],
+            'martes' => ['nombre' => 'América', 'cabina' => 4],
+            'jueves' => ['nombre' => 'Gaby', 'cabina' => 5],
+            'viernes' => ['nombre' => 'Gio', 'cabina' => 1],
+        ];
+
+        $cabinaHoy = $diaProgramacion[$diaSemana] ?? null;
+
+        // Trae TODOS los registros hechos hoy
+        $inventarioCabinaHoy = CabinaInvetario::whereDate('updated_at', $diaActual)->get();
+
+        // Agrupamos por cabina (por si hay más de un registro por cabina)
+        $cabinasRealizadas = $inventarioCabinaHoy->groupBy('num_cabina');
+
+        // Array de mensajes individuales
+        $mensajesCabinas = [];
+
+        foreach ($cabinasRealizadas as $numCabina => $registros) {
+            $nombre = $cabinasProgramadas[$numCabina] ?? 'Sin nombre';
+
+            if ($cabinaHoy && $cabinaHoy['cabina'] == $numCabina) {
+                $mensajesCabinas[] = "✅ Se realizó correctamente el inventario de la cabina {$numCabina} ({$nombre}).";
+            } else {
+                $mensajesCabinas[] = "ℹ️ Se realizó inventario adicional en la cabina {$numCabina} ({$nombre}).";
+            }
+        }
+
+        // Si es día programado pero no se hizo el inventario de esa cabina
+        if ($cabinaHoy && !isset($cabinasRealizadas[$cabinaHoy['cabina']])) {
+            $mensajesCabinas[] = "❌ No se realizó el inventario programado para la cabina {$cabinaHoy['cabina']} ({$cabinaHoy['nombre']}).";
+        }
+
+        $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('mensajesCabinas','propinas_efectivo', 'propinas_tarjeta', 'propinas_transferencia', 'propinas_suma','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes', 'total_ing',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
         'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta', 'caja_dia_suma_vista'));
@@ -952,7 +998,52 @@ class CajaController extends Controller
         $propinas_tarjeta = NotasPropinas::where('fecha', '=', $diaActual)->where('metdodo_pago', '=', 'Tarjeta')->get();
         $propinas_transferencia = NotasPropinas::where('fecha', '=', $diaActual)->where('metdodo_pago', '=', 'Transferencia')->get();
 
-        $pdf = \PDF::loadView('caja.precorte', compact('propinas_efectivo','propinas_tarjeta','propinas_transferencia', 'propinas_suma','total_ing_vista','notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
+        $diaActual = Carbon::now()->format('Y-m-d');
+        $diaSemana = strtolower(Carbon::now()->locale('es')->dayName);
+
+        // Mapeo de cabinas a nombres
+        $cabinasProgramadas = [
+            3 => 'Minu',
+            4 => 'América',
+            5 => 'Gaby',
+            1 => 'Gio',
+        ];
+
+        // Cabina programada según el día
+        $diaProgramacion = [
+            'lunes' => ['nombre' => 'Minu', 'cabina' => 3],
+            'martes' => ['nombre' => 'América', 'cabina' => 4],
+            'jueves' => ['nombre' => 'Gaby', 'cabina' => 5],
+            'viernes' => ['nombre' => 'Gio', 'cabina' => 1],
+        ];
+
+        $cabinaHoy = $diaProgramacion[$diaSemana] ?? null;
+
+        // Trae TODOS los registros hechos hoy
+        $inventarioCabinaHoy = CabinaInvetario::whereDate('updated_at', $diaActual)->get();
+
+        // Agrupamos por cabina (por si hay más de un registro por cabina)
+        $cabinasRealizadas = $inventarioCabinaHoy->groupBy('num_cabina');
+
+        // Array de mensajes individuales
+        $mensajesCabinas = [];
+
+        foreach ($cabinasRealizadas as $numCabina => $registros) {
+            $nombre = $cabinasProgramadas[$numCabina] ?? 'Sin nombre';
+
+            if ($cabinaHoy && $cabinaHoy['cabina'] == $numCabina) {
+                $mensajesCabinas[] = "✅ Se realizó correctamente el inventario de la cabina {$numCabina} ({$nombre}).";
+            } else {
+                $mensajesCabinas[] = "ℹ️ Se realizó inventario adicional en la cabina {$numCabina} ({$nombre}).";
+            }
+        }
+
+        // Si es día programado pero no se hizo el inventario de esa cabina
+        if ($cabinaHoy && !isset($cabinasRealizadas[$cabinaHoy['cabina']])) {
+            $mensajesCabinas[] = "❌ No se realizó el inventario programado para la cabina {$cabinaHoy['cabina']} ({$cabinaHoy['nombre']}).";
+        }
+
+        $pdf = \PDF::loadView('caja.precorte', compact('mensajesCabinas','cabinaHoy','propinas_efectivo','propinas_tarjeta','propinas_transferencia', 'propinas_suma','total_ing_vista','notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
         'suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'caja_final','suma_filas_trans','propinasHoy','total_ing','caja_egre','total_egresos','paquetes',
         'fechaYHoraFormateada', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes','total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta',
         'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'caja_dia_suma_vista', 'caja_dia_resta'));
