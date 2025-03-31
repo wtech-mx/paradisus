@@ -30,9 +30,16 @@
                                 <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="25px">
                             </span>
                             <select class="form-control" data-toggle="select" id="motivo" name="motivo" >
-                                <option value="{{ $item->motivo }}">{{ $item->motivo }}</option>
+                                <option value="{{ $item->motivo }}" selected>{{ $item->motivo }}</option>
+                                <option value="Retiro">Retiro</option>
+                                <option value="Ingreso">Ingreso</option>
                             </select>
                         </div>
+                    </div>
+
+                    <div class="col-12 form-group">
+                        <label for="descuento">Concepto</label>
+                        <textarea name="concepto" id="concepto" cols="10" rows="3" class="form-control" >{{ $item->concepto }}</textarea>
                     </div>
 
                     <div class="col-12 form-group">

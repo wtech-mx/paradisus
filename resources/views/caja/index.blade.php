@@ -325,15 +325,34 @@
                     data: new FormData(this),
                     contentType: false,
                     processData: false,
-                    success: function(response) { // Agrega "async" aquí
-                        // El formulario se ha enviado correctamente, ahora realiza la impresión
+                    success: function (response) {
                         imprimirRecibo(response);
                         console.log(response);
+                    if (response.success) {
+                        // Cerrar el modal
+                        $('#createDataModal').modal('hide');
 
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+                        // Mostrar SweetAlert de éxito
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Guardado exitosamente',
+                            text: 'El registro se ha guardado correctamente.',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Recargar la página o actualizar la tabla
+                            location.reload();
+                        });
                     }
+                },
+                error: function (xhr) {
+                    // Manejar errores
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un problema al guardar el registro.',
+                    });
+                }
                 });
 
             });

@@ -124,6 +124,8 @@ class CajaController extends Controller
 
          $caja = CajaDia::find($id);
          $caja->egresos = $request->get('egresos');
+         $caja->motivo = $request->get('motivo');
+         $caja->concepto = $request->get('concepto');
 
          if ($request->hasFile("foto")) {
              $file = $request->file('foto');
