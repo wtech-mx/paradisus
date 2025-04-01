@@ -699,6 +699,13 @@ class ReporteController extends Controller
                 "plugins" => [
                     "datalabels" => [
                         "color" => 'black',
+                        "anchor" => "end",        // <- lo sube
+                        "align" => "start",       // <- lo coloca arriba
+                        "offset" => -10,          // <- más separación
+                        "font" => [
+                            "weight" => "bold",
+                            "size" => 12
+                        ]
                     ],
                 ],
                 "legend" => [
@@ -717,7 +724,7 @@ class ReporteController extends Controller
         ];
 
         $chartDataServiciosMasSolicitadosRecurrentes = json_encode($chartDataServiciosMasSolicitadosRecurrentes);
-        $chartURLServiciosMasSolicitadosRecurrentes = "https://quickchart.io/chart?width=220&height=220&c=".urlencode($chartDataServiciosMasSolicitadosRecurrentes);
+        $chartURLServiciosMasSolicitadosRecurrentes = "https://quickchart.io/chart?width=600&height=400&c=".urlencode($chartDataServiciosMasSolicitadosRecurrentes);
 
         $chartDataServiciosMasSolicitadosRecurrentes = file_get_contents($chartURLServiciosMasSolicitadosRecurrentes);
         $chartServiciosMasSolicitadosRecurrentes = 'data:image/png;base64, '.base64_encode($chartDataServiciosMasSolicitadosRecurrentes);
