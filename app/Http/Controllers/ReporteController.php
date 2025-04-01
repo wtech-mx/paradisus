@@ -385,9 +385,11 @@ class ReporteController extends Controller
     }
 
     public function imprimir_mensual(){
-        $mesActual = date('m');
-        $mesAnterior = date('m', strtotime('-2 month'));
-        $dosMesesAtras = date('m', strtotime('-3 months'));
+        $fechaBase = date('Y-m-01'); // Primer día del mes actual
+
+        $mesActual = date('m', strtotime($fechaBase));
+        $mesAnterior = date('m', strtotime('-1 month', strtotime($fechaBase)));
+        $dosMesesAtras = date('m', strtotime('-2 months', strtotime($fechaBase)));
         $today = date('d-m-Y');
 dd($mesAnterior);
         $citasMesActual = Alertas::whereMonth('created_at', $mesActual)
