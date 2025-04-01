@@ -678,6 +678,9 @@ class ReporteController extends Controller
         ->get();
 
         $serviciosLabelsRecurrentes = $serviciosMasSolicitadosRecurrentes->pluck('nombre')->toArray();
+        $serviciosLabelsRecurrentes = collect($serviciosLabelsRecurrentes)->map(function($label) {
+            return strlen($label) > 20 ? substr($label, 0, 17).'...' : $label;
+        })->toArray();
         $serviciosDataRecurrentes = $serviciosMasSolicitadosRecurrentes->pluck('total')->toArray();
 
         $chartDataServiciosMasSolicitadosRecurrentes = [
@@ -695,11 +698,20 @@ class ReporteController extends Controller
             "options" => [
                 "plugins" => [
                     "datalabels" => [
-                        "color" => 'black', // Cambia el color del texto a blanco
+                        "color" => 'black',
                     ],
                 ],
                 "legend" => [
-                    "display" => false // Esto oculta la leyenda de colores
+                    "display" => false,
+                ],
+                "scales" => [
+                    "x" => [
+                        "ticks" => [
+                            "maxRotation" => 60,
+                            "minRotation" => 45,
+                            "autoSkip" => false,
+                        ],
+                    ],
                 ],
             ],
         ];
