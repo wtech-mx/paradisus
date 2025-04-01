@@ -185,9 +185,6 @@
     </h2>
 
     <h2 style="text-align: center;">Inventario de Cabinas  <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"> <br>
-        <h2 style="text-align: center;">
-            Inventario de Cabinas
-        </h2>
 
         <ul style="font-size: 15px;">
             @foreach($mensajesCabinas as $mensaje)
