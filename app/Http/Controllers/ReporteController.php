@@ -391,7 +391,7 @@ class ReporteController extends Controller
         $mesAnterior = date('m', strtotime('-1 month', strtotime($fechaBase)));
         $dosMesesAtras = date('m', strtotime('-2 months', strtotime($fechaBase)));
         $today = date('d-m-Y');
-dd($mesAnterior);
+
         $citasMesActual = Alertas::whereMonth('created_at', $mesActual)
             ->where('id_status', '!=', 7)
             ->count();
