@@ -385,9 +385,11 @@ class ReporteController extends Controller
     }
 
     public function imprimir_mensual(){
-        $mesActual = date('m');
-        $mesAnterior = date('m', strtotime('-1 month'));
-        $dosMesesAtras = date('m', strtotime('-2 months'));
+        $fechaBase = date('Y-m-01'); // Primer día del mes actual
+
+        $mesActual = date('m', strtotime($fechaBase));
+        $mesAnterior = date('m', strtotime('-1 month', strtotime($fechaBase)));
+        $dosMesesAtras = date('m', strtotime('-2 months', strtotime($fechaBase)));
         $today = date('d-m-Y');
 
         $citasMesActual = Alertas::whereMonth('created_at', $mesActual)
@@ -618,14 +620,15 @@ class ReporteController extends Controller
         $chartDataclientesRecurrentes = file_get_contents($chartURLclientesRecurrentes);
         $chartclientesRecurrentes = 'data:image/png;base64, '.base64_encode($chartDataclientesRecurrentes);
 
-        $serviciosMasSolicitados = Alertas::select('id_servicio', DB::raw('COUNT(id) as total'))
-        ->where('nuevo_cliente', 1)
-        ->groupBy('id_servicio')
+        $serviciosMasSolicitados = Alertas::select('servicios.nombre', DB::raw('COUNT(alertas.id) as total'))
+        ->join('servicios', 'alertas.id_servicio', '=', 'servicios.id')
+        ->where('alertas.nuevo_cliente', 1)
+        ->groupBy('servicios.nombre')
         ->orderBy('total', 'desc')
         ->take(5)
         ->get();
 
-        $serviciosLabels = $serviciosMasSolicitados->pluck('id_servicio')->toArray();
+        $serviciosLabels = $serviciosMasSolicitados->pluck('nombre')->toArray();
         $serviciosData = $serviciosMasSolicitados->pluck('total')->toArray();
 
         $chartDataServiciosMasSolicitados = [
@@ -634,7 +637,7 @@ class ReporteController extends Controller
                 "labels" => $serviciosLabels,
                 "datasets" => [
                     [
-                        "label" => "Servicios Más Solicitados",
+                        "label" => "Servicios más solicitados por nuevos clientes",
                         "data" => $serviciosData,
                         "backgroundColor" => ['#1a759f', '#168aad', '#34a0a4', '#52b69a', '#76c893']
                     ],
@@ -643,18 +646,33 @@ class ReporteController extends Controller
             "options" => [
                 "plugins" => [
                     "datalabels" => [
-                        "color" => 'black', // Cambia el color del texto a blanco
+                        "color" => 'black',
+                        "anchor" => "end",
+                        "align" => "start",
+                        "offset" => -10,
+                        "font" => [
+                            "weight" => "bold",
+                            "size" => 12
+                        ]
                     ],
                 ],
-                "legend" => [
-                    "display" => false // Esto oculta la leyenda de colores
-                ],
-            ],
+                "legend" => ["display" => false],
+                "scales" => [
+                    "x" => [
+                        "ticks" => [
+                            "maxRotation" => 60,
+                            "minRotation" => 45,
+                            "autoSkip" => false,
+                        ]
+                    ]
+                ]
+            ]
         ];
+
 
         $chartDataServiciosMasSolicitados = json_encode($chartDataServiciosMasSolicitados);
 
-        $chartURLServiciosMasSolicitados = "https://quickchart.io/chart?width=220&height=220&c=".urlencode($chartDataServiciosMasSolicitados);
+        $chartURLServiciosMasSolicitados = "https://quickchart.io/chart?width=600&height=450&c=".urlencode($chartDataServiciosMasSolicitados);
 
         $chartDataServiciosMasSolicitados = file_get_contents($chartURLServiciosMasSolicitados);
         $chartServiciosMasSolicitados = 'data:image/png;base64, '.base64_encode($chartDataServiciosMasSolicitados);
@@ -676,6 +694,9 @@ class ReporteController extends Controller
         ->get();
 
         $serviciosLabelsRecurrentes = $serviciosMasSolicitadosRecurrentes->pluck('nombre')->toArray();
+        $serviciosLabelsRecurrentes = collect($serviciosLabelsRecurrentes)->map(function($label) {
+            return strlen($label) > 20 ? substr($label, 0, 17).'...' : $label;
+        })->toArray();
         $serviciosDataRecurrentes = $serviciosMasSolicitadosRecurrentes->pluck('total')->toArray();
 
         $chartDataServiciosMasSolicitadosRecurrentes = [
@@ -693,17 +714,33 @@ class ReporteController extends Controller
             "options" => [
                 "plugins" => [
                     "datalabels" => [
-                        "color" => 'black', // Cambia el color del texto a blanco
+                        "color" => 'black',
+                        "anchor" => "end",        // <- lo sube
+                        "align" => "start",       // <- lo coloca arriba
+                        "offset" => -10,          // <- más separación
+                        "font" => [
+                            "weight" => "bold",
+                            "size" => 14
+                        ]
                     ],
                 ],
                 "legend" => [
-                    "display" => false // Esto oculta la leyenda de colores
+                    "display" => false,
+                ],
+                "scales" => [
+                    "x" => [
+                        "ticks" => [
+                            "maxRotation" => 60,
+                            "minRotation" => 45,
+                            "autoSkip" => false,
+                        ],
+                    ],
                 ],
             ],
         ];
 
         $chartDataServiciosMasSolicitadosRecurrentes = json_encode($chartDataServiciosMasSolicitadosRecurrentes);
-        $chartURLServiciosMasSolicitadosRecurrentes = "https://quickchart.io/chart?width=220&height=220&c=".urlencode($chartDataServiciosMasSolicitadosRecurrentes);
+        $chartURLServiciosMasSolicitadosRecurrentes = "https://quickchart.io/chart?width=600&height=400&c=".urlencode($chartDataServiciosMasSolicitadosRecurrentes);
 
         $chartDataServiciosMasSolicitadosRecurrentes = file_get_contents($chartURLServiciosMasSolicitadosRecurrentes);
         $chartServiciosMasSolicitadosRecurrentes = 'data:image/png;base64, '.base64_encode($chartDataServiciosMasSolicitadosRecurrentes);
