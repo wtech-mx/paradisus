@@ -248,6 +248,10 @@
         </tr>
     </table>
 
+    <h4>📊 Encuestas de Satisfacción</h4>
+    <p style="white-space: pre-line;">{{ $mensajeEncuestas }}</p>
+
+
     <h2 style="text-align: center;">
         Apertura de Caja : <img src="{{ asset('assets/icons/retiro-de-efectivo.png') }}" alt="" width="35px"></h2>
     <table class="table text-center">

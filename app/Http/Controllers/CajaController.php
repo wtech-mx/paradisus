@@ -24,6 +24,8 @@ use App\Models\Bitacora;
 use App\Models\NotasLacer;
 use App\Models\PagosLaser;
 use App\Models\CabinaInvetario;
+use App\Models\Encuestas;
+use App\Models\Alertas;
 
 class CajaController extends Controller
 {
@@ -1043,7 +1045,61 @@ class CajaController extends Controller
             $mensajesCabinas[] = "❌ No se realizó el inventario programado para la cabina {$cabinaHoy['cabina']} ({$cabinaHoy['nombre']}).";
         }
 
-        $pdf = \PDF::loadView('caja.precorte', compact('mensajesCabinas','cabinaHoy','propinas_efectivo','propinas_tarjeta','propinas_transferencia', 'propinas_suma','total_ing_vista','notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
+        $hoy = date('Y-m-d');
+
+        // Traer alertas con asistencia hoy
+        $alertasHoy = Alertas::with('Client') // Aseguramos que traiga la relación
+            ->where('estatus', 'ASISTENCIA')
+            ->whereDate('start', $hoy)
+            ->get();
+
+        // Traer encuestas creadas hoy
+        $encuestasHoy = Encuestas::whereDate('created_at', $hoy)->get();
+        $notasConEncuestaHoy = $encuestasHoy->pluck('id_nota')->filter()->unique();
+
+        // Agrupamos alertas por cliente
+        $alertasAgrupadas = $alertasHoy->groupBy('id_client');
+
+        $totalSesiones = $alertasHoy->count();
+        $totalEncuestas = $encuestasHoy->count();
+
+        $mensajeEncuestas = " Total sesiones con asistencia hoy: {$totalSesiones}\n";
+        $mensajeEncuestas .= " Encuestas contestadas: {$totalEncuestas}\n\n";
+        $mensajeEncuestas .= " Faltantes:\n";
+
+        foreach ($alertasAgrupadas as $idClient => $alertasCliente) {
+            // Intentamos obtener nombre desde relación Client
+            $nombreCliente = optional($alertasCliente->first()->Client)->nombre;
+
+            // Si no existe, lo intentamos sacar del título
+            if (!$nombreCliente) {
+                $nombreCliente = $alertasCliente->first()->titulo ?? 'Nombre no disponible';
+            }
+
+            // Obtener todas las notas asociadas a este cliente (hoy)
+            $notasCliente = Notas::where('id_client', $idClient)
+                ->whereDate('created_at', $hoy)
+                ->pluck('id');
+
+            // Verificamos si alguna de sus notas tiene encuesta
+            $hayEncuesta = $notasCliente->intersect($notasConEncuestaHoy)->isNotEmpty();
+
+            if ($hayEncuesta && $alertasCliente->count() > 1) {
+                $faltan = $alertasCliente->count() - 1;
+                $mensajeEncuestas .= "- {$faltan} invitado(s) de \"{$nombreCliente}\" (ID Cliente: {$idClient})\n";
+            } elseif (!$hayEncuesta) {
+                foreach ($alertasCliente as $alerta) {
+                    // $idNota = $alerta->id_nota ?? 'Sin asignar';
+
+                    // // También aseguramos obtener nombre individual por alerta si no está agrupado correctamente
+                    // $nombreInd = optional($alerta->Client)->nombre ?? $alerta->titulo ?? 'Nombre no disponible';
+
+                    // $mensajeEncuestas .= "- Cliente: {$nombreInd}, ID Alerta: {$alerta->id}, ID Nota: {$idNota}\n";
+                }
+            }
+        }
+
+        $pdf = \PDF::loadView('caja.precorte', compact('mensajeEncuestas','mensajesCabinas','cabinaHoy','propinas_efectivo','propinas_tarjeta','propinas_transferencia', 'propinas_suma','total_ing_vista','notas_laser','total_laser_trans','total_laser_mercado','total_laser_tarjeta','pago_laser','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta',
         'suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans', 'caja_final','suma_filas_trans','propinasHoy','total_ing','caja_egre','total_egresos','paquetes',
         'fechaYHoraFormateada', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes','total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta',
         'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta','total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'caja_dia_suma_vista', 'caja_dia_resta'));
