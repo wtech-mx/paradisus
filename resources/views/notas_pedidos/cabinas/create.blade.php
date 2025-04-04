@@ -41,6 +41,7 @@
                                             <option value="6">Recepción</option>
                                             <option value="7">Exfoliación de manos</option>
                                             <option value="8">Exfoliación de pies</option>
+                                            <option value="9">Cabina Laser</option>
                                         </select>
                                     </div>
                                 </div>
@@ -126,7 +127,8 @@
         "5": @json($products),
         "6": @json($productos_recepcion),
         "7": @json($productos_manos),
-        "8": @json($productos_pies)
+        "8": @json($productos_pies),
+        "9": @json($products)
     };
     document.getElementById('cabina').addEventListener('change', function () {
         const cabina = this.value;

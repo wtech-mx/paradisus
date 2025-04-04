@@ -10,6 +10,8 @@
             Exfoliación de manos
         @elseif ($pedido->cabina == 6)
             Recepción
+        @elseif ($pedido->cabina == 9)
+            Laser
         @else
             {{ $pedido->cabina }}
         @endif
@@ -108,6 +110,10 @@
         .cabina-8 {
             color: #D8C4B6;
         }
+
+        .cabina-9 {
+            color: #4F1C51;
+        }
     </style>
 @php
     use Carbon\Carbon;
@@ -123,6 +129,8 @@
                             Exfoliación de manos
                         @elseif ($pedido->cabina == 6)
                             Recepción
+                        @elseif ($pedido->cabina == 9)
+                            Laser
                         @else
                             {{ $pedido->cabina }}
                         @endif
