@@ -253,7 +253,16 @@ class ProductosController extends Controller
         $contadorMiercoles = 0;
 
         $cabinaInventario =  CabinaInvetario::find($id);
+        $numCabina = $cabinaInventario->num_cabina;
+        $mesActual = date('m', strtotime($cabinaInventario->fecha));
+        $añoActual = date('Y', strtotime($cabinaInventario->fecha));
 
+        // Obtener todos los registros del mismo número de cabina y del mes actual
+        $fechasPorSemana = CabinaInvetario::where('num_cabina', $numCabina)
+            ->whereMonth('fecha', $mesActual)
+            ->whereYear('fecha', $añoActual)
+            ->pluck('fecha', 'num_semana');
+      
         // Iterar desde el primer día hasta el último día del mes
         while ($primerDiaMes <= $ultimoDiaMes) {
             // Verificar si el día actual es miércoles (formato 'N': 1 para lunes, 2 para martes, etc.)
@@ -286,7 +295,18 @@ class ProductosController extends Controller
             $productos_cabinas = Productos::where('cabina5','=', 1)->get();
         }
 
-        return view('cabina_inventario.edit', compact('productos_cabinas', 'contadorMiercoles', 'product_inv', 'products_invs1', 'products_invs2', 'products_invs3', 'products_invs4', 'products_invs5','cabinaInventario'));
+        return view('cabina_inventario.edit', compact(
+            'productos_cabinas',
+            'contadorMiercoles',
+            'product_inv',
+            'products_invs1',
+            'products_invs2',
+            'products_invs3',
+            'products_invs4',
+            'products_invs5',
+            'cabinaInventario',
+            'fechasPorSemana'
+        ));
     }
 
     public function imprimir(Request $request, $id){

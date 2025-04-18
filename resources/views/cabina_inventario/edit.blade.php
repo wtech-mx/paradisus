@@ -68,10 +68,16 @@
                                             <input class="form-control" type="text" name="cabina" id="cabina" value="{{$cabinaInventario->num_cabina}}" readonly>
                                         </div>
 
-                                        <div class="form-group col-6">
-                                            <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
-                                        </div>
+                                        @if(count($products_invs1) > 0)
+                                            <div class="form-group col-6">
+                                                <label for="">Fecha</label> <br>
+                                                @if(isset($fechasPorSemana[1]))
+                                                    {{ \Carbon\Carbon::parse($fechasPorSemana[1])->format('d/m/Y') }}
+                                                @else
+                                                    Sin fecha
+                                                @endif
+                                            </div>
+                                        @endif
 
                                         <div class="form-group col-12">
                                             <h3>Insumos</h3>
@@ -219,8 +225,12 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
+                                            <label for="">Fecha</label> <br>
+                                            @if(isset($fechasPorSemana[2]))
+                                                {{ \Carbon\Carbon::parse($fechasPorSemana[2])->format('d/m/Y') }}
+                                            @else
+                                                Sin fecha
+                                            @endif
                                         </div>
 
                                         <div class="form-group col-6">
@@ -374,8 +384,12 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
+                                            <label for="">Fecha</label> <br>
+                                            @if(isset($fechasPorSemana[3]))
+                                                {{ \Carbon\Carbon::parse($fechasPorSemana[3])->format('d/m/Y') }}
+                                            @else
+                                                Sin fecha
+                                            @endif
                                         </div>
 
                                         <div class="form-group col-6">
@@ -529,8 +543,12 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
+                                            <label for="">Fecha</label> <br>
+                                            @if(isset($fechasPorSemana[4]))
+                                                {{ \Carbon\Carbon::parse($fechasPorSemana[4])->format('d/m/Y') }}
+                                            @else
+                                                Sin fecha
+                                            @endif
                                         </div>
 
                                         <div class="form-group col-6">
@@ -685,8 +703,12 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="">Fecha</label>
-                                            <input class="form-control" type="date" name="fecha1" id="fecha1" value="{{$cabinaInventario->fecha}}" readonly>
+                                            <label for="">Fecha</label> <br>
+                                            @if(isset($fechasPorSemana[5]))
+                                                {{ \Carbon\Carbon::parse($fechasPorSemana[5])->format('d/m/Y') }}
+                                            @else
+                                                Sin fecha
+                                            @endif
                                         </div>
 
                                         <div class="form-group col-6">
