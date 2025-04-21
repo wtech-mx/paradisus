@@ -47,6 +47,11 @@
         background-color: #4F1C51;
         color: white;
     }
+
+    .cabina-10 {
+        background-color: #F75A5A;
+        color: white;
+    }
 </style>
 @endsection
 @section('content')
@@ -130,6 +135,8 @@
                                                                     <p class="cabina-{{ $notas->cabina }}">Recepción </p>
                                                                 @elseif ($notas->cabina == 9)
                                                                     <p class="cabina-{{ $notas->cabina }}">Laser </p>
+                                                                @elseif ($notas->cabina == 10)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Despedida </p>
                                                                 @else
                                                                     <p class="cabina-{{ $notas->cabina }}">{{ $notas->cabina }} </p>
                                                                 @endif
@@ -174,6 +181,8 @@
                                                                     <p class="cabina-{{ $notas->cabina }}">Recepción </p>
                                                                 @elseif ($notas->cabina == 9)
                                                                     <p class="cabina-{{ $notas->cabina }}">Laser </p>
+                                                                @elseif ($notas->cabina == 10)
+                                                                    <p class="cabina-{{ $notas->cabina }}">Despedida </p>
                                                                 @else
                                                                     <p class="cabina-{{ $notas->cabina }}">{{ $notas->cabina }} </p>
                                                                 @endif

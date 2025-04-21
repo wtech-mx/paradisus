@@ -640,11 +640,16 @@ class NotasPedidoController extends Controller
             ->whereIn('id', [1363, 1597, 1348])
             ->values();
 
+        $productos_despedidas = $this->obtenerProductosDesdeAPI($request)
+            ->whereIn('id', [1275, 1282, 1393, 1365, 1596, 1320, 1322, 1284, 1283, 1382, 1293, 1311, 1318])
+            ->values();
+
         return view('notas_pedidos.cabinas.create', [
             'productos_recepcion' => $productos_recepcion->toArray(),
             'productos_manos' => $productos_manos->toArray(),
             'productos_pies' => $productos_pies->toArray(),
             'products' => $products->toArray(),
+            'productos_despedidas' => $productos_despedidas->toArray(),
         ]);
     }
 

@@ -12,6 +12,8 @@
             Recepción
         @elseif ($pedido->cabina == 9)
             Laser
+        @elseif ($pedido->cabina == 10)
+            Despedida
         @else
             {{ $pedido->cabina }}
         @endif
@@ -114,6 +116,10 @@
         .cabina-9 {
             color: #4F1C51;
         }
+
+        .cabina-10 {
+            color: #F75A5A;
+        }
     </style>
 @php
     use Carbon\Carbon;
@@ -131,6 +137,8 @@
                             Recepción
                         @elseif ($pedido->cabina == 9)
                             Laser
+                        @elseif ($pedido->cabina == 10)
+                            Despedida
                         @else
                             {{ $pedido->cabina }}
                         @endif
