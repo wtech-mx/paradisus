@@ -98,7 +98,8 @@
 {{-- <script src="https://cdn.tiny.cloud/1/asek5c0zv2gl6pfvxfpzb82en4opov2qjp29rl4jhya2ekls/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> --}}
 {{-- <script src="https://cdn.tiny.cloud/1/c2jyw7j73gyffzmpqwc1b7o1eaf23c74mn6m4i33evler1u6/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> --}}
 {{-- <script src="https://cdn.tiny.cloud/1/70r2lcv643j7m3y5n508sflaqhyahwkxavf91e7ftai2zuzt/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> --}}
-<script src="https://cdn.tiny.cloud/1/v8yaq9rorvlf4fa7zp00vf83udhkr4qpskoikbk37wqzfsat/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+{{-- <script src="https://cdn.tiny.cloud/1/v8yaq9rorvlf4fa7zp00vf83udhkr4qpskoikbk37wqzfsat/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> --}}
+<script src="{{ asset('assets/tinymce/tinymce.min.js')}}"></script>
 
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
