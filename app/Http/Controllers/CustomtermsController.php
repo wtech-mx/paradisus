@@ -17,7 +17,7 @@ class CustomtermsController extends Controller
     public function index(Request $request)
     {
         $user = User::orderBy('name','asc')->get();
-        $custom = CustomTerms::get();
+        $custom = CustomTerms::orderBy('id','desc')->get();
 
         return view('sueldo_cosmes.terminos_index',compact('user','custom'));
     }
@@ -52,6 +52,21 @@ class CustomtermsController extends Controller
 
         return view('sueldo_cosmes.terminos_firma', compact('cosme','user'));
 
+    }
+
+
+    public function destroy($id)
+    {
+        $custom = CustomTerms::find($id);
+
+        if ($custom) {
+            $custom->delete();
+            Session::flash('success', 'El registro se ha eliminado con éxito.');
+        } else {
+            Session::flash('error', 'El registro no existe.');
+        }
+
+        return redirect()->back();
     }
 
     public function firma(Request $request, $id){

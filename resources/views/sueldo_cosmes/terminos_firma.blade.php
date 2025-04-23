@@ -72,7 +72,7 @@
     <section class="row">
 
         <div class="col-12 mb-3">
-            <h3 class="text-white"> <strong>Cosmetologa:</strong> <br>
+            <h3 class="text-white"> <strong></strong> <br>
 
                 @if(!isset($user->name))
                 {{ $cosme->cosmemanual}}
@@ -92,7 +92,10 @@
                         <h4 class="text-left mt-3 mb-3">{{ $cosme->titulo  }}</h4>
                         <h6 class="text-left">Fecha:  {{ \Carbon\Carbon::parse( $cosme->fecha)->format('d \d\e F \d\e\l Y') }}</h6>
                         <p class="text-left">
-                            {!! $cosme->descripcion !!}
+                           @php
+                               echo $cosme->descripcion;
+
+                           @endphp
                         </p>
                         <h6 class="text-left">Firma:  </h6>
                         @if ($cosme->firma == NULL)

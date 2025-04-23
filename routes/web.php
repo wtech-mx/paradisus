@@ -87,6 +87,7 @@ Route::get('/pagos/terminos', [App\Http\Controllers\CustomtermsController::class
 Route::get('/firma_custom/terminos/{id}', [App\Http\Controllers\CustomtermsController::class, 'edit'])->name('terminos.edit');
 Route::post('/pagos/terminos/create', [App\Http\Controllers\CustomtermsController::class, 'store'])->name('terminos.store');
 Route::patch('/firma_custom/{id}', [App\Http\Controllers\CustomtermsController::class, 'firma'])->name('terminos.firma');
+Route::delete('/pagos/terminos/delete/{id}', [App\Http\Controllers\CustomtermsController::class, 'destroy'])->name('terminos.destroy');
 
 Route::patch('/pagos/quitar/comida/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'quitar_comida'])->name('pagos.quitar_comida');
 Route::patch('/pagos/quitar/puntualidad/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'quitar_puntualidad'])->name('pagos.quitar_puntualidad');

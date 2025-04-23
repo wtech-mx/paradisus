@@ -55,27 +55,32 @@
                         <td>
                             <a href="{{ route('terminos.edit', $item->id) }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-signature"></i></a>
 
-                            @if(!isset($item->User->name ))
+                            @if(!isset($item->User->name))
                             <a type="button" class="btn btn-sm" target="_blank"
                             href="https://wa.me/52{{$item->cosmemanual_tel}}?text=Hola%20{{$item->cosmemanual}}%20{{ route('terminos.edit', $item->id) }}"
                             style="background: #00BB2D; color: #ffff">
                             <i class="fa fa-whatsapp"></i>
                             </a>
-
                             @else
-
-                                <a type="button" class="btn btn-sm" target="_blank"
-                                href="https://wa.me/52{{$item->User->photo}}?text=Hola%20{{$item->User->name}}%20{{ route('terminos.edit', $item->id) }}"
-                                style="background: #00BB2D; color: #ffff">
-                                <i class="fa fa-whatsapp"></i>
-                                </a>
+                            <a type="button" class="btn btn-sm" target="_blank"
+                            href="https://wa.me/52{{$item->User->photo}}?text=Hola%20{{$item->User->name}}%20{{ route('terminos.edit', $item->id) }}"
+                            style="background: #00BB2D; color: #ffff">
+                            <i class="fa fa-whatsapp"></i>
+                            </a>
                             @endif
 
-
-
-                            <a type="button" class="btn btn-outline-dark" href="{{ route('treminos.pdf', $item->id) }}">
+                            <a type="button" class="btn btn-sm btn-outline-dark" href="{{ route('treminos.pdf', $item->id) }}">
                                 PDF
                             </a>
+
+                            <!-- Botón para eliminar -->
+                            <form action="{{ route('terminos.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
