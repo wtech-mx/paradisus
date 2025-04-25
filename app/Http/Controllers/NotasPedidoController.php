@@ -629,7 +629,7 @@ class NotasPedidoController extends Controller
         $products = $this->obtenerProductosDesdeAPI($request);
 
         $productos_recepcion = $this->obtenerProductosDesdeAPI($request)
-        ->whereIn('id', [1302, 1301, 1300, 1726, 1299, 1329, 1334, 1377, 1330, 1332, 1342, 1343])
+        ->whereIn('id', [1302, 1301, 1300, 1726, 1299, 1329, 1334, 1377, 1330, 1332, 1342, 1343, 1694, 1695, 1693])
         ->values();
 
         $productos_manos = $this->obtenerProductosDesdeAPI($request)
