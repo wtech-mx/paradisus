@@ -21,7 +21,12 @@
                                     <div class="row">
                                         <div class="col-3">
                                             <label for="user_id">Seleccionar Cliente:</label>
-                                            <select class="form-control name" name="name" id="name"></select>
+                                            <select class="form-control cliente" name="id_client" id="id_client">
+                                                <option selected value="">seleccionar cliente</option>
+                                                @foreach($clients as $client)
+                                                    <option value="{{ $client->id }}">{{ $client->name }} {{ $client->last_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-3">
                                             <label for="user_id">Seleccionar Telefono:</label>
@@ -132,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-auto ms-sm-auto mt-sm-0 mt-3 d-flex">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -178,6 +183,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            $('.cliente').select2();
             $('.phone').select2({
                 placeholder: 'Buscar Teléfono',
                 ajax: {
@@ -208,8 +214,8 @@
                         return {
                             results: $.map(data, function (item) {
                                 return {
-                                    text: item.name,
-                                    id: item.name
+                                    text: item.name + ' ' + item.last_name, // Concatenar name y last_name
+                                    id: item.id // Puedes cambiar esto si necesitas usar otro identificador
                                 }
                             })
                         };

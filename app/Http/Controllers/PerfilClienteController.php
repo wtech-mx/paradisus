@@ -19,14 +19,16 @@ use Illuminate\Http\Request;
 class PerfilClienteController extends Controller
 {
     public function index(){
-
-        return view('client.perfil.index');
+        $clientes = Client::get();
+        return view('client.perfil.index', compact('clientes'));
     }
 
     public function searchName(Request $request){
         $search = $request->get('q');
 
-        $users = Client::where('name', 'LIKE', "%{$search}%")->get();
+        $users = Client::where('name', 'LIKE', "%{$search}%")
+        ->orWhere('last_name', 'LIKE', "%{$search}%")
+        ->get();
 
         // Combina los resultados y elimina duplicados
         $results = $users->unique('name');
@@ -47,7 +49,7 @@ class PerfilClienteController extends Controller
 
     public function buscador(Request $request){
         $phone = $request->phone;
-        $name = $request->name;
+        $name = $request->id_client;
 
         $cliente = null;
 
@@ -56,7 +58,7 @@ class PerfilClienteController extends Controller
         }
 
         if ($name !== null) {
-            $cliente = Client::where('name', '=', $name)->first();
+            $cliente = Client::where('id', '=', $name)->first();
         }
 
         return view('client.perfil.index', compact('cliente'));
