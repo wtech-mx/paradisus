@@ -410,6 +410,19 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('notas/productos/cabinas/store', [App\Http\Controllers\NotasPedidoController::class, 'store_cabinas'])->name('notas_cabinas.store');
     Route::get('notas/productos/cabinas/edit/{id}', [App\Http\Controllers\NotasPedidoController::class, 'edit_cabinas'])->name('notas_cabinas.edit');
 
+    // =============== M O D U L O  P E R F I L  C L I E N T E ===============================
+    Route::get('/perfil/cliente/index', [App\Http\Controllers\PerfilClienteController::class, 'index'])->name('peril_cliente.index');
+    Route::get('/perfil/cliente/buscador', [App\Http\Controllers\PerfilClienteController::class, 'buscador'])->name('peril_cliente.buscador');
+    Route::get('/perfil/cliente/informacion/{id}', [App\Http\Controllers\PerfilClienteController::class, 'informacion'])->name('peril_cliente.informacion');
+    Route::get('/perfil/cliente/search-phone', [App\Http\Controllers\PerfilClienteController::class, 'searchPhone'])->name('peril_cliente.searchPhone');
+    Route::get('/perfil/cliente/search-name', [App\Http\Controllers\PerfilClienteController::class, 'searchName'])->name('peril_cliente.searchName');
+
+    Route::get('/perfil/cliente/servicios/{id}', [App\Http\Controllers\PerfilClienteController::class, 'servicios'])->name('peril_cliente.servicios');
+    Route::get('/perfil/cliente/paquetes/{id}', [App\Http\Controllers\PerfilClienteController::class, 'paquetes'])->name('peril_cliente.paquetes');
+    Route::get('/perfil/cliente/laser/{id}', [App\Http\Controllers\PerfilClienteController::class, 'laser'])->name('peril_cliente.laser');
+    Route::get('/perfil/cliente/consentimientos/{id}', [App\Http\Controllers\PerfilClienteController::class, 'consentimientos'])->name('peril_cliente.consentimientos');
+    Route::get('/perfil/cliente/citas/{id}', [App\Http\Controllers\PerfilClienteController::class, 'citas'])->name('peril_cliente.citas');
+    Route::get('/perfil/cliente/productos/{id}', [App\Http\Controllers\PerfilClienteController::class, 'productos'])->name('peril_cliente.productos');
 });
 
 Route::get('/firma_sueldo/{id}', [App\Http\Controllers\RegistroSemanalController::class, 'index_sueldo'])->name('index.sueldos');

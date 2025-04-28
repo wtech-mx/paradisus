@@ -63,6 +63,15 @@
             </div>
         @endcan
 
+        <li class="nav-item">
+            <a class="nav-link {{ (Request::is('peril/cliente/*') ? 'active' : '') }}" href="{{ route('peril_cliente.index') }}">
+                <div class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
+                    <i class="fa fa-female text-sm opacity-10" style="color: #344767"></i>
+                </div>
+                <span class="nav-link-text ms-1">Perfil Cliente</span>
+            </a>
+        </li>
+        
         @can('client-list')
             <li class="nav-item">
             <a class="nav-link {{ (Request::is('clients*') ? 'active' : '') }}" href="{{ route('clients.index') }}" target="">
@@ -507,7 +516,7 @@
         @endcan
 
       </ul>
-      
+
     </div>
 
   </aside>
