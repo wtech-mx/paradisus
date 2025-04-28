@@ -19,10 +19,27 @@ class ConsentimientoFacialController extends Controller
     public function store(Request $request)
     {
         $fechaActual = date('Y-m-d');
+        if($request->get('id_client') == NULL){
+            if (Client::where('phone', $request->get('phone'))->exists()) {
+                $client = Client::where('phone', $request->get('phone'))->first();
+                $payer2 = $client->id;
+            } else {
+                $client = new Client();
+                $client->name = $request->get('name');
+                $client->last_name = $request->get('last_name');
+                $client->phone = $request->get('phone');
+                $client->save();
+                $client2 = Client::where('phone', '=', $request->get('phone'))->first();
+                $payer2 = $client2->id;
+            }
+        }else{
+            $payer2 = $request->get('id_client');
+        }
 
         if($request->get('consentimiento') == '1'){
             $ConcentimientoFacial = new ConcentimientoFacial;
-            $ConcentimientoFacial->id_client = $request->get('id_client');
+            $ConcentimientoFacial->id_client = $payer2;
+            
             $ConcentimientoFacial->fecha = $fechaActual;
             $ConcentimientoFacial->save();
 
@@ -40,7 +57,7 @@ class ConsentimientoFacialController extends Controller
 
         if($request->get('consentimiento') == '2'){
             $ConcentimientoCorporal = new ConsentimientoCorporal;
-            $ConcentimientoCorporal->id_client = $request->get('id_client');
+            $ConcentimientoCorporal->id_client = $payer2;
             $ConcentimientoCorporal->fecha = $fechaActual;
             $ConcentimientoCorporal->save();
 
@@ -58,7 +75,7 @@ class ConsentimientoFacialController extends Controller
 
         if($request->get('consentimiento') == '3'){
             $LashLifting = new LashLifting;
-            $LashLifting->id_client = $request->get('id_client');
+            $LashLifting->id_client = $payer2;
             $LashLifting->fecha = $fechaActual;
             $LashLifting->save();
 
@@ -76,7 +93,7 @@ class ConsentimientoFacialController extends Controller
 
         if($request->get('consentimiento') == '4'){
             $Jacuzzi = new ConsentimeintoJacuzzi;
-            $Jacuzzi->id_client = $request->get('id_client');
+            $Jacuzzi->id_client = $payer2;
             $Jacuzzi->fecha = $fechaActual;
             $Jacuzzi->save();
 

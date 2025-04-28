@@ -47,7 +47,7 @@
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300  position-absolute w-100" style="background-color: {{$configuracion->color_principal}}!important;"></div>
   <div id="page-loader"><span class="preloader-interior"></span></div>
-
+  @include('client.create_cons')
    <!-- Sidenav -->
     @include('layouts.sidebar')
 
@@ -58,7 +58,7 @@
     <!-- End Navbar -->
     @include('sueldo_cosmes.crear')
     @include('paquetes_servicios.show')
-    
+
     <div class="container-fluid">
 
         {{-- @include('layouts.header') --}}
@@ -105,20 +105,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="{{ asset('assets/js/preloader.js')}}"></script>
 
-    <script>
-        const formContainer = document.getElementById('form-container');
-        const openFormButton = document.getElementById('open-form');
-
-        openFormButton.addEventListener('click', () => {
-            formContainer.style.display = 'block';
-        });
-
-        formContainer.addEventListener('click', (event) => {
-            if (event.target === formContainer) {
-                formContainer.style.display = 'none';
-            }
-        });
-    </script>
   @yield('datatable')
 
   @yield('fullcalendar')

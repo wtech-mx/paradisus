@@ -93,11 +93,11 @@
             <div class="collapse " id="pagesConsentimientos">
                 <ul class="nav ms-4">
                 <li class="nav-item ">
-                    <a class="nav-link {{ (Request::is('clients/facial*') ? 'show' : '') }}" id="open-form">
+                    <a type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCons" >
                         <span class="sidenav-mini-icon"> P </span>
                         <span class="sidenav-normal">Crear Consentimiento</span>
                     </a>
-                    @include('client.create_cons')
+
                     <a class="nav-link {{ (Request::is('clients/facial*') ? 'show' : '') }}" href="{{ route('clients_facial.index') }}">
                         <span class="sidenav-mini-icon"> P </span>
                         <span class="sidenav-normal">Facial/Corporal</span>
@@ -507,7 +507,7 @@
         @endcan
 
       </ul>
-
+      
     </div>
 
   </aside>
