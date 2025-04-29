@@ -19,7 +19,7 @@
                             <button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                 Agregar <img src="{{ asset('assets/icons/cliente.png') }}" alt="" width="25px">
                             </button>
-                            <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client">
+                            <select class="form-control cliente_modl_conse" id="id_client" name="id_client">
                                 <option value="">- - - Seleccionar un cliente - - -</option>
                                 @foreach ($clients as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }} - {{ $item->phone }}</option>

@@ -183,7 +183,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.cliente').select2();
+
             $('.phone').select2({
                 placeholder: 'Buscar Teléfono',
                 ajax: {

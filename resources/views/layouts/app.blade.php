@@ -103,6 +103,7 @@
   @include('sweetalert::alert')
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
   <script src="{{ asset('assets/js/preloader.js')}}"></script>
 
   @yield('datatable')
@@ -115,6 +116,29 @@
 
   @yield('select2')
 
+
+  <!-- Select2 JS -->
+  <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js') }}"></script>
+
+  <script>
+  $(function(){
+    // Cuando el modal ya esté totalmente mostrado…
+    $('#exampleModalCons').on('shown.bs.modal', function(){
+      // Inicializa Select2 dentro de él, con dropdownParent
+      $('#id_client', this).select2({
+        dropdownParent: $(this),
+        width: '100%',
+        placeholder: '- - - Seleccionar un cliente - - -',
+        allowClear: true
+      });
+    });
+
+    // Cuando el modal se cierra, destruye la instancia (para no "duplicar" la inicialización)
+    $('#exampleModalCons').on('hidden.bs.modal', function(){
+      $('#id_client', this).select2('destroy');
+    });
+  });
+  </script>
 </body>
 
 </html>
