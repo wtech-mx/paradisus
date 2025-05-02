@@ -197,7 +197,7 @@
                                                     </div>
                                             </div>
 
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                     <label for="name">Precio *</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1">
@@ -221,8 +221,8 @@
                                                     <input class="form-check-input" type="checkbox" name="check_desc1" id="check_desc1" value="1">
                                                 </div>
                                             </div>
-                                            <div class="col-3">
-                                                <label>Descuento adicional (%)</label>
+                                            <div class="col-2">
+                                                <label>Descuento Porcentaje</label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
@@ -230,7 +230,15 @@
                                                     <input type="number" id="descuento-adicional1" name="descuento" class="form-control">
                                                 </div>
                                             </div>
-
+                                            <div class="col-2">
+                                                <label>Descuento Fijo</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
+                                                    </span>
+                                                    <input type="number" id="decuento_fijo1" name="decuento_fijo1" class="form-control">
+                                                </div>
+                                            </div>
                                         </div>
 
                                         {{-- A G R E G A R  M A S  S E R V I C I O S --}}
@@ -259,8 +267,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-3">
-                                                            <label for="name">Total</label>
+                                                    <div class="col-2">
+                                                            <label for="name">Precio</label>
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text" id="basic-addon1">
                                                                     <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
@@ -280,13 +288,22 @@
                                                             <input class="form-check-input" type="checkbox" name="check_desc2" id="check_desc2" value="1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-3">
-                                                        <label for="name">Descuento adicional (%)</label>
+                                                    <div class="col-2">
+                                                        <label for="name">Descuento Porcentaje</label>
                                                         <div class="input-group mb-3">
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
                                                             </span>
                                                             <input type="number" id="descuento-adicional2" name="descuento2" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <label>Descuento Fijo</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="decuento_fijo2" name="decuento_fijo2" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -315,8 +332,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-3">
-                                                        <label for="name">Total</label>
+                                                    <div class="col-2">
+                                                        <label for="name">Precio</label>
                                                         <div class="input-group mb-3">
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
@@ -336,13 +353,22 @@
                                                             <input class="form-check-input" type="checkbox" name="check_desc3" id="check_desc3" value="1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-3">
-                                                        <label for="name">Descuento adicional (%)</label>
+                                                    <div class="col-2">
+                                                        <label for="name">Descuento Porcentaje</label>
                                                         <div class="input-group mb-3">
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
                                                             </span>
                                                             <input type="number" id="descuento-adicional3" name="descuento3" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <label>Descuento Fijo</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="decuento_fijo3" name="decuento_fijo3" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -370,8 +396,8 @@
                                                             <input type="number" id="num4" name="num4" class="form-control" value="1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-3">
-                                                        <label for="name">Total</label>
+                                                    <div class="col-2">
+                                                        <label for="name">Precio</label>
                                                         <div class="input-group mb-3">
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
@@ -391,15 +417,23 @@
                                                             <input class="form-check-input" type="checkbox" name="check_desc4" id="check_desc4" value="1">
                                                         </div>
                                                     </div>
-                                                    <div class="col-3">
-                                                        <label for="name">Descuento adicional (%)</label>
+                                                    <div class="col-2">
+                                                        <label for="name">Descuento Porcentaje</label>
                                                         <div class="input-group mb-3">
                                                             <span class="input-group-text" id="basic-addon1">
                                                                 <img src="{{ asset('assets/icons/descuentos.png') }}" alt="" width="25px">
                                                             </span>
                                                             <input type="number" id="descuento-adicional4" name="descuento4" class="form-control">
                                                         </div>
-
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <label>Descuento Fijo</label>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <img src="{{ asset('assets/icons/money.png') }}" alt="" width="25px">
+                                                            </span>
+                                                            <input type="number" id="decuento_fijo4" name="decuento_fijo4" class="form-control">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -635,89 +669,92 @@
 
     <script>
         // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-        $('.servicio1, #num1, #descuento-adicional1').change(function() {
+        $('.servicio1, #num1, #descuento-adicional1, #decuento_fijo1').on('change input', function() {
             var selectedService = $('.servicio1 option:selected');
             var precio = selectedService.data('precio');
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
-            var cantidad = parseInt($('#num1').val());
-            var descuentoAdicional = parseInt($('#descuento-adicional1').val()) || 0; // Descuento adicional ingresado
+            var cantidad = parseInt($('#num1').val()) || 0;
+            var descuentoAdicional = parseFloat($('#descuento-adicional1').val()) || 0; // %
+            var descuentoFijo = parseFloat($('#decuento_fijo1').val()) || 0; // pesos
 
-            // Calcular el subtotal usando el precio
             var subtotal = cantidad * precio;
 
             $('#total').val(precio);
-
             $('#totalConDescuento1').val(descuento);
 
             var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-            var total = subtotal - descuentoTotal;
+            var total = subtotal - descuentoTotal - descuentoFijo;
+            total = total < 0 ? 0 : total;
 
-            $('#total').val(total);
+            $('#total').val(total.toFixed(2));
         });
 
         // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-        $('.servicio2, #num2, #descuento-adicional2').change(function() {
+        $('.servicio2, #num2, #descuento-adicional2, #decuento_fijo2').on('change input', function() {
             var selectedService = $('.servicio2 option:selected');
             var precio = selectedService.data('precio');
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num2').val());
             var descuentoAdicional = parseInt($('#descuento-adicional2').val()) || 0; // Descuento adicional ingresado
+            var descuentoFijo = parseFloat($('#decuento_fijo2').val()) || 0; // pesos
 
             // Calcular el subtotal usando el precio
             var subtotal = cantidad * precio;
 
             $('#total22').val(precio);
-
             $('#totalConDescuento2').val(descuento);
 
             var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-            var total = subtotal - descuentoTotal;
+            var total = subtotal - descuentoTotal - descuentoFijo;
+            total = total < 0 ? 0 : total;
 
             $('#total22').val(total);
         });
 
         // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-        $('.servicio3, #num3, #descuento-adicional3').change(function() {
+        $('.servicio3, #num3, #descuento-adicional3, #decuento_fijo3').on('change input', function() {
             var selectedService = $('.servicio3 option:selected');
             var precio = selectedService.data('precio');
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num3').val());
             var descuentoAdicional = parseInt($('#descuento-adicional3').val()) || 0; // Descuento adicional ingresado
+            var descuentoFijo = parseFloat($('#decuento_fijo3').val()) || 0; // pesos
 
             // Calcular el subtotal usando el precio
             var subtotal = cantidad * precio;
 
             $('#total33').val(precio);
-
             $('#totalConDescuento3').val(descuento);
 
             var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-            var total = subtotal - descuentoTotal;
+            var total = subtotal - descuentoTotal - descuentoFijo;
+            total = total < 0 ? 0 : total;
 
             $('#total33').val(total);
         });
 
         // Obtener el precio del servicio seleccionado y calcular el total al cambiar el servicio o la cantidad
-        $('.servicio4, #num4, #descuento-adicional4').change(function() {
+        $('.servicio4, #num4, #descuento-adicional4, #decuento_fijo4').on('change input', function() {
             var selectedService = $('.servicio4 option:selected');
             var precio = selectedService.data('precio');
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num4').val());
             var descuentoAdicional = parseInt($('#descuento-adicional4').val()) || 0; // Descuento adicional ingresado
+            var descuentoFijo = parseFloat($('#decuento_fijo4').val()) || 0; // pesos
 
             // Calcular el subtotal usando el precio
             var subtotal = cantidad * precio;
 
             $('#total44').val(precio);
-
             $('#totalConDescuento4').val(descuento);
 
             var descuentoTotal = (subtotal * descuentoAdicional) / 100;
-            var total = subtotal - descuentoTotal;
+            var total = subtotal - descuentoTotal - descuentoFijo;
+            total = total < 0 ? 0 : total;
 
             $('#total44').val(total);
         });
@@ -746,6 +783,7 @@
                 var actDescuento = selectedService.data('act-descuento');
                 var cantidad = parseInt($('#num' + i).val());
                 var descuentoAdicional = parseInt($('#descuento-adicional' + i).val()) || 0;
+                var descuentoFijo = parseFloat($('#decuento_fijo' + i).val()) || 0;
                 var checkDesc = $('#check_desc' + i).is(':checked');
 
                 if (!isNaN(cantidad) && !isNaN(descuentoAdicional)) {
@@ -756,7 +794,7 @@
                     }
                         console.log(subtotal);
                     var descuentoTotal = (subtotal * descuentoAdicional) / 100; // Calcular descuento adicional
-                    var total = subtotal - descuentoTotal;
+                    var total = subtotal - descuentoTotal - descuentoFijo;
 
                     $('#total' + i).val(total);
 
@@ -778,7 +816,7 @@
         calcularTotal();
 
         // Vincular el evento change a todos los campos relacionados para actualizar los totales al cambiar la selección o la cantidad
-        $('.servicio1, #num1, #descuento-adicional1, .servicio2, #num2, #descuento-adicional2, .servicio3, #num3, #descuento-adicional3, .servicio4, #num4, #descuento-adicional4, #precio, #propina').change(function() {
+        $('.servicio1, #num1, #descuento-adicional1, #decuento_fijo1, .servicio2, #num2, #descuento-adicional2, #decuento_fijo2, .servicio3, #num3, #descuento-adicional3, #decuento_fijo3, .servicio4, #num4, #descuento-adicional4, #decuento_fijo4, #precio, #propina').change(function() {
         calcularTotal();
         });
 
