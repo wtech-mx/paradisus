@@ -73,6 +73,8 @@ class BuscadorController extends Controller
             $paquete->id_servicio = 154;
         }elseif ($request->get('id_paquete') == 5){
             $paquete->id_servicio = 155;
+        }elseif ($request->get('id_paquete') == 6){
+            $paquete->id_servicio = 276;
         }
 
         if($request->get('descuento_5') == 1){

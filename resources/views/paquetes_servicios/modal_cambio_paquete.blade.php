@@ -30,6 +30,7 @@
                                     <option value="3" data-precio="5200">Moldeante & Reductivo</option>
                                     <option value="4" data-precio="4500">Drenante & Linfático</option>
                                     <option value="5" data-precio="4500">Glúteos Definido & Perfectos</option>
+                                    <option value="6" data-precio="4300">Piernas de 10 Anticelulítico & Reafirmante</option>
                                 </select>
                             </div>
 
