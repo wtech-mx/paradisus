@@ -39,10 +39,10 @@ class RegistroSemanalController extends Controller
         ->Join('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
-            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142, 270, 151, 153])
-                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153])
-                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153])
-                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153]);
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
         })
         ->select('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
@@ -56,10 +56,10 @@ class RegistroSemanalController extends Controller
             $query->whereNotIn('notas.id', function ($subquery) {
                 $subquery->select('id_nota')
                     ->from('notas_paquetes')
-                    ->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153])
-                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153])
-                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153])
-                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153]);
+                    ->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
             });
         })
         ->select('notas.*', DB::raw('MIN(pagos.pago) as primer_pago'))
@@ -121,22 +121,22 @@ class RegistroSemanalController extends Controller
                 $subquery->select('id_nota')
                     ->from('notas_paquetes')
                     ->where(function ($subquery) {
-                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153])
-                            ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153])
-                            ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153])
-                            ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153]);
+                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                            ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                            ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                            ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
                     })
                     ->orWhere(function ($subquery) {
-                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153])
-                            ->whereNotIn('id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153]);
+                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                            ->whereNotIn('id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
                     })
                     ->orWhere(function ($subquery) {
-                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153])
-                            ->whereNotIn('id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153]);
+                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                            ->whereNotIn('id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
                     })
                     ->orWhere(function ($subquery) {
-                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153])
-                            ->whereNotIn('id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153]);
+                        $subquery->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                            ->whereNotIn('id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
                     });
             });
         })
@@ -151,10 +151,10 @@ class RegistroSemanalController extends Controller
         ->Join('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
-            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142, 270, 151, 153])
-                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153])
-                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153])
-                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153]);
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
         })
         ->select('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
@@ -192,10 +192,10 @@ class RegistroSemanalController extends Controller
             $query->whereNotIn('notas.id', function ($subquery) {
                 $subquery->select('id_nota')
                     ->from('notas_paquetes')
-                    ->whereIn('id_servicio', [138, 139, 140, 141, 142, 270])
-                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142, 270])
-                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142, 270])
-                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142, 270]);
+                    ->whereIn('id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                    ->orWhereIn('id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                    ->orWhereIn('id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                    ->orWhereIn('id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
             });
         })
         ->groupBy('notas.id')
@@ -208,10 +208,10 @@ class RegistroSemanalController extends Controller
         ->Join('pagos', 'notas.id', '=', 'pagos.id_nota')
         ->whereBetween('notas.fecha', [$fechaInicioSemana, $fechaFinSemana])
         ->where(function($query) {
-            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142, 270])
-                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142, 270])
-                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142, 270])
-                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142, 270]);
+            $query->whereIn('notas_paquetes.id_servicio', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio2', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio3', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155])
+                ->orWhereIn('notas_paquetes.id_servicio4', [138, 139, 140, 141, 142, 270, 151, 153, 273, 155]);
         })
         ->select('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4', DB::raw('MIN(pagos.pago) as primer_pago'))
         ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
