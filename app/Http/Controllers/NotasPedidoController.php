@@ -627,7 +627,6 @@ class NotasPedidoController extends Controller
     public function create_cabinas(Request $request)
     {
         $products = $this->obtenerProductosDesdeAPI($request);
-
         $productos_recepcion = $this->obtenerProductosDesdeAPI($request)
         ->whereIn('id', [1302, 1301, 1300, 1726, 1299, 1329, 1334, 1377, 1330, 1332, 1342, 1343, 1694, 1695, 1693])
         ->values();
@@ -641,7 +640,7 @@ class NotasPedidoController extends Controller
             ->values();
 
         $productos_despedidas = $this->obtenerProductosDesdeAPI($request)
-            ->whereIn('id', [1275, 1282, 1393, 1365, 1596, 1320, 1322, 1284, 1283, 1382, 1293, 1311, 1318])
+            ->whereIn('id', [1317,1275, 1282, 1393, 1365, 1596, 1320, 1322, 1284, 1283, 1382, 1293, 1311, 1318,1285,1402,1379,1311,1928,1678,1773,1774	])
             ->values();
 
         return view('notas_pedidos.cabinas.create', [
@@ -652,7 +651,6 @@ class NotasPedidoController extends Controller
             'productos_despedidas' => $productos_despedidas->toArray(),
         ]);
     }
-
 
     public function store_cabinas(Request $request)
     {
