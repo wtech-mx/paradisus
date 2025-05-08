@@ -32,6 +32,12 @@ class NotasLacerController extends Controller
         return view('notas_lacer.index_consentimiento', compact('consentimiento'));
     }
 
+    public function index_avisos($id){
+        $consentimiento = ConsentimientoLaser::where('id_cliente', '=', $id)->first();
+
+        return view('notas_lacer.index_avisos', compact('consentimiento'));
+    }
+
     public function index(){
         $nota_lacer = NotasLacer::with(['Client', 'ZonasLaser'])->orderBy('id','DESC')->get();
 
@@ -815,6 +821,20 @@ class NotasLacerController extends Controller
                 file_put_contents($file, $image_base64);
 
                 $consentimiento->firma = $signature;
+            }
+
+            if($request->firma_aviso != NULL){
+                $folderPath = public_path('firmaCosme/'); // create signatures folder in public directory
+                $image_parts = explode(";base64,", $request->firma_aviso);
+                $image_type_aux = explode("firmaCosme/", $image_parts[0]);
+                $image_type = isset($image_type_aux[1]) ? $image_type_aux[1] : null;
+
+                $image_base64 = base64_decode($image_parts[1]);
+                $signature = uniqid() . '.png' ;
+                $file = $folderPath . $signature;
+                file_put_contents($file, $image_base64);
+
+                $consentimiento->firma_aviso = $signature;
             }
 
         $consentimiento->update();

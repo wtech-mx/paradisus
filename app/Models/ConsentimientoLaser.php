@@ -15,6 +15,7 @@ class ConsentimientoLaser extends Model
         'edad',
         'domicilio',
         'firma',
+        'firma_aviso',
     ];
 
     public function Client()

@@ -71,7 +71,9 @@
 
                                                 @can('client-list')
                                                     <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('edit_hoja_laser.lacer', $notas->Client->id) }}"><i class="fa fa-fw fa-pencil"></i> </a>
-                                                    <a class="btn btn-sm btn-danger" target="_blank" href="{{ route('index_consentimiento.laser', $notas->Client->id) }}"><i class="fa fa-fw fa-file-text-o"></i> </a>
+                                                    <a class="btn btn-sm btn-danger" target="_blank" href="{{ route('index_consentimiento.laser', $notas->Client->id) }}"><i class="fa fa-fw fa-file-text"></i> </a>
+                                                    <a class="btn btn-sm btn-dark" target="_blank" href="{{ route('index_avisos.laser', $notas->Client->id) }}"><i class="fa fa-bullhorn"></i> </a>
+
                                                 @endcan
                                             </td>
                                         </tr>
