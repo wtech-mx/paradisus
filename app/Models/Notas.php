@@ -53,4 +53,21 @@ class Notas extends Model
     {
         return $this->hasOne('App\Models\NotasCosmes', 'id_nota', 'id');
     }
+
+
+    public function NotasPaquetes()
+    {
+        return $this->hasOne(NotasPaquetes::class, 'id_nota', 'id');
+    }
+
+    public function NotasPropinas()
+    {
+        return $this->hasMany(NotasPropinas::class, 'id_nota', 'id');
+    }
+
+    // Si tienes tabla notas_extras:
+    public function Extras()
+    {
+        return $this->hasMany(NotasExtras::class, 'id_nota', 'id');
+    }
 }

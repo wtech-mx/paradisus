@@ -946,13 +946,26 @@ class NotasController extends Controller
      */
     public function destroy($id)
     {
+        $nota = Notas::findOrFail($id);
 
-        $nota = Notas::find($id)->delete();
+        // Borra las relaciones one-to-many y one-to-one
+        $nota->Encuesta()->delete();
+        $nota->Pagos()->delete();
+        $nota->NotasCosmes()->delete();
+        $nota->NotasPaquetes()->delete();
+        $nota->NotasPropinas()->delete();
+        // Si tienes NotasExtras, añade también:
+        if (method_exists($nota, 'Extras')) {
+            $nota->Extras()->delete();
+        }
 
-        Session::flash('delete', 'Se ha eliminado sus datos con exito');
-        return redirect()->route('notas.index')
-            ->with('delete', 'Nota Servicio Eliminado.');
+        // Finalmente borras la propia nota
+        $nota->delete();
+
+        Session::flash('delete', 'Se ha eliminado la nota y todos sus datos relacionados con éxito');
+        return redirect()->route('notas.index');
     }
+
 
     public function usuario($id)
     {
