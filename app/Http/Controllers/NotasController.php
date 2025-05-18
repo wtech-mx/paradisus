@@ -353,7 +353,7 @@ class NotasController extends Controller
                 $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
                 // Realiza la solicitud GET a la API de Clip
-              //  $client_gz = new GuzzleClient();
+               $client_gz = new GuzzleClient();
 
                 // Formatear los datos como JSON
                 $data_items = [
@@ -363,7 +363,7 @@ class NotasController extends Controller
                     'message' => $message
                 ];
 
-              //  $jsonData = json_encode($data_items);
+                $jsonData = json_encode($data_items);
 
 
                 $response = $client_gz->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
@@ -704,7 +704,7 @@ class NotasController extends Controller
                 $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
                 // Realiza la solicitud GET a la API de Clip
-                $client = new GuzzleClient();
+              //  $client = new GuzzleClient();
 
                 // Formatear los datos como JSON
                 $data_items = [
@@ -727,10 +727,10 @@ class NotasController extends Controller
 
                 ]);
 
-                $body = $response->getBody()->getContents();
+              //  $body = $response->getBody()->getContents();
 
                 // Decodificar el cuerpo si es JSON
-                $data = json_decode($body, true);
+             //   $data = json_decode($body, true);
 
             }
 
