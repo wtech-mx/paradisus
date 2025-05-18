@@ -702,7 +702,7 @@ class NotasPedidoController extends Controller
         $pedido = NotaReposicion::where('id', $id)->first();
         $pedido_productos = NotaReposicionProducto::where('id_nota', $id)->get();
 
-        $pedido_original = NotaReposicion::where('id', '!=', $pedido->id)->where('cabina', $pedido->cabina)->first();
+        $pedido_original = NotaReposicion::where('id', '!=', $pedido->id)->where('cabina', $pedido->cabina)->orderBy('fecha','desc')->first();
         if($pedido_original != NULL){
             $pedido_original_productos = NotaReposicionProducto::where('id_nota', $pedido_original->id)->get();
         }else{

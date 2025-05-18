@@ -308,6 +308,7 @@ class CajaController extends Controller
 
     public function imprimir_caja(){
         $diaActual = date('Y-m-d');
+       //$diaActual = '2025-05-17';
         $today =  date('d-m-Y');
 
         $bitacora = Bitacora::where('fecha','=',$diaActual)->get();
@@ -627,7 +628,6 @@ class CajaController extends Controller
         ->select(DB::raw('SUM(propina) as total'))
         ->first();
 
-        $diaActual = Carbon::now()->format('Y-m-d');
         $diaSemana = strtolower(Carbon::now()->locale('es')->dayName);
 
         // Mapeo de cabinas a nombres
@@ -672,12 +672,17 @@ class CajaController extends Controller
             $mensajesCabinas[] = "❌ No se realizó el inventario programado para la cabina {$cabinaHoy['cabina']} ({$cabinaHoy['nombre']}).";
         }
 
+        $encuestasMalas = Encuestas::negativas()
+        ->where('fecha', '=', $diaActual)
+        ->orderBy('created_at','desc')
+        ->get();
+
         $pdf = \PDF::loadView('caja.pdf_nuevo',['chart' => $chart,'chartmp' => $chartmp], compact('mensajesCabinas','propinas_efectivo', 'propinas_tarjeta', 'propinas_transferencia', 'propinas_suma','caja_dia_suma_cambios','sumaServiciosEfectivoCambio','suma_pago_tarjeta', 'suma_filas_tarjeta','suma_pago_mercado', 'suma_filas_mercado','suma_pago_trans',
         'suma_filas_trans','propinasHoy','caja_rep','paquetes','today', 'caja', 'servicios', 'productos_rep', 'caja_dia_suma', 'notas_paquetes', 'total_ing',
         'total_servicios_trans', 'total_servicios_mercado', 'total_servicios_tarjeta', 'total_producto_trans', 'total_producto_mercado', 'total_producto_tarjeta',
-        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta', 'caja_dia_suma_vista'));
-       //  return $pdf->stream();
-         return $pdf->download('Reporte Caja '.$today.'.pdf');
+        'total_paquetes_trans', 'total_paquetes_mercado', 'total_paquetes_tarjeta','bitacora', 'notas_laser', 'total_laser_trans', 'total_laser_mercado', 'total_laser_tarjeta', 'caja_dia_suma_vista', 'encuestasMalas'));
+        //  return $pdf->stream();
+        return $pdf->download('Reporte Caja '.$today.'.pdf');
     }
 
     public function imprimir_precorte(){

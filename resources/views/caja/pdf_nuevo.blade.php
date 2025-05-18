@@ -120,7 +120,6 @@
         </tbody>
     </table>
 
-
     <table class="table text-center">
         <thead style="background-color: #000; color: #fff">
             <tr>
@@ -1166,6 +1165,44 @@
             @endforeach
         </tbody>
     </table>
+
+    <h2 style="text-align: center;">Encuestas con valoración negativa <img src="{{ asset('assets/icons/satisfaction.png') }}" alt="" width="35px"></h2>
+    @if($encuestasMalas->isEmpty())
+      <p>No hay encuestas negativas.</p>
+    @else
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Atención</th>
+            <th>Profesionalismo</th>
+            <th>Limpieza</th>
+            <th>Dudas</th>
+            <th>Tiempo cumplido</th>
+            <th>Comentario</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($encuestasMalas as $e)
+            <tr @if(in_array($e->p1, ['mala','muy mala']) ||
+                     in_array($e->p2, ['mala','muy mala']) ||
+                     in_array($e->p3, ['mala','muy mala']) ||
+                     $e->p4=='no') class="table-danger" @endif>
+              <td>{{ $e->nombre ?? 'Anonimo' }}</td>
+              <td>{{ ucfirst($e->p2) }}</td>
+              <td>{{ ucfirst($e->p7) }}</td>
+              <td>{{ ucfirst($e->p8) }}</td>
+              <td>{{ ucfirst($e->p4) }}</td>
+              <td>{{ ucfirst($e->p14) }}</td>
+              <td>{{ $e->comentario }}</td>
+              <td>{{ $e->tipo }}</td>
+              {{-- <td>{{ $e->created_at->format('d/m/Y H:i') }}</td> --}}
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    @endif
 
   </div>
 </body>
