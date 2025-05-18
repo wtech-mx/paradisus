@@ -501,7 +501,6 @@
                                                         <img src="{{ asset('assets/icons/skincare.png') }}" alt="" width="25px">
                                                     </span>
                                                     <select class="form-control"  data-toggle="select" id="cosmetologa" name="cosmetologa" required>
-                                                        <option value="">Seleccionar cosme</option>
                                                         @foreach ($user as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
                                                         @endforeach
