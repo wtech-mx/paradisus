@@ -215,18 +215,22 @@ class NotasController extends Controller
         $nota_paquete->id_servicio = $request->get('id_servicio');
         $nota_paquete->num = $request->get('num1');
         $nota_paquete->descuento = $request->get('descuento');
+        $nota_paquete->decuento_fijo1 = $request->get('decuento_fijo1');
 
         $nota_paquete->id_servicio2 = $request->get('id_servicio2');
         $nota_paquete->num2 = $request->get('num2');
         $nota_paquete->descuento2 = $request->get('descuento2');
+        $nota_paquete->decuento_fijo2 = $request->get('decuento_fijo2');
 
         $nota_paquete->id_servicio3 = $request->get('id_servicio3');
         $nota_paquete->num3 = $request->get('num3');
         $nota_paquete->descuento3 = $request->get('descuento3');
+        $nota_paquete->decuento_fijo3 = $request->get('decuento_fijo3');
 
         $nota_paquete->id_servicio4 = $request->get('id_servicio4');
         $nota_paquete->num4 = $request->get('num4');
         $nota_paquete->descuento4 = $request->get('descuento4');
+        $nota_paquete->decuento_fijo4 = $request->get('decuento_fijo4');
 
         $nota_paquete->save();
 
