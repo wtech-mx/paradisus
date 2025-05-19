@@ -328,63 +328,63 @@ class NotasController extends Controller
             $pago->save();
 
 
-            if($request->get('forma_pago') == 'Tarjeta'){
+            // if($request->get('forma_pago') == 'Tarjeta'){
 
-                // Define las credenciales de la API
-                // $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
-                // $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+            //     // Define las credenciales de la API
+            //     // $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
+            //     // $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
 
-                $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
-                $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
-                //$token = 'Basic MjNiYjc0MzMtMWJhZS00ZjBkLTkyZjktZGM5Njk5MGE4ZWZiOmQ5YTYxYTdiLTI2NTgtNDFkMi05NmI4LWY2ZDIzNWRmYjVlOQ==';
-                // Genera el token de autorización
-                $token = base64_encode($apiKey . ':' . $clave);
+            //     $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
+            //     $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
+            //     //$token = 'Basic MjNiYjc0MzMtMWJhZS00ZjBkLTkyZjktZGM5Njk5MGE4ZWZiOmQ5YTYxYTdiLTI2NTgtNDFkMi05NmI4LWY2ZDIzNWRmYjVlOQ==';
+            //     // Genera el token de autorización
+            //     $token = base64_encode($apiKey . ':' . $clave);
 
-                if($request->get('name') != NULL){
-                   $nombre_cliente = $request->get('name');
-                }else{
-                    $client =  Client::find($request->get('id_client'));
-                    $nombre_cliente = $client->name;
-                }
+            //     if($request->get('name') != NULL){
+            //        $nombre_cliente = $request->get('name');
+            //     }else{
+            //         $client =  Client::find($request->get('id_client'));
+            //         $nombre_cliente = $client->name;
+            //     }
 
-                $cajera_id =  User::find($pago->cosmetologa);
-                $cajera = $cajera_id->name;
-
-
-                $amount = $request->get('pago');
-                $assigned_user = 'adrianwebtech@gmail.com';
-                $reference = $nota->id;
-                $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
-
-                // Realiza la solicitud GET a la API de Clip
-               $client_gz = new GuzzleClient();
-
-                // Formatear los datos como JSON
-                $data_items = [
-                    'amount' => (int)$amount,
-                    'assigned_user' => $assigned_user,
-                    'reference' => $reference,
-                    'message' => $message
-                ];
-
-                $jsonData = json_encode($data_items);
+            //     $cajera_id =  User::find($pago->cosmetologa);
+            //     $cajera = $cajera_id->name;
 
 
-                $response = $client_gz->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
-                    'body' => $jsonData,
-                    'headers' => [
-                        'accept' => 'application/vnd.com.payclip.v1+json',
-                        'content-type' => 'application/json; charset=UTF-8',
-                        'x-api-key' => 'Basic ' . $token,
-                      ],
+            //     $amount = $request->get('pago');
+            //     $assigned_user = 'adrianwebtech@gmail.com';
+            //     $reference = $nota->id;
+            //     $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
-                ]);
+            //     // Realiza la solicitud GET a la API de Clip
+            //    $client_gz = new GuzzleClient();
 
-              //  $body = $response->getBody()->getContents();
+            //     // Formatear los datos como JSON
+            //     $data_items = [
+            //         'amount' => (int)$amount,
+            //         'assigned_user' => $assigned_user,
+            //         'reference' => $reference,
+            //         'message' => $message
+            //     ];
 
-                // Decodificar el cuerpo si es JSON
-               // $data = json_decode($body, true);
-            }
+            //     $jsonData = json_encode($data_items);
+
+
+            //     $response = $client_gz->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
+            //         'body' => $jsonData,
+            //         'headers' => [
+            //             'accept' => 'application/vnd.com.payclip.v1+json',
+            //             'content-type' => 'application/json; charset=UTF-8',
+            //             'x-api-key' => 'Basic ' . $token,
+            //           ],
+
+            //     ]);
+
+            //   //  $body = $response->getBody()->getContents();
+
+            //     // Decodificar el cuerpo si es JSON
+            //    // $data = json_decode($body, true);
+            // }
 
         }
 
@@ -682,61 +682,61 @@ class NotasController extends Controller
             $pago->save();
 
 
-            if($request->get('forma_pago') == 'Tarjeta'){
+            // if($request->get('forma_pago') == 'Tarjeta'){
 
-                // Define las credenciales de la API
-                $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
-                $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
+            //     // Define las credenciales de la API
+            //     $apiKey = '70f7c836-9e76-4303-ad9f-e9768633da6d';
+            //     $clave = '0d32cc34-098a-455b-8873-f4c0434e44e0';
 
-                // Genera el token de autorización
-                $token = base64_encode($apiKey . ':' . $clave);
+            //     // Genera el token de autorización
+            //     $token = base64_encode($apiKey . ':' . $clave);
 
-                if($request->get('name') != NULL){
-                   $nombre_cliente = $request->get('name');
-                }else{
-                    $client =  Client::find($request->get('id_client'));
-                    $nombre_cliente = $client->name;
-                }
+            //     if($request->get('name') != NULL){
+            //        $nombre_cliente = $request->get('name');
+            //     }else{
+            //         $client =  Client::find($request->get('id_client'));
+            //         $nombre_cliente = $client->name;
+            //     }
 
-                $cajera_id =  User::find($pago->cosmetologa);
-                $cajera = $cajera_id->name;
-
-
-                $amount = $request->get('pago');
-                $assigned_user = 'ventas@paradisus.com.mx';
-                $reference = $nota->id;
-                $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
-
-                // Realiza la solicitud GET a la API de Clip
-              //  $client = new GuzzleClient();
-
-                // Formatear los datos como JSON
-                $data_items = [
-                    'amount' => (int)$amount,
-                    'assigned_user' => $assigned_user,
-                    'reference' => $reference,
-                    'message' => $message
-                ];
+            //     $cajera_id =  User::find($pago->cosmetologa);
+            //     $cajera = $cajera_id->name;
 
 
-                $jsonData = json_encode($data_items);
+            //     $amount = $request->get('pago');
+            //     $assigned_user = 'ventas@paradisus.com.mx';
+            //     $reference = $nota->id;
+            //     $message = 'Nota :#'.$nota->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
-                $response = $client->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
-                    'body' => $jsonData,
-                    'headers' => [
-                        'accept' => 'application/vnd.com.payclip.v1+json',
-                        'content-type' => 'application/json; charset=UTF-8',
-                        'x-api-key' => 'Basic ' . $token,
-                      ],
+            //     // Realiza la solicitud GET a la API de Clip
+            //   //  $client = new GuzzleClient();
 
-                ]);
+            //     // Formatear los datos como JSON
+            //     $data_items = [
+            //         'amount' => (int)$amount,
+            //         'assigned_user' => $assigned_user,
+            //         'reference' => $reference,
+            //         'message' => $message
+            //     ];
 
-              //  $body = $response->getBody()->getContents();
 
-                // Decodificar el cuerpo si es JSON
-             //   $data = json_decode($body, true);
+            //     $jsonData = json_encode($data_items);
 
-            }
+            //     $response = $client->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
+            //         'body' => $jsonData,
+            //         'headers' => [
+            //             'accept' => 'application/vnd.com.payclip.v1+json',
+            //             'content-type' => 'application/json; charset=UTF-8',
+            //             'x-api-key' => 'Basic ' . $token,
+            //           ],
+
+            //     ]);
+
+            //   //  $body = $response->getBody()->getContents();
+
+            //     // Decodificar el cuerpo si es JSON
+            //  //   $data = json_decode($body, true);
+
+            // }
 
         }else{
             $pago = '';

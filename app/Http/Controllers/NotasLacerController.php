@@ -274,59 +274,59 @@ class NotasLacerController extends Controller
             }
             $pago->save();
 
-            if($request->get('forma_pago') == 'Tarjeta'){
+            // if($request->get('forma_pago') == 'Tarjeta'){
 
-                // Define las credenciales de la API
-                $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
-                $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
+            //     // Define las credenciales de la API
+            //     $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
+            //     $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
 
-                // Genera el token de autorización
-                $token = base64_encode($apiKey . ':' . $clave);
+            //     // Genera el token de autorización
+            //     $token = base64_encode($apiKey . ':' . $clave);
 
-                if($request->get('name') != NULL){
-                   $nombre_cliente = $request->get('name');
-                }else{
-                    $client =  Client::find($request->get('id_client'));
-                    $nombre_cliente = $client->name;
-                }
+            //     if($request->get('name') != NULL){
+            //        $nombre_cliente = $request->get('name');
+            //     }else{
+            //         $client =  Client::find($request->get('id_client'));
+            //         $nombre_cliente = $client->name;
+            //     }
 
-                $cajera_id =  User::find($nota_laser->id_user);
-                $cajera = $cajera_id->name;
+            //     $cajera_id =  User::find($nota_laser->id_user);
+            //     $cajera = $cajera_id->name;
 
 
-                $amount = $request->get('pago');
-                $assigned_user = 'ventas@paradisus.com.mx';
-                $reference = $nota_laser->id;
-                $message = 'N Laser :#'.$nota_laser->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
+            //     $amount = $request->get('pago');
+            //     $assigned_user = 'ventas@paradisus.com.mx';
+            //     $reference = $nota_laser->id;
+            //     $message = 'N Laser :#'.$nota_laser->id.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
-                // Realiza la solicitud GET a la API de Clip
-                $client = new GuzzleClient();
+            //     // Realiza la solicitud GET a la API de Clip
+            //     $client = new GuzzleClient();
 
-                // Formatear los datos como JSON
-                $data_items = [
-                    'amount' => (int)$amount,
-                    'assigned_user' => $assigned_user,
-                    'reference' => $reference,
-                    'message' => $message
-                ];
-                $jsonData = json_encode($data_items);
+            //     // Formatear los datos como JSON
+            //     $data_items = [
+            //         'amount' => (int)$amount,
+            //         'assigned_user' => $assigned_user,
+            //         'reference' => $reference,
+            //         'message' => $message
+            //     ];
+            //     $jsonData = json_encode($data_items);
 
-                $response = $client->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
-                    'body' => $jsonData,
-                    'headers' => [
-                        'accept' => 'application/vnd.com.payclip.v1+json',
-                        'content-type' => 'application/json; charset=UTF-8',
-                        'x-api-key' => 'Basic ' . $token,
-                      ],
+            //     $response = $client->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
+            //         'body' => $jsonData,
+            //         'headers' => [
+            //             'accept' => 'application/vnd.com.payclip.v1+json',
+            //             'content-type' => 'application/json; charset=UTF-8',
+            //             'x-api-key' => 'Basic ' . $token,
+            //           ],
 
-                ]);
+            //     ]);
 
-                $body = $response->getBody()->getContents();
+            //     $body = $response->getBody()->getContents();
 
-                // Decodificar el cuerpo si es JSON
-                $data = json_decode($body, true);
+            //     // Decodificar el cuerpo si es JSON
+            //     $data = json_decode($body, true);
 
-            }
+            // }
 
         }
 
@@ -698,56 +698,56 @@ class NotasLacerController extends Controller
 
             $pago->save();
 
-            if($request->get('forma_pago') == 'Tarjeta'){
+            // if($request->get('forma_pago') == 'Tarjeta'){
 
-                // Define las credenciales de la API
-                $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
-                $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
+            //     // Define las credenciales de la API
+            //     $apiKey = '23bb7433-1bae-4f0d-92f9-dc96990a8efb';
+            //     $clave = 'd9a61a7b-2658-41d2-96b8-f6d235dfb5e9';
 
-                // Genera el token de autorización
-                $token = base64_encode($apiKey . ':' . $clave);
+            //     // Genera el token de autorización
+            //     $token = base64_encode($apiKey . ':' . $clave);
 
-                if($request->get('name') != NULL){
-                   $nombre_cliente = $request->get('name');
-                }
+            //     if($request->get('name') != NULL){
+            //        $nombre_cliente = $request->get('name');
+            //     }
 
-                $cajera_id =  User::find($pago->id_user);
-                $cajera = $cajera_id->name;
+            //     $cajera_id =  User::find($pago->id_user);
+            //     $cajera = $cajera_id->name;
 
 
-                $amount = $pago->pago;
-                $assigned_user = 'ventas@paradisus.com.mx';
-                $reference = $pago->id_nota;
-                $message = 'N Laser :#'.$pago->id_nota.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
+            //     $amount = $pago->pago;
+            //     $assigned_user = 'ventas@paradisus.com.mx';
+            //     $reference = $pago->id_nota;
+            //     $message = 'N Laser :#'.$pago->id_nota.' / Cajero : '.$cajera.' / Cliente : '.$nombre_cliente;
 
-                // Realiza la solicitud GET a la API de Clip
-                $client_gz = new GuzzleClient();
+            //     // Realiza la solicitud GET a la API de Clip
+            //     $client_gz = new GuzzleClient();
 
-                // Formatear los datos como JSON
-                $data_items = [
-                    'amount' => (int)$amount,
-                    'assigned_user' => $assigned_user,
-                    'reference' => $reference,
-                    'message' => $message
-                ];
-                $jsonData = json_encode($data_items);
+            //     // Formatear los datos como JSON
+            //     $data_items = [
+            //         'amount' => (int)$amount,
+            //         'assigned_user' => $assigned_user,
+            //         'reference' => $reference,
+            //         'message' => $message
+            //     ];
+            //     $jsonData = json_encode($data_items);
 
-                $response = $client_gz->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
-                    'body' => $jsonData,
-                    'headers' => [
-                        'accept' => 'application/vnd.com.payclip.v1+json',
-                        'content-type' => 'application/json; charset=UTF-8',
-                        'x-api-key' => 'Basic ' . $token,
-                      ],
+            //     $response = $client_gz->request('POST', 'https://api-gw.payclip.com/paymentrequest', [
+            //         'body' => $jsonData,
+            //         'headers' => [
+            //             'accept' => 'application/vnd.com.payclip.v1+json',
+            //             'content-type' => 'application/json; charset=UTF-8',
+            //             'x-api-key' => 'Basic ' . $token,
+            //           ],
 
-                ]);
+            //     ]);
 
-                $body = $response->getBody()->getContents();
+            //     $body = $response->getBody()->getContents();
 
-                // Decodificar el cuerpo si es JSON
-                $data = json_decode($body, true);
+            //     // Decodificar el cuerpo si es JSON
+            //     $data = json_decode($body, true);
 
-            }
+            // }
 
 
         }else{
