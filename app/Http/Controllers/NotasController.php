@@ -499,6 +499,18 @@ class NotasController extends Controller
         return view('notas.edit',compact('client', 'servicio', 'user', 'pago', 'nota_cosme', 'notas_paquetes', 'notas_extras','notas_propinas', 'notas', 'sesiones'));
     }
 
+    public function destroyNotaPago($id){
+            $pago = Pagos::findOrFail($id);
+
+            // Eliminar bitácoras relacionadas
+            Bitacora::where('id_pago', $pago->id)->delete();
+
+            // Luego eliminar el pago
+            $pago->delete();
+
+            return response()->json(['success' => true]);
+    }
+
     public function propina_store(Request $request){
         $notas_propinas = new NotasPropinas;
         $fechaActual = date('Y-m-d');

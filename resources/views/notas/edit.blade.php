@@ -333,73 +333,82 @@
                                                     <label  class="form-check-label" for="editarCamposSi">Sí</label>
                                                 </div>
                                             </div>
+                                            <p style="display: none">{{ $resultado = 0; }}</p>
+                                            <table class="container_pagos table table-bordered table-responsive">
 
-                                            <div class="row text-center container_pagos">
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Fecha</div>
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Usuario</div>
-                                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Pago</div>
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Dinero recibido</div>
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Metodo </div>
-                                                <div class="col-2" style="background-color: #bb546c; color: #fff;">Nota</div>
-                                                <div class="col-1" style="background-color: #bb546c; color: #fff;">Foto</div>
+                                                <thead class="text-center" style="background-color: #bb546c; color: white;">
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Usuario</th>
+                                                        <th>Pago</th>
+                                                        <th>Dinero recibido</th>
+                                                        <th>Método</th>
+                                                        <th>Nota</th>
+                                                        <th>Foto</th>
+                                                        <th>Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($pago as $item)
+                                                    <tr id="pago-fila-{{ $item->id }}">
 
-                                                <p style="display: none">{{ $resultado = 0; }}</p>
+                                                        <input id="pago_{{ $item->id }}" name="pago_id_edit[]" type="hidden" class="form-control" value="{{ $item->id }}">
+                                                         <p style="display: none">{{ $resultado += $item->pago; }}</p>
 
-                                                @foreach ($pago as $item)
+                                                        <td>
+                                                            <input name="fecha_pago_edit[]" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" disabled>
+                                                        </td>
 
-                                                    <input id="pago_{{ $item->id }}" name="pago_id_edit[]" type="hidden" class="form-control" value="{{ $item->id }}">
+                                                        <td>
+                                                            <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa_edit[]" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                                data-on="Active" data-off="InActive">
+                                                                <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
+                                                                @foreach ($user as $cosmes)
+                                                                    <option value="{{ $cosmes->id }}" >{{ $cosmes->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
 
+                                                        <td>
+                                                            <input name="pago_edit[]" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" disabled>
+                                                        </td>
 
-                                                    <p style="display: none">{{ $resultado += $item->pago; }}</p>
+                                                        <td>
+                                                            <input name="dinero_recibido_edit[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" disabled>
+                                                        </td>
 
-                                                    <div class="col-2 py-2 p-1" >
-                                                        <input name="fecha_pago_edit[]" type="date" class="form-control text-center" id="fecha_pago" value="{{$item->fecha}}" disabled>
-                                                    </div>
+                                                        <td>
+                                                            <select class="form-control toggle-class" id="cosmetologa" name="forma_pago_edit[]" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                                data-on="Active" data-off="InActive">
+                                                                <option value="{{$item->forma_pago}}">{{$item->forma_pago}}</option>
+                                                                <option value="Efectivo">Efectivo</option>
+                                                                <option value="Transferencia">Transferencia</option>
+                                                                <option value="Mercado Pago">Mercado Pago</option>
+                                                                <option value="Tarjeta">Tarjeta</option>
+                                                            </select>
+                                                        </td>
 
-                                                    <div class="col-2 py-2 p-1" >
-                                                        <select class="form-control toggle-class" id="cosmetologa" name="cosmetologa_edit[]" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                            data-on="Active" data-off="InActive">
-                                                            <option value="{{$item->cosmetologa}}">{{ $item->User->name }}</option>
-                                                            @foreach ($user as $cosmes)
-                                                                <option value="{{ $cosmes->id }}" >{{ $cosmes->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                        <td>
+                                                            <textarea class="form-control text-center" name="nota_edit[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
+                                                        </td>
 
-                                                    <div class="col-1 py-2 p-1" >
-                                                        <input name="pago_edit[]" type="number" class="form-control text-center pago-existente" id="pago_{{ $item->id }}" value="{{$item->pago}}" disabled>
-                                                    </div>
+                                                        <td>
+                                                            @if ($item->foto)
+                                                                <a href="{{ asset('foto_servicios/' . $item->foto) }}" target="_blank">Ver</a>
+                                                            @else
+                                                                SF
+                                                            @endif
+                                                        </td>
 
-                                                    <div class="col-2 py-2 p-1" >
-                                                        <input name="dinero_recibido_edit[]" type="number" class="form-control text-center" id="pago_{{ $item->id }}" value="{{$item->dinero_recibido}}" disabled>
-                                                    </div>
-
-                                                    <div class="col-2 py-2 p-1" >
-                                                        <select class="form-control toggle-class" id="cosmetologa" name="forma_pago_edit[]" data-toggle="select" data-id="{{ $item->id }}" data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                            data-on="Active" data-off="InActive">
-                                                            <option value="{{$item->forma_pago}}">{{$item->forma_pago}}</option>
-                                                            <option value="Efectivo">Efectivo</option>
-                                                            <option value="Transferencia">Transferencia</option>
-                                                            <option value="Mercado Pago">Mercado Pago</option>
-                                                            <option value="Tarjeta">Tarjeta</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-2 py-2 p-1" >
-                                                        <textarea class="form-control text-center" name="nota_edit[]" id="nota[]" cols="3" rows="1" disabled>{{$item->nota}}</textarea>
-                                                    </div>
-
-                                                    @if ($item->foto == NULL)
-                                                        <a href=""></a>
-                                                    @else
-                                                        <div class="col-1 py-2 p-1">
-                                                            <a target="_blank" href="{{asset('foto_servicios/'.$item->foto)}}">Ver</a>
-                                                        </div>
-                                                    @endif
-
-                                                @endforeach
-
-                                            </div>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger btn-sm btn-eliminar-pago" data-id="{{ $item->id }}">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
 
                                             <div class="mt-4">
                                                 <div class="row">
@@ -726,6 +735,35 @@
                 $('.servicio4').select2();
                 $('.cosme_sesion_edit').select2();
 
+                $('.btn-eliminar-pago').on('click', function () {
+                    var pagoId = $(this).data('id');
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "¡Esto eliminará el pago!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/destoy/pagos/nota/' + pagoId,
+                                type: 'DELETE',
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function (response) {
+                                    $('#pago-fila-' + pagoId).remove(); // Solo elimina esa fila
+                                    Swal.fire('Eliminado', 'El pago fue eliminado.', 'success');
+                                },
+                                error: function () {
+                                    Swal.fire('Error', 'No se pudo eliminar.', 'error');
+                                }
+                            });
+                        }
+                    });
+                });
 
             // Obtiene los radio buttons de editar campos
             var radioEditarNo = document.getElementById('editarCamposNo');
@@ -738,8 +776,7 @@
             // Función para cambiar el estado de los campos
             function toggleCampos() {
                 // Obtiene todos los elementos de tipo input, select y textarea dentro de la fila
-                var campos = document.querySelectorAll('.container_pagos input, .container_pagos select, .container_pagos textarea');
-
+                   var campos = document.querySelectorAll('.container_pagos input, .container_pagos select, .container_pagos textarea');
                 // Itera sobre los campos y cambia el estado disabled según el estado del radio button
                 campos.forEach(function(campo) {
                     campo.disabled = !radioEditarSi.checked; // Habilita/deshabilita según el estado del radio button 'Sí'

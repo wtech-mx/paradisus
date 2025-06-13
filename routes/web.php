@@ -201,6 +201,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/notas/servicios/store', [App\Http\Controllers\NotasController::class, 'create'])->name('notas.create');
     Route::post('/notas/servicios/create', [App\Http\Controllers\NotasController::class, 'store'])->name('notas.store');
     Route::get('/notas/servicios/edit/{id}', [App\Http\Controllers\NotasController::class, 'edit'])->name('notas.edit');
+
+    Route::delete('/destoy/pagos/nota/{id}', [App\Http\Controllers\NotasController::class, 'destroyNotaPago'])->name('destroyNotaPago');
+
     Route::patch('/notas/servicios/update/{id}', [App\Http\Controllers\NotasController::class, 'update'])->name('notas.update');
     Route::delete('/notas/servicios/delete/{id}', [App\Http\Controllers\NotasController::class, 'destroy'])->name('notas.destroy');
     Route::get('/notas/servicios/print/{id}', [App\Http\Controllers\NotasController::class, 'usuario_print'])->name('notas.print');
