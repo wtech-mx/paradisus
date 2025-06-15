@@ -388,12 +388,39 @@ class PaquetesController extends Controller
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'id_client' => 'required',
+            'id_client'         => 'required|exists:clients,id',
+            'id_cosme'          => 'required|exists:users,id',
+            'id_user1'          => 'required|exists:users,id',
+        ], [
+            'required' => 'Es requerido',
+            'exists'   => 'La selección no es válida',
+        ], [
+            'id_client'     => 'Cliente de la sesión',
+            'id_cosme'      => 'Comisión de la Cosme',
+            'fecha_inicial' => 'Fecha de la sesión',
+            'id_user1'      => 'Cosmetóloga de la primera sesión',
         ]);
 
+
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            // Mapea los campos a sus nombres personalizados
+            $customNames = [
+                'id_client'     => 'Cliente de la sesión',
+                'id_cosme'      => 'Comisión de la Cosme',
+                'fecha_inicial' => 'Fecha de la sesión',
+                'id_user1'      => 'Cosmetóloga de la primera sesión',
+            ];
+
+            $errors = [];
+
+            foreach ($validator->errors()->messages() as $field => $messages) {
+                $fieldName = $customNames[$field] ?? $field;
+                $errors[$fieldName] = $messages;
+            }
+
+            return response()->json(['errors' => $errors], 422);
         }
 
         $paquete = new Paquetes;

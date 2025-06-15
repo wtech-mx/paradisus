@@ -56,8 +56,8 @@
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="precio">Cliente</label><br>
-                                            <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" value="{{ old('id_client') }}">
-                                                <option>Seleccionar cliente</option>
+                                            <select class="form-control cliente"  data-toggle="select" id="id_client" name="id_client" >
+                                                <option value="">Seleccionar cliente</option>
                                                 @foreach ($client as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
                                                 @endforeach
@@ -71,7 +71,7 @@
                                         <div class="form-group">
                                             <label for="precio">Comision Cosme</label><br>
                                             <select class="form-control" id="id_cosme" name="id_cosme">
-                                                <option>Seleccionar cosme</option>
+                                                <option value="">Seleccionar cosme</option>
                                                 @foreach ($user as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -117,7 +117,7 @@
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="nombre">Cosmetologa</label>
-                                                                <select class="form-control " id="id_user1" name="id_user1" value="{{ old('id_user1') }}" required>
+                                                                <select class="form-control " id="id_user1" name="id_user1" value="{{ old('id_user1') }}" >
                                                                     <option value="">Seleccionar cosmetologa</option>
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>

@@ -13,31 +13,51 @@ $(document).ready(function () {
                     data: new FormData(this),
                     contentType: false,
                     processData: false,
-                    success: async function(response) { // Agrega "async" aquí
-                        // El formulario se ha enviado correctamente, ahora realiza la impresión
-                        imprimirRecibo(response);
-                        console.log(response);
+                    // success: async function(response) { // Agrega "async" aquí
+                    //     // El formulario se ha enviado correctamente, ahora realiza la impresión
+                    //     imprimirRecibo(response);
+                    //     console.log(response);
 
+                    // },
+                    success: async function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Guardado con éxito',
+                            text: 'Los datos han sido registrados correctamente.',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+
+                        try {
+                            await imprimirRecibo(response);
+                        } catch (error) {
+                            console.error('Error al imprimir:', error);
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Guardado pero no se imprimió',
+                                text: 'Verifica la impresora si es necesario.',
+                            });
+                            window.location.href = '/paquetes/servicios';
+                        }
                     },
                     error: function (xhr, status, error) {
-                            var errors = xhr.responseJSON.errors;
-                            var errorMessage = '';
+                        var errors = xhr.responseJSON.errors;
+                        var errorMessage = '';
 
-                            // Itera a través de los errores y agrega cada mensaje de error al mensaje final
-                            for (var key in errors) {
-                                if (errors.hasOwnProperty(key)) {
-                                    var errorMessages = errors[key].join('<br>'); // Usamos <br> para separar los mensajes
-                                    errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
-                                }
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                var errorMessages = errors[key].join('<br>');
+                                errorMessage += '<strong>' + key + ':</strong><br>' + errorMessages + '<br>';
                             }
-                            console.log(errorMessage);
-                            // Muestra el mensaje de error en una SweetAlert
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Faltan Campos',
-                                html: errorMessage, // Usa "html" para mostrar el mensaje con formato HTML
-                            });
+                        }
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Faltan Campos',
+                            html: errorMessage,
+                        });
                     }
+
                 });
 
             });
