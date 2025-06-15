@@ -101,7 +101,7 @@
                                                                 <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">
                                                                     Sesión de 2 HRS
                                                                 </span>
-                                                                    <a href="javascript:;" class="card-title h5 d-block text-darker">
+                                                                        <a href="javascript:;" class="card-title h5 d-block text-darker">
                                                                         SESIÓN 01
                                                                     </a>
                                                                 <p class="card-description mb-4" style="font-size:12px;">
@@ -118,6 +118,7 @@
                                                             <div class="col-12">
                                                                 <label for="nombre">Cosmetologa</label>
                                                                 <select class="form-control " id="id_user1" name="id_user1" value="{{ old('id_user1') }}" >
+                                                                    <option value="">Seleccionar cosmetologa</option>
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                                     @endforeach
