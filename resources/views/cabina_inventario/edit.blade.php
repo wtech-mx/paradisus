@@ -201,6 +201,21 @@
                                                     </div>
                                                 </div>
                                             @endif
+
+                                            @if ($cabina_fotos == null)
+                                                <div class="form-group">
+                                                    <label for="nota">Foto</label>
+                                                    <input type="file" id="foto" class="form-control" name="foto">
+                                                </div>
+                                            @else
+
+                                                @foreach ($cabina_fotos as $cabina_foto)
+                                                    @if ($cabina_foto->id_inv == '1')
+                                                        <a href="{{ asset('foto_servicios/' . $cabina_foto->foto) }}" target="_blank">Ver</a>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -363,6 +378,20 @@
                                                 </div>
                                             </div>
                                         @endif
+
+                                        @if ($cabina_fotos == null)
+                                            <div class="form-group">
+                                                <label for="nota">Foto</label>
+                                                <input type="file" id="foto" class="form-control" name="foto">
+                                            </div>
+                                        @else
+                                            @foreach ($cabina_fotos as $cabina_foto)
+                                                @if ($cabina_foto->id_inv == '2')
+                                                    <a href="{{ asset('foto_servicios/' . $cabina_foto->foto) }}" target="_blank">Ver</a>
+                                                @endif
+                                            @endforeach
+                                        @endif
+
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
@@ -521,6 +550,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        @endif
+
+                                        @if ($cabina_fotos == null)
+                                            <div class="form-group">
+                                                <label for="nota">Foto</label>
+                                                <input type="file" id="foto" class="form-control" name="foto">
+                                            </div>
+                                        @else
+                                            @foreach ($cabina_fotos as $cabina_foto)
+                                                @if ($cabina_foto->id_inv == '3')
+                                                    <a href="{{ asset('foto_servicios/' . $cabina_foto->foto) }}" target="_blank">Ver</a>
+                                                @endif
+                                            @endforeach
                                         @endif
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -682,6 +724,18 @@
 
                                             </div>
                                         @endif
+                                        @if ($cabina_fotos == null)
+                                            <div class="form-group">
+                                                <label for="nota">Foto</label>
+                                                <input type="file" id="foto" class="form-control" name="foto">
+                                            </div>
+                                        @else
+                                            @foreach ($cabina_fotos as $cabina_foto)
+                                                @if ($cabina_foto->id_inv == '4')
+                                                    <a href="{{ asset('foto_servicios/' . $cabina_foto->foto) }}" target="_blank">Ver</a>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
@@ -839,6 +893,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        @endif
+
+                                        @if ($cabina_fotos == null)
+                                            <div class="form-group">
+                                                <label for="nota">Foto</label>
+                                                <input type="file" id="foto" class="form-control" name="foto">
+                                            </div>
+                                        @else
+                                            @foreach ($cabina_fotos as $cabina_foto)
+                                                @if ($cabina_foto->id_inv == '5')
+                                                    <a href="{{ asset('foto_servicios/' . $cabina_foto->foto) }}" target="_blank">Ver</a>
+                                                @endif
+                                            @endforeach
                                         @endif
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Guardar</button>

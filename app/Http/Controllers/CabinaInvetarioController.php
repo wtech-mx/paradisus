@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CabinaFoto;
 use App\Models\CabinaInvetario;
 use App\Models\Productos;
 use App\Models\ProductosBodega;
@@ -156,11 +157,23 @@ class CabinaInvetarioController extends Controller
         $cabina_inv->num_semana = $request->get('num_semana');
         $cabina_inv->update();
 
+        if ($request->hasFile("foto")) {
+            $cabina_foto = new CabinaFoto;
+            $cabina_foto->id_cabina = $cabina_inv->id;
+            $cabina_foto->id_inv = $cabina_inv->num_semana;
+
+            $file = $request->file('foto');
+            $path = public_path() . '/foto_servicios';
+            $fileName = uniqid() . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $cabina_foto->foto = $fileName;
+            $cabina_foto->save();
+        }
+
             $producto = $request->get('producto');
             $estatus = $request->get('estatus');
             $cantidad = $request->get('stock');
             $num_semana = $request->get('num_semana');
-
             $insert_data = [];
 
             for ($count = 0; $count < count($estatus); $count++) {

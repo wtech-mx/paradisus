@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CabinaFoto;
 use App\Models\CabinaInvetario;
 use App\Models\Productos;
 use App\Models\ProductosBodega;
@@ -261,8 +262,10 @@ class ProductosController extends Controller
         $fechasPorSemana = CabinaInvetario::where('num_cabina', $numCabina)
             ->whereMonth('fecha', $mesActual)
             ->whereYear('fecha', $añoActual)
-            ->pluck('fecha', 'num_semana');
-      
+            ->pluck('fecha', 'num_semana', 'foto');
+
+        $cabina_fotos = CabinaFoto::where('id_cabina', $id)->get();
+       
         // Iterar desde el primer día hasta el último día del mes
         while ($primerDiaMes <= $ultimoDiaMes) {
             // Verificar si el día actual es miércoles (formato 'N': 1 para lunes, 2 para martes, etc.)
@@ -275,7 +278,6 @@ class ProductosController extends Controller
         }
 
         $product_inv = ProductosInventario::where('id_cabina_inv', '=', $id)->first();
-
 
         $products_invs1 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '1')->get();
         $products_invs2 = ProductosInventario::where('id_cabina_inv', '=', $id)->where('num_semana', '=', '2')->get();
@@ -305,7 +307,8 @@ class ProductosController extends Controller
             'products_invs4',
             'products_invs5',
             'cabinaInventario',
-            'fechasPorSemana'
+            'fechasPorSemana',
+            'cabina_fotos'
         ));
     }
 
