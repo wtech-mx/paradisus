@@ -18,7 +18,7 @@ use App\Models\HuellaLog;
 |
 */
 
-Route::post('/mensajes-esp32', function (Request $request) {
+Route::post('/huella-post', function (Request $request) {
     if ($request->has(['huella_id', 'fidelidad'])) {
         HuellaLog::create([
             'huella_id' => $request->input('huella_id'),
