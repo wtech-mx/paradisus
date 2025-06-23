@@ -26,7 +26,7 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('/huella-post', function (Request $request) {
+Route::post('/mensajes-esp32', function (Request $request) {
     if ($request->has(['huella_id', 'fidelidad'])) {
         $registro = HuellaLog::create([
             'huella_id' => $request->input('huella_id'),
