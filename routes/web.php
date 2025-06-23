@@ -26,19 +26,19 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('/mensajes-esp32', function (Request $request) {
-    if ($request->has(['huella_id', 'fidelidad'])) {
-        $registro = HuellaLog::create([
-            'huella_id' => $request->input('huella_id'),
-            'fidelidad' => $request->input('fidelidad'),
-            'fecha_hora' => now('America/Mexico_City'),
-        ]);
+// Route::post('/mensajes-esp32', function (Request $request) {
+//     if ($request->has(['huella_id', 'fidelidad'])) {
+//         $registro = HuellaLog::create([
+//             'huella_id' => $request->input('huella_id'),
+//             'fidelidad' => $request->input('fidelidad'),
+//             'fecha_hora' => now('America/Mexico_City'),
+//         ]);
 
-        return response("OK - Registro guardado", 200);
-    } else {
-        return response("ERROR - Datos incompletos", 400);
-    }
-});
+//         return response("OK - Registro guardado", 200);
+//     } else {
+//         return response("ERROR - Datos incompletos", 400);
+//     }
+// });
 
 
 Route::get('sistema/login', function () {
