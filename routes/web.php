@@ -10,7 +10,7 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\AlertasController;
-use App\Http\Controllers\HuellaLog;
+// use App\Http\Controllers\HuellaLog;
 use App\Models\HuellaLog;
 use Illuminate\Http\Request;
 
