@@ -605,14 +605,14 @@ class NotasPedidoController extends Controller
         if ($startDate && $endDate) {
             // Filtramos por el rango de fechas
             $nota_pedido = NotaReposicion::whereBetween('fecha', [$startDate, $endDate])
-                            ->where('estatus_reposicion', '!=', 'Enviado')
+                            ->where('estatus_reposicion', '=', 'Pendiente')
                             ->orderBy('id', 'DESC')
                             ->get();
         } else {
             // Si no se proporcionan fechas, traemos los registros del mes actual
             $nota_pedido = NotaReposicion::whereMonth('fecha', date('m'))
                             ->whereYear('fecha', date('Y'))
-                            ->where('estatus_reposicion', '!=', 'Enviado')
+                            ->where('estatus_reposicion', '=', 'Pendiente')
                             ->orderBy('id', 'DESC')
                             ->get();
         }
