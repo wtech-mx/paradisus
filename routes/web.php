@@ -10,6 +10,8 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\AlertasController;
+use App\Http\Controllers\LinkPagoController;
+
 // use App\Http\Controllers\HuellaLog;
 use App\Models\HuellaLog;
 use Illuminate\Http\Request;
@@ -146,6 +148,21 @@ Route::patch('notas/productos/cabinas/update/{id}', [App\Http\Controllers\NotasP
 Route::get('/perfil/cliente/liga/reposicion/{id}', [App\Http\Controllers\NotasPedidoController::class, 'liga_reposicion'])->name('reposicion.liga');
 
 Route::group(['middleware' => ['auth']], function() {
+
+    // Link de pago
+    Route::get('/admin/link/pagos/mercado', [App\Http\Controllers\LinkPagoController::class, 'index'])->name('link_pago.index');
+
+    // Almacenar nuevo
+    Route::post('/admin/link/pagos/mercado', [App\Http\Controllers\LinkPagoController::class, 'store'])->name('link_pago.store');
+
+    // Obtener datos de un registro (para editar)
+    Route::get('/admin/link/pagos/mercado/{id}/edit', [App\Http\Controllers\LinkPagoController::class, 'edit'])->name('link_pago.edit');
+
+    // Actualizar registro
+    Route::put('/admin/link/pagos/mercado/{id}', [App\Http\Controllers\LinkPagoController::class, 'update'])->name('link_pago.update');
+
+    // Eliminar registro
+    Route::delete('/admin/link/pagos/mercado/{id}', [App\Http\Controllers\LinkPagoController::class, 'destroy'])->name('link_pago.destroy');
 
     Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/show/{id}', [App\Http\Controllers\RoleController::class, 'show'])->name('roles.show');
