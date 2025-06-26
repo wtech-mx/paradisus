@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\NotasPedidos;
 use App\Models\Pedido;
-
+use App\Models\HuellaLog;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +17,19 @@ use App\Models\Pedido;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/huella-post', function (Request $request) {
+    if ($request->has(['huella_id', 'fidelidad'])) {
+        HuellaLog::create([
+            'huella_id' => $request->input('huella_id'),
+            'fidelidad' => $request->input('fidelidad'),
+            'fecha_hora' => now('America/Mexico_City'),
+        ]);
+        return response("OK - Registro guardado", 200);
+    } else {
+        return response("ERROR - Datos incompletos", 400);
+    }
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

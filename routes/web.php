@@ -10,9 +10,12 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\AlertasController;
+// use App\Http\Controllers\HuellaLog;
+use App\Models\HuellaLog;
+use Illuminate\Http\Request;
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -21,6 +24,22 @@ use App\Http\Controllers\AlertasController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+// Route::post('/mensajes-esp32', function (Request $request) {
+//     if ($request->has(['huella_id', 'fidelidad'])) {
+//         $registro = HuellaLog::create([
+//             'huella_id' => $request->input('huella_id'),
+//             'fidelidad' => $request->input('fidelidad'),
+//             'fecha_hora' => now('America/Mexico_City'),
+//         ]);
+
+//         return response("OK - Registro guardado", 200);
+//     } else {
+//         return response("ERROR - Datos incompletos", 400);
+//     }
+// });
+
 
 Route::get('sistema/login', function () {
     return view('auth.login');
