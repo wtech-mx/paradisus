@@ -153,6 +153,9 @@ Route::get('/link_pago/servicio/{item}/{nota}', [App\Http\Controllers\LinkPagoCo
 
 Route::post('/link-pago/custom/process-payment', [App\Http\Controllers\LinkPagoController::class, 'processPayment_custom'])->name('link_pago.payment_custom');
 
+Route::get('/link-pago/orders/pay', [App\Http\Controllers\LinkPagoController::class, 'pay'])->name('link_pago.pay');
+Route::get('/link_pago/return/pago', [App\Http\Controllers\LinkPagoController::class, 'return'])->name('return.link_pago');
+
 Route::group(['middleware' => ['auth']], function() {
 
     // Link de pago

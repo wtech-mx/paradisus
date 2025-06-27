@@ -173,4 +173,33 @@ class LinkPagoController extends Controller
             return Redirect::back()->withErrors(['message' => $e->getMessage()]);
         }
     }
+
+    public function pay(Request $request)
+    {
+        $payment_id = $request->get('payment_id');
+        $external_reference = $request->get('external_reference');
+
+        $dominio = $request->getHost();
+        $response = Http::get("https://api.mercadopago.com/v1/payments/$payment_id" . "?access_token=APP_USR-3926055628216617-062614-106d3ac7dd26f29d980d1927b7dc35ad-2084225921");
+
+        $response = json_decode($response);
+        if (isset($response->error)) {
+            return redirect()->route('return.link_pago')->with('error', 'Hubo un problema al verificar el pago.');
+        }
+        $status = $response->status ?? null;
+        $external_reference_api = $response->external_reference ?? null;
+        $external_reference = $external_reference_api ?: $external_reference;
+
+        // Si no se encuentra el external_reference, redirige con error
+        if (!$external_reference) {
+            return redirect()->route('return.link_pago')->with('error', 'No se pudo verificar el pago. Falta external_reference.');
+        }
+
+        return redirect()->route('return.link_pago');
+    }
+
+    public function return(){
+
+        return view('admin.link_pago.link_pago_success');
+    }
 }
