@@ -147,6 +147,9 @@ Route::get('/clients/cosme/cons/lash/{id}', [App\Http\Controllers\Consentimiento
 Route::patch('notas/productos/cabinas/update/{id}', [App\Http\Controllers\NotasPedidoController::class, 'update_cabinas'])->name('notas_cabinas.update');
 Route::get('/perfil/cliente/liga/reposicion/{id}', [App\Http\Controllers\NotasPedidoController::class, 'liga_reposicion'])->name('reposicion.liga');
 
+Route::get('/link/pago/mercado/{id}', [App\Http\Controllers\LinkPagoController::class, 'custom_link_pago'])->name('custom_link_pago');
+Route::post('/link-pago/custom/process-payment', [App\Http\Controllers\LinkPagoController::class, 'processPayment_custom'])->name('link_pago.payment_custom');
+
 Route::group(['middleware' => ['auth']], function() {
 
     // Link de pago

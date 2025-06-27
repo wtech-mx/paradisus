@@ -21,20 +21,20 @@
 
     <!-- Bootstrap -->
      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="{{ asset('assets/ecommerce/css/bootstrap.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/user/logotipos/imnas.webp')}}">
+    <link rel="stylesheet" href="https://plataforma.imnasmexico.com/assets/ecommerce/css/bootstrap.css">
+    <link rel="icon" type="image/x-icon" href="https://plataforma.imnasmexico.com/assets/user/logotipos/imnas.webp">
 
      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="{{ asset('assets/ecommerce/css/twitter-bootstrap.css') }}">
+    <link rel="stylesheet" href="https://plataforma.imnasmexico.com/assets/ecommerce/css/twitter-bootstrap.css">
 
     <!-- css custom -->
-    <link rel="stylesheet" href="{{ asset('assets/ecommerce/css/ecommerce.css') }}">
+    <link rel="stylesheet" href="https://plataforma.imnasmexico.com/assets/ecommerce/css/ecommerce.css">
 
     <!-- Sweetalert2 -->
      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.1/dist/sweetalert2.min.css">-->
-    <link rel="stylesheet" href="{{ asset('assets/ecommerce/css/sweetalert2.css') }}">
+    <link rel="stylesheet" href="https://plataforma.imnasmexico.com/assets/ecommerce/css/sweetalert2.css">
 
-    <link href="{{ asset('assets/ecommerce/bootstrap_icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
+    <link href="https://plataforma.imnasmexico.com/assets/ecommerce/bootstrap_icons/font/bootstrap-icons.min.css" rel="stylesheet">
 
 
     @yield('css_custom')
@@ -134,7 +134,7 @@
             <div class="text-center mb-2">
             <div class="row">
                 <div class="col-12">
-                    <img src="{{asset('assets/user/logotipos/imnas.webp')}}" style="width: 40px">
+                    <img src="https://plataforma.imnasmexico.com/assets/user/logotipos/imnas.webp" style="width: 40px">
                     <img src="https://plataforma.imnasmexico.com/utilidades/logo_mp.png" style="width: 130px">
                 </div>
             </div>
@@ -166,20 +166,19 @@
         </div>
     </section>
 
-
-
         <!-- Bootstrap -->
-        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> --}}
-        <script type="text/javascript" src="{{ asset('assets/ecommerce/js/bootstrap_bundle.js') }}"></script>
 
-        {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> --}}
-        <script type="text/javascript" src="{{ asset('assets/ecommerce/js/popper.js') }}"></script>
+        <script type="text/javascript" src="https://plataforma.imnasmexico.com/assets/ecommerce/js/bootstrap_bundle.js"></script>
+
+
+        <script type="text/javascript" src="https://plataforma.imnasmexico.com/assets/ecommerce/js/popper.js"></script>
 
         <!-- jquery -->
-        <script type="text/javascript" src="{{ asset('assets/ecommerce/js/jquery-3.7.0.js') }}"></script>
+        <script type="text/javascript" src="https://plataforma.imnasmexico.com/assets/ecommerce/js/jquery-3.7.0.js"></script>
 
         <!-- Sweetalert2 -->
-        <script type="text/javascript" src="{{ asset('assets/ecommerce/js/sweetalert2.all.min.js') }}"></script>
+        <script type="text/javascript" src="https://plataforma.imnasmexico.com/assets/ecommerce/js/sweetalert2.all.min.js"></script>
+
 
         @yield('js_custom')
 
