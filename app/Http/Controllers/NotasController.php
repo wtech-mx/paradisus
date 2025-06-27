@@ -444,6 +444,9 @@ class NotasController extends Controller
             $nota_producto->cantidad = 1;
             $nota_producto->importe = 0;
             $nota_producto->save();
+
+            $nota->id_producto = $nota_pedido->id;
+            $nota->update();
         }
 
         $recibo = [
@@ -477,7 +480,7 @@ class NotasController extends Controller
         return view('notas.show', compact('nota'));
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $notas = Notas::find($id);
         $client = Client::orderBy('name','ASC')->get();
@@ -496,7 +499,10 @@ class NotasController extends Controller
         ->select('id_nota', 'start', 'estatus', 'descripcion', \DB::raw('MIN(id) as id'))  // Puedes seleccionar más columnas si lo necesitas
         ->get();
 
-        return view('notas.edit',compact('client', 'servicio', 'user', 'pago', 'nota_cosme', 'notas_paquetes', 'notas_extras','notas_propinas', 'notas', 'sesiones'));
+        // Obtener productos a través del método común
+        $products = $this->obtenerProductosDesdeAPI($request);
+
+        return view('notas.edit',compact('client', 'servicio', 'user', 'pago', 'nota_cosme', 'notas_paquetes', 'notas_extras','notas_propinas', 'notas', 'sesiones', 'products'));
     }
 
     public function destroyNotaPago($id){
@@ -925,6 +931,34 @@ class NotasController extends Controller
             $servicio .= ' ' . $notas_paquetes->Servicios4->nombre;
         }
 
+        $fechaActual = date('Y-m-d');
+        if ($request->get('producto_concepto') !== null) {
+            $cosme_id = NotasCosmes::where('id_nota', '=', $nota->id)
+            ->first();
+            $nota_pedido = new NotasPedidos;
+            $nota_pedido->id_user = $cosme_id->id_user;
+            $nota_pedido->estatus = 'Aprobada';
+            $nota_pedido->aprobado_hora_y_guia = date("Y-m-d H:i:s");
+            $nota_pedido->id_client = $nota->id_client;
+            $nota_pedido->metodo_pago = 'Gratis';
+            $nota_pedido->fecha = $fechaActual;
+            $nota_pedido->descuento = '0';
+            $nota_pedido->total = 0.0;
+            $nota_pedido->restante = '0';
+            $nota_pedido->dinero_recibido = '0';
+            $nota_pedido->save();
+
+
+            $nota_producto = new Pedido;
+            $nota_producto->id_nota = $nota_pedido->id;
+            $nota_producto->concepto = $request->get('producto_concepto');
+            $nota_producto->cantidad = 1;
+            $nota_producto->importe = 0;
+            $nota_producto->save();
+
+            $nota->id_producto = $nota_pedido->id;
+            $nota->update();
+        }
 
         $recibo = [
             "id" => $nota->id,
