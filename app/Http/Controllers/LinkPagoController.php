@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notas;
+use App\Models\NotasPaquetes;
+use App\Models\NotasExtras;
+use App\Models\NotasPropinas;
+use App\Models\Pagos;
 use App\Models\LinkPago;
+use App\Models\User;
+use App\Models\Client;
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use MercadoPago\{Exception, SDK, Preference, Item};
@@ -29,6 +37,19 @@ class LinkPagoController extends Controller
         //  index devolverá la vista completa con $linkPagos).
         $linkPago = LinkPago::find($id);
         return view('admin.link_pago.customlinkpago', compact('linkPago'));
+    }
+
+    public function link_pago_servicio($itemId, $notaId)
+    {
+        // Por ejemplo, buscas ambos modelos:
+        $nota = Notas::find($notaId);
+
+        $user = Client::where('id', '=',$nota->id_client)->first();
+
+        $pago = Pagos::where('id_nota', '=', $notaId)->get();
+
+        // Pasa ambas variables a la vista
+        return view('admin.link_pago.linkpagoservicio', compact('nota', 'pago','user'));
     }
 
     /**

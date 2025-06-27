@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-   Editar Notas
+   Editar Nota {{$notas->id}}
 @endsection
 
 @section('css')
@@ -345,7 +345,7 @@
                                                         <th>Método</th>
                                                         <th>Nota</th>
                                                         <th>Foto</th>
-                                                        <th>Eliminar</th>
+                                                        <th>Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -404,6 +404,10 @@
                                                             <button type="button" class="btn btn-danger btn-sm btn-eliminar-pago" data-id="{{ $item->id }}">
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
+                                                            <a target="_blank" href="{{ route('link_pago_servicio', ['item' => $item->id, 'nota' => $notas->id]) }}"
+                                                            class="btn btn-primary btn-sm">
+                                                                <i class="fa fa-share"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                     @endforeach

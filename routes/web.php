@@ -148,6 +148,9 @@ Route::patch('notas/productos/cabinas/update/{id}', [App\Http\Controllers\NotasP
 Route::get('/perfil/cliente/liga/reposicion/{id}', [App\Http\Controllers\NotasPedidoController::class, 'liga_reposicion'])->name('reposicion.liga');
 
 Route::get('/link/pago/mercado/{id}', [App\Http\Controllers\LinkPagoController::class, 'custom_link_pago'])->name('custom_link_pago');
+
+Route::get('/link_pago/servicio/{item}/{nota}', [App\Http\Controllers\LinkPagoController::class, 'link_pago_servicio'])->name('link_pago_servicio');
+
 Route::post('/link-pago/custom/process-payment', [App\Http\Controllers\LinkPagoController::class, 'processPayment_custom'])->name('link_pago.payment_custom');
 
 Route::group(['middleware' => ['auth']], function() {
