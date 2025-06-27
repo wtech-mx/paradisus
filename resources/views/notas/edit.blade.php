@@ -404,10 +404,14 @@
                                                             <button type="button" class="btn btn-danger btn-sm btn-eliminar-pago" data-id="{{ $item->id }}">
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
-                                                            <a target="_blank" href="{{ route('link_pago_servicio', ['item' => $item->id, 'nota' => $notas->id]) }}"
-                                                            class="btn btn-primary btn-sm">
-                                                                <i class="fa fa-share"></i>
-                                                            </a>
+
+                                                            @if($item->forma_pago == 'Mercado Pago')
+                                                                <a target="_blank" href="{{ route('link_pago_servicio', ['item' => $item->id, 'nota' => $notas->id]) }}"
+                                                                class="btn btn-primary btn-sm">
+                                                                    <i class="fa fa-share"></i>
+                                                                </a>
+                                                            @endif
+
                                                         </td>
                                                     </tr>
                                                     @endforeach

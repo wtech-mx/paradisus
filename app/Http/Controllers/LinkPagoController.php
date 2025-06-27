@@ -46,7 +46,7 @@ class LinkPagoController extends Controller
 
         $user = Client::where('id', '=',$nota->id_client)->first();
 
-        $pago = Pagos::where('id_nota', '=', $notaId)->get();
+        $pago = Pagos::find($itemId);
 
         // Pasa ambas variables a la vista
         return view('admin.link_pago.linkpagoservicio', compact('nota', 'pago','user'));

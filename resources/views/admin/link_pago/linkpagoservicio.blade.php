@@ -22,7 +22,7 @@
     <!-- Bootstrap -->
      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
     <link rel="stylesheet" href="https://plataforma.imnasmexico.com/assets/ecommerce/css/bootstrap.css">
-    <link rel="icon" type="image/x-icon" href="https://plataforma.imnasmexico.com/assets/user/logotipos/imnas.webp">
+    <link rel="icon" type="image/x-icon" href="https://paradisus.mx/assets/landing/paradisus.webp">
 
      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://plataforma.imnasmexico.com/assets/ecommerce/css/twitter-bootstrap.css">
@@ -126,8 +126,24 @@
                         </a>
                     </div>
                 <div class="text-center"><strong class="strong_ticket text-center">
-                    Fecha: <br> </strong>
-                    {{ dd($nota); }}
+                    Servicio: <br>
+
+                    @if($nota->Paquetes->id_servicio != NULL || $nota->Paquetes->id_servicio != 0)
+                        {{$nota->Paquetes->Servicios->nombre}}<br>
+                    @else
+                        SN
+                    @endif
+                    @if($nota->Paquetes->id_servicio2 != NULL || $nota->Paquetes->id_servicio2 != 0)
+                        {{$nota->Paquetes->Servicios2->nombre}}<br>
+                    @endif
+                    @if($nota->Paquetes->id_servicio3 != NULL || $nota->Paquetes->id_servicio3 != 0)
+                        {{$nota->Paquetes->Servicios3->nombre}}<br>
+                    @endif
+                    @if($nota->Paquetes->id_servicio4 != NULL || $nota->Paquetes->id_servicio4 != 0)
+                        {{$notas->Paquetes->Servicios4->nombre}}<br>
+                    @endif
+
+                 </strong>
                 </div>
             </div>
 
@@ -135,27 +151,43 @@
             <div class="text-center mb-2">
             <div class="row">
                 <div class="col-12">
-                    <img src="https://plataforma.imnasmexico.com/assets/user/logotipos/imnas.webp" style="width: 40px">
-                    <img src="https://plataforma.imnasmexico.com/utilidades/logo_mp.png" style="width: 130px">
+                    <img src="https://paradisus.mx/assets/landing/paradisus.webp" style="width: 90px">
+                    <img src="https://plataforma.imnasmexico.com/utilidades/logo_mp.png" style="width: 140px">
                 </div>
             </div>
             <h5>Link de pago</h5>
-            <h5 class="text-muted">{{ $linkPago->titulo }}</h5>
-            <p class="text-muted">{{ $linkPago->descripcion }}</p>
+            <h5 class="text-muted">{{ $user->name }} {{ $user->last_name }}</h5>
+            <p class="text-muted">{{ $user->phone }}</p>
 
                 <div class="d-flex justify-content-center" >
                     <p class="compra_prote">COMPRA PROTEGIDA <i class="icons_header bi bi-shield" style="color:#fff"></i></p>
                 </div>
-            <h2>${{ number_format($linkPago->monto,2) }}</h2>
+            <h2>${{ number_format($pago->pago,2) }}</h2>
             </div>
 
             <div class="d-flex justify-content-center" >
                 <form method="POST" action="{{ route('link_pago.payment_custom') }}">
                     @csrf
-                    <input type="text" name="total" value="{{ $linkPago->monto }}" hidden>
-                    <input type="text" name="folio" value="{{ $linkPago->id }}" hidden>
-                    <input type="text" name="titulo" value="{{ $linkPago->titulo }}" hidden>
-                    <input type="text" name="descripcion" value="{{ $linkPago->descripcion }}" hidden>
+                    <input type="text" name="total" value="{{ $pago->pago }}" hidden>
+                    <input type="text" name="folio" value="{{ $nota->id }}" hidden>
+                    <input type="text" name="titulo" value="{{ $nota->id }}" hidden>
+
+                    @if($nota->Paquetes->id_servicio != NULL || $nota->Paquetes->id_servicio != 0)
+                        <input type="text" name="descripcion" value="{{$nota->Paquetes->Servicios->nombre}}" hidden>
+                    @else
+                        <input type="text" name="descripcion" value="SN" hidden>
+
+                    @endif
+                    @if($nota->Paquetes->id_servicio2 != NULL || $nota->Paquetes->id_servicio2 != 0)
+                        <input type="text" name="descripcion" value="{{$nota->Paquetes->Servicios2->nombre}}" hidden>
+                    @endif
+                    @if($nota->Paquetes->id_servicio3 != NULL || $nota->Paquetes->id_servicio3 != 0)
+                        <input type="text" name="descripcion" value="{{$nota->Paquetes->Servicios3->nombre}}" hidden>
+                    @endif
+                    @if($nota->Paquetes->id_servicio4 != NULL || $nota->Paquetes->id_servicio4 != 0)
+                        <input type="text" name="descripcion" value="{{$notas->Paquetes->Servicios4->nombre}}" hidden>
+                    @endif
+
                     <button type="submit" class="btn btn-success btn_compra mb-4" style="background-color:#3483fa; border:none;">
                         <i class="bi bi-cart"></i> Pagar ahora
                     </button>
