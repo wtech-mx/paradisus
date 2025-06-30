@@ -68,7 +68,7 @@ class RegistroSemanalController extends Controller
 
         $notasMaFer = Notas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('anular', '=', NULL)->get();
 
-        $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->get();
+        $propinas = NotasPropinas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->get();
 
         //Agregar sueldo de recepcion
         $recepcionistas = User::where('puesto', 'Recepcionista')->get();
@@ -160,7 +160,7 @@ class RegistroSemanalController extends Controller
         ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
         ->get();
 
-        $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
+        $propinas = NotasPropinas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
 
         return view('sueldo_cosmes.firma_sueldos', compact('notasMaFer','propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
@@ -217,7 +217,7 @@ class RegistroSemanalController extends Controller
         ->groupBy('notas.id', 'notas.fecha', 'notas_paquetes.id_servicio', 'notas_paquetes.id_servicio2', 'notas_paquetes.id_servicio3', 'notas_paquetes.id_servicio4')
         ->get();
 
-        $propinas = NotasPropinas::whereBetween('created_at', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
+        $propinas = NotasPropinas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
         $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasMaFer','propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
 
