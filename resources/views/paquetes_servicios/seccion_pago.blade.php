@@ -66,7 +66,7 @@
         <span class="input-group-text" id="basic-addon1">
             <img src="{{ asset('assets/icons/cash-machine.png') }}" alt="" width="25px">
         </span>
-        <input  id="pago" name="pago" type="number" class="form-control" required>
+        <input  id="pago" name="pago" type="number" class="form-control" required step="any">
     </div>
 </div>
 
@@ -76,7 +76,7 @@
         <span class="input-group-text" id="basic-addon1">
             <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
         </span>
-        <input  id="dinero_recibido_create" name="dinero_recibido" type="number" class="form-control" required>
+        <input  id="dinero_recibido_create" name="dinero_recibido" type="number" class="form-control" required step="any">
     </div>
 </div>
 
