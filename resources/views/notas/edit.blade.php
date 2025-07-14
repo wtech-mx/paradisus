@@ -126,6 +126,18 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+
+                                                <div class="col-12">
+                                                    <label for="">Producto</label>
+                                                    <div class="form-group">
+                                                        <select name="producto_concepto" class="form-select d-inline-block productos">
+                                                            <option value="">Seleccione producto</option>
+                                                            @foreach ($products as $product)
+                                                            <option value="{{ $product->nombre }}">{{ $product->nombre }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                </div>
+                                            </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="form-group">
@@ -742,7 +754,7 @@
                 $('.servicio3').select2();
                 $('.servicio4').select2();
                 $('.cosme_sesion_edit').select2();
-
+                $('.productos').select2();
                 $('.btn-eliminar-pago').on('click', function () {
                     var pagoId = $(this).data('id');
 

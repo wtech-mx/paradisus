@@ -19,7 +19,7 @@
                             <span class="input-group-text" id="basic-addon1">
                                 <img src="{{ asset('assets/icons/dinero.png') }}" alt="" width="25px">
                             </span>
-                            <input name="egresos" id="egresos" type="number" class="form-control" value="{{ $item->egresos }}" >
+                            <input name="egresos" id="egresos" type="number" class="form-control" value="{{ $item->egresos }}"  step="any">
                         </div>
                     </div>
 
