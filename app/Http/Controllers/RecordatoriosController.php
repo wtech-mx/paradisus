@@ -16,20 +16,18 @@ class RecordatoriosController extends Controller
         return view('alerts_recordatorios.index');
     }
 
-    public function advance(Request $request) {
+    public function advance(Request $request)
+    {
+        $fecha = $request->input('fecha');
 
-        $fecha = $request->input('fecha');;
-
-
-        $alertas = Alertas::whereRaw('DATE(start) = ?', [$fecha])
-        ->select('id_client', 'start', 'id_servicio')
-        ->distinct()
-        ->groupBy('id_client', 'start', 'id_servicio')
-        ->select('*')
-        ->get();
+        $alertas = Alertas::with(['Client', 'Status', 'Servicios_id']) // relaciones necesarias
+            ->whereDate('start', $fecha)
+            ->get()
+            ->groupBy('id_client');
 
         return view('alerts_recordatorios.index', compact('alertas'));
     }
+
 
     public function getClientPhone($clientId){
         $client = Client::find($clientId);

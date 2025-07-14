@@ -61,52 +61,80 @@
                                     </thead>
                                     <tbody>
                                         @if(Route::currentRouteName() != 'index.recordatorios')
-                                            @foreach ($alertas as $alerta)
+                                        @foreach ($alertas as $idCliente => $citas)
                                             @php
-                                            $fechaFormateada = Carbon::parse($alerta->start)->locale('es')->isoFormat('dddd D [de] MMMM');
-                                            $horaFormateada = Carbon::parse($alerta->start)->format('g:i A');
-$texto = "Hola, buen día bonita solo para confirmar tu cita el día $fechaFormateada a las $horaFormateada ☺💖
-Recordándote que si a las 6pm - 9:00pm no tenemos respuesta de tu confirmación se dará por confirmada tu cita ☺
+                                                $cliente = $citas->first();
+                                                $nombre = $cliente->title;
+                                                $telefono = $cliente->telefono;
+                                                $estatus = $cliente->Status->estatus ?? '';
+                                                $color = $cliente->Status->color ?? '#ccc';
+                                                $fechaFormateada = \Carbon\Carbon::parse($cliente->start)->locale('es')->isoFormat('dddd D [de] MMMM');
 
-✅Nota Importante✅
+                                                // Construir lista de horas y servicios
+                                                $detalleCitas = $citas->map(function($cita) {
+                                                    $hora = \Carbon\Carbon::parse($cita->start)->format('g:i A');
+                                                    $servicio = $cita->Servicios_id->nombre ?? 'Servicio';
+                                                    return "$hora ($servicio)";
+                                                })->implode(', ');
 
-🌸✨Al momento de confirmar tu cita ya NO se podrá cancelar o hacer algún cambio
-Para hacer algun cambio o cancelar es necesario hacerlo con 3 dias de anticipación.
-Si llegarás a cancelar tu sesión dentro de 72hrs, 48hrs o el mismo día que te corresponde ya no se podrá tomar en cuenta tu apartado o tu cita agendada y no habrá devolución del mismo.💰
+                                                // Texto para WhatsApp
+                                                $texto = "Hola, buen día bonita solo para confirmar tus citas el día $fechaFormateada a las $detalleCitas ☺💖
+                                        Recordándote que si a las 6pm - 9:00pm no tenemos respuesta de tu confirmación se dará por confirmada tu cita ☺
 
-🌸Por políticas para reagendar citas es con 3 días de anticipación, y sólo contarán con UNA oportunidad de reagendar de lo contrario la cita se dará como dada💖
+                                        ✅Nota Importante✅
 
-Gracias por tu compresión.
+                                        🌸✨Al momento de confirmar tu cita ya NO se podrá cancelar o hacer algún cambio
+                                        Para hacer algún cambio o cancelar es necesario hacerlo con 3 días de anticipación.
+                                        Si llegarás a cancelar tu sesión dentro de 72hrs, 48hrs o el mismo día que te corresponde ya no se podrá tomar en cuenta tu apartado o tu cita agendada y no habrá devolución del mismo.💰
 
-Buen dia, Te esperamos 💖";
-                                        @endphp
-                                                <tr>
-                                                    <td>{{ $alerta->id }}</td>
+                                        🌸Por políticas para reagendar citas es con 3 días de anticipación, y sólo contarán con UNA oportunidad de reagendar de lo contrario la cita se dará como dada💖
 
-                                                    <td>{{ $alerta->title }} - {{ $alerta->telefono }}</td>
-                                                    <td style="background-color: {{ $alerta->Status->color }};">
-                                                        <a type="button" data-bs-toggle="modal" data-bs-target="#editEstatus{{$alerta->id}}" style="color: #fff">
-                                                        <b> {{ $alerta->Status->estatus }} </b>
-                                                        </a>
-                                                    </td>
-                                                    <td>{{ $fechaFormateada }} {{$horaFormateada}}</td>
-                                                    <td>
-                                                        <input data-id="{{ $alerta->id }}" class="toggle-class recordatorio-toggle" type="checkbox"
+                                        Gracias por tu compresión.
+
+                                        Buen día, ¡te esperamos! 💖";
+                                            @endphp
+
+                                            <tr>
+                                                <td>{{ $cliente->id }}</td>
+                                                <td>{{ $nombre }} - {{ $telefono }}</td>
+                                                <td style="background-color: {{ $color }};">
+                                                    <a data-bs-toggle="modal" data-bs-target="#editEstatus{{ $cliente->id }}" style="color: #fff">
+                                                        <b>{{ $estatus }}</b>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    {{ $fechaFormateada }}
+                                                    <ul style="margin-bottom: 0;">
+                                                        @foreach ($citas as $cita)
+                                                            <li>
+                                                                {{ \Carbon\Carbon::parse($cita->start)->format('g:i A') }}
+                                                                ({{ $cita->Servicios_id->nombre ?? 'Servicio' }})
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+
+                                                <td>
+                                                    <input data-id="{{ $cliente->id }}" class="toggle-class recordatorio-toggle" type="checkbox"
                                                         data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                        data-on="Active" data-off="InActive" {{ $alerta->recordatorio ? 'checked' : '' }}>
-                                                    </td>
-                                                    <td>
-                                                        <input data-id="{{ $alerta->id }}" class="toggle-class confirmo-whats-toggle" type="checkbox"
+                                                        data-on="Active" data-off="InActive" {{ $cliente->recordatorio ? 'checked' : '' }}>
+                                                </td>
+                                                <td>
+                                                    <input data-id="{{ $cliente->id }}" class="toggle-class confirmo-whats-toggle" type="checkbox"
                                                         data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                        data-on="Active" data-off="InActive" {{ $alerta->confirmo_whats ? 'checked' : '' }}>
-                                                    </td>
+                                                        data-on="Active" data-off="InActive" {{ $cliente->confirmo_whats ? 'checked' : '' }}>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm" onclick="copyText({{ json_encode($texto) }})"
+                                                        style="background-color: #f8c418; color: #ffffff;">Copiar Texto</button>
+                                                </td>
+                                            </tr>
 
-                                                    <td>
-                                                        <button class="btn btn-sm mb-0 mt-sm-0 mt-1" onclick="copyText({{ json_encode($texto) }})" style="background-color: #f8c418; color: #ffffff;">Copiar Texto</button>
-                                                    </td>
-                                                </tr>
-                                                @include('alerts_recordatorios.estatus')
+                                           @foreach ($citas as $cita)
+                                                @include('alerts_recordatorios.estatus', ['alerta' => $cita])
                                             @endforeach
+                                        @endforeach
+
                                         @endif
                                     </tbody>
                                 </table>
