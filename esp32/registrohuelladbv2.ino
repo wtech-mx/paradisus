@@ -7,9 +7,14 @@
 #define RXD2 16
 #define TXD2 17
 
+// Pines para LEDs
+#define LED_ROJO     18  // D18
+#define LED_AMARILLO 19  // D19
+#define LED_VERDE    21  // D21
+
 // WiFi
-const char* ssid = "INFINITUM89F7";
-const char* password = "vC7yNaNE6y";
+const char* ssid = "INFINITUMD226";
+const char* password = "xXTWR474G7";
 
 // Servidor PHP que guarda los datos
 const char* serverUrl = "http://paradisus.mx/api/huella-post";
@@ -21,6 +26,13 @@ void setup() {
   Serial.begin(9600);
   mySerial.begin(57600, SERIAL_8N1, RXD2, TXD2);
   delay(100);
+
+  // Inicializar pines de LED
+  pinMode(LED_ROJO, OUTPUT);
+  pinMode(LED_AMARILLO, OUTPUT);
+  pinMode(LED_VERDE, OUTPUT);
+
+  apagarTodosLosLeds();
 
   WiFi.begin(ssid, password);
   Serial.print("Conectando a WiFi...");
@@ -38,6 +50,7 @@ void setup() {
     Serial.println("¡Sensor de huella detectado correctamente!");
   } else {
     Serial.println("No se detectó el sensor de huella :(");
+    prenderLedError();
     while (true) { delay(1); }
   }
 
@@ -52,15 +65,24 @@ void loop() {
 }
 
 uint8_t verificarHuella() {
+  prenderLedEspera(); // LED amarillo encendido esperando huella
+
   uint8_t p = finger.getImage();
-  if (p != FINGERPRINT_OK) return p;
+  if (p != FINGERPRINT_OK) {
+    apagarTodosLosLeds();
+    return p;
+  }
 
   p = finger.image2Tz();
-  if (p != FINGERPRINT_OK) return p;
+  if (p != FINGERPRINT_OK) {
+    prenderLedError();
+    return p;
+  }
 
   p = finger.fingerSearch();
   if (p != FINGERPRINT_OK) {
     Serial.println("Huella no encontrada");
+    prenderLedError();
     return p;
   }
 
@@ -71,12 +93,13 @@ uint8_t verificarHuella() {
   Serial.print(" → ID base asignado: #"); Serial.println(idBase);
   Serial.print("Confianza: "); Serial.println(finger.confidence);
 
+  prenderLedOk(); // LED verde encendido por 1.5s
   enviarRegistro(idBase, finger.confidence);
 
   return idDetectado;
 }
 
-// Esta función agrupa por bloques de 3 IDs consecutivos
+// Agrupamos los IDs en bloques de 3
 int normalizarID(int id) {
   return (id / 3) * 3;
 }
@@ -103,4 +126,30 @@ void enviarRegistro(int huella_id, int confianza) {
   } else {
     Serial.println("WiFi desconectado, no se pudo enviar");
   }
+}
+
+// === Funciones LED ===
+void apagarTodosLosLeds() {
+  digitalWrite(LED_ROJO, LOW);
+  digitalWrite(LED_AMARILLO, LOW);
+  digitalWrite(LED_VERDE, LOW);
+}
+
+void prenderLedEspera() {
+  apagarTodosLosLeds();
+  digitalWrite(LED_AMARILLO, HIGH);
+}
+
+void prenderLedOk() {
+  apagarTodosLosLeds();
+  digitalWrite(LED_VERDE, HIGH);
+  delay(1500);
+  apagarTodosLosLeds();
+}
+
+void prenderLedError() {
+  apagarTodosLosLeds();
+  digitalWrite(LED_ROJO, HIGH);
+  delay(1500);
+  apagarTodosLosLeds();
 }
