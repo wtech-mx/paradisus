@@ -16,6 +16,7 @@ class RegistroSemanal extends Model
         'dias_trabajados',
         'cosmetologo_cubriendo',
         'fecha',
+        'hora_inicio',
     ];
 
     public function cosmetologo()
