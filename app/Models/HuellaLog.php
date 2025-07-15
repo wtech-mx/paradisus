@@ -11,4 +11,5 @@ class HuellaLog extends Model
     protected $table = 'huellas_log';
     public $timestamps = false;
     protected $fillable = ['huella_id', 'fidelidad', 'fecha_hora'];
+    protected $dates = ['fecha_hora'];
 }
