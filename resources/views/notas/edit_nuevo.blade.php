@@ -831,7 +831,7 @@
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num' + servicioNumber + '_paquetes').val());
-            var descuentoAdicional = parseInt($('#descuento-adicional' + servicioNumber + '_paquetes').val()) || 0;
+            var descuentoAdicional = parseFloat($('#descuento-adicional' + servicioNumber + '_paquetes').val()) || 0;
             var checkDesc = $('#totalConDescuento' + servicioNumber + '_paquetes').is(':checked');
             console.log('numSer',servicioNumber);
             // Calcular el subtotal usando el precio

@@ -850,8 +850,8 @@
         }
 
             function updateCambio() {
-                var pago = parseInt(pagoInput.val()) || 0;
-                var dineroRecibido = parseInt(dineroRecibidoInput.val()) || 0;
+                var pago = parseFloat(pagoInput.val()) || 0;
+                var dineroRecibido = parseFloat(dineroRecibidoInput.val()) || 0;
 
                 var cambio = dineroRecibido - pago;
 

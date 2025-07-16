@@ -12,17 +12,17 @@
 
     // Llamar a calcularRestante al cargar la página de edición
     $(document).ready(function() {
-        restanteInicial = parseInt($('#restante').val()) || 0; // Obten el valor inicial de #restante
+        restanteInicial = parseFloat($('#restante').val()) || 0; // Obten el valor inicial de #restante
         calcularRestante();
     });
 
     function calcularRestante() {
         var pagosExistentes = 0;
         $('.pago-existente').each(function() {
-            pagosExistentes += parseInt($(this).val()) || 0;
+            pagosExistentes += parseFloat($(this).val()) || 0;
         });
 
-        var nuevoPago = parseInt(inputPago.val()) || 0;
+        var nuevoPago = parseFloat(inputPago.val()) || 0;
         var restante = restanteInicial - pagosExistentes; // Utiliza el valor inicial de restante
         console.log('restante', restante);
         $('#restante').val(restante);
@@ -49,8 +49,8 @@
     });
 
     function calcularCambio() {
-        var dineroRecibido = parseInt(inputDineroRecibido.val()) || 0;
-        var nuevoPago = parseInt(inputPago.val()) || 0;
+        var dineroRecibido = parseFloat(inputDineroRecibido.val()) || 0;
+        var nuevoPago = parseFloat(inputPago.val()) || 0;
         var cambio = 0;
 
         if (dineroRecibido > nuevoPago) {
@@ -62,8 +62,8 @@
 
     // Restringir que el cambio sea 0 cuando los campos estén vacíos
     inputDineroRecibido.on('blur', function() {
-        var dineroRecibido = parseInt(inputDineroRecibido.val()) || 0;
-        var nuevoPago = parseInt(inputPago.val()) || 0;
+        var dineroRecibido = parseFloat(inputDineroRecibido.val()) || 0;
+        var nuevoPago = parseFloat(inputPago.val()) || 0;
 
         if (dineroRecibido === 0 && nuevoPago === 0) {
             inputCambio.val(0);

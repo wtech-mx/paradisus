@@ -172,7 +172,7 @@
                                                 <span class="input-group-text" id="basic-addon1">
                                                     <img src="{{ asset('assets/icons/payment-method.png') }}" alt="" width="25px">
                                                 </span>
-                                                <input  id="dinero_recibido" name="dinero_recibido" type="number" class="form-control" required>
+                                                <input  id="dinero_recibido" name="dinero_recibido" type="number" class="form-control" step="any" required>
                                             </div>
                                         </div>
 

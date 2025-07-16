@@ -696,7 +696,7 @@
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num2').val());
-            var descuentoAdicional = parseInt($('#descuento-adicional2').val()) || 0; // Descuento adicional ingresado
+            var descuentoAdicional = parseFloat($('#descuento-adicional2').val()) || 0; // Descuento adicional ingresado
             var descuentoFijo = parseFloat($('#decuento_fijo2').val()) || 0; // pesos
 
             // Calcular el subtotal usando el precio
@@ -719,7 +719,7 @@
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num3').val());
-            var descuentoAdicional = parseInt($('#descuento-adicional3').val()) || 0; // Descuento adicional ingresado
+            var descuentoAdicional = parseFloat($('#descuento-adicional3').val()) || 0; // Descuento adicional ingresado
             var descuentoFijo = parseFloat($('#decuento_fijo3').val()) || 0; // pesos
 
             // Calcular el subtotal usando el precio
@@ -742,7 +742,7 @@
             var descuento = selectedService.data('descuento');
             var actDescuento = selectedService.data('act-descuento');
             var cantidad = parseInt($('#num4').val());
-            var descuentoAdicional = parseInt($('#descuento-adicional4').val()) || 0; // Descuento adicional ingresado
+            var descuentoAdicional = parseFloat($('#descuento-adicional4').val()) || 0; // Descuento adicional ingresado
             var descuentoFijo = parseFloat($('#decuento_fijo4').val()) || 0; // pesos
 
             // Calcular el subtotal usando el precio
