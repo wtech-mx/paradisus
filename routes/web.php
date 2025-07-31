@@ -306,6 +306,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('/paquetes/servicios/update/{id}', [App\Http\Controllers\PaquetesController::class, 'update'])->name('paquetes_servicios.update');
     Route::delete('/paquetes/servicios/delete/{id}', [App\Http\Controllers\PaquetesController::class, 'destroy'])->name('paquetes_servicios.destroy');
 
+    // =============== M O D U L O   P A Q U E T E S  F A C I A L E S ===============================
+    Route::get('/paquetes/faciales/index', [App\Http\Controllers\PaqueteFacialController::class, 'index'])->name('paquetes_faciales.index');
+    Route::get('/paquetes/faciales/create', [App\Http\Controllers\PaqueteFacialController::class, 'create'])->name('paquetes_faciales.create');
+    Route::post('/paquetes/faciales/store', [App\Http\Controllers\PaqueteFacialController::class, 'store'])->name('paquetes_faciales.store');
+
+    Route::get('/paquetes/faciales/edit/{id}', [App\Http\Controllers\PaqueteFacialController::class, 'edit'])->name('paquetes_faciales.edit');
+    Route::patch('/paquetes/faciales/update/{id}', [App\Http\Controllers\PaqueteFacialController::class, 'update'])->name('paquetes_faciales.update');
     // =============== M O D U L O   C A J A ===============================
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');
@@ -376,8 +383,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reporte/imprimir/prod', [App\Http\Controllers\ReporteController::class, 'imprimir_prod'])->name('reporte.print_prod');
     Route::get('/reporte/advance', [App\Http\Controllers\ReporteController::class, 'advance'])->name('advance_search');
 
-        // =============== M O D U L O   R E P O R T E S ===============================
-        Route::get('/reporte/ventas/cosmes', [App\Http\Controllers\ReporteController::class, 'index_cosmes'])->name('reporte.index_cosmes');
+    // =============== M O D U L O   R E P O R T E S ===============================
+    Route::get('/reporte/ventas/cosmes', [App\Http\Controllers\ReporteController::class, 'index_cosmes'])->name('reporte.index_cosmes');
 
     // =============== M O D U L O   R E P O R T E  M E N S U A L ===============================
     Route::get('/reporte/imprimir/mensual', [App\Http\Controllers\ReporteController::class, 'imprimir_mensual'])->name('reporte.print_mensual');

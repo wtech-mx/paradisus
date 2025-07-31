@@ -25,12 +25,9 @@
                                 <label for="precio">Cambio</label><br>
                                 <select class="form-control" id="id_paquete" name="id_paquete" value="{{ old('id_paquete') }}" required>
                                     <option value="">Seleccionar paquete</option>
-                                    <option value="1" data-precio="7000">figura Ideal c/Aparatología</option>
                                     <option value="2" data-precio="6000">Lipoescultura s/Cirugía</option>
-                                    <option value="3" data-precio="5200">Moldeante & Reductivo</option>
                                     <option value="4" data-precio="4500">Drenante & Linfático</option>
                                     <option value="5" data-precio="4500">Glúteos Definido & Perfectos</option>
-                                    <option value="6" data-precio="4300">Piernas de 10 Anticelulítico & Reafirmante</option>
                                 </select>
                             </div>
 
