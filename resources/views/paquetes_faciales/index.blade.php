@@ -53,11 +53,11 @@
                                                     @endif
 
                                                     <td>
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('firma_paquete_uno.firma_edit_uno', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
+                                                        <a class="btn btn-sm btn-primary" href="{{ route('paquetes_faciales.firma', $paquete->id) }}" target="_blanck"><i class="fas fa-signature"></i> </a>
 
-                                                        <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_uno.print_uno',$paquete->id)}}"style="color: #ffff">
+                                                        {{-- <a type="button" class="btn btn-success btn-sm" href="{{route('print_paquete_uno.print_uno',$paquete->id)}}"style="color: #ffff">
                                                             <i class="fa fa-print"></i>
-                                                        </a>
+                                                        </a> --}}
 
                                                         <a class="btn btn-sm btn-warning" href="{{ route('paquetes_faciales.edit',$paquete->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                     </td>
