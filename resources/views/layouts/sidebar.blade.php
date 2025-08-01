@@ -313,7 +313,7 @@
             </li>
         @endcan
 
-        {{-- <a data-bs-toggle="collapse" href="#pagesPaqueteFa" class="nav-link {{ (Request::is('/paquetes/faciales*') ? 'active' : '') }}" aria-controls="pagesPaqueteFa" role="button" aria-expanded="false">
+        <a data-bs-toggle="collapse" href="#pagesPaqueteFa" class="nav-link {{ (Request::is('/paquetes/faciales*') ? 'active' : '') }}" aria-controls="pagesPaqueteFa" role="button" aria-expanded="false">
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                 <i class="ni ni-cart text-sm opacity-10" style="color: {{$configuracion->color_iconos_sidebar}}"></i>
             </div>
@@ -338,7 +338,7 @@
                     </a>
                 </li>
             </ul>
-        </div> --}}
+        </div>
 
         @can('inventario')
             <a data-bs-toggle="collapse" href="#pagesProductos" class="nav-link {{ (Request::is('productos*') ? 'active' : '') }}" aria-controls="pagesProductos" role="button" aria-expanded="false">

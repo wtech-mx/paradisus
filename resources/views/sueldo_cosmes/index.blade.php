@@ -97,6 +97,7 @@
                                     $paqueteFac = 0;
                                     $propinaCosme = 0;
                                     $sumaPancho = 0;
+                                    $paqueteFacNew = 0;
 
                                     // Calcular la suma de Pedidos
                                     foreach ($notasPedidos as $notaPedido) {
@@ -144,8 +145,15 @@
                                         }
                                     }
 
+                                   foreach ($paquetes_faciales_vendidos as $paquete_facial_vendido){
+                                        if ($user_pago->id == $paquete_facial_vendido->id_cosme_comision){
+                                            if ($paquete_facial_vendido->Servicio->comision == NULL){
+                                                $paqueteFacNew += $paquete_facial_vendido->primerPago->pago;
+                                            }
+                                        }
+                                    }
 
-                                    $sumaTotales = $sumaPedidos + $sumaServicios + $sumaPancho;
+                                    $sumaTotales = $sumaPedidos + $sumaServicios + $sumaPancho + $paqueteFacNew;
                                     // Calcular la comisión según la lógica proporcionada
                                     if ($sumaTotales >= 2000 && $sumaTotales < 3000) {
                                         $comision = $sumaTotales * 0.03;
@@ -163,19 +171,30 @@
                                         $comision = $sumaTotales * 0.10;
                                     }
                                 @endphp
-                                @if ($user_pago->id != 9)
-                                    @foreach ($paquetesFaciales as $notaServicio)
-                                        @if ($user_pago->id == $notaServicio->NotasCosmes->id_user)
-                                        @php
-                                            $paqueteFac += 350;
-                                        @endphp
-                                            <div class="col-3">{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F ') }}</div>
-                                            <div class="col-5"><a class="btn btn-sm btn-primary" href="{{ route('notas.edit',$notaServicio->id) }}"> Paquete Facial Vendido: #{{$notaServicio->id}} </a></div>
-                                            <div class="col-3"><b>$350</b></div>
+                                @foreach ($paquetesFaciales as $notaServicio)
+                                    @if ($user_pago->id == $notaServicio->NotasCosmes->id_user)
+                                    @php
+                                        $paqueteFac += 350;
+                                    @endphp
+                                        <div class="col-3">{{ \Carbon\Carbon::parse($notaServicio->fecha)->format('d \d\e F ') }}</div>
+                                        <div class="col-5"><a class="btn btn-sm btn-primary" href="{{ route('notas.edit',$notaServicio->id) }}"> Paquete Facial Vendido: #{{$notaServicio->id}} </a></div>
+                                        <div class="col-3"><b>$350</b></div>
+                                        <div class="col-1"></div>
+                                    @endif
+                                @endforeach
+                                @foreach ($paquetes_faciales_vendidos as $paquete_facial_vendido)
+                                    @if ($user_pago->id == $paquete_facial_vendido->id_cosme_comision)
+                                        @if ($paquete_facial_vendido->Servicio->comision != NULL)
+                                            @php
+                                                $paqueteFac += $paquete_facial_vendido->Servicio->comision;
+                                            @endphp
+                                            <div class="col-3">{{ \Carbon\Carbon::parse($paquete_facial_vendido->fecha)->format('d \d\e F ') }}</div>
+                                            <div class="col-5"><a class="btn btn-sm btn-info" href="{{ route('paquetes_faciales.edit',$paquete_facial_vendido->id) }}"> Paquete Facial Vendido: #{{$paquete_facial_vendido->id}} </a></div>
+                                            <div class="col-3"><b>${{$paquete_facial_vendido->Servicio->comision}}</b></div>
                                             <div class="col-1"></div>
                                         @endif
-                                    @endforeach
-                                @endif
+                                    @endif
+                                @endforeach
                                 @foreach ($paquetes as $paquete)
                                     @if ($user_pago->id == $paquete->id_cosme)
                                             @php

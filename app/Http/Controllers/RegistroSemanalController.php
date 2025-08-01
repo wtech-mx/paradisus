@@ -7,6 +7,7 @@ use App\Models\NotasCosmes;
 use App\Models\NotasPaquetes;
 use App\Models\NotasPedidos;
 use App\Models\NotasPropinas;
+use App\Models\PaqueteFacialNota;
 use App\Models\Paquetes;
 use App\Models\RegCosmesSum;
 use App\Models\RegistroSemanal;
@@ -91,7 +92,12 @@ class RegistroSemanalController extends Controller
             }
         }
 
-        return view('sueldo_cosmes.index', compact('notasMaFer','propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        $paquetes_faciales_vendidos = PaqueteFacialNota::with('primerPago')
+        ->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->whereNotNull('id_cosme_comision')
+        ->get();
+
+        return view('sueldo_cosmes.index', compact('notasMaFer','propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registros_hoy','registroSueldoSemanal','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum', 'paquetes_faciales_vendidos'));
     }
 
     public function index_sueldo($id){
@@ -162,8 +168,12 @@ class RegistroSemanalController extends Controller
 
         $propinas = NotasPropinas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
+        $paquetes_faciales_vendidos = PaqueteFacialNota::with('primerPago')
+        ->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->whereNotNull('id_cosme_comision')
+        ->get();
 
-        return view('sueldo_cosmes.firma_sueldos', compact('notasMaFer','propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        return view('sueldo_cosmes.firma_sueldos', compact('notasMaFer','propinas','paquetesFaciales','notasServicios','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum', 'paquetes_faciales_vendidos'));
 
     }
 
@@ -219,11 +229,16 @@ class RegistroSemanalController extends Controller
 
         $propinas = NotasPropinas::whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])->where('id_user', '=', $id)->get();
 
-        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasMaFer','propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum'));
+        $paquetes_faciales_vendidos = PaqueteFacialNota::with('primerPago')
+        ->whereBetween('fecha', [$fechaInicioSemana, $fechaFinSemana])
+        ->whereNotNull('id_cosme_comision')
+        ->get();
 
-        return $pdf->download('sueldo_cosmes_'.$cosme->name.'_'.$id.'.pdf');
+        $pdf = \PDF::loadView('sueldo_cosmes.pdf', ['notasPedidosVacia' => $notasPedidos->isEmpty()],compact('notasMaFer','propinas', 'notasServicios', 'paquetesFaciales','paquetes','notasPedidos','fechaInicioSemana','fechaFinSemana','registroSueldoSemanalActual','registroSueldoSemanal', 'cosme','registros_cubriendose','registros_puntualidad', 'registros_sueldo', 'paquetes_vendidos', 'regcosmessum', 'paquetes_faciales_vendidos'));
 
-        // return $pdf->stream();
+      //  return $pdf->download('sueldo_cosmes_'.$cosme->name.'_'.$id.'.pdf');
+
+         return $pdf->stream();
        // return $pdf->download('Sueldo '.$cosme->name.'-'.$fechaInicioSemana.'.pdf');
     }
 

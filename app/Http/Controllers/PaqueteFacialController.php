@@ -75,6 +75,7 @@ class PaqueteFacialController extends Controller
             $pago->id_nota = $nota->id;
             $pago->fecha = $fechaActual;
             $pago->pago = $request->get('pago');
+            $pago->id_user = $request->get('id_user');
             $pago->dinero_recibido = $request->get('dinero_recibido');
             $pago->forma_pago = $request->get('forma_pago');
             $pago->cambio = $request->get('cambio');
@@ -215,7 +216,66 @@ class PaqueteFacialController extends Controller
             $servicio->textura_antes = $request->get('textura_antes');
             $servicio->textura_despues = $request->get('textura_despues');
             $servicio->save();
+
+            $nota->num_sesion = $servicio->num_sesion;
+            $nota->save();
         }
         return redirect()->back();
+    }
+
+    public function firma($id){
+
+        $nota = PaqueteFacialNota::find($id);
+        $registros = PaqueteFacialRegistro::where('id_nota', '=', $id)->get();
+        $client = Client::orderBy('name','ASC')->get();
+        $user = User::where('id', '!=', 1)->get();
+        $search_servicio = Servicios::find($nota->id_servicio);
+
+        if ($search_servicio->diseno == '1' || $search_servicio->diseno == '3' || $search_servicio->diseno == '6') {
+            return view('paquetes_faciales.firma_1',compact('nota', 'registros', 'client', 'user', 'search_servicio'));
+        } elseif ($search_servicio->diseno == '2') {
+            return view('paquetes_faciales.firma_2',compact('nota', 'registros', 'client', 'user', 'search_servicio'));
+        } elseif ($search_servicio->diseno == '4') {
+            return view('paquetes_faciales.firma_4',compact('nota', 'registros', 'client', 'user', 'search_servicio'));
+        } elseif ($search_servicio->diseno == '5') {
+            return view('paquetes_faciales.firma_5',compact('nota', 'registros', 'client', 'user', 'search_servicio'));
+        }
+
+    }
+
+    public function store_firma(Request $request, $id){
+        // Validar que se recibió el campo 'signed2'
+        if (!$request->has('signed2')) {
+            return back()->with('error', 'No se recibió la firma.');
+        }
+
+        // Extraer y decodificar la imagen base64
+        $folderPath = public_path('signatures/');
+        $image_parts = explode(";base64,", $request->signed2);
+
+        if (count($image_parts) !== 2) {
+            return back()->with('error', 'Firma inválida.');
+        }
+
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1] ?? 'png'; // fallback
+
+        $image_base64 = base64_decode($image_parts[1]);
+        $signature = uniqid() . '.' . $image_type;
+        $file = $folderPath . $signature;
+
+        file_put_contents($file, $image_base64);
+
+        // Actualizar solo el registro correspondiente
+        $registro = PaqueteFacialRegistro::find($id);
+
+        if (!$registro) {
+            return back()->with('error', 'Registro no encontrado.');
+        }
+
+        $registro->firma = $signature;
+        $registro->save();
+
+        return back()->with('success', 'Firma guardada correctamente.');
     }
 }

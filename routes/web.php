@@ -313,6 +313,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/paquetes/faciales/edit/{id}', [App\Http\Controllers\PaqueteFacialController::class, 'edit'])->name('paquetes_faciales.edit');
     Route::patch('/paquetes/faciales/update/{id}', [App\Http\Controllers\PaqueteFacialController::class, 'update'])->name('paquetes_faciales.update');
+
+    Route::get('/paquetes/faciales/edit/firma/{id}', [App\Http\Controllers\PaqueteFacialController::class, 'firma'])->name('paquetes_faciales.firma');
+    Route::post('/paquete/faciales/usuario/firma/{id}', [App\Http\Controllers\PaqueteFacialController::class, 'store_firma'])->name('paquetes_faciales.store_firma');
     // =============== M O D U L O   C A J A ===============================
     Route::get('/caja', [App\Http\Controllers\CajaController::class, 'index'])->name('caja.index');
     Route::post('/caja/create', [App\Http\Controllers\CajaController::class, 'store'])->name('caja.store');

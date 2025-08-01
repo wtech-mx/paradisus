@@ -31,4 +31,7 @@ class PaqueteFacialNota extends Model
     public function Servicio(){
         return $this->belongsTo(Servicios::class, 'id_servicio');
     }
+    public function primerPago(){
+        return $this->hasOne(PaqueteFacialPago::class, 'id_nota')->orderBy('created_at');
+    }
 }
