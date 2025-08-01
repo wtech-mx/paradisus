@@ -154,7 +154,7 @@
                                                             </div>
                                                             <div class="col-12 mb-2">
                                                                 <strong>Cosmetologa</strong>
-                                                                <select class="form-control" id="id_cosme_form" name="id_cosme_form" required>
+                                                                <select class="form-control" id="id_cosme_form" name="id_cosme_form">
                                                                     <option value="">Seleccionar cosmetóloga</option>
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>

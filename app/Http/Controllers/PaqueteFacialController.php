@@ -160,9 +160,9 @@ class PaqueteFacialController extends Controller
 
         // G U A R D A R  P A G O
         if($request->get('pago') != NULL){
-
             $pago = new PaqueteFacialPago;
             $pago->id_nota = $nota->id;
+            $pago->id_user = $request->get('cosmetologa');
             $pago->fecha = $fechaActual;
             $pago->pago = $request->get('pago');
             $pago->dinero_recibido = $request->get('dinero_recibido');
@@ -189,7 +189,7 @@ class PaqueteFacialController extends Controller
             $sesiones = $servicio_ultimo->sesiones_restantes;
             $num_sesion = $servicio_ultimo->num_sesion;
         }
-        if($request->get('id_cosme') != NULL){
+        if($request->get('id_cosme_form') != NULL){
             $servicio = new PaqueteFacialRegistro;
             $servicio->id_nota = $nota->id;
             $servicio->sesiones_restantes = $sesiones - 1;

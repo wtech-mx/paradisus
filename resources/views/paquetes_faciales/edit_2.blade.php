@@ -106,7 +106,7 @@
                                                             </div>
                                                             <div class="col-6">
                                                                 <label for="nombre">Cosmetóloga</label>
-                                                                <select class="form-control" id="id_cosme_form" name="id_cosme_form" required>
+                                                                <select class="form-control" id="id_cosme_form" name="id_cosme_form">
                                                                     <option value="">Seleccionar cosmetóloga</option>
                                                                     @foreach ($user as $item)
                                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -115,7 +115,7 @@
                                                             </div>
                                                             <div class="col-6">
                                                                 <label for="fecha">Fecha</label>
-                                                                <input class="form-control" type="date" name="fecha" required>
+                                                                <input class="form-control" type="date" name="fecha">
                                                             </div>
 
                                                             <div class="col-6">

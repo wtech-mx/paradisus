@@ -484,6 +484,37 @@
                 </tr>
             @endforeach
 
+            @foreach ($total_facial_trans as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->Nota->Client->name }} <br> {{ $item->Nota->Client->last_name }} <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                         {{$item->Nota->Servicio->notas}}
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Paquete
+                    </td>
+                </tr>
+            @endforeach
+
             @foreach ($propinas_transferencia as $propina_efectivo)
                 <tr>
                     <td><b>Cosmetologa:</b><br>{{$propina_efectivo->User->name}}</td>
@@ -670,6 +701,37 @@
                         <p class="text-sm">
                             Laser
                         </p>
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_facial_mercado as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->Nota->Client->name }} <br> {{ $item->Nota->Client->last_name }} <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                         {{$item->Nota->Servicio->notas}}
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Paquete
                     </td>
                 </tr>
             @endforeach
@@ -862,6 +924,37 @@
                     </td>
                     <td>
                         Laser
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach ($total_facial_tarjeta as $item)
+                <tr>
+                    <td>
+                        <p class="text-sm">
+                        {{ $item->Nota->Client->name }} <br> {{ $item->Nota->Client->last_name }} <br><a href="#" target="_blank" style="color: blue;text-decoration:underline;"> #Nota: {{ $item->id_nota }}</a>
+                        </p>
+                    </td>
+                    <td >
+                         {{$item->Nota->Servicio->notas}}
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->pago, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ number_format($item->dinero_recibido, 1, '.', ',') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-sm">
+                        ${{ $item->cambio }}
+                        </p>
+                    </td>
+                    <td>
+                        Paquete
                     </td>
                 </tr>
             @endforeach
